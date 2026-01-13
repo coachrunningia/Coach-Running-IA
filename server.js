@@ -28,7 +28,7 @@ try {
 }
 
 // Initialisation Stripe avec la clé fournie
-const stripeKey = process.env.STRIPE_SECRET_KEY || '***REMOVED***';
+const stripeKey = process.env.STRIPE_SECRET_KEY;;
 const stripe = require('stripe')(stripeKey.trim());
 
 app.set('trust proxy', true);
