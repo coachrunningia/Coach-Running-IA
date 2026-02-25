@@ -134,6 +134,34 @@ const saveAnalysisResult = async (userId: string, analysis: any) => {
     });
 };
 
+// Deauthorize Strava (revoke token + clean Firestore)
+export const deauthorizeStrava = async (userId: string) => {
+    const userDoc = await getDoc(doc(db, 'users', userId));
+    const tokenData = userDoc.data()?.stravaToken;
+
+    // Revoke token on Strava side
+    if (tokenData?.access_token) {
+        try {
+            await fetch('https://www.strava.com/oauth/deauthorize', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                body: `access_token=${tokenData.access_token}`
+            });
+            console.log('[Strava] Token deauthorized on Strava');
+        } catch (e) {
+            console.warn('[Strava] Deauthorize API call failed, cleaning up locally anyway', e);
+        }
+    }
+
+    // Clean Firestore
+    await updateDoc(doc(db, 'users', userId), {
+        stravaConnected: false,
+        stravaToken: null,
+        lastStravaSync: null
+    });
+    console.log('[Strava] User disconnected and token revoked');
+};
+
 export const fetchRecentActivities = async (userId: string) => {
     try {
         const token = await getValidToken(userId);
@@ -162,15 +190,24 @@ export const analyzeActivitiesWithGemini = async (activities: any[], userId: str
     const genAI = new GoogleGenerativeAI(apiKey);
     const model = genAI.getGenerativeModel({ model: "gemini-2.0-flash" });
 
+    // Convert m/s to min/km format (e.g. 3.0 m/s → "5:33 min/km")
+    const msToMinKm = (ms: number): string => {
+        if (!ms || ms <= 0) return '-';
+        const totalMin = 16.6667 / ms;
+        const min = Math.floor(totalMin);
+        const sec = Math.round((totalMin - min) * 60);
+        return `${min}:${String(sec).padStart(2, '0')} min/km`;
+    };
+
     const summary = activities.map(a => ({
         type: a.type,
-        distance: a.distance,
-        time: a.moving_time,
+        distance_km: Math.round((a.distance || 0) / 10) / 100,
+        time_min: Math.round((a.moving_time || 0) / 60),
         date: a.start_date,
         elevation: a.total_elevation_gain,
         hr: a.average_heartrate,
-        avgSpeed: a.average_speed,
-        maxSpeed: a.max_speed,
+        avgPace: msToMinKm(a.average_speed),
+        maxPace: msToMinKm(a.max_speed),
         sufferScore: a.suffer_score
     }));
 
@@ -178,6 +215,7 @@ export const analyzeActivitiesWithGemini = async (activities: any[], userId: str
 comme un VRAI coach le ferait lors d'un bilan mensuel avec son athlète.
 
 IMPORTANT : Réponds UNIQUEMENT en français. Sois HONNÊTE et CONSTRUCTIF.
+IMPORTANT : TOUTES les allures doivent être en min/km (format X:XX min/km), JAMAIS en m/s ou km/h. Les données sont déjà converties en min/km.
 
 Données des activités (30 derniers jours) :
 ${JSON.stringify(summary)}

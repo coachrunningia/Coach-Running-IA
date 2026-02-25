@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Activity, Lock, BarChart2, Zap, LogOut, RefreshCw, TrendingUp, TrendingDown, AlertTriangle, CheckCircle, Clock, X } from 'lucide-react';
-import { fetchRecentActivities, analyzeActivitiesWithGemini, checkCanAnalyze } from '../services/stravaAnalysisService';
+import { fetchRecentActivities, analyzeActivitiesWithGemini, checkCanAnalyze, deauthorizeStrava } from '../services/stravaAnalysisService';
 import { auth, db } from '../services/firebase';
 import { useNavigate } from 'react-router-dom';
 import { doc, updateDoc, onSnapshot } from 'firebase/firestore';
@@ -146,10 +146,7 @@ const StravaConnect: React.FC<StravaConnectProps> = ({ isConnected, onConnect, i
     try {
       const userId = auth.currentUser?.uid;
       if (!userId) return;
-      await updateDoc(doc(db, 'users', userId), {
-        stravaConnected: false,
-        stravaToken: null
-      });
+      await deauthorizeStrava(userId);
       window.location.reload();
     } catch (e) {
       console.error("Error disconnecting", e);

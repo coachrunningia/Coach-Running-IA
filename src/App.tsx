@@ -767,11 +767,7 @@ const PricingPage = ({ user }: { user: User | null }) => {
           <p className="text-xs text-green-600 font-bold mb-6">Économisez 15%</p>
           <ul className="text-left space-y-3 mb-8 text-sm text-slate-600 flex-grow">
             <li className="flex gap-2"><CheckCircle size={16} className="text-green-500" /> Tous les avantages mensuels</li>
-            <li className="flex gap-2"><CheckCircle size={16} className="text-green-500" /> Export sur montres GPS (Garmin, Coros, Suunto)</li>
-            <li className="flex gap-2"><CheckCircle size={16} className="text-green-500" /> Bilan mensuel Strava (forces, faiblesses, recommandations IA)</li>
-            <li className="flex gap-2"><CheckCircle size={16} className="text-green-500" /> Analyse hebdo intelligente (plan vs réel, cross-training inclus)</li>
-            <li className="flex gap-2"><CheckCircle size={16} className="text-green-500" /> Support coach prioritaire 24h</li>
-            <li className="flex gap-2"><CheckCircle size={16} className="text-green-500" /> 2 mois offerts</li>
+            <li className="flex gap-2"><CheckCircle size={16} className="text-green-500" /> 2 mois offerts (~3,33€/mois)</li>
           </ul>
           <button onClick={() => handleSubscribe(STRIPE_PRICES.YEARLY)} disabled={loading} className="w-full bg-accent text-white py-4 rounded-2xl font-bold hover:bg-orange-600 transition-all disabled:opacity-50">Souscrire annuel</button>
         </div>
