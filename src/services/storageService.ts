@@ -556,7 +556,7 @@ export const createStripeCheckoutSession = async (priceId: string) => {
       userId: user.uid,
       userEmail: user.email,
       successUrl: window.location.origin + '/success?session_id={CHECKOUT_SESSION_ID}',
-      cancelUrl: window.location.origin + '/#/pricing',
+      cancelUrl: window.location.origin + '/pricing',
     }),
   });
   const data = await response.json();
@@ -586,7 +586,7 @@ export const createPortalSession = async () => {
     body: JSON.stringify({
       userId: user.uid,
       stripeCustomerId,
-      returnUrl: window.location.origin + '/#/profile',
+      returnUrl: window.location.origin + '/profile',
     }),
   });
 

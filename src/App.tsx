@@ -240,7 +240,7 @@ const Dashboard: React.FC<{ user: User }> = ({ user }) => {
       if (params.get('payment_success') === 'true' && !paymentHandled) {
         setPaymentHandled(true);
         // Nettoyer l'URL immédiatement
-        window.history.replaceState({}, '', '/#/dashboard');
+        window.history.replaceState({}, '', '/dashboard');
         console.log('[Premium] Payment success detected. User isPremium:', user.isPremium);
 
         if (!user.isPremium) {

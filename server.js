@@ -391,12 +391,12 @@ app.get('/api/strava/callback', async (req, res) => {
 
   if (error) {
     console.error('[Strava] Error param:', error);
-    return res.redirect(`${baseUrl}/#/strava-callback?error=${encodeURIComponent(error)}`);
+    return res.redirect(`${baseUrl}/strava-callback?error=${encodeURIComponent(error)}`);
   }
 
   if (!code) {
     console.error('[Strava] No code provided');
-    return res.redirect(`${baseUrl}/#/strava-callback?error=no_code`);
+    return res.redirect(`${baseUrl}/strava-callback?error=no_code`);
   }
 
   try {
@@ -419,12 +419,12 @@ app.get('/api/strava/callback', async (req, res) => {
       user_id: userId
     });
 
-    console.log('[Strava] Redirecting to:', `${baseUrl}/#/strava-callback`);
-    res.redirect(`${baseUrl}/#/strava-callback?${params.toString()}`);
+    console.log('[Strava] Redirecting to:', `${baseUrl}/strava-callback`);
+    res.redirect(`${baseUrl}/strava-callback?${params.toString()}`);
 
   } catch (err) {
     console.error('[Strava Callback Error]', err.message);
-    res.redirect(`${baseUrl}/#/strava-callback?error=${encodeURIComponent(err.message)}`);
+    res.redirect(`${baseUrl}/strava-callback?error=${encodeURIComponent(err.message)}`);
   }
 });
 
@@ -754,7 +754,7 @@ app.post('/api/send-verification-email', async (req, res) => {
 
     // 3. Build verification URL - Use production domain
     const baseUrl = process.env.APP_URL || 'https://coachrunningia.fr';
-    const verificationUrl = `${baseUrl}/#/verify-email?token=${token}`;
+    const verificationUrl = `${baseUrl}/verify-email?token=${token}`;
 
     // 4. Send email via Brevo Transactional API
     const safeName = firstName ? String(firstName).slice(0, 50).replace(/[<>]/g, '') : 'Coureur';
