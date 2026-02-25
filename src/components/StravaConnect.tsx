@@ -222,12 +222,47 @@ const StravaConnect: React.FC<StravaConnectProps> = ({ isConnected, onConnect, i
   }
 
 return (
-    <div className="flex items-center gap-3 px-6 py-4 rounded-lg bg-slate-100 border border-slate-200">
-      <Activity size={20} className="text-slate-400" />
-      <div>
-        <p className="font-semibold text-slate-600">Connexion Strava bientôt disponible</p>
-        <p className="text-xs text-slate-400">En cours de validation par Strava</p>
+    <div className="bg-white rounded-2xl shadow-sm border border-slate-200 p-6 animate-in fade-in">
+      <div className="flex items-center gap-4 mb-5">
+        <div className="bg-[#FC4C02]/10 p-3 rounded-full">
+          <svg className="w-7 h-7 text-[#FC4C02]" viewBox="0 0 24 24" fill="currentColor"><path d="M15.387 17.944l-2.089-4.116h-3.065L15.387 24l5.15-10.172h-3.066m-7.008-5.599l2.836 5.598h4.172L10.463 0l-7 13.828h4.169"/></svg>
+        </div>
+        <div>
+          <h3 className="font-bold text-slate-900 text-lg">Connecte ton compte Strava</h3>
+          <p className="text-slate-500 text-sm">Synchronise tes activités pour des analyses personnalisées</p>
+        </div>
       </div>
+
+      <div className="bg-slate-50 rounded-xl p-4 mb-5 border border-slate-100">
+        <div className="flex items-start gap-3">
+          <span className="text-lg mt-0.5">📊</span>
+          <div className="text-sm text-slate-600 space-y-1">
+            <p>En connectant Strava, tu pourras :</p>
+            <ul className="list-disc list-inside text-slate-500 space-y-0.5">
+              <li>Comparer tes séances prévues vs réalisées</li>
+              <li>Recevoir un bilan mensuel par l'IA</li>
+              <li>Adapter automatiquement ton plan</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <button
+        onClick={handleConnect}
+        disabled={loading}
+        className="w-full bg-[#FC4C02] hover:bg-[#e04402] text-white font-bold py-3.5 px-4 rounded-xl transition-all flex items-center justify-center gap-2.5 shadow-lg disabled:opacity-70"
+      >
+        {loading ? (
+          <><RefreshCw className="animate-spin" size={18} /> Connexion en cours...</>
+        ) : (
+          <>
+            <svg className="w-5 h-5" viewBox="0 0 24 24" fill="currentColor"><path d="M15.387 17.944l-2.089-4.116h-3.065L15.387 24l5.15-10.172h-3.066m-7.008-5.599l2.836 5.598h4.172L10.463 0l-7 13.828h4.169"/></svg>
+            Connecter avec Strava
+          </>
+        )}
+      </button>
+
+      <p className="text-[11px] text-slate-400 text-center mt-3">Tes données restent privées. Lecture seule de tes activités.</p>
     </div>
   );};
 

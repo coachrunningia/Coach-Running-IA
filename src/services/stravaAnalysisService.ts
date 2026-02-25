@@ -2,8 +2,38 @@
 import { GoogleGenerativeAI } from "@google/generative-ai";
 import { db } from './firebase';
 import { doc, getDoc, updateDoc } from 'firebase/firestore';
+import { Session, Week } from '../types';
 
 const STRAVA_API_BASE = 'https://www.strava.com/api/v3';
+
+// --- TYPES ---
+export interface WeekComparisonResult {
+    weekNumber: number;
+    plannedSessions: { day: string; title: string; type: string; duration: string }[];
+    stravaActivities: { type: string; distance: number; time: number; date: string; name: string }[];
+    compliance: number; // 0-100
+    sessionsPlanned: number;
+    sessionsDone: number;
+    crossTrainingEquivalent: number; // minutes running equivalent from cross-training
+    avgRpe: number;
+    details: string;
+}
+
+export interface AdaptationSuggestion {
+    compliance: number;
+    avgRpe: number;
+    crossTraining: { type: string; hours: number; equivalent: number }[];
+    volumeChange: number; // percentage, e.g. -15
+    suggestions: {
+        type: 'volume' | 'intensity' | 'structure' | 'recovery' | 'cross-training';
+        priority: 'HAUTE' | 'MOYENNE' | 'BASSE';
+        title: string;
+        detail: string;
+        icon: string;
+    }[];
+    overallMessage: string;
+    verdict: 'MAINTENIR' | 'AJUSTER' | 'RÉDUIRE' | 'RÉCUPÉRATION';
+}
 
 // Refresh Strava token when expired
 const refreshStravaToken = async (userId: string, tokenData: any) => {
@@ -215,4 +245,326 @@ RÈGLES :
     await saveAnalysisResult(userId, analysis);
 
     return analysis;
+};
+
+// ============================================
+// WEEKLY COMPARISON: Plan vs Strava
+// ============================================
+
+const fetchActivitiesForDateRange = async (userId: string, startDate: Date, endDate: Date) => {
+    const token = await getValidToken(userId);
+    const after = Math.floor(startDate.getTime() / 1000);
+    const before = Math.floor(endDate.getTime() / 1000);
+
+    const response = await fetch(
+        `${STRAVA_API_BASE}/athlete/activities?after=${after}&before=${before}&per_page=50`,
+        { headers: { 'Authorization': `Bearer ${token}` } }
+    );
+
+    if (!response.ok) throw new Error("Erreur API Strava");
+    return await response.json();
+};
+
+export const compareWeekWithStrava = async (
+    userId: string,
+    week: Week,
+    weekStartDate: Date
+): Promise<WeekComparisonResult> => {
+    const weekEndDate = new Date(weekStartDate);
+    weekEndDate.setDate(weekEndDate.getDate() + 7);
+
+    const activities = await fetchActivitiesForDateRange(userId, weekStartDate, weekEndDate);
+
+    // Count running activities
+    const runningActivities = activities.filter((a: any) =>
+        a.type === 'Run' || a.type === 'Trail Run' || a.type === 'VirtualRun'
+    );
+
+    // Cross-training detection
+    const crossTrainingActivities = activities.filter((a: any) =>
+        a.type === 'Ride' || a.type === 'VirtualRide' ||
+        a.type === 'Swim' ||
+        a.type === 'WeightTraining' || a.type === 'Workout'
+    );
+
+    // Calculate cross-training equivalent in running minutes
+    let crossTrainingEquivalent = 0;
+    crossTrainingActivities.forEach((a: any) => {
+        const hours = a.moving_time / 3600;
+        if (a.type === 'Ride' || a.type === 'VirtualRide') {
+            crossTrainingEquivalent += hours * 20; // 1h vélo = 20min running
+        } else if (a.type === 'Swim') {
+            crossTrainingEquivalent += hours * 15; // 1h natation = 15min running
+        }
+    });
+
+    const sessionsPlanned = week.sessions.length;
+    const sessionsDone = runningActivities.length;
+
+    // Compliance: sessions done / planned, capped at 100%
+    const compliance = sessionsPlanned > 0
+        ? Math.min(Math.round((sessionsDone / sessionsPlanned) * 100), 100)
+        : 100;
+
+    // Average RPE from session feedback (if available)
+    const feedbackSessions = week.sessions.filter(s => s.feedback?.completed && s.feedback?.rpe);
+    const avgRpe = feedbackSessions.length > 0
+        ? feedbackSessions.reduce((acc, s) => acc + (s.feedback?.rpe || 5), 0) / feedbackSessions.length
+        : 5;
+
+    const plannedSessions = week.sessions.map(s => ({
+        day: s.day,
+        title: s.title,
+        type: s.type,
+        duration: s.duration
+    }));
+
+    const stravaActivitiesMapped = activities.map((a: any) => ({
+        type: a.type,
+        distance: Math.round(a.distance / 10) / 100, // meters to km
+        time: Math.round(a.moving_time / 60), // seconds to min
+        date: a.start_date_local || a.start_date,
+        name: a.name
+    }));
+
+    // Build detail text
+    let details = '';
+    if (compliance >= 90) {
+        details = `Excellent ! ${sessionsDone}/${sessionsPlanned} séances réalisées. Tu es très régulier(e) cette semaine.`;
+    } else if (compliance >= 70) {
+        details = `Bien ! ${sessionsDone}/${sessionsPlanned} séances. La régularité est importante pour progresser.`;
+    } else if (compliance >= 50) {
+        details = `${sessionsDone}/${sessionsPlanned} séances réalisées. Essaie de maintenir au moins ${Math.ceil(sessionsPlanned * 0.7)} séances par semaine.`;
+    } else {
+        details = `Seulement ${sessionsDone}/${sessionsPlanned} séances cette semaine. Il faudra adapter le volume pour la suite.`;
+    }
+
+    if (crossTrainingEquivalent > 0) {
+        details += ` (+ ${Math.round(crossTrainingEquivalent)} min équivalent running en cross-training)`;
+    }
+
+    return {
+        weekNumber: week.weekNumber,
+        plannedSessions,
+        stravaActivities: stravaActivitiesMapped,
+        compliance,
+        sessionsPlanned,
+        sessionsDone,
+        crossTrainingEquivalent,
+        avgRpe: Math.round(avgRpe * 10) / 10,
+        details
+    };
+};
+
+// ============================================
+// ADAPTATION RULES
+// ============================================
+
+export const generateAdaptationSuggestions = (
+    comparison: WeekComparisonResult,
+    nextWeek: Week
+): AdaptationSuggestion => {
+    const { compliance, avgRpe, stravaActivities, crossTrainingEquivalent } = comparison;
+    const suggestions: AdaptationSuggestion['suggestions'] = [];
+    let volumeChange = 0;
+    let verdict: AdaptationSuggestion['verdict'] = 'MAINTENIR';
+
+    // --- COMPLIANCE RULES ---
+    if (compliance >= 90) {
+        suggestions.push({
+            type: 'volume',
+            priority: 'BASSE',
+            title: 'Plan maintenu',
+            detail: 'Compliance excellente ! On garde le cap, continue comme ça.',
+            icon: '🎯'
+        });
+    } else if (compliance >= 70) {
+        suggestions.push({
+            type: 'volume',
+            priority: 'MOYENNE',
+            title: 'Maintenir le rythme',
+            detail: `Tu as fait ${comparison.sessionsDone}/${comparison.sessionsPlanned} séances. C'est correct mais essaie de ne pas sauter de séances la semaine prochaine.`,
+            icon: '📋'
+        });
+    } else if (compliance >= 50) {
+        volumeChange = -15;
+        verdict = 'AJUSTER';
+        suggestions.push({
+            type: 'volume',
+            priority: 'HAUTE',
+            title: 'Réduction du volume de 15%',
+            detail: `Compliance à ${compliance}%. On réduit légèrement le volume tout en gardant la sortie longue et 1 séance de qualité.`,
+            icon: '📉'
+        });
+    } else {
+        volumeChange = -25;
+        verdict = 'RÉDUIRE';
+        suggestions.push({
+            type: 'structure',
+            priority: 'HAUTE',
+            title: 'Simplification à 2-3 séances max',
+            detail: `Compliance à ${compliance}%. On simplifie la semaine prochaine : maximum 3 séances, focus sur la régularité avant l'intensité.`,
+            icon: '⚡'
+        });
+    }
+
+    // --- RPE RULES ---
+    if (avgRpe < 5) {
+        suggestions.push({
+            type: 'intensity',
+            priority: 'MOYENNE',
+            title: 'Augmenter légèrement l\'intensité',
+            detail: `RPE moyen de ${avgRpe}/10 : tu peux te pousser un peu plus. Ajoute du rythme sur tes sorties en endurance.`,
+            icon: '🔥'
+        });
+    } else if (avgRpe >= 5 && avgRpe <= 7) {
+        suggestions.push({
+            type: 'intensity',
+            priority: 'BASSE',
+            title: 'Zone optimale d\'effort',
+            detail: `RPE moyen de ${avgRpe}/10 : c'est la zone idéale. On maintient cette charge.`,
+            icon: '✅'
+        });
+    } else if (avgRpe > 7 && avgRpe <= 8) {
+        if (verdict === 'MAINTENIR') verdict = 'AJUSTER';
+        suggestions.push({
+            type: 'intensity',
+            priority: 'HAUTE',
+            title: 'Allègement de la charge',
+            detail: `RPE moyen de ${avgRpe}/10 : c'est élevé. On allège la semaine prochaine pour éviter le surentraînement.`,
+            icon: '⚠️'
+        });
+        if (volumeChange === 0) volumeChange = -10;
+    } else if (avgRpe > 8) {
+        verdict = 'RÉCUPÉRATION';
+        volumeChange = Math.min(volumeChange, -30);
+        suggestions.push({
+            type: 'recovery',
+            priority: 'HAUTE',
+            title: 'Semaine de récupération obligatoire',
+            detail: `RPE moyen de ${avgRpe}/10 : ton corps a besoin de repos. Semaine légère avec seulement de l'endurance fondamentale.`,
+            icon: '🛑'
+        });
+    }
+
+    // --- CROSS-TRAINING RULES ---
+    const crossTraining: AdaptationSuggestion['crossTraining'] = [];
+
+    const cyclingActivities = stravaActivities.filter(a => a.type === 'Ride' || a.type === 'VirtualRide');
+    if (cyclingActivities.length > 0) {
+        const totalHours = cyclingActivities.reduce((acc, a) => acc + a.time / 60, 0);
+        crossTraining.push({
+            type: 'Vélo',
+            hours: Math.round(totalHours * 10) / 10,
+            equivalent: Math.round(totalHours * 20)
+        });
+        suggestions.push({
+            type: 'cross-training',
+            priority: 'BASSE',
+            title: `Vélo détecté (${Math.round(totalHours)}h)`,
+            detail: `Équivalent de ${Math.round(totalHours * 20)} min de running pour le cardio. Bon complément !`,
+            icon: '🚴'
+        });
+    }
+
+    const swimmingActivities = stravaActivities.filter(a => a.type === 'Swim');
+    if (swimmingActivities.length > 0) {
+        const totalHours = swimmingActivities.reduce((acc, a) => acc + a.time / 60, 0);
+        crossTraining.push({
+            type: 'Natation',
+            hours: Math.round(totalHours * 10) / 10,
+            equivalent: Math.round(totalHours * 15)
+        });
+        suggestions.push({
+            type: 'cross-training',
+            priority: 'BASSE',
+            title: `Natation détectée (${Math.round(totalHours)}h)`,
+            detail: `Équivalent de ${Math.round(totalHours * 15)} min de running. Excellent pour la récupération active.`,
+            icon: '🏊'
+        });
+    }
+
+    const weightActivities = stravaActivities.filter(a =>
+        a.type === 'WeightTraining' || a.type === 'Workout'
+    );
+    if (weightActivities.length > 2) {
+        suggestions.push({
+            type: 'volume',
+            priority: 'MOYENNE',
+            title: `Musculation fréquente (${weightActivities.length} séances)`,
+            detail: 'Plus de 2 séances de musculation cette semaine. On réduit légèrement le volume running pour éviter la surcharge.',
+            icon: '🏋️'
+        });
+        if (volumeChange === 0) volumeChange = -10;
+    }
+
+    // --- OVERALL MESSAGE ---
+    let overallMessage = '';
+    if (verdict === 'MAINTENIR') {
+        overallMessage = 'Bonne semaine ! On continue sur cette lancée. Le plan est maintenu tel quel.';
+    } else if (verdict === 'AJUSTER') {
+        overallMessage = `On ajuste légèrement la semaine prochaine (${volumeChange}% de volume) pour optimiser ta progression.`;
+    } else if (verdict === 'RÉDUIRE') {
+        overallMessage = `La semaine a été difficile. On simplifie la semaine prochaine (${volumeChange}% de volume) pour retrouver de la régularité.`;
+    } else {
+        overallMessage = 'Ton corps demande du repos. La semaine prochaine sera une semaine de récupération active.';
+    }
+
+    return {
+        compliance,
+        avgRpe,
+        crossTraining,
+        volumeChange,
+        suggestions,
+        overallMessage,
+        verdict
+    };
+};
+
+// Apply adaptation to a week (returns a modified copy)
+export const applyAdaptation = (week: Week, adaptation: AdaptationSuggestion): Week => {
+    const { volumeChange, verdict } = adaptation;
+    let adaptedSessions = [...week.sessions];
+
+    // If recovery mode, keep only easy sessions (max 3)
+    if (verdict === 'RÉCUPÉRATION') {
+        adaptedSessions = adaptedSessions
+            .filter(s => s.type === 'Jogging' || s.type === 'Récupération' || s.type === 'Sortie Longue')
+            .slice(0, 3)
+            .map(s => ({
+                ...s,
+                intensity: 'Facile' as const,
+                advice: `[Adapté - Récupération] ${s.advice}`
+            }));
+    }
+    // If compliance < 50%, simplify to max 3 sessions
+    else if (verdict === 'RÉDUIRE') {
+        // Keep: 1 long run + 1 quality + 1 easy, remove rest
+        const longRun = adaptedSessions.find(s => s.type === 'Sortie Longue');
+        const quality = adaptedSessions.find(s => s.type === 'Fractionné');
+        const easy = adaptedSessions.find(s => s.type === 'Jogging' || s.type === 'Récupération');
+        adaptedSessions = [longRun, quality, easy].filter(Boolean) as Session[];
+    }
+
+    // Apply volume reduction to durations
+    if (volumeChange !== 0) {
+        const factor = 1 + volumeChange / 100;
+        adaptedSessions = adaptedSessions.map(s => {
+            const durationMatch = s.duration.match(/(\d+)/);
+            if (durationMatch) {
+                const originalMin = parseInt(durationMatch[1]);
+                const newMin = Math.round(originalMin * factor);
+                return {
+                    ...s,
+                    duration: s.duration.replace(/\d+/, String(newMin))
+                };
+            }
+            return s;
+        });
+    }
+
+    return {
+        ...week,
+        sessions: adaptedSessions
+    };
 };

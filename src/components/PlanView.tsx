@@ -1,18 +1,18 @@
 
 import React, { useState, useEffect, useCallback, useMemo } from 'react';
-import { TrainingPlan, Session, User } from '../types';
-import { Calendar, Clock, Lock, ShieldCheck, CheckCircle, Activity, AlertTriangle, Star, Zap, RefreshCw, X, ChevronDown, ChevronUp, Target, MapPin, TrendingUp, FileText } from 'lucide-react';
+import { TrainingPlan, Session, User, Week } from '../types';
+import { Calendar, Clock, Lock, ShieldCheck, CheckCircle, Activity, AlertTriangle, Star, Zap, RefreshCw, X, ChevronDown, ChevronUp, Target, MapPin, TrendingUp, FileText, Loader } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
-import { updateSessionFeedback } from '../services/storageService';
+import { updateSessionFeedback, savePlan } from '../services/storageService';
 import { downloadICS, downloadPDF, downloadSessionTCX } from '../services/exportService';
 import StravaConnect from './StravaConnect';
-import WeeklyAnalysis from './WeeklyAnalysis';
 import SessionCard from './SessionCard';
 import Statistics from './Statistics';
 import PlanHero from './PlanHero';
 import UserProfile from './UserProfile';
 import Toast from './Toast';
 import { useSettings } from '../context/SettingsContext';
+import { compareWeekWithStrava, generateAdaptationSuggestions, applyAdaptation, WeekComparisonResult, AdaptationSuggestion } from '../services/stravaAnalysisService';
 
 interface PlanViewProps {
   plan: TrainingPlan;
@@ -71,6 +71,14 @@ const PlanView: React.FC<PlanViewProps> = ({ plan: initialPlan, isLocked = false
   const [selectedWeekNumber, setSelectedWeekNumber] = useState<number | null>(null);
   const [isSaving, setIsSaving] = useState(false);
   const [stravaConnected, setStravaConnected] = useState(false);
+
+  // Strava comparison state
+  const [comparisonLoading, setComparisonLoading] = useState<number | null>(null);
+  const [comparisonResult, setComparisonResult] = useState<WeekComparisonResult | null>(null);
+  const [showComparisonModal, setShowComparisonModal] = useState(false);
+  const [adaptationSuggestion, setAdaptationSuggestion] = useState<AdaptationSuggestion | null>(null);
+  const [showAdaptationModal, setShowAdaptationModal] = useState(false);
+  const [adaptationNextWeek, setAdaptationNextWeek] = useState<Week | null>(null);
 
   // Sync plan if prop changes (also normalize)
   useEffect(() => {
@@ -450,6 +458,65 @@ const PlanView: React.FC<PlanViewProps> = ({ plan: initialPlan, isLocked = false
     });
   };
 
+  // --- Strava Week Comparison ---
+  const handleCompareWeek = async (week: Week, weekStart: Date) => {
+    if (!user?.id || !stravaConnected) return;
+    setComparisonLoading(week.weekNumber);
+    try {
+      const result = await compareWeekWithStrava(user.id, week, weekStart);
+      setComparisonResult(result);
+      setShowComparisonModal(true);
+
+      // Check if next week exists for adaptation
+      const nextWeekIndex = plan.weeks.findIndex(w => w.weekNumber === week.weekNumber) + 1;
+      if (nextWeekIndex < plan.weeks.length) {
+        setAdaptationNextWeek(plan.weeks[nextWeekIndex]);
+      } else {
+        setAdaptationNextWeek(null);
+      }
+    } catch (error) {
+      console.error('Erreur comparaison Strava:', error);
+      alert('Erreur lors de la comparaison avec Strava. Vérifie ta connexion.');
+    } finally {
+      setComparisonLoading(null);
+    }
+  };
+
+  const handleShowAdaptation = () => {
+    if (!comparisonResult || !adaptationNextWeek) return;
+    const suggestion = generateAdaptationSuggestions(comparisonResult, adaptationNextWeek);
+    setAdaptationSuggestion(suggestion);
+    setShowAdaptationModal(true);
+  };
+
+  const handleApplyAdaptation = async () => {
+    if (!adaptationSuggestion || !adaptationNextWeek || !comparisonResult) return;
+    const adaptedWeek = applyAdaptation(adaptationNextWeek, adaptationSuggestion);
+
+    const updatedPlan = {
+      ...plan,
+      weeks: plan.weeks.map(w =>
+        w.weekNumber === adaptedWeek.weekNumber ? adaptedWeek : w
+      )
+    };
+
+    setPlan(updatedPlan);
+
+    // Save to Firestore
+    try {
+      await savePlan(updatedPlan);
+      setToastMessage('Semaine adaptée !');
+      setToastSubMessage(`Semaine ${adaptedWeek.weekNumber} modifiée selon tes performances`);
+      setToastVisible(true);
+    } catch (error) {
+      console.error('Erreur sauvegarde adaptation:', error);
+    }
+
+    setShowAdaptationModal(false);
+    setShowComparisonModal(false);
+    setAdaptationSuggestion(null);
+  };
+
   return (
     <div className="max-w-5xl mx-auto py-8 px-4 relative pb-24">
       {/* HEADER & CONTROLS */}
@@ -520,10 +587,10 @@ const PlanView: React.FC<PlanViewProps> = ({ plan: initialPlan, isLocked = false
           </button>
           <button
             onClick={() => setActiveTab("STRAVA")}
-            className={`px-6 py-3 font-bold text-sm transition-all border-b-2 flex items-center gap-2 ${activeTab === "STRAVA" ? "border-orange-500 text-orange-500" : "border-transparent text-slate-500 hover:text-orange-500"}`}
+            className={`px-6 py-3 text-sm transition-all border-b-2 flex items-center gap-2 text-orange-500 font-bold ${activeTab === "STRAVA" ? "border-orange-500" : "border-transparent"}`}
           >
             <svg className="w-4 h-4" viewBox="0 0 24 24" fill="currentColor"><path d="M15.387 17.944l-2.089-4.116h-3.065L15.387 24l5.15-10.172h-3.066m-7.008-5.599l2.836 5.598h4.172L10.463 0l-7 13.828h4.169"/></svg>
-            Analyse Strava
+            Bilan Mensuel
           </button>
         </div>
 
@@ -799,17 +866,17 @@ const PlanView: React.FC<PlanViewProps> = ({ plan: initialPlan, isLocked = false
         <div className="animate-in fade-in slide-in-from-bottom-4 duration-500 space-y-6">
           {/* HEADER STRAVA */}
           <div className="bg-gradient-to-r from-orange-500 to-orange-600 rounded-2xl p-6 text-white">
-            <div className="flex items-center justify-between">
-              <div className="flex items-center gap-3">
-                <svg className="w-8 h-8" viewBox="0 0 24 24" fill="currentColor"><path d="M15.387 17.944l-2.089-4.116h-3.065L15.387 24l5.15-10.172h-3.066m-7.008-5.599l2.836 5.598h4.172L10.463 0l-7 13.828h4.169"/></svg>
-                <div>
-                  <h2 className="text-2xl font-bold">Analyse Strava</h2>
-                  <p className="text-orange-100 text-sm">Bilan mensuel de tes performances</p>
-                </div>
+            <div className="flex items-center gap-3">
+              <svg className="w-8 h-8" viewBox="0 0 24 24" fill="currentColor"><path d="M15.387 17.944l-2.089-4.116h-3.065L15.387 24l5.15-10.172h-3.066m-7.008-5.599l2.836 5.598h4.172L10.463 0l-7 13.828h4.169"/></svg>
+              <div>
+                <h2 className="text-2xl font-bold">Bilan Mensuel</h2>
+                <p className="text-orange-100 text-sm">
+                  {stravaConnected ? 'Analyse de tes 30 derniers jours' : 'Connecte-toi pour débloquer les analyses'}
+                </p>
               </div>
-              <StravaConnect isConnected={stravaConnected} onConnect={() => setStravaConnected(true)} isPremium={canAccessPremiumFeatures} />
             </div>
           </div>
+
           {/* CONTENT */}
           {!canAccessPremiumFeatures ? (
             <div className="bg-slate-50 rounded-xl p-8 border border-slate-200 text-center">
@@ -818,130 +885,16 @@ const PlanView: React.FC<PlanViewProps> = ({ plan: initialPlan, isLocked = false
               <p className="text-slate-500 mb-4">Connecte Strava et laisse l'IA analyser tes sorties pour adapter automatiquement ton plan.</p>
               <button onClick={handleUnlockClick} className="px-6 py-3 bg-orange-500 text-white font-bold rounded-xl hover:bg-orange-600 transition-all">Débloquer</button>
             </div>
-          ) : !stravaConnected ? (
-            <div className="bg-orange-50 rounded-xl p-8 border border-orange-200 text-center">
-              <svg className="w-16 h-16 mx-auto text-orange-400 mb-4" viewBox="0 0 24 24" fill="currentColor"><path d="M15.387 17.944l-2.089-4.116h-3.065L15.387 24l5.15-10.172h-3.066m-7.008-5.599l2.836 5.598h4.172L10.463 0l-7 13.828h4.169"/></svg>
-              <h3 className="text-xl font-bold text-slate-800 mb-2">Connecte ton compte Strava</h3>
-              <p className="text-slate-500 mb-4">Pour recevoir des analyses personnalisées basées sur tes vraies performances.</p>
-            </div>
           ) : (
-            <WeeklyAnalysis />
+            <StravaConnect isConnected={stravaConnected} onConnect={() => setStravaConnected(true)} isPremium={canAccessPremiumFeatures} />
           )}
-          <p className="text-center text-xs text-slate-400">Powered by Strava</p>
-        </div>
-      )}
 
-      {activeTab === "PROGRAMME" && (
-      {activeTab === "STATS" && <Statistics plan={plan} />}
-
-      {activeTab === "STRAVA" && (
-        <div className="animate-in fade-in slide-in-from-bottom-4 duration-500 space-y-6">
-          {/* HEADER STRAVA */}
-          <div className="bg-gradient-to-r from-orange-500 to-orange-600 rounded-2xl p-6 text-white">
-            <div className="flex items-center justify-between">
-              <div className="flex items-center gap-3">
-                <svg className="w-8 h-8" viewBox="0 0 24 24" fill="currentColor"><path d="M15.387 17.944l-2.089-4.116h-3.065L15.387 24l5.15-10.172h-3.066m-7.008-5.599l2.836 5.598h4.172L10.463 0l-7 13.828h4.169"/></svg>
-                <div>
-                  <h2 className="text-2xl font-bold">Analyse Strava</h2>
-                  <p className="text-orange-100 text-sm">Bilan mensuel de tes performances</p>
-                </div>
-              </div>
-              <StravaConnect isConnected={stravaConnected} onConnect={() => setStravaConnected(true)} isPremium={canAccessPremiumFeatures} />
-            </div>
-          </div>
-          {/* CONTENT */}
-          {!canAccessPremiumFeatures ? (
-            <div className="bg-slate-50 rounded-xl p-8 border border-slate-200 text-center">
-              <Lock size={48} className="mx-auto text-slate-300 mb-4" />
-              <h3 className="text-xl font-bold text-slate-800 mb-2">Fonctionnalité Premium</h3>
-              <p className="text-slate-500 mb-4">Connecte Strava et laisse l'IA analyser tes sorties pour adapter automatiquement ton plan.</p>
-              <button onClick={handleUnlockClick} className="px-6 py-3 bg-orange-500 text-white font-bold rounded-xl hover:bg-orange-600 transition-all">Débloquer</button>
-            </div>
-          ) : !stravaConnected ? (
-            <div className="bg-orange-50 rounded-xl p-8 border border-orange-200 text-center">
-              <svg className="w-16 h-16 mx-auto text-orange-400 mb-4" viewBox="0 0 24 24" fill="currentColor"><path d="M15.387 17.944l-2.089-4.116h-3.065L15.387 24l5.15-10.172h-3.066m-7.008-5.599l2.836 5.598h4.172L10.463 0l-7 13.828h4.169"/></svg>
-              <h3 className="text-xl font-bold text-slate-800 mb-2">Connecte ton compte Strava</h3>
-              <p className="text-slate-500 mb-4">Pour recevoir des analyses personnalisées basées sur tes vraies performances.</p>
-            </div>
-          ) : (
-            <WeeklyAnalysis />
-          )}
-          <p className="text-center text-xs text-slate-400">Powered by Strava</p>
-        </div>
-      )}
-
-      {activeTab === "PROGRAMME" && (
-      {activeTab === "STATS" && <Statistics plan={plan} />}
-
-      {activeTab === "STRAVA" && (
-        <div className="animate-in fade-in slide-in-from-bottom-4 duration-500 space-y-6">
-          {/* HEADER STRAVA */}
-          <div className="bg-gradient-to-r from-orange-500 to-orange-600 rounded-2xl p-6 text-white">
-            <div className="flex items-center justify-between">
-              <div className="flex items-center gap-3">
-                <svg className="w-8 h-8" viewBox="0 0 24 24" fill="currentColor"><path d="M15.387 17.944l-2.089-4.116h-3.065L15.387 24l5.15-10.172h-3.066m-7.008-5.599l2.836 5.598h4.172L10.463 0l-7 13.828h4.169"/></svg>
-                <div>
-                  <h2 className="text-2xl font-bold">Analyse Strava</h2>
-                  <p className="text-orange-100 text-sm">Bilan mensuel de tes performances</p>
-                </div>
-              </div>
-              <StravaConnect isConnected={stravaConnected} onConnect={() => setStravaConnected(true)} isPremium={canAccessPremiumFeatures} />
-            </div>
-          </div>
-          {/* CONTENT */}
-          {!canAccessPremiumFeatures ? (
-            <div className="bg-slate-50 rounded-xl p-8 border border-slate-200 text-center">
-              <Lock size={48} className="mx-auto text-slate-300 mb-4" />
-              <h3 className="text-xl font-bold text-slate-800 mb-2">Fonctionnalité Premium</h3>
-              <p className="text-slate-500 mb-4">Connecte Strava et laisse l'IA analyser tes sorties pour adapter automatiquement ton plan.</p>
-              <button onClick={handleUnlockClick} className="px-6 py-3 bg-orange-500 text-white font-bold rounded-xl hover:bg-orange-600 transition-all">Débloquer</button>
-            </div>
-          ) : !stravaConnected ? (
-            <div className="bg-orange-50 rounded-xl p-8 border border-orange-200 text-center">
-              <svg className="w-16 h-16 mx-auto text-orange-400 mb-4" viewBox="0 0 24 24" fill="currentColor"><path d="M15.387 17.944l-2.089-4.116h-3.065L15.387 24l5.15-10.172h-3.066m-7.008-5.599l2.836 5.598h4.172L10.463 0l-7 13.828h4.169"/></svg>
-              <h3 className="text-xl font-bold text-slate-800 mb-2">Connecte ton compte Strava</h3>
-              <p className="text-slate-500 mb-4">Pour recevoir des analyses personnalisées basées sur tes vraies performances.</p>
-            </div>
-          ) : (
-            <WeeklyAnalysis />
-          )}
           <p className="text-center text-xs text-slate-400">Powered by Strava</p>
         </div>
       )}
 
       {activeTab === "PROGRAMME" && (
         <div className="animate-in fade-in slide-in-from-bottom-4 duration-500">
-          {/* OLD FEASIBILITY & LOCATION SECTIONS REMOVED - MOVED TO PLANHERO */}
-
-
-          {/* STRAVA SECTION */}
-          {user && (
-            <div className={`mb-8 p-6 bg-white rounded-xl border shadow-sm ${canAccessPremiumFeatures ? 'border-orange-200' : 'border-slate-200'}`}>
-              <div className="flex justify-between items-center mb-4">
-                <div className="flex items-center gap-2">
-                  <h2 className="text-xl font-bold text-slate-900">Suivi Strava</h2>
-                  {!canAccessPremiumFeatures && <span className="bg-slate-900 text-white text-[10px] font-bold px-2 py-0.5 rounded-full uppercase">Premium</span>}
-                </div>
-                <StravaConnect isConnected={stravaConnected} onConnect={() => setStravaConnected(true)} isPremium={canAccessPremiumFeatures} />
-              </div>
-              {stravaConnected && canAccessPremiumFeatures ? <WeeklyAnalysis /> : (
-                <div className="text-sm">
-                  {canAccessPremiumFeatures ? (
-                    <p className="text-slate-500">Connectez votre compte Strava pour comparer vos réalisations avec le plan et recevoir des analyses personnalisées.</p>
-                  ) : (
-                    <div className="bg-slate-50 rounded-lg p-4 border border-slate-100">
-                      <p className="text-slate-600 mb-2">🔒 <strong>Fonctionnalité Premium</strong></p>
-                      <p className="text-slate-500">Passez Premium pour connecter Strava et laisser l'IA analyser vos sorties réelles afin d'adapter automatiquement votre plan.</p>
-                      <button onClick={handleUnlockClick} className="mt-3 text-accent font-bold hover:underline flex items-center gap-1">
-                        <Zap size={14} /> Débloquer cette fonctionnalité
-                      </button>
-                    </div>
-                  )}
-                </div>
-              )}
-            </div>
-          )}
-
           {/* WEEKS & SESSIONS LIST */}
           <div className="space-y-6">
             {plan.weeks.map((week, index) => {
@@ -1052,12 +1005,48 @@ const PlanView: React.FC<PlanViewProps> = ({ plan: initialPlan, isLocked = false
                         </div>
                       </div>
 
-                      {/* Bouton replier/déplier */}
-                      <div className={`
-                        w-10 h-10 rounded-full flex items-center justify-center transition-all
-                        ${isCollapsed ? 'bg-slate-100 text-slate-400' : 'bg-slate-900 text-white'}
-                      `}>
-                        {isCollapsed ? <ChevronDown size={20} /> : <ChevronUp size={20} />}
+                      {/* Boutons actions semaine */}
+                      <div className="flex items-center gap-2">
+                        {/* Bouton Analyser ma semaine - semaines passées ou en cours, premium uniquement */}
+                        {canAccessPremiumFeatures && (weekStatus.status === 'past' || weekStatus.status === 'current') && !isWeekLocked && (
+                          stravaConnected ? (
+                            <button
+                              onClick={(e) => {
+                                e.stopPropagation();
+                                handleCompareWeek(week, weekStatus.weekStart);
+                              }}
+                              disabled={comparisonLoading === week.weekNumber}
+                              className="flex items-center gap-1.5 px-3 py-2 text-xs font-bold bg-orange-50 text-orange-700 border border-orange-200 rounded-lg hover:bg-orange-100 transition-all disabled:opacity-50"
+                            >
+                              {comparisonLoading === week.weekNumber ? (
+                                <Loader size={14} className="animate-spin" />
+                              ) : (
+                                <span>📊</span>
+                              )}
+                              <span className="hidden sm:inline">Analyser ma semaine</span>
+                            </button>
+                          ) : (
+                            <button
+                              onClick={(e) => {
+                                e.stopPropagation();
+                                setActiveTab('STRAVA');
+                              }}
+                              className="flex items-center gap-1.5 px-3 py-2 text-xs font-bold bg-slate-50 text-slate-500 border border-slate-200 rounded-lg hover:bg-orange-50 hover:text-orange-600 hover:border-orange-200 transition-all"
+                              title="Connecte Strava pour analyser tes séances"
+                            >
+                              <span>📊</span>
+                              <span className="hidden sm:inline">Strava</span>
+                            </button>
+                          )
+                        )}
+
+                        {/* Bouton replier/déplier */}
+                        <div className={`
+                          w-10 h-10 rounded-full flex items-center justify-center transition-all
+                          ${isCollapsed ? 'bg-slate-100 text-slate-400' : 'bg-slate-900 text-white'}
+                        `}>
+                          {isCollapsed ? <ChevronDown size={20} /> : <ChevronUp size={20} />}
+                        </div>
                       </div>
                     </div>
 
@@ -1066,6 +1055,10 @@ const PlanView: React.FC<PlanViewProps> = ({ plan: initialPlan, isLocked = false
                       transition-all duration-300 ease-in-out overflow-hidden
                       ${isCollapsed ? 'max-h-0 opacity-0' : 'max-h-[5000px] opacity-100'}
                     `}>
+                      {/* Hint analyse Strava */}
+                      {canAccessPremiumFeatures && stravaConnected && (weekStatus.status === 'past' || weekStatus.status === 'current') && !isWeekLocked && (
+                        <p className="px-4 pt-2 text-xs text-orange-500 italic">À utiliser quand tu as terminé ta semaine</p>
+                      )}
                       <div className={`p-4 pt-2 space-y-3 ${isWeekLocked ? 'blur-sm opacity-50 pointer-events-none' : ''}`}>
                         {week.sessions.map((session, sIdx) => {
                           const sessionDate = getSessionDate(week.weekNumber, session.day);
@@ -1419,6 +1412,216 @@ const PlanView: React.FC<PlanViewProps> = ({ plan: initialPlan, isLocked = false
                   </button>
                 </div>
               )}
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* COMPARISON MODAL */}
+      {showComparisonModal && comparisonResult && (
+        <div className="fixed inset-0 z-[100] flex items-center justify-center bg-slate-900/60 backdrop-blur-sm p-4 animate-in fade-in">
+          <div className="bg-white rounded-2xl max-w-lg w-full max-h-[85vh] overflow-y-auto shadow-2xl">
+            <div className="sticky top-0 bg-white border-b border-slate-100 p-6 pb-4 rounded-t-2xl z-10">
+              <div className="flex items-center justify-between">
+                <h2 className="text-xl font-bold text-slate-900 flex items-center gap-2">
+                  📊 Semaine {comparisonResult.weekNumber}
+                </h2>
+                <button onClick={() => setShowComparisonModal(false)} className="p-2 rounded-full hover:bg-slate-100">
+                  <X size={20} className="text-slate-400" />
+                </button>
+              </div>
+            </div>
+
+            <div className="p-6 space-y-5">
+              {/* Compliance score */}
+              <div className="text-center">
+                <div className={`inline-flex items-center justify-center w-24 h-24 rounded-full border-4 ${
+                  comparisonResult.compliance >= 90 ? 'border-emerald-400 text-emerald-600' :
+                  comparisonResult.compliance >= 70 ? 'border-blue-400 text-blue-600' :
+                  comparisonResult.compliance >= 50 ? 'border-amber-400 text-amber-600' :
+                  'border-red-400 text-red-600'
+                }`}>
+                  <span className="text-3xl font-black">{comparisonResult.compliance}%</span>
+                </div>
+                <p className="text-sm text-slate-500 mt-2">Score de compliance</p>
+              </div>
+
+              {/* Sessions planned vs done */}
+              <div className="grid grid-cols-2 gap-3">
+                <div className="bg-slate-50 rounded-xl p-4 text-center border border-slate-100">
+                  <p className="text-3xl font-black text-slate-700">{comparisonResult.sessionsPlanned}</p>
+                  <p className="text-xs text-slate-500 mt-1">Séances prévues</p>
+                </div>
+                <div className="bg-orange-50 rounded-xl p-4 text-center border border-orange-100">
+                  <p className="text-3xl font-black text-orange-700">{comparisonResult.sessionsDone}</p>
+                  <p className="text-xs text-orange-500 mt-1">Séances Strava</p>
+                </div>
+              </div>
+
+              {/* RPE */}
+              <div className="bg-slate-50 rounded-xl p-4 border border-slate-100 flex items-center gap-3">
+                <span className="text-2xl">💪</span>
+                <div className="flex-1">
+                  <p className="text-sm text-slate-500">RPE moyen</p>
+                  <p className="text-lg font-bold text-slate-900">{comparisonResult.avgRpe}/10</p>
+                </div>
+                <span className={`text-xs font-bold px-2 py-1 rounded-full ${
+                  comparisonResult.avgRpe <= 5 ? 'bg-blue-100 text-blue-700' :
+                  comparisonResult.avgRpe <= 7 ? 'bg-emerald-100 text-emerald-700' :
+                  comparisonResult.avgRpe <= 8 ? 'bg-amber-100 text-amber-700' :
+                  'bg-red-100 text-red-700'
+                }`}>
+                  {comparisonResult.avgRpe <= 5 ? 'Léger' :
+                   comparisonResult.avgRpe <= 7 ? 'Optimal' :
+                   comparisonResult.avgRpe <= 8 ? 'Élevé' : 'Très élevé'}
+                </span>
+              </div>
+
+              {/* Cross-training */}
+              {comparisonResult.crossTrainingEquivalent > 0 && (
+                <div className="bg-blue-50 rounded-xl p-4 border border-blue-100">
+                  <p className="text-sm font-bold text-blue-800 mb-1">Cross-training détecté</p>
+                  <p className="text-sm text-blue-700">+{Math.round(comparisonResult.crossTrainingEquivalent)} min équivalent running</p>
+                </div>
+              )}
+
+              {/* Detail text */}
+              <div className="bg-gradient-to-r from-accent/5 to-orange-50 rounded-xl p-4 border border-accent/20">
+                <p className="text-sm text-slate-700">{comparisonResult.details}</p>
+              </div>
+
+              {/* Strava activities list */}
+              {comparisonResult.stravaActivities.length > 0 && (
+                <div>
+                  <h4 className="text-sm font-bold text-slate-900 mb-2">Activités Strava</h4>
+                  <div className="space-y-1.5">
+                    {comparisonResult.stravaActivities.map((a, i) => (
+                      <div key={i} className="flex items-center gap-2 text-sm bg-slate-50 p-2.5 rounded-lg">
+                        <span className="text-base">
+                          {a.type === 'Run' || a.type === 'Trail Run' ? '🏃' :
+                           a.type === 'Ride' || a.type === 'VirtualRide' ? '🚴' :
+                           a.type === 'Swim' ? '🏊' : '🏋️'}
+                        </span>
+                        <span className="flex-1 text-slate-700 truncate">{a.name}</span>
+                        <span className="text-slate-500 font-medium">{a.distance} km</span>
+                        <span className="text-slate-400">{a.time} min</span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+            </div>
+
+            {/* Footer */}
+            <div className="sticky bottom-0 bg-white border-t border-slate-100 p-6 pt-4 rounded-b-2xl space-y-2">
+              {adaptationNextWeek && (
+                <button
+                  onClick={handleShowAdaptation}
+                  className="w-full px-6 py-3 bg-gradient-to-r from-accent to-orange-500 text-white rounded-xl font-bold hover:from-accent/90 hover:to-orange-500/90 transition-all flex items-center justify-center gap-2"
+                >
+                  🔄 Adapter la semaine {adaptationNextWeek.weekNumber}
+                </button>
+              )}
+              <button
+                onClick={() => setShowComparisonModal(false)}
+                className="w-full px-6 py-3 bg-slate-100 text-slate-700 rounded-xl font-bold hover:bg-slate-200 transition-colors"
+              >
+                Fermer
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* ADAPTATION MODAL */}
+      {showAdaptationModal && adaptationSuggestion && adaptationNextWeek && (
+        <div className="fixed inset-0 z-[110] flex items-center justify-center bg-slate-900/60 backdrop-blur-sm p-4 animate-in fade-in">
+          <div className="bg-white rounded-2xl max-w-lg w-full max-h-[85vh] overflow-y-auto shadow-2xl">
+            <div className="sticky top-0 bg-white border-b border-slate-100 p-6 pb-4 rounded-t-2xl z-10">
+              <div className="flex items-center justify-between">
+                <div>
+                  <h2 className="text-xl font-bold text-slate-900">Adaptation Semaine {adaptationNextWeek.weekNumber}</h2>
+                  <span className={`inline-flex items-center mt-1 px-3 py-1 rounded-full text-xs font-bold ${
+                    adaptationSuggestion.verdict === 'MAINTENIR' ? 'bg-emerald-100 text-emerald-700' :
+                    adaptationSuggestion.verdict === 'AJUSTER' ? 'bg-amber-100 text-amber-700' :
+                    adaptationSuggestion.verdict === 'RÉDUIRE' ? 'bg-orange-100 text-orange-700' :
+                    'bg-red-100 text-red-700'
+                  }`}>
+                    {adaptationSuggestion.verdict}
+                  </span>
+                </div>
+                <button onClick={() => setShowAdaptationModal(false)} className="p-2 rounded-full hover:bg-slate-100">
+                  <X size={20} className="text-slate-400" />
+                </button>
+              </div>
+            </div>
+
+            <div className="p-6 space-y-4">
+              {/* Overall message */}
+              <div className="bg-gradient-to-r from-accent/5 to-orange-50 rounded-xl p-4 border border-accent/20">
+                <p className="text-sm text-slate-800 font-medium">{adaptationSuggestion.overallMessage}</p>
+              </div>
+
+              {/* Volume change indicator */}
+              {adaptationSuggestion.volumeChange !== 0 && (
+                <div className={`flex items-center gap-3 p-4 rounded-xl border ${
+                  adaptationSuggestion.volumeChange < -20 ? 'bg-red-50 border-red-200' :
+                  adaptationSuggestion.volumeChange < 0 ? 'bg-amber-50 border-amber-200' :
+                  'bg-blue-50 border-blue-200'
+                }`}>
+                  <span className="text-2xl">📉</span>
+                  <div>
+                    <p className="font-bold text-slate-800">Volume : {adaptationSuggestion.volumeChange}%</p>
+                    <p className="text-xs text-slate-500">Appliqué aux durées de la semaine {adaptationNextWeek.weekNumber}</p>
+                  </div>
+                </div>
+              )}
+
+              {/* Suggestions */}
+              <div className="space-y-2">
+                {adaptationSuggestion.suggestions.map((s, i) => (
+                  <div key={i} className="flex items-start gap-3 p-3 bg-white rounded-xl border border-slate-200 shadow-sm">
+                    <span className="text-xl mt-0.5">{s.icon}</span>
+                    <div className="flex-1">
+                      <div className="flex items-center gap-2 flex-wrap">
+                        <p className="font-bold text-slate-800 text-sm">{s.title}</p>
+                        <span className={`text-[10px] font-bold px-2 py-0.5 rounded-full ${
+                          s.priority === 'HAUTE' ? 'bg-red-100 text-red-700' :
+                          s.priority === 'MOYENNE' ? 'bg-orange-100 text-orange-700' :
+                          'bg-emerald-100 text-emerald-700'
+                        }`}>{s.priority}</span>
+                      </div>
+                      <p className="text-xs text-slate-600 mt-1">{s.detail}</p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+
+              {/* Cross-training summary */}
+              {adaptationSuggestion.crossTraining.length > 0 && (
+                <div className="bg-blue-50 rounded-xl p-4 border border-blue-100">
+                  <p className="text-sm font-bold text-blue-800 mb-2">Cross-training pris en compte</p>
+                  {adaptationSuggestion.crossTraining.map((ct, i) => (
+                    <p key={i} className="text-sm text-blue-700">{ct.type} : {ct.hours}h = {ct.equivalent} min running</p>
+                  ))}
+                </div>
+              )}
+            </div>
+
+            {/* Footer with confirm/cancel */}
+            <div className="sticky bottom-0 bg-white border-t border-slate-100 p-6 pt-4 rounded-b-2xl space-y-2">
+              <button
+                onClick={handleApplyAdaptation}
+                className="w-full px-6 py-3 bg-slate-900 text-white rounded-xl font-bold hover:bg-slate-800 transition-all flex items-center justify-center gap-2"
+              >
+                <CheckCircle size={18} /> Appliquer les modifications
+              </button>
+              <button
+                onClick={() => setShowAdaptationModal(false)}
+                className="w-full px-6 py-3 bg-slate-100 text-slate-700 rounded-xl font-bold hover:bg-slate-200 transition-colors"
+              >
+                Annuler
+              </button>
             </div>
           </div>
         </div>
