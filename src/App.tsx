@@ -752,7 +752,9 @@ const PricingPage = ({ user }: { user: User | null }) => {
             <li className="flex gap-2"><CheckCircle size={16} className="text-green-500" /> Feedback après chaque séance</li>
             <li className="flex gap-2"><CheckCircle size={16} className="text-green-500" /> Export calendrier Google/Apple</li>
             <li className="flex gap-2"><CheckCircle size={16} className="text-green-500" /> Adaptation intelligente du plan</li>
-            <li className="flex gap-2"><CheckCircle size={16} className="text-green-500" /> Connexion Strava (bientôt)</li>
+            <li className="flex gap-2"><CheckCircle size={16} className="text-green-500" /> Export sur montres GPS (Garmin, Coros, Suunto)</li>
+            <li className="flex gap-2"><CheckCircle size={16} className="text-green-500" /> Bilan mensuel Strava (forces, faiblesses, recommandations IA)</li>
+            <li className="flex gap-2"><CheckCircle size={16} className="text-green-500" /> Analyse hebdo intelligente (plan vs réel, cross-training inclus)</li>
             <li className="flex gap-2"><CheckCircle size={16} className="text-green-500" /> Rappels hebdomadaires</li>
             <li className="flex gap-2"><CheckCircle size={16} className="text-green-500" /> Sans engagement, annulation libre</li>
           </ul>
@@ -765,6 +767,9 @@ const PricingPage = ({ user }: { user: User | null }) => {
           <p className="text-xs text-green-600 font-bold mb-6">Économisez 15%</p>
           <ul className="text-left space-y-3 mb-8 text-sm text-slate-600 flex-grow">
             <li className="flex gap-2"><CheckCircle size={16} className="text-green-500" /> Tous les avantages mensuels</li>
+            <li className="flex gap-2"><CheckCircle size={16} className="text-green-500" /> Export sur montres GPS (Garmin, Coros, Suunto)</li>
+            <li className="flex gap-2"><CheckCircle size={16} className="text-green-500" /> Bilan mensuel Strava (forces, faiblesses, recommandations IA)</li>
+            <li className="flex gap-2"><CheckCircle size={16} className="text-green-500" /> Analyse hebdo intelligente (plan vs réel, cross-training inclus)</li>
             <li className="flex gap-2"><CheckCircle size={16} className="text-green-500" /> Support coach prioritaire 24h</li>
             <li className="flex gap-2"><CheckCircle size={16} className="text-green-500" /> 2 mois offerts</li>
           </ul>
