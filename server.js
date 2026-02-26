@@ -33,34 +33,24 @@ if (process.env.NODE_ENV === 'production' && !process.env.STRIPE_WEBHOOK_SECRET)
 }
 
 // Initialisation Firebase Admin (pour webhooks Stripe en production)
-// En local sans GOOGLE_APPLICATION_CREDENTIALS, admin sera null et les fonctions seront limitées
+// Sur Cloud Run (GCP), les Application Default Credentials sont disponibles automatiquement
+// En local sans credentials, admin sera null et les fonctions seront limitées
 let admin = null;
 
-// Vérifier si les credentials sont configurés AVANT d'essayer d'initialiser
-const hasFirebaseCredentials = !!(
-  process.env.GOOGLE_APPLICATION_CREDENTIALS ||
-  process.env.FIREBASE_SERVICE_ACCOUNT ||
-  process.env.FIREBASE_ADMIN_CREDENTIALS
-);
-
-if (hasFirebaseCredentials) {
-  try {
-    const firebaseAdmin = require('firebase-admin');
-    if (!firebaseAdmin.apps.length) {
-      firebaseAdmin.initializeApp({
-        credential: firebaseAdmin.credential.applicationDefault(),
-        projectId: process.env.VITE_FIREBASE_PROJECT_ID || process.env.FIREBASE_PROJECT_ID
-      });
-    }
-    admin = firebaseAdmin;
-    console.log('[Init] Firebase Admin initialisé avec succès');
-  } catch (error) {
-    admin = null;
-    console.warn('[Init] Firebase Admin erreur:', error.message);
+try {
+  const firebaseAdmin = require('firebase-admin');
+  if (!firebaseAdmin.apps.length) {
+    firebaseAdmin.initializeApp({
+      credential: firebaseAdmin.credential.applicationDefault(),
+      projectId: process.env.VITE_FIREBASE_PROJECT_ID || process.env.FIREBASE_PROJECT_ID
+    });
   }
-} else {
-  console.log('[Init] Firebase Admin désactivé - pas de credentials configurés');
-  console.log('[Init] → Pour activer: définir GOOGLE_APPLICATION_CREDENTIALS dans .env');
+  admin = firebaseAdmin;
+  console.log('[Init] Firebase Admin initialisé avec succès');
+} catch (error) {
+  admin = null;
+  console.warn('[Init] Firebase Admin non disponible:', error.message);
+  console.warn('[Init] → Les webhooks Stripe ne pourront pas mettre à jour Firestore');
 }
 
 // Initialisation Stripe avec la clé fournie
@@ -202,32 +192,43 @@ app.post('/api/stripe/webhook', express.raw({ type: 'application/json' }), async
   // Handle checkout.session.completed
   if (event.type === 'checkout.session.completed') {
     const session = event.data.object;
-    const userId = session.client_reference_id;
+    const userId = session.client_reference_id || session.metadata?.userId;
     const customerEmail = session.customer_email;
 
-    if (userId && admin) {
-      try {
-        // Get user data for firstName
-        const userDoc = await admin.firestore().collection('users').doc(userId).get();
-        const userData = userDoc.exists ? userDoc.data() : {};
+    console.log(`[Stripe Webhook] checkout.session.completed - userId: ${userId}, customer: ${session.customer}, admin: ${!!admin}`);
 
-        await admin.firestore().collection('users').doc(userId).set({
-          isPremium: true,
-          premiumSince: new Date().toISOString(),
-          stripeCustomerId: session.customer,
-          stripeSubscriptionId: session.subscription
-        }, { merge: true });
-        console.log(`[Stripe] Utilisateur ${userId} passé Premium !`);
+    if (!admin) {
+      console.error('[Stripe Webhook] CRITICAL: Firebase Admin non initialisé, impossible de mettre à jour Firestore !');
+      return res.status(500).json({ error: 'Firebase Admin not available' });
+    }
 
-        // Move to Brevo subscribers list
-        const email = customerEmail || userData.email;
-        if (email) {
-          await brevoMoveToSubscribers(email);
-          console.log(`[Brevo] ${email} moved to subscribers list`);
-        }
-      } catch (dbError) {
-        console.error('[Stripe Webhook] Erreur Firestore:', dbError);
+    if (!userId) {
+      console.error('[Stripe Webhook] CRITICAL: Pas de userId (client_reference_id ni metadata.userId) !');
+      return res.status(400).json({ error: 'Missing userId' });
+    }
+
+    try {
+      // Get user data for firstName
+      const userDoc = await admin.firestore().collection('users').doc(userId).get();
+      const userData = userDoc.exists ? userDoc.data() : {};
+
+      await admin.firestore().collection('users').doc(userId).set({
+        isPremium: true,
+        premiumSince: new Date().toISOString(),
+        stripeCustomerId: session.customer,
+        stripeSubscriptionId: session.subscription
+      }, { merge: true });
+      console.log(`[Stripe] Utilisateur ${userId} passé Premium !`);
+
+      // Move to Brevo subscribers list
+      const email = customerEmail || userData.email;
+      if (email) {
+        await brevoMoveToSubscribers(email);
+        console.log(`[Brevo] ${email} moved to subscribers list`);
       }
+    } catch (dbError) {
+      console.error('[Stripe Webhook] Erreur Firestore:', dbError);
+      return res.status(500).json({ error: 'Firestore update failed' });
     }
   }
 
