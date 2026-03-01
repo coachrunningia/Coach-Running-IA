@@ -53,7 +53,7 @@ const LandingPage: React.FC<LandingPageProps> = ({ user, onPlanGeneration, isGen
   ];
 
   return (
-    <div className="bg-white">
+    <div className="bg-white text-slate-900">
       <Helmet>
         <title>Coach Running IA - Programme course à pied personnalisé par IA</title>
         <meta name="description" content="Programme course à pied 100% personnalisé par IA. Plans marathon, semi, trail, 10km adaptés à votre niveau et vos disponibilités. 1ère semaine offerte." />
@@ -62,40 +62,54 @@ const LandingPage: React.FC<LandingPageProps> = ({ user, onPlanGeneration, isGen
         <meta property="og:description" content="Programme course à pied personnalisé par IA. Plans marathon, semi, trail, 10km adaptés à votre niveau." />
         <meta property="og:url" content="https://coachrunningia.fr/" />
       </Helmet>
+
       {/* SECTION 1: HERO */}
-      <section className="relative bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 text-white py-16 md:py-20 overflow-hidden">
-        <div className="absolute inset-0 opacity-10">
-          <div className="absolute top-20 left-10 w-72 h-72 bg-accent rounded-full blur-3xl"></div>
-          <div className="absolute bottom-10 right-10 w-96 h-96 bg-blue-500 rounded-full blur-3xl"></div>
+      <section className="relative min-h-[70vh] flex items-center justify-center overflow-hidden bg-gradient-to-b from-orange-50 via-white to-white">
+        {/* Animated gradient orbs - lighter for white bg */}
+        <div className="absolute inset-0">
+          <div className="absolute top-1/4 left-1/4 w-[500px] h-[500px] bg-orange-400/15 rounded-full blur-[128px] animate-pulse"></div>
+          <div className="absolute bottom-1/4 right-1/4 w-[400px] h-[400px] bg-amber-300/10 rounded-full blur-[128px] animate-pulse" style={{ animationDelay: '1s' }}></div>
+          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-orange-200/10 rounded-full blur-[128px]"></div>
         </div>
-        
-        <div className="relative max-w-5xl mx-auto px-4 text-center">
-          <h1 className="text-4xl md:text-5xl lg:text-6xl font-black mb-6 leading-tight">
-            Programme course à pied <span className="text-accent">personnalisé</span>
+
+        <div className="relative max-w-5xl mx-auto px-4 text-center py-24 md:py-32">
+          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-orange-200 bg-orange-50 mb-8">
+            <span className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></span>
+            <span className="text-sm text-orange-700 font-medium">1ère semaine gratuite - Sans carte bancaire</span>
+          </div>
+
+          <h1 className="text-5xl md:text-6xl lg:text-7xl font-black mb-8 leading-[1.1] tracking-tight text-slate-900">
+            Programme course à pied{' '}
+            <span className="text-orange-500">personnalisé</span>
           </h1>
-          <h2 className="text-xl md:text-2xl text-slate-300 mb-6 max-w-3xl mx-auto">
+          <h2 className="text-xl md:text-2xl text-slate-500 mb-10 max-w-3xl mx-auto leading-relaxed font-medium">
             Plans d'entraînement marathon, semi-marathon, 10km et trail générés par IA en 2 minutes
           </h2>
-          <p className="text-slate-400 text-sm mb-2">✓ 1ère semaine gratuite ✓ Sans carte bancaire ✓ En 2 min</p>
+
+          <button
+            onClick={() => document.getElementById('questionnaire')?.scrollIntoView({ behavior: 'smooth' })}
+            className="group relative inline-flex items-center gap-3 bg-gradient-to-r from-orange-500 to-orange-600 text-white px-10 py-5 rounded-full text-lg font-bold transition-all duration-300 shadow-lg shadow-orange-500/30 hover:shadow-xl hover:shadow-orange-500/40 hover:scale-105"
+          >
+            Créer mon plan gratuit
+            <ArrowRight size={20} className="group-hover:translate-x-1 transition-transform" />
+          </button>
+
+          <div className="mt-12 flex items-center justify-center gap-1.5 text-slate-400 opacity-50">
+            <span className="text-[11px]">Powered by</span>
+            <svg className="w-3 h-3 text-[#FC4C02]" viewBox="0 0 24 24" fill="currentColor"><path d="M15.387 17.944l-2.089-4.116h-3.065L15.387 24l5.15-10.172h-3.066m-7.008-5.599l2.836 5.598h4.172L10.463 0l-7 13.828h4.169"/></svg>
+            <span className="text-[11px] font-medium text-[#FC4C02]">Strava</span>
+          </div>
         </div>
       </section>
 
-      {/* POWERED BY STRAVA BANNER */}
-      <div className="bg-orange-50 border-b border-orange-100">
-        <div className="max-w-5xl mx-auto px-4 py-3 flex items-center justify-center gap-3">
-          <span className="text-xs text-slate-500 font-medium">Compatible avec</span>
-          <svg className="w-5 h-5 text-[#FC4C02]" viewBox="0 0 24 24" fill="currentColor"><path d="M15.387 17.944l-2.089-4.116h-3.065L15.387 24l5.15-10.172h-3.066m-7.008-5.599l2.836 5.598h4.172L10.463 0l-7 13.828h4.169"/></svg>
-          <span className="text-sm font-bold text-[#FC4C02]">Powered by Strava</span>
-        </div>
-      </div>
-
-      {/* SECTION 2: QUESTIONNAIRE - Directement après le hero */}
-      <section className="py-12 md:py-16 bg-slate-50">
-        <div className="max-w-7xl mx-auto px-4">
-          <h2 className="text-2xl md:text-3xl font-black text-center text-slate-900 mb-4">
-            Créez votre programme personnalisé
+      {/* SECTION 2: QUESTIONNAIRE */}
+      <section id="questionnaire" className="py-20 md:py-28 relative bg-gray-50">
+        <div className="relative max-w-7xl mx-auto px-4">
+          <h2 className="text-3xl md:text-4xl font-black text-center mb-4 tracking-tight text-slate-900">
+            Créez votre programme{' '}
+            <span className="text-orange-500">personnalisé</span>
           </h2>
-          <p className="text-center text-slate-500 mb-8 max-w-2xl mx-auto">
+          <p className="text-center text-slate-500 mb-12 max-w-2xl mx-auto text-lg">
             Répondez à quelques questions et recevez votre plan d'entraînement sur-mesure
           </p>
           <Questionnaire onComplete={onPlanGeneration} isGenerating={isGenerating} user={user} />
@@ -103,189 +117,180 @@ const LandingPage: React.FC<LandingPageProps> = ({ user, onPlanGeneration, isGen
       </section>
 
       {/* SECTION: POURQUOI PAS CHATGPT */}
-      <section className="py-16 md:py-24 bg-white">
-        <div className="max-w-5xl mx-auto px-4">
-          <div className="text-center mb-12">
-            <p className="text-accent font-bold text-sm tracking-wider uppercase mb-3">La question qu'on nous pose le plus</p>
-            <h2 className="text-3xl md:text-4xl font-black text-slate-900 mb-4">
+      <section className="py-20 md:py-28 relative overflow-hidden bg-white">
+        <div className="absolute top-1/2 right-0 w-[400px] h-[400px] bg-orange-100/50 rounded-full blur-[128px]"></div>
+
+        <div className="relative max-w-5xl mx-auto px-4">
+          <div className="text-center mb-16">
+            <span className="inline-block px-4 py-1.5 rounded-full text-xs font-bold tracking-widest uppercase bg-orange-100 text-orange-600 border border-orange-200 mb-6">
+              La question qu'on nous pose le plus
+            </span>
+            <h2 className="text-3xl md:text-5xl font-black mb-6 tracking-tight text-slate-900">
               "Je peux faire pareil avec ChatGPT, non ?"
             </h2>
             <p className="text-slate-500 max-w-2xl mx-auto text-lg">
               Pas vraiment. Et voici pourquoi.
             </p>
           </div>
-          
+
           <div className="grid md:grid-cols-2 gap-6 max-w-4xl mx-auto">
-            
-            <div className="bg-slate-50 rounded-2xl p-6 border border-slate-200">
-              <div className="flex items-center gap-3 mb-4">
-                <div className="w-10 h-10 bg-slate-200 rounded-xl flex items-center justify-center text-lg">🤖</div>
+            {/* ChatGPT card */}
+            <div className="rounded-2xl p-6 bg-gray-50 border border-gray-200 shadow-sm">
+              <div className="flex items-center gap-3 mb-5">
+                <div className="w-10 h-10 bg-gray-100 rounded-xl flex items-center justify-center text-lg">{"🤖"}</div>
                 <h3 className="font-bold text-slate-400 text-lg">ChatGPT</h3>
               </div>
-              <div className="space-y-3 text-slate-400 text-sm">
-                <div className="flex items-start gap-2">
+              <div className="space-y-3 text-slate-500 text-sm">
+                <div className="flex items-start gap-2.5">
                   <X size={16} className="text-red-400 mt-0.5 shrink-0" />
-                  <span>Génère un plan à partir de tout ce qui existe en ligne — <strong>sans distinguer les bons des mauvais conseils</strong></span>
+                  <span>Génère un plan à partir de tout ce qui existe en ligne — <strong className="text-slate-600">sans distinguer les bons des mauvais conseils</strong></span>
                 </div>
-                <div className="flex items-start gap-2">
+                <div className="flex items-start gap-2.5">
                   <X size={16} className="text-red-400 mt-0.5 shrink-0" />
                   <span>Aucune validation médicale sur le renforcement musculaire</span>
                 </div>
-                <div className="flex items-start gap-2">
+                <div className="flex items-start gap-2.5">
                   <X size={16} className="text-red-400 mt-0.5 shrink-0" />
                   <span>Oublie tout entre chaque conversation</span>
                 </div>
-                <div className="flex items-start gap-2">
+                <div className="flex items-start gap-2.5">
                   <X size={16} className="text-red-400 mt-0.5 shrink-0" />
                   <span>Aucun suivi réel de ta progression</span>
                 </div>
-                <div className="flex items-start gap-2">
+                <div className="flex items-start gap-2.5">
                   <X size={16} className="text-red-400 mt-0.5 shrink-0" />
                   <span>Pas d'analyse de tes performances Strava</span>
                 </div>
-                <div className="flex items-start gap-2">
+                <div className="flex items-start gap-2.5">
                   <X size={16} className="text-red-400 mt-0.5 shrink-0" />
                   <span>Plan en texte brut — pas de calendrier, pas d'export, pas de suivi</span>
                 </div>
               </div>
             </div>
 
-            <div className="bg-gradient-to-br from-orange-50 to-amber-50 rounded-2xl p-6 border-2 border-accent/30 relative">
-              <div className="absolute -top-3 right-4 bg-accent text-white text-xs font-bold px-3 py-1 rounded-full">RECOMMANDÉ</div>
-              <div className="flex items-center gap-3 mb-4">
-                <div className="w-10 h-10 bg-accent/20 rounded-xl flex items-center justify-center text-lg">🏃</div>
-                <h3 className="font-bold text-slate-900 text-lg">Coach Running IA</h3>
+            {/* Coach Running IA card */}
+            <div className="rounded-2xl p-6 bg-gradient-to-br from-orange-50 to-amber-50 border border-orange-200 shadow-md relative">
+              <div className="absolute -top-3 right-4 bg-gradient-to-r from-orange-500 to-orange-600 text-white text-xs font-bold px-3 py-1 rounded-full shadow-lg shadow-orange-500/30">RECOMMANDÉ</div>
+              <div className="flex items-center gap-3 mb-5">
+                <div className="w-10 h-10 bg-orange-100 rounded-xl flex items-center justify-center text-lg">{"🏃"}</div>
+                <h3 className="font-bold text-orange-600 text-lg">Coach Running IA</h3>
               </div>
-              <div className="space-y-3 text-slate-700 text-sm">
-                <div className="flex items-start gap-2">
+              <div className="space-y-3 text-slate-600 text-sm">
+                <div className="flex items-start gap-2.5">
                   <CheckCircle size={16} className="text-green-500 mt-0.5 shrink-0" />
-                  <span>Entraîné sur des <strong>milliers de plans validés par des professionnels</strong></span>
+                  <span>Entraîné sur des <strong className="text-slate-800">milliers de plans validés par des professionnels</strong></span>
                 </div>
-                <div className="flex items-start gap-2">
+                <div className="flex items-start gap-2.5">
                   <CheckCircle size={16} className="text-green-500 mt-0.5 shrink-0" />
-                  <span>Renforcement musculaire avec <strong>regard médical et exercices spécifiques</strong></span>
+                  <span>Renforcement musculaire avec <strong className="text-slate-800">regard médical et exercices spécifiques</strong></span>
                 </div>
-                <div className="flex items-start gap-2">
+                <div className="flex items-start gap-2.5">
                   <CheckCircle size={16} className="text-green-500 mt-0.5 shrink-0" />
-                  <span><strong>Questionnaire personnalisé</strong> — VMA, objectif, jours dispo, blessures</span>
+                  <span><strong className="text-slate-800">Questionnaire personnalisé</strong> — VMA, objectif, jours dispo, blessures</span>
                 </div>
-                <div className="flex items-start gap-2">
+                <div className="flex items-start gap-2.5">
                   <CheckCircle size={16} className="text-green-500 mt-0.5 shrink-0" />
-                  <span><strong>Feedback hebdomadaire</strong> — le plan s'adapte à ton ressenti sans perdre le contexte</span>
+                  <span><strong className="text-slate-800">Feedback hebdomadaire</strong> — le plan s'adapte à ton ressenti sans perdre le contexte</span>
                 </div>
-                <div className="flex items-start gap-2">
+                <div className="flex items-start gap-2.5">
                   <CheckCircle size={16} className="text-green-500 mt-0.5 shrink-0" />
-                  <span><strong>Analyse mensuelle Strava</strong> — bilan sur tes performances réelles</span>
+                  <span><strong className="text-slate-800">Analyse mensuelle Strava</strong> — bilan sur tes performances réelles</span>
                 </div>
-                <div className="flex items-start gap-2">
+                <div className="flex items-start gap-2.5">
                   <CheckCircle size={16} className="text-green-500 mt-0.5 shrink-0" />
-                  <span><strong>Plan structuré</strong> semaine par semaine avec calendrier visuel et export agenda</span>
+                  <span><strong className="text-slate-800">Plan structuré</strong> semaine par semaine avec calendrier visuel et export agenda</span>
                 </div>
               </div>
             </div>
           </div>
 
-          <p className="text-center text-slate-400 text-sm mt-8 max-w-xl mx-auto">
-            ChatGPT est un outil génial — mais généraliste. Coach Running IA est un <strong className="text-slate-600">spécialiste de l'entraînement running</strong>, conçu pour une seule mission : te faire progresser.
+          <p className="text-center text-slate-500 text-sm mt-10 max-w-xl mx-auto">
+            ChatGPT est un outil génial — mais généraliste. Coach Running IA est un <strong className="text-slate-800">spécialiste de l'entraînement running</strong>, conçu pour une seule mission : te faire progresser.
           </p>
         </div>
       </section>
 
       {/* SECTION 3: COMMENT ÇA MARCHE */}
-      <section className="py-16 md:py-24">
-        <div className="max-w-5xl mx-auto px-4">
-          <h2 className="text-3xl md:text-4xl font-black text-center text-slate-900 mb-4">
-            Comment ça marche ?
+      <section className="py-20 md:py-28 relative bg-orange-50/50">
+        <div className="relative max-w-5xl mx-auto px-4">
+          <h2 className="text-3xl md:text-5xl font-black text-center mb-4 tracking-tight text-slate-900">
+            Comment <span className="text-orange-500">ça marche</span> ?
           </h2>
-          <p className="text-center text-slate-500 mb-12 max-w-2xl mx-auto">
+          <p className="text-center text-slate-500 mb-16 max-w-2xl mx-auto text-lg">
             Obtenez votre programme d'entraînement personnalisé en 3 étapes simples
           </p>
-          
+
           <div className="grid md:grid-cols-3 gap-8">
-            <div className="text-center">
-              <div className="w-16 h-16 bg-accent/10 rounded-2xl flex items-center justify-center mx-auto mb-4">
-                <Clock className="text-accent" size={32} />
+            {[
+              { icon: Clock, step: '01', title: 'Je réponds au questionnaire', desc: "Moins d'1 minute pour définir votre niveau, objectif et disponibilités." },
+              { icon: Zap, step: '02', title: "L'IA génère mon plan", desc: 'Notre algorithme crée un programme sur-mesure adapté à votre profil.' },
+              { icon: Target, step: '03', title: 'Je cours et je progresse', desc: 'Suivez votre plan semaine après semaine et atteignez vos objectifs.' },
+            ].map(({ icon: Icon, step, title, desc }) => (
+              <div key={step} className="group text-center relative">
+                <div className="relative inline-flex mb-6">
+                  <div className="w-20 h-20 rounded-2xl bg-white border border-orange-200 shadow-md flex items-center justify-center group-hover:scale-110 group-hover:shadow-lg group-hover:shadow-orange-200/50 transition-all duration-300">
+                    <Icon className="text-orange-500" size={32} />
+                  </div>
+                  <span className="absolute -top-2 -right-2 w-7 h-7 bg-orange-500 rounded-full flex items-center justify-center text-xs font-bold text-white shadow-md">{step}</span>
+                </div>
+                <h3 className="text-xl font-bold text-slate-800 mb-3">{title}</h3>
+                <p className="text-slate-500 leading-relaxed">{desc}</p>
               </div>
-              <div className="text-accent font-bold text-sm mb-2">ÉTAPE 1</div>
-              <h3 className="text-xl font-bold text-slate-900 mb-2">Je réponds au questionnaire</h3>
-              <p className="text-slate-500">Moins d'1 minute pour définir votre niveau, objectif et disponibilités.</p>
-            </div>
-            <div className="text-center">
-              <div className="w-16 h-16 bg-accent/10 rounded-2xl flex items-center justify-center mx-auto mb-4">
-                <Zap className="text-accent" size={32} />
-              </div>
-              <div className="text-accent font-bold text-sm mb-2">ÉTAPE 2</div>
-              <h3 className="text-xl font-bold text-slate-900 mb-2">L'IA génère mon plan</h3>
-              <p className="text-slate-500">Notre algorithme crée un programme sur-mesure adapté à votre profil.</p>
-            </div>
-            <div className="text-center">
-              <div className="w-16 h-16 bg-accent/10 rounded-2xl flex items-center justify-center mx-auto mb-4">
-                <Target className="text-accent" size={32} />
-              </div>
-              <div className="text-accent font-bold text-sm mb-2">ÉTAPE 3</div>
-              <h3 className="text-xl font-bold text-slate-900 mb-2">Je cours et je progresse</h3>
-              <p className="text-slate-500">Suivez votre plan semaine après semaine et atteignez vos objectifs.</p>
-            </div>
+            ))}
           </div>
         </div>
       </section>
 
       {/* SECTION 4: COMPARATIF */}
-      <section className="py-16 md:py-24 bg-slate-50">
-        <div className="max-w-5xl mx-auto px-4">
-          <h2 className="text-3xl md:text-4xl font-black text-center text-slate-900 mb-4">
-            Pourquoi choisir Coach Running IA ?
+      <section className="py-20 md:py-28 relative overflow-hidden bg-white">
+        <div className="absolute bottom-0 left-1/4 w-[500px] h-[500px] bg-orange-100/30 rounded-full blur-[128px]"></div>
+
+        <div className="relative max-w-5xl mx-auto px-4">
+          <h2 className="text-3xl md:text-5xl font-black text-center mb-4 tracking-tight text-slate-900">
+            Pourquoi choisir <span className="text-orange-500">Coach Running IA</span> ?
           </h2>
-          <p className="text-center text-slate-500 mb-12 max-w-2xl mx-auto">
+          <p className="text-center text-slate-500 mb-16 max-w-2xl mx-auto text-lg">
             Comparez les différentes solutions d'entraînement running
           </p>
-          
-          <div className="overflow-x-auto">
-            <table className="w-full bg-white rounded-2xl shadow-lg overflow-hidden">
+
+          <div className="overflow-x-auto rounded-2xl border border-gray-200 shadow-md">
+            <table className="w-full">
               <thead>
-                <tr className="bg-slate-900 text-white">
-                  <th className="px-6 py-4 text-left">Fonctionnalité</th>
-                  <th className="px-6 py-4 text-center">Coach humain</th>
-                  <th className="px-6 py-4 text-center">Apps classiques</th>
-                  <th className="px-6 py-4 text-center bg-accent">Coach Running IA</th>
+                <tr className="bg-gray-50">
+                  <th className="px-6 py-5 text-left text-sm font-bold text-slate-500">Fonctionnalité</th>
+                  <th className="px-6 py-5 text-center text-sm font-bold text-slate-500">Coach humain</th>
+                  <th className="px-6 py-5 text-center text-sm font-bold text-slate-500">Apps classiques</th>
+                  <th className="px-6 py-5 text-center text-sm font-bold text-orange-600 bg-orange-50">Coach Running IA</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-slate-100">
-                <tr>
-                  <td className="px-6 py-4 font-medium">Plan personnalisé</td>
-                  <td className="px-6 py-4 text-center"><CheckCircle className="text-green-500 mx-auto" size={20} /></td>
-                  <td className="px-6 py-4 text-center"><X className="text-red-400 mx-auto" size={20} /></td>
-                  <td className="px-6 py-4 text-center bg-accent/5"><CheckCircle className="text-green-500 mx-auto" size={20} /></td>
-                </tr>
-                <tr>
-                  <td className="px-6 py-4 font-medium">Adapté à vos contraintes</td>
-                  <td className="px-6 py-4 text-center"><CheckCircle className="text-green-500 mx-auto" size={20} /></td>
-                  <td className="px-6 py-4 text-center"><X className="text-red-400 mx-auto" size={20} /></td>
-                  <td className="px-6 py-4 text-center bg-accent/5"><CheckCircle className="text-green-500 mx-auto" size={20} /></td>
-                </tr>
-                <tr>
-                  <td className="px-6 py-4 font-medium">Disponible 24h/24</td>
-                  <td className="px-6 py-4 text-center"><X className="text-red-400 mx-auto" size={20} /></td>
-                  <td className="px-6 py-4 text-center"><CheckCircle className="text-green-500 mx-auto" size={20} /></td>
-                  <td className="px-6 py-4 text-center bg-accent/5"><CheckCircle className="text-green-500 mx-auto" size={20} /></td>
-                </tr>
-                <tr>
-                  <td className="px-6 py-4 font-medium">Prix accessible</td>
-                  <td className="px-6 py-4 text-center"><X className="text-red-400 mx-auto" size={20} /></td>
-                  <td className="px-6 py-4 text-center"><CheckCircle className="text-green-500 mx-auto" size={20} /></td>
-                  <td className="px-6 py-4 text-center bg-accent/5"><CheckCircle className="text-green-500 mx-auto" size={20} /></td>
-                </tr>
-                <tr>
-                  <td className="px-6 py-4 font-medium">Ajustement en temps réel</td>
-                  <td className="px-6 py-4 text-center"><CheckCircle className="text-green-500 mx-auto" size={20} /></td>
-                  <td className="px-6 py-4 text-center"><X className="text-red-400 mx-auto" size={20} /></td>
-                  <td className="px-6 py-4 text-center bg-accent/5"><CheckCircle className="text-green-500 mx-auto" size={20} /></td>
-                </tr>
-                <tr className="bg-slate-50">
-                  <td className="px-6 py-4 font-bold">Prix</td>
-                  <td className="px-6 py-4 text-center font-bold text-slate-900">150-300€/mois</td>
-                  <td className="px-6 py-4 text-center font-bold text-slate-900">10-15€/mois</td>
-                  <td className="px-6 py-4 text-center font-bold text-accent bg-accent/5">1ère semaine gratuite</td>
+              <tbody className="divide-y divide-gray-100">
+                {[
+                  { feature: 'Plan personnalisé', coach: true, apps: false, us: true },
+                  { feature: 'Adapté à vos contraintes', coach: true, apps: false, us: true },
+                  { feature: 'Disponible 24h/24', coach: false, apps: true, us: true },
+                  { feature: 'Prix accessible', coach: false, apps: true, us: true },
+                  { feature: 'Ajustement en temps réel', coach: true, apps: false, us: true },
+                ].map(({ feature, coach, apps, us }) => (
+                  <tr key={feature} className="hover:bg-gray-50/50 transition-colors">
+                    <td className="px-6 py-4 font-medium text-slate-700 text-sm">{feature}</td>
+                    <td className="px-6 py-4 text-center">
+                      {coach ? <CheckCircle className="text-green-500/70 mx-auto" size={18} /> : <X className="text-red-400/50 mx-auto" size={18} />}
+                    </td>
+                    <td className="px-6 py-4 text-center">
+                      {apps ? <CheckCircle className="text-green-500/70 mx-auto" size={18} /> : <X className="text-red-400/50 mx-auto" size={18} />}
+                    </td>
+                    <td className="px-6 py-4 text-center bg-orange-50/50">
+                      {us ? <CheckCircle className="text-green-500 mx-auto" size={18} /> : <X className="text-red-400/50 mx-auto" size={18} />}
+                    </td>
+                  </tr>
+                ))}
+                <tr className="bg-gray-50">
+                  <td className="px-6 py-5 font-bold text-slate-800 text-sm">Prix</td>
+                  <td className="px-6 py-5 text-center font-bold text-slate-500 text-sm">150-300€/mois</td>
+                  <td className="px-6 py-5 text-center font-bold text-slate-500 text-sm">10-15€/mois</td>
+                  <td className="px-6 py-5 text-center bg-orange-50">
+                    <span className="font-bold text-orange-600 text-sm">1ère semaine gratuite</span>
+                  </td>
                 </tr>
               </tbody>
             </table>
@@ -294,40 +299,40 @@ const LandingPage: React.FC<LandingPageProps> = ({ user, onPlanGeneration, isGen
       </section>
 
       {/* SECTION 5: TÉMOIGNAGES */}
-      <section className="py-16 md:py-24">
-        <div className="max-w-5xl mx-auto px-4">
-          <h2 className="text-3xl md:text-4xl font-black text-center text-slate-900 mb-12">
-            Ils ont atteint leurs objectifs
+      <section className="py-20 md:py-28 relative bg-gray-50">
+        <div className="relative max-w-5xl mx-auto px-4">
+          <h2 className="text-3xl md:text-5xl font-black text-center mb-16 tracking-tight text-slate-900">
+            Ils ont atteint leurs <span className="text-orange-500">objectifs</span>
           </h2>
-          
+
           <div className="grid md:grid-cols-2 gap-8">
-            <div className="bg-white border border-slate-200 rounded-2xl p-8 shadow-sm">
-              <div className="flex items-center gap-1 mb-4">
-                {[...Array(5)].map((_, i) => <Star key={i} className="text-yellow-500 fill-yellow-500" size={18} />)}
+            <div className="rounded-2xl p-8 bg-white border border-gray-100 shadow-md hover:shadow-lg hover:border-orange-200 transition-all duration-300">
+              <div className="flex items-center gap-1 mb-5">
+                {[...Array(5)].map((_, i) => <Star key={i} className="text-orange-400 fill-orange-400" size={16} />)}
               </div>
-              <p className="text-slate-600 mb-6 italic">
+              <p className="text-slate-600 mb-8 italic leading-relaxed">
                 "Avoir un plan qui s'adapte à mes contraintes de temps, c'est top ! J'ai gagné <span className="font-bold text-slate-900">10 minutes sur mon semi-marathon</span> sans trop de difficultés. L'IA comprend vraiment mon rythme de vie."
               </p>
               <div className="flex items-center gap-4">
-                <div className="w-12 h-12 bg-accent/20 rounded-full flex items-center justify-center text-accent font-bold">R</div>
+                <div className="w-12 h-12 bg-gradient-to-br from-orange-500 to-orange-600 rounded-full flex items-center justify-center text-white font-bold shadow-lg shadow-orange-500/30">R</div>
                 <div>
-                  <div className="font-bold text-slate-900">Romane</div>
+                  <div className="font-bold text-slate-800">Romane</div>
                   <div className="text-sm text-slate-500">Marathonienne, 28 ans</div>
                 </div>
               </div>
             </div>
-            
-            <div className="bg-white border border-slate-200 rounded-2xl p-8 shadow-sm">
-              <div className="flex items-center gap-1 mb-4">
-                {[...Array(5)].map((_, i) => <Star key={i} className="text-yellow-500 fill-yellow-500" size={18} />)}
+
+            <div className="rounded-2xl p-8 bg-white border border-gray-100 shadow-md hover:shadow-lg hover:border-orange-200 transition-all duration-300">
+              <div className="flex items-center gap-1 mb-5">
+                {[...Array(5)].map((_, i) => <Star key={i} className="text-orange-400 fill-orange-400" size={16} />)}
               </div>
-              <p className="text-slate-600 mb-6 italic">
+              <p className="text-slate-600 mb-8 italic leading-relaxed">
                 "Surpris en positif de la <span className="font-bold text-slate-900">qualité et diversité des entraînements</span>. Après 10 marathons et un Ironman, je pensais avoir tout vu. Coach Running IA m'a proposé des séances variées et intelligentes."
               </p>
               <div className="flex items-center gap-4">
-                <div className="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center text-blue-600 font-bold">D</div>
+                <div className="w-12 h-12 bg-gradient-to-br from-orange-400 to-amber-500 rounded-full flex items-center justify-center text-white font-bold shadow-lg shadow-orange-500/30">D</div>
                 <div>
-                  <div className="font-bold text-slate-900">David</div>
+                  <div className="font-bold text-slate-800">David</div>
                   <div className="text-sm text-slate-500">Multi-marathonien & Finisher Ironman, 59 ans</div>
                 </div>
               </div>
@@ -336,30 +341,67 @@ const LandingPage: React.FC<LandingPageProps> = ({ user, onPlanGeneration, isGen
         </div>
       </section>
 
+      {/* SECTION: CONNECTÉ À STRAVA */}
+      <section className="py-20 md:py-28 relative bg-white">
+        <div className="relative max-w-5xl mx-auto px-4">
+          <div className="text-center mb-16">
+            <div className="flex items-center justify-center gap-3 mb-4">
+              <h2 className="text-3xl md:text-5xl font-black tracking-tight text-slate-900">
+                Connecté à <span className="text-[#FC4C02]">Strava</span>
+              </h2>
+              <svg className="w-10 h-10 text-[#FC4C02]" viewBox="0 0 24 24" fill="currentColor"><path d="M15.387 17.944l-2.089-4.116h-3.065L15.387 24l5.15-10.172h-3.066m-7.008-5.599l2.836 5.598h4.172L10.463 0l-7 13.828h4.169"/></svg>
+            </div>
+            <p className="text-slate-500 max-w-2xl mx-auto text-lg">
+              Partenaire officiel — vos données au service de votre progression
+            </p>
+          </div>
+
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+            {[
+              { title: "Connexion en 1 clic", desc: "Reliez votre compte Strava depuis votre espace Coach Running IA" },
+              { title: "Vos données accessibles", desc: "Historique de courses, distances, allures, fréquence cardiaque importés automatiquement" },
+              { title: "Plans plus adaptés", desc: "L'IA analyse vos performances réelles pour ajuster votre programme" },
+              { title: "Analyse mensuelle", desc: "Bilan automatique de vos sorties Strava avec recommandations personnalisées" },
+            ].map(({ title, desc }) => (
+              <div key={title} className="rounded-2xl p-6 bg-orange-50/50 border border-orange-100 text-center hover:shadow-md hover:border-orange-200 transition-all duration-300">
+                <h3 className="font-bold text-slate-800 mb-2">{title}</h3>
+                <p className="text-slate-500 text-sm leading-relaxed">{desc}</p>
+              </div>
+            ))}
+          </div>
+
+          <div className="mt-12 flex items-center justify-center gap-3">
+            <span className="text-sm text-slate-400">Compatible with</span>
+            <svg className="w-6 h-6 text-[#FC4C02]" viewBox="0 0 24 24" fill="currentColor"><path d="M15.387 17.944l-2.089-4.116h-3.065L15.387 24l5.15-10.172h-3.066m-7.008-5.599l2.836 5.598h4.172L10.463 0l-7 13.828h4.169"/></svg>
+            <span className="text-sm font-bold text-[#FC4C02]">Strava</span>
+          </div>
+        </div>
+      </section>
+
       {/* SECTION 6: BLOG */}
       {blogPosts.length > 0 && (
-        <section className="py-16 md:py-24 bg-slate-50">
-          <div className="max-w-5xl mx-auto px-4">
-            <h2 className="text-3xl md:text-4xl font-black text-center text-slate-900 mb-4">
-              Nos conseils running
+        <section className="py-20 md:py-28 relative overflow-hidden bg-white">
+          <div className="relative max-w-5xl mx-auto px-4">
+            <h2 className="text-3xl md:text-5xl font-black text-center mb-4 tracking-tight text-slate-900">
+              Nos conseils <span className="text-orange-500">running</span>
             </h2>
-            <p className="text-center text-slate-500 mb-12">
+            <p className="text-center text-slate-500 mb-16 text-lg">
               Articles et guides pour progresser en course à pied
             </p>
-            
+
             <div className="grid md:grid-cols-3 gap-8">
               {blogPosts.map(post => (
                 <Link key={post.id} to={`/blog/${post.slug}`} className="group">
-                  <div className="bg-white border border-slate-200 rounded-2xl overflow-hidden shadow-sm hover:shadow-lg transition-shadow">
+                  <div className="rounded-2xl overflow-hidden bg-white border border-gray-100 shadow-md hover:shadow-lg hover:border-orange-200 transition-all duration-300 hover:-translate-y-1">
                     {post.coverImage ? (
-                      <img src={post.coverImage} alt={post.title} className="w-full h-40 object-cover" />
+                      <img src={post.coverImage} alt={post.title} className="w-full h-44 object-cover group-hover:scale-105 transition-transform duration-300" />
                     ) : (
-                      <div className="w-full h-40 bg-slate-100 flex items-center justify-center">
-                        <span className="text-4xl opacity-30">🏃</span>
+                      <div className="w-full h-44 bg-gradient-to-br from-orange-100 to-amber-50 flex items-center justify-center">
+                        <span className="text-4xl opacity-50">🏃</span>
                       </div>
                     )}
                     <div className="p-5">
-                      <h3 className="font-bold text-slate-900 group-hover:text-accent transition-colors line-clamp-2 mb-2">
+                      <h3 className="font-bold text-slate-800 group-hover:text-orange-500 transition-colors line-clamp-2 mb-2">
                         {post.title}
                       </h3>
                       <p className="text-sm text-slate-500 line-clamp-2">{post.excerpt}</p>
@@ -368,10 +410,11 @@ const LandingPage: React.FC<LandingPageProps> = ({ user, onPlanGeneration, isGen
                 </Link>
               ))}
             </div>
-            
-            <div className="text-center mt-8">
-              <Link to="/blog" className="text-accent font-bold hover:underline">
-                Voir tous les articles →
+
+            <div className="text-center mt-12">
+              <Link to="/blog" className="text-orange-500 font-bold hover:text-orange-600 transition-colors inline-flex items-center gap-2">
+                Voir tous les articles
+                <ArrowRight size={16} />
               </Link>
             </div>
           </div>
@@ -379,24 +422,24 @@ const LandingPage: React.FC<LandingPageProps> = ({ user, onPlanGeneration, isGen
       )}
 
       {/* SECTION 7: FAQ */}
-      <section className="py-16 md:py-24">
-        <div className="max-w-3xl mx-auto px-4">
-          <h2 className="text-3xl md:text-4xl font-black text-center text-slate-900 mb-12">
-            Questions fréquentes
+      <section className="py-20 md:py-28 relative bg-orange-50/30">
+        <div className="relative max-w-3xl mx-auto px-4">
+          <h2 className="text-3xl md:text-5xl font-black text-center mb-16 tracking-tight text-slate-900">
+            Questions <span className="text-orange-500">fréquentes</span>
           </h2>
-          
-          <div className="space-y-4">
+
+          <div className="space-y-3">
             {faqs.map((faq, index) => (
-              <div key={index} className="bg-white rounded-xl border border-slate-200 overflow-hidden">
+              <div key={index} className="rounded-xl border border-gray-200 bg-white shadow-sm overflow-hidden hover:border-orange-200 hover:shadow-md transition-all">
                 <button
                   onClick={() => setOpenFaq(openFaq === index ? null : index)}
-                  className="w-full px-6 py-4 flex items-center justify-between text-left"
+                  className="w-full px-6 py-5 flex items-center justify-between text-left"
                 >
-                  <span className="font-bold text-slate-900">{faq.question}</span>
-                  {openFaq === index ? <ChevronUp className="text-accent" size={20} /> : <ChevronDown className="text-slate-400" size={20} />}
+                  <span className="font-bold text-slate-800 pr-4">{faq.question}</span>
+                  {openFaq === index ? <ChevronUp className="text-orange-500 shrink-0" size={20} /> : <ChevronDown className="text-slate-400 shrink-0" size={20} />}
                 </button>
                 {openFaq === index && (
-                  <div className="px-6 pb-4 text-slate-600">
+                  <div className="px-6 pb-5 text-slate-600 leading-relaxed">
                     {faq.answer}
                   </div>
                 )}
@@ -407,20 +450,22 @@ const LandingPage: React.FC<LandingPageProps> = ({ user, onPlanGeneration, isGen
       </section>
 
       {/* SECTION 8: CTA FINAL */}
-      <section className="py-16 md:py-24 bg-gradient-to-br from-slate-900 to-slate-800 text-white">
-        <div className="max-w-3xl mx-auto px-4 text-center">
-          <h2 className="text-3xl md:text-4xl font-black mb-4">
+      <section className="py-20 md:py-28 relative overflow-hidden bg-gradient-to-r from-orange-500 to-orange-600">
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-white/10 rounded-full blur-[128px]"></div>
+
+        <div className="relative max-w-3xl mx-auto px-4 text-center">
+          <h2 className="text-3xl md:text-5xl font-black mb-6 tracking-tight text-white">
             Prêt à atteindre vos objectifs ?
           </h2>
-          <p className="text-slate-300 mb-8 text-lg">
+          <p className="text-orange-100 mb-10 text-lg max-w-xl mx-auto">
             Rejoignez les coureurs qui ont déjà franchi le pas avec Coach Running IA
           </p>
           <button
             onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-            className="bg-accent hover:bg-orange-600 text-white px-8 py-4 rounded-full text-lg font-bold transition-all shadow-xl hover:shadow-2xl hover:scale-105 inline-flex items-center gap-2"
+            className="group relative inline-flex items-center gap-3 bg-white text-orange-600 px-10 py-5 rounded-full text-lg font-bold transition-all duration-300 shadow-xl hover:shadow-2xl hover:scale-105"
           >
             Créer mon plan gratuit
-            <ArrowRight size={20} />
+            <ArrowRight size={20} className="group-hover:translate-x-1 transition-transform" />
           </button>
         </div>
       </section>
