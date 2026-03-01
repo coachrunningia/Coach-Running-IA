@@ -21,6 +21,7 @@ export const WEEK_DAYS = ["Lundi", "Mardi", "Mercredi", "Jeudi", "Vendredi", "Sa
 export const APP_NAME = "Coach Running IA";
 
 export const STRIPE_PRICES = {
-  MONTHLY: "price_1T1pke1WQbIX14t02BeE0PYj", 
+  PLAN_UNIQUE: "price_1T67g41WQbIX14t09MD5FAhl",
+  MONTHLY: "price_1T67fR1WQbIX14t0eCWWtc68",
   YEARLY: "price_1T1pl41WQbIX14t0QycLzNjF"
 };

@@ -1,32 +1,9 @@
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, Suspense, lazy } from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate, useNavigate, useParams, useLocation } from 'react-router-dom';
 import Layout from './components/Layout';
-import Questionnaire from './components/Questionnaire';
-import PlanView from './components/PlanView';
-import AuthModal from './components/AuthModal';
-import LoadingScreen from './components/LoadingScreen';
-import ProfilePage from './components/ProfilePage';
-import SuccessPage from './components/SuccessPage';
-import VerifyEmail from './components/VerifyEmail';
-import EmailSentScreen from './components/EmailSentScreen';
-import StravaCallback from './components/StravaCallback';
-import BlogList from './components/blog/BlogList';
-import BlogArticle from './components/blog/BlogArticle';
-import BlogAdmin from './components/admin/BlogAdmin';
-import GlossaryPage from './components/GlossaryPage';
-import CGVPage from './components/CGVPage';
-import ConfidentialitePage from './components/ConfidentialitePage';
-import MentionsLegalesPage from './components/MentionsLegalesPage';
 import LandingPage from './components/LandingPage';
-import SemiMarathonLanding from './components/SemiMarathonLanding';
-import MarathonLanding from './components/MarathonLanding';
-import TrailLanding from './components/TrailLanding';
-import PaceConverterPage from './components/tools/PaceConverterPage';
-import VMACalculatorPage from './components/tools/VMACalculatorPage';
-import RacePredictorPage from './components/tools/RacePredictorPage';
-import MarathonPacePage from './components/tools/MarathonPacePage';
-import ToolsIndexPage from './components/tools/ToolsIndexPage';
+import LoadingScreen from './components/LoadingScreen';
 import { User, TrainingPlan, QuestionnaireData } from './types';
 import {
   observeAuthState,
@@ -35,13 +12,37 @@ import {
   getPlanById,
   createStripeCheckoutSession,
   checkCanGeneratePlan,
+  decrementPlansRemaining,
   saveUserQuestionnaire,
   upgradeUserToPremium,
   registerUser
 } from './services/storageService';
-import { generateTrainingPlan, generatePreviewPlan, generateRemainingWeeks, adaptPlanFromFeedback } from './services/geminiService';
-import { Trophy, CheckCircle, Zap, Loader2, Sparkles, X, ChevronRight } from 'lucide-react';
+import { Trophy, CheckCircle, Zap, Loader2, Sparkles, X, ChevronRight, Lock, XCircle } from 'lucide-react';
 import { APP_NAME, STRIPE_PRICES } from './constants';
+
+// Lazy-loaded route components
+const PlanView = lazy(() => import('./components/PlanView'));
+const AuthModal = lazy(() => import('./components/AuthModal'));
+const ProfilePage = lazy(() => import('./components/ProfilePage'));
+const SuccessPage = lazy(() => import('./components/SuccessPage'));
+const VerifyEmail = lazy(() => import('./components/VerifyEmail'));
+const EmailSentScreen = lazy(() => import('./components/EmailSentScreen'));
+const StravaCallback = lazy(() => import('./components/StravaCallback'));
+const BlogList = lazy(() => import('./components/blog/BlogList'));
+const BlogArticle = lazy(() => import('./components/blog/BlogArticle'));
+const BlogAdmin = lazy(() => import('./components/admin/BlogAdmin'));
+const GlossaryPage = lazy(() => import('./components/GlossaryPage'));
+const CGVPage = lazy(() => import('./components/CGVPage'));
+const ConfidentialitePage = lazy(() => import('./components/ConfidentialitePage'));
+const MentionsLegalesPage = lazy(() => import('./components/MentionsLegalesPage'));
+const SemiMarathonLanding = lazy(() => import('./components/SemiMarathonLanding'));
+const MarathonLanding = lazy(() => import('./components/MarathonLanding'));
+const TrailLanding = lazy(() => import('./components/TrailLanding'));
+const PaceConverterPage = lazy(() => import('./components/tools/PaceConverterPage'));
+const VMACalculatorPage = lazy(() => import('./components/tools/VMACalculatorPage'));
+const RacePredictorPage = lazy(() => import('./components/tools/RacePredictorPage'));
+const MarathonPacePage = lazy(() => import('./components/tools/MarathonPacePage'));
+const ToolsIndexPage = lazy(() => import('./components/tools/ToolsIndexPage'));
 
 
 // Redirection des anciennes URLs /post/* vers /blog/*
@@ -80,17 +81,22 @@ const AppContent = () => {
     try {
       console.log("[Gen] Génération du plan pour userId:", user.id);
 
-      // Vérifier les quotas (1 plan gratuit max)
-      const canGenerate = await checkCanGeneratePlan(user);
-      if (!canGenerate) {
+      // Vérifier les quotas
+      const quota = await checkCanGeneratePlan(user);
+      if (!quota.allowed) {
         setIsGenerating(false);
-        alert("Limite atteinte (1 plan gratuit). Passez Premium pour débloquer les plans illimités.");
+        if (quota.reason === 'plan_unique_exhausted') {
+          alert("Tu as utilisé tes 2 plans inclus dans le Plan Unique. Passe en Premium pour des plans illimités !");
+        } else {
+          alert("Limite atteinte (1 plan gratuit). Choisis une formule pour continuer.");
+        }
         navigate('/pricing');
         return;
       }
 
       // Générer le plan avec l'IA
       console.log("[Gen] Appel de l'IA Elite Coach (mode PREVIEW)...");
+      const { generatePreviewPlan } = await import('./services/geminiService');
       const plan = await generatePreviewPlan(data);
 
       if (plan) {
@@ -98,13 +104,20 @@ const AppContent = () => {
         plan.userEmail = data.email || user.email || null;
       }
 
-
-      // 5. Sauvegarder tout en base de données
+      // Sauvegarder tout en base de données
       console.log("[Gen] Sauvegarde des données...");
       await savePlan(plan);
       await saveUserQuestionnaire(user.id, data);
 
-      // 6. Redirection vers le plan nouvellement créé
+      // Décrémenter le compteur si Plan Unique
+      if (user.hasPurchasedPlan && !user.isPremium) {
+        const remaining = await decrementPlansRemaining(user.id);
+        if (remaining !== null) {
+          console.log(`[Gen] Plans restants pour Plan Unique: ${remaining}`);
+        }
+      }
+
+      // Redirection vers le plan nouvellement créé
       console.log("[Gen] Succès ! Redirection vers /plan/" + plan.id);
 
       // On attend un tout petit peu pour s'assurer que le store Firestore est à jour avant la redirection
@@ -154,6 +167,7 @@ const AppContent = () => {
     <Layout user={user} setUser={setUser}>
       {isGenerating && <LoadingScreen />}
 
+      <Suspense fallback={<div className="min-h-screen flex items-center justify-center"><Loader2 className="animate-spin text-accent" size={32} /></div>}>
       <Routes>
         <Route path="/" element={<LandingPage user={user} onPlanGeneration={handlePlanGeneration} isGenerating={isGenerating} />} />
         <Route path="/auth" element={<div className="min-h-screen flex items-center justify-center bg-slate-50"><AuthModal onAuthSuccess={handleAuthSuccess} /></div>} />
@@ -192,6 +206,7 @@ const AppContent = () => {
         {/* Admin Routes - Protégé par isAdmin (rôle administrateur uniquement) */}
         <Route path="/admin/blog" element={user?.isAdmin ? <BlogAdmin user={user} /> : <Navigate to="/" replace />} />
       </Routes>
+      </Suspense>
     </Layout>
   );
 };
@@ -239,8 +254,17 @@ const Dashboard: React.FC<{ user: User }> = ({ user }) => {
       const params = new URLSearchParams(location.search);
       if (params.get('payment_success') === 'true' && !paymentHandled) {
         setPaymentHandled(true);
+        const purchaseType = params.get('type');
         // Nettoyer l'URL immédiatement
         window.history.replaceState({}, '', '/dashboard');
+
+        if (purchaseType === 'plan_unique') {
+          // Plan Unique: webhook handles Firestore, just show success
+          console.log('[PlanUnique] Payment success detected');
+          setShowSuccessModal(true);
+          return;
+        }
+
         console.log('[Premium] Payment success detected. User isPremium:', user.isPremium);
 
         if (!user.isPremium) {
@@ -249,9 +273,6 @@ const Dashboard: React.FC<{ user: User }> = ({ user }) => {
             console.log('[Premium] Upgrading user to Premium... userId:', user.id);
             await upgradeUserToPremium(user.id);
             console.log('[Premium] Upgrade complete. Firestore onSnapshot will update user state.');
-            // Attendre que le Firestore listener mette à jour l'état user
-            // Le onSnapshot dans observeAuthState détectera isPremium: true
-            // et mettra à jour le state automatiquement
           } catch (error) {
             console.error('[Premium] Error upgrading user:', error);
             setUpgrading(false);
@@ -302,8 +323,15 @@ const Dashboard: React.FC<{ user: User }> = ({ user }) => {
           <div className="bg-white rounded-2xl p-8 max-w-md w-full text-center relative shadow-2xl border-2 border-accent animate-in zoom-in duration-300">
             <button onClick={() => setShowSuccessModal(false)} className="absolute top-4 right-4 text-slate-400 hover:text-slate-600"><X /></button>
             <Sparkles size={40} className="text-green-500 mx-auto mb-4" />
-            <h2 className="text-2xl font-bold mb-2">Compte Premium Activé !</h2>
-            <p className="text-slate-600 mb-6">Félicitations {user.firstName}, vous avez maintenant accès à l'intégralité des fonctionnalités.</p>
+            <h2 className="text-2xl font-bold mb-2">
+              {user.isPremium ? 'Compte Premium Active !' : 'Achat confirme !'}
+            </h2>
+            <p className="text-slate-600 mb-6">
+              {user.isPremium
+                ? `Felicitations ${user.firstName}, tu as maintenant acces a toutes les fonctionnalites.`
+                : `Merci ${user.firstName} ! Tu peux maintenant generer tes plans d'entrainement.`
+              }
+            </p>
             <button onClick={() => setShowSuccessModal(false)} className="w-full bg-slate-900 text-white py-4 rounded-xl font-bold">C'est parti</button>
           </div>
         </div>
@@ -579,6 +607,7 @@ const ADMIN_EMAILS = ["programme@coachrunningia.fr"];
     console.log('[Remaining] Début génération des semaines restantes...');
 
     try {
+      const { generateRemainingWeeks } = await import('./services/geminiService');
       const fullPlan = await generateRemainingWeeks(plan);
 
       // Ajouter userId/userEmail
@@ -612,6 +641,7 @@ const ADMIN_EMAILS = ["programme@coachrunningia.fr"];
 
     try {
       console.log('[Adaptation] Demande d\'adaptation avec contexte:', feedbackContext);
+      const { adaptPlanFromFeedback } = await import('./services/geminiService');
       const result = await adaptPlanFromFeedback(plan, user.questionnaireData, feedbackContext);
       console.log('[Adaptation] Résultat:', result);
 
@@ -706,7 +736,7 @@ const ADMIN_EMAILS = ["programme@coachrunningia.fr"];
       )}
       <PlanView
         plan={plan}
-        isLocked={!user?.isPremium && (plan.isFreePreview || plan.isPreview)}
+        isLocked={!user?.isPremium && !user?.hasPurchasedPlan && (plan.isFreePreview || plan.isPreview)}
         onRegenerateFull={handleRegenerateFull}
         onGenerateRemainingWeeks={handleGenerateRemainingWeeks}
         isGeneratingRemaining={isGeneratingRemaining}
@@ -719,83 +749,200 @@ const ADMIN_EMAILS = ["programme@coachrunningia.fr"];
 
 const PricingPage = ({ user }: { user: User | null }) => {
   const navigate = useNavigate();
-  const [loading, setLoading] = useState(false);
+  const [loadingPlan, setLoadingPlan] = useState<string | null>(null);
 
-  const handleSubscribe = async (priceId: string) => {
+  const handleSubscribe = async (priceId: string, mode: 'subscription' | 'payment' = 'subscription') => {
     if (!user) {
       navigate('/auth?redirect=pricing');
       return;
     }
-    setLoading(true);
+    setLoadingPlan(priceId);
     try {
-      await createStripeCheckoutSession(priceId);
+      await createStripeCheckoutSession(priceId, mode);
     } catch (e: any) {
       alert("Erreur Stripe : " + e.message);
     } finally {
-      setLoading(false);
+      setLoadingPlan(null);
     }
   };
 
+  const includedFeatures = [
+    "Plan d'entraînement complet par IA",
+    "Export PDF",
+    "Export calendrier (iPhone, Google)",
+    "Export montres GPS (Garmin, Coros, Suunto)",
+  ];
+
+  const planUniqueExtra = "1 regeneration gratuite (2 plans au total)";
+
+  const premiumOnlyFeatures = [
+    "Connexion Strava",
+    "Bilan mensuel Strava (forces, faiblesses, recommandations)",
+    "Analyse hebdomadaire (plan vs reel)",
+    "Feedback apres chaque seance",
+    "Adaptation automatique du plan",
+    "Regenerations illimitees",
+  ];
+
   return (
-    <div className="max-w-4xl mx-auto px-4 py-20">
-      <div className="text-center mb-16">
-        <h1 className="text-4xl font-bold text-slate-900 mb-4">Passez à la vitesse supérieure</h1>
-        <p className="text-slate-500">Libérez tout le potentiel de votre entraînement IA.</p>
-        <p className="text-emerald-600 font-bold mt-2">✓ Sans engagement - Annulez quand vous voulez</p>
+    <div className="max-w-6xl mx-auto px-4 py-16">
+      <div className="text-center mb-12">
+        <h1 className="text-4xl font-bold text-slate-900 mb-4">Choisis ta formule</h1>
+        <p className="text-slate-500 text-lg">Un plan unique ou un suivi complet : a toi de choisir.</p>
       </div>
-      <div className="grid md:grid-cols-2 gap-8 mb-16">
-        <div className="bg-white p-8 rounded-3xl border border-slate-200 shadow-sm text-center flex flex-col">
-          <h3 className="text-xl font-bold mb-4">Mensuel</h3>
-          <p className="text-5xl font-black mb-6"><span className="text-2xl line-through text-slate-400 mr-2">5,90€</span>3,90€<span className="text-sm font-normal text-slate-400">/mois</span></p>
-          <ul className="text-left space-y-3 mb-8 text-sm text-slate-600 flex-grow">
-            <li className="flex gap-2"><CheckCircle size={16} className="text-green-500" /> Plans illimités (toutes les semaines)</li>
-            <li className="flex gap-2"><CheckCircle size={16} className="text-green-500" /> Feedback après chaque séance</li>
-            <li className="flex gap-2"><CheckCircle size={16} className="text-green-500" /> Export calendrier Google/Apple</li>
-            <li className="flex gap-2"><CheckCircle size={16} className="text-green-500" /> Adaptation intelligente du plan</li>
-            <li className="flex gap-2"><CheckCircle size={16} className="text-green-500" /> Export sur montres GPS (Garmin, Coros, Suunto)</li>
-            <li className="flex gap-2"><CheckCircle size={16} className="text-green-500" /> Bilan mensuel Strava (forces, faiblesses, recommandations IA)</li>
-            <li className="flex gap-2"><CheckCircle size={16} className="text-green-500" /> Analyse hebdo intelligente (plan vs réel, cross-training inclus)</li>
-            <li className="flex gap-2"><CheckCircle size={16} className="text-green-500" /> Rappels hebdomadaires</li>
-            <li className="flex gap-2"><CheckCircle size={16} className="text-green-500" /> Sans engagement, annulation libre</li>
-          </ul>
-          <button onClick={() => handleSubscribe(STRIPE_PRICES.MONTHLY)} disabled={loading} className="w-full bg-slate-900 text-white py-4 rounded-2xl font-bold hover:bg-slate-800 transition-all disabled:opacity-50">Souscrire mensuel</button>
+
+      {/* 3 Cards */}
+      <div className="grid md:grid-cols-3 gap-6 mb-16 items-start">
+
+        {/* Plan Unique */}
+        <div className="bg-white rounded-2xl border border-slate-200 shadow-sm p-6 flex flex-col">
+          <div className="text-center mb-6">
+            <h3 className="text-lg font-bold text-slate-900 mb-3">Plan Unique</h3>
+            <div className="flex items-baseline justify-center gap-2">
+              <span className="text-xl line-through text-slate-400">5,90&euro;</span>
+              <span className="text-4xl font-black text-slate-900">3,90&euro;</span>
+            </div>
+            <p className="text-sm text-slate-500 mt-1">Paiement unique</p>
+          </div>
+
+          <div className="border-t border-slate-100 pt-4 mb-4 flex-grow">
+            <p className="text-xs font-bold text-slate-400 uppercase tracking-wider mb-3">Inclus</p>
+            <ul className="space-y-2.5 text-sm text-slate-700 mb-4">
+              {includedFeatures.map((f, i) => (
+                <li key={i} className="flex gap-2 items-start"><CheckCircle size={15} className="text-green-500 mt-0.5 flex-shrink-0" />{f}</li>
+              ))}
+              <li className="flex gap-2 items-start"><CheckCircle size={15} className="text-green-500 mt-0.5 flex-shrink-0" />{planUniqueExtra}</li>
+            </ul>
+
+            <p className="text-xs font-bold text-slate-400 uppercase tracking-wider mb-3 mt-5">Non inclus</p>
+            <ul className="space-y-2.5 text-sm text-slate-400">
+              {premiumOnlyFeatures.map((f, i) => (
+                <li key={i} className="flex gap-2 items-start"><XCircle size={15} className="text-slate-300 mt-0.5 flex-shrink-0" />{f}</li>
+              ))}
+            </ul>
+          </div>
+
+          <button
+            onClick={() => handleSubscribe(STRIPE_PRICES.PLAN_UNIQUE, 'payment')}
+            disabled={loadingPlan !== null}
+            className="w-full py-3.5 bg-slate-900 text-white font-bold rounded-xl hover:bg-slate-800 transition-all disabled:opacity-50 flex items-center justify-center gap-2"
+          >
+            {loadingPlan === STRIPE_PRICES.PLAN_UNIQUE ? (
+              <Loader2 size={18} className="animate-spin" />
+            ) : (
+              <>Acheter mon plan</>
+            )}
+          </button>
         </div>
-        <div className="bg-white p-8 rounded-3xl border-2 border-accent shadow-2xl text-center transform md:scale-105 relative flex flex-col">
-          <div className="absolute top-0 right-0 bg-accent text-white px-4 py-1 rounded-bl-xl font-bold text-xs uppercase">Populaire</div>
-          <h3 className="text-xl font-bold mb-4">Annuel</h3>
-          <p className="text-5xl font-black mb-2"><span className="text-2xl line-through text-slate-400 mr-2">49,90€</span>39,90€<span className="text-sm font-normal text-slate-400">/an</span></p>
-          <p className="text-xs text-green-600 font-bold mb-6">Économisez 15%</p>
-          <ul className="text-left space-y-3 mb-8 text-sm text-slate-600 flex-grow">
-            <li className="flex gap-2"><CheckCircle size={16} className="text-green-500" /> Tous les avantages mensuels</li>
-            <li className="flex gap-2"><CheckCircle size={16} className="text-green-500" /> 2 mois offerts (~3,33€/mois)</li>
-          </ul>
-          <button onClick={() => handleSubscribe(STRIPE_PRICES.YEARLY)} disabled={loading} className="w-full bg-accent text-white py-4 rounded-2xl font-bold hover:bg-orange-600 transition-all disabled:opacity-50">Souscrire annuel</button>
+
+        {/* Mensuel - Populaire */}
+        <div className="bg-white rounded-2xl border-2 border-accent shadow-xl p-6 flex flex-col relative">
+          <div className="absolute -top-3 left-1/2 -translate-x-1/2 bg-accent text-white px-4 py-1 rounded-full text-xs font-black uppercase">Populaire</div>
+
+          <div className="text-center mb-6 mt-2">
+            <h3 className="text-lg font-bold text-slate-900 mb-3">Premium Mensuel</h3>
+            <div className="flex items-baseline justify-center gap-2">
+              <span className="text-xl line-through text-slate-400">9,90&euro;</span>
+              <span className="text-4xl font-black text-slate-900">4,90&euro;</span>
+              <span className="text-slate-500 text-sm">/mois</span>
+            </div>
+            <p className="text-sm text-slate-500 mt-1">Sans engagement</p>
+          </div>
+
+          <div className="border-t border-slate-100 pt-4 mb-4 flex-grow">
+            <p className="text-xs font-bold text-slate-400 uppercase tracking-wider mb-3">Tout inclus</p>
+            <ul className="space-y-2.5 text-sm text-slate-700">
+              {includedFeatures.map((f, i) => (
+                <li key={i} className="flex gap-2 items-start"><CheckCircle size={15} className="text-green-500 mt-0.5 flex-shrink-0" />{f}</li>
+              ))}
+              {premiumOnlyFeatures.map((f, i) => (
+                <li key={i} className="flex gap-2 items-start"><CheckCircle size={15} className="text-green-500 mt-0.5 flex-shrink-0" /><span className="font-medium">{f}</span></li>
+              ))}
+              <li className="flex gap-2 items-start"><CheckCircle size={15} className="text-green-500 mt-0.5 flex-shrink-0" /><span className="font-medium">Sans engagement, annulation libre</span></li>
+            </ul>
+          </div>
+
+          <button
+            onClick={() => handleSubscribe(STRIPE_PRICES.MONTHLY)}
+            disabled={loadingPlan !== null}
+            className="w-full py-3.5 bg-accent text-white font-bold rounded-xl hover:bg-orange-600 transition-all disabled:opacity-50 flex items-center justify-center gap-2"
+          >
+            {loadingPlan === STRIPE_PRICES.MONTHLY ? (
+              <Loader2 size={18} className="animate-spin" />
+            ) : (
+              <>
+                <Zap size={16} />
+                S'abonner
+              </>
+            )}
+          </button>
+        </div>
+
+        {/* Annuel */}
+        <div className="bg-white rounded-2xl border border-slate-200 shadow-sm p-6 flex flex-col relative">
+          <div className="absolute -top-3 left-1/2 -translate-x-1/2 bg-emerald-500 text-white px-4 py-1 rounded-full text-xs font-black">+32&euro; ECONOMISES</div>
+
+          <div className="text-center mb-6 mt-2">
+            <h3 className="text-lg font-bold text-slate-900 mb-3">Premium Annuel</h3>
+            <div className="flex items-baseline justify-center gap-2">
+              <span className="text-xl line-through text-slate-400">69,90&euro;</span>
+              <span className="text-4xl font-black text-slate-900">39,90&euro;</span>
+              <span className="text-slate-500 text-sm">/an</span>
+            </div>
+            <p className="text-sm text-emerald-600 font-bold mt-1">Soit 3,33&euro;/mois</p>
+          </div>
+
+          <div className="border-t border-slate-100 pt-4 mb-4 flex-grow">
+            <p className="text-xs font-bold text-slate-400 uppercase tracking-wider mb-3">Tout inclus</p>
+            <ul className="space-y-2.5 text-sm text-slate-700">
+              {includedFeatures.map((f, i) => (
+                <li key={i} className="flex gap-2 items-start"><CheckCircle size={15} className="text-green-500 mt-0.5 flex-shrink-0" />{f}</li>
+              ))}
+              {premiumOnlyFeatures.map((f, i) => (
+                <li key={i} className="flex gap-2 items-start"><CheckCircle size={15} className="text-green-500 mt-0.5 flex-shrink-0" /><span className="font-medium">{f}</span></li>
+              ))}
+              <li className="flex gap-2 items-start"><CheckCircle size={15} className="text-green-500 mt-0.5 flex-shrink-0" /><span className="font-medium">Presque 4 mois offerts</span></li>
+            </ul>
+          </div>
+
+          <button
+            onClick={() => handleSubscribe(STRIPE_PRICES.YEARLY)}
+            disabled={loadingPlan !== null}
+            className="w-full py-3.5 bg-slate-900 text-white font-bold rounded-xl hover:bg-slate-800 transition-all disabled:opacity-50 flex items-center justify-center gap-2"
+          >
+            {loadingPlan === STRIPE_PRICES.YEARLY ? (
+              <Loader2 size={18} className="animate-spin" />
+            ) : (
+              <>S'abonner annuel</>
+            )}
+          </button>
         </div>
       </div>
+
       {/* FAQ */}
-      <div className="mt-16 max-w-3xl mx-auto">
-        <h2 className="text-2xl font-bold text-center text-slate-900 mb-8">Questions fréquentes</h2>
+      <div className="max-w-3xl mx-auto">
+        <h2 className="text-2xl font-bold text-center text-slate-900 mb-8">Questions frequentes</h2>
         <div className="space-y-4">
           <div className="bg-white rounded-xl border border-slate-200 p-6">
-            <h3 className="font-bold text-slate-900 mb-2">Quelle différence avec un programme PDF gratuit ?</h3>
-            <p className="text-slate-600 text-sm">Un PDF est figé et identique pour tout le monde. Coach Running IA génère un plan 100% personnalisé selon TON niveau, TES disponibilités et TON objectif. Le plan s adapte chaque semaine selon ton ressenti et tes performances réelles.</p>
+            <h3 className="font-bold text-slate-900 mb-2">Quelle difference entre Plan Unique et Premium ?</h3>
+            <p className="text-slate-600 text-sm">Le Plan Unique te donne un plan complet genere par IA avec exports (PDF, calendrier, montres GPS) et 1 regeneration. Le Premium ajoute la connexion Strava, les analyses hebdomadaires, le feedback apres chaque seance et l'adaptation automatique de ton plan.</p>
           </div>
           <div className="bg-white rounded-xl border border-slate-200 p-6">
-            <h3 className="font-bold text-slate-900 mb-2">Quelle différence avec un coach personnel ?</h3>
-            <p className="text-slate-600 text-sm">Un coach coûte 50-100€ par séance. Ici tu as un suivi personnalisé pour moins de 6€/mois. L IA analyse tes données et adapte ton plan exactement comme le ferait un coach, mais 15x moins cher.</p>
+            <h3 className="font-bold text-slate-900 mb-2">Je peux passer du Plan Unique au Premium ?</h3>
+            <p className="text-slate-600 text-sm">Oui, a tout moment ! Tu gardes ton plan existant et tu debloques toutes les fonctionnalites Premium (Strava, feedbacks, adaptation).</p>
           </div>
           <div className="bg-white rounded-xl border border-slate-200 p-6">
             <h3 className="font-bold text-slate-900 mb-2">Je peux annuler quand je veux ?</h3>
-            <p className="text-slate-600 text-sm">Oui, sans engagement. Tu peux annuler ton abonnement à tout moment depuis ton espace. Tu gardes l accès jusqu à la fin de la période payée.</p>
+            <p className="text-slate-600 text-sm">Oui, sans engagement. Tu peux annuler ton abonnement Premium a tout moment. Tu gardes l'acces jusqu'a la fin de la periode payee. Le Plan Unique est un achat definitif.</p>
           </div>
           <div className="bg-white rounded-xl border border-slate-200 p-6">
-            <h3 className="font-bold text-slate-900 mb-2">Ça fonctionne pour quel niveau ?</h3>
-            <p className="text-slate-600 text-sm">Débutant complet à ultra-trailer confirmé. L IA adapte les séances, les volumes et les allures à TON niveau actuel. Que tu vises ton premier 10km ou un ultra de 100km.</p>
+            <h3 className="font-bold text-slate-900 mb-2">Ca fonctionne pour quel niveau ?</h3>
+            <p className="text-slate-600 text-sm">Debutant complet a ultra-trailer confirme. L'IA adapte les seances, les volumes et les allures a TON niveau actuel. Que tu vises ton premier 10km ou un ultra de 100km.</p>
           </div>
         </div>
       </div>
 
-
+      <p className="text-center text-sm text-slate-400 mt-8">Paiement securise par Stripe.</p>
     </div>
   );
 };

@@ -211,20 +211,47 @@ app.post('/api/stripe/webhook', express.raw({ type: 'application/json' }), async
       // Get user data for firstName
       const userDoc = await admin.firestore().collection('users').doc(userId).get();
       const userData = userDoc.exists ? userDoc.data() : {};
-
-      await admin.firestore().collection('users').doc(userId).set({
-        isPremium: true,
-        premiumSince: new Date().toISOString(),
-        stripeCustomerId: session.customer,
-        stripeSubscriptionId: session.subscription
-      }, { merge: true });
-      console.log(`[Stripe] Utilisateur ${userId} passé Premium !`);
-
-      // Move to Brevo subscribers list
       const email = customerEmail || userData.email;
-      if (email) {
-        await brevoMoveToSubscribers(email);
-        console.log(`[Brevo] ${email} moved to subscribers list`);
+
+      // Determine if this is a Plan Unique (one-time payment) or subscription
+      const purchaseType = session.metadata?.purchaseType || (session.mode === 'payment' ? 'plan_unique' : 'subscription');
+
+      if (purchaseType === 'plan_unique') {
+        // Plan Unique: one-time payment
+        await admin.firestore().collection('users').doc(userId).set({
+          hasPurchasedPlan: true,
+          planPurchaseDate: new Date().toISOString(),
+          plansRemaining: 2,
+          stripeCustomerId: session.customer,
+        }, { merge: true });
+        console.log(`[Stripe] Utilisateur ${userId} a acheté le Plan Unique (2 plans)`);
+
+        // Add to Brevo list #9 (Plan Unique buyers)
+        if (email) {
+          const BREVO_LIST_PLAN_UNIQUE = parseInt(process.env.BREVO_LIST_PLAN_UNIQUE) || 9;
+          await brevoApiCall('contacts', 'POST', {
+            email: email.toLowerCase(),
+            attributes: { PRENOM: userData.firstName || 'Coureur', IS_PREMIUM: false },
+            listIds: [BREVO_LIST_PLAN_UNIQUE],
+            updateEnabled: true
+          });
+          console.log(`[Brevo] ${email} added to Plan Unique list #${BREVO_LIST_PLAN_UNIQUE}`);
+        }
+      } else {
+        // Subscription (Mensuel / Annuel)
+        await admin.firestore().collection('users').doc(userId).set({
+          isPremium: true,
+          premiumSince: new Date().toISOString(),
+          stripeCustomerId: session.customer,
+          stripeSubscriptionId: session.subscription
+        }, { merge: true });
+        console.log(`[Stripe] Utilisateur ${userId} passé Premium !`);
+
+        // Move to Brevo subscribers list
+        if (email) {
+          await brevoMoveToSubscribers(email);
+          console.log(`[Brevo] ${email} moved to subscribers list`);
+        }
       }
     } catch (dbError) {
       console.error('[Stripe Webhook] Erreur Firestore:', dbError);
@@ -342,26 +369,41 @@ app.post('/api/create-checkout-session', async (req, res) => {
   const validPriceIds = [
     process.env.STRIPE_PRICE_MONTHLY,
     process.env.STRIPE_PRICE_YEARLY,
-    'price_1S2W601WQbIX14t0rkHRcJLG', // Monthly fallback
-    'price_1S2W7I1WQbIX14t0qJvbXMgT'  // Yearly fallback
+    process.env.STRIPE_PRICE_PLAN_UNIQUE,
+    'price_1T67g41WQbIX14t09MD5FAhl', // Plan Unique
+    'price_1T67fR1WQbIX14t0eCWWtc68', // Monthly
+    'price_1T1pl41WQbIX14t0QycLzNjF', // Yearly
+    'price_1S2W601WQbIX14t0rkHRcJLG', // Monthly fallback (legacy)
+    'price_1S2W7I1WQbIX14t0qJvbXMgT'  // Yearly fallback (legacy)
   ].filter(Boolean);
 
   if (validPriceIds.length > 0 && !validPriceIds.includes(priceId)) {
     console.warn(`[Stripe] PriceId inconnu tenté: ${priceId}`);
-    // On laisse passer pour ne pas bloquer si les IDs changent, mais on log
   }
 
+  // Determine mode: 'payment' for Plan Unique, 'subscription' for Mensuel/Annuel
+  const PLAN_UNIQUE_PRICE_IDS = [
+    'price_1T67g41WQbIX14t09MD5FAhl',
+    process.env.STRIPE_PRICE_PLAN_UNIQUE
+  ].filter(Boolean);
+
+  const checkoutMode = (req.body.mode === 'payment' || PLAN_UNIQUE_PRICE_IDS.includes(priceId))
+    ? 'payment'
+    : 'subscription';
+
   try {
-    const session = await stripe.checkout.sessions.create({
-      mode: 'subscription',
+    const sessionParams = {
+      mode: checkoutMode,
       payment_method_types: ['card'],
       line_items: [{ price: priceId, quantity: 1 }],
       customer_email: userEmail,
       client_reference_id: userId,
       success_url: successUrl,
       cancel_url: cancelUrl,
-      metadata: { userId }
-    });
+      metadata: { userId, purchaseType: checkoutMode === 'payment' ? 'plan_unique' : 'subscription' }
+    };
+
+    const session = await stripe.checkout.sessions.create(sessionParams);
     res.json({ url: session.url });
   } catch (error) {
     console.error('[Stripe Error]', error);

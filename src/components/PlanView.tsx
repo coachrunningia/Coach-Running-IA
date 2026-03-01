@@ -141,6 +141,7 @@ const PlanView: React.FC<PlanViewProps> = ({ plan: initialPlan, isLocked = false
 
   // Vérifier si l'utilisateur est Premium (double check: prop isLocked OU user.isPremium)
   const userIsPremium = user?.isPremium ?? false;
+  const isPlanUniqueUser = !userIsPremium && (user?.hasPurchasedPlan ?? false);
   const canAccessPremiumFeatures = userIsPremium && !isLocked;
 
   const handleExport = () => {
@@ -881,9 +882,17 @@ const PlanView: React.FC<PlanViewProps> = ({ plan: initialPlan, isLocked = false
           {!canAccessPremiumFeatures ? (
             <div className="bg-slate-50 rounded-xl p-8 border border-slate-200 text-center">
               <Lock size={48} className="mx-auto text-slate-300 mb-4" />
-              <h3 className="text-xl font-bold text-slate-800 mb-2">Fonctionnalité Premium</h3>
-              <p className="text-slate-500 mb-4">Connecte Strava et laisse l'IA analyser tes sorties pour adapter automatiquement ton plan.</p>
-              <button onClick={handleUnlockClick} className="px-6 py-3 bg-orange-500 text-white font-bold rounded-xl hover:bg-orange-600 transition-all">Débloquer</button>
+              <h3 className="text-xl font-bold text-slate-800 mb-2">
+                {isPlanUniqueUser ? 'Reserve aux abonnes Premium' : 'Fonctionnalite Premium'}
+              </h3>
+              <p className="text-slate-500 mb-4">
+                {isPlanUniqueUser
+                  ? 'Passe en Premium pour debloquer Strava, les analyses hebdomadaires et l\'adaptation automatique de ton plan.'
+                  : 'Connecte Strava et laisse l\'IA analyser tes sorties pour adapter automatiquement ton plan.'}
+              </p>
+              <button onClick={handleUnlockClick} className="px-6 py-3 bg-orange-500 text-white font-bold rounded-xl hover:bg-orange-600 transition-all">
+                {isPlanUniqueUser ? 'Passer en Premium' : 'Debloquer'}
+              </button>
             </div>
           ) : (
             <StravaConnect isConnected={stravaConnected} onConnect={() => setStravaConnected(true)} isPremium={canAccessPremiumFeatures} />
@@ -895,11 +904,26 @@ const PlanView: React.FC<PlanViewProps> = ({ plan: initialPlan, isLocked = false
 
       {activeTab === "PROGRAMME" && (
         <div className="animate-in fade-in slide-in-from-bottom-4 duration-500">
+          {/* Upsell banner for Plan Unique users */}
+          {isPlanUniqueUser && (
+            <div className="bg-gradient-to-r from-amber-50 to-orange-50 border border-amber-200 rounded-xl p-4 mb-6 flex items-center justify-between gap-4 flex-wrap">
+              <div className="flex items-center gap-3">
+                <Zap size={20} className="text-amber-500" />
+                <p className="text-sm text-slate-700">
+                  <span className="font-bold">Plan Unique actif.</span> Passe en Premium pour debloquer Strava, les feedbacks et l'adaptation automatique.
+                </p>
+              </div>
+              <button onClick={handleUnlockClick} className="px-4 py-2 bg-accent text-white text-sm font-bold rounded-lg hover:bg-orange-600 transition-all whitespace-nowrap">
+                Voir les offres
+              </button>
+            </div>
+          )}
+
           {/* WEEKS & SESSIONS LIST */}
           <div className="space-y-6">
             {plan.weeks.map((week, index) => {
-              // Semaine verrouillée si: pas premium ET pas la première semaine (aperçu gratuit)
-              const isWeekLocked = !canAccessPremiumFeatures && index > 0;
+              // Semaine verrouillée si: pas premium, pas plan unique, ET pas la première semaine
+              const isWeekLocked = !canAccessPremiumFeatures && !isPlanUniqueUser && index > 0;
               const weekStatus = getWeekStatus(week, index);
               const isCollapsed = collapsedWeeks.has(week.weekNumber);
 
