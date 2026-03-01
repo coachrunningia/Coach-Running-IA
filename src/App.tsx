@@ -760,8 +760,6 @@ const PricingPage = ({ user }: { user: User | null }) => {
     "Export montres GPS (Garmin, Coros, Suunto)",
   ];
 
-  const planUniqueExtra = "Regeneration illimitee du plan";
-
   const premiumOnlyFeatures = [
     "Connexion Strava",
     "Bilan mensuel Strava (forces, faiblesses, recommandations)",
@@ -774,7 +772,7 @@ const PricingPage = ({ user }: { user: User | null }) => {
     <div className="max-w-6xl mx-auto px-4 py-16">
       <div className="text-center mb-12">
         <h1 className="text-4xl font-bold text-slate-900 mb-4">Choisis ta formule</h1>
-        <p className="text-slate-500 text-lg">Un plan unique ou un suivi complet : a toi de choisir.</p>
+        <p className="text-slate-500 text-lg">Sans engagement, resiliable a tout moment en un clic.</p>
       </div>
 
       {/* 3 Cards */}
@@ -797,7 +795,7 @@ const PricingPage = ({ user }: { user: User | null }) => {
               {includedFeatures.map((f, i) => (
                 <li key={i} className="flex gap-2 items-start"><CheckCircle size={15} className="text-green-500 mt-0.5 flex-shrink-0" />{f}</li>
               ))}
-              <li className="flex gap-2 items-start"><CheckCircle size={15} className="text-green-500 mt-0.5 flex-shrink-0" />{planUniqueExtra}</li>
+
             </ul>
 
             <p className="text-xs font-bold text-slate-400 uppercase tracking-wider mb-3 mt-5">Non inclus</p>
@@ -911,7 +909,7 @@ const PricingPage = ({ user }: { user: User | null }) => {
         <div className="space-y-4">
           <div className="bg-white rounded-xl border border-slate-200 p-6">
             <h3 className="font-bold text-slate-900 mb-2">Quelle difference entre Plan Unique et Premium ?</h3>
-            <p className="text-slate-600 text-sm">Le Plan Unique te donne un plan complet genere par IA avec exports (PDF, calendrier, montres GPS) et regeneration illimitee. Le Premium ajoute la connexion Strava, les analyses hebdomadaires, le feedback apres chaque seance et l'adaptation automatique de ton plan.</p>
+            <p className="text-slate-600 text-sm">Le Plan Unique te donne un plan complet genere par IA avec exports (PDF, calendrier, montres GPS). Le Premium ajoute la connexion Strava, les analyses hebdomadaires, le feedback apres chaque seance et l'adaptation automatique de ton plan.</p>
           </div>
           <div className="bg-white rounded-xl border border-slate-200 p-6">
             <h3 className="font-bold text-slate-900 mb-2">Je peux passer du Plan Unique au Premium ?</h3>
