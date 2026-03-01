@@ -313,38 +313,90 @@ des séances ou blocs de renforcement dans chaque plan.
    À ajouter dans le cooldown des séances faciles
    Exemple cooldown : "10 min trot + 10 min renfo : gainage 3x45s, squats 2x20, fentes 2x10/jambe"
 
-🎯 EXERCICES PAR PROFIL :
+🎯 BIBLIOTHÈQUE D'EXERCICES PAR DISCIPLINE :
 
-DÉBUTANT (focus stabilité et base) :
-- Squats poids de corps (2x15)
-- Fentes avant (2x10 par jambe)
-- Gainage ventral (3x30s)
-- Gainage latéral (2x20s par côté)
-- Pont fessiers (2x15)
-- Montées de genoux sur place (2x20)
+📦 ROUTE (10K, Semi-marathon, Marathon) — 4 familles :
 
-INTERMÉDIAIRE (focus puissance) :
-- Squats sautés (3x12)
-- Fentes marchées (3x12 par jambe)
-- Gainage dynamique (3x45s)
-- Box jumps ou step-ups (3x10)
-- Montées descaliers (si dispo)
-- Extensions mollets (3x20)
+Famille QUADRICEPS/FESSIERS :
+- Squats poids de corps (2-3x15)
+- Squat bulgare (3x10/jambe)
+- Fentes avant (2-3x10/jambe)
+- Fentes marchées (3x12/jambe)
+- Step-up sur marche/banc (3x10/jambe)
+- Hip thrust / Pont fessiers (3x15)
+- Pont unipodal (3x10/jambe)
+- Chaise murale (3x30-45s)
 
-CONFIRMÉ/TRAIL (focus explosivité et proprioception) :
-- Squats jump (3x15)
-- Fentes sautées alternées (3x10)
-- Burpees (3x8)
-- Gainage avec mouvement (3x1min)
-- Proprioception unipodal (2x30s par pied)
-- Ischio-jambiers nordiques ou équivalent (3x6)
-- Chaise (3x45s)
+Famille STABILITÉ HANCHE :
+- Clamshell avec élastique (3x15/côté)
+- Marche latérale avec élastique (3x10 pas/côté)
+- Fente latérale (3x10/jambe)
+- Équilibre unipodal (2x30s/pied)
 
-🏔️ RENFO SPÉCIFIQUE TRAIL :
-- Travail excentrique quadriceps (pour les descentes) : fentes arrière, squats lents en descente
-- Chevilles et proprioception : équilibre unipodal sur surface instable
-- Gainage renforcé : gainage avec sac à dos lesté si ultra
-- Mollets : montées sur pointes, sauts à la corde
+Famille MOLLETS/PIEDS :
+- Extensions mollets debout (3x20)
+- Mollets assis (soléaire) (3x15)
+- Marche sur talons (2x20m)
+- Marche sur pointes (2x20m)
+
+Famille GAINAGE :
+- Gainage ventral (3x30-60s)
+- Gainage latéral (3x20-30s/côté)
+- Dead bug (3x10/côté)
+- Bird-dog (3x10/côté)
+- Superman (3x12)
+- Pompes (2-3x10)
+
+📦 TRAIL — 5 familles (inclut tout ce qui est en ROUTE +) :
+
+Famille EXCENTRIQUE QUADRICEPS (spécifique descentes) :
+- Squat excentrique (descente lente 4s, remontée 1s) (3x10)
+- Step-down excentrique depuis marche (3x8/jambe)
+- Fente arrière lente (descente 3s) (3x10/jambe)
+- Chaise murale longue (3x45-90s)
+
+Famille CHEVILLES / PROPRIOCEPTION :
+- Équilibre unipodal yeux fermés (3x20-30s/pied)
+- Équilibre sur coussin instable / plateau de Freeman (3x30s/pied)
+- Déséquilibres contrôlés unipodaux (2x10/pied)
+- Sauts directionnels avant/arrière/latéraux (3x8)
+- Corde à sauter (3x1min)
+
+Famille MOLLETS SPÉCIFIQUES MONTÉE :
+- Mollets debout unipodal (3x12/jambe)
+- Mollets assis soléaire (3x15)
+- Protocole Stanish (excentrique mollets bord de marche, descente lente) (3x10)
+
+Famille GAINAGE AVEC ROTATION :
+- Planche ventrale + rotation latérale alternée (3x10/côté)
+- Russian twist (3x15/côté)
+- Pallof press avec élastique (3x10/côté)
+- Bird-dog avec rotation (3x10/côté)
+
+Famille PLIOMÉTRIE TRAIL :
+- Sauts directionnels multi-axes (3x8)
+- Corde à sauter variée (3x1min)
+- Box jumps ou sauts sur banc (3x8)
+- Nordic hamstring curl (3x6)
+
+📦 ULTRA-TRAIL (>42 km) — Ajouts force-endurance + haut du corps :
+- Circuits haute répétition (20-30 reps par exercice, 4-5 tours)
+- Pompes (3x15) et dips sur banc (3x12) — force bras pour bâtons
+- Tirage élastique horizontal (3x15) — dos/épaules pour bâtons
+- Extension triceps avec élastique (3x12)
+- Gainage avec sac à dos lesté (3x45s)
+- Dead bug haute répétition (3x20)
+- Chaise murale prolongée (3x90-120s)
+
+🔄 VARIÉTÉ OBLIGATOIRE :
+- Semaines IMPAIRES → Focus A : quadriceps + gainage frontal (ventral, dead bug) + mollets debout
+- Semaines PAIRES → Focus B : fessiers/hanches (hip thrust, clamshell, fente latérale) + gainage latéral/rotation + mollets assis
+- RÈGLE ABSOLUE : ne JAMAIS copier-coller le même mainSet de renforcement dune semaine à lautre
+- Faire TOURNER les exercices au sein de chaque famille (ex: squats semaine 1 → squat bulgare semaine 2 → step-up semaine 3)
+- Adapter lintensité à la phase du plan :
+  * Phase de base → stabilité, technique, reps modérées
+  * Phase spécifique / pic → puissance, pliométrie, charges plus lourdes
+  * Phase daffûtage → maintien léger, volume réduit de 30-40%
 
 ⚠️ PLACEMENT DANS LA SEMAINE :
 - JAMAIS de renfo intense la veille dune séance VMA ou compétition
@@ -1694,6 +1746,12 @@ ${batch.map(weekNum => {
 - Jours : ${preferredDaysInstruction}
 ${data.injuries?.hasInjury ? `⚠️ BLESSURE : ${data.injuries.description}` : ''}
 ${beginnerProgressionInstruction}
+
+💪 RENFORCEMENT MUSCULAIRE : 1 séance "Renforcement" par semaine OBLIGATOIRE.
+IMPORTANT : VARIER les exercices chaque semaine (ne pas répéter le même circuit).
+Alterner les focus : semaines impaires = quadriceps/gainage frontal, semaines paires = fessiers-hanches/gainage latéral.
+${data.goal === 'Trail' ? 'TRAIL : inclure excentrique quadriceps, proprioception chevilles, mollets spécifiques montée.' : ''}
+${data.trailDetails && data.trailDetails.distance > 42 ? 'ULTRA-TRAIL : ajouter circuits haute répétition (20-30 reps) + renfo haut du corps (bâtons).' : ''}
 
 ═══════════════════════════════════════════════════════════════
               FORMAT JSON STRICT
