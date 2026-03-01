@@ -94,10 +94,10 @@ const LandingPage: React.FC<LandingPageProps> = ({ user, onPlanGeneration, isGen
             <ArrowRight size={20} className="group-hover:translate-x-1 transition-transform" />
           </button>
 
-          <div className="mt-12 flex items-center justify-center gap-1.5 text-slate-400 opacity-50">
-            <span className="text-[11px]">Powered by</span>
-            <svg className="w-3 h-3 text-[#FC4C02]" viewBox="0 0 24 24" fill="currentColor"><path d="M15.387 17.944l-2.089-4.116h-3.065L15.387 24l5.15-10.172h-3.066m-7.008-5.599l2.836 5.598h4.172L10.463 0l-7 13.828h4.169"/></svg>
-            <span className="text-[11px] font-medium text-[#FC4C02]">Strava</span>
+          <div className="mt-6 flex items-center justify-center gap-1.5 opacity-50">
+            <span className="text-xs text-slate-400">Powered by</span>
+            <svg className="w-3.5 h-3.5 text-[#FC4C02]" viewBox="0 0 24 24" fill="currentColor"><path d="M15.387 17.944l-2.089-4.116h-3.065L15.387 24l5.15-10.172h-3.066m-7.008-5.599l2.836 5.598h4.172L10.463 0l-7 13.828h4.169"/></svg>
+            <span className="text-xs font-medium text-[#FC4C02]">Strava</span>
           </div>
         </div>
       </section>
