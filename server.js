@@ -221,10 +221,9 @@ app.post('/api/stripe/webhook', express.raw({ type: 'application/json' }), async
         await admin.firestore().collection('users').doc(userId).set({
           hasPurchasedPlan: true,
           planPurchaseDate: new Date().toISOString(),
-          plansRemaining: 2,
           stripeCustomerId: session.customer,
         }, { merge: true });
-        console.log(`[Stripe] Utilisateur ${userId} a acheté le Plan Unique (2 plans)`);
+        console.log(`[Stripe] Utilisateur ${userId} a acheté le Plan Unique`);
 
         // Add to Brevo list #9 (Plan Unique buyers)
         if (email) {

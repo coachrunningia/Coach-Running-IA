@@ -12,7 +12,6 @@ import {
   getPlanById,
   createStripeCheckoutSession,
   checkCanGeneratePlan,
-  decrementPlansRemaining,
   saveUserQuestionnaire,
   upgradeUserToPremium,
   registerUser
@@ -85,11 +84,7 @@ const AppContent = () => {
       const quota = await checkCanGeneratePlan(user);
       if (!quota.allowed) {
         setIsGenerating(false);
-        if (quota.reason === 'plan_unique_exhausted') {
-          alert("Tu as utilisé tes 2 plans inclus dans le Plan Unique. Passe en Premium pour des plans illimités !");
-        } else {
-          alert("Limite atteinte (1 plan gratuit). Choisis une formule pour continuer.");
-        }
+        alert("Limite atteinte (1 plan gratuit). Choisis une formule pour continuer.");
         navigate('/pricing');
         return;
       }
@@ -108,14 +103,6 @@ const AppContent = () => {
       console.log("[Gen] Sauvegarde des données...");
       await savePlan(plan);
       await saveUserQuestionnaire(user.id, data);
-
-      // Décrémenter le compteur si Plan Unique
-      if (user.hasPurchasedPlan && !user.isPremium) {
-        const remaining = await decrementPlansRemaining(user.id);
-        if (remaining !== null) {
-          console.log(`[Gen] Plans restants pour Plan Unique: ${remaining}`);
-        }
-      }
 
       // Redirection vers le plan nouvellement créé
       console.log("[Gen] Succès ! Redirection vers /plan/" + plan.id);
@@ -773,7 +760,7 @@ const PricingPage = ({ user }: { user: User | null }) => {
     "Export montres GPS (Garmin, Coros, Suunto)",
   ];
 
-  const planUniqueExtra = "1 regeneration gratuite (2 plans au total)";
+  const planUniqueExtra = "Regeneration illimitee du plan";
 
   const premiumOnlyFeatures = [
     "Connexion Strava",
@@ -781,7 +768,6 @@ const PricingPage = ({ user }: { user: User | null }) => {
     "Analyse hebdomadaire (plan vs reel)",
     "Feedback apres chaque seance",
     "Adaptation automatique du plan",
-    "Regenerations illimitees",
   ];
 
   return (
@@ -925,7 +911,7 @@ const PricingPage = ({ user }: { user: User | null }) => {
         <div className="space-y-4">
           <div className="bg-white rounded-xl border border-slate-200 p-6">
             <h3 className="font-bold text-slate-900 mb-2">Quelle difference entre Plan Unique et Premium ?</h3>
-            <p className="text-slate-600 text-sm">Le Plan Unique te donne un plan complet genere par IA avec exports (PDF, calendrier, montres GPS) et 1 regeneration. Le Premium ajoute la connexion Strava, les analyses hebdomadaires, le feedback apres chaque seance et l'adaptation automatique de ton plan.</p>
+            <p className="text-slate-600 text-sm">Le Plan Unique te donne un plan complet genere par IA avec exports (PDF, calendrier, montres GPS) et regeneration illimitee. Le Premium ajoute la connexion Strava, les analyses hebdomadaires, le feedback apres chaque seance et l'adaptation automatique de ton plan.</p>
           </div>
           <div className="bg-white rounded-xl border border-slate-200 p-6">
             <h3 className="font-bold text-slate-900 mb-2">Je peux passer du Plan Unique au Premium ?</h3>

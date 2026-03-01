@@ -82,7 +82,6 @@ export interface User {
   // Plan Unique (one-time purchase)
   hasPurchasedPlan?: boolean;
   planPurchaseDate?: string;
-  plansRemaining?: number;
 
   // Stripe subscription
   stripeCustomerId?: string;

@@ -89,7 +89,6 @@ export const observeAuthState = (callback: (user: User | null) => void) => {
             stravaConnected: data.stravaConnected || false,
             hasPurchasedPlan: data.hasPurchasedPlan || false,
             planPurchaseDate: data.planPurchaseDate || undefined,
-            plansRemaining: data.plansRemaining ?? undefined,
             stripeCustomerId: data.stripeCustomerId || undefined,
             stripeSubscriptionStatus: data.stripeSubscriptionStatus || undefined,
             premiumCancelAt: data.premiumCancelAt || undefined,
@@ -225,8 +224,7 @@ export const getPlanById = async (planId: string, userId: string): Promise<Train
   return null;
 };
 
-export const checkCanGeneratePlan = async (user: User): Promise<{ allowed: boolean; reason?: string; plansRemaining?: number }> => {
-  // First check the passed user object
+export const checkCanGeneratePlan = async (user: User): Promise<{ allowed: boolean; reason?: string }> => {
   if (user.isPremium) return { allowed: true };
 
   // Double-check Firestore directly in case state is stale
@@ -234,41 +232,14 @@ export const checkCanGeneratePlan = async (user: User): Promise<{ allowed: boole
   const userSnap = await getDoc(userRef);
   if (userSnap.exists()) {
     const userData = userSnap.data();
-    if (userData.isPremium) {
-      console.log('[checkCanGeneratePlan] User is Premium in Firestore (state was stale)');
-      return { allowed: true };
-    }
-
-    // Plan Unique: 2 plans max
-    if (userData.hasPurchasedPlan && (userData.plansRemaining ?? 0) > 0) {
-      return { allowed: true, plansRemaining: userData.plansRemaining };
-    }
-
-    // Plan Unique exhausted
-    if (userData.hasPurchasedPlan && (userData.plansRemaining ?? 0) <= 0) {
-      return { allowed: false, reason: 'plan_unique_exhausted', plansRemaining: 0 };
-    }
+    if (userData.isPremium) return { allowed: true };
+    if (userData.hasPurchasedPlan) return { allowed: true };
   }
 
   // Free user: 1 plan max
   const plans = await getUserPlans(user.id);
   if (plans.length === 0) return { allowed: true };
   return { allowed: false, reason: 'free_limit' };
-};
-
-export const decrementPlansRemaining = async (userId: string): Promise<number | null> => {
-  const userRef = doc(db, USERS_COLLECTION, userId);
-  const userSnap = await getDoc(userRef);
-  if (!userSnap.exists()) return null;
-
-  const userData = userSnap.data();
-  if (userData?.hasPurchasedPlan && (userData?.plansRemaining ?? 0) > 0) {
-    const newCount = (userData.plansRemaining ?? 1) - 1;
-    await updateDoc(userRef, { plansRemaining: newCount });
-    console.log(`[decrementPlansRemaining] User ${userId}: ${newCount} plans remaining`);
-    return newCount;
-  }
-  return null;
 };
 
 export const updateSessionFeedback = async (planId: string, updatedSession: Session, userId: string, weekNumber: number) => {
