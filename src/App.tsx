@@ -148,7 +148,7 @@ const AppContent = () => {
     navigate(params.get('redirect') === 'pricing' ? '/pricing' : '/dashboard');
   };
 
-  if (loading) return <div className="min-h-screen flex items-center justify-center bg-surface"><Loader2 className="animate-spin text-accent" /></div>;
+  const authSpinner = <div className="min-h-screen flex items-center justify-center bg-surface"><Loader2 className="animate-spin text-accent" /></div>;
 
   return (
     <Layout user={user} setUser={setUser}>
@@ -156,42 +156,37 @@ const AppContent = () => {
 
       <Suspense fallback={<div className="min-h-screen flex items-center justify-center"><Loader2 className="animate-spin text-accent" size={32} /></div>}>
       <Routes>
+        {/* Pages publiques - affichées immédiatement sans attendre Firebase Auth */}
         <Route path="/" element={<LandingPage user={user} onPlanGeneration={handlePlanGeneration} isGenerating={isGenerating} />} />
-        <Route path="/auth" element={<div className="min-h-screen flex items-center justify-center bg-slate-50"><AuthModal onAuthSuccess={handleAuthSuccess} /></div>} />
-        <Route path="/dashboard" element={user ? <Dashboard user={user} /> : <Navigate to="/auth" replace />} />
-        <Route path="/profile" element={user ? <ProfilePage user={user} setUser={setUser} /> : <Navigate to="/auth" replace />} />
-        <Route path="/plan/:planId" element={<PlanDetailsWrapper setIsGenerating={setIsGenerating} user={user} onRegeneratePlan={handlePlanGeneration} />} />
         <Route path="/pricing" element={<PricingPage user={user} />} />
-        <Route path="/glossary" element={<GlossaryPage />} />
         <Route path="/plan-semi-marathon" element={<SemiMarathonLanding user={user} onPlanGeneration={handlePlanGeneration} isGenerating={isGenerating} />} />
         <Route path="/plan-marathon" element={<MarathonLanding user={user} onPlanGeneration={handlePlanGeneration} isGenerating={isGenerating} />} />
         <Route path="/plan-trail" element={<TrailLanding user={user} onPlanGeneration={handlePlanGeneration} isGenerating={isGenerating} />} />
+        <Route path="/glossary" element={<GlossaryPage />} />
         <Route path="/cgv" element={<CGVPage />} />
         <Route path="/confidentialite" element={<ConfidentialitePage />} />
         <Route path="/mentions-legales" element={<MentionsLegalesPage />} />
-        <Route path="/success" element={<SuccessPage onContinue={() => navigate('/plan')} />} />
-
-        {/* Email Verification Flow */}
-        <Route path="/verify-email" element={<VerifyEmail />} />
-        <Route path="/email-sent" element={<EmailSentScreen />} />
-
-        {/* Strava OAuth Callback */}
-        <Route path="/strava-callback" element={<StravaCallback />} />
-
-        {/* Outils SEO - Page index et pages dédiées pour les simulateurs */}
         <Route path="/outils" element={<ToolsIndexPage />} />
         <Route path="/outils/convertisseur-allure" element={<PaceConverterPage />} />
         <Route path="/outils/calculateur-vma" element={<VMACalculatorPage />} />
         <Route path="/outils/predicteur-temps" element={<RacePredictorPage />} />
         <Route path="/outils/allure-marathon" element={<MarathonPacePage />} />
-
-        {/* Blog Routes */}
         <Route path="/blog" element={<BlogList />} />
         <Route path="/blog/:slug" element={<BlogArticle />} />
         <Route path="/post/:slug" element={<PostRedirect />} />
 
-        {/* Admin Routes - Protégé par isAdmin (rôle administrateur uniquement) */}
-        <Route path="/admin/blog" element={user?.isAdmin ? <BlogAdmin user={user} /> : <Navigate to="/" replace />} />
+        {/* Auth */}
+        <Route path="/auth" element={<div className="min-h-screen flex items-center justify-center bg-slate-50"><AuthModal onAuthSuccess={handleAuthSuccess} /></div>} />
+        <Route path="/verify-email" element={<VerifyEmail />} />
+        <Route path="/email-sent" element={<EmailSentScreen />} />
+        <Route path="/strava-callback" element={<StravaCallback />} />
+        <Route path="/success" element={<SuccessPage onContinue={() => navigate('/plan')} />} />
+
+        {/* Pages authentifiées - spinner pendant le chargement auth */}
+        <Route path="/dashboard" element={loading ? authSpinner : user ? <Dashboard user={user} /> : <Navigate to="/auth" replace />} />
+        <Route path="/profile" element={loading ? authSpinner : user ? <ProfilePage user={user} setUser={setUser} /> : <Navigate to="/auth" replace />} />
+        <Route path="/plan/:planId" element={<PlanDetailsWrapper setIsGenerating={setIsGenerating} user={user} onRegeneratePlan={handlePlanGeneration} />} />
+        <Route path="/admin/blog" element={loading ? authSpinner : user?.isAdmin ? <BlogAdmin user={user} /> : <Navigate to="/" replace />} />
       </Routes>
       </Suspense>
     </Layout>
