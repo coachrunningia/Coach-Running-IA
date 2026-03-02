@@ -18,6 +18,15 @@ export default defineConfig(({ mode }) => {
     build: {
       outDir: 'dist',
       emptyOutDir: true,
+      rollupOptions: {
+        output: {
+          manualChunks(id) {
+            if (id.includes('node_modules/firebase') || id.includes('node_modules/@firebase')) return 'vendor-firebase';
+            if (id.includes('node_modules/recharts') || id.includes('node_modules/d3-')) return 'vendor-recharts';
+            if (id.includes('node_modules/@google/generative-ai')) return 'vendor-gemini';
+          },
+        },
+      },
     },
     define: {
       'process.env.API_KEY': JSON.stringify(masterApiKey),

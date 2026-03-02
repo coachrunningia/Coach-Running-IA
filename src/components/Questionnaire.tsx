@@ -5,7 +5,6 @@ import { QuestionnaireData, UserGoal, RunningLevel, User } from '../types';
 import { GOAL_OPTIONS, LEVEL_OPTIONS, ROAD_DISTANCES } from '../constants';
 import { ChevronRight, ChevronLeft, Calendar, AlertCircle, Info, MapPin, Activity, Mountain, Clock, Mail, ShieldAlert, Scale, Ruler, Lock, User as UserIcon, Eye, EyeOff } from 'lucide-react';
 import { registerUser, savePlan, saveUserQuestionnaire, createEmailVerificationToken } from '../services/storageService';
-import { generatePreviewPlan } from '../services/geminiService';
 
 interface QuestionnaireProps {
   initialGoal?: string;
@@ -176,6 +175,7 @@ const Questionnaire: React.FC<QuestionnaireProps> = ({ onComplete, isGenerating:
 
       // Étape 3: Générer le plan avec l'IA
       setProcessingStep('Génération de votre plan personnalisé...');
+      const { generatePreviewPlan } = await import('../services/geminiService');
       const plan = await generatePreviewPlan(data);
 
       if (plan) {
@@ -429,7 +429,7 @@ const Questionnaire: React.FC<QuestionnaireProps> = ({ onComplete, isGenerating:
 
       <div className="flex justify-between pt-4">
         <button onClick={prevStep} disabled={isGenerating} className="flex items-center text-slate-500 font-bold disabled:opacity-50"><ChevronLeft size={20} /> Retour</button>
-        <button onClick={nextStep} disabled={isGenerating} className="bg-primary text-white px-10 py-3 rounded-full font-bold shadow-lg hover:bg-slate-800 disabled:opacity-50">Continuer</button>
+        <button onClick={nextStep} disabled={isGenerating} className="bg-gradient-to-r from-orange-500 to-orange-600 text-white px-10 py-3 rounded-full font-bold shadow-lg shadow-orange-500/20 hover:shadow-orange-500/30 hover:scale-105 transition-all disabled:opacity-50">Continuer</button>
       </div>
     </div>
   );
@@ -533,7 +533,7 @@ const Questionnaire: React.FC<QuestionnaireProps> = ({ onComplete, isGenerating:
 
       <div className="flex justify-between pt-4">
         <button onClick={prevStep} disabled={isGenerating} className="flex items-center text-slate-500 font-bold disabled:opacity-50"><ChevronLeft size={20} /> Retour</button>
-        <button onClick={nextStep} disabled={isGenerating} className="bg-primary text-white px-10 py-3 rounded-full font-bold shadow-lg disabled:opacity-50">Continuer</button>
+        <button onClick={nextStep} disabled={isGenerating} className="bg-gradient-to-r from-orange-500 to-orange-600 text-white px-10 py-3 rounded-full font-bold shadow-lg shadow-orange-500/20 hover:shadow-orange-500/30 hover:scale-105 transition-all disabled:opacity-50">Continuer</button>
       </div>
     </div>
   );
@@ -802,7 +802,7 @@ const Questionnaire: React.FC<QuestionnaireProps> = ({ onComplete, isGenerating:
 
       <div className="flex justify-between pt-4">
         <button onClick={prevStep} disabled={isGenerating} className="flex items-center text-slate-500 font-bold disabled:opacity-50"><ChevronLeft size={20} /> Retour</button>
-        <button onClick={nextStep} disabled={!data.level || isGenerating} className="bg-primary text-white px-10 py-3 rounded-full font-bold shadow-lg disabled:opacity-50">Suivant</button>
+        <button onClick={nextStep} disabled={!data.level || isGenerating} className="bg-gradient-to-r from-orange-500 to-orange-600 text-white px-10 py-3 rounded-full font-bold shadow-lg shadow-orange-500/20 hover:shadow-orange-500/30 hover:scale-105 transition-all disabled:opacity-50">Suivant</button>
       </div>
     </div>
   );
@@ -981,7 +981,7 @@ const Questionnaire: React.FC<QuestionnaireProps> = ({ onComplete, isGenerating:
 
         {/* Indicateur de progression */}
         {isProcessing && processingStep && (
-          <div className="bg-slate-900 text-white p-4 rounded-xl flex items-center gap-3 animate-pulse">
+          <div className="bg-gradient-to-r from-orange-500 to-orange-600 text-white p-4 rounded-xl flex items-center gap-3 animate-pulse">
             <Activity className="animate-spin flex-shrink-0" size={20} />
             <span className="font-medium">{processingStep}</span>
           </div>
@@ -1004,14 +1004,14 @@ const Questionnaire: React.FC<QuestionnaireProps> = ({ onComplete, isGenerating:
   };
 
   return (
-    <div className="w-full max-w-2xl mx-auto bg-white rounded-[2rem] shadow-2xl p-8 border border-slate-50 relative overflow-hidden">
-      <div className="absolute top-0 right-0 w-32 h-32 bg-accent/5 rounded-full -mr-16 -mt-16 blur-3xl" />
+    <div className="w-full max-w-2xl mx-auto bg-white rounded-[2rem] shadow-lg p-8 border border-orange-100/50 relative overflow-hidden">
+      <div className="absolute top-0 right-0 w-32 h-32 bg-orange-200/20 rounded-full -mr-16 -mt-16 blur-3xl" />
 
       <div className="mb-10 flex items-center justify-between relative z-10">
         <div className="h-2 flex-1 bg-slate-100 rounded-full mr-6 overflow-hidden">
           <div className="h-full bg-accent transition-all duration-700 ease-out shadow-[0_0_10px_rgba(249,115,22,0.5)]" style={{ width: `${(step / totalSteps) * 100}%` }} />
         </div>
-        <span className="text-sm font-black text-slate-300 tracking-widest uppercase">Etape 0{step}</span>
+        <span className="text-sm font-black text-orange-400 tracking-widest uppercase">Etape 0{step}</span>
       </div>
 
       <div className="relative z-10">
