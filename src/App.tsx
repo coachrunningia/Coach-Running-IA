@@ -17,7 +17,7 @@ import {
   upgradeUserToPremium,
   registerUser
 } from './services/storageService';
-import { Trophy, CheckCircle, Zap, Loader2, Sparkles, X, ChevronRight, Lock, XCircle } from 'lucide-react';
+import { Trophy, CheckCircle, Zap, Loader2, Sparkles, X, ChevronRight, Lock, XCircle, Star, ArrowRight } from 'lucide-react';
 import { APP_NAME, STRIPE_PRICES } from './constants';
 
 // Lazy-loaded route components
@@ -913,6 +913,187 @@ const PricingPage = ({ user }: { user: User | null }) => {
               <>S'abonner annuel</>
             )}
           </button>
+        </div>
+      </div>
+
+      {/* COMPARATIF */}
+      <div className="max-w-5xl mx-auto mb-20">
+        <h2 className="text-3xl md:text-4xl font-black text-center mb-4 tracking-tight text-slate-900">
+          Pourquoi choisir <span className="text-accent">Coach Running IA</span> ?
+        </h2>
+        <p className="text-center text-slate-500 mb-10 max-w-2xl mx-auto text-lg">
+          Comparez les differentes solutions d'entrainement running
+        </p>
+
+        <div className="overflow-x-auto rounded-2xl border border-gray-200 shadow-md">
+          <table className="w-full">
+            <thead>
+              <tr className="bg-gray-50">
+                <th className="px-6 py-5 text-left text-sm font-bold text-slate-500">Fonctionnalite</th>
+                <th className="px-6 py-5 text-center text-sm font-bold text-slate-500">Coach humain</th>
+                <th className="px-6 py-5 text-center text-sm font-bold text-slate-500">Apps classiques</th>
+                <th className="px-6 py-5 text-center text-sm font-bold text-accent bg-orange-50">Coach Running IA</th>
+              </tr>
+            </thead>
+            <tbody className="divide-y divide-gray-100">
+              {[
+                { feature: 'Plan personnalise', coach: true, apps: false, us: true },
+                { feature: 'Adapte a vos contraintes', coach: true, apps: false, us: true },
+                { feature: 'Disponible 24h/24', coach: false, apps: true, us: true },
+                { feature: 'Prix accessible', coach: false, apps: true, us: true },
+                { feature: 'Ajustement en temps reel', coach: true, apps: false, us: true },
+              ].map(({ feature, coach, apps, us }) => (
+                <tr key={feature} className="hover:bg-gray-50/50 transition-colors">
+                  <td className="px-6 py-4 font-medium text-slate-700 text-sm">{feature}</td>
+                  <td className="px-6 py-4 text-center">
+                    {coach ? <CheckCircle className="text-green-500/70 mx-auto" size={18} /> : <X className="text-red-400/50 mx-auto" size={18} />}
+                  </td>
+                  <td className="px-6 py-4 text-center">
+                    {apps ? <CheckCircle className="text-green-500/70 mx-auto" size={18} /> : <X className="text-red-400/50 mx-auto" size={18} />}
+                  </td>
+                  <td className="px-6 py-4 text-center bg-orange-50/50">
+                    {us ? <CheckCircle className="text-green-500 mx-auto" size={18} /> : <X className="text-red-400/50 mx-auto" size={18} />}
+                  </td>
+                </tr>
+              ))}
+              <tr className="bg-gray-50">
+                <td className="px-6 py-5 font-bold text-slate-800 text-sm">Prix</td>
+                <td className="px-6 py-5 text-center font-bold text-slate-500 text-sm">150-300&euro;/mois</td>
+                <td className="px-6 py-5 text-center font-bold text-slate-500 text-sm">10-15&euro;/mois</td>
+                <td className="px-6 py-5 text-center bg-orange-50">
+                  <span className="font-bold text-accent text-sm">Des 3,33&euro;/mois</span>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      {/* CHATGPT VS COACH RUNNING IA */}
+      <div className="max-w-5xl mx-auto mb-20">
+        <div className="text-center mb-10">
+          <span className="inline-block px-4 py-1.5 rounded-full text-xs font-bold tracking-widest uppercase bg-orange-100 text-orange-600 border border-orange-200 mb-4">
+            La question qu'on nous pose le plus
+          </span>
+          <h2 className="text-3xl md:text-4xl font-black mb-4 tracking-tight text-slate-900">
+            "Je peux faire pareil avec ChatGPT, non ?"
+          </h2>
+          <p className="text-slate-500 max-w-2xl mx-auto text-lg">
+            Pas vraiment. Et voici pourquoi.
+          </p>
+        </div>
+
+        <div className="grid md:grid-cols-2 gap-6 max-w-4xl mx-auto">
+          <div className="rounded-2xl p-6 bg-gray-50 border border-gray-200 shadow-sm">
+            <div className="flex items-center gap-3 mb-5">
+              <div className="w-10 h-10 bg-gray-100 rounded-xl flex items-center justify-center text-lg">{"🤖"}</div>
+              <h3 className="font-bold text-slate-400 text-lg">ChatGPT</h3>
+            </div>
+            <div className="space-y-3 text-slate-500 text-sm">
+              <div className="flex items-start gap-2.5"><X size={16} className="text-red-400 mt-0.5 shrink-0" /><span>Genere un plan a partir de tout ce qui existe en ligne — <strong className="text-slate-600">sans distinguer les bons des mauvais conseils</strong></span></div>
+              <div className="flex items-start gap-2.5"><X size={16} className="text-red-400 mt-0.5 shrink-0" /><span>Aucune validation medicale sur le renforcement musculaire</span></div>
+              <div className="flex items-start gap-2.5"><X size={16} className="text-red-400 mt-0.5 shrink-0" /><span>Oublie tout entre chaque conversation</span></div>
+              <div className="flex items-start gap-2.5"><X size={16} className="text-red-400 mt-0.5 shrink-0" /><span>Aucun suivi reel de ta progression</span></div>
+              <div className="flex items-start gap-2.5"><X size={16} className="text-red-400 mt-0.5 shrink-0" /><span>Pas d'analyse de tes performances Strava</span></div>
+              <div className="flex items-start gap-2.5"><X size={16} className="text-red-400 mt-0.5 shrink-0" /><span>Plan en texte brut — pas de calendrier, pas d'export</span></div>
+            </div>
+          </div>
+
+          <div className="rounded-2xl p-6 bg-gradient-to-br from-orange-50 to-amber-50 border border-orange-200 shadow-md relative">
+            <div className="absolute -top-3 right-4 bg-gradient-to-r from-orange-500 to-orange-600 text-white text-xs font-bold px-3 py-1 rounded-full shadow-lg shadow-orange-500/30">RECOMMANDE</div>
+            <div className="flex items-center gap-3 mb-5">
+              <div className="w-10 h-10 bg-orange-100 rounded-xl flex items-center justify-center text-lg">{"🏃"}</div>
+              <h3 className="font-bold text-orange-600 text-lg">Coach Running IA</h3>
+            </div>
+            <div className="space-y-3 text-slate-600 text-sm">
+              <div className="flex items-start gap-2.5"><CheckCircle size={16} className="text-green-500 mt-0.5 shrink-0" /><span>Entraine sur des <strong className="text-slate-800">milliers de plans valides par des professionnels</strong></span></div>
+              <div className="flex items-start gap-2.5"><CheckCircle size={16} className="text-green-500 mt-0.5 shrink-0" /><span>Renforcement musculaire avec <strong className="text-slate-800">regard medical et exercices specifiques</strong></span></div>
+              <div className="flex items-start gap-2.5"><CheckCircle size={16} className="text-green-500 mt-0.5 shrink-0" /><span><strong className="text-slate-800">Questionnaire personnalise</strong> — VMA, objectif, jours dispo, blessures</span></div>
+              <div className="flex items-start gap-2.5"><CheckCircle size={16} className="text-green-500 mt-0.5 shrink-0" /><span><strong className="text-slate-800">Feedback hebdomadaire</strong> — le plan s'adapte a ton ressenti</span></div>
+              <div className="flex items-start gap-2.5"><CheckCircle size={16} className="text-green-500 mt-0.5 shrink-0" /><span><strong className="text-slate-800">Analyse mensuelle Strava</strong> — bilan sur tes performances reelles</span></div>
+              <div className="flex items-start gap-2.5"><CheckCircle size={16} className="text-green-500 mt-0.5 shrink-0" /><span><strong className="text-slate-800">Plan structure</strong> semaine par semaine avec calendrier et export</span></div>
+            </div>
+          </div>
+        </div>
+
+        <p className="text-center text-slate-500 text-sm mt-8 max-w-xl mx-auto">
+          ChatGPT est un outil genial — mais generaliste. Coach Running IA est un <strong className="text-slate-800">specialiste de l'entrainement running</strong>, concu pour une seule mission : te faire progresser.
+        </p>
+      </div>
+
+      {/* TEMOIGNAGES */}
+      <div className="max-w-5xl mx-auto mb-20">
+        <h2 className="text-3xl md:text-4xl font-black text-center mb-10 tracking-tight text-slate-900">
+          Ils ont atteint leurs objectifs
+        </h2>
+
+        <div className="grid md:grid-cols-2 gap-8">
+          <div className="rounded-2xl p-8 bg-white border border-gray-100 shadow-md">
+            <div className="flex items-center gap-1 mb-5">
+              {[...Array(5)].map((_, i) => <Star key={i} className="text-orange-400 fill-orange-400" size={16} />)}
+            </div>
+            <p className="text-slate-600 mb-8 italic leading-relaxed">
+              "Avoir un plan qui s'adapte a mes contraintes de temps, c'est top ! J'ai gagne <span className="font-bold text-slate-900">10 minutes sur mon semi-marathon</span> sans trop de difficultes. L'IA comprend vraiment mon rythme de vie."
+            </p>
+            <div className="flex items-center gap-4">
+              <div className="w-12 h-12 bg-gradient-to-br from-orange-500 to-orange-600 rounded-full flex items-center justify-center text-white font-bold shadow-lg shadow-orange-500/30">R</div>
+              <div>
+                <div className="font-bold text-slate-800">Romane</div>
+                <div className="text-sm text-slate-500">Marathonienne, 28 ans</div>
+              </div>
+            </div>
+          </div>
+
+          <div className="rounded-2xl p-8 bg-white border border-gray-100 shadow-md">
+            <div className="flex items-center gap-1 mb-5">
+              {[...Array(5)].map((_, i) => <Star key={i} className="text-orange-400 fill-orange-400" size={16} />)}
+            </div>
+            <p className="text-slate-600 mb-8 italic leading-relaxed">
+              "Surpris en positif de la <span className="font-bold text-slate-900">qualite et diversite des entrainements</span>. Apres 10 marathons et un Ironman, je pensais avoir tout vu. Coach Running IA m'a propose des seances variees et intelligentes."
+            </p>
+            <div className="flex items-center gap-4">
+              <div className="w-12 h-12 bg-gradient-to-br from-orange-400 to-amber-500 rounded-full flex items-center justify-center text-white font-bold shadow-lg shadow-orange-500/30">D</div>
+              <div>
+                <div className="font-bold text-slate-800">David</div>
+                <div className="text-sm text-slate-500">Multi-marathonien & Finisher Ironman, 59 ans</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* CONNECTE A STRAVA */}
+      <div className="max-w-5xl mx-auto mb-20">
+        <div className="text-center mb-12">
+          <div className="flex items-center justify-center gap-3 mb-4">
+            <h2 className="text-3xl md:text-4xl font-black tracking-tight text-slate-900">
+              Connecte a <span className="text-[#FC4C02]">Strava</span>
+            </h2>
+            <svg className="w-8 h-8 text-[#FC4C02]" viewBox="0 0 24 24" fill="currentColor" aria-label="Logo Strava"><path d="M15.387 17.944l-2.089-4.116h-3.065L15.387 24l5.15-10.172h-3.066m-7.008-5.599l2.836 5.598h4.172L10.463 0l-7 13.828h4.169"/></svg>
+          </div>
+          <p className="text-slate-500 max-w-2xl mx-auto text-lg">
+            Partenaire officiel — vos donnees au service de votre progression
+          </p>
+        </div>
+
+        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+          {[
+            { title: "Connexion en 1 clic", desc: "Reliez votre compte Strava depuis votre espace Coach Running IA" },
+            { title: "Vos donnees accessibles", desc: "Historique de courses, distances, allures, frequence cardiaque importes automatiquement" },
+            { title: "Plans plus adaptes", desc: "L'IA analyse vos performances reelles pour ajuster votre programme" },
+            { title: "Analyse mensuelle", desc: "Bilan automatique de vos sorties Strava avec recommandations personnalisees" },
+          ].map(({ title, desc }) => (
+            <div key={title} className="rounded-2xl p-6 bg-orange-50/50 border border-orange-100 text-center hover:shadow-md hover:border-orange-200 transition-all duration-300">
+              <h3 className="font-bold text-slate-800 mb-2">{title}</h3>
+              <p className="text-slate-500 text-sm leading-relaxed">{desc}</p>
+            </div>
+          ))}
+        </div>
+
+        <div className="mt-10 flex items-center justify-center gap-3">
+          <span className="text-sm text-slate-400">Compatible with</span>
+          <svg className="w-6 h-6 text-[#FC4C02]" viewBox="0 0 24 24" fill="currentColor" aria-label="Logo Strava"><path d="M15.387 17.944l-2.089-4.116h-3.065L15.387 24l5.15-10.172h-3.066m-7.008-5.599l2.836 5.598h4.172L10.463 0l-7 13.828h4.169"/></svg>
+          <span className="text-sm font-bold text-[#FC4C02]">Strava</span>
         </div>
       </div>
 
