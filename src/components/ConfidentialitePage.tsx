@@ -7,7 +7,9 @@ const ConfidentialitePage: React.FC = () => {
   return (
     <div className="min-h-screen bg-white">
       <Helmet>
+        <title>Politique de Confidentialité | Coach Running IA</title>
         <meta name="description" content="Politique de confidentialité Coach Running IA. Protection de vos données personnelles, RGPD, cookies et droits." />
+        <link rel="canonical" href="https://coachrunningia.fr/confidentialite" />
       </Helmet>
       <div className="max-w-4xl mx-auto px-4 py-12">
         <Link to="/" className="inline-flex items-center gap-2 text-slate-500 hover:text-slate-900 mb-8">

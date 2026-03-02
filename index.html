@@ -2,28 +2,6 @@
 <html lang="fr">
   <head>
 
-    <!-- Meta Pixel Code -->
-    <script>
-    !function(f,b,e,v,n,t,s)
-    {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
-    n.callMethod.apply(n,arguments):n.queue.push(arguments)};
-    if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
-    n.queue=[];t=b.createElement(e);t.async=!0;
-    t.src=v;s=b.getElementsByTagName(e)[0];
-    s.parentNode.insertBefore(t,s)}(window, document,'script',
-    'https://connect.facebook.net/en_US/fbevents.js');
-    fbq('init', '1434110431562090');
-    fbq('track', 'PageView');
-    </script>
-    <!-- End Meta Pixel Code -->
-    <!-- Google Analytics -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-P0641L8TPT"></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag("js", new Date());
-      gtag("config", "G-P0641L8TPT");
-    </script>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     
@@ -31,7 +9,8 @@
     <title>Coach Running IA - Programme course à pied personnalisé par IA</title>
     
     <!-- Description SEO (150-160 caractères) -->
-    
+    <meta name="description" content="Programme course à pied 100% personnalisé par IA. Plans marathon, semi-marathon, trail, 10km adaptés à votre niveau. Créez votre plan en 2 minutes." />
+
     <!-- Mots-clés -->
     <meta name="keywords" content="coach running, programme course à pied, plan entrainement marathon, plan trail, IA running, coach virtuel course, programme personnalisé running" />
     
@@ -69,11 +48,56 @@
     
     <!-- Preconnect pour performance -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link rel="preconnect" href="https://firestore.googleapis.com" />
+
+    <!-- JSON-LD: Organization -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Organization",
+      "name": "Coach Running IA",
+      "url": "https://coachrunningia.fr",
+      "logo": "https://coachrunningia.fr/favicon-32x32.png",
+      "description": "Programme course à pied personnalisé par intelligence artificielle"
+    }
+    </script>
+
+    <!-- JSON-LD: WebSite -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebSite",
+      "name": "Coach Running IA",
+      "url": "https://coachrunningia.fr",
+      "description": "Programme course à pied personnalisé par IA. Plans marathon, semi-marathon, trail, 10km."
+    }
+    </script>
   </head>
   <body class="bg-surface text-slate-800 antialiased">
-    <noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=1434110431562090&ev=PageView&noscript=1"/></noscript>
     <div id="root"></div>
     <script type="module" src="/src/index.tsx"></script>
+
+    <!-- Analytics (chargé après le contenu pour ne pas bloquer le rendu) -->
+    <script>
+    !function(f,b,e,v,n,t,s)
+    {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+    n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+    if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+    n.queue=[];t=b.createElement(e);t.async=!0;
+    t.src=v;s=b.getElementsByTagName(e)[0];
+    s.parentNode.insertBefore(t,s)}(window, document,'script',
+    'https://connect.facebook.net/en_US/fbevents.js');
+    fbq('init', '1434110431562090');
+    fbq('track', 'PageView');
+    </script>
+    <noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=1434110431562090&ev=PageView&noscript=1"/></noscript>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-P0641L8TPT"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag("js", new Date());
+      gtag("config", "G-P0641L8TPT");
+    </script>
   </body>
 </html>

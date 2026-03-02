@@ -79,7 +79,20 @@ const BlogArticle: React.FC = () => {
   return (
     <div className="min-h-screen bg-white">
 <Helmet>
+        <title>{post.seoTitle || post.title} | Coach Running IA</title>
         <meta name="description" content={post.excerpt} />
+        <link rel="canonical" href={`https://coachrunningia.fr/blog/${post.slug}`} />
+        <script type="application/ld+json">{JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "Article",
+          "headline": post.title,
+          "description": post.excerpt,
+          "image": post.coverImage || "https://coachrunningia.fr/og-image.png",
+          "author": { "@type": "Organization", "name": "Coach Running IA" },
+          "publisher": { "@type": "Organization", "name": "Coach Running IA", "logo": { "@type": "ImageObject", "url": "https://coachrunningia.fr/favicon-32x32.png" } },
+          "datePublished": post.createdAt?.toDate?.()?.toISOString?.() || new Date().toISOString(),
+          "url": `https://coachrunningia.fr/blog/${post.slug}`
+        })}</script>
       </Helmet>
       {/* Hero Image */}
       {post.coverImage && (

@@ -34,7 +34,12 @@ const TrailLanding: React.FC<TrailLandingProps> = ({ user, onPlanGeneration, isG
           <h2 className="text-xl md:text-2xl text-slate-300 mb-6 max-w-3xl mx-auto">
             Programme trail sur-mesure généré par IA. Adapté à la distance, au dénivelé et à votre expérience en montagne.
           </h2>
-          <p className="text-slate-400 text-sm mb-2">✓ 1ère semaine gratuite ✓ Dénivelé intégré ✓ Renforcement musculaire inclus</p>
+          <p className="text-slate-400 text-sm mb-4">✓ 1ère semaine gratuite ✓ Dénivelé intégré ✓ Renforcement musculaire inclus</p>
+          <div className="inline-flex items-center gap-1.5 text-slate-500 opacity-50">
+            <span className="text-[11px]">Powered by</span>
+            <svg className="w-3 h-3 text-[#FC4C02]" viewBox="0 0 24 24" fill="currentColor" aria-label="Logo Strava"><path d="M15.387 17.944l-2.089-4.116h-3.065L15.387 24l5.15-10.172h-3.066m-7.008-5.599l2.836 5.598h4.172L10.463 0l-7 13.828h4.169"/></svg>
+            <span className="text-[11px] font-medium text-[#FC4C02]">Strava</span>
+          </div>
         </div>
       </section>
 
@@ -173,6 +178,43 @@ const TrailLanding: React.FC<TrailLandingProps> = ({ user, onPlanGeneration, isG
             <p className="text-slate-600 mb-4">
               En trail, on parle en <strong>D+ (dénivelé positif)</strong> autant qu'en kilomètres. Un trail de 30 km avec 2000m D+ est bien plus exigeant qu'un marathon sur route. Votre plan doit intégrer un volume de dénivelé progressif.
             </p>
+          </div>
+        </div>
+      </section>
+
+      {/* SECTION: CONNECTÉ À STRAVA */}
+      <section className="py-16 md:py-24 bg-white">
+        <div className="max-w-5xl mx-auto px-4">
+          <div className="text-center mb-12">
+            <div className="flex items-center justify-center gap-3 mb-4">
+              <h2 className="text-3xl md:text-4xl font-black tracking-tight text-slate-900">
+                Connecté à <span className="text-[#FC4C02]">Strava</span>
+              </h2>
+              <svg className="w-8 h-8 text-[#FC4C02]" viewBox="0 0 24 24" fill="currentColor" aria-label="Logo Strava"><path d="M15.387 17.944l-2.089-4.116h-3.065L15.387 24l5.15-10.172h-3.066m-7.008-5.599l2.836 5.598h4.172L10.463 0l-7 13.828h4.169"/></svg>
+            </div>
+            <p className="text-slate-500 max-w-2xl mx-auto text-lg">
+              Partenaire officiel — vos données au service de votre progression
+            </p>
+          </div>
+
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+            {[
+              { title: "Connexion en 1 clic", desc: "Reliez votre compte Strava depuis votre espace Coach Running IA" },
+              { title: "Vos données accessibles", desc: "Historique de courses, distances, allures, fréquence cardiaque importés automatiquement" },
+              { title: "Plans plus adaptés", desc: "L'IA analyse vos performances réelles pour ajuster votre programme" },
+              { title: "Analyse mensuelle", desc: "Bilan automatique de vos sorties Strava avec recommandations personnalisées" },
+            ].map(({ title, desc }) => (
+              <div key={title} className="rounded-2xl p-6 bg-orange-50/50 border border-orange-100 text-center hover:shadow-md hover:border-orange-200 transition-all duration-300">
+                <h3 className="font-bold text-slate-800 mb-2">{title}</h3>
+                <p className="text-slate-500 text-sm leading-relaxed">{desc}</p>
+              </div>
+            ))}
+          </div>
+
+          <div className="mt-10 flex items-center justify-center gap-3">
+            <span className="text-sm text-slate-400">Compatible with</span>
+            <svg className="w-6 h-6 text-[#FC4C02]" viewBox="0 0 24 24" fill="currentColor" aria-label="Logo Strava"><path d="M15.387 17.944l-2.089-4.116h-3.065L15.387 24l5.15-10.172h-3.066m-7.008-5.599l2.836 5.598h4.172L10.463 0l-7 13.828h4.169"/></svg>
+            <span className="text-sm font-bold text-[#FC4C02]">Strava</span>
           </div>
         </div>
       </section>

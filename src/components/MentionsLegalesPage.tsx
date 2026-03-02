@@ -7,7 +7,9 @@ const MentionsLegalesPage: React.FC = () => {
   return (
     <div className="min-h-screen bg-white">
       <Helmet>
+        <title>Mentions Légales | Coach Running IA</title>
         <meta name="description" content="Mentions légales du site coachrunningia.fr. Éditeur, hébergeur et informations juridiques." />
+        <link rel="canonical" href="https://coachrunningia.fr/mentions-legales" />
       </Helmet>
       <div className="max-w-4xl mx-auto px-4 py-12">
         <Link to="/" className="inline-flex items-center gap-2 text-slate-500 hover:text-slate-900 mb-8">

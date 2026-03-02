@@ -1,5 +1,6 @@
 
 import React, { useState, useEffect, Suspense, lazy } from 'react';
+import { Helmet } from 'react-helmet-async';
 import { BrowserRouter as Router, Routes, Route, Navigate, useNavigate, useParams, useLocation } from 'react-router-dom';
 import Layout from './components/Layout';
 import LandingPage from './components/LandingPage';
@@ -765,6 +766,23 @@ const PricingPage = ({ user }: { user: User | null }) => {
 
   return (
     <div className="max-w-6xl mx-auto px-4 py-16">
+      <Helmet>
+        <title>Tarifs - Plan Unique et Premium | Coach Running IA</title>
+        <meta name="description" content="Découvrez nos formules : Plan Unique à 3,90€ ou Premium mensuel/annuel. Programme course à pied personnalisé par IA, exports PDF et GPS, connexion Strava." />
+        <link rel="canonical" href="https://coachrunningia.fr/pricing" />
+        <script type="application/ld+json">{JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "Product",
+          "name": "Coach Running IA - Programme d'entraînement",
+          "description": "Programme course à pied personnalisé par IA avec exports PDF, calendrier et montres GPS.",
+          "brand": { "@type": "Organization", "name": "Coach Running IA" },
+          "offers": [
+            { "@type": "Offer", "name": "Plan Unique", "price": "3.90", "priceCurrency": "EUR", "availability": "https://schema.org/InStock" },
+            { "@type": "Offer", "name": "Premium Mensuel", "price": "5.90", "priceCurrency": "EUR", "availability": "https://schema.org/InStock" },
+            { "@type": "Offer", "name": "Premium Annuel", "price": "44.90", "priceCurrency": "EUR", "availability": "https://schema.org/InStock" }
+          ]
+        })}</script>
+      </Helmet>
       <div className="text-center mb-12">
         <h1 className="text-4xl font-bold text-slate-900 mb-4">Choisis ta formule</h1>
         <p className="text-slate-500 text-lg">Sans engagement, resiliable a tout moment en un clic.</p>

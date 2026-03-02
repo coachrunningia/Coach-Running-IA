@@ -7,7 +7,9 @@ const CGVPage: React.FC = () => {
   return (
     <div className="min-h-screen bg-white">
       <Helmet>
+        <title>Conditions Générales de Vente et d'Utilisation | Coach Running IA</title>
         <meta name="description" content="Conditions générales de vente de Coach Running IA. Abonnements, paiements, résiliation et garanties." />
+        <link rel="canonical" href="https://coachrunningia.fr/cgv" />
       </Helmet>
       <div className="max-w-4xl mx-auto px-4 py-12">
         <Link to="/" className="inline-flex items-center gap-2 text-slate-500 hover:text-slate-900 mb-8">

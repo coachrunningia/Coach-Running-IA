@@ -61,6 +61,15 @@ const LandingPage: React.FC<LandingPageProps> = ({ user, onPlanGeneration, isGen
         <meta property="og:title" content="Coach Running IA - Programme course à pied personnalisé par IA" />
         <meta property="og:description" content="Programme course à pied personnalisé par IA. Plans marathon, semi, trail, 10km adaptés à votre niveau." />
         <meta property="og:url" content="https://coachrunningia.fr/" />
+        <script type="application/ld+json">{JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "FAQPage",
+          "mainEntity": faqs.map(faq => ({
+            "@type": "Question",
+            "name": faq.question,
+            "acceptedAnswer": { "@type": "Answer", "text": faq.answer }
+          }))
+        })}</script>
       </Helmet>
 
       {/* SECTION 1: HERO */}
@@ -96,7 +105,7 @@ const LandingPage: React.FC<LandingPageProps> = ({ user, onPlanGeneration, isGen
 
           <div className="mt-6 flex items-center justify-center gap-1.5 opacity-50">
             <span className="text-xs text-slate-400">Powered by</span>
-            <svg className="w-3.5 h-3.5 text-[#FC4C02]" viewBox="0 0 24 24" fill="currentColor"><path d="M15.387 17.944l-2.089-4.116h-3.065L15.387 24l5.15-10.172h-3.066m-7.008-5.599l2.836 5.598h4.172L10.463 0l-7 13.828h4.169"/></svg>
+            <svg className="w-3.5 h-3.5 text-[#FC4C02]" viewBox="0 0 24 24" fill="currentColor" aria-label="Logo Strava"><path d="M15.387 17.944l-2.089-4.116h-3.065L15.387 24l5.15-10.172h-3.066m-7.008-5.599l2.836 5.598h4.172L10.463 0l-7 13.828h4.169"/></svg>
             <span className="text-xs font-medium text-[#FC4C02]">Strava</span>
           </div>
         </div>
@@ -349,7 +358,7 @@ const LandingPage: React.FC<LandingPageProps> = ({ user, onPlanGeneration, isGen
               <h2 className="text-3xl md:text-5xl font-black tracking-tight text-slate-900">
                 Connecté à <span className="text-[#FC4C02]">Strava</span>
               </h2>
-              <svg className="w-10 h-10 text-[#FC4C02]" viewBox="0 0 24 24" fill="currentColor"><path d="M15.387 17.944l-2.089-4.116h-3.065L15.387 24l5.15-10.172h-3.066m-7.008-5.599l2.836 5.598h4.172L10.463 0l-7 13.828h4.169"/></svg>
+              <svg className="w-10 h-10 text-[#FC4C02]" viewBox="0 0 24 24" fill="currentColor" aria-label="Logo Strava"><path d="M15.387 17.944l-2.089-4.116h-3.065L15.387 24l5.15-10.172h-3.066m-7.008-5.599l2.836 5.598h4.172L10.463 0l-7 13.828h4.169"/></svg>
             </div>
             <p className="text-slate-500 max-w-2xl mx-auto text-lg">
               Partenaire officiel — vos données au service de votre progression
@@ -372,7 +381,7 @@ const LandingPage: React.FC<LandingPageProps> = ({ user, onPlanGeneration, isGen
 
           <div className="mt-12 flex items-center justify-center gap-3">
             <span className="text-sm text-slate-400">Compatible with</span>
-            <svg className="w-6 h-6 text-[#FC4C02]" viewBox="0 0 24 24" fill="currentColor"><path d="M15.387 17.944l-2.089-4.116h-3.065L15.387 24l5.15-10.172h-3.066m-7.008-5.599l2.836 5.598h4.172L10.463 0l-7 13.828h4.169"/></svg>
+            <svg className="w-6 h-6 text-[#FC4C02]" viewBox="0 0 24 24" fill="currentColor" aria-label="Logo Strava"><path d="M15.387 17.944l-2.089-4.116h-3.065L15.387 24l5.15-10.172h-3.066m-7.008-5.599l2.836 5.598h4.172L10.463 0l-7 13.828h4.169"/></svg>
             <span className="text-sm font-bold text-[#FC4C02]">Strava</span>
           </div>
         </div>
