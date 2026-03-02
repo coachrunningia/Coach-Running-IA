@@ -45,7 +45,7 @@ const MarathonLanding: React.FC<MarathonLandingProps> = ({ user, onPlanGeneratio
     <div className="bg-white">
       <Helmet>
         <title>Plan Entrainement Marathon - Programme IA Personnalise | Coach Running IA</title>
-        <meta name="description" content="Creez votre plan entrainement marathon personnalise par IA en 2 min. Programme 12-20 semaines, export Garmin/Coros, 1ere semaine gratuite. Sub 4h, 3h30, 3h." />
+        <meta name="description" content="Creez votre plan entrainement marathon personnalise par IA en 2 min. Programme 12-20 semaines, export Garmin/Coros, 1ere semaine gratuite. Tous niveaux." />
         <meta name="keywords" content="plan entrainement marathon, programme marathon, plan marathon 16 semaines, plan marathon debutant, plan marathon sub 4h, preparation marathon" />
         <link rel="canonical" href="https://coachrunningia.fr/plan-marathon" />
         <script type="application/ld+json">{JSON.stringify({
@@ -71,7 +71,7 @@ const MarathonLanding: React.FC<MarathonLandingProps> = ({ user, onPlanGeneratio
             Plan entrainement <span className="text-accent">marathon</span> personnalise
           </h1>
           <p className="text-xl md:text-2xl text-slate-300 mb-6 max-w-3xl mx-auto">
-            Programme 42,195 km sur-mesure genere par IA. Adapte a votre niveau pour atteindre votre objectif : sub 4h, sub 3h30, sub 3h...
+            Programme 42,195 km sur-mesure genere par IA. Adapte a votre niveau, que ce soit votre premier marathon ou que vous visiez un record personnel.
           </p>
           <p className="text-slate-400 text-sm mb-6">✓ 1ere semaine gratuite ✓ Sans carte bancaire ✓ Plan 12 a 20 semaines</p>
           <button
@@ -229,14 +229,15 @@ const MarathonLanding: React.FC<MarathonLandingProps> = ({ user, onPlanGeneratio
               <li><strong>Le renforcement musculaire</strong> : gainage, squats et exercices specifiques pour prevenir les blessures</li>
             </ul>
 
-            <h3 className="text-xl font-bold text-slate-900 mt-8 mb-4">Objectifs temps au marathon</h3>
+            <h3 className="text-xl font-bold text-slate-900 mt-8 mb-4">Temps de passage realistes au marathon</h3>
             <p className="text-slate-600 mb-4">
-              Voici les allures moyennes selon les objectifs courants. Utilisez notre <Link to="/outils/allure-marathon" className="text-accent hover:underline font-medium">calculateur d'allure marathon</Link> pour trouver votre pace ideal.
+              Les temps ci-dessous reflètent la realite de la majorite des coureurs. Utilisez notre <Link to="/outils/allure-marathon" className="text-accent hover:underline font-medium">calculateur d'allure marathon</Link> pour estimer votre allure cible.
             </p>
             <ul className="text-slate-600 space-y-2 mb-6">
-              <li><strong>Sub 4h00</strong> : allure moyenne de 5'41"/km - accessible aux debutants bien prepares</li>
-              <li><strong>Sub 3h30</strong> : allure moyenne de 4'59"/km - coureurs reguliers</li>
-              <li><strong>Sub 3h00</strong> : allure moyenne de 4'16"/km - coureurs confirmes</li>
+              <li><strong>4h30 - 5h00</strong> : allure de 6'24" a 7'07"/km - la majorite des premiers marathoniens. Finir est deja un exploit.</li>
+              <li><strong>4h00 - 4h30</strong> : allure de 5'41" a 6'24"/km - coureurs reguliers avec 1 a 2 ans de pratique et une preparation serieuse de 16+ semaines.</li>
+              <li><strong>3h30 - 4h00</strong> : allure de 4'59" a 5'41"/km - coureurs experimentes qui s'entrainent 4 a 5 fois par semaine depuis plusieurs annees.</li>
+              <li><strong>Moins de 3h30</strong> : allure sous 4'59"/km - niveau competiteur, necessite plusieurs annees d'entrainement structure et un volume eleve (60-80+ km/semaine).</li>
             </ul>
 
             <h3 className="text-xl font-bold text-slate-900 mt-8 mb-4">Les erreurs a eviter dans sa preparation marathon</h3>
