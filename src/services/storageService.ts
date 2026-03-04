@@ -1,5 +1,7 @@
 
 import { User, TrainingPlan, Session, QuestionnaireData } from '../types';
+import { resolveSessionDate, toISODateString } from '../utils/dateUtils';
+import { STRIPE_PRICES } from '../constants';
 import { auth, db } from './firebase';
 import {
   onAuthStateChanged,
@@ -548,9 +550,10 @@ export const createStripeCheckoutSession = async (priceId: string, mode: 'subscr
   // Invalider le cache avant de rediriger vers Stripe
   invalidateStripeCache(user.uid);
 
+  const planParam = priceId === STRIPE_PRICES.MONTHLY ? 'premium_mensuel' : 'premium_annuel';
   const successUrl = mode === 'payment'
     ? window.location.origin + '/dashboard?payment_success=true&type=plan_unique'
-    : window.location.origin + '/success?session_id={CHECKOUT_SESSION_ID}';
+    : window.location.origin + `/success?session_id={CHECKOUT_SESSION_ID}&plan=${planParam}`;
 
   const response = await fetch('/api/create-checkout-session', {
     method: 'POST',
@@ -698,4 +701,92 @@ export const disconnectStrava = async (userId: string): Promise<void> => {
   });
 
   console.log('[disconnectStrava] Strava disconnected for user:', userId);
+};
+
+// ============================================
+// DATE MANAGEMENT
+// ============================================
+
+/** Met à jour le dateOverride d'une seule séance */
+export const updateSessionDate = async (
+  planId: string,
+  sessionId: string,
+  weekNumber: number,
+  newDateISO: string
+): Promise<void> => {
+  const planRef = doc(db, PLANS_COLLECTION, planId);
+  const planSnap = await getDoc(planRef);
+  if (!planSnap.exists()) return;
+
+  const plan = planSnap.data() as TrainingPlan;
+  const updatedWeeks = plan.weeks.map(w => {
+    if (w.weekNumber !== weekNumber) return w;
+    return {
+      ...w,
+      sessions: w.sessions.map(s =>
+        s.id === sessionId ? { ...s, dateOverride: newDateISO } : s
+      )
+    };
+  });
+
+  await updateDoc(planRef, { weeks: updatedWeeks });
+  console.log(`[updateSessionDate] Session ${sessionId} → ${newDateISO}`);
+};
+
+/** Décale toutes les séances à partir d'une séance donnée de daysDiff jours */
+export const shiftSessionDates = async (
+  planId: string,
+  fromWeekNumber: number,
+  fromSessionId: string,
+  daysDiff: number,
+  planStartDate: string
+): Promise<void> => {
+  const planRef = doc(db, PLANS_COLLECTION, planId);
+  const planSnap = await getDoc(planRef);
+  if (!planSnap.exists()) return;
+
+  const plan = planSnap.data() as TrainingPlan;
+
+  // Flatten all sessions with their week info, in order
+  let found = false;
+  const updatedWeeks = plan.weeks.map(w => {
+    const updatedSessions = w.sessions.map(s => {
+      if (s.id === fromSessionId && w.weekNumber === fromWeekNumber) {
+        found = true;
+      }
+      if (!found) return s;
+
+      // Compute current effective date, shift it
+      const currentDate = resolveSessionDate(s, planStartDate, w.weekNumber);
+      const newDate = new Date(currentDate);
+      newDate.setDate(newDate.getDate() + daysDiff);
+      return { ...s, dateOverride: toISODateString(newDate) };
+    });
+    return { ...w, sessions: updatedSessions };
+  });
+
+  await updateDoc(planRef, { weeks: updatedWeeks });
+  console.log(`[shiftSessionDates] Shifted from session ${fromSessionId} by ${daysDiff} days`);
+};
+
+/** Modifie la date de début du plan et supprime tous les dateOverride */
+export const updatePlanStartDate = async (
+  planId: string,
+  newStartDate: string
+): Promise<void> => {
+  const planRef = doc(db, PLANS_COLLECTION, planId);
+  const planSnap = await getDoc(planRef);
+  if (!planSnap.exists()) return;
+
+  const plan = planSnap.data() as TrainingPlan;
+  const updatedWeeks = plan.weeks.map(w => ({
+    ...w,
+    sessions: w.sessions.map(s => {
+      const { dateOverride, ...rest } = s;
+      return rest;
+    })
+  }));
+
+  await updateDoc(planRef, { startDate: newStartDate, weeks: updatedWeeks });
+  console.log(`[updatePlanStartDate] Plan ${planId} → startDate=${newStartDate}`);
 };

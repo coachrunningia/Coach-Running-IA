@@ -5,7 +5,7 @@ import { Session } from '../types';
 import { useSettings } from '../context/SettingsContext';
 import {
     Clock, MapPin, ChevronDown, Activity, Dumbbell, Watch, HelpCircle,
-    Flame, CheckCircle, MessageSquare, Zap, Target, X
+    Flame, CheckCircle, MessageSquare, Zap, Target, X, Calendar
 } from 'lucide-react';
 import { clsx, type ClassValue } from 'clsx';
 import { twMerge } from 'tailwind-merge';
@@ -20,11 +20,12 @@ interface SessionCardProps {
     isLocked?: boolean;
     onFeedbackClick?: (session: Session, weekNumber: number) => void;
     onQuickComplete?: (session: Session, completed: boolean, weekNumber: number) => void;
+    onDateChange?: (session: Session, weekNumber: number) => void;
     sessionDate?: Date;
     isToday?: boolean;
 }
 
-const SessionCard: React.FC<SessionCardProps> = ({ session, weekNumber, isLocked, onFeedbackClick, onQuickComplete, sessionDate, isToday }) => {
+const SessionCard: React.FC<SessionCardProps> = ({ session, weekNumber, isLocked, onFeedbackClick, onQuickComplete, onDateChange, sessionDate, isToday }) => {
     const [expanded, setExpanded] = useState(false);
     const [showExportHelp, setShowExportHelp] = useState(false);
     const { paceUnit } = useSettings();
@@ -170,6 +171,15 @@ const SessionCard: React.FC<SessionCardProps> = ({ session, weekNumber, isLocked
                                     {isToday ? "Aujourd'hui" : formatSessionDate(sessionDate)}
                                 </span>
                             )}
+                            {onDateChange && (
+                                <button
+                                    onClick={(e) => { e.stopPropagation(); onDateChange(session, weekNumber); }}
+                                    className="p-0.5 text-slate-400 hover:text-accent transition-colors"
+                                    title="Modifier la date"
+                                >
+                                    <Calendar size={12} />
+                                </button>
+                            )}
                         </div>
                         <h3 className={cn("font-bold leading-tight", isCompleted ? "text-emerald-700" : "text-slate-800")}>
                             {session.title}
@@ -186,6 +196,15 @@ const SessionCard: React.FC<SessionCardProps> = ({ session, weekNumber, isLocked
                             <span className={cn("text-[10px] font-bold px-1.5 py-0.5 rounded", isToday ? "bg-accent text-white" : "bg-slate-100 text-slate-500")}>
                                 {isToday ? "Aujourd'hui" : formatSessionDate(sessionDate)}
                             </span>
+                        )}
+                        {onDateChange && (
+                            <button
+                                onClick={(e) => { e.stopPropagation(); onDateChange(session, weekNumber); }}
+                                className="p-0.5 text-slate-400 hover:text-accent transition-colors"
+                                title="Modifier la date"
+                            >
+                                <Calendar size={12} />
+                            </button>
                         )}
                         <span className={cn("text-[10px] px-2 py-0.5 rounded-full font-bold uppercase flex items-center gap-1", intensityStyle.bg, intensityStyle.text)}>
                             {intensityStyle.icon} {session.intensity}

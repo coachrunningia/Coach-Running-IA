@@ -3,7 +3,7 @@ import React, { useState, useEffect, useCallback, useMemo } from 'react';
 import { TrainingPlan, Session, User, Week } from '../types';
 import { Calendar, Clock, Lock, ShieldCheck, CheckCircle, Activity, AlertTriangle, Star, Zap, RefreshCw, X, ChevronDown, ChevronUp, Target, MapPin, TrendingUp, FileText, Loader } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
-import { updateSessionFeedback, savePlan } from '../services/storageService';
+import { updateSessionFeedback, savePlan, updateSessionDate, shiftSessionDates, updatePlanStartDate } from '../services/storageService';
 import { downloadICS, downloadPDF, downloadSessionTCX } from '../services/exportService';
 import StravaConnect from './StravaConnect';
 import SessionCard from './SessionCard';
@@ -11,6 +11,10 @@ import Statistics from './Statistics';
 import PlanHero from './PlanHero';
 import UserProfile from './UserProfile';
 import Toast from './Toast';
+import DatePickerModal from './DatePickerModal';
+import CrossWeekConfirmModal from './CrossWeekConfirmModal';
+import StartDatePickerModal from './StartDatePickerModal';
+import { resolveSessionDate, getWeekNumberForDate, toISODateString } from '../utils/dateUtils';
 import { useSettings } from '../context/SettingsContext';
 import { compareWeekWithStrava, generateAdaptationSuggestions, applyAdaptation, WeekComparisonResult, AdaptationSuggestion } from '../services/stravaAnalysisService';
 
@@ -79,6 +83,15 @@ const PlanView: React.FC<PlanViewProps> = ({ plan: initialPlan, isLocked = false
   const [adaptationSuggestion, setAdaptationSuggestion] = useState<AdaptationSuggestion | null>(null);
   const [showAdaptationModal, setShowAdaptationModal] = useState(false);
   const [adaptationNextWeek, setAdaptationNextWeek] = useState<Week | null>(null);
+
+  // Date editing states
+  const [datePickerSession, setDatePickerSession] = useState<Session | null>(null);
+  const [datePickerWeek, setDatePickerWeek] = useState<number>(0);
+  const [showCrossWeekConfirm, setShowCrossWeekConfirm] = useState(false);
+  const [pendingDateChange, setPendingDateChange] = useState<{
+    session: Session; weekNumber: number; newDateISO: string; daysDiff: number; fromWeek: number; toWeek: number;
+  } | null>(null);
+  const [showStartDatePicker, setShowStartDatePicker] = useState(false);
 
   // Sync plan if prop changes (also normalize)
   useEffect(() => {
@@ -389,21 +402,22 @@ const PlanView: React.FC<PlanViewProps> = ({ plan: initialPlan, isLocked = false
     return date.toLocaleDateString('fr-FR', options);
   };
 
-  // Calculer la date d'une séance basée sur le jour de la semaine
-  const getSessionDate = (weekNumber: number, dayName: string): Date => {
-    // Ajuster startDate au Lundi de sa semaine
+  // Calculer la date d'une séance (utilise dateOverride si présent)
+  const getSessionDate = (weekNumber: number, dayName: string, session?: Session): Date => {
+    if (session) {
+      return resolveSessionDate(session, plan.startDate, weekNumber);
+    }
+    // Fallback sans session (utilisé par getWeekStatus)
     const rawStartDate = new Date(plan.startDate);
-    const startDayOfWeek = rawStartDate.getDay(); // 0=Dimanche, 1=Lundi...
+    const startDayOfWeek = rawStartDate.getDay();
     const daysToMonday = startDayOfWeek === 0 ? -6 : 1 - startDayOfWeek;
     const startDate = new Date(rawStartDate);
     startDate.setDate(rawStartDate.getDate() + daysToMonday);
     const weekStart = new Date(startDate);
     weekStart.setDate(startDate.getDate() + (weekNumber - 1) * 7);
-
     const dayIndex = dayToIndex[dayName] ?? 0;
     const sessionDate = new Date(weekStart);
     sessionDate.setDate(weekStart.getDate() + dayIndex);
-
     return sessionDate;
   };
 
@@ -516,6 +530,141 @@ const PlanView: React.FC<PlanViewProps> = ({ plan: initialPlan, isLocked = false
     setShowAdaptationModal(false);
     setShowComparisonModal(false);
     setAdaptationSuggestion(null);
+  };
+
+  // --- Date editing handlers ---
+  const handleOpenDatePicker = (session: Session, weekNumber: number) => {
+    setDatePickerSession(session);
+    setDatePickerWeek(weekNumber);
+  };
+
+  const handleDateSelected = (newDateISO: string) => {
+    if (!datePickerSession) return;
+
+    const currentDate = resolveSessionDate(datePickerSession, plan.startDate, datePickerWeek);
+    currentDate.setHours(0, 0, 0, 0);
+    const [ny, nm, nd] = newDateISO.split('-').map(Number);
+    const newDate = new Date(ny, nm - 1, nd, 0, 0, 0, 0);
+    const daysDiff = Math.round((newDate.getTime() - currentDate.getTime()) / (1000 * 60 * 60 * 24));
+
+    const currentWeek = datePickerWeek;
+    const targetWeek = getWeekNumberForDate(newDate, plan.startDate);
+
+    if (targetWeek !== currentWeek) {
+      // Cross-week: show confirmation
+      setPendingDateChange({
+        session: datePickerSession,
+        weekNumber: datePickerWeek,
+        newDateISO,
+        daysDiff,
+        fromWeek: currentWeek,
+        toWeek: targetWeek
+      });
+      setDatePickerSession(null);
+      setShowCrossWeekConfirm(true);
+    } else {
+      // Same week: apply directly
+      applySingleSessionDateChange(datePickerSession, datePickerWeek, newDateISO);
+      setDatePickerSession(null);
+    }
+  };
+
+  const applySingleSessionDateChange = async (session: Session, weekNumber: number, newDateISO: string) => {
+    try {
+      await updateSessionDate(plan.id, session.id, weekNumber, newDateISO);
+      // Update local state
+      setPlan(prev => ({
+        ...prev,
+        weeks: prev.weeks.map(w => {
+          if (w.weekNumber !== weekNumber) return w;
+          return {
+            ...w,
+            sessions: w.sessions.map(s =>
+              s.id === session.id ? { ...s, dateOverride: newDateISO } : s
+            )
+          };
+        })
+      }));
+      setToastMessage('Date modifiee');
+      setToastSubMessage(`"${session.title}" deplacee`);
+      setToastVisible(true);
+    } catch (error) {
+      console.error('Erreur modification date:', error);
+      alert('Erreur lors de la modification de la date.');
+    }
+  };
+
+  const handleShiftAllSessions = async () => {
+    if (!pendingDateChange) return;
+    try {
+      await shiftSessionDates(
+        plan.id,
+        pendingDateChange.weekNumber,
+        pendingDateChange.session.id,
+        pendingDateChange.daysDiff,
+        plan.startDate
+      );
+      // Reload plan from local computation
+      const targetSessionId = pendingDateChange.session.id;
+      const targetWeekNumber = pendingDateChange.weekNumber;
+      const shift = pendingDateChange.daysDiff;
+      setPlan(prev => {
+        let found = false;
+        return {
+          ...prev,
+          weeks: prev.weeks.map(w => ({
+            ...w,
+            sessions: w.sessions.map(s => {
+              if (s.id === targetSessionId && w.weekNumber === targetWeekNumber) {
+                found = true;
+              }
+              if (!found) return s;
+              const currentDate = resolveSessionDate(s, prev.startDate, w.weekNumber);
+              const newDate = new Date(currentDate);
+              newDate.setDate(newDate.getDate() + shift);
+              return { ...s, dateOverride: toISODateString(newDate) };
+            })
+          }))
+        };
+      });
+      setToastMessage('Seances decalees');
+      setToastSubMessage(`${Math.abs(pendingDateChange.daysDiff)} jour(s) ${pendingDateChange.daysDiff > 0 ? 'en avant' : 'en arriere'}`);
+      setToastVisible(true);
+    } catch (error) {
+      console.error('Erreur decalage:', error);
+      alert('Erreur lors du decalage des seances.');
+    }
+    setShowCrossWeekConfirm(false);
+    setPendingDateChange(null);
+  };
+
+  const handleMoveOnly = () => {
+    if (!pendingDateChange) return;
+    applySingleSessionDateChange(pendingDateChange.session, pendingDateChange.weekNumber, pendingDateChange.newDateISO);
+    setShowCrossWeekConfirm(false);
+    setPendingDateChange(null);
+  };
+
+  const handleStartDateChange = async (newStartDate: string) => {
+    try {
+      await updatePlanStartDate(plan.id, newStartDate);
+      // Update local state: new startDate, remove all dateOverrides
+      setPlan(prev => ({
+        ...prev,
+        startDate: newStartDate,
+        weeks: prev.weeks.map(w => ({
+          ...w,
+          sessions: w.sessions.map(s => ({ ...s, dateOverride: undefined }))
+        }))
+      }));
+      setShowStartDatePicker(false);
+      setToastMessage('Date de debut modifiee');
+      setToastSubMessage('Toutes les dates ont ete recalculees');
+      setToastVisible(true);
+    } catch (error) {
+      console.error('Erreur modification date de debut:', error);
+      alert('Erreur lors de la modification de la date de debut.');
+    }
   };
 
   return (
@@ -687,6 +836,19 @@ const PlanView: React.FC<PlanViewProps> = ({ plan: initialPlan, isLocked = false
                       <span>Course le {new Date(plan.raceDate).toLocaleDateString('fr-FR', { day: 'numeric', month: 'long' })}</span>
                     </div>
                   )}
+
+                  {/* Date de début avec bouton modifier */}
+                  <div className="flex items-center gap-2 text-sm text-slate-500">
+                    <Calendar size={14} />
+                    <span>Debut : {new Date(plan.startDate).toLocaleDateString('fr-FR', { day: 'numeric', month: 'long' })}</span>
+                    <button
+                      onClick={(e) => { e.stopPropagation(); setShowStartDatePicker(true); }}
+                      className="p-1 text-slate-400 hover:text-accent hover:bg-accent/10 rounded transition-colors"
+                      title="Modifier la date de debut"
+                    >
+                      <RefreshCw size={12} />
+                    </button>
+                  </div>
 
                   {/* Score de confiance explicite */}
                   {(plan.feasibility || plan.confidenceScore) && (
@@ -1084,8 +1246,15 @@ const PlanView: React.FC<PlanViewProps> = ({ plan: initialPlan, isLocked = false
                         <p className="px-4 pt-2 text-xs text-orange-500 italic">À utiliser quand tu as terminé ta semaine</p>
                       )}
                       <div className={`p-4 pt-2 space-y-3 ${isWeekLocked ? 'blur-sm opacity-50 pointer-events-none' : ''}`}>
-                        {week.sessions.map((session, sIdx) => {
-                          const sessionDate = getSessionDate(week.weekNumber, session.day);
+                        {week.sessions
+                          .slice()
+                          .sort((a, b) => {
+                            const dateA = resolveSessionDate(a, plan.startDate, week.weekNumber);
+                            const dateB = resolveSessionDate(b, plan.startDate, week.weekNumber);
+                            return dateA.getTime() - dateB.getTime();
+                          })
+                          .map((session, sIdx) => {
+                          const sessionDate = getSessionDate(week.weekNumber, session.day, session);
                           const sessionIsToday = isToday(sessionDate);
                           return (
                             <SessionCard
@@ -1095,6 +1264,7 @@ const PlanView: React.FC<PlanViewProps> = ({ plan: initialPlan, isLocked = false
                               isLocked={isWeekLocked}
                               onFeedbackClick={isWeekLocked ? undefined : handleOpenFeedback}
                               onQuickComplete={isWeekLocked ? undefined : handleQuickComplete}
+                              onDateChange={isWeekLocked ? undefined : handleOpenDatePicker}
                               sessionDate={sessionDate}
                               isToday={sessionIsToday}
                             />
@@ -1649,6 +1819,38 @@ const PlanView: React.FC<PlanViewProps> = ({ plan: initialPlan, isLocked = false
             </div>
           </div>
         </div>
+      )}
+
+      {/* DATE PICKER MODAL */}
+      {datePickerSession && (
+        <DatePickerModal
+          session={datePickerSession}
+          currentDate={resolveSessionDate(datePickerSession, plan.startDate, datePickerWeek)}
+          onConfirm={handleDateSelected}
+          onClose={() => setDatePickerSession(null)}
+        />
+      )}
+
+      {/* CROSS WEEK CONFIRM MODAL */}
+      {showCrossWeekConfirm && pendingDateChange && (
+        <CrossWeekConfirmModal
+          sessionTitle={pendingDateChange.session.title}
+          daysDiff={pendingDateChange.daysDiff}
+          fromWeek={pendingDateChange.fromWeek}
+          toWeek={pendingDateChange.toWeek}
+          onMoveOnly={handleMoveOnly}
+          onShiftAll={handleShiftAllSessions}
+          onClose={() => { setShowCrossWeekConfirm(false); setPendingDateChange(null); }}
+        />
+      )}
+
+      {/* START DATE PICKER MODAL */}
+      {showStartDatePicker && (
+        <StartDatePickerModal
+          currentStartDate={toISODateString(new Date(plan.startDate))}
+          onConfirm={handleStartDateChange}
+          onClose={() => setShowStartDatePicker(false)}
+        />
       )}
 
       {/* TOAST DE CÉLÉBRATION */}

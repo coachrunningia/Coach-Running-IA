@@ -1,15 +1,6 @@
 
 import { TrainingPlan, Session } from '../types';
-
-const WEEK_DAYS_MAP: { [key: string]: number } = {
-  'Lundi': 0,
-  'Mardi': 1,
-  'Mercredi': 2,
-  'Jeudi': 3,
-  'Vendredi': 4,
-  'Samedi': 5,
-  'Dimanche': 6
-};
+import { resolveSessionDate } from '../utils/dateUtils';
 
 // Helper pour ajouter des jours à une date
 const addDays = (date: Date, days: number): Date => {
@@ -60,10 +51,8 @@ export const generateICS = (plan: TrainingPlan): string => {
   // 2. Itérer sur chaque séance
   plan.weeks.forEach((week) => {
     week.sessions.forEach((session) => {
-      // Calcul de la date précise de la séance
-      const dayIndex = WEEK_DAYS_MAP[session.day] || 0;
-      const weekOffset = (week.weekNumber - 1) * 7;
-      const sessionDate = addDays(startDate, weekOffset + dayIndex);
+      // Calcul de la date précise de la séance (respecte dateOverride)
+      const sessionDate = resolveSessionDate(session, plan.startDate, week.weekNumber);
 
       // Création de l'événement (Durée par défaut 1h si non parsable, ou matin 8h)
       // On fixe l'heure à 08:00 par défaut pour l'agenda
