@@ -174,10 +174,10 @@ const SessionCard: React.FC<SessionCardProps> = ({ session, weekNumber, isLocked
                             {onDateChange && (
                                 <button
                                     onClick={(e) => { e.stopPropagation(); onDateChange(session, weekNumber); }}
-                                    className="p-0.5 text-slate-400 hover:text-accent transition-colors"
+                                    className="p-1 text-slate-400 hover:text-accent hover:bg-accent/10 rounded transition-colors"
                                     title="Modifier la date"
                                 >
-                                    <Calendar size={12} />
+                                    <Calendar size={14} />
                                 </button>
                             )}
                         </div>

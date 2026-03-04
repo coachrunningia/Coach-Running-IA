@@ -840,7 +840,7 @@ const PlanView: React.FC<PlanViewProps> = ({ plan: initialPlan, isLocked = false
                   {/* Date de début avec bouton modifier */}
                   <div className="flex items-center gap-2 text-sm text-slate-500">
                     <Calendar size={14} />
-                    <span>Debut : {new Date(plan.startDate).toLocaleDateString('fr-FR', { day: 'numeric', month: 'long' })}</span>
+                    <span>Debut : {(() => { const [y,m,d] = plan.startDate.split('-').map(Number); return new Date(y, m-1, d).toLocaleDateString('fr-FR', { day: 'numeric', month: 'long' }); })()}</span>
                     <button
                       onClick={(e) => { e.stopPropagation(); setShowStartDatePicker(true); }}
                       className="p-1 text-slate-400 hover:text-accent hover:bg-accent/10 rounded transition-colors"
