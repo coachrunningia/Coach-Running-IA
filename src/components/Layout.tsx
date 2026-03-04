@@ -67,7 +67,7 @@ const Layout: React.FC<LayoutProps> = ({ children, user, setUser }) => {
               </Link>
               <div className="hidden sm:flex items-center gap-1.5 ml-4 px-3 py-1 rounded-full bg-orange-50 border border-orange-200">
                 <svg className="w-4 h-4 text-[#FC4C02]" viewBox="0 0 24 24" fill="currentColor"><path d="M15.387 17.944l-2.089-4.116h-3.065L15.387 24l5.15-10.172h-3.066m-7.008-5.599l2.836 5.598h4.172L10.463 0l-7 13.828h4.169"/></svg>
-                <span className="text-xs font-bold text-[#FC4C02]">Strava</span>
+                <span className="text-xs font-bold text-[#FC4C02]">Powered by Strava</span>
               </div>
             </div>
             
