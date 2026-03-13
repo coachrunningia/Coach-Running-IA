@@ -66,6 +66,10 @@ const BlogArticle: React.FC = () => {
   if (!post) {
     return (
       <div className="min-h-screen flex flex-col items-center justify-center">
+        <Helmet>
+          <title>Article non trouvé | Coach Running IA</title>
+          <meta name="robots" content="noindex" />
+        </Helmet>
         <h1 className="text-2xl font-bold text-slate-900 mb-4">Article non trouvé</h1>
         <Link to="/blog" className="text-accent font-bold hover:underline">
           Retour au blog

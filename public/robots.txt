@@ -1,4 +1,15 @@
 User-agent: *
 Allow: /
 
+# Pages privées / dynamiques
+Disallow: /dashboard
+Disallow: /plan/
+Disallow: /profile
+Disallow: /auth
+Disallow: /admin/
+Disallow: /verify-email
+Disallow: /email-sent
+Disallow: /success
+Disallow: /strava-callback
+
 Sitemap: https://coachrunningia.fr/sitemap.xml

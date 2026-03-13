@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { CheckCircle, Crown, ArrowRight, Sparkles } from 'lucide-react';
-import { getAuth } from 'firebase/auth';
+import { getAuth, onAuthStateChanged } from 'firebase/auth';
 import { collection, query, where, orderBy, limit, getDocs } from 'firebase/firestore';
 import { db } from '../services/firebase';
 
@@ -11,34 +11,78 @@ interface SuccessPageProps {
 }
 
 const SuccessPage: React.FC<SuccessPageProps> = ({ onContinue }) => {
-  const [countdown, setCountdown] = useState(5);
+  const [countdown, setCountdown] = useState(6);
   const navigate = useNavigate();
 
+  // Meta Pixel: track Purchase event after successful payment
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    const plan = params.get('plan');
+    const sessionId = params.get('session_id');
+
+    const planConfig: Record<string, { value: number; contentName: string }> = {
+      premium_mensuel: { value: 4.90, contentName: 'Premium Mensuel' },
+      premium_annuel: { value: 39.90, contentName: 'Premium Annuel' },
+      plan_unique: { value: 3.90, contentName: 'Plan Unique' },
+    };
+
+    const config = plan ? planConfig[plan] : { value: 0, contentName: 'Premium' };
+
+    // eventID partagé avec le server-side pour la déduplication Meta
+    const eventID = sessionId ? `purchase_${sessionId}` : `purchase_${Date.now()}`;
+
+    if (typeof window !== 'undefined' && (window as any).fbq) {
+      (window as any).fbq('track', 'Purchase', {
+        value: config.value,
+        currency: 'EUR',
+        content_ids: [plan || 'premium'],
+        content_type: 'product',
+        content_name: config.contentName,
+      }, { eventID });
+      console.log('[Meta Pixel] Purchase tracked client-side, eventID:', eventID);
+    } else {
+      console.warn('[Meta Pixel] fbq not loaded, Purchase not tracked client-side');
+    }
+  }, []);
+
+  // Wait for Firebase Auth to load, then redirect to latest plan
+  useEffect(() => {
+    let redirected = false;
+    const auth = getAuth();
+
+    // Listen for auth state — fires once auth is initialized
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
+      if (redirected) return;
+
+      if (user) {
+        // Auth is ready, find the user's latest plan
+        const q = query(
+          collection(db, 'plans'),
+          where('userId', '==', user.uid),
+          orderBy('createdAt', 'desc'),
+          limit(1)
+        );
+        getDocs(q).then(snap => {
+          if (redirected) return;
+          if (snap.docs.length > 0) {
+            redirected = true;
+            navigate('/plan/' + snap.docs[0].id);
+          }
+          // Don't redirect yet if no plan found — wait for countdown
+        }).catch(() => {});
+      }
+    });
+
+    return () => unsubscribe();
+  }, [navigate]);
+
+  // Countdown fallback — if auth/plan lookup didn't redirect, go to dashboard
   useEffect(() => {
     const timer = setInterval(() => {
       setCountdown(prev => {
         if (prev <= 1) {
           clearInterval(timer);
-          // Redirect to user's latest plan
-          const auth = getAuth();
-          const user = auth.currentUser;
-          if (user) {
-            const q = query(
-              collection(db, 'plans'),
-              where('userId', '==', user.uid),
-              orderBy('createdAt', 'desc'),
-              limit(1)
-            );
-            getDocs(q).then(snap => {
-              if (snap.docs.length > 0) {
-                navigate('/plan/' + snap.docs[0].id);
-              } else {
-                onContinue();
-              }
-            }).catch(() => onContinue());
-          } else {
-            onContinue();
-          }
+          onContinue();
           return 0;
         }
         return prev - 1;
@@ -46,7 +90,7 @@ const SuccessPage: React.FC<SuccessPageProps> = ({ onContinue }) => {
     }, 1000);
 
     return () => clearInterval(timer);
-  }, [onContinue, navigate]);
+  }, [onContinue]);
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-emerald-50 to-white flex items-center justify-center p-4">

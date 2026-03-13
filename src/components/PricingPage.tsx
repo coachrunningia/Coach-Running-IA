@@ -1,7 +1,7 @@
 
 import React, { useState } from 'react';
 import { Helmet } from "react-helmet-async";
-import { Check, Zap, Crown, ArrowLeft } from 'lucide-react';
+import { Check, Zap, Crown, ArrowLeft, X } from 'lucide-react';
 import { STRIPE_PRICES } from '../constants';
 
 interface PricingPageProps {
@@ -27,7 +27,7 @@ const PricingPage: React.FC<PricingPageProps> = ({ userId, userEmail, onBack }) 
           priceId,
           userId,
           userEmail,
-          successUrl: `${baseUrl}/success?session_id={CHECKOUT_SESSION_ID}`,
+          successUrl: `${baseUrl}/success?session_id={CHECKOUT_SESSION_ID}&plan=${plan === 'monthly' ? 'premium_mensuel' : 'premium_annuel'}`,
           cancelUrl: `${baseUrl}/pricing`
         })
       });
@@ -48,7 +48,7 @@ const PricingPage: React.FC<PricingPageProps> = ({ userId, userEmail, onBack }) 
   };
 
   const features = [
-    { text: "Plans illimités", desc: "Génère autant de plans que tu veux" },
+    { text: "Plans illimités", desc: "Génère autant de plans que tu veux", bold: true },
     { text: "Toutes les semaines détaillées", desc: "Chaque jour, chaque séance" },
     { text: "Connexion Strava", desc: "Analyse IA hebdo (bientôt disponible)" },
     { text: "Feedback après séance", desc: "Note ton ressenti, le plan s'adapte" },
@@ -60,7 +60,9 @@ const PricingPage: React.FC<PricingPageProps> = ({ userId, userEmail, onBack }) 
   return (
     <div className="min-h-screen bg-gradient-to-b from-slate-50 to-white py-12 px-4">
       <Helmet>
+        <title>Tarifs - Plan Unique et Premium | Coach Running IA</title>
         <meta name="description" content="Plans d'entraînement course à pied personnalisés par IA dès 9,99€/mois. Essai gratuit 7 jours, sans engagement. Marathon, semi, trail, 10km." />
+        <link rel="canonical" href="https://coachrunningia.fr/pricing" />
       </Helmet>
       <div className="max-w-4xl mx-auto">
 
@@ -100,6 +102,17 @@ const PricingPage: React.FC<PricingPageProps> = ({ userId, userEmail, onBack }) 
               <p className="text-sm text-slate-500 mt-2">Facturation mensuelle</p>
             </div>
 
+            <div className="mb-6 space-y-2 text-sm text-slate-400">
+              <div className="flex items-center gap-2">
+                <X size={14} className="text-slate-300" />
+                <span>Génération illimitée de plans</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <X size={14} className="text-slate-300" />
+                <span>Réduction du forfait annuel</span>
+              </div>
+            </div>
+
             <button
               onClick={() => handleSubscribe('monthly')}
               disabled={loading !== null}
@@ -116,21 +129,22 @@ const PricingPage: React.FC<PricingPageProps> = ({ userId, userEmail, onBack }) 
             </button>
           </div>
 
-          {/* Yearly - Best Value */}
+          {/* Yearly - Populaire */}
           <div className="bg-gradient-to-br from-slate-900 to-slate-800 rounded-2xl p-8 shadow-xl relative overflow-hidden">
-            <div className="absolute top-4 right-4 bg-amber-400 text-slate-900 text-xs font-black px-3 py-1 rounded-full">
-              -33%
+            <div className="absolute top-4 right-4 bg-amber-400 text-slate-900 text-xs font-black px-3 py-1 rounded-full uppercase">
+              Populaire
             </div>
 
             <div className="text-center mb-6">
               <h3 className="text-xl font-bold text-white mb-2">Annuel</h3>
               <div className="flex items-baseline justify-center gap-1">
-                <span className="text-4xl font-black text-white">79,99</span>
+                <span className="text-4xl font-black text-white">39,90</span>
                 <span className="text-slate-400">/an</span>
               </div>
               <p className="text-sm text-slate-400 mt-2">
-                Soit <span className="text-amber-400 font-bold">6,67/mois</span> - Meilleur prix
+                Soit <span className="text-amber-400 font-black text-lg">3,33&euro;/mois</span>
               </p>
+              <p className="text-white font-black text-sm mt-2">Plans illimités</p>
             </div>
 
             <button
@@ -161,7 +175,7 @@ const PricingPage: React.FC<PricingPageProps> = ({ userId, userEmail, onBack }) 
                 <div className="w-6 h-6 bg-emerald-100 rounded-full flex items-center justify-center flex-shrink-0">
                   <Check size={14} className="text-emerald-600" />
                 </div>
-                <div><span className="text-slate-700 font-medium">{feature.text}</span><p className="text-xs text-slate-500">{feature.desc}</p></div>
+                <div><span className={`text-slate-700 ${'bold' in feature && feature.bold ? 'font-black' : 'font-medium'}`}>{feature.text}</span><p className="text-xs text-slate-500">{feature.desc}</p></div>
               </div>
             ))}
           </div>

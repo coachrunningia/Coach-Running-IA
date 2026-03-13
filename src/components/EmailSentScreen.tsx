@@ -2,8 +2,11 @@ import { useEffect } from "react";
 
 import React, { useState } from 'react';
 import { useSearchParams, useNavigate } from 'react-router-dom';
-import { Mail, RefreshCw, CheckCircle, ArrowLeft } from 'lucide-react';
+import { Mail, RefreshCw, CheckCircle, ArrowLeft, AlertTriangle } from 'lucide-react';
 import Logo from './Logo';
+import { createEmailVerificationToken } from '../services/storageService';
+
+const MAX_RESENDS = 3;
 
 const EmailSentScreen: React.FC = () => {
 
@@ -15,26 +18,46 @@ const EmailSentScreen: React.FC = () => {
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
   const email = searchParams.get('email') || '';
+  const userId = searchParams.get('uid') || '';
+  const firstName = searchParams.get('fn') || 'Coureur';
 
   const [isResending, setIsResending] = useState(false);
   const [resendSuccess, setResendSuccess] = useState(false);
   const [resendError, setResendError] = useState<string | null>(null);
+  const [resendCount, setResendCount] = useState(0);
 
   const handleResendEmail = async () => {
-    if (!email || isResending) return;
+    if (!email || !userId || isResending) return;
+
+    if (resendCount >= MAX_RESENDS) {
+      setResendError('Nombre maximum de renvois atteint. Contactez-nous à programme@coachrunningia.fr');
+      return;
+    }
 
     setIsResending(true);
     setResendError(null);
     setResendSuccess(false);
 
     try {
-      // Note: Pour renvoyer l'email, on aurait besoin de stocker les infos
-      // Pour l'instant, on affiche juste un message
-      // Dans une version plus complète, on pourrait avoir un endpoint /api/resend-verification-email
+      // Creer un nouveau token de verification
+      const newToken = await createEmailVerificationToken(userId, email, undefined, firstName);
 
-      // Simuler un délai pour l'UX
-      await new Promise(resolve => setTimeout(resolve, 1500));
+      // Envoyer l'email via le serveur
+      const response = await fetch('/api/send-verification-email', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          token: newToken,
+          email,
+          firstName
+        })
+      });
 
+      if (!response.ok) {
+        throw new Error('Erreur serveur');
+      }
+
+      setResendCount(prev => prev + 1);
       setResendSuccess(true);
       setTimeout(() => setResendSuccess(false), 5000);
     } catch (error) {
@@ -43,6 +66,8 @@ const EmailSentScreen: React.FC = () => {
       setIsResending(false);
     }
   };
+
+  const maxResendsReached = resendCount >= MAX_RESENDS;
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 to-slate-100 flex flex-col items-center justify-center p-4">
@@ -86,7 +111,7 @@ const EmailSentScreen: React.FC = () => {
               </li>
               <li className="flex items-start gap-2">
                 <span className="bg-blue-200 text-blue-900 w-5 h-5 rounded-full flex items-center justify-center text-xs font-bold flex-shrink-0 mt-0.5">2</span>
-                <span>Cliquez sur le bouton "Confirmer mon email"</span>
+                <span>Cliquez sur le bouton "Voir mon plan d'entraînement"</span>
               </li>
               <li className="flex items-start gap-2">
                 <span className="bg-blue-200 text-blue-900 w-5 h-5 rounded-full flex items-center justify-center text-xs font-bold flex-shrink-0 mt-0.5">3</span>
@@ -99,7 +124,7 @@ const EmailSentScreen: React.FC = () => {
           {resendSuccess && (
             <div className="bg-emerald-50 border border-emerald-200 rounded-xl p-3 mb-4 flex items-center gap-2 justify-center">
               <CheckCircle size={18} className="text-emerald-600" />
-              <span className="text-emerald-800 text-sm font-medium">Email renvoyé avec succès !</span>
+              <span className="text-emerald-800 text-sm font-medium">Email renvoyé avec succès ! ({MAX_RESENDS - resendCount} renvoi{MAX_RESENDS - resendCount > 1 ? 's' : ''} restant{MAX_RESENDS - resendCount > 1 ? 's' : ''})</span>
             </div>
           )}
 
@@ -110,16 +135,29 @@ const EmailSentScreen: React.FC = () => {
             </div>
           )}
 
+          {/* Max resends reached */}
+          {maxResendsReached && !resendError && (
+            <div className="bg-amber-50 border border-amber-200 rounded-xl p-3 mb-4 flex items-center gap-2 justify-center">
+              <AlertTriangle size={18} className="text-amber-600" />
+              <span className="text-amber-800 text-sm font-medium">Limite de renvois atteinte. Contactez <a href="mailto:programme@coachrunningia.fr" className="underline font-bold">programme@coachrunningia.fr</a></span>
+            </div>
+          )}
+
           {/* Resend Button */}
           <button
             onClick={handleResendEmail}
-            disabled={isResending || !email}
+            disabled={isResending || !email || !userId || maxResendsReached}
             className="w-full bg-slate-100 hover:bg-slate-200 text-slate-700 font-medium py-3 px-6 rounded-xl transition-all flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed mb-4"
           >
             {isResending ? (
               <>
                 <RefreshCw size={18} className="animate-spin" />
                 Envoi en cours...
+              </>
+            ) : maxResendsReached ? (
+              <>
+                <Mail size={18} />
+                Contactez le support
               </>
             ) : (
               <>

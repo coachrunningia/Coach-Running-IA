@@ -25,7 +25,8 @@ import {
   getDocs,
   onSnapshot,
   orderBy,
-  limit
+  limit,
+  deleteDoc
 } from 'firebase/firestore';
 
 const PLANS_COLLECTION = 'plans';
@@ -226,6 +227,16 @@ export const getPlanById = async (planId: string, userId: string): Promise<Train
   return null;
 };
 
+export const deletePlan = async (planId: string, userId: string): Promise<void> => {
+  const planRef = doc(db, PLANS_COLLECTION, planId);
+  const planSnap = await getDoc(planRef);
+  if (!planSnap.exists()) throw new Error('Plan introuvable');
+  const plan = planSnap.data() as TrainingPlan;
+  if (plan.userId !== userId) throw new Error('Non autorisé');
+  await deleteDoc(planRef);
+  console.log('[deletePlan] Plan deleted:', planId);
+};
+
 export const checkCanGeneratePlan = async (user: User): Promise<{ allowed: boolean; reason?: string }> => {
   if (user.isPremium) return { allowed: true };
 
@@ -401,8 +412,7 @@ export const registerUser = async (
   };
   await setDoc(userRef, cleanObject(userData));
 
-  // Register in Brevo (non-blocking)
-  registerBrevoContact(email, firstName);
+  // Brevo: contact ajouté seulement après vérification email (dans /api/verify-email)
 
   console.log('[Auth] User registered:', fbUser.uid);
   return userData;
@@ -552,7 +562,7 @@ export const createStripeCheckoutSession = async (priceId: string, mode: 'subscr
 
   const planParam = priceId === STRIPE_PRICES.MONTHLY ? 'premium_mensuel' : 'premium_annuel';
   const successUrl = mode === 'payment'
-    ? window.location.origin + '/dashboard?payment_success=true&type=plan_unique'
+    ? window.location.origin + `/success?session_id={CHECKOUT_SESSION_ID}&plan=plan_unique`
     : window.location.origin + `/success?session_id={CHECKOUT_SESSION_ID}&plan=${planParam}`;
 
   const response = await fetch('/api/create-checkout-session', {
@@ -621,7 +631,8 @@ function generateVerificationToken(): string {
 export const createEmailVerificationToken = async (
   userId: string,
   email: string,
-  planId?: string
+  planId?: string,
+  firstName?: string
 ): Promise<string> => {
   const token = generateVerificationToken();
   const expiresAt = new Date(Date.now() + 24 * 60 * 60 * 1000); // 24h
@@ -630,6 +641,7 @@ export const createEmailVerificationToken = async (
   await setDoc(tokenRef, {
     userId,
     email: email.toLowerCase(),
+    firstName: firstName || 'Coureur',
     planId: planId || null,
     createdAt: new Date().toISOString(),
     expiresAt: expiresAt.toISOString(),

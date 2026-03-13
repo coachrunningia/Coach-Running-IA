@@ -464,10 +464,21 @@ Le trail nest pas que de la distance, cest aussi et surtout du DÉNIVELÉ.
    - Nutrition : "Au-delà de 2h deffort, prévois 60g de glucides/heure"
    - Bâtons : "Si ta course autorise les bâtons, entraîne-toi avec"
 
-7. EXEMPLE DE SEMAINE TYPE TRAIL (4 séances) :
-   - Mardi : Fractionné côtes - 1h - 400m D+
-   - Jeudi : Footing vallonné + renfo - 50min - 200m D+
-   - Samedi : Sortie longue trail - 2h30 - 1000m D+
+7. CHAMP "elevationGain" OBLIGATOIRE POUR TRAIL :
+   - Pour CHAQUE séance trail qui comporte du dénivelé, renseigne le champ "elevationGain" (nombre entier en mètres)
+   - Séances avec D+ : Sortie Longue, Fractionné côtes, Footing vallonné, Rando-course
+   - Séances SANS D+ (elevationGain = 0 ou absent) : Renforcement, Récupération sur plat
+   - Ce champ DOIT être cohérent avec le mainSet (si mainSet dit "800m D+", elevationGain doit être 800)
+   - Exemples :
+     * Sortie longue trail → "elevationGain": 1000
+     * Fractionné côtes → "elevationGain": 400
+     * Footing vallonné → "elevationGain": 200
+     * Renforcement → pas de champ elevationGain
+
+8. EXEMPLE DE SEMAINE TYPE TRAIL (4 séances) :
+   - Mardi : Fractionné côtes - 1h - 400m D+ → "elevationGain": 400
+   - Jeudi : Footing vallonné + renfo - 50min - 200m D+ → "elevationGain": 200
+   - Samedi : Sortie longue trail - 2h30 - 1000m D+ → "elevationGain": 1000
    - Dimanche : Récup active ou repos
 
 
@@ -761,6 +772,8 @@ JAMAIS deux séances le même jour de la semaine !
           "distance": "8 km",
           "intensity": "Facile|Modéré|Difficile",
           "targetPace": "5:45 min/km",
+          "elevationGain": 800,
+          "locationSuggestion": "Nom du lieu réel adapté à cette séance (ex: Bois de Vincennes, Piste d'athlétisme Charléty...)",
           "warmup": "15 min à {EF_PACE} min/km + gammes",
           "mainSet": "DÉTAILLÉ avec distances ET allures EXACTES",
           "cooldown": "10 min trot lent",
@@ -1189,6 +1202,24 @@ Tu DOIS proposer 2-3 lieux RÉELS à ${data.city} ou dans ses environs proches :
 - Exemples pour Bordeaux : Parc bordelais, Berges de la Garonne, Parc de Majolan
 - Pour chaque lieu, indique le type (PARK, TRACK, NATURE, HILL) et pour quel type de séance il convient
 - Si tu ne connais pas de lieux spécifiques, propose des types génériques : "Parc municipal", "Piste d'athlétisme locale"
+
+📍 LIEU PAR SÉANCE (locationSuggestion) — OBLIGATOIRE si ville renseignée :
+Chaque séance DOIT avoir un champ "locationSuggestion" avec un lieu RÉEL et PRÉCIS de ${data.city} adapté aux EXIGENCES de la séance.
+
+🎯 RÈGLE CLÉ : le lieu doit correspondre au CONTENU de la séance, pas juste au type générique.
+
+MATCHING LIEU ↔ SÉANCE :
+- Fractionné VMA / Vitesse (répétitions courtes, 200m-400m) → PISTE D'ATHLÉTISME obligatoire (surface plane, distances balisées). Ex: "Piste d'athlétisme Charléty" ou "Stade [nom local]"
+- Fractionné Seuil / Tempo (blocs longs 8-15 min) → chemin plat régulier, berges, voie verte. Ex: "Berges du Canal du Midi" ou "Voie verte de [nom]"
+- Séance avec D+ (elevationGain > 0) → lieu avec VRAI dénivelé à proximité : collines, forêts pentues, parcs vallonnés. Ex: "Colline de Fourvière", "Forêt de Meudon", "Parc des Buttes-Chaumont"
+- Sortie Longue route (sans D+) → grand parc, boucle longue, berges de fleuve. Ex: "Bois de Vincennes", "Tour du Lac d'Annecy"
+- Sortie Longue Trail (avec D+) → forêt/montagne avec sentiers. Ex: "Forêt de Fontainebleau", "Mont Ventoux versant Bédoin"
+- Footing / Récupération → parc agréable au sol souple, berges calmes. Ex: "Parc de la Tête d'Or", "Jardin du Luxembourg"
+- Renforcement → "À la maison" ou "Salle de sport"
+
+⚠️ COHÉRENCE D+ ↔ LIEU : si une séance a elevationGain: 500, le lieu DOIT avoir du dénivelé réel. NE PAS suggérer un parc plat pour une séance de côtes.
+⚠️ VARIER les lieux au fil des semaines pour éviter la monotonie.
+⚠️ Si tu ne connais pas de lieu précis, décris le type nécessaire : "Stade avec piste d'athlétisme", "Colline ou sentier pentu près de ${data.city}".
 ` : ''}
 
 ⚠️ BLESSURES :
@@ -1458,6 +1489,16 @@ Tu DOIS proposer 2-3 lieux RÉELS à ${data.city} ou dans ses environs proches :
 - Exemples pour Paris : Bois de Vincennes, Parc Montsouris, Jardin du Luxembourg
 - Exemples pour Lyon : Parc de la Tête d'Or, Berges du Rhône
 - Pour chaque lieu, indique le type (PARK, TRACK, NATURE, HILL) et pour quel type de séance il convient
+
+📍 LIEU PAR SÉANCE (locationSuggestion) — OBLIGATOIRE :
+Chaque séance DOIT avoir un "locationSuggestion" avec un lieu RÉEL de ${data.city} adapté aux EXIGENCES de la séance :
+- Fractionné VMA/vitesse → PISTE D'ATHLÉTISME (surface plane, distances balisées)
+- Fractionné seuil/tempo → chemin plat, berges, voie verte
+- Séance avec D+ (elevationGain > 0) → colline, forêt pentue, parc vallonné (lieu avec VRAI dénivelé !)
+- Sortie Longue route → grand parc, boucle longue, berges
+- Sortie Longue Trail → forêt/montagne avec sentiers
+- Footing/Récup → parc agréable, sol souple, berges calmes
+- Renforcement → "À la maison" ou "Salle de sport"
 ` : ''}
 
 ═══════════════════════════════════════════════════════════════
@@ -1528,6 +1569,8 @@ ${generationContext.periodizationPlan.weeklyPhases.map((p, i) => `S${i + 1}: ${p
           "distance": "distance",
           "intensity": "Facile|Modéré|Difficile",
           "targetPace": "allure",
+          "elevationGain": 600,
+          "locationSuggestion": "Lieu réel adapté à cette séance",
           "warmup": "échauffement avec allure",
           "mainSet": "corps détaillé avec allures EXACTES",
           "cooldown": "retour au calme",
@@ -1752,7 +1795,18 @@ IMPORTANT : VARIER les exercices chaque semaine (ne pas répéter le même circu
 Alterner les focus : semaines impaires = quadriceps/gainage frontal, semaines paires = fessiers-hanches/gainage latéral.
 ${data.goal === 'Trail' ? 'TRAIL : inclure excentrique quadriceps, proprioception chevilles, mollets spécifiques montée.' : ''}
 ${data.trailDetails && data.trailDetails.distance > 42 ? 'ULTRA-TRAIL : ajouter circuits haute répétition (20-30 reps) + renfo haut du corps (bâtons).' : ''}
-
+${data.city ? `
+📍 LIEU PAR SÉANCE (locationSuggestion) — OBLIGATOIRE :
+Ville : ${data.city}. Chaque séance DOIT avoir un "locationSuggestion" RÉEL et COHÉRENT avec le contenu :
+- Fractionné VMA/vitesse → PISTE D'ATHLÉTISME (surface plane, distances balisées)
+- Fractionné seuil/tempo → chemin plat, berges, voie verte
+- Séance avec D+ (elevationGain > 0) → colline, forêt pentue, sentier avec VRAI dénivelé
+- Sortie Longue route → grand parc, boucle longue, berges
+- Sortie Longue Trail → forêt/montagne avec sentiers
+- Footing/Récup → parc agréable, sol souple
+- Renforcement → "À la maison"
+⚠️ Si elevationGain > 0, le lieu DOIT avoir du dénivelé réel. Varier les lieux entre semaines.
+` : ''}
 ═══════════════════════════════════════════════════════════════
               FORMAT JSON STRICT
 ═══════════════════════════════════════════════════════════════
@@ -1773,6 +1827,8 @@ Retourne UNIQUEMENT un tableau JSON des semaines ${startWeek} à ${endWeek} :
         "distance": "distance",
         "intensity": "Facile|Modéré|Difficile",
         "targetPace": "allure",
+        "elevationGain": 600,
+        "locationSuggestion": "Lieu réel adapté",
         "warmup": "échauffement",
         "mainSet": "corps avec allures EXACTES",
         "cooldown": "retour au calme",
@@ -2002,6 +2058,7 @@ Tes messages (coachNote, adaptationSummary, advice des séances modifiées) doiv
         "duration": "nouvelle durée si modifiée",
         "mainSet": "nouveau contenu DÉTAILLÉ avec allures EXACTES et format VARIÉ",
         "targetPace": "allure cible si modifiée",
+        "elevationGain": "D+ en mètres si modifié (Trail uniquement)",
         "advice": "Conseil PERSONNEL du coach : référence l'objectif, explique pourquoi cette modif, et donne un conseil pratique"
       },
       "reason": "Explication technique de pourquoi cette modification (lien avec la physiologie et l'objectif)"

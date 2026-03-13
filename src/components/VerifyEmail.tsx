@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import { CheckCircle, XCircle, Loader2, Mail, ArrowRight } from 'lucide-react';
 import { doc, getDoc, updateDoc } from 'firebase/firestore';
+
 import { db } from '../services/firebase';
 import Logo from './Logo';
 
@@ -16,7 +17,6 @@ const VerifyEmail: React.FC = () => {
   const [status, setStatus] = useState<VerificationStatus>('loading');
   const [email, setEmail] = useState<string>('');
   const [errorMessage, setErrorMessage] = useState<string>('')
-  const [planId, setPlanId] = useState<string | null>(null);
 
   useEffect(() => {
     if (!token) {
@@ -29,7 +29,7 @@ const VerifyEmail: React.FC = () => {
       try {
         console.log('[VerifyEmail] Verifying token:', token.substring(0, 10) + '...');
 
-        // 1. Récupérer le token depuis Firestore (côté CLIENT)
+        // 1. Récupérer le token depuis Firestore
         const tokenRef = doc(db, 'emailVerificationTokens', token);
         const tokenDoc = await getDoc(tokenRef);
 
@@ -41,54 +41,61 @@ const VerifyEmail: React.FC = () => {
         }
 
         const tokenData = tokenDoc.data();
-        console.log('[VerifyEmail] Token data:', {
-          userId: tokenData.userId,
-          email: tokenData.email,
-          used: tokenData.used,
-          expiresAt: tokenData.expiresAt
-        });
+        const userEmail = tokenData.email || '';
+        const userFirstName = tokenData.firstName || 'Coureur';
+        console.log('[VerifyEmail] Token data:', { userId: tokenData.userId, email: userEmail, used: tokenData.used });
 
-        // 2. Vérifier si déjà utilisé
-        if (tokenData.used) {
-          setStatus('used');
-          setEmail(tokenData.email || '');
-          return;
-        }
-
-        // 3. Vérifier expiration
+        // 2. Vérifier expiration
         const expiresAt = new Date(tokenData.expiresAt);
         if (expiresAt < new Date()) {
           setStatus('expired');
           return;
         }
 
-        // 4. Marquer le token comme utilisé
-        await updateDoc(tokenRef, {
-          used: true,
-          usedAt: new Date().toISOString()
-        });
-        console.log('[VerifyEmail] Token marked as used');
-
-        // 5. Marquer l'utilisateur comme vérifié
-        const userRef = doc(db, 'users', tokenData.userId);
-        await updateDoc(userRef, {
-          emailVerified: true,
-          emailVerifiedAt: new Date().toISOString()
-        });
-        console.log('[VerifyEmail] User marked as verified');
-
-        setStatus('success');
-        setEmail(tokenData.email || '');
-
-        // Stocker le planId pour rediriger après login
-        if (tokenData.planId) {
-          localStorage.setItem('pendingPlanId', tokenData.planId);
-          setPlanId(tokenData.planId);
-          console.log('[VerifyEmail] Stored pending planId:', tokenData.planId);
+        // ===== BREVO EN PREMIER (indépendant de tout le reste) =====
+        // On enregistre dans Brevo AVANT les opérations Firestore qui peuvent échouer
+        try {
+          const apiBase = import.meta.env.VITE_API_URL || '';
+          const brevoRes = await fetch(`${apiBase}/api/brevo/register`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ email: userEmail, firstName: userFirstName })
+          });
+          const brevoData = await brevoRes.json();
+          console.log('[VerifyEmail] Brevo result:', brevoData);
+        } catch (brevoErr) {
+          console.warn('[VerifyEmail] Brevo failed (non-blocking):', brevoErr);
         }
 
+        // 3. Si déjà utilisé → succès (l'utilisateur voit "déjà vérifié")
+        if (tokenData.used) {
+          setStatus('used');
+          setEmail(userEmail);
+          return;
+        }
+
+        // 4. Marquer le token comme utilisé (peut échouer si pas connecté, non bloquant)
+        try {
+          await updateDoc(tokenRef, { used: true, usedAt: new Date().toISOString() });
+          console.log('[VerifyEmail] Token marked as used');
+        } catch (tokenErr) {
+          console.warn('[VerifyEmail] Token update failed (non-blocking):', tokenErr);
+        }
+
+        // 5. Marquer l'utilisateur comme vérifié (peut échouer si pas connecté, non bloquant)
+        try {
+          const userRef = doc(db, 'users', tokenData.userId);
+          await updateDoc(userRef, { emailVerified: true, emailVerifiedAt: new Date().toISOString() });
+          console.log('[VerifyEmail] User marked as verified');
+        } catch (userErr) {
+          console.warn('[VerifyEmail] User update failed (non-blocking):', userErr);
+        }
+
+        setStatus('success');
+        setEmail(userEmail);
+
       } catch (error: any) {
-        console.error('[VerifyEmail] Error:', error);
+        console.error('[VerifyEmail] Critical error:', error);
         setStatus('error');
         setErrorMessage(error.message || 'Une erreur est survenue.');
       }
@@ -98,7 +105,7 @@ const VerifyEmail: React.FC = () => {
   }, [token]);
 
   const handleGoToLogin = () => {
-    navigate('/auth?verified=true' + (email ? `&email=${encodeURIComponent(email)}` : '') + (planId ? `&planId=${planId}` : ''));
+    navigate('/auth?verified=true' + (email ? `&email=${encodeURIComponent(email)}` : ''));
   };
 
   return (

@@ -15,9 +15,10 @@ import {
   checkCanGeneratePlan,
   saveUserQuestionnaire,
   upgradeUserToPremium,
-  registerUser
+  registerUser,
+  deletePlan
 } from './services/storageService';
-import { Trophy, CheckCircle, Zap, Loader2, Sparkles, X, ChevronRight, Lock, XCircle, Star, ArrowRight } from 'lucide-react';
+import { Trophy, CheckCircle, Zap, Loader2, Sparkles, X, ChevronRight, Lock, XCircle, Star, ArrowRight, Trash2, Crown } from 'lucide-react';
 import { APP_NAME, STRIPE_PRICES } from './constants';
 
 // Lazy-loaded route components
@@ -43,6 +44,7 @@ const VMACalculatorPage = lazy(() => import('./components/tools/VMACalculatorPag
 const RacePredictorPage = lazy(() => import('./components/tools/RacePredictorPage'));
 const MarathonPacePage = lazy(() => import('./components/tools/MarathonPacePage'));
 const ToolsIndexPage = lazy(() => import('./components/tools/ToolsIndexPage'));
+const MilesKmConverterPage = lazy(() => import('./components/tools/MilesKmConverterPage'));
 
 
 // Redirection des anciennes URLs /post/* vers /blog/*
@@ -50,6 +52,20 @@ const PostRedirect = () => {
   const { slug } = useParams();
   return <Navigate to={`/blog/${slug}`} replace />;
 };
+const NotFoundPage = () => (
+  <div className="min-h-screen flex flex-col items-center justify-center p-4 text-center">
+    <Helmet>
+      <title>Page non trouvée | Coach Running IA</title>
+      <meta name="robots" content="noindex" />
+    </Helmet>
+    <h1 className="text-6xl font-black text-slate-900 mb-4">404</h1>
+    <p className="text-xl text-slate-600 mb-8">Cette page n'existe pas ou a été déplacée.</p>
+    <a href="/" className="bg-slate-900 hover:bg-slate-800 text-white font-bold py-3 px-8 rounded-xl transition-colors">
+      Retour à l'accueil
+    </a>
+  </div>
+);
+
 const AppContent = () => {
   const [user, setUser] = useState<User | null>(null);
   const [loading, setLoading] = useState(true);
@@ -129,22 +145,8 @@ const AppContent = () => {
   const handleAuthSuccess = (loggedInUser: User) => {
     const params = new URLSearchParams(location.search);
 
-    // Priorité 1: planId dans l'URL (après vérification email)
-    const urlPlanId = params.get('planId');
-    if (urlPlanId) {
-      console.log('[Auth] Redirecting to plan from URL:', urlPlanId);
-      navigate(`/plan/${urlPlanId}`);
-      return;
-    }
-
-    // Priorité 2: planId dans localStorage
-    const pendingPlanId = localStorage.getItem('pendingPlanId');
-    if (pendingPlanId) {
-      localStorage.removeItem('pendingPlanId');
-      console.log('[Auth] Redirecting to pending plan:', pendingPlanId);
-      navigate(`/plan/${pendingPlanId}`);
-      return;
-    }
+    // Nettoyer le pendingPlanId éventuel (plus utilisé)
+    localStorage.removeItem('pendingPlanId');
 
     navigate(params.get('redirect') === 'pricing' ? '/pricing' : '/dashboard');
   };
@@ -172,6 +174,7 @@ const AppContent = () => {
         <Route path="/outils/calculateur-vma" element={<VMACalculatorPage />} />
         <Route path="/outils/predicteur-temps" element={<RacePredictorPage />} />
         <Route path="/outils/allure-marathon" element={<MarathonPacePage />} />
+        <Route path="/outils/convertisseur-miles-km" element={<MilesKmConverterPage />} />
         <Route path="/blog" element={<BlogList />} />
         <Route path="/blog/:slug" element={<BlogArticle />} />
         <Route path="/post/:slug" element={<PostRedirect />} />
@@ -181,13 +184,16 @@ const AppContent = () => {
         <Route path="/verify-email" element={<VerifyEmail />} />
         <Route path="/email-sent" element={<EmailSentScreen />} />
         <Route path="/strava-callback" element={<StravaCallback />} />
-        <Route path="/success" element={<SuccessPage onContinue={() => navigate('/plan')} />} />
+        <Route path="/success" element={<SuccessPage onContinue={() => navigate('/dashboard')} />} />
 
         {/* Pages authentifiées - spinner pendant le chargement auth */}
         <Route path="/dashboard" element={loading ? authSpinner : user ? <Dashboard user={user} /> : <Navigate to="/auth" replace />} />
         <Route path="/profile" element={loading ? authSpinner : user ? <ProfilePage user={user} setUser={setUser} /> : <Navigate to="/auth" replace />} />
         <Route path="/plan/:planId" element={<PlanDetailsWrapper setIsGenerating={setIsGenerating} user={user} onRegeneratePlan={handlePlanGeneration} />} />
         <Route path="/admin/blog" element={loading ? authSpinner : user?.isAdmin ? <BlogAdmin user={user} /> : <Navigate to="/" replace />} />
+
+        {/* 404 - Page non trouvée */}
+        <Route path="*" element={<NotFoundPage />} />
       </Routes>
       </Suspense>
     </Layout>
@@ -238,16 +244,31 @@ const Dashboard: React.FC<{ user: User }> = ({ user }) => {
       if (params.get('payment_success') === 'true' && !paymentHandled) {
         setPaymentHandled(true);
         const purchaseType = params.get('type');
-        // Nettoyer l'URL immédiatement
-        window.history.replaceState({}, '', '/dashboard');
 
         if (purchaseType === 'plan_unique') {
           // Plan Unique: webhook handles Firestore, just show success
           console.log('[PlanUnique] Payment success detected');
+          // Meta Pixel: track Purchase event BEFORE cleaning URL
+          const sessionId = params.get('session_id');
+          const eventID = sessionId ? `purchase_${sessionId}` : `purchase_${Date.now()}`;
+          if (typeof window !== 'undefined' && (window as any).fbq) {
+            (window as any).fbq('track', 'Purchase', {
+              value: 3.90,
+              currency: 'EUR',
+              content_ids: ['plan_unique'],
+              content_type: 'product',
+              content_name: 'Plan Unique',
+            }, { eventID });
+            console.log('[Meta Pixel] Plan Unique Purchase tracked, eventID:', eventID);
+          }
+          // Nettoyer l'URL après le tracking
+          setTimeout(() => window.history.replaceState({}, '', '/dashboard'), 500);
           setShowSuccessModal(true);
           return;
         }
 
+        // Nettoyer l'URL pour les abonnements (le tracking se fait sur /success)
+        window.history.replaceState({}, '', '/dashboard');
         console.log('[Premium] Payment success detected. User isPremium:', user.isPremium);
 
         if (!user.isPremium) {
@@ -307,12 +328,12 @@ const Dashboard: React.FC<{ user: User }> = ({ user }) => {
             <button onClick={() => setShowSuccessModal(false)} className="absolute top-4 right-4 text-slate-400 hover:text-slate-600"><X /></button>
             <Sparkles size={40} className="text-green-500 mx-auto mb-4" />
             <h2 className="text-2xl font-bold mb-2">
-              {user.isPremium ? 'Compte Premium Active !' : 'Achat confirme !'}
+              {user.isPremium ? 'Compte Premium Activé !' : 'Achat confirmé !'}
             </h2>
             <p className="text-slate-600 mb-6">
               {user.isPremium
-                ? `Felicitations ${user.firstName}, tu as maintenant acces a toutes les fonctionnalites.`
-                : `Merci ${user.firstName} ! Tu peux maintenant generer tes plans d'entrainement.`
+                ? `Félicitations ${user.firstName}, tu as maintenant accès à toutes les fonctionnalités.`
+                : `Merci ${user.firstName} ! Tu peux maintenant générer tes plans d'entraînement.`
               }
             </p>
             <button onClick={() => setShowSuccessModal(false)} className="w-full bg-slate-900 text-white py-4 rounded-xl font-bold">C'est parti</button>
@@ -368,7 +389,7 @@ const Dashboard: React.FC<{ user: User }> = ({ user }) => {
             {activePlan && (
               <div className="mb-8">
                 <h2 className="text-sm font-bold text-slate-400 uppercase tracking-wider mb-4">Plan en cours</h2>
-                <ActivePlanCard plan={activePlan} user={user} navigate={navigate} />
+                <ActivePlanCard plan={activePlan} user={user} navigate={navigate} onDeleted={() => setPlans(prev => prev.filter(p => p.id !== activePlan.id))} />
               </div>
             )}
 
@@ -391,7 +412,9 @@ const Dashboard: React.FC<{ user: User }> = ({ user }) => {
 };
 
 // Carte du plan actif (mise en avant)
-const ActivePlanCard: React.FC<{ plan: TrainingPlan; user: User; navigate: any }> = ({ plan, user, navigate }) => {
+const ActivePlanCard: React.FC<{ plan: TrainingPlan; user: User; navigate: any; onDeleted: () => void }> = ({ plan, user, navigate, onDeleted }) => {
+  const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
+  const [deleting, setDeleting] = useState(false);
   const progress = calculatePlanProgress(plan);
   const confidenceStyle = getConfidenceStyle(plan.confidenceScore);
   const daysLeft = getDaysUntilRace(plan.raceDate);
@@ -406,7 +429,54 @@ const ActivePlanCard: React.FC<{ plan: TrainingPlan; user: User; navigate: any }
   };
   const currentWeek = getCurrentWeek();
 
+  const handleDelete = async () => {
+    setDeleting(true);
+    try {
+      await deletePlan(plan.id, user.id);
+      setShowDeleteConfirm(false);
+      onDeleted();
+    } catch (err) {
+      console.error('[DeletePlan] Error:', err);
+      alert('Erreur lors de la suppression du plan.');
+    } finally {
+      setDeleting(false);
+    }
+  };
+
   return (
+    <>
+      {/* Modale de confirmation suppression */}
+      {showDeleteConfirm && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-slate-900/60 p-4 backdrop-blur-sm" onClick={() => setShowDeleteConfirm(false)}>
+          <div className="bg-white rounded-2xl p-6 max-w-sm w-full shadow-2xl border border-red-100" onClick={e => e.stopPropagation()}>
+            <div className="w-14 h-14 bg-red-100 rounded-full flex items-center justify-center mx-auto mb-4">
+              <Trash2 size={28} className="text-red-500" />
+            </div>
+            <h3 className="text-lg font-bold text-slate-900 text-center mb-2">Supprimer ce plan ?</h3>
+            <p className="text-sm text-slate-500 text-center mb-6">
+              Cette action est irr&eacute;versible. Toutes les donn&eacute;es de progression seront perdues. Tu pourras ensuite cr&eacute;er un nouveau plan.
+            </p>
+            <div className="flex gap-3">
+              <button
+                onClick={() => setShowDeleteConfirm(false)}
+                className="flex-1 py-3 bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold rounded-xl transition-all"
+                disabled={deleting}
+              >
+                Annuler
+              </button>
+              <button
+                onClick={handleDelete}
+                disabled={deleting}
+                className="flex-1 py-3 bg-red-500 hover:bg-red-600 text-white font-bold rounded-xl transition-all flex items-center justify-center gap-2"
+              >
+                {deleting ? <Loader2 size={18} className="animate-spin" /> : <Trash2 size={18} />}
+                Supprimer
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
     <div
       onClick={() => navigate(`/plan/${plan.id}`)}
       className="bg-white rounded-2xl border border-slate-200 shadow-sm hover:shadow-xl transition-all cursor-pointer overflow-hidden"
@@ -511,12 +581,24 @@ const ActivePlanCard: React.FC<{ plan: TrainingPlan; user: User; navigate: any }
 
       {/* Footer */}
       <div className="bg-slate-50 border-t border-slate-100 px-6 py-4 flex items-center justify-between">
-        <span className="text-xs text-slate-400">Créé le {new Date(plan.createdAt).toLocaleDateString('fr-FR')}</span>
+        <div className="flex items-center gap-3">
+          <span className="text-xs text-slate-400">Créé le {new Date(plan.createdAt).toLocaleDateString('fr-FR')}</span>
+          {user.isPremium && (
+            <button
+              onClick={(e) => { e.stopPropagation(); setShowDeleteConfirm(true); }}
+              className="text-xs text-slate-400 hover:text-red-500 flex items-center gap-1 transition-colors"
+              title="Supprimer ce plan"
+            >
+              <Trash2 size={14} /> Supprimer
+            </button>
+          )}
+        </div>
         <span className="text-sm font-bold text-primary flex items-center gap-1">
           Voir le plan <ChevronRight size={16} />
         </span>
       </div>
     </div>
+    </>
   );
 };
 
@@ -661,6 +743,7 @@ const ADMIN_EMAILS = ["programme@coachrunningia.fr"];
               if (changes.cooldown) session.cooldown = changes.cooldown;
               if (changes.title) session.title = changes.title;
               if (changes.distance) session.distance = changes.distance;
+              if (changes.elevationGain !== undefined) session.elevationGain = changes.elevationGain;
 
               week.sessions[targetIdx] = session;
               console.log(`[Adaptation] Séance modifiée: S${weekIdx + 1}-${targetIdx + 1} "${session.title}"`);
@@ -753,14 +836,14 @@ const PricingPage = ({ user }: { user: User | null }) => {
     "Plan d'entraînement complet par IA",
     "Export PDF",
     "Export calendrier (iPhone, Google)",
-    "Export montres GPS (Garmin, Coros, Suunto)",
+    "Export Garmin Connect (Coros, Suunto, Polar : en cours d'autorisation)",
   ];
 
   const premiumOnlyFeatures = [
     "Connexion Strava",
     "Bilan mensuel Strava (forces, faiblesses, recommandations)",
-    "Analyse hebdomadaire (plan vs reel)",
-    "Feedback apres chaque seance",
+    "Analyse hebdomadaire (plan vs réel)",
+    "Feedback après chaque séance",
     "Adaptation automatique du plan",
   ];
 
@@ -774,7 +857,7 @@ const PricingPage = ({ user }: { user: User | null }) => {
           "@context": "https://schema.org",
           "@type": "Product",
           "name": "Coach Running IA - Programme d'entraînement",
-          "description": "Programme course à pied personnalisé par IA avec exports PDF, calendrier et montres GPS.",
+          "description": "Programme course à pied personnalisé par IA avec exports PDF, calendrier et Garmin Connect.",
           "brand": { "@type": "Organization", "name": "Coach Running IA" },
           "offers": [
             { "@type": "Offer", "name": "Plan Unique", "price": "3.90", "priceCurrency": "EUR", "availability": "https://schema.org/InStock" },
@@ -785,7 +868,7 @@ const PricingPage = ({ user }: { user: User | null }) => {
       </Helmet>
       <div className="text-center mb-12">
         <h1 className="text-4xl font-bold text-slate-900 mb-4">Choisis ta formule</h1>
-        <p className="text-slate-500 text-lg">Sans engagement, resiliable a tout moment en un clic.</p>
+        <p className="text-slate-500 text-lg">Sans engagement, résiliable à tout moment en un clic.</p>
       </div>
 
       {/* 3 Cards */}
@@ -832,11 +915,10 @@ const PricingPage = ({ user }: { user: User | null }) => {
           </button>
         </div>
 
-        {/* Mensuel - Populaire */}
-        <div className="bg-white rounded-2xl border-2 border-accent shadow-xl p-6 flex flex-col relative">
-          <div className="absolute -top-3 left-1/2 -translate-x-1/2 bg-accent text-white px-4 py-1 rounded-full text-xs font-black uppercase">Populaire</div>
+        {/* Mensuel */}
+        <div className="bg-white rounded-2xl border border-slate-200 shadow-sm p-6 flex flex-col relative">
 
-          <div className="text-center mb-6 mt-2">
+          <div className="text-center mb-6">
             <h3 className="text-lg font-bold text-slate-900 mb-3">Premium Mensuel</h3>
             <div className="flex items-baseline justify-center gap-2">
               <span className="text-xl line-through text-slate-400">9,90&euro;</span>
@@ -857,12 +939,18 @@ const PricingPage = ({ user }: { user: User | null }) => {
               ))}
               <li className="flex gap-2 items-start"><CheckCircle size={15} className="text-green-500 mt-0.5 flex-shrink-0" /><span className="font-medium">Sans engagement, annulation libre</span></li>
             </ul>
+
+            <p className="text-xs font-bold text-slate-400 uppercase tracking-wider mb-3 mt-5">Non inclus</p>
+            <ul className="space-y-2.5 text-sm text-slate-400">
+              <li className="flex gap-2 items-start"><XCircle size={15} className="text-slate-300 mt-0.5 flex-shrink-0" />Génération illimitée de plans</li>
+              <li className="flex gap-2 items-start"><XCircle size={15} className="text-slate-300 mt-0.5 flex-shrink-0" />Réduction du forfait annuel</li>
+            </ul>
           </div>
 
           <button
             onClick={() => handleSubscribe(STRIPE_PRICES.MONTHLY)}
             disabled={loadingPlan !== null}
-            className="w-full py-3.5 bg-accent text-white font-bold rounded-xl hover:bg-orange-600 transition-all disabled:opacity-50 flex items-center justify-center gap-2"
+            className="w-full py-3.5 bg-slate-900 text-white font-bold rounded-xl hover:bg-slate-800 transition-all disabled:opacity-50 flex items-center justify-center gap-2"
           >
             {loadingPlan === STRIPE_PRICES.MONTHLY ? (
               <Loader2 size={18} className="animate-spin" />
@@ -875,9 +963,9 @@ const PricingPage = ({ user }: { user: User | null }) => {
           </button>
         </div>
 
-        {/* Annuel */}
-        <div className="bg-white rounded-2xl border border-slate-200 shadow-sm p-6 flex flex-col relative">
-          <div className="absolute -top-3 left-1/2 -translate-x-1/2 bg-emerald-500 text-white px-4 py-1 rounded-full text-xs font-black">+32&euro; ECONOMISES</div>
+        {/* Annuel - Populaire */}
+        <div className="bg-white rounded-2xl border-2 border-accent shadow-xl p-6 flex flex-col relative">
+          <div className="absolute -top-3 left-1/2 -translate-x-1/2 bg-accent text-white px-4 py-1 rounded-full text-xs font-black uppercase">Populaire</div>
 
           <div className="text-center mb-6 mt-2">
             <h3 className="text-lg font-bold text-slate-900 mb-3">Premium Annuel</h3>
@@ -886,7 +974,7 @@ const PricingPage = ({ user }: { user: User | null }) => {
               <span className="text-4xl font-black text-slate-900">39,90&euro;</span>
               <span className="text-slate-500 text-sm">/an</span>
             </div>
-            <p className="text-sm text-emerald-600 font-bold mt-1">Soit 3,33&euro;/mois</p>
+            <p className="text-sm mt-1">Soit <span className="text-accent font-black text-lg">3,33&euro;/mois</span></p>
           </div>
 
           <div className="border-t border-slate-100 pt-4 mb-4 flex-grow">
@@ -898,6 +986,7 @@ const PricingPage = ({ user }: { user: User | null }) => {
               {premiumOnlyFeatures.map((f, i) => (
                 <li key={i} className="flex gap-2 items-start"><CheckCircle size={15} className="text-green-500 mt-0.5 flex-shrink-0" /><span className="font-medium">{f}</span></li>
               ))}
+              <li className="flex gap-2 items-start"><CheckCircle size={15} className="text-green-500 mt-0.5 flex-shrink-0" /><span className="font-black">Plans illimités</span></li>
               <li className="flex gap-2 items-start"><CheckCircle size={15} className="text-green-500 mt-0.5 flex-shrink-0" /><span className="font-medium">Presque 4 mois offerts</span></li>
             </ul>
           </div>
@@ -905,12 +994,15 @@ const PricingPage = ({ user }: { user: User | null }) => {
           <button
             onClick={() => handleSubscribe(STRIPE_PRICES.YEARLY)}
             disabled={loadingPlan !== null}
-            className="w-full py-3.5 bg-slate-900 text-white font-bold rounded-xl hover:bg-slate-800 transition-all disabled:opacity-50 flex items-center justify-center gap-2"
+            className="w-full py-3.5 bg-accent text-white font-bold rounded-xl hover:bg-orange-600 transition-all disabled:opacity-50 flex items-center justify-center gap-2"
           >
             {loadingPlan === STRIPE_PRICES.YEARLY ? (
               <Loader2 size={18} className="animate-spin" />
             ) : (
-              <>S'abonner annuel</>
+              <>
+                <Crown size={16} />
+                S'abonner annuel
+              </>
             )}
           </button>
         </div>
@@ -922,14 +1014,14 @@ const PricingPage = ({ user }: { user: User | null }) => {
           Pourquoi choisir <span className="text-accent">Coach Running IA</span> ?
         </h2>
         <p className="text-center text-slate-500 mb-10 max-w-2xl mx-auto text-lg">
-          Comparez les differentes solutions d'entrainement running
+          Comparez les différentes solutions d'entraînement running
         </p>
 
         <div className="overflow-x-auto rounded-2xl border border-gray-200 shadow-md">
           <table className="w-full">
             <thead>
               <tr className="bg-gray-50">
-                <th className="px-6 py-5 text-left text-sm font-bold text-slate-500">Fonctionnalite</th>
+                <th className="px-6 py-5 text-left text-sm font-bold text-slate-500">Fonctionnalité</th>
                 <th className="px-6 py-5 text-center text-sm font-bold text-slate-500">Coach humain</th>
                 <th className="px-6 py-5 text-center text-sm font-bold text-slate-500">Apps classiques</th>
                 <th className="px-6 py-5 text-center text-sm font-bold text-accent bg-orange-50">Coach Running IA</th>
@@ -937,11 +1029,11 @@ const PricingPage = ({ user }: { user: User | null }) => {
             </thead>
             <tbody className="divide-y divide-gray-100">
               {[
-                { feature: 'Plan personnalise', coach: true, apps: false, us: true },
-                { feature: 'Adapte a vos contraintes', coach: true, apps: false, us: true },
+                { feature: 'Plan personnalisé', coach: true, apps: false, us: true },
+                { feature: 'Adapté à vos contraintes', coach: true, apps: false, us: true },
                 { feature: 'Disponible 24h/24', coach: false, apps: true, us: true },
                 { feature: 'Prix accessible', coach: false, apps: true, us: true },
-                { feature: 'Ajustement en temps reel', coach: true, apps: false, us: true },
+                { feature: 'Ajustement en temps réel', coach: true, apps: false, us: true },
               ].map(({ feature, coach, apps, us }) => (
                 <tr key={feature} className="hover:bg-gray-50/50 transition-colors">
                   <td className="px-6 py-4 font-medium text-slate-700 text-sm">{feature}</td>
@@ -961,7 +1053,7 @@ const PricingPage = ({ user }: { user: User | null }) => {
                 <td className="px-6 py-5 text-center font-bold text-slate-500 text-sm">150-300&euro;/mois</td>
                 <td className="px-6 py-5 text-center font-bold text-slate-500 text-sm">10-15&euro;/mois</td>
                 <td className="px-6 py-5 text-center bg-orange-50">
-                  <span className="font-bold text-accent text-sm">Des 3,33&euro;/mois</span>
+                  <span className="font-bold text-accent text-sm">Dès 3,33&euro;/mois</span>
                 </td>
               </tr>
             </tbody>
@@ -990,10 +1082,10 @@ const PricingPage = ({ user }: { user: User | null }) => {
               <h3 className="font-bold text-slate-400 text-lg">ChatGPT</h3>
             </div>
             <div className="space-y-3 text-slate-500 text-sm">
-              <div className="flex items-start gap-2.5"><X size={16} className="text-red-400 mt-0.5 shrink-0" /><span>Genere un plan a partir de tout ce qui existe en ligne — <strong className="text-slate-600">sans distinguer les bons des mauvais conseils</strong></span></div>
-              <div className="flex items-start gap-2.5"><X size={16} className="text-red-400 mt-0.5 shrink-0" /><span>Aucune validation medicale sur le renforcement musculaire</span></div>
+              <div className="flex items-start gap-2.5"><X size={16} className="text-red-400 mt-0.5 shrink-0" /><span>Génère un plan à partir de tout ce qui existe en ligne — <strong className="text-slate-600">sans distinguer les bons des mauvais conseils</strong></span></div>
+              <div className="flex items-start gap-2.5"><X size={16} className="text-red-400 mt-0.5 shrink-0" /><span>Aucune validation médicale sur le renforcement musculaire</span></div>
               <div className="flex items-start gap-2.5"><X size={16} className="text-red-400 mt-0.5 shrink-0" /><span>Oublie tout entre chaque conversation</span></div>
-              <div className="flex items-start gap-2.5"><X size={16} className="text-red-400 mt-0.5 shrink-0" /><span>Aucun suivi reel de ta progression</span></div>
+              <div className="flex items-start gap-2.5"><X size={16} className="text-red-400 mt-0.5 shrink-0" /><span>Aucun suivi réel de ta progression</span></div>
               <div className="flex items-start gap-2.5"><X size={16} className="text-red-400 mt-0.5 shrink-0" /><span>Pas d'analyse de tes performances Strava</span></div>
               <div className="flex items-start gap-2.5"><X size={16} className="text-red-400 mt-0.5 shrink-0" /><span>Plan en texte brut — pas de calendrier, pas d'export</span></div>
             </div>
@@ -1006,18 +1098,18 @@ const PricingPage = ({ user }: { user: User | null }) => {
               <h3 className="font-bold text-orange-600 text-lg">Coach Running IA</h3>
             </div>
             <div className="space-y-3 text-slate-600 text-sm">
-              <div className="flex items-start gap-2.5"><CheckCircle size={16} className="text-green-500 mt-0.5 shrink-0" /><span>Entraine sur des <strong className="text-slate-800">milliers de plans valides par des professionnels</strong></span></div>
-              <div className="flex items-start gap-2.5"><CheckCircle size={16} className="text-green-500 mt-0.5 shrink-0" /><span>Renforcement musculaire avec <strong className="text-slate-800">regard medical et exercices specifiques</strong></span></div>
-              <div className="flex items-start gap-2.5"><CheckCircle size={16} className="text-green-500 mt-0.5 shrink-0" /><span><strong className="text-slate-800">Questionnaire personnalise</strong> — VMA, objectif, jours dispo, blessures</span></div>
-              <div className="flex items-start gap-2.5"><CheckCircle size={16} className="text-green-500 mt-0.5 shrink-0" /><span><strong className="text-slate-800">Feedback hebdomadaire</strong> — le plan s'adapte a ton ressenti</span></div>
-              <div className="flex items-start gap-2.5"><CheckCircle size={16} className="text-green-500 mt-0.5 shrink-0" /><span><strong className="text-slate-800">Analyse mensuelle Strava</strong> — bilan sur tes performances reelles</span></div>
+              <div className="flex items-start gap-2.5"><CheckCircle size={16} className="text-green-500 mt-0.5 shrink-0" /><span>Entraîné sur des <strong className="text-slate-800">milliers de plans validés par des professionnels</strong></span></div>
+              <div className="flex items-start gap-2.5"><CheckCircle size={16} className="text-green-500 mt-0.5 shrink-0" /><span>Renforcement musculaire avec <strong className="text-slate-800">regard médical et exercices spécifiques</strong></span></div>
+              <div className="flex items-start gap-2.5"><CheckCircle size={16} className="text-green-500 mt-0.5 shrink-0" /><span><strong className="text-slate-800">Questionnaire personnalisé</strong> — VMA, objectif, jours dispo, blessures</span></div>
+              <div className="flex items-start gap-2.5"><CheckCircle size={16} className="text-green-500 mt-0.5 shrink-0" /><span><strong className="text-slate-800">Feedback hebdomadaire</strong> — le plan s'adapte à ton ressenti</span></div>
+              <div className="flex items-start gap-2.5"><CheckCircle size={16} className="text-green-500 mt-0.5 shrink-0" /><span><strong className="text-slate-800">Analyse mensuelle Strava</strong> — bilan sur tes performances réelles</span></div>
               <div className="flex items-start gap-2.5"><CheckCircle size={16} className="text-green-500 mt-0.5 shrink-0" /><span><strong className="text-slate-800">Plan structure</strong> semaine par semaine avec calendrier et export</span></div>
             </div>
           </div>
         </div>
 
         <p className="text-center text-slate-500 text-sm mt-8 max-w-xl mx-auto">
-          ChatGPT est un outil genial — mais generaliste. Coach Running IA est un <strong className="text-slate-800">specialiste de l'entrainement running</strong>, concu pour une seule mission : te faire progresser.
+          ChatGPT est un outil génial — mais généraliste. Coach Running IA est un <strong className="text-slate-800">spécialiste de l'entraînement running</strong>, conçu pour une seule mission : te faire progresser.
         </p>
       </div>
 
@@ -1033,7 +1125,7 @@ const PricingPage = ({ user }: { user: User | null }) => {
               {[...Array(5)].map((_, i) => <Star key={i} className="text-orange-400 fill-orange-400" size={16} />)}
             </div>
             <p className="text-slate-600 mb-8 italic leading-relaxed">
-              "Avoir un plan qui s'adapte a mes contraintes de temps, c'est top ! J'ai gagne <span className="font-bold text-slate-900">10 minutes sur mon semi-marathon</span> sans trop de difficultes. L'IA comprend vraiment mon rythme de vie."
+              "Avoir un plan qui s'adapte à mes contraintes de temps, c'est top ! J'ai gagné <span className="font-bold text-slate-900">10 minutes sur mon semi-marathon</span> sans trop de difficultés. L'IA comprend vraiment mon rythme de vie."
             </p>
             <div className="flex items-center gap-4">
               <div className="w-12 h-12 bg-gradient-to-br from-orange-500 to-orange-600 rounded-full flex items-center justify-center text-white font-bold shadow-lg shadow-orange-500/30">R</div>
@@ -1049,7 +1141,7 @@ const PricingPage = ({ user }: { user: User | null }) => {
               {[...Array(5)].map((_, i) => <Star key={i} className="text-orange-400 fill-orange-400" size={16} />)}
             </div>
             <p className="text-slate-600 mb-8 italic leading-relaxed">
-              "Surpris en positif de la <span className="font-bold text-slate-900">qualite et diversite des entrainements</span>. Apres 10 marathons et un Ironman, je pensais avoir tout vu. Coach Running IA m'a propose des seances variees et intelligentes."
+              "Surpris en positif de la <span className="font-bold text-slate-900">qualité et diversité des entraînements</span>. Après 10 marathons et un Ironman, je pensais avoir tout vu. Coach Running IA m'a proposé des séances variées et intelligentes."
             </p>
             <div className="flex items-center gap-4">
               <div className="w-12 h-12 bg-gradient-to-br from-orange-400 to-amber-500 rounded-full flex items-center justify-center text-white font-bold shadow-lg shadow-orange-500/30">D</div>
@@ -1067,21 +1159,21 @@ const PricingPage = ({ user }: { user: User | null }) => {
         <div className="text-center mb-12">
           <div className="flex items-center justify-center gap-3 mb-4">
             <h2 className="text-3xl md:text-4xl font-black tracking-tight text-slate-900">
-              Connecte a <span className="text-[#FC4C02]">Strava</span>
+              Connecté à <span className="text-[#FC4C02]">Strava</span>
             </h2>
             <svg className="w-8 h-8 text-[#FC4C02]" viewBox="0 0 24 24" fill="currentColor" aria-label="Logo Strava"><path d="M15.387 17.944l-2.089-4.116h-3.065L15.387 24l5.15-10.172h-3.066m-7.008-5.599l2.836 5.598h4.172L10.463 0l-7 13.828h4.169"/></svg>
           </div>
           <p className="text-slate-500 max-w-2xl mx-auto text-lg">
-            Partenaire officiel — vos donnees au service de votre progression
+            Partenaire officiel — vos données au service de votre progression
           </p>
         </div>
 
         <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
           {[
             { title: "Connexion en 1 clic", desc: "Reliez votre compte Strava depuis votre espace Coach Running IA" },
-            { title: "Vos donnees accessibles", desc: "Historique de courses, distances, allures, frequence cardiaque importes automatiquement" },
-            { title: "Plans plus adaptes", desc: "L'IA analyse vos performances reelles pour ajuster votre programme" },
-            { title: "Analyse mensuelle", desc: "Bilan automatique de vos sorties Strava avec recommandations personnalisees" },
+            { title: "Vos données accessibles", desc: "Historique de courses, distances, allures, fréquence cardiaque importés automatiquement" },
+            { title: "Plans plus adaptés", desc: "L'IA analyse vos performances réelles pour ajuster votre programme" },
+            { title: "Analyse mensuelle", desc: "Bilan automatique de vos sorties Strava avec recommandations personnalisées" },
           ].map(({ title, desc }) => (
             <div key={title} className="rounded-2xl p-6 bg-orange-50/50 border border-orange-100 text-center hover:shadow-md hover:border-orange-200 transition-all duration-300">
               <h3 className="font-bold text-slate-800 mb-2">{title}</h3>
@@ -1099,28 +1191,28 @@ const PricingPage = ({ user }: { user: User | null }) => {
 
       {/* FAQ */}
       <div className="max-w-3xl mx-auto">
-        <h2 className="text-2xl font-bold text-center text-slate-900 mb-8">Questions frequentes</h2>
+        <h2 className="text-2xl font-bold text-center text-slate-900 mb-8">Questions fréquentes</h2>
         <div className="space-y-4">
           <div className="bg-white rounded-xl border border-slate-200 p-6">
-            <h3 className="font-bold text-slate-900 mb-2">Quelle difference entre Plan Unique et Premium ?</h3>
-            <p className="text-slate-600 text-sm">Le Plan Unique te donne un plan complet genere par IA avec exports (PDF, calendrier, montres GPS). Le Premium ajoute la connexion Strava, les analyses hebdomadaires, le feedback apres chaque seance et l'adaptation automatique de ton plan.</p>
+            <h3 className="font-bold text-slate-900 mb-2">Quelle différence entre Plan Unique et Premium ?</h3>
+            <p className="text-slate-600 text-sm">Le Plan Unique te donne un plan complet généré par IA avec exports (PDF, calendrier, Garmin Connect). Le Premium ajoute la connexion Strava, les analyses hebdomadaires, le feedback après chaque séance et l'adaptation automatique de ton plan. L'export vers Coros, Suunto et Polar est en cours d'autorisation.</p>
           </div>
           <div className="bg-white rounded-xl border border-slate-200 p-6">
             <h3 className="font-bold text-slate-900 mb-2">Je peux passer du Plan Unique au Premium ?</h3>
-            <p className="text-slate-600 text-sm">Oui, a tout moment ! Tu gardes ton plan existant et tu debloques toutes les fonctionnalites Premium (Strava, feedbacks, adaptation).</p>
+            <p className="text-slate-600 text-sm">Oui, à tout moment ! Tu gardes ton plan existant et tu débloques toutes les fonctionnalités Premium (Strava, feedbacks, adaptation).</p>
           </div>
           <div className="bg-white rounded-xl border border-slate-200 p-6">
             <h3 className="font-bold text-slate-900 mb-2">Je peux annuler quand je veux ?</h3>
-            <p className="text-slate-600 text-sm">Oui, sans engagement. Tu peux annuler ton abonnement Premium a tout moment. Tu gardes l'acces jusqu'a la fin de la periode payee. Le Plan Unique est un achat definitif.</p>
+            <p className="text-slate-600 text-sm">Oui, sans engagement. Tu peux annuler ton abonnement Premium à tout moment. Tu gardes l'accès jusqu'à la fin de la période payée. Le Plan Unique est un achat définitif.</p>
           </div>
           <div className="bg-white rounded-xl border border-slate-200 p-6">
             <h3 className="font-bold text-slate-900 mb-2">Ca fonctionne pour quel niveau ?</h3>
-            <p className="text-slate-600 text-sm">Debutant complet a ultra-trailer confirme. L'IA adapte les seances, les volumes et les allures a TON niveau actuel. Que tu vises ton premier 10km ou un ultra de 100km.</p>
+            <p className="text-slate-600 text-sm">Débutant complet à ultra-trailer confirmé. L'IA adapte les séances, les volumes et les allures à TON niveau actuel. Que tu vises ton premier 10km ou un ultra de 100km.</p>
           </div>
         </div>
       </div>
 
-      <p className="text-center text-sm text-slate-400 mt-8">Paiement securise par Stripe.</p>
+      <p className="text-center text-sm text-slate-400 mt-8">Paiement sécurisé par Stripe.</p>
     </div>
   );
 };

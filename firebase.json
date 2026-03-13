@@ -1,10 +1,45 @@
 {
+  "firestore": {
+    "rules": "firestore.rules"
+  },
   "hosting": {
     "public": "dist",
     "ignore": [
       "firebase.json",
       "**/.*",
       "**/node_modules/**"
+    ],
+    "redirects": [
+      {
+        "source": "/post/:slug",
+        "destination": "/blog/:slug",
+        "type": 301
+      },
+      {
+        "source": "/tarifs",
+        "destination": "/pricing",
+        "type": 301
+      },
+      {
+        "source": "/lexique",
+        "destination": "/glossary",
+        "type": 301
+      },
+      {
+        "source": "/tools",
+        "destination": "/outils",
+        "type": 301
+      },
+      {
+        "source": "/mentions_l_gales",
+        "destination": "/mentions-legales",
+        "type": 301
+      },
+      {
+        "source": "/contact",
+        "destination": "/",
+        "type": 301
+      }
     ],
     "headers": [
       {

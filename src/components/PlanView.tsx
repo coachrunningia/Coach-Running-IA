@@ -156,6 +156,8 @@ const PlanView: React.FC<PlanViewProps> = ({ plan: initialPlan, isLocked = false
   const userIsPremium = user?.isPremium ?? false;
   const isPlanUniqueUser = !userIsPremium && (user?.hasPurchasedPlan ?? false);
   const canAccessPremiumFeatures = userIsPremium && !isLocked;
+  // Plan Unique = accès complet au plan (toutes semaines) mais pas Strava/feedback/adaptation
+  const canViewFullPlan = canAccessPremiumFeatures || isPlanUniqueUser;
 
   const handleExport = () => {
     setShowExportMenu(!showExportMenu);
@@ -585,8 +587,8 @@ const PlanView: React.FC<PlanViewProps> = ({ plan: initialPlan, isLocked = false
           };
         })
       }));
-      setToastMessage('Date modifiee');
-      setToastSubMessage(`"${session.title}" deplacee`);
+      setToastMessage('Date modifiée');
+      setToastSubMessage(`"${session.title}" déplacée`);
       setToastVisible(true);
     } catch (error) {
       console.error('Erreur modification date:', error);
@@ -627,12 +629,12 @@ const PlanView: React.FC<PlanViewProps> = ({ plan: initialPlan, isLocked = false
           }))
         };
       });
-      setToastMessage('Seances decalees');
-      setToastSubMessage(`${Math.abs(pendingDateChange.daysDiff)} jour(s) ${pendingDateChange.daysDiff > 0 ? 'en avant' : 'en arriere'}`);
+      setToastMessage('Séances décalées');
+      setToastSubMessage(`${Math.abs(pendingDateChange.daysDiff)} jour(s) ${pendingDateChange.daysDiff > 0 ? 'en avant' : 'en arrière'}`);
       setToastVisible(true);
     } catch (error) {
       console.error('Erreur decalage:', error);
-      alert('Erreur lors du decalage des seances.');
+      alert('Erreur lors du décalage des séances.');
     }
     setShowCrossWeekConfirm(false);
     setPendingDateChange(null);
@@ -658,12 +660,12 @@ const PlanView: React.FC<PlanViewProps> = ({ plan: initialPlan, isLocked = false
         }))
       }));
       setShowStartDatePicker(false);
-      setToastMessage('Date de debut modifiee');
-      setToastSubMessage('Toutes les dates ont ete recalculees');
+      setToastMessage('Date de début modifiée');
+      setToastSubMessage('Toutes les dates ont été recalculées');
       setToastVisible(true);
     } catch (error) {
-      console.error('Erreur modification date de debut:', error);
-      alert('Erreur lors de la modification de la date de debut.');
+      console.error('Erreur modification date de début:', error);
+      alert('Erreur lors de la modification de la date de début.');
     }
   };
 
@@ -840,11 +842,11 @@ const PlanView: React.FC<PlanViewProps> = ({ plan: initialPlan, isLocked = false
                   {/* Date de début avec bouton modifier */}
                   <div className="flex items-center gap-2 text-sm text-slate-500">
                     <Calendar size={14} />
-                    <span>Debut : {(() => { const [y,m,d] = plan.startDate.split('-').map(Number); return new Date(y, m-1, d).toLocaleDateString('fr-FR', { day: 'numeric', month: 'long' }); })()}</span>
+                    <span>Début : {(() => { const [y,m,d] = plan.startDate.split('-').map(Number); return new Date(y, m-1, d).toLocaleDateString('fr-FR', { day: 'numeric', month: 'long' }); })()}</span>
                     <button
                       onClick={(e) => { e.stopPropagation(); setShowStartDatePicker(true); }}
                       className="p-1 text-slate-400 hover:text-accent hover:bg-accent/10 rounded transition-colors"
-                      title="Modifier la date de debut"
+                      title="Modifier la date de début"
                     >
                       <RefreshCw size={12} />
                     </button>
@@ -1045,15 +1047,15 @@ const PlanView: React.FC<PlanViewProps> = ({ plan: initialPlan, isLocked = false
             <div className="bg-slate-50 rounded-xl p-8 border border-slate-200 text-center">
               <Lock size={48} className="mx-auto text-slate-300 mb-4" />
               <h3 className="text-xl font-bold text-slate-800 mb-2">
-                {isPlanUniqueUser ? 'Reserve aux abonnes Premium' : 'Fonctionnalite Premium'}
+                {isPlanUniqueUser ? 'Réservé aux abonnés Premium' : 'Fonctionnalité Premium'}
               </h3>
               <p className="text-slate-500 mb-4">
                 {isPlanUniqueUser
-                  ? 'Passe en Premium pour debloquer Strava, les analyses hebdomadaires et l\'adaptation automatique de ton plan.'
+                  ? 'Passe en Premium pour débloquer Strava, les analyses hebdomadaires et l\'adaptation automatique de ton plan.'
                   : 'Connecte Strava et laisse l\'IA analyser tes sorties pour adapter automatiquement ton plan.'}
               </p>
               <button onClick={handleUnlockClick} className="px-6 py-3 bg-orange-500 text-white font-bold rounded-xl hover:bg-orange-600 transition-all">
-                {isPlanUniqueUser ? 'Passer en Premium' : 'Debloquer'}
+                {isPlanUniqueUser ? 'Passer en Premium' : 'Débloquer'}
               </button>
             </div>
           ) : (
@@ -1072,7 +1074,7 @@ const PlanView: React.FC<PlanViewProps> = ({ plan: initialPlan, isLocked = false
               <div className="flex items-center gap-3">
                 <Zap size={20} className="text-amber-500" />
                 <p className="text-sm text-slate-700">
-                  <span className="font-bold">Plan Unique actif.</span> Passe en Premium pour debloquer Strava, les feedbacks et l'adaptation automatique.
+                  <span className="font-bold">Plan Unique actif.</span> Passe en Premium pour débloquer Strava, les feedbacks et l'adaptation automatique.
                 </p>
               </div>
               <button onClick={handleUnlockClick} className="px-4 py-2 bg-accent text-white text-sm font-bold rounded-lg hover:bg-orange-600 transition-all whitespace-nowrap">
@@ -1085,7 +1087,7 @@ const PlanView: React.FC<PlanViewProps> = ({ plan: initialPlan, isLocked = false
           <div className="space-y-6">
             {plan.weeks.map((week, index) => {
               // Semaine verrouillée si: pas premium, pas plan unique, ET pas la première semaine
-              const isWeekLocked = !canAccessPremiumFeatures && !isPlanUniqueUser && index > 0;
+              const isWeekLocked = !canViewFullPlan && index > 0;
               const weekStatus = getWeekStatus(week, index);
               const isCollapsed = collapsedWeeks.has(week.weekNumber);
 
@@ -1290,15 +1292,15 @@ const PlanView: React.FC<PlanViewProps> = ({ plan: initialPlan, isLocked = false
                     </div>
                   )}
                   {/* OVERLAY "REGENERATION" (PREMIUM MAIS PLAN PARTIEL - besoin de regénérer) */}
-                  {canAccessPremiumFeatures && plan.isFreePreview && index === 1 && onRegenerateFull && (
+                  {canViewFullPlan && plan.isFreePreview && index === 1 && onRegenerateFull && (
                     <div className="absolute inset-0 z-10 flex items-center justify-center">
                       <div className="bg-white/95 backdrop-blur-md p-8 rounded-2xl shadow-2xl text-center border-2 border-green-500 max-w-lg mx-4">
                         <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-6 shadow-lg">
                           <RefreshCw className="text-green-600" size={32} />
                         </div>
-                        <h3 className="text-2xl font-bold text-slate-900 mb-2">Compte Premium Activé !</h3>
+                        <h3 className="text-2xl font-bold text-slate-900 mb-2">Plan débloqué !</h3>
                         <p className="text-slate-600 mb-8">
-                          Vous avez débloqué l'accès complet. Cliquez ci-dessous pour générer le détail de toutes les semaines restantes.
+                          Cliquez ci-dessous pour générer le détail de toutes les semaines restantes.
                         </p>
 
                         <button
@@ -1312,7 +1314,7 @@ const PlanView: React.FC<PlanViewProps> = ({ plan: initialPlan, isLocked = false
                   )}
 
                   {/* OVERLAY "GÉNÉRER LA SUITE" (PREMIUM + PLAN PREVIEW avec generationContext) */}
-                  {canAccessPremiumFeatures && plan.isPreview && !plan.fullPlanGenerated && index === 1 && onGenerateRemainingWeeks && (
+                  {canViewFullPlan && plan.isPreview && !plan.fullPlanGenerated && index === 1 && onGenerateRemainingWeeks && (
                     <div className="absolute inset-0 z-10 flex items-center justify-center">
                       <div className="bg-white/95 backdrop-blur-md p-8 rounded-2xl shadow-2xl text-center border-2 border-accent max-w-lg mx-4">
                         {isGeneratingRemaining ? (
@@ -1335,7 +1337,7 @@ const PlanView: React.FC<PlanViewProps> = ({ plan: initialPlan, isLocked = false
                             </div>
                             <h3 className="text-2xl font-bold text-slate-900 mb-2">Débloquer la suite du plan</h3>
                             <p className="text-slate-600 mb-4">
-                              Vous êtes Premium ! Générez maintenant les semaines 2 à {plan.generationContext?.periodizationPlan?.totalWeeks || 12}.
+                              Générez maintenant les semaines 2 à {plan.generationContext?.periodizationPlan?.totalWeeks || 12}.
                             </p>
 
                             {/* Aperçu du plan de périodisation */}
@@ -1382,8 +1384,8 @@ const PlanView: React.FC<PlanViewProps> = ({ plan: initialPlan, isLocked = false
             {/* SEMAINES DE PRÉVISUALISATION (pour les plans en mode preview) */}
             {plan.isPreview && previewWeeks.length > 0 && (
               <>
-                {/* CTA Premium au milieu - uniquement pour non-premium */}
-                {!canAccessPremiumFeatures && (
+                {/* CTA Premium au milieu - uniquement pour free users (pas plan_unique ni premium) */}
+                {!canViewFullPlan && (
                   <div className="relative my-8">
                     <div className="absolute inset-0 flex items-center">
                       <div className="w-full border-t-2 border-dashed border-slate-200"></div>
@@ -1412,7 +1414,7 @@ const PlanView: React.FC<PlanViewProps> = ({ plan: initialPlan, isLocked = false
                 )}
 
                 {/* Bouton générer pour les premium */}
-                {canAccessPremiumFeatures && !plan.fullPlanGenerated && onGenerateRemainingWeeks && (
+                {canViewFullPlan && !plan.fullPlanGenerated && onGenerateRemainingWeeks && (
                   <div className="my-8 bg-gradient-to-r from-accent/10 to-orange-100 rounded-2xl p-6 border-2 border-accent/30">
                     <div className="flex flex-col md:flex-row items-center gap-4">
                       <div className="w-16 h-16 bg-gradient-to-br from-accent to-orange-500 rounded-full flex items-center justify-center flex-shrink-0">
@@ -1429,7 +1431,7 @@ const PlanView: React.FC<PlanViewProps> = ({ plan: initialPlan, isLocked = false
                         <p className="text-slate-600">
                           {isGeneratingRemaining
                             ? `L'IA génère les semaines 2 à ${plan.generationContext?.periodizationPlan?.totalWeeks || 12} avec les mêmes allures et la même cohérence.`
-                            : `Vous êtes Premium ! Générez maintenant les ${previewWeeks.length} semaines restantes de votre plan.`
+                            : `Générez maintenant les ${previewWeeks.length} semaines restantes de votre plan.`
                           }
                         </p>
                         {plan.generationContext && !isGeneratingRemaining && (
@@ -1528,8 +1530,8 @@ const PlanView: React.FC<PlanViewProps> = ({ plan: initialPlan, isLocked = false
                   );
                 })}
 
-                {/* CTA Final pour non-premium */}
-                {!canAccessPremiumFeatures && (
+                {/* CTA Final pour free users (pas plan_unique ni premium) */}
+                {!canViewFullPlan && (
                   <div className="mt-8 bg-gradient-to-r from-slate-900 to-slate-800 rounded-2xl p-8 text-center">
                     <div className="w-20 h-20 bg-gradient-to-br from-accent to-orange-500 rounded-full flex items-center justify-center mx-auto mb-6 shadow-xl">
                       <Star className="text-white" size={36} fill="currentColor" />

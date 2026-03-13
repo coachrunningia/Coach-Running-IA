@@ -143,6 +143,8 @@ export interface Session {
   cooldown: string;
   advice: string;
   targetPace?: string; // Ex: "5:00" ou "12.0"
+  elevationGain?: number; // D+ en mètres (Trail uniquement)
+  locationSuggestion?: string; // Lieu suggéré pour cette séance (basé sur la ville et le type)
   dateOverride?: string; // ISO "YYYY-MM-DD" — remplace la date calculée si présent
   feedback?: SessionFeedback;
 }

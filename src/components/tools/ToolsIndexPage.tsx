@@ -2,7 +2,7 @@
 import React from 'react';
 import { Helmet } from 'react-helmet-async';
 import { Link } from 'react-router-dom';
-import { ArrowRight, Calculator, Zap, Clock, Target, TrendingUp } from 'lucide-react';
+import { ArrowRight, Calculator, Zap, Clock, Target, TrendingUp, ArrowLeftRight } from 'lucide-react';
 
 const tools = [
   {
@@ -48,6 +48,17 @@ const tools = [
     color: 'from-emerald-500 to-teal-500',
     bgColor: 'bg-emerald-50',
     keywords: ['allure marathon', 'pace marathon', 'temps de passage']
+  },
+  {
+    id: 'convertisseur-miles-km',
+    path: '/outils/convertisseur-miles-km',
+    title: 'Convertisseur Miles / Km',
+    subtitle: 'Miles ↔ Kilomètres',
+    description: 'Convertissez miles en kilomètres et inversement. Tableau des distances de course (5K, 10K, semi, marathon) et conversion d\'allure min/mile en min/km.',
+    icon: ArrowLeftRight,
+    color: 'from-teal-500 to-emerald-500',
+    bgColor: 'bg-teal-50',
+    keywords: ['miles en km', 'conversion miles kilomètres', 'allure min/mile']
   }
 ];
 
@@ -56,8 +67,8 @@ const ToolsIndexPage: React.FC = () => {
     <>
       <Helmet>
         <title>Outils Running Gratuits : Calculateurs et Simulateurs | Coach Running IA</title>
-        <meta name="description" content="Découvrez nos outils running gratuits : convertisseur d'allure min/km ↔ km/h, calculateur VMA, prédicteur de temps de course, calculateur allure marathon. Optimisez votre entraînement !" />
-        <meta name="keywords" content="outils running, calculateur course à pied, convertisseur allure, calculateur VMA, prédicteur temps marathon, simulateur running gratuit" />
+        <meta name="description" content="Découvrez nos outils running gratuits : convertisseur allure min/km ↔ km/h, calculateur VMA, prédicteur de temps, allure marathon, convertisseur miles/km. Optimisez votre entraînement !" />
+        <meta name="keywords" content="outils running, calculateur course à pied, convertisseur allure, calculateur VMA, prédicteur temps marathon, convertisseur miles km, simulateur running gratuit" />
         <link rel="canonical" href="https://coachrunningia.fr/outils" />
         <meta property="og:title" content="Outils Running Gratuits : Calculateurs et Simulateurs" />
         <meta property="og:description" content="Calculateurs gratuits pour optimiser votre entraînement running : VMA, allure, prédiction de temps, pace marathon." />
@@ -84,7 +95,7 @@ const ToolsIndexPage: React.FC = () => {
             {/* Quick Stats */}
             <div className="flex flex-wrap justify-center gap-8 mt-12">
               <div className="text-center">
-                <div className="text-4xl font-black text-accent">4</div>
+                <div className="text-4xl font-black text-accent">5</div>
                 <div className="text-sm text-slate-400">Outils disponibles</div>
               </div>
               <div className="text-center">
@@ -296,6 +307,13 @@ const ToolsIndexPage: React.FC = () => {
                 Basé sur la <strong>formule de Riegel</strong>, notre prédicteur estime vos temps potentiels
                 sur différentes distances. Un 10km en 50 minutes ? Vous pouvez viser environ 1h50 au semi-marathon
                 et 3h50 au marathon.
+              </p>
+
+              <h3>Convertisseur miles / km : pour les plans internationaux</h3>
+              <p>
+                De nombreux <strong>plans d'entraînement populaires</strong> (Hal Higdon, Jack Daniels, Pfitzinger)
+                sont rédigés en miles. Notre convertisseur vous permet de traduire instantanément distances
+                et allures du système impérial au système métrique, et vice versa.
               </p>
 
               <h3>Calculateur allure marathon : optimisez votre course</h3>

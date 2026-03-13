@@ -3,6 +3,7 @@ import React, { useState, useEffect } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { loginUser, registerUser, resetPassword, loginWithGoogle } from '../services/storageService';
 import { User } from '../types';
+import { Link } from 'react-router-dom';
 import { X, Mail, Lock, User as UserIcon, AlertCircle, ArrowRight, KeyRound, ChevronLeft, CheckCircle } from 'lucide-react';
 
 interface AuthModalProps {
@@ -214,6 +215,7 @@ const AuthModal: React.FC<AuthModalProps> = ({ onAuthSuccess, onClose, isModal =
               <input
                 type="email"
                 required
+                autoComplete="email"
                 className="w-full pl-10 pr-4 py-2 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-accent/50 focus:border-accent"
                 placeholder="votre@email.com"
                 value={formData.email}
@@ -332,6 +334,7 @@ const AuthModal: React.FC<AuthModalProps> = ({ onAuthSuccess, onClose, isModal =
               <input
                 type="text"
                 required={!isLogin}
+                autoComplete="given-name"
                 className="w-full pl-10 pr-4 py-2 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-accent/50 focus:border-accent"
                 placeholder="Votre prénom"
                 value={formData.firstName}
@@ -348,6 +351,7 @@ const AuthModal: React.FC<AuthModalProps> = ({ onAuthSuccess, onClose, isModal =
             <input
               type="email"
               required
+              autoComplete="email"
               className="w-full pl-10 pr-4 py-2 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-accent/50 focus:border-accent"
               placeholder="votre@email.com"
               value={formData.email}
@@ -363,6 +367,7 @@ const AuthModal: React.FC<AuthModalProps> = ({ onAuthSuccess, onClose, isModal =
             <input
               type="password"
               required
+              autoComplete={isLogin ? "current-password" : "new-password"}
               className="w-full pl-10 pr-4 py-2 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-accent/50 focus:border-accent"
               placeholder="••••••••"
               value={formData.password}
@@ -403,6 +408,13 @@ const AuthModal: React.FC<AuthModalProps> = ({ onAuthSuccess, onClose, isModal =
           {isLogin ? "S'inscrire" : "Se connecter"}
         </button>
       </div>
+
+      <p className="text-center text-xs text-slate-400 mt-4">
+        En continuant, vous acceptez nos{' '}
+        <Link to="/cgv" className="underline hover:text-slate-600">CGV</Link>
+        {' '}et notre{' '}
+        <Link to="/confidentialite" className="underline hover:text-slate-600">politique de confidentialité</Link>.
+      </p>
     </div>
   );
 

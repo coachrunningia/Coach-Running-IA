@@ -193,7 +193,7 @@ const Questionnaire: React.FC<QuestionnaireProps> = ({ onComplete, isGenerating:
       setProcessingStep('Envoi de l\'email de confirmation...');
       try {
         // Générer le token côté client (utilise Firebase client SDK, pas Admin SDK)
-        const verificationToken = await createEmailVerificationToken(newUser.id, emailToCheck, plan.id);
+        const verificationToken = await createEmailVerificationToken(newUser.id, emailToCheck, plan.id, firstName.trim());
         console.log('[Questionnaire] Token created:', verificationToken.substring(0, 10) + '...');
 
         // Envoyer l'email via le serveur (le serveur n'a plus besoin d'écrire dans Firestore)
@@ -214,7 +214,7 @@ const Questionnaire: React.FC<QuestionnaireProps> = ({ onComplete, isGenerating:
 
       // Étape 6: Rediriger vers l'écran de confirmation
       setIsProcessing(false);
-      navigate('/email-sent?email=' + encodeURIComponent(emailToCheck));
+      navigate('/email-sent?email=' + encodeURIComponent(emailToCheck) + '&uid=' + encodeURIComponent(newUser.id) + '&fn=' + encodeURIComponent(firstName.trim()));
 
     } catch (error: any) {
       console.error('[Questionnaire] Error:', error);
@@ -1011,7 +1011,7 @@ const Questionnaire: React.FC<QuestionnaireProps> = ({ onComplete, isGenerating:
         <div className="h-2 flex-1 bg-slate-100 rounded-full mr-6 overflow-hidden">
           <div className="h-full bg-accent transition-all duration-700 ease-out shadow-[0_0_10px_rgba(249,115,22,0.5)]" style={{ width: `${(step / totalSteps) * 100}%` }} />
         </div>
-        <span className="text-sm font-black text-orange-400 tracking-widest uppercase">Etape 0{step}</span>
+        <span className="text-sm font-black text-orange-400 tracking-widest uppercase">Étape 0{step}</span>
       </div>
 
       <div className="relative z-10">

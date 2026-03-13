@@ -12,6 +12,7 @@ const toolsLinks = [
   { name: "Calculateur VMA", path: "/outils/calculateur-vma", desc: "Estimez votre VMA" },
   { name: "Prédicteur Temps", path: "/outils/predicteur-temps", desc: "5km → Marathon" },
   { name: "Allure Marathon", path: "/outils/allure-marathon", desc: "Objectif → Pace" },
+  { name: "Convertisseur Miles/Km", path: "/outils/convertisseur-miles-km", desc: "Miles ↔ Kilomètres" },
 ];
 
 const plansLinks = [

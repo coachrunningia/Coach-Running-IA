@@ -60,7 +60,8 @@ export const generateICS = (plan: TrainingPlan): string => {
       const endDate = addDays(sessionDate, 0);
       endDate.setHours(9, 0, 0, 0); // Durée 1h par défaut
 
-      const description = `Type: ${session.type}\\nDurée: ${session.duration}\\n\\nÉchauffement: ${session.warmup}\\nCorps: ${session.mainSet}\\nRetour au calme: ${session.cooldown}\\n\\nConseil: ${session.advice}`;
+      const elevationInfo = session.elevationGain ? `\\nDénivelé: ${session.elevationGain}m D+` : '';
+      const description = `Type: ${session.type}\\nDurée: ${session.duration}${elevationInfo}\\n\\nÉchauffement: ${session.warmup}\\nCorps: ${session.mainSet}\\nRetour au calme: ${session.cooldown}\\n\\nConseil: ${session.advice}`;
 
       calendarContent.push(
         'BEGIN:VEVENT',
@@ -137,7 +138,7 @@ export const generateTCX = (plan: TrainingPlan, target: "garmin" | "coros"): str
         <Intensity>${intensity}</Intensity>
         <Target xsi:type="None_t"/>
       </Step>
-      <Notes>${session.warmup || ''} | ${session.mainSet || ''} | ${session.cooldown || ''}</Notes>
+      <Notes>${session.elevationGain ? `D+: ${session.elevationGain}m | ` : ''}${session.warmup || ''} | ${session.mainSet || ''} | ${session.cooldown || ''}</Notes>
       <Creator xsi:type="Device_t" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
         <Name>Coach Running IA</Name>
       </Creator>
@@ -212,7 +213,7 @@ export const downloadPDF = (plan: TrainingPlan) => {
         <div class="session">
           <div class="session-title">${session.day} - ${session.title}</div>
           <div class="session-details">
-            <p><strong>Type :</strong> ${session.type} | <strong>Durée :</strong> ${session.duration}</p>
+            <p><strong>Type :</strong> ${session.type} | <strong>Durée :</strong> ${session.duration}${session.elevationGain ? ` | <strong>D+ :</strong> ${session.elevationGain}m` : ''}</p>
             ${session.warmup ? `<p><strong>Échauffement :</strong> ${session.warmup}</p>` : ''}
             <p><strong>Séance :</strong> ${session.mainSet}</p>
             ${session.cooldown ? `<p><strong>Retour au calme :</strong> ${session.cooldown}</p>` : ''}
@@ -264,7 +265,8 @@ export const generateSessionTCX = (session: Session, weekNumber: number, planNam
     return text.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
   };
 
-  const notes = `${cleanXML(session.warmup || '')} | ${cleanXML(session.mainSet || '')} | ${cleanXML(session.cooldown || '')}`;
+  const elevationPrefix = session.elevationGain ? `D+: ${session.elevationGain}m | ` : '';
+  const notes = `${elevationPrefix}${cleanXML(session.warmup || '')} | ${cleanXML(session.mainSet || '')} | ${cleanXML(session.cooldown || '')}`;
 
   return `<?xml version="1.0" encoding="UTF-8"?>
 <TrainingCenterDatabase xmlns="http://www.garmin.com/xmlschemas/TrainingCenterDatabase/v2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
@@ -296,6 +298,80 @@ export const downloadSessionTCX = (session: Session, weekNumber: number, planNam
   link.href = window.URL.createObjectURL(blob);
   const cleanTitle = session.title.replace(/[^a-zA-Z0-9àâäéèêëïîôùûüç\s-]/gi, '').replace(/\s+/g, '_');
   link.setAttribute('download', `S${weekNumber}_${cleanTitle}.tcx`);
+  document.body.appendChild(link);
+  link.click();
+  document.body.removeChild(link);
+};
+
+// ============================================
+// EXPORT FIT POUR UNE SEULE SÉANCE
+// ============================================
+
+// Parse duration string to seconds
+const parseDurationSeconds = (duration?: string): number => {
+  if (!duration) return 3600;
+  const match = duration.match(/(\d+)\s*(min|h|mn)/i);
+  if (match) {
+    const value = parseInt(match[1]);
+    const unit = match[2].toLowerCase();
+    if (unit === 'h') return value * 3600;
+    return value * 60;
+  }
+  return 3600;
+};
+
+export const generateSessionFIT = (session: Session, weekNumber: number): Uint8Array => {
+  const encoder = new Encoder();
+
+  const durationSeconds = parseDurationSeconds(session.duration);
+  const workoutName = `S${weekNumber} - ${session.title}`;
+
+  // 1. FILE_ID message (must be first)
+  encoder.writeMesg({
+    mesgNum: 0, // fileId
+    type: 'workout',
+    manufacturer: 1, // Garmin
+    product: 0,
+    serialNumber: 12345,
+    timeCreated: new Date(),
+  });
+
+  // 2. WORKOUT message
+  encoder.writeMesg({
+    mesgNum: 26, // workout
+    sport: 'running',
+    numValidSteps: 1,
+    wktName: workoutName,
+  });
+
+  // 3. WORKOUT_STEP message
+  encoder.writeMesg({
+    mesgNum: 27, // workoutStep
+    messageIndex: 0,
+    wktStepName: session.type || 'Entraînement',
+    durationType: 'time',
+    durationValue: durationSeconds * 1000, // milliseconds for time duration
+    targetType: 'open',
+    intensity: 'active',
+  });
+
+  return encoder.close();
+};
+
+export type WatchBrand = 'garmin' | 'coros' | 'suunto' | 'polar' | 'other';
+
+export const downloadSessionFIT = (session: Session, weekNumber: number, brand: WatchBrand) => {
+  if (brand === 'other') {
+    downloadSessionTCX(session, weekNumber);
+    return;
+  }
+
+  const fitData = generateSessionFIT(session, weekNumber);
+  const blob = new Blob([fitData], { type: 'application/octet-stream' });
+  const link = document.createElement('a');
+  link.href = window.URL.createObjectURL(blob);
+  const cleanTitle = session.title.replace(/[^a-zA-Z0-9àâäéèêëïîôùûüç\s-]/gi, '').replace(/\s+/g, '_');
+  link.setAttribute('download', `S${weekNumber}_${cleanTitle}.fit`);
   document.body.appendChild(link);
   link.click();
   document.body.removeChild(link);

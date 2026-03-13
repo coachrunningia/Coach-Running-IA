@@ -57,6 +57,65 @@ try {
 const stripeKey = process.env.STRIPE_SECRET_KEY || process.env.VITE_STRIPE_SECRET_KEY;;
 const stripe = require('stripe')(stripeKey.trim());
 
+// Configuration Meta Conversions API (Server-Side)
+const META_PIXEL_ID = process.env.META_PIXEL_ID || '1434110431562090';
+const META_ACCESS_TOKEN = process.env.META_ACCESS_TOKEN;
+const crypto = require('crypto');
+
+const sendMetaConversionEvent = async (eventName, eventData) => {
+  if (!META_ACCESS_TOKEN) {
+    console.warn('[Meta CAPI] Access token not configured, skipping...');
+    return null;
+  }
+
+  try {
+    const hashedEmail = eventData.email
+      ? crypto.createHash('sha256').update(eventData.email.trim().toLowerCase()).digest('hex')
+      : undefined;
+
+    const payload = {
+      data: [{
+        event_name: eventName,
+        event_time: Math.floor(Date.now() / 1000),
+        event_id: eventData.event_id || `${eventName}_${Date.now()}`,
+        action_source: 'website',
+        user_data: {
+          em: hashedEmail ? [hashedEmail] : undefined,
+          client_ip_address: eventData.ip || undefined,
+          client_user_agent: eventData.userAgent || undefined,
+        },
+        custom_data: {
+          currency: eventData.currency || 'EUR',
+          value: eventData.value || 0,
+          content_name: eventData.contentName || '',
+          content_ids: eventData.contentIds || [],
+          content_type: 'product',
+        }
+      }]
+    };
+
+    const response = await fetch(
+      `https://graph.facebook.com/v21.0/${META_PIXEL_ID}/events?access_token=${META_ACCESS_TOKEN}`,
+      {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload)
+      }
+    );
+
+    const result = await response.json();
+    if (response.ok) {
+      console.log(`[Meta CAPI] ${eventName} sent successfully:`, result);
+    } else {
+      console.error(`[Meta CAPI] ${eventName} error:`, result);
+    }
+    return result;
+  } catch (error) {
+    console.error(`[Meta CAPI] ${eventName} failed:`, error.message);
+    return null;
+  }
+};
+
 // Configuration Brevo (Email Marketing)
 const BREVO_API_KEY = process.env.BREVO_API_KEY;
 const BREVO_LIST_SUBSCRIBERS = parseInt(process.env.BREVO_LIST_SUBSCRIBERS) || 5;
@@ -252,6 +311,21 @@ app.post('/api/stripe/webhook', express.raw({ type: 'application/json' }), async
           console.log(`[Brevo] ${email} moved to subscribers list`);
         }
       }
+      // Meta CAPI: Track Purchase server-side (fiable, indépendant du navigateur)
+      const purchaseValue = purchaseType === 'plan_unique' ? 3.90
+        : (session.amount_total ? session.amount_total / 100 : 4.90);
+      const contentName = purchaseType === 'plan_unique' ? 'Plan Unique'
+        : (purchaseValue > 10 ? 'Premium Annuel' : 'Premium Mensuel');
+
+      await sendMetaConversionEvent('Purchase', {
+        email: email,
+        value: purchaseValue,
+        currency: 'EUR',
+        contentName: contentName,
+        contentIds: [purchaseType === 'plan_unique' ? 'plan_unique' : 'premium'],
+        event_id: `purchase_${session.id}`,
+      });
+
     } catch (dbError) {
       console.error('[Stripe Webhook] Erreur Firestore:', dbError);
       return res.status(500).json({ error: 'Firestore update failed' });
@@ -881,8 +955,7 @@ app.post('/api/send-verification-email', async (req, res) => {
       return res.status(500).json({ error: 'Échec de l\'envoi de l\'email', details: data });
     }
 
-    // Also add to Brevo contacts list (non-premium by default)
-    await brevoUpsertContact(email, safeName, false);
+    // Brevo: contact ajouté seulement après vérification email (dans /api/verify-email)
 
     console.log(`[Verification Email] Email envoyé à ${email}`);
     res.json({ success: true, message: 'Email de vérification envoyé', messageId: data.messageId });
@@ -937,6 +1010,13 @@ app.get('/api/verify-email', async (req, res) => {
     });
 
     console.log(`[Verify Email] Email vérifié pour userId: ${tokenData.userId}`);
+
+    // 6. Ajouter à Brevo maintenant que l'email est vérifié
+    const userDoc = await admin.firestore().collection('users').doc(tokenData.userId).get();
+    const userData = userDoc.exists ? userDoc.data() : {};
+    const isPremium = userData.isPremium === true;
+    await brevoUpsertContact(tokenData.email, userData.firstName || 'Coureur', isPremium);
+    console.log(`[Brevo] Contact ${tokenData.email} ajouté après vérification email (isPremium=${isPremium})`);
 
     res.json({
       success: true,

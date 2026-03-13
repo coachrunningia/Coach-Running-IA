@@ -1,6 +1,6 @@
 
-import React, { useState } from 'react';
-import { downloadSessionTCX } from '../services/exportService';
+import React, { useState, useEffect, useRef } from 'react';
+
 import { Session } from '../types';
 import { useSettings } from '../context/SettingsContext';
 import {
@@ -27,8 +27,20 @@ interface SessionCardProps {
 
 const SessionCard: React.FC<SessionCardProps> = ({ session, weekNumber, isLocked, onFeedbackClick, onQuickComplete, onDateChange, sessionDate, isToday }) => {
     const [expanded, setExpanded] = useState(false);
-    const [showExportHelp, setShowExportHelp] = useState(false);
+    const [showLocationTip, setShowLocationTip] = useState(false);
+    const locationRef = useRef<HTMLSpanElement>(null);
     const { paceUnit } = useSettings();
+
+    useEffect(() => {
+        if (!showLocationTip) return;
+        const handleClick = (e: MouseEvent) => {
+            if (locationRef.current && !locationRef.current.contains(e.target as Node)) {
+                setShowLocationTip(false);
+            }
+        };
+        document.addEventListener('click', handleClick);
+        return () => document.removeEventListener('click', handleClick);
+    }, [showLocationTip]);
 
     const isCompleted = session.feedback?.completed ?? false;
 
@@ -217,6 +229,27 @@ const SessionCard: React.FC<SessionCardProps> = ({ session, weekNumber, isLocked
                     <div className="flex items-center gap-3 text-sm text-slate-500 mt-1">
                         <span className="flex items-center gap-1"><Clock size={14} /> {session.duration}</span>
                         {session.distance && <span className="flex items-center gap-1">• <MapPin size={14} /> {session.distance}</span>}
+                        {session.elevationGain ? <span className="flex items-center gap-1 text-amber-600 font-semibold">• ▲ {session.elevationGain}m D+</span> : null}
+                        {session.locationSuggestion && (
+                            <span className="relative" ref={locationRef}>
+                                <button
+                                    onClick={(e) => { e.stopPropagation(); setShowLocationTip(!showLocationTip); }}
+                                    className="flex items-center gap-1 text-emerald-500 hover:text-emerald-700 transition-colors"
+                                    title={session.locationSuggestion}
+                                >
+                                    • <MapPin size={14} />
+                                </button>
+                                {showLocationTip && (
+                                    <div className="absolute left-0 top-6 z-50 bg-white border border-emerald-200 shadow-lg rounded-lg p-3 min-w-[200px] max-w-[280px]" onClick={(e) => e.stopPropagation()}>
+                                        <div className="flex items-center gap-2 mb-1">
+                                            <MapPin size={14} className="text-emerald-500 flex-shrink-0" />
+                                            <span className="text-[10px] uppercase font-bold text-emerald-600 tracking-wide">Lieu suggéré</span>
+                                        </div>
+                                        <p className="text-sm text-slate-700 font-medium">{session.locationSuggestion}</p>
+                                    </div>
+                                )}
+                            </span>
+                        )}
                     </div>
                 </div>
 
@@ -229,6 +262,15 @@ const SessionCard: React.FC<SessionCardProps> = ({ session, weekNumber, isLocked
                             {intensityStyle.icon} {session.intensity}
                         </span>
                         <span className="text-xs text-slate-500 flex items-center gap-1"><Clock size={12} /> {session.duration}</span>
+                        {session.elevationGain ? <span className="text-xs text-amber-600 font-semibold flex items-center gap-1">▲ {session.elevationGain}m D+</span> : null}
+                        {session.locationSuggestion && (
+                            <button
+                                onClick={(e) => { e.stopPropagation(); setShowLocationTip(!showLocationTip); }}
+                                className="text-xs text-emerald-500 hover:text-emerald-700 flex items-center gap-1 transition-colors"
+                            >
+                                <MapPin size={12} /> {session.locationSuggestion}
+                            </button>
+                        )}
                     </div>
 
                     {paceData && (
@@ -312,78 +354,13 @@ const SessionCard: React.FC<SessionCardProps> = ({ session, weekNumber, isLocked
                                 </div>
                             </div>
 
-                                {/* EXPORT MONTRE */}
-                                <div className="mt-4 flex items-center gap-2">
-                                    <button
-                                        onClick={(e) => {
-                                            e.stopPropagation();
-                                            downloadSessionTCX(session, weekNumber, "Plan");
-                                        }}
-                                        className="flex items-center gap-2 px-3 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-lg text-sm font-medium transition-all"
-                                    >
-                                        <Watch size={16} /> Exporter vers montre
-                                    </button>
-                                    <button
-                                        onClick={(e) => {
-                                            e.stopPropagation();
-                                            setShowExportHelp(true);
-                                        }}
-                                        className="p-2 text-slate-400 hover:text-slate-600 hover:bg-slate-100 rounded-lg transition-all"
-                                        title="Comment importer sur ma montre ?"
-                                    >
-                                        <HelpCircle size={16} />
-                                    </button>
-                                </div>
-
-                                {/* POPUP AIDE EXPORT */}
-                                {showExportHelp && (
-                                    <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4" onClick={() => setShowExportHelp(false)}>
-                                        <div className="bg-white rounded-2xl p-6 max-w-md w-full shadow-2xl" onClick={(e) => e.stopPropagation()}>
-                                            <div className="flex justify-between items-center mb-4">
-                                                <h3 className="font-bold text-lg text-slate-900">📲 Importer sur ta montre</h3>
-                                                <button onClick={() => setShowExportHelp(false)} className="p-1 hover:bg-slate-100 rounded-lg">
-                                                    <X size={20} />
-                                                </button>
-                                            </div>
-                                            <div className="space-y-4">
-                                                <div className="flex gap-3">
-                                                    <div className="w-8 h-8 rounded-full bg-orange-100 text-orange-600 flex items-center justify-center font-bold flex-shrink-0">1</div>
-                                                    <div>
-                                                        <p className="font-medium text-slate-800">Télécharge le fichier</p>
-                                                        <p className="text-sm text-slate-500">Clique sur "Exporter vers montre"</p>
-                                                    </div>
-                                                </div>
-                                                <div className="flex gap-3">
-                                                    <div className="w-8 h-8 rounded-full bg-orange-100 text-orange-600 flex items-center justify-center font-bold flex-shrink-0">2</div>
-                                                    <div>
-                                                        <p className="font-medium text-slate-800">Ouvre ton app montre</p>
-                                                        <p className="text-sm text-slate-500">Garmin Connect, Coros, Suunto...</p>
-                                                    </div>
-                                                </div>
-                                                <div className="flex gap-3">
-                                                    <div className="w-8 h-8 rounded-full bg-orange-100 text-orange-600 flex items-center justify-center font-bold flex-shrink-0">3</div>
-                                                    <div>
-                                                        <p className="font-medium text-slate-800">Importe le fichier .tcx</p>
-                                                        <p className="text-sm text-slate-500">Menu → Entraînement → Importer</p>
-                                                    </div>
-                                                </div>
-                                                <div className="flex gap-3">
-                                                    <div className="w-8 h-8 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center font-bold flex-shrink-0">✓</div>
-                                                    <div>
-                                                        <p className="font-medium text-slate-800">Synchronise ta montre</p>
-                                                        <p className="text-sm text-slate-500">La séance apparaît sur ta montre !</p>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <button
-                                                onClick={() => setShowExportHelp(false)}
-                                                className="w-full mt-6 py-3 bg-orange-500 hover:bg-orange-600 text-white font-bold rounded-xl transition-all"
-                                            >
-                                                J'ai compris !
-                                            </button>
-                                        </div>
+                                {/* EXPORT MONTRE GPS - Bientôt disponible */}
+                                <div className="mt-4">
+                                    <div className="flex items-center gap-2 px-3 py-2 bg-slate-50 border border-slate-200 text-slate-400 rounded-lg text-sm">
+                                        <Watch size={16} />
+                                        <span>Export Garmin / Coros : bientôt disponible</span>
                                     </div>
-                                )}
+                                </div>
 
                             <div className="mt-auto space-y-3">
                                 {session.feedback?.completed ? (
