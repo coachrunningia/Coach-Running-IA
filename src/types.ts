@@ -88,6 +88,7 @@ export interface User {
   stripeSubscriptionStatus?: string;
   premiumCancelAt?: string; // Date de fin programmée si résiliation en cours
   premiumCancelledAt?: string; // Date effective de résiliation
+  source?: 'web' | 'mobile';
 }
 
 export interface SessionFeedback {
@@ -152,6 +153,7 @@ export interface Session {
 export interface Week {
   weekNumber: number;
   theme: string;
+  weekGoal: string; // Explication du rôle de cette semaine dans la prépa (ex: "Développer l'endurance de base avant la phase spécifique")
   sessions: Session[];
 
   // PÉRIODISATION PROFESSIONNELLE

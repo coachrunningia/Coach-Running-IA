@@ -19,6 +19,8 @@ const Questionnaire: React.FC<QuestionnaireProps> = ({ onComplete, isGenerating:
   const [step, setStep] = useState(initialGoal ? 2 : 1);
   const totalSteps = 5;
   const todayStr = new Date().toISOString().split('T')[0];
+  const minRaceDate = new Date(Date.now() + 6 * 7 * 24 * 60 * 60 * 1000);
+  const minRaceDateStr = minRaceDate.toISOString().split('T')[0];
 
   const [data, setData] = useState<QuestionnaireData>({
     goal: initialGoal || null,
@@ -93,6 +95,13 @@ const Questionnaire: React.FC<QuestionnaireProps> = ({ onComplete, isGenerating:
         errors.push("Veuillez choisir une distance de course.");
       if (data.startDate && data.raceDate && new Date(data.startDate) >= new Date(data.raceDate))
         errors.push("La date de début doit être avant la date de la course.");
+      if (data.raceDate) {
+        const raceD = new Date(data.raceDate);
+        const now = new Date();
+        const diffWeeks = Math.floor((raceD.getTime() - now.getTime()) / (1000 * 60 * 60 * 24 * 7));
+        if (diffWeeks < 6)
+          errors.push("La date de course doit être dans au moins 6 semaines pour générer un plan adapté.");
+      }
       if (!data.city) errors.push("Votre ville est requise pour personnaliser l'expérience.");
     }
 
@@ -263,7 +272,7 @@ const Questionnaire: React.FC<QuestionnaireProps> = ({ onComplete, isGenerating:
         <div className="grid md:grid-cols-2 gap-4">
           <div className="space-y-2">
             <label className="block text-sm font-bold text-slate-700 flex items-center gap-2"><Calendar size={16} /> Date de la course</label>
-            <input type="date" min={todayStr} disabled={isGenerating} className="w-full p-3 border rounded-xl focus:ring-2 focus:ring-accent/50 outline-none"
+            <input type="date" min={minRaceDateStr} disabled={isGenerating} className="w-full p-3 border rounded-xl focus:ring-2 focus:ring-accent/50 outline-none"
               onChange={(e) => updateData('raceDate', e.target.value)}
               value={data.raceDate || ''}
             />
@@ -350,23 +359,8 @@ const Questionnaire: React.FC<QuestionnaireProps> = ({ onComplete, isGenerating:
       {/* PERTE DE POIDS */}
       {data.goal === UserGoal.LOSE_WEIGHT && (
         <div className="p-4 bg-emerald-50 rounded-2xl border border-emerald-100 space-y-4">
-          <div className="flex items-center gap-2 text-emerald-800 font-bold"><Activity size={18} /> Objectifs spécifiques</div>
+          <div className="flex items-center gap-2 text-emerald-800 font-bold"><Activity size={18} /> Perte de poids</div>
           <div className="space-y-3">
-            <div>
-              <label className="block text-xs font-bold text-emerald-700 mb-1">Sous-objectif de course (optionnel)</label>
-              <select
-                disabled={isGenerating}
-                value={data.weightLossSubGoal || 'none'}
-                onChange={e => updateData('weightLossSubGoal', e.target.value)}
-                className="w-full p-3 rounded-lg border border-emerald-200 bg-white text-slate-700"
-              >
-                <option value="none">Juste perdre du poids progressivement</option>
-                <option value="20min">Courir 20 min sans s'arrêter</option>
-                <option value="30min">Courir 30 min sans s'arrêter</option>
-                <option value="5km">Courir 5 km</option>
-                <option value="10km">Courir 10 km</option>
-              </select>
-            </div>
             <div>
               <label className="block text-xs font-bold text-emerald-700 mb-1">Temps disponible par semaine</label>
               <select
@@ -573,38 +567,38 @@ const Questionnaire: React.FC<QuestionnaireProps> = ({ onComplete, isGenerating:
     // DÉBUTANT : Priorité absolue = Ne pas se blesser !
     if (level === RunningLevel.BEGINNER) {
       if (goal === UserGoal.LOSE_WEIGHT) {
-        base = { min: 2, max: 3, recommended: 2 };
+        base = { min: 2, max: 2, recommended: 2 };
         reason = "2 séances/semaine suffisent pour débuter en toute sécurité et perdre du poids progressivement.";
         warning = "En tant que débutant, la régularité compte plus que le volume. Votre corps a besoin de s'adapter !";
       } else if (goal === UserGoal.FITNESS) {
-        base = { min: 2, max: 3, recommended: 2 };
+        base = { min: 2, max: 2, recommended: 2 };
         reason = "2 séances/semaine pour reprendre en douceur. Votre corps doit d'abord s'habituer à l'effort.";
         warning = "Commencez doucement pour éviter les blessures et installer une routine durable.";
       } else if (goal === UserGoal.ROAD_RACE) {
         if (subGoal === '5 km') {
-          base = { min: 2, max: 3, recommended: 3 };
-          reason = "3 séances/semaine sont idéales pour préparer un 5km en tant que débutant.";
+          base = { min: 2, max: 2, recommended: 2 };
+          reason = "2 séances/semaine pour préparer un 5km en tant que débutant, en toute sécurité.";
         } else if (subGoal === '10 km') {
-          base = { min: 2, max: 4, recommended: 3 };
-          reason = "3 séances/semaine pour progresser vers le 10km sans risque de surmenage.";
+          base = { min: 2, max: 2, recommended: 2 };
+          reason = "2 séances/semaine pour progresser vers le 10km sans risque de surmenage.";
           warning = "Le 10km demande une préparation progressive. Respectez les jours de repos !";
         } else if (subGoal === 'Semi-marathon') {
-          base = { min: 3, max: 4, recommended: 3 };
-          reason = "3 séances/semaine minimum pour un semi-marathon, avec une sortie longue le week-end.";
+          base = { min: 2, max: 2, recommended: 2 };
+          reason = "2 séances/semaine pour un semi-marathon débutant, avec une sortie longue le week-end.";
           warning = "Un semi-marathon est un objectif ambitieux pour un débutant. Prévoyez suffisamment de temps !";
         } else if (subGoal === 'Marathon') {
-          base = { min: 3, max: 4, recommended: 4 };
-          reason = "4 séances/semaine minimum pour un marathon, mais restez prudent sur les intensités.";
+          base = { min: 2, max: 2, recommended: 2 };
+          reason = "2 séances/semaine pour commencer, un marathon demande une montée en charge très progressive.";
           warning = "Un marathon débutant demande au moins 16 semaines de préparation. Écoutez votre corps !";
         }
       } else if (goal === UserGoal.TRAIL) {
         const trailDist = data.trailDetails?.distance || 20;
         if (trailDist <= 30) {
-          base = { min: 2, max: 4, recommended: 3 };
-          reason = "3 séances/semaine dont une avec du dénivelé pour s'habituer au trail.";
+          base = { min: 2, max: 2, recommended: 2 };
+          reason = "2 séances/semaine dont une avec du dénivelé pour s'habituer au trail.";
         } else {
-          base = { min: 3, max: 4, recommended: 3 };
-          reason = "3 séances/semaine pour débuter, mais le trail long demande de l'expérience préalable.";
+          base = { min: 2, max: 2, recommended: 2 };
+          reason = "2 séances/semaine pour débuter, le trail long demande de l'expérience préalable.";
           warning = "Un trail de cette distance est ambitieux pour un débutant. Envisagez un objectif intermédiaire.";
         }
       }
@@ -774,13 +768,9 @@ const Questionnaire: React.FC<QuestionnaireProps> = ({ onComplete, isGenerating:
           </div>
         </div>
 
-        {/* Affichage IMC uniquement pour objectif Perte de poids */}
+        {/* Conseil adapté pour objectif Perte de poids */}
         {bmi > 0 && data.goal === UserGoal.LOSE_WEIGHT && (
           <div className={`p-4 rounded-xl ${bmiCategory.color} animate-fade-in`}>
-            <div className="flex items-center justify-between mb-3">
-              <span className="font-bold text-sm">Votre IMC</span>
-              <span className="text-2xl font-black">{bmi.toFixed(1)}</span>
-            </div>
             <p className="text-sm">{bmiCategory.advice}</p>
           </div>
         )}
@@ -878,6 +868,13 @@ const Questionnaire: React.FC<QuestionnaireProps> = ({ onComplete, isGenerating:
                     Attention : {data.frequency} séances augmentent le risque de surmenage et de blessure.
                   </span>
                 )}
+              </p>
+            </div>
+
+            {/* Info : 1 séance réservée au renforcement musculaire */}
+            <div className="mt-3 p-3 bg-slate-50 border border-slate-200 rounded-xl">
+              <p className="text-xs text-slate-600">
+                <span className="font-semibold text-slate-700">1 séance sera dédiée au renforcement musculaire</span> (gainage, proprioception, prévention blessures). Les autres séances seront de la course à pied. Par exemple, {data.frequency}x/semaine = {data.frequency - 1} séance{data.frequency - 1 > 1 ? 's' : ''} de running + 1 renfo.
               </p>
             </div>
 
