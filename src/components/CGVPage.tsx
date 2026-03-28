@@ -108,28 +108,66 @@ const CGVPage: React.FC = () => {
             <li>Sous traitement médicamenteux affectant l'effort</li>
           </ul>
 
-          <h2 className="text-2xl font-bold text-slate-900 mt-10 mb-4">Article 5 - Limitation de responsabilité</h2>
+          <h2 className="text-2xl font-bold text-slate-900 mt-10 mb-4">Article 5 - Limitation de responsabilité et acceptation des risques</h2>
           <h3 className="text-xl font-semibold text-slate-800 mt-6 mb-3">5.1 Exclusion de garantie</h3>
           <p>Le Service est fourni "en l'état". Coach Running IA ne garantit pas :</p>
           <ul>
-            <li>L'adéquation des plans à la condition physique réelle</li>
+            <li>L'adéquation des plans à la condition physique réelle de l'utilisateur</li>
             <li>L'atteinte des objectifs sportifs</li>
-            <li>L'absence d'erreurs dans les plans générés par l'IA</li>
+            <li>L'absence d'erreurs dans les plans générés par l'intelligence artificielle</li>
+            <li>La pertinence des allures, volumes ou intensités proposés pour chaque individu</li>
           </ul>
 
-          <h3 className="text-xl font-semibold text-slate-800 mt-6 mb-3">5.2 Exclusion de responsabilité</h3>
-          <p><strong>Coach Running IA décline toute responsabilité</strong> en cas de :</p>
+          <h3 className="text-xl font-semibold text-slate-800 mt-6 mb-3">5.2 Acceptation des risques inhérents</h3>
+          <p>L'utilisateur reconnaît et accepte que :</p>
           <ul>
-            <li>Blessures de toute nature</li>
-            <li>Accidents pendant ou après l'entraînement</li>
-            <li>Problèmes de santé liés à l'effort physique</li>
-            <li>Aggravation de pathologies préexistantes</li>
-            <li>Surentraînement et ses conséquences</li>
-            <li>Tout autre préjudice direct ou indirect</li>
+            <li>La course à pied est une <strong>activité physique comportant des risques inhérents</strong> (blessures musculaires, articulaires, tendineuses, accidents cardiovasculaires, chutes, etc.)</li>
+            <li>Les plans sont générés par une intelligence artificielle et <strong>ne constituent pas un suivi médical ou sportif personnalisé</strong></li>
+            <li>L'utilisateur est <strong>seul responsable</strong> de l'évaluation de sa condition physique et de sa capacité à suivre le plan proposé</li>
+            <li>L'utilisation du Service se fait <strong>à ses propres risques</strong> et sous sa pleine et entière responsabilité</li>
           </ul>
 
-          <h2 className="text-2xl font-bold text-slate-900 mt-10 mb-4">Article 6 - Abonnements</h2>
+          <h3 className="text-xl font-semibold text-slate-800 mt-6 mb-3">5.3 Exclusion de responsabilité</h3>
+          <div className="bg-red-50 border border-red-200 rounded-xl p-6 my-4">
+            <p className="text-red-800 mb-2"><strong>Coach Running IA décline expressément toute responsabilité</strong> en cas de :</p>
+            <ul className="text-red-800">
+              <li>Blessures de toute nature (musculaires, articulaires, tendineuses, osseuses)</li>
+              <li>Accidents cardiovasculaires ou respiratoires pendant ou après l'entraînement</li>
+              <li>Chutes, accidents de la voie publique ou tout événement survenant pendant l'entraînement</li>
+              <li>Aggravation de pathologies préexistantes connues ou non</li>
+              <li>Surentraînement, fatigue chronique et leurs conséquences</li>
+              <li>Tout autre préjudice direct ou indirect, corporel ou matériel</li>
+            </ul>
+          </div>
+
+          <h3 className="text-xl font-semibold text-slate-800 mt-6 mb-3">5.4 Obligation de prudence de l'utilisateur</h3>
+          <p>En cas de survenance d'un accident ou d'une blessure, l'utilisateur ne pourra rechercher la responsabilité de Coach Running IA que s'il démontre une faute intentionnelle ou une négligence grave de la part de l'éditeur. L'utilisateur s'engage à :</p>
+          <ul>
+            <li>Ne <strong>jamais suivre un plan sans avis médical préalable</strong> confirmant son aptitude</li>
+            <li>Adapter ou interrompre le plan en cas de fatigue anormale, douleur ou symptôme inhabituel</li>
+            <li>Ne pas dépasser ses capacités physiques, même si le plan le suggère</li>
+            <li>S'assurer de conditions de pratique sécurisées (lieu, météo, équipement, hydratation)</li>
+          </ul>
+
+          <h2 className="text-2xl font-bold text-slate-900 mt-10 mb-4">Article 6 - Abonnements et limites</h2>
+          <h3 className="text-xl font-semibold text-slate-800 mt-6 mb-3">6.1 Offres disponibles</h3>
           <p>Le Service propose une offre gratuite limitée et des abonnements Premium. Les paiements sont sécurisés via Stripe. Les prix sont en euros TTC.</p>
+
+          <h3 className="text-xl font-semibold text-slate-800 mt-6 mb-3">6.2 Limites de plans actifs</h3>
+          <ul>
+            <li><strong>Offre gratuite</strong> : 1 plan d'entraînement actif (aperçu d'une semaine)</li>
+            <li><strong>Abonnement Premium (mensuel ou annuel)</strong> : 2 plans d'entraînement actifs simultanément maximum</li>
+          </ul>
+          <p>Un plan est considéré comme actif tant que sa date de fin n'est pas dépassée. L'utilisateur peut supprimer un plan actif depuis son espace personnel pour libérer un emplacement et en générer un nouveau.</p>
+
+          <h3 className="text-xl font-semibold text-slate-800 mt-6 mb-3">6.3 Usage strictement personnel</h3>
+          <div className="bg-amber-50 border border-amber-200 rounded-xl p-6 my-4">
+            <p className="text-amber-800 mb-0">
+              <strong>L'abonnement est strictement personnel et nominatif.</strong> L'utilisateur s'engage à ne générer des plans que pour lui-même. La génération de plans pour le compte de tiers est interdite. Tout partage de compte, revente de plans ou utilisation à des fins commerciales ou de coaching entraînera la résiliation immédiate de l'abonnement sans remboursement.
+            </p>
+          </div>
+
+          <h3 className="text-xl font-semibold text-slate-800 mt-6 mb-3">6.4 Résiliation et rétractation</h3>
           <p>Conformément à l'article L221-28 du Code de la consommation, le droit de rétractation ne peut être exercé pour les contenus numériques dont l'exécution a commencé.</p>
           <p>L'utilisateur peut résilier à tout moment depuis son espace personnel. La résiliation prend effet à la fin de la période en cours.</p>
 

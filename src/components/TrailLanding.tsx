@@ -44,10 +44,14 @@ const TrailLanding: React.FC<TrailLandingProps> = ({ user, onPlanGeneration, isG
   return (
     <div className="bg-white">
       <Helmet>
-        <title>Plan Entraînement Trail - Programme Trail Running par IA | Coach Running IA</title>
-        <meta name="description" content="Créez votre plan entraînement trail personnalisé par IA en 2 min. Programme adapté au dénivelé, renforcement musculaire inclus, export Garmin/Coros. 1ère semaine gratuite." />
-        <meta name="keywords" content="plan entraînement trail, programme trail running, plan trail débutant, entraînement trail montagne, préparation trail, plan ultra trail" />
+        <title>Plan Entraînement Trail Personnalisé par IA | 20km à Ultra-Trail | Coach Running IA</title>
+        <meta name="description" content="Générez votre plan trail sur-mesure en 2 min : D+ progressif adapté à votre course, renforcement musculaire, rando-course. Trail court, long ou ultra. 1ère semaine gratuite." />
+        <meta name="keywords" content="plan entraînement trail, programme trail running personnalisé, plan trail 40km, plan ultra trail, entraînement trail dénivelé, plan trail débutant, préparation trail montagne" />
         <link rel="canonical" href="https://coachrunningia.fr/plan-trail" />
+        <meta property="og:title" content="Plan Entraînement Trail Personnalisé par IA | Coach Running IA" />
+        <meta property="og:description" content="Programme trail sur-mesure : D+ adapté à votre course, côtes, rando-course, renforcement. Du trail 20km à l'ultra 100km+. Gratuit pour tester." />
+        <meta property="og:url" content="https://coachrunningia.fr/plan-trail" />
+        <meta property="og:image" content="https://coachrunningia.fr/og-image.png" />
         <script type="application/ld+json">{JSON.stringify({
           "@context": "https://schema.org",
           "@type": "FAQPage",
@@ -107,51 +111,51 @@ const TrailLanding: React.FC<TrailLandingProps> = ({ user, onPlanGeneration, isG
         </div>
       </section>
 
-      {/* SECTION: POURQUOI PAS CHATGPT */}
+      {/* SECTION: PLAN ROUTE VS PLAN TRAIL */}
       <section className="py-16 md:py-24 bg-white">
         <div className="max-w-5xl mx-auto px-4">
           <div className="text-center mb-12">
-            <p className="text-accent font-bold text-sm tracking-wider uppercase mb-3">La question qu'on nous pose le plus</p>
+            <p className="text-accent font-bold text-sm tracking-wider uppercase mb-3">Le trail, ce n'est pas de la route en montagne</p>
             <h2 className="text-3xl md:text-4xl font-black text-slate-900 mb-4">
-              "Je peux faire pareil avec ChatGPT, non ?"
+              Un plan route ne vous préparera jamais à un trail
             </h2>
             <p className="text-slate-500 max-w-2xl mx-auto text-lg">
-              Pas vraiment. Et voici pourquoi.
+              Le trail demande du D+, du renforcement, de la rando-course. Un plan qui ignore ça, c'est une blessure qui attend.
             </p>
           </div>
           <div className="grid md:grid-cols-2 gap-6 max-w-4xl mx-auto">
             <div className="bg-slate-50 rounded-2xl p-6 border border-slate-200">
               <div className="flex items-center gap-3 mb-4">
-                <div className="w-10 h-10 bg-slate-200 rounded-xl flex items-center justify-center text-lg">{"🤖"}</div>
-                <h3 className="font-bold text-slate-400 text-lg">ChatGPT</h3>
+                <div className="w-10 h-10 bg-slate-200 rounded-xl flex items-center justify-center text-lg">{"🛣️"}</div>
+                <h3 className="font-bold text-slate-400 text-lg">Plan running classique</h3>
               </div>
               <div className="space-y-3 text-slate-400 text-sm">
-                <div className="flex items-start gap-2"><X size={16} className="text-red-400 mt-0.5 shrink-0" /><span>Génère un plan à partir de tout ce qui existe en ligne — <strong>sans distinguer les bons des mauvais conseils</strong></span></div>
-                <div className="flex items-start gap-2"><X size={16} className="text-red-400 mt-0.5 shrink-0" /><span>Aucune validation médicale sur le renforcement musculaire</span></div>
-                <div className="flex items-start gap-2"><X size={16} className="text-red-400 mt-0.5 shrink-0" /><span>Oublie tout entre chaque conversation</span></div>
-                <div className="flex items-start gap-2"><X size={16} className="text-red-400 mt-0.5 shrink-0" /><span>Aucun suivi réel de ta progression</span></div>
-                <div className="flex items-start gap-2"><X size={16} className="text-red-400 mt-0.5 shrink-0" /><span>Pas d'analyse de tes performances Strava</span></div>
-                <div className="flex items-start gap-2"><X size={16} className="text-red-400 mt-0.5 shrink-0" /><span>Plan en texte brut — pas de calendrier, pas d'export, pas de suivi</span></div>
+                <div className="flex items-start gap-2"><X size={16} className="text-red-400 mt-0.5 shrink-0" /><span>Volume uniquement en km — <strong>aucune notion de dénivelé positif (D+)</strong></span></div>
+                <div className="flex items-start gap-2"><X size={16} className="text-red-400 mt-0.5 shrink-0" /><span>Séances sur terrain plat — pas de travail en côte ni en descente</span></div>
+                <div className="flex items-start gap-2"><X size={16} className="text-red-400 mt-0.5 shrink-0" /><span>Sortie longue en endurance pure — sans rando-course ni terrain varié</span></div>
+                <div className="flex items-start gap-2"><X size={16} className="text-red-400 mt-0.5 shrink-0" /><span>Renforcement musculaire générique ou absent</span></div>
+                <div className="flex items-start gap-2"><X size={16} className="text-red-400 mt-0.5 shrink-0" /><span>Même plan pour un trail 20 km et un ultra 100 km</span></div>
+                <div className="flex items-start gap-2"><X size={16} className="text-red-400 mt-0.5 shrink-0" /><span>Aucune adaptation au profil de votre course (distance, D+, technicité)</span></div>
               </div>
             </div>
             <div className="bg-gradient-to-br from-orange-50 to-amber-50 rounded-2xl p-6 border-2 border-accent/30 relative">
-              <div className="absolute -top-3 right-4 bg-accent text-white text-xs font-bold px-3 py-1 rounded-full">RECOMMANDÉ</div>
+              <div className="absolute -top-3 right-4 bg-accent text-white text-xs font-bold px-3 py-1 rounded-full">SPÉCIAL TRAIL</div>
               <div className="flex items-center gap-3 mb-4">
-                <div className="w-10 h-10 bg-accent/20 rounded-xl flex items-center justify-center text-lg">{"🏃"}</div>
-                <h3 className="font-bold text-slate-900 text-lg">Coach Running IA</h3>
+                <div className="w-10 h-10 bg-accent/20 rounded-xl flex items-center justify-center text-lg">{"🏔️"}</div>
+                <h3 className="font-bold text-slate-900 text-lg">Coach Running IA — Trail</h3>
               </div>
               <div className="space-y-3 text-slate-700 text-sm">
-                <div className="flex items-start gap-2"><CheckCircle size={16} className="text-green-500 mt-0.5 shrink-0" /><span>Entraîné sur des <strong>milliers de plans validés par des professionnels</strong></span></div>
-                <div className="flex items-start gap-2"><CheckCircle size={16} className="text-green-500 mt-0.5 shrink-0" /><span>Renforcement musculaire avec <strong>regard médical et exercices spécifiques au trail</strong></span></div>
-                <div className="flex items-start gap-2"><CheckCircle size={16} className="text-green-500 mt-0.5 shrink-0" /><span><strong>Questionnaire personnalisé</strong> — distance, dénivelé, expérience, blessures</span></div>
-                <div className="flex items-start gap-2"><CheckCircle size={16} className="text-green-500 mt-0.5 shrink-0" /><span><strong>Feedback hebdomadaire</strong> — le plan s'adapte à ton ressenti sans perdre le contexte</span></div>
-                <div className="flex items-start gap-2"><CheckCircle size={16} className="text-green-500 mt-0.5 shrink-0" /><span><strong>Analyse mensuelle Strava</strong> — bilan sur tes performances réelles</span></div>
-                <div className="flex items-start gap-2"><CheckCircle size={16} className="text-green-500 mt-0.5 shrink-0" /><span><strong>Plan structuré</strong> semaine par semaine avec calendrier visuel et export agenda</span></div>
+                <div className="flex items-start gap-2"><CheckCircle size={16} className="text-green-500 mt-0.5 shrink-0" /><span><strong>D+ progressif semaine après semaine</strong> — calibré sur le D+ de votre course cible</span></div>
+                <div className="flex items-start gap-2"><CheckCircle size={16} className="text-green-500 mt-0.5 shrink-0" /><span><strong>Séances de côtes et descentes</strong> pour préparer quadriceps et articulations</span></div>
+                <div className="flex items-start gap-2"><CheckCircle size={16} className="text-green-500 mt-0.5 shrink-0" /><span><strong>Sorties longues en terrain varié</strong> avec rando-course intégrée</span></div>
+                <div className="flex items-start gap-2"><CheckCircle size={16} className="text-green-500 mt-0.5 shrink-0" /><span><strong>Renforcement musculaire trail</strong> — gainage, quadri, chevilles, proprioception</span></div>
+                <div className="flex items-start gap-2"><CheckCircle size={16} className="text-green-500 mt-0.5 shrink-0" /><span><strong>Plan adapté à VOTRE course</strong> — trail court 20 km, long 60 km ou ultra 100 km+</span></div>
+                <div className="flex items-start gap-2"><CheckCircle size={16} className="text-green-500 mt-0.5 shrink-0" /><span><strong>Analyse Strava</strong> — suivi du D+ réalisé vs D+ cible chaque semaine</span></div>
               </div>
             </div>
           </div>
           <p className="text-center text-slate-400 text-sm mt-8 max-w-xl mx-auto">
-            ChatGPT est un outil génial — mais généraliste. Coach Running IA est un <strong className="text-slate-600">spécialiste de l'entraînement running</strong>, conçu pour une seule mission : te faire progresser.
+            Chaque trail est unique : distance, D+, technicité. Votre plan doit l'être aussi. <strong className="text-slate-600">L'IA génère un programme calé sur le profil exact de votre course.</strong>
           </p>
         </div>
       </section>

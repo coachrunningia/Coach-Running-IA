@@ -75,7 +75,14 @@ const StravaConnect: React.FC<StravaConnectProps> = ({ isConnected, onConnect, i
         method: 'GET'
       });
 
+      if (!response.ok) {
+        throw new Error(`Erreur serveur: ${response.status}`);
+      }
+
       const data = await response.json();
+      if (!data.url) {
+        throw new Error('URL d\'autorisation Strava non disponible');
+      }
       console.log('[Strava] Auth URL received:', data.url?.substring(0, 50) + '...');
 
       // Ajoute le userId dans le state OAuth

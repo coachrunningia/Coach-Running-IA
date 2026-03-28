@@ -3,9 +3,10 @@ import React, { useState, useEffect, useRef } from 'react';
 
 import { Session } from '../types';
 import { useSettings } from '../context/SettingsContext';
+import { downloadSessionTCX } from '../services/exportService';
 import {
     Clock, MapPin, ChevronDown, Activity, Dumbbell, Watch, HelpCircle,
-    Flame, CheckCircle, MessageSquare, Zap, Target, X, Calendar
+    Flame, CheckCircle, MessageSquare, Zap, Target, X, Calendar, Download
 } from 'lucide-react';
 import { clsx, type ClassValue } from 'clsx';
 import { twMerge } from 'tailwind-merge';
@@ -229,7 +230,7 @@ const SessionCard: React.FC<SessionCardProps> = ({ session, weekNumber, isLocked
                     <div className="flex items-center gap-3 text-sm text-slate-500 mt-1">
                         <span className="flex items-center gap-1"><Clock size={14} /> {session.duration}</span>
                         {session.distance && <span className="flex items-center gap-1">• <MapPin size={14} /> {session.distance}</span>}
-                        {session.elevationGain ? <span className="flex items-center gap-1 text-amber-600 font-semibold">• ▲ {session.elevationGain}m D+</span> : null}
+                        {typeof session.elevationGain === 'number' && session.elevationGain > 0 ? <span className="flex items-center gap-1 text-amber-600 font-semibold">• ▲ {session.elevationGain}m D+</span> : null}
                         {session.locationSuggestion && (
                             <span className="relative" ref={locationRef}>
                                 <button
@@ -262,7 +263,7 @@ const SessionCard: React.FC<SessionCardProps> = ({ session, weekNumber, isLocked
                             {intensityStyle.icon} {session.intensity}
                         </span>
                         <span className="text-xs text-slate-500 flex items-center gap-1"><Clock size={12} /> {session.duration}</span>
-                        {session.elevationGain ? <span className="text-xs text-amber-600 font-semibold flex items-center gap-1">▲ {session.elevationGain}m D+</span> : null}
+                        {typeof session.elevationGain === 'number' && session.elevationGain > 0 ? <span className="text-xs text-amber-600 font-semibold flex items-center gap-1">▲ {session.elevationGain}m D+</span> : null}
                         {session.locationSuggestion && (
                             <button
                                 onClick={(e) => { e.stopPropagation(); setShowLocationTip(!showLocationTip); }}
@@ -354,13 +355,15 @@ const SessionCard: React.FC<SessionCardProps> = ({ session, weekNumber, isLocked
                                 </div>
                             </div>
 
-                                {/* EXPORT MONTRE GPS - Bientôt disponible */}
+                                {/* EXPORT MONTRE GPS — bientôt disponible */}
+                                {session.type !== 'Renforcement' && session.type !== 'Repos' && (
                                 <div className="mt-4">
-                                    <div className="flex items-center gap-2 px-3 py-2 bg-slate-50 border border-slate-200 text-slate-400 rounded-lg text-sm">
-                                        <Watch size={16} />
+                                    <div className="flex items-center gap-2 px-3 py-2 bg-slate-50 border border-slate-200 text-slate-400 rounded-lg text-sm w-full cursor-not-allowed">
+                                        <Download size={16} />
                                         <span>Export Garmin / Coros : bientôt disponible</span>
                                     </div>
                                 </div>
+                                )}
 
                             <div className="mt-auto space-y-3">
                                 {session.feedback?.completed ? (
@@ -373,16 +376,27 @@ const SessionCard: React.FC<SessionCardProps> = ({ session, weekNumber, isLocked
                                                 <p className="text-xs text-emerald-600">RPE: {session.feedback.rpe}/10 • {session.feedback.notes || 'Aucune note'}</p>
                                             </div>
                                         </div>
-                                        {/* Bouton pour annuler / marquer comme non faite */}
-                                        <button
-                                            onClick={(e) => {
-                                                e.stopPropagation();
-                                                if (onQuickComplete) onQuickComplete(session, false, weekNumber);
-                                            }}
-                                            className="w-full py-2.5 bg-white hover:bg-amber-50 text-slate-500 hover:text-amber-700 border border-slate-200 hover:border-amber-300 font-medium rounded-xl transition-all flex items-center justify-center gap-2 text-sm"
-                                        >
-                                            <X size={16} /> En fait, je ne l'ai pas faite
-                                        </button>
+                                        {/* Boutons modifier / annuler */}
+                                        <div className="grid grid-cols-2 gap-2">
+                                            <button
+                                                onClick={(e) => {
+                                                    e.stopPropagation();
+                                                    if (onFeedbackClick) onFeedbackClick(session, weekNumber);
+                                                }}
+                                                className="py-2.5 bg-white hover:bg-slate-50 text-slate-600 hover:text-slate-800 border border-slate-200 hover:border-slate-300 font-medium rounded-xl transition-all flex items-center justify-center gap-2 text-sm"
+                                            >
+                                                <MessageSquare size={14} /> Modifier
+                                            </button>
+                                            <button
+                                                onClick={(e) => {
+                                                    e.stopPropagation();
+                                                    if (onQuickComplete) onQuickComplete(session, false, weekNumber);
+                                                }}
+                                                className="py-2.5 bg-white hover:bg-amber-50 text-slate-500 hover:text-amber-700 border border-slate-200 hover:border-amber-300 font-medium rounded-xl transition-all flex items-center justify-center gap-2 text-sm"
+                                            >
+                                                <X size={14} /> Pas faite
+                                            </button>
+                                        </div>
                                     </>
                                 ) : (
                                     <div className="grid grid-cols-1 gap-3">

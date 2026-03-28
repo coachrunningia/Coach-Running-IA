@@ -30,7 +30,7 @@ const Questionnaire: React.FC<QuestionnaireProps> = ({ onComplete, isGenerating:
     preferredDays: [],
     startDate: todayStr,
     sex: 'Homme',
-    trailDetails: { distance: 20, elevation: 500 },
+    trailDetails: (initialGoal === 'Trail' || initialGoal === UserGoal.TRAIL) ? { distance: 20, elevation: 500 } : undefined,
     recentRaceTimes: {},
     city: '',
     injuries: { hasInjury: false },
@@ -74,6 +74,55 @@ const Questionnaire: React.FC<QuestionnaireProps> = ({ onComplete, isGenerating:
     }));
   };
 
+  // Helper: met à jour targetTime depuis 2 selects (heures + minutes) → "XhYY"
+  const [targetHours, setTargetHours] = useState<string>('');
+  const [targetMinutes, setTargetMinutes] = useState<string>('');
+  const updateTargetTime = (h: string, m: string) => {
+    setTargetHours(h);
+    setTargetMinutes(m);
+    const hours = parseInt(h) || 0;
+    const mins = parseInt(m) || 0;
+    if (hours === 0 && mins === 0) {
+      updateData('targetTime', undefined);
+    } else if (hours === 0) {
+      updateData('targetTime', `${mins}min`);
+    } else {
+      updateData('targetTime', `${hours}h${mins > 0 ? String(mins).padStart(2, '0') : '00'}`);
+    }
+  };
+
+  // Helper: met à jour un recentRaceTime depuis 2 inputs (mm:ss ou h:mm)
+  const updateStructuredRaceTime = (key: keyof NonNullable<QuestionnaireData['recentRaceTimes']>, h: string, m: string, s?: string) => {
+    const hours = parseInt(h) || 0;
+    const mins = parseInt(m) || 0;
+    const secs = parseInt(s || '') || 0;
+    let formatted = '';
+    if (hours > 0) {
+      formatted = `${hours}h${String(mins).padStart(2, '0')}`;
+    } else if (mins > 0) {
+      formatted = secs > 0 ? `${mins}:${String(secs).padStart(2, '0')}` : `${mins}min`;
+    }
+    updateRaceTime(key, formatted);
+  };
+
+  // States pour les temps de course structurés
+  const [raceTimeInputs, setRaceTimeInputs] = useState<Record<string, { h: string; m: string; s: string }>>({
+    distance5km: { h: '', m: '', s: '' },
+    distance10km: { h: '', m: '', s: '' },
+    distanceHalfMarathon: { h: '', m: '', s: '' },
+    distanceMarathon: { h: '', m: '', s: '' },
+  });
+  const updateRaceTimeInput = (key: string, field: 'h' | 'm' | 's', value: string) => {
+    // Autoriser uniquement des chiffres
+    const clean = value.replace(/\D/g, '').slice(0, 2);
+    const updated = { ...raceTimeInputs[key], [field]: clean };
+    setRaceTimeInputs(prev => ({ ...prev, [key]: updated }));
+    updateStructuredRaceTime(
+      key as keyof NonNullable<QuestionnaireData['recentRaceTimes']>,
+      updated.h, updated.m, updated.s
+    );
+  };
+
   useEffect(() => {
     if (user?.email && !data.email) updateData('email', user.email);
   }, [user]);
@@ -111,7 +160,12 @@ const Questionnaire: React.FC<QuestionnaireProps> = ({ onComplete, isGenerating:
       }
     }
 
-    if (step >= 4 && !data.level) errors.push("Veuillez indiquer votre niveau.");
+    if (step >= 4) {
+      if (!data.level) errors.push("Veuillez indiquer votre niveau.");
+      if (!data.age) errors.push("Votre âge est requis pour adapter le plan à votre profil.");
+      if (!data.weight) errors.push("Votre poids est requis pour calibrer les charges d'entraînement.");
+      if (!data.height) errors.push("Votre taille est requise pour évaluer votre profil physique.");
+    }
 
     // Étape 5 : Inscription obligatoire pour les non-connectés
     if (step === 5 && !user) {
@@ -244,7 +298,16 @@ const Questionnaire: React.FC<QuestionnaireProps> = ({ onComplete, isGenerating:
           <button
             key={option.value}
             disabled={isGenerating}
-            onClick={() => { updateData('goal', option.value); nextStep(); }}
+            onClick={() => {
+              updateData('goal', option.value);
+              // Initialize trailDetails when Trail is selected, clear when other goal selected
+              if (option.value === UserGoal.TRAIL && !data.trailDetails) {
+                setData(prev => ({ ...prev, goal: option.value, trailDetails: { distance: 20, elevation: 500 } }));
+              } else if (option.value !== UserGoal.TRAIL) {
+                setData(prev => ({ ...prev, goal: option.value, trailDetails: undefined }));
+              }
+              nextStep();
+            }}
             className={`p-6 rounded-2xl border-2 transition-all text-left flex items-center gap-4 group ${data.goal === option.value ? 'border-accent bg-accent/5' : 'border-slate-100 hover:border-accent/30 bg-white'
               } disabled:opacity-50`}
           >
@@ -276,6 +339,19 @@ const Questionnaire: React.FC<QuestionnaireProps> = ({ onComplete, isGenerating:
               onChange={(e) => updateData('raceDate', e.target.value)}
               value={data.raceDate || ''}
             />
+            {/* Warning si plan > 20 semaines */}
+            {(() => {
+              if (!data.raceDate) return null;
+              const start = data.startDate ? new Date(data.startDate) : new Date();
+              const race = new Date(data.raceDate);
+              const weeks = Math.floor((race.getTime() - start.getTime()) / (1000 * 60 * 60 * 24 * 7));
+              if (weeks <= 20) return null;
+              return (
+                <div className="mt-2 p-3 rounded-xl text-sm bg-amber-50 border border-amber-200 text-amber-800">
+                  <strong>{weeks} semaines de préparation</strong> — c'est long ! Pour la plupart des courses, 12 à 20 semaines suffisent. Tu peux rapprocher ta date de début ou augmenter ta fréquence d'entraînement pour un plan plus efficace.
+                </div>
+              );
+            })()}
           </div>
           <div className="space-y-2">
             <label className="block text-sm font-bold text-slate-700 flex items-center gap-2"><MapPin size={16} /> Ville d'entraînement</label>
@@ -302,10 +378,34 @@ const Questionnaire: React.FC<QuestionnaireProps> = ({ onComplete, isGenerating:
       {(data.goal === UserGoal.ROAD_RACE || data.goal === UserGoal.TRAIL) && (
         <div className="space-y-2">
           <label className="block text-sm font-bold text-slate-700 flex items-center gap-2"><Clock size={16} /> Temps visé (optionnel)</label>
-          <input type="text" placeholder="ex: 3h45 ou 55min" disabled={isGenerating} className="w-full p-3 border rounded-xl focus:ring-2 focus:ring-accent/50 outline-none"
-            onChange={(e) => updateData('targetTime', e.target.value)}
-            value={data.targetTime || ''}
-          />
+          <div className="flex items-center gap-2">
+            <select
+              disabled={isGenerating}
+              value={targetHours}
+              onChange={(e) => updateTargetTime(e.target.value, targetMinutes)}
+              className="p-3 border rounded-xl focus:ring-2 focus:ring-accent/50 outline-none bg-white text-slate-700 font-medium"
+            >
+              <option value="">--</option>
+              {Array.from({ length: 13 }, (_, i) => (
+                <option key={i} value={String(i)}>{i}h</option>
+              ))}
+            </select>
+            <select
+              disabled={isGenerating}
+              value={targetMinutes}
+              onChange={(e) => updateTargetTime(targetHours, e.target.value)}
+              className="p-3 border rounded-xl focus:ring-2 focus:ring-accent/50 outline-none bg-white text-slate-700 font-medium"
+            >
+              <option value="">--</option>
+              {Array.from({ length: 12 }, (_, i) => (
+                <option key={i * 5} value={String(i * 5)}>{String(i * 5).padStart(2, '0')}min</option>
+              ))}
+            </select>
+            {data.targetTime && (
+              <span className="text-sm text-accent font-bold ml-2">{data.targetTime}</span>
+            )}
+          </div>
+          <p className="text-xs text-slate-400 italic">Laissez vide si pas d'objectif chrono.</p>
         </div>
       )}
 
@@ -329,12 +429,12 @@ const Questionnaire: React.FC<QuestionnaireProps> = ({ onComplete, isGenerating:
           <div className="grid grid-cols-2 gap-4">
             <div>
               <label className="block text-xs font-bold text-orange-700 mb-1">Distance (km)</label>
-              <input type="number" disabled={isGenerating} value={data.trailDetails?.distance} onChange={e => updateTrail('distance', parseInt(e.target.value))}
+              <input type="number" disabled={isGenerating} value={data.trailDetails?.distance || ''} onChange={e => updateTrail('distance', parseInt(e.target.value) || 0)}
                 className="w-full p-2 rounded-lg border-orange-200" />
             </div>
             <div>
               <label className="block text-xs font-bold text-orange-700 mb-1">Dénivelé (D+)</label>
-              <input type="number" disabled={isGenerating} value={data.trailDetails?.elevation} onChange={e => updateTrail('elevation', parseInt(e.target.value))}
+              <input type="number" disabled={isGenerating} value={data.trailDetails?.elevation || ''} onChange={e => updateTrail('elevation', parseInt(e.target.value) || 0)}
                 className="w-full p-2 rounded-lg border-orange-200" />
             </div>
           </div>
@@ -470,30 +570,44 @@ const Questionnaire: React.FC<QuestionnaireProps> = ({ onComplete, isGenerating:
       <div>
         <h3 className="font-bold text-slate-900 mb-3 flex items-center gap-2"><Clock size={16} /> Temps de référence (Optionnel)</h3>
         <div className="grid md:grid-cols-2 gap-4">
-          <input
-            type="text" placeholder="5km (ex: 25:30)"
-            className="p-3 border rounded-xl outline-none focus:border-accent"
-            value={data.recentRaceTimes?.distance5km || ''}
-            onChange={e => updateRaceTime('distance5km', e.target.value)}
-          />
-          <input
-            type="text" placeholder="10km (ex: 52:15)"
-            className="p-3 border rounded-xl outline-none focus:border-accent"
-            value={data.recentRaceTimes?.distance10km || ''}
-            onChange={e => updateRaceTime('distance10km', e.target.value)}
-          />
-          <input
-            type="text" placeholder="Semi (ex: 1h45)"
-            className="p-3 border rounded-xl outline-none focus:border-accent"
-            value={data.recentRaceTimes?.distanceHalfMarathon || ''}
-            onChange={e => updateRaceTime('distanceHalfMarathon', e.target.value)}
-          />
-          <input
-            type="text" placeholder="Marathon (ex: 4h00)"
-            className="p-3 border rounded-xl outline-none focus:border-accent"
-            value={data.recentRaceTimes?.distanceMarathon || ''}
-            onChange={e => updateRaceTime('distanceMarathon', e.target.value)}
-          />
+          {([
+            { key: 'distance5km', label: '5 km', showH: false },
+            { key: 'distance10km', label: '10 km', showH: true },
+            { key: 'distanceHalfMarathon', label: 'Semi', showH: true },
+            { key: 'distanceMarathon', label: 'Marathon', showH: true },
+          ] as const).map(({ key, label, showH }) => (
+            <div key={key} className="flex items-center gap-1.5 p-2 border rounded-xl bg-white">
+              <span className="text-xs font-bold text-slate-500 min-w-[40px]">{label}</span>
+              {showH && (
+                <>
+                  <input
+                    type="text" inputMode="numeric" maxLength={2}
+                    placeholder="h" className="w-10 p-2 text-center border rounded-lg outline-none focus:border-accent text-sm"
+                    value={raceTimeInputs[key]?.h || ''}
+                    onChange={e => updateRaceTimeInput(key, 'h', e.target.value)}
+                  />
+                  <span className="text-slate-400 font-bold">h</span>
+                </>
+              )}
+              <input
+                type="text" inputMode="numeric" maxLength={2}
+                placeholder="min" className="w-12 p-2 text-center border rounded-lg outline-none focus:border-accent text-sm"
+                value={raceTimeInputs[key]?.m || ''}
+                onChange={e => updateRaceTimeInput(key, 'm', e.target.value)}
+              />
+              <span className="text-slate-400 text-xs">min</span>
+              <input
+                type="text" inputMode="numeric" maxLength={2}
+                placeholder="s" className="w-10 p-2 text-center border rounded-lg outline-none focus:border-accent text-sm"
+                value={raceTimeInputs[key]?.s || ''}
+                onChange={e => updateRaceTimeInput(key, 's', e.target.value)}
+              />
+              <span className="text-slate-400 text-xs">s</span>
+              {data.recentRaceTimes?.[key] && (
+                <span className="text-xs text-accent font-medium ml-auto">{data.recentRaceTimes[key]}</span>
+              )}
+            </div>
+          ))}
         </div>
         <p className="text-xs text-slate-400 mt-2 italic">Laissez vide si vous ne connaissez pas vos temps.</p>
 
@@ -583,22 +697,22 @@ const Questionnaire: React.FC<QuestionnaireProps> = ({ onComplete, isGenerating:
           reason = "2 séances/semaine pour progresser vers le 10km sans risque de surmenage.";
           warning = "Le 10km demande une préparation progressive. Respectez les jours de repos !";
         } else if (subGoal === 'Semi-marathon') {
-          base = { min: 2, max: 2, recommended: 2 };
-          reason = "2 séances/semaine pour un semi-marathon débutant, avec une sortie longue le week-end.";
-          warning = "Un semi-marathon est un objectif ambitieux pour un débutant. Prévoyez suffisamment de temps !";
+          base = { min: 3, max: 3, recommended: 3 };
+          reason = "3 séances/semaine (2 running + 1 renfo) pour préparer un semi-marathon en toute sécurité.";
+          warning = "Un semi-marathon est un objectif ambitieux pour un débutant. Prévois suffisamment de temps !";
         } else if (subGoal === 'Marathon') {
-          base = { min: 2, max: 2, recommended: 2 };
-          reason = "2 séances/semaine pour commencer, un marathon demande une montée en charge très progressive.";
-          warning = "Un marathon débutant demande au moins 16 semaines de préparation. Écoutez votre corps !";
+          base = { min: 3, max: 4, recommended: 3 };
+          reason = "3 séances/semaine minimum (2 running + 1 renfo) pour préparer un marathon progressivement.";
+          warning = "Un marathon débutant demande au moins 16 semaines de préparation. Écoute ton corps !";
         }
       } else if (goal === UserGoal.TRAIL) {
         const trailDist = data.trailDetails?.distance || 20;
         if (trailDist <= 30) {
-          base = { min: 2, max: 2, recommended: 2 };
-          reason = "2 séances/semaine dont une avec du dénivelé pour s'habituer au trail.";
+          base = { min: 3, max: 3, recommended: 3 };
+          reason = "3 séances/semaine (2 running + 1 renfo) pour préparer un trail en toute sécurité.";
         } else {
-          base = { min: 2, max: 2, recommended: 2 };
-          reason = "2 séances/semaine pour débuter, le trail long demande de l'expérience préalable.";
+          base = { min: 3, max: 4, recommended: 3 };
+          reason = "3 séances/semaine minimum pour un trail long, avec du spécifique montagne.";
           warning = "Un trail de cette distance est ambitieux pour un débutant. Envisagez un objectif intermédiaire.";
         }
       }
@@ -725,8 +839,8 @@ const Questionnaire: React.FC<QuestionnaireProps> = ({ onComplete, isGenerating:
         <button disabled={isGenerating} onClick={() => updateData('sex', 'Homme')} className={`p-3 rounded-xl border-2 font-bold ${data.sex === 'Homme' ? 'border-accent bg-accent/5' : 'border-slate-100'} disabled:opacity-50`}>👨 Homme</button>
         <button disabled={isGenerating} onClick={() => updateData('sex', 'Femme')} className={`p-3 rounded-xl border-2 font-bold ${data.sex === 'Femme' ? 'border-accent bg-accent/5' : 'border-slate-100'} disabled:opacity-50`}>👩 Femme</button>
         <div className="relative">
-          <input type="number" disabled={isGenerating} placeholder="Âge" value={data.age || ''} onChange={e => updateData('age', parseInt(e.target.value))}
-            className="w-full p-3 border-2 border-slate-100 rounded-xl focus:border-accent outline-none disabled:bg-slate-50" />
+          <input type="number" disabled={isGenerating} placeholder="Âge *" min="10" max="99" value={data.age || ''} onChange={e => updateData('age', parseInt(e.target.value))}
+            className={`w-full p-3 border-2 rounded-xl focus:border-accent outline-none disabled:bg-slate-50 ${data.age ? 'border-slate-100' : 'border-orange-200'}`} />
         </div>
       </div>
 
@@ -748,7 +862,7 @@ const Questionnaire: React.FC<QuestionnaireProps> = ({ onComplete, isGenerating:
               placeholder="Ex: 70"
               value={data.weight || ''}
               onChange={e => updateData('weight', parseInt(e.target.value))}
-              className="w-full p-3 border-2 border-slate-200 rounded-xl focus:border-accent outline-none disabled:bg-slate-100"
+              className={`w-full p-3 border-2 rounded-xl focus:border-accent outline-none disabled:bg-slate-100 ${data.weight ? 'border-slate-200' : 'border-orange-200'}`}
             />
           </div>
           <div className="space-y-2">
@@ -763,7 +877,7 @@ const Questionnaire: React.FC<QuestionnaireProps> = ({ onComplete, isGenerating:
               placeholder="Ex: 175"
               value={data.height || ''}
               onChange={e => updateData('height', parseInt(e.target.value))}
-              className="w-full p-3 border-2 border-slate-200 rounded-xl focus:border-accent outline-none disabled:bg-slate-100"
+              className={`w-full p-3 border-2 rounded-xl focus:border-accent outline-none disabled:bg-slate-100 ${data.height ? 'border-slate-200' : 'border-orange-200'}`}
             />
           </div>
         </div>
@@ -792,7 +906,7 @@ const Questionnaire: React.FC<QuestionnaireProps> = ({ onComplete, isGenerating:
 
       <div className="flex justify-between pt-4">
         <button onClick={prevStep} disabled={isGenerating} className="flex items-center text-slate-500 font-bold disabled:opacity-50"><ChevronLeft size={20} /> Retour</button>
-        <button onClick={nextStep} disabled={!data.level || isGenerating} className="bg-gradient-to-r from-orange-500 to-orange-600 text-white px-10 py-3 rounded-full font-bold shadow-lg shadow-orange-500/20 hover:shadow-orange-500/30 hover:scale-105 transition-all disabled:opacity-50">Suivant</button>
+        <button onClick={nextStep} disabled={!data.level || !data.age || !data.weight || !data.height || isGenerating} className="bg-gradient-to-r from-orange-500 to-orange-600 text-white px-10 py-3 rounded-full font-bold shadow-lg shadow-orange-500/20 hover:shadow-orange-500/30 hover:scale-105 transition-all disabled:opacity-50">Suivant</button>
       </div>
     </div>
   );
@@ -889,6 +1003,48 @@ const Questionnaire: React.FC<QuestionnaireProps> = ({ onComplete, isGenerating:
                 </div>
               </div>
             )}
+          </div>
+
+          {/* SÉLECTEUR DE JOURS PRÉFÉRÉS */}
+          <div>
+            <label className="block mb-2 font-bold text-slate-900 flex items-center gap-2">
+              <Calendar size={18} className="text-accent" /> Jours préférés <span className="text-xs font-normal text-slate-400">(optionnel)</span>
+            </label>
+            <div className="flex flex-wrap gap-2">
+              {['Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi', 'Dimanche'].map(day => {
+                const isSelected = (data.preferredDays || []).includes(day);
+                return (
+                  <button
+                    key={day}
+                    type="button"
+                    disabled={isGenerating}
+                    onClick={() => {
+                      const current = data.preferredDays || [];
+                      if (isSelected) {
+                        updateData('preferredDays', current.filter((d: string) => d !== day));
+                      } else if (current.length < data.frequency) {
+                        updateData('preferredDays', [...current, day]);
+                      }
+                    }}
+                    className={`px-3 py-2 rounded-xl text-sm font-bold transition-all disabled:opacity-50 ${
+                      isSelected
+                        ? 'bg-accent text-white shadow-md'
+                        : (data.preferredDays || []).length >= data.frequency
+                          ? 'bg-slate-50 text-slate-300 border border-slate-100 cursor-not-allowed'
+                          : 'bg-slate-50 text-slate-600 border border-slate-200 hover:border-accent hover:text-accent'
+                    }`}
+                  >
+                    {day.substring(0, 3)}
+                  </button>
+                );
+              })}
+            </div>
+            <p className="text-xs text-slate-400 mt-1 italic">
+              {(data.preferredDays || []).length > 0
+                ? `${(data.preferredDays || []).length}/${data.frequency} jours sélectionnés`
+                : `Sélectionnez jusqu'à ${data.frequency} jours, ou laissez vide pour une répartition automatique`
+              }
+            </p>
           </div>
         </div>
 

@@ -238,21 +238,45 @@ export const deletePlan = async (planId: string, userId: string): Promise<void> 
 };
 
 export const checkCanGeneratePlan = async (user: User): Promise<{ allowed: boolean; reason?: string }> => {
-  if (user.isPremium) return { allowed: true };
-
-  // Double-check Firestore directly in case state is stale
+  // Récupérer les données Firestore fraîches
   const userRef = doc(db, USERS_COLLECTION, user.id);
   const userSnap = await getDoc(userRef);
-  if (userSnap.exists()) {
-    const userData = userSnap.data();
-    if (userData.isPremium) return { allowed: true };
-    if (userData.hasPurchasedPlan) return { allowed: true };
+  const userData = userSnap.exists() ? userSnap.data() : null;
+
+  const isPremium = user.isPremium || userData?.isPremium;
+  const hasPurchased = user.hasPurchasedPlan || userData?.hasPurchasedPlan;
+
+  // Récupérer les plans et filtrer les plans actifs (date de fin non dépassée)
+  const allPlans = await getUserPlans(user.id);
+  const now = new Date();
+  const activePlans = allPlans.filter(p => {
+    if (!p.endDate) return true; // Pas de date de fin = toujours actif
+    return new Date(p.endDate) >= now;
+  });
+
+  const activeCount = activePlans.length;
+
+  // Premium : max 2 plans actifs, jamais hard-bloqué
+  if (isPremium) {
+    if (activeCount >= 2) {
+      return { allowed: false, reason: 'premium_limit' };
+    }
+    return { allowed: true };
   }
 
-  // Free user: 1 plan max
-  const plans = await getUserPlans(user.id);
-  if (plans.length === 0) return { allowed: true };
-  return { allowed: false, reason: 'free_limit' };
+  // Achat unique (hasPurchasedPlan) : max 2 plans actifs (1 complet + 1 preview)
+  if (hasPurchased) {
+    if (activeCount >= 2) {
+      return { allowed: false, reason: 'purchased_limit' };
+    }
+    return { allowed: true };
+  }
+
+  // Free : max 1 plan actif (preview uniquement)
+  if (activeCount >= 1) {
+    return { allowed: false, reason: 'free_limit' };
+  }
+  return { allowed: true };
 };
 
 export const updateSessionFeedback = async (planId: string, updatedSession: Session, userId: string, weekNumber: number) => {
@@ -408,6 +432,7 @@ export const registerUser = async (
     createdAt: new Date().toISOString(),
     isPremium: false,
     isAnonymous: false,
+    source: 'web',
     questionnaireData: questionnaireData ? cleanObject(questionnaireData) : undefined
   };
   await setDoc(userRef, cleanObject(userData));
@@ -439,6 +464,7 @@ export const loginWithGoogle = async (): Promise<User> => {
       createdAt: new Date().toISOString(),
       isPremium: false,
       isAnonymous: false,
+      source: 'web',
       photoURL: fbUser.photoURL || undefined
     };
     await setDoc(userRef, cleanObject(userData));

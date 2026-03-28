@@ -32,6 +32,7 @@ const StravaCallback = lazy(() => import('./components/StravaCallback'));
 const BlogList = lazy(() => import('./components/blog/BlogList'));
 const BlogArticle = lazy(() => import('./components/blog/BlogArticle'));
 const BlogAdmin = lazy(() => import('./components/admin/BlogAdmin'));
+const AdminDashboard = lazy(() => import('./components/admin/AdminDashboard'));
 const GlossaryPage = lazy(() => import('./components/GlossaryPage'));
 const CGVPage = lazy(() => import('./components/CGVPage'));
 const ConfidentialitePage = lazy(() => import('./components/ConfidentialitePage'));
@@ -101,8 +102,12 @@ const AppContent = () => {
       const quota = await checkCanGeneratePlan(user);
       if (!quota.allowed) {
         setIsGenerating(false);
-        alert("Limite atteinte (1 plan gratuit). Choisis une formule pour continuer.");
-        navigate('/pricing');
+        if (quota.reason === 'premium_limit' || quota.reason === 'purchased_limit') {
+          alert("Tu as déjà 2 plans actifs (limite premium). Supprime un plan existant pour en créer un nouveau.");
+        } else {
+          alert("Limite atteinte (1 plan gratuit). Choisis une formule pour continuer.");
+          navigate('/pricing');
+        }
         return;
       }
 
@@ -189,8 +194,15 @@ const AppContent = () => {
         {/* Pages authentifiées - spinner pendant le chargement auth */}
         <Route path="/dashboard" element={loading ? authSpinner : user ? <Dashboard user={user} /> : <Navigate to="/auth" replace />} />
         <Route path="/profile" element={loading ? authSpinner : user ? <ProfilePage user={user} setUser={setUser} /> : <Navigate to="/auth" replace />} />
-        <Route path="/plan/:planId" element={<PlanDetailsWrapper setIsGenerating={setIsGenerating} user={user} onRegeneratePlan={handlePlanGeneration} />} />
-        <Route path="/admin/blog" element={loading ? authSpinner : user?.isAdmin ? <BlogAdmin user={user} /> : <Navigate to="/" replace />} />
+        <Route path="/plan/:planId" element={loading ? authSpinner : user ? <PlanDetailsWrapper setIsGenerating={setIsGenerating} user={user} onRegeneratePlan={handlePlanGeneration} /> : <Navigate to="/auth?redirect=back" replace />} />
+        <Route path="/admin/blog" element={loading ? authSpinner : (user?.isAdmin || (user && ["programme@coachrunningia.fr"].includes(user.email || ""))) ? <BlogAdmin user={user!} /> : <Navigate to="/" replace />} />
+        <Route path="/admin" element={
+          loading ? authSpinner :
+          !user ? <Navigate to="/auth" replace /> :
+          (user.isAdmin || ["programme@coachrunningia.fr"].includes(user.email || ""))
+            ? <AdminDashboard user={user} />
+            : <Navigate to="/" replace />
+        } />
 
         {/* 404 - Page non trouvée */}
         <Route path="*" element={<NotFoundPage />} />
@@ -356,13 +368,29 @@ const Dashboard: React.FC<{ user: User }> = ({ user }) => {
                 }
               </p>
             </div>
-            <button
-              onClick={() => navigate('/')}
-              className="bg-primary hover:bg-slate-800 text-white px-6 py-3 rounded-xl font-bold shadow-lg transition-all flex items-center gap-2"
-            >
-              <Zap size={18} />
-              Nouveau Plan
-            </button>
+            {(() => {
+              const now = new Date();
+              const activePlans = plans.filter(p => !p.endDate || new Date(p.endDate) >= now);
+              const maxActive = user.isPremium ? 2 : user.hasPurchasedPlan ? 2 : 1;
+              const canCreate = activePlans.length < maxActive;
+              return canCreate ? (
+                <button
+                  onClick={() => navigate('/')}
+                  className="bg-primary hover:bg-slate-800 text-white px-6 py-3 rounded-xl font-bold shadow-lg transition-all flex items-center gap-2"
+                >
+                  <Zap size={18} />
+                  Nouveau Plan
+                </button>
+              ) : (
+                <button
+                  onClick={() => navigate('/pricing')}
+                  className="bg-amber-500 hover:bg-amber-600 text-white px-6 py-3 rounded-xl font-bold shadow-lg transition-all flex items-center gap-2"
+                >
+                  <Zap size={18} />
+                  {user.isPremium ? 'Limite atteinte — Contactez le support' : 'Plans illimités — Premium'}
+                </button>
+              );
+            })()}
           </div>
         </div>
 
@@ -399,7 +427,7 @@ const Dashboard: React.FC<{ user: User }> = ({ user }) => {
                 <h2 className="text-sm font-bold text-slate-400 uppercase tracking-wider mb-4">Historique</h2>
                 <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
                   {plans.slice(1).map(plan => (
-                    <PlanCard key={plan.id} plan={plan} user={user} navigate={navigate} />
+                    <PlanCard key={plan.id} plan={plan} user={user} navigate={navigate} onDeleted={() => setPlans(prev => prev.filter(p => p.id !== plan.id))} />
                   ))}
                 </div>
               </div>
@@ -603,36 +631,85 @@ const ActivePlanCard: React.FC<{ plan: TrainingPlan; user: User; navigate: any; 
 };
 
 // Carte de plan simple (historique)
-const PlanCard: React.FC<{ plan: TrainingPlan; user: User; navigate: any }> = ({ plan, user, navigate }) => {
+const PlanCard: React.FC<{ plan: TrainingPlan; user: User; navigate: any; onDeleted?: () => void }> = ({ plan, user, navigate, onDeleted }) => {
   const progress = calculatePlanProgress(plan);
+  const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
+  const [deleting, setDeleting] = useState(false);
+
+  const handleDelete = async () => {
+    setDeleting(true);
+    try {
+      await deletePlan(plan.id, user.id);
+      setShowDeleteConfirm(false);
+      onDeleted?.();
+    } catch (err) {
+      console.error('[DeletePlan] Error:', err);
+      alert('Erreur lors de la suppression du plan.');
+    } finally {
+      setDeleting(false);
+    }
+  };
 
   return (
-    <div
-      onClick={() => navigate(`/plan/${plan.id}`)}
-      className="bg-white p-5 rounded-xl border border-slate-200 shadow-sm hover:shadow-lg transition-all cursor-pointer group"
-    >
-      {plan.isFreePreview && !user.isPremium && (
-        <span className="text-[10px] bg-slate-100 text-slate-500 px-2 py-0.5 rounded-full font-bold uppercase mb-2 inline-block">Aperçu</span>
-      )}
-      <h3 className="font-bold text-slate-900 mb-1 group-hover:text-primary transition-colors">{plan.name}</h3>
-      <p className="text-xs text-slate-400 mb-3">{plan.goal} {plan.distance && `• ${plan.distance}`}</p>
-
-      {/* Mini barre de progression */}
-      <div className="flex items-center gap-2 mb-3">
-        <div className="flex-1 h-1.5 bg-slate-100 rounded-full overflow-hidden">
-          <div
-            className="h-full bg-emerald-400 rounded-full"
-            style={{ width: `${progress.percent}%` }}
-          />
+    <>
+      {showDeleteConfirm && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-slate-900/60 p-4 backdrop-blur-sm" onClick={() => setShowDeleteConfirm(false)}>
+          <div className="bg-white rounded-2xl p-6 max-w-sm w-full shadow-2xl border border-red-100" onClick={e => e.stopPropagation()}>
+            <div className="w-14 h-14 bg-red-100 rounded-full flex items-center justify-center mx-auto mb-4">
+              <Trash2 size={28} className="text-red-500" />
+            </div>
+            <h3 className="text-lg font-bold text-slate-900 text-center mb-2">Supprimer ce plan ?</h3>
+            <p className="text-sm text-slate-500 text-center mb-6">
+              Cette action est irr&eacute;versible. Toutes les donn&eacute;es de progression seront perdues.
+            </p>
+            <div className="flex gap-3">
+              <button onClick={() => setShowDeleteConfirm(false)} className="flex-1 py-3 bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold rounded-xl transition-all" disabled={deleting}>Annuler</button>
+              <button onClick={handleDelete} disabled={deleting} className="flex-1 py-3 bg-red-500 hover:bg-red-600 text-white font-bold rounded-xl transition-all flex items-center justify-center gap-2">
+                {deleting ? <Loader2 size={18} className="animate-spin" /> : <Trash2 size={18} />}
+                Supprimer
+              </button>
+            </div>
+          </div>
         </div>
-        <span className="text-xs font-medium text-slate-500">{progress.percent}%</span>
-      </div>
+      )}
+      <div
+        onClick={() => navigate(`/plan/${plan.id}`)}
+        className="bg-white p-5 rounded-xl border border-slate-200 shadow-sm hover:shadow-lg transition-all cursor-pointer group relative"
+      >
+        {plan.isFreePreview && !user.isPremium && (
+          <span className="text-[10px] bg-slate-100 text-slate-500 px-2 py-0.5 rounded-full font-bold uppercase mb-2 inline-block">Aperçu</span>
+        )}
+        <h3 className="font-bold text-slate-900 mb-1 group-hover:text-primary transition-colors pr-8">{plan.name}</h3>
+        <p className="text-xs text-slate-400 mb-3">{plan.goal} {plan.distance && `• ${plan.distance}`}</p>
 
-      <div className="flex items-center justify-between">
-        <span className="text-[10px] text-slate-400">{new Date(plan.createdAt).toLocaleDateString('fr-FR')}</span>
-        <span className="text-xs font-bold text-primary opacity-0 group-hover:opacity-100 transition-opacity">Ouvrir →</span>
+        {/* Bouton supprimer (premium uniquement) */}
+        {user.isPremium && (
+          <button
+            onClick={(e) => { e.stopPropagation(); setShowDeleteConfirm(true); }}
+            className="absolute top-4 right-4 p-1.5 text-slate-300 hover:text-red-500 transition-colors opacity-0 group-hover:opacity-100"
+            title="Supprimer ce plan"
+          >
+            <Trash2 size={16} />
+          </button>
+        )}
+
+        {/* Mini barre de progression */}
+        <div className="flex items-center gap-2 mb-3">
+          <div className="flex-1 h-1.5 bg-slate-100 rounded-full overflow-hidden">
+            <div
+              className="h-full bg-emerald-400 rounded-full"
+              style={{ width: `${progress.percent}%` }}
+            />
+          </div>
+          <span className="text-xs font-medium text-slate-500">{progress.percent}%</span>
+        </div>
+
+        <div className="flex items-center justify-between">
+          <span className="text-[10px] text-slate-400">{new Date(plan.createdAt).toLocaleDateString('fr-FR')}</span>
+          <span className="text-xs font-bold text-primary opacity-0 group-hover:opacity-100 transition-opacity">Ouvrir →</span>
+        </div>
       </div>
-    </div>
+    </>
   );
 };
 
@@ -670,16 +747,26 @@ const ADMIN_EMAILS = ["programme@coachrunningia.fr"];
 
     setIsGeneratingRemaining(true);
     console.log('[Remaining] Début génération des semaines restantes...');
+    const totalWeeks = plan.generationContext?.periodizationPlan?.totalWeeks || 12;
 
     try {
+      setAdaptationMessage(`Génération des séances... Cette opération prend environ 1 minute.`);
       const { generateRemainingWeeks } = await import('./services/geminiService');
-      const fullPlan = await generateRemainingWeeks(plan);
+      const fullPlan = await generateRemainingWeeks(plan, (partialPlan, batchDone, totalBatches) => {
+        // Afficher les semaines au fur et à mesure
+        setPlan({ ...partialPlan, userId: plan.userId, userEmail: plan.userEmail } as any);
+        const pct = Math.round((batchDone / totalBatches) * 70); // 0-70% pour la génération
+        setAdaptationMessage(`Génération en cours (${pct}%)... ${partialPlan.weeks.length} semaines sur ${totalWeeks} générées.`);
+      });
+
+      setAdaptationMessage(`Vérification qualité et cohérence... (90%)`);
 
       // Ajouter userId/userEmail
       fullPlan.userId = plan.userId;
       fullPlan.userEmail = plan.userEmail;
 
       // Sauvegarder le plan complet
+      setAdaptationMessage(`Sauvegarde du plan... (95%)`);
       await savePlan(fullPlan);
       console.log('[Remaining] Plan complet sauvegardé !');
 
@@ -692,28 +779,45 @@ const ADMIN_EMAILS = ["programme@coachrunningia.fr"];
       );
       setTimeout(() => setAdaptationMessage(null), 8000);
 
-    } catch (error) {
+    } catch (error: any) {
       console.error('[Remaining] Erreur:', error);
-      setAdaptationMessage('Erreur lors de la génération des semaines. Réessayez.');
-      setTimeout(() => setAdaptationMessage(null), 5000);
+      // Si c'est une erreur de chargement de module (cache stale après déploiement), forcer un refresh
+      if (error?.message?.includes('dynamically imported module') || error?.message?.includes('Failed to fetch')) {
+        console.warn('[Remaining] Module stale détecté, rechargement de la page...');
+        window.location.reload();
+        return;
+      }
+      setAdaptationMessage('Erreur lors de la génération des semaines. Veuillez réessayer en cliquant sur le bouton "Générer".');
+      // Ne pas auto-masquer le message d'erreur — l'utilisateur doit le fermer
     } finally {
       setIsGeneratingRemaining(false);
     }
   };
 
   const handleAdaptPlan = async (feedbackContext: string) => {
-    if (!plan || !user?.questionnaireData) return;
+    if (!planId || !user?.questionnaireData) {
+      console.warn('[Adaptation] Bail: planId=', planId, 'questionnaireData=', !!user?.questionnaireData);
+      return;
+    }
+
+    setAdaptationMessage('Adaptation en cours...');
 
     try {
       console.log('[Adaptation] Demande d\'adaptation avec contexte:', feedbackContext);
+
+      // CRITICAL: Read FRESH plan from Firestore to include latest feedback
+      const freshPlan = await getPlanById(planId, user.id);
+      if (!freshPlan) {
+        throw new Error('Plan introuvable');
+      }
+
       const { adaptPlanFromFeedback } = await import('./services/geminiService');
-      const result = await adaptPlanFromFeedback(plan, user.questionnaireData, feedbackContext);
+      const result = await adaptPlanFromFeedback(freshPlan, user.questionnaireData, feedbackContext);
       console.log('[Adaptation] Résultat:', result);
 
       // === APPLIQUER LES MODIFICATIONS AU PLAN ===
       if (result.modifications && result.modifications.length > 0) {
-        const updatedPlan = { ...plan };
-        const updatedWeeks = [...plan.weeks].map(w => ({
+        const updatedWeeks = [...freshPlan.weeks].map(w => ({
           ...w,
           sessions: [...w.sessions]
         }));
@@ -751,7 +855,19 @@ const ADMIN_EMAILS = ["programme@coachrunningia.fr"];
           }
         }
 
-        updatedPlan.weeks = updatedWeeks;
+        const updatedPlan = { ...freshPlan, weeks: updatedWeeks };
+
+        // Post-processing: enforce constraints on modified weeks
+        if (user?.questionnaireData) {
+          const { enforceWeekConstraints } = await import('./services/geminiService');
+          const modifiedWeekNumbers = new Set(result.modifications.map((m: any) => (m.weekNumber || 1) - 1));
+          for (const weekIdx of modifiedWeekNumbers) {
+            if (weekIdx >= 0 && weekIdx < updatedWeeks.length) {
+              enforceWeekConstraints(updatedWeeks[weekIdx], 0, user.questionnaireData);
+              console.log(`[Adaptation] enforceWeekConstraints applied to week ${weekIdx + 1}`);
+            }
+          }
+        }
 
         // Sauvegarder le plan modifié dans Firestore
         await savePlan(updatedPlan);
@@ -771,13 +887,13 @@ const ADMIN_EMAILS = ["programme@coachrunningia.fr"];
         setAdaptationMessage(result.coachNote || result.adaptationSummary || 'Aucune modification nécessaire. Continue comme ça !');
       }
 
-      // Masquer après 10 secondes
-      setTimeout(() => setAdaptationMessage(null), 10000);
+      // Masquer après 15 secondes
+      setTimeout(() => setAdaptationMessage(null), 15000);
 
     } catch (error) {
       console.error('[Adaptation] Erreur:', error);
       setAdaptationMessage('Erreur lors de l\'adaptation. Réessaie plus tard.');
-      setTimeout(() => setAdaptationMessage(null), 5000);
+      setTimeout(() => setAdaptationMessage(null), 8000);
     }
   };
 
@@ -800,6 +916,12 @@ const ADMIN_EMAILS = ["programme@coachrunningia.fr"];
           </div>
         </div>
       )}
+      {/* Debug: isLocked state */}
+      {(() => {
+        const locked = !user?.isPremium && !user?.hasPurchasedPlan && (plan.isFreePreview || plan.isPreview);
+        console.log('[PlanDebug]', { userId: user?.id, isPremium: user?.isPremium, hasPurchasedPlan: user?.hasPurchasedPlan, isFreePreview: plan.isFreePreview, isPreview: plan.isPreview, isLocked: locked });
+        return null;
+      })()}
       <PlanView
         plan={plan}
         isLocked={!user?.isPremium && !user?.hasPurchasedPlan && (plan.isFreePreview || plan.isPreview)}
@@ -1217,8 +1339,17 @@ const PricingPage = ({ user }: { user: User | null }) => {
   );
 };
 
+const ScrollToTop = () => {
+  const location = useLocation();
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [location.pathname]);
+  return null;
+};
+
 const App = () => (
   <Router>
+    <ScrollToTop />
     <AppContent />
   </Router>
 );

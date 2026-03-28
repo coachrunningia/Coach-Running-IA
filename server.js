@@ -15,6 +15,7 @@ const port = parseInt(process.env.PORT) || 8080;
 // ============================================
 const requiredEnvVars = [
   'STRIPE_SECRET_KEY',
+  'STRIPE_WEBHOOK_SECRET',
   'VITE_GEMINI_API_KEY',
   'VITE_STRAVA_CLIENT_ID',
   'VITE_STRAVA_CLIENT_SECRET',
@@ -23,13 +24,13 @@ const requiredEnvVars = [
 
 const missingEnvVars = requiredEnvVars.filter(v => !process.env[v]);
 if (missingEnvVars.length > 0) {
-  console.error('⚠️  Variables d\'environnement manquantes:', missingEnvVars.join(', '));
-  console.error('   L\'application peut ne pas fonctionner correctement.');
-}
-
-// Vérification webhook Stripe (critique en production)
-if (process.env.NODE_ENV === 'production' && !process.env.STRIPE_WEBHOOK_SECRET) {
-  console.error('🚨 CRITIQUE: STRIPE_WEBHOOK_SECRET non défini en production !');
+  console.error('🚨 CRITICAL: Variables d\'environnement manquantes:', missingEnvVars.join(', '));
+  console.error('   Les paiements Stripe NE FONCTIONNERONT PAS sans STRIPE_WEBHOOK_SECRET !');
+  // En production, on refuse de démarrer sans les vars critiques pour les paiements
+  if (process.env.NODE_ENV === 'production') {
+    console.error('   🛑 Arrêt du serveur — corrigez les variables manquantes avant de redéployer.');
+    process.exit(1);
+  }
 }
 
 // Initialisation Firebase Admin (pour webhooks Stripe en production)
@@ -120,6 +121,7 @@ const sendMetaConversionEvent = async (eventName, eventData) => {
 const BREVO_API_KEY = process.env.BREVO_API_KEY;
 const BREVO_LIST_SUBSCRIBERS = parseInt(process.env.BREVO_LIST_SUBSCRIBERS) || 5;
 const BREVO_LIST_NON_SUBSCRIBERS = parseInt(process.env.BREVO_LIST_NON_SUBSCRIBERS) || 6;
+const BREVO_LIST_UNSUBSCRIBED = parseInt(process.env.BREVO_LIST_UNSUBSCRIBED) || 10;
 
 // Helper functions for Brevo API
 const brevoApiCall = async (endpoint, method, body = null) => {
@@ -201,16 +203,49 @@ const brevoMoveToNonSubscribers = async (email) => {
   return brevoUpsertContact(email, null, false);
 };
 
+// Move cancelled subscriber to "désabonnés" list (#10) and remove from "abonnés" (#5)
+const brevoMoveToUnsubscribed = async (email) => {
+  if (!email) return null;
+  const emailLower = email.toLowerCase();
+
+  // Add to désabonnés list (#10) — triggers Brevo re-engagement automation
+  await brevoApiCall('contacts', 'POST', {
+    email: emailLower,
+    attributes: { IS_PREMIUM: false },
+    listIds: [BREVO_LIST_UNSUBSCRIBED],
+    updateEnabled: true
+  });
+
+  // Remove from abonnés list (#5) AND non-abonnés list (#6)
+  await brevoApiCall(`contacts/lists/${BREVO_LIST_SUBSCRIBERS}/contacts/remove`, 'POST', {
+    emails: [emailLower]
+  });
+  await brevoApiCall(`contacts/lists/${BREVO_LIST_NON_SUBSCRIBERS}/contacts/remove`, 'POST', {
+    emails: [emailLower]
+  });
+
+  console.log(`[Brevo] ${email} moved to désabonnés list (#${BREVO_LIST_UNSUBSCRIBED})`);
+};
+
 app.set('trust proxy', true);
 
 // ============================================
 // HEALTH CHECK ENDPOINT
 // ============================================
-app.get('/health', (req, res) => {
-  res.json({
-    status: 'ok',
+app.get(['/health', '/api/health'], (req, res) => {
+  const checks = {
+    stripeKey: !!process.env.STRIPE_SECRET_KEY,
+    stripeWebhookSecret: !!process.env.STRIPE_WEBHOOK_SECRET,
+    firebaseAdmin: !!admin,
+    nodeEnv: process.env.NODE_ENV || 'NOT SET',
+  };
+  const allOk = checks.stripeKey && checks.stripeWebhookSecret && checks.firebaseAdmin && checks.nodeEnv === 'production';
+
+  res.status(allOk ? 200 : 503).json({
+    status: allOk ? 'ok' : 'degraded',
     timestamp: new Date().toISOString(),
-    environment: process.env.NODE_ENV || 'development'
+    checks,
+    ...(allOk ? {} : { warning: 'Paiements Stripe potentiellement non fonctionnels !' })
   });
 });
 
@@ -277,11 +312,12 @@ app.post('/api/stripe/webhook', express.raw({ type: 'application/json' }), async
 
       if (purchaseType === 'plan_unique') {
         // Plan Unique: one-time payment
-        await admin.firestore().collection('users').doc(userId).set({
+        const planUniqueUpdate = {
           hasPurchasedPlan: true,
           planPurchaseDate: new Date().toISOString(),
-          stripeCustomerId: session.customer,
-        }, { merge: true });
+        };
+        if (session.customer) planUniqueUpdate.stripeCustomerId = session.customer;
+        await admin.firestore().collection('users').doc(userId).set(planUniqueUpdate, { merge: true });
         console.log(`[Stripe] Utilisateur ${userId} a acheté le Plan Unique`);
 
         // Add to Brevo list #9 (Plan Unique buyers)
@@ -354,10 +390,9 @@ app.post('/api/stripe/webhook', express.raw({ type: 'application/json' }), async
           });
           console.log(`[Stripe] Abonnement résilié pour l'utilisateur ${userDoc.id}`);
 
-          // Move to Brevo non-subscribers list
+          // Move to Brevo désabonnés list (#10) — triggers re-engagement automation
           if (userData.email) {
-            await brevoMoveToNonSubscribers(userData.email);
-            console.log(`[Brevo] ${userData.email} moved to non-subscribers list`);
+            await brevoMoveToUnsubscribed(userData.email);
           }
         } else {
           console.warn(`[Stripe] Aucun utilisateur trouvé pour le customer ${customerId}`);
@@ -398,6 +433,12 @@ app.post('/api/stripe/webhook', express.raw({ type: 'application/json' }), async
           if (['past_due', 'unpaid', 'incomplete_expired'].includes(subscription.status)) {
             updateData.isPremium = false;
             console.log(`[Stripe] Abonnement ${subscription.status} pour ${userDoc.id}, Premium désactivé`);
+
+            // Move to Brevo désabonnés list (#10)
+            const userData = userDoc.data();
+            if (userData.email) {
+              await brevoMoveToUnsubscribed(userData.email);
+            }
           }
 
           await userDoc.ref.update(updateData);
@@ -541,6 +582,49 @@ app.get('/api/strava/callback', async (req, res) => {
   } catch (err) {
     console.error('[Strava Callback Error]', err.message);
     res.redirect(`${baseUrl}/strava-callback?error=${encodeURIComponent(err.message)}`);
+  }
+});
+
+// Strava Token Refresh - Proxy to keep client_secret server-side
+app.post('/api/strava/refresh-token', async (req, res) => {
+  const { refresh_token } = req.body;
+
+  if (!refresh_token) {
+    return res.status(400).json({ error: 'refresh_token requis' });
+  }
+
+  const clientId = process.env.VITE_STRAVA_CLIENT_ID;
+  const clientSecret = process.env.VITE_STRAVA_CLIENT_SECRET;
+
+  if (!clientId || !clientSecret) {
+    console.error('[Strava Refresh] Missing STRAVA_CLIENT_ID or STRAVA_CLIENT_SECRET');
+    return res.status(500).json({ error: 'Configuration Strava manquante côté serveur' });
+  }
+
+  try {
+    const response = await fetch('https://www.strava.com/oauth/token', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        client_id: clientId,
+        client_secret: clientSecret,
+        grant_type: 'refresh_token',
+        refresh_token: refresh_token
+      })
+    });
+
+    if (!response.ok) {
+      const errorText = await response.text();
+      console.error('[Strava Refresh] Error:', response.status, errorText);
+      return res.status(response.status).json({ error: 'Strava token refresh failed', details: errorText });
+    }
+
+    const tokenData = await response.json();
+    console.log('[Strava Refresh] Token refreshed successfully');
+    res.json(tokenData);
+  } catch (err) {
+    console.error('[Strava Refresh] Error:', err.message);
+    res.status(500).json({ error: err.message });
   }
 });
 
@@ -702,9 +786,20 @@ app.post('/api/brevo/sync', async (req, res) => {
 
       try {
         const isPremium = userData.isPremium === true;
-        await brevoUpsertContact(userData.email, userData.firstName, isPremium);
+        const wasEverPremium = !!(userData.premiumSince || userData.premiumCancelledAt || userData.stripeSubscriptionId);
+
+        if (isPremium) {
+          // Actif → liste 5 (abonnés)
+          await brevoUpsertContact(userData.email, userData.firstName, true);
+        } else if (wasEverPremium) {
+          // Ex-premium → liste 10 (désabonnés), pas liste 6
+          await brevoMoveToUnsubscribed(userData.email);
+        } else {
+          // Jamais premium → liste 6 (non-abonnés)
+          await brevoUpsertContact(userData.email, userData.firstName, false);
+        }
         synced++;
-        results.push({ email: userData.email, isPremium, status: 'synced' });
+        results.push({ email: userData.email, isPremium, wasEverPremium, status: 'synced' });
       } catch (err) {
         errors++;
         results.push({ email: userData.email, status: 'error', error: err.message });
@@ -813,18 +908,39 @@ app.post('/api/check-plan-limit', async (req, res) => {
   }
 
   try {
-    // Chercher plans existants avec cet email
+    const emailLower = email.toLowerCase();
+
+    // Vérifier si l'utilisateur est premium (via Firestore users collection)
+    const usersRef = admin.firestore().collection('users');
+    const userSnap = await usersRef.where('email', '==', emailLower).limit(1).get();
+    const userData = userSnap.empty ? null : userSnap.docs[0].data();
+    const isPremium = userData?.isPremium || false;
+    const hasPurchasedPlan = userData?.hasPurchasedPlan || false;
+
+    // Chercher plans existants avec cet email (champ userEmail dans Firestore)
     const plansRef = admin.firestore().collection('plans');
     const snapshot = await plansRef
-      .where('email', '==', email.toLowerCase())
-      .limit(1)
+      .where('userEmail', '==', emailLower)
       .get();
 
-    if (!snapshot.empty) {
-      return res.json({ 
-        allowed: false, 
-        reason: 'email_limit_reached',
-        message: 'Cet email a déjà un plan. Connectez-vous pour y accéder.'
+    // Ne compter que les plans actifs (date de fin non dépassée)
+    const now = new Date();
+    const activePlans = snapshot.docs.filter(doc => {
+      const data = doc.data();
+      if (!data.endDate) return true;
+      return new Date(data.endDate) >= now;
+    });
+
+    // Limites par type d'utilisateur
+    const maxPlans = (isPremium || hasPurchasedPlan) ? 2 : 1;
+
+    if (activePlans.length >= maxPlans) {
+      return res.json({
+        allowed: false,
+        reason: isPremium ? 'premium_limit' : 'email_limit_reached',
+        message: isPremium
+          ? 'Vous avez déjà 2 plans actifs (limite premium). Supprimez un plan pour en créer un nouveau.'
+          : 'Cet email a déjà un plan actif. Connectez-vous pour y accéder.'
       });
     }
 
@@ -834,6 +950,220 @@ app.post('/api/check-plan-limit', async (req, res) => {
     console.error('[Check Plan Limit Error]', error);
     // En cas d'erreur, autoriser pour ne pas bloquer l'utilisateur
     res.json({ allowed: true, reason: 'check_failed' });
+  }
+});
+
+// Debug endpoint - Admin only
+app.post('/api/admin/debug-user', async (req, res) => {
+  const { email, adminPassword } = req.body;
+  if (adminPassword !== process.env.ADMIN_PASSWORD) {
+    return res.status(403).json({ error: 'Unauthorized' });
+  }
+  if (!admin) {
+    return res.json({ error: 'Firebase Admin not configured' });
+  }
+  try {
+    const emailLower = email.toLowerCase();
+    // Find all user docs with this email
+    const usersSnap = await admin.firestore().collection('users').where('email', '==', emailLower).get();
+    const users = [];
+    usersSnap.forEach(doc => {
+      const d = doc.data();
+      users.push({
+        id: doc.id,
+        email: d.email,
+        isPremium: d.isPremium,
+        hasPurchasedPlan: d.hasPurchasedPlan,
+        isAnonymous: d.isAnonymous,
+        stripeCustomerId: d.stripeCustomerId,
+        stripeSubscriptionId: d.stripeSubscriptionId,
+        stripeSubscriptionStatus: d.stripeSubscriptionStatus,
+        premiumSince: d.premiumSince,
+        createdAt: d.createdAt,
+        firstName: d.firstName,
+      });
+    });
+
+    // Find plans for this email
+    const plansSnap = await admin.firestore().collection('plans').where('userEmail', '==', emailLower).get();
+    const plans = [];
+    plansSnap.forEach(doc => {
+      const d = doc.data();
+      plans.push({
+        id: doc.id,
+        name: d.name,
+        userId: d.userId,
+        userEmail: d.userEmail,
+        createdAt: d.createdAt,
+        isFreePreview: d.isFreePreview,
+        isPreview: d.isPreview,
+        fullPlanGenerated: d.fullPlanGenerated,
+        hasGenerationContext: !!d.generationContext,
+        hasPeriodizationPlan: !!d.generationContext?.periodizationPlan,
+        totalWeeksPlanned: d.generationContext?.periodizationPlan?.totalWeeks || null,
+        weeksCount: d.weeks?.length || 0,
+        endDate: d.endDate,
+      });
+    });
+
+    // Also find plans by userId(s)
+    const plansByUid = [];
+    for (const u of users) {
+      const ps = await admin.firestore().collection('plans').where('userId', '==', u.id).get();
+      ps.forEach(doc => {
+        const d = doc.data();
+        if (!plans.find(p => p.id === doc.id)) {
+          plansByUid.push({
+            id: doc.id,
+            name: d.name,
+            userId: d.userId,
+            userEmail: d.userEmail,
+            createdAt: d.createdAt,
+            isFreePreview: d.isFreePreview,
+            isPreview: d.isPreview,
+            fullPlanGenerated: d.fullPlanGenerated,
+            hasGenerationContext: !!d.generationContext,
+            hasPeriodizationPlan: !!d.generationContext?.periodizationPlan,
+            totalWeeksPlanned: d.generationContext?.periodizationPlan?.totalWeeks || null,
+            weeksCount: d.weeks?.length || 0,
+            endDate: d.endDate,
+          });
+        }
+      });
+    }
+
+    // Simulate both plan limit checks
+    const limitChecks = {};
+
+    // 1. Server-side check (by email) — same as check-plan-limit endpoint
+    const allPlansByEmail = await admin.firestore().collection('plans')
+      .where('userEmail', '==', emailLower).get();
+    const now = new Date();
+    const activePlansByEmail = allPlansByEmail.docs.filter(doc => {
+      const d = doc.data();
+      if (!d.endDate) return true;
+      return new Date(d.endDate) >= now;
+    });
+    const isPremiumUser = users.length > 0 && users[0].isPremium;
+    const maxPlans = isPremiumUser ? 2 : 1;
+    limitChecks.serverSide = {
+      totalPlansFound: allPlansByEmail.size,
+      activePlansCount: activePlansByEmail.length,
+      activePlanIds: activePlansByEmail.map(d => ({ id: d.id, name: d.data().name, endDate: d.data().endDate, isPreview: d.data().isPreview, fullPlanGenerated: d.data().fullPlanGenerated })),
+      maxAllowed: maxPlans,
+      allowed: activePlansByEmail.length < maxPlans,
+    };
+
+    // 2. Client-side check (by userId) — same as checkCanGeneratePlan
+    for (const u of users) {
+      const plansByUidAll = await admin.firestore().collection('plans')
+        .where('userId', '==', u.id).get();
+      const activePlansByUid = plansByUidAll.docs.filter(doc => {
+        const d = doc.data();
+        if (!d.endDate) return true;
+        return new Date(d.endDate) >= now;
+      });
+      limitChecks['clientSide_' + u.id] = {
+        totalPlansFound: plansByUidAll.size,
+        activePlansCount: activePlansByUid.length,
+        activePlanIds: activePlansByUid.map(d => ({ id: d.id, name: d.data().name, endDate: d.data().endDate, isPreview: d.data().isPreview, fullPlanGenerated: d.data().fullPlanGenerated })),
+        maxAllowed: u.isPremium ? 2 : 1,
+        allowed: activePlansByUid.length < (u.isPremium ? 2 : 1),
+      };
+    }
+
+    // 3. Check verify-subscription result
+    let subscriptionCheck = {};
+    for (const u of users) {
+      if (u.stripeCustomerId) {
+        try {
+          const subs = await stripe.subscriptions.list({ customer: u.stripeCustomerId, status: 'all', limit: 3 });
+          subscriptionCheck = {
+            stripeCustomerId: u.stripeCustomerId,
+            subscriptions: subs.data.map(s => ({ id: s.id, status: s.status, currentPeriodEnd: new Date(s.current_period_end * 1000).toISOString() }))
+          };
+        } catch (e) {
+          subscriptionCheck = { error: e.message };
+        }
+      }
+    }
+
+    res.json({ users, limitChecks, subscriptionCheck, plansByEmail: plans, plansByUserId: plansByUid });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
+
+// Admin: search plans
+app.post('/api/admin/search-plans', async (req, res) => {
+  const { adminPassword, limit: maxResults = 50 } = req.body;
+  if (adminPassword !== process.env.ADMIN_PASSWORD) return res.status(403).json({ error: 'Unauthorized' });
+  if (!admin) return res.json({ error: 'Firebase Admin not configured' });
+  try {
+    const plansSnap = await admin.firestore().collection('plans').orderBy('createdAt', 'desc').limit(maxResults).get();
+    const plans = [];
+    plansSnap.forEach(doc => {
+      const d = doc.data();
+      plans.push({
+        id: doc.id,
+        name: d.name,
+        goal: d.goal,
+        distance: d.distance,
+        level: d.generationContext?.questionnaireSnapshot?.level,
+        sessionsPerWeek: d.generationContext?.questionnaireSnapshot?.trainingDays?.length,
+        weeksCount: d.weeks?.length || 0,
+        isPreview: d.isPreview,
+        fullPlanGenerated: d.fullPlanGenerated,
+        createdAt: d.createdAt,
+        userEmail: d.userEmail,
+        confidenceScore: d.confidenceScore,
+      });
+    });
+    res.json({ plans });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
+
+// Admin: merge duplicate user accounts
+app.post('/api/admin/merge-user', async (req, res) => {
+  const { adminPassword, keepUserId, deleteUserId } = req.body;
+  if (adminPassword !== process.env.ADMIN_PASSWORD) return res.status(403).json({ error: 'Unauthorized' });
+  if (!admin || !keepUserId || !deleteUserId) return res.json({ error: 'Missing params' });
+  try {
+    const keepRef = admin.firestore().collection('users').doc(keepUserId);
+    const deleteRef = admin.firestore().collection('users').doc(deleteUserId);
+    const keepSnap = await keepRef.get();
+    const deleteSnap = await deleteRef.get();
+    if (!keepSnap.exists || !deleteSnap.exists) return res.json({ error: 'One or both users not found' });
+
+    // Transfer plans from deleteUserId to keepUserId
+    const plansSnap = await admin.firestore().collection('plans').where('userId', '==', deleteUserId).get();
+    const transferred = [];
+    for (const doc of plansSnap.docs) {
+      await doc.ref.update({ userId: keepUserId });
+      transferred.push(doc.id);
+    }
+
+    // Copy premium fields if the deleted account had them
+    const deleteData = deleteSnap.data();
+    const keepData = keepSnap.data();
+    if (deleteData.isPremium && !keepData.isPremium) {
+      await keepRef.update({
+        isPremium: true,
+        stripeCustomerId: deleteData.stripeCustomerId || null,
+        stripeSubscriptionId: deleteData.stripeSubscriptionId || null,
+        stripeSubscriptionStatus: deleteData.stripeSubscriptionStatus || null,
+        premiumSince: deleteData.premiumSince || null,
+      });
+    }
+
+    // Delete the duplicate Firestore user doc
+    await deleteRef.delete();
+
+    res.json({ success: true, keptUser: keepUserId, deletedUser: deleteUserId, plansTransferred: transferred });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
   }
 });
 
@@ -1084,7 +1414,7 @@ app.post('/api/strava/analyze-week', async (req, res) => {
     }));
 
     // Analyze with Gemini
-    const GEMINI_API_KEY = process.env.VITE_GEMINI_API_KEY || process.env.GEMINI_API_KEY;
+    const GEMINI_API_KEY = process.env.GEMINI_SERVER_API_KEY || process.env.VITE_GEMINI_API_KEY || process.env.GEMINI_API_KEY;
     if (!GEMINI_API_KEY) {
       return res.json({
         activities: summary,
@@ -1124,6 +1454,751 @@ Sois encourageant et constructif. Réponds de manière concise (max 200 mots).`;
   } catch (error) {
     console.error('[Strava Analysis Error]', error);
     res.status(500).json({ error: error.message || 'Erreur lors de l\'analyse' });
+  }
+});
+
+// ============================================
+// POST /api/generate-preview-plan
+// Generates a preview (week 1 only) training plan using Gemini
+// ============================================
+
+// --- Utility functions for pace/VMA calculations ---
+
+function timeToSeconds(time) {
+  if (!time) return 0;
+  const t = time.trim().toLowerCase();
+
+  // Format "Xh" ou "XhYY" ou "Xh:YY"
+  const hMatch = t.match(/^(\d+)h:?(\d{0,2})/);
+  if (hMatch) {
+    const hours = parseInt(hMatch[1]);
+    const mins = hMatch[2] ? parseInt(hMatch[2]) : 0;
+    return hours * 3600 + mins * 60;
+  }
+
+  // Format "XX min" ou "XXmin"
+  const minMatch = t.match(/^(\d+)\s*min/);
+  if (minMatch) {
+    return parseInt(minMatch[1]) * 60;
+  }
+
+  // Format "mm:ss" ou "hh:mm:ss"
+  const parts = time.split(':').map(Number);
+  if (parts.length === 3) {
+    return parts[0] * 3600 + parts[1] * 60 + parts[2];
+  } else if (parts.length === 2) {
+    return parts[0] * 60 + parts[1];
+  }
+
+  return 0;
+}
+
+function secondsToPace(seconds) {
+  const mins = Math.floor(seconds / 60);
+  const secs = Math.round(seconds % 60);
+  return `${mins}:${secs.toString().padStart(2, '0')}`;
+}
+
+function calculateVMAFromTime(distance, timeSeconds) {
+  const avgSpeed = (distance / timeSeconds) * 3600;
+  let vmaFactor;
+  if (distance <= 5) {
+    vmaFactor = 0.95;
+  } else if (distance <= 10) {
+    vmaFactor = 0.90;
+  } else if (distance <= 21.1) {
+    vmaFactor = 0.85;
+  } else {
+    vmaFactor = 0.80;
+  }
+  return avgSpeed / vmaFactor;
+}
+
+function calculateAllPaces(vma) {
+  const vmaPaceSeconds = 3600 / vma;
+  const seuilSpeed = vma * 0.87;
+  const eaSpeed = vma * 0.77;
+  const efSpeed = vma * 0.67;
+  const recoverySpeed = vma * 0.60;
+  const specific5kSpeed = vma * 0.95;
+  const specific10kSpeed = vma * 0.90;
+  const specificSemiSpeed = vma * 0.85;
+  const specificMarathonSpeed = vma * 0.80;
+
+  return {
+    vma,
+    vmaKmh: vma.toFixed(1),
+    vmaPace: secondsToPace(vmaPaceSeconds),
+    seuilPace: secondsToPace(3600 / seuilSpeed),
+    eaPace: secondsToPace(3600 / eaSpeed),
+    efPace: secondsToPace(3600 / efSpeed),
+    recoveryPace: secondsToPace(3600 / recoverySpeed),
+    allureSpecifique5k: secondsToPace(3600 / specific5kSpeed),
+    allureSpecifique10k: secondsToPace(3600 / specific10kSpeed),
+    allureSpecifiqueSemi: secondsToPace(3600 / specificSemiSpeed),
+    allureSpecifiqueMarathon: secondsToPace(3600 / specificMarathonSpeed),
+  };
+}
+
+function getBestVMAEstimate(raceTimes) {
+  if (!raceTimes) return null;
+
+  const estimates = [];
+
+  if (raceTimes.distance5km) {
+    const seconds = timeToSeconds(raceTimes.distance5km);
+    if (seconds > 0) {
+      estimates.push({ vma: calculateVMAFromTime(5, seconds), source: `5km en ${raceTimes.distance5km}`, priority: 1 });
+    }
+  }
+
+  if (raceTimes.distance10km) {
+    const seconds = timeToSeconds(raceTimes.distance10km);
+    if (seconds > 0) {
+      estimates.push({ vma: calculateVMAFromTime(10, seconds), source: `10km en ${raceTimes.distance10km}`, priority: 2 });
+    }
+  }
+
+  if (raceTimes.distanceHalfMarathon) {
+    const seconds = timeToSeconds(raceTimes.distanceHalfMarathon);
+    if (seconds > 0) {
+      estimates.push({ vma: calculateVMAFromTime(21.1, seconds), source: `Semi en ${raceTimes.distanceHalfMarathon}`, priority: 3 });
+    }
+  }
+
+  if (raceTimes.distanceMarathon) {
+    const seconds = timeToSeconds(raceTimes.distanceMarathon);
+    if (seconds > 0) {
+      estimates.push({ vma: calculateVMAFromTime(42.195, seconds), source: `Marathon en ${raceTimes.distanceMarathon}`, priority: 4 });
+    }
+  }
+
+  if (estimates.length === 0) return null;
+
+  estimates.sort((a, b) => a.priority - b.priority);
+
+  if (estimates.length >= 2) {
+    const weighted = estimates.slice(0, 2);
+    const avgVma = (weighted[0].vma * 0.6 + weighted[1].vma * 0.4);
+    return { vma: avgVma, source: `Moyenne ${weighted[0].source} et ${weighted[1].source}` };
+  }
+
+  return estimates[0];
+}
+
+function calculatePeriodizationPlan(totalWeeks, currentVolume, level, goal) {
+  const progressionRate = level === 'Débutant (0-1 an)' ? 0.05 :
+                          level === 'Intermédiaire (Régulier)' ? 0.08 :
+                          level === 'Confirmé (Compétition)' ? 0.10 : 0.12;
+
+  const phases = [];
+  const fondamentalWeeks = Math.max(2, Math.floor(totalWeeks * 0.30));
+  const developpementWeeks = Math.max(2, Math.floor(totalWeeks * 0.35));
+  const specifiqueWeeks = Math.max(2, Math.floor(totalWeeks * 0.25));
+  const affutageWeeks = Math.max(1, totalWeeks - fondamentalWeeks - developpementWeeks - specifiqueWeeks);
+
+  for (let i = 0; i < totalWeeks; i++) {
+    if (i < fondamentalWeeks) {
+      phases.push('fondamental');
+    } else if (i < fondamentalWeeks + developpementWeeks) {
+      phases.push('developpement');
+    } else if (i < fondamentalWeeks + developpementWeeks + specifiqueWeeks) {
+      phases.push('specifique');
+    } else {
+      phases.push('affutage');
+    }
+  }
+
+  const recoveryWeeks = [];
+  const recoveryInterval = level === 'Débutant (0-1 an)' ? 3 : 4;
+  for (let i = recoveryInterval; i <= totalWeeks - 2; i += recoveryInterval) {
+    recoveryWeeks.push(i);
+    phases[i - 1] = 'recuperation';
+  }
+
+  const weeklyVolumes = [];
+  let currentVol = currentVolume;
+
+  for (let i = 0; i < totalWeeks; i++) {
+    const weekNum = i + 1;
+    if (recoveryWeeks.includes(weekNum)) {
+      weeklyVolumes.push(Math.round(currentVol * 0.7));
+    } else if (phases[i] === 'affutage') {
+      const affutageProgress = (weekNum - (totalWeeks - affutageWeeks)) / affutageWeeks;
+      const reductionFactor = 1 - (0.25 + affutageProgress * 0.25);
+      weeklyVolumes.push(Math.round(currentVol * reductionFactor));
+    } else {
+      weeklyVolumes.push(Math.round(currentVol));
+      currentVol = currentVol * (1 + progressionRate);
+    }
+  }
+
+  return { weeklyVolumes, weeklyPhases: phases, recoveryWeeks };
+}
+
+function createGenerationContext(data, paces, vma, vmaSource, totalWeeks) {
+  const currentVolume = data.currentWeeklyVolume || (
+    data.level === 'Débutant (0-1 an)' ? 15 :
+    data.level === 'Intermédiaire (Régulier)' ? 30 :
+    data.level === 'Confirmé (Compétition)' ? 45 : 60
+  );
+
+  const periodizationPlan = calculatePeriodizationPlan(
+    totalWeeks,
+    currentVolume,
+    data.level || 'Intermédiaire (Régulier)',
+    data.goal || ''
+  );
+
+  return {
+    vma,
+    vmaSource,
+    paces: {
+      efPace: paces.efPace,
+      eaPace: paces.eaPace,
+      seuilPace: paces.seuilPace,
+      vmaPace: paces.vmaPace,
+      recoveryPace: paces.recoveryPace,
+      allureSpecifique5k: paces.allureSpecifique5k,
+      allureSpecifique10k: paces.allureSpecifique10k,
+      allureSpecifiqueSemi: paces.allureSpecifiqueSemi,
+      allureSpecifiqueMarathon: paces.allureSpecifiqueMarathon,
+    },
+    periodizationPlan: {
+      totalWeeks,
+      ...periodizationPlan,
+    },
+    questionnaireSnapshot: { ...data },
+    generatedAt: new Date().toISOString(),
+    modelUsed: 'gemini-2.0-flash',
+  };
+}
+
+app.post('/api/generate-preview-plan', async (req, res) => {
+  console.log('[Preview Plan] Received request');
+  const startTime = Date.now();
+
+  try {
+    const data = req.body;
+
+    // Input validation
+    if (!data || !data.goal || !data.level) {
+      return res.status(400).json({ error: 'Les champs "goal" et "level" sont requis.' });
+    }
+
+    const GEMINI_API_KEY = process.env.GEMINI_SERVER_API_KEY || process.env.VITE_GEMINI_API_KEY || process.env.GEMINI_API_KEY;
+    if (!GEMINI_API_KEY) {
+      return res.status(500).json({ error: 'Clé API Gemini non configurée sur le serveur.' });
+    }
+
+    // === VMA & PACES CALCULATION ===
+    let vmaEstimate = getBestVMAEstimate(data.recentRaceTimes);
+    let paces;
+    let vmaSource;
+
+    if (vmaEstimate) {
+      paces = calculateAllPaces(vmaEstimate.vma);
+      vmaSource = vmaEstimate.source;
+    } else {
+      let defaultVma;
+      switch (data.level) {
+        case 'Débutant (0-1 an)': defaultVma = 11.0; break;
+        case 'Intermédiaire (Régulier)': defaultVma = 13.5; break;
+        case 'Confirmé (Compétition)': defaultVma = 15.5; break;
+        case 'Expert (Performance)': defaultVma = 17.5; break;
+        default: defaultVma = 12.5;
+      }
+      paces = calculateAllPaces(defaultVma);
+      vmaSource = `Estimation niveau ${data.level}`;
+      vmaEstimate = { vma: defaultVma, source: vmaSource };
+    }
+
+    // Plan duration
+    let planDurationWeeks = 12;
+    if (data.raceDate) {
+      const raceDate = new Date(data.raceDate);
+      const startDate = data.startDate ? new Date(data.startDate) : new Date();
+      const diffTime = raceDate.getTime() - startDate.getTime();
+      const diffWeeks = Math.floor(diffTime / (1000 * 60 * 60 * 24 * 7));
+      planDurationWeeks = Math.max(4, Math.min(20, diffWeeks));
+    }
+
+    // === GENERATION CONTEXT ===
+    const generationContext = createGenerationContext(
+      data, paces, vmaEstimate.vma, vmaSource, planDurationWeeks
+    );
+
+    // Paces section
+    const pacesSection = `
+VMA : ${paces.vmaKmh} km/h (${vmaSource})
+- EF (Endurance) : ${paces.efPace} min/km
+- Seuil : ${paces.seuilPace} min/km
+- VMA : ${paces.vmaPace} min/km
+- Récupération : ${paces.recoveryPace} min/km
+`;
+
+    // Preferred days instruction
+    const preferredDaysInstruction = data.preferredDays && data.preferredDays.length > 0
+      ? `Séances UNIQUEMENT sur : ${data.preferredDays.join(', ')}`
+      : 'Répartition équilibrée (ex: Mardi, Jeudi, Dimanche)';
+
+    // Injury instruction
+    let injuryInstruction = '';
+    if (data.injuries && data.injuries.hasInjury && data.injuries.description) {
+      injuryInstruction = `⚠️ BLESSURE : ${data.injuries.description} - Adapter les séances !`;
+    }
+
+    // Beginner instruction
+    const isBeginnerLevel = data.level === 'Débutant (0-1 an)';
+    const frequency = data.frequency || 3;
+    const beginnerInstructionPreview = isBeginnerLevel ? `
+
+🚶‍♂️🏃 IMPORTANT - NIVEAU DÉBUTANT DÉTECTÉ 🚶‍♀️🏃‍♀️
+Pour la SEMAINE 1 d'un débutant, tu DOIS utiliser l'ALTERNANCE MARCHE/COURSE :
+- Type de séance : "Marche/Course" (OBLIGATOIRE pour au moins 2 séances sur ${frequency})
+- Format semaine 1 : 8-10 x (1 min course légère + 2 min marche active)
+- Allure course : très aisée, pouvoir parler facilement
+- Durée totale : 25-35 min (échauffement marche inclus)
+- Pas de VMA, pas de fractionné intense !
+- Conseils encourageants : "La marche fait partie du programme, ce n'est pas de la triche !"
+` : '';
+
+    // City-based location instructions
+    const cityInstructions = data.city ? `
+📍 LIEUX D'ENTRAÎNEMENT (suggestedLocations) :
+Tu DOIS proposer 2-3 lieux RÉELS à ${data.city} ou dans ses environs proches :
+- Recherche des parcs, pistes d'athlétisme, forêts ou sentiers CONNUS de cette ville
+- Exemples pour Paris : Bois de Vincennes, Parc Montsouris, Jardin du Luxembourg
+- Exemples pour Lyon : Parc de la Tête d'Or, Berges du Rhône
+- Pour chaque lieu, indique le type (PARK, TRACK, NATURE, HILL) et pour quel type de séance il convient
+
+📍 LIEU PAR SÉANCE (locationSuggestion) — OBLIGATOIRE :
+Chaque séance DOIT avoir un "locationSuggestion" avec un lieu RÉEL de ${data.city} adapté aux EXIGENCES de la séance :
+- Fractionné VMA/vitesse → PISTE D'ATHLÉTISME (surface plane, distances balisées)
+- Fractionné seuil/tempo → chemin plat, berges, voie verte
+- Séance avec D+ (elevationGain > 0) → colline, forêt pentue, parc vallonné (lieu avec VRAI dénivelé !)
+- Sortie Longue route → grand parc, boucle longue, berges
+- Sortie Longue Trail → forêt/montagne avec sentiers
+- Footing/Récup → parc agréable, sol souple, berges calmes
+- Renforcement → "À la maison" ou "Salle de sport"
+` : '';
+
+    // === BUILD PROMPT ===
+    const previewPrompt = `
+Tu es un Coach Running Expert. Génère UNIQUEMENT la SEMAINE 1 d'un plan d'entraînement.
+
+═══════════════════════════════════════════════════════════════
+                    PROFIL DU COUREUR
+═══════════════════════════════════════════════════════════════
+- Niveau : ${data.level}
+- Objectif : ${data.goal} ${data.subGoal ? `(${data.subGoal})` : ''}
+- Temps visé : ${data.targetTime || 'Finisher'}
+- Date de course : ${data.raceDate || 'Non définie'}
+- Fréquence : ${frequency} séances/semaine
+- Jours : ${preferredDaysInstruction}
+- Localisation : ${data.city || 'Non renseignée'}
+${injuryInstruction}
+${beginnerInstructionPreview}
+${cityInstructions}
+
+═══════════════════════════════════════════════════════════════
+              ALLURES CALCULÉES (OBLIGATOIRES)
+═══════════════════════════════════════════════════════════════
+${pacesSection}
+
+⚠️ UTILISE CES ALLURES EXACTES dans chaque séance !
+
+═══════════════════════════════════════════════════════════════
+              PLAN DE PÉRIODISATION PRÉ-CALCULÉ
+═══════════════════════════════════════════════════════════════
+Durée totale : ${planDurationWeeks} semaines
+Semaine 1 : Phase "${generationContext.periodizationPlan.weeklyPhases[0]}"
+Volume semaine 1 : ${generationContext.periodizationPlan.weeklyVolumes[0]} km
+
+Phases du plan :
+${generationContext.periodizationPlan.weeklyPhases.map((p, i) => `S${i + 1}: ${p} (${generationContext.periodizationPlan.weeklyVolumes[i]}km)`).join('\n')}
+
+═══════════════════════════════════════════════════════════════
+                    INSTRUCTIONS
+═══════════════════════════════════════════════════════════════
+1. Génère SEULEMENT la semaine 1 (pas les autres !)
+2. ${frequency} séances sur ${frequency} jours DIFFÉRENTS
+3. Allures EXACTES dans chaque mainSet
+4. Message de bienvenue orienté OBJECTIF et STRUCTURE (PAS de VMA ni allures)
+5. Évaluation de faisabilité HONNÊTE avec chiffres
+6. OBLIGATOIRE : 1 séance de type "Renforcement" par semaine (comptée dans les ${frequency} séances)
+   - Répartition : ${frequency} séances = ${frequency - 1} running + 1 renfo
+   - La séance renfo doit être SPÉCIFIQUE course à pied : squats, fentes, gainage, proprioception, mollets
+   - Durée : 30-45 min
+   - Type dans le JSON : "Renforcement"
+   - NE PAS mettre de séance "Repos" dans le plan
+
+═══════════════════════════════════════════════════════════════
+                    FORMAT JSON
+═══════════════════════════════════════════════════════════════
+{
+  "name": "Nom du plan incluant objectif",
+  "goal": "${data.goal}",
+  "startDate": "${data.startDate || new Date().toISOString().split('T')[0]}",
+  "durationWeeks": ${planDurationWeeks},
+  "sessionsPerWeek": ${frequency},
+  "targetTime": "${data.targetTime || ''}",
+  "distance": "${data.subGoal || ''}",
+  "location": "${data.city || ''}",
+  "suggestedLocations": [
+    { "name": "Nom réel du lieu", "type": "PARK|TRACK|NATURE|HILL", "description": "Pour quel type de séance" }
+  ],
+  "welcomeMessage": "Message personnalisé orienté OBJECTIF et STRUCTURE du plan (NE PAS mentionner VMA ni allures)",
+  "confidenceScore": 75,
+  "feasibility": {
+    "status": "BON",
+    "message": "Analyse avec chiffres VMA/temps théorique",
+    "safetyWarning": "Conseil sécurité"
+  },
+  "weeks": [
+    {
+      "weekNumber": 1,
+      "theme": "Thème de la semaine",
+      "phase": "${generationContext.periodizationPlan.weeklyPhases[0]}",
+      "sessions": [
+        {
+          "day": "Jour",
+          "type": "Type",
+          "title": "Titre unique",
+          "duration": "durée",
+          "distance": "distance",
+          "intensity": "Facile|Modéré|Difficile",
+          "targetPace": "allure",
+          "elevationGain": 600,
+          "locationSuggestion": "Lieu réel adapté à cette séance",
+          "warmup": "échauffement avec allure",
+          "mainSet": "corps détaillé avec allures EXACTES",
+          "cooldown": "retour au calme",
+          "advice": "conseil personnalisé"
+        }
+      ]
+    }
+  ]
+}
+
+RAPPEL : Génère UNIQUEMENT la semaine 1 !
+`;
+
+    // === CALL GEMINI ===
+    console.log('[Preview Plan] Calling Gemini 2.0 Flash...');
+    const { GoogleGenerativeAI } = require('@google/generative-ai');
+    const genAI = new GoogleGenerativeAI(GEMINI_API_KEY);
+    const model = genAI.getGenerativeModel({ model: 'gemini-2.0-flash' });
+
+    const result = await model.generateContent({
+      contents: [{ role: 'user', parts: [{ text: previewPrompt }] }],
+      generationConfig: { responseMimeType: 'application/json' }
+    });
+
+    const response = await result.response;
+    const text = response.text();
+    const plan = JSON.parse(text);
+
+    // === POST-PROCESSING ===
+    plan.id = Date.now().toString();
+    plan.createdAt = new Date().toISOString();
+    plan.calculatedVMA = vmaEstimate.vma;
+    plan.vma = paces.vma;
+    plan.vmaSource = vmaSource;
+    plan.paces = {
+      efPace: paces.efPace,
+      eaPace: paces.eaPace,
+      seuilPace: paces.seuilPace,
+      vmaPace: paces.vmaPace,
+      recoveryPace: paces.recoveryPace,
+      allureSpecifique5k: paces.allureSpecifique5k,
+      allureSpecifique10k: paces.allureSpecifique10k,
+      allureSpecifiqueSemi: paces.allureSpecifiqueSemi,
+      allureSpecifiqueMarathon: paces.allureSpecifiqueMarathon,
+    };
+
+    // Mark as preview
+    plan.isPreview = true;
+    plan.fullPlanGenerated = false;
+
+    // Store generation context
+    plan.generationContext = generationContext;
+
+    // Initialize adaptation log
+    plan.adaptationLog = {
+      weekNumber: 0,
+      adaptationsThisWeek: 0,
+      adaptationHistory: []
+    };
+
+    // Validate and fix days (deduplicate + sort)
+    const DAYS_ORDER = ['Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi', 'Dimanche'];
+    if (plan.weeks && plan.weeks[0] && plan.weeks[0].sessions) {
+      const usedDays = new Set();
+      plan.weeks[0].sessions.forEach((session, idx) => {
+        if (usedDays.has(session.day)) {
+          const available = DAYS_ORDER.filter(d => !usedDays.has(d));
+          if (available.length > 0) session.day = available[Math.min(idx, available.length - 1)];
+        }
+        usedDays.add(session.day);
+        session.id = `w1-s${idx + 1}-${Date.now()}-${Math.random().toString(36).substring(2, 9)}`;
+      });
+      plan.weeks[0].sessions.sort((a, b) =>
+        DAYS_ORDER.indexOf(a.day) - DAYS_ORDER.indexOf(b.day)
+      );
+    }
+
+    const elapsed = Date.now() - startTime;
+    console.log(`[Preview Plan] Completed in ${elapsed}ms`);
+
+    res.json(plan);
+
+  } catch (error) {
+    console.error('[Preview Plan] Error:', error);
+    res.status(500).json({ error: error.message || 'Erreur lors de la génération du plan preview.' });
+  }
+});
+
+// ============================================
+// CRON: Daily Report (midnight CET)
+// ============================================
+app.get('/api/cron/daily-report', async (req, res) => {
+  // Auth: Cloud Scheduler OIDC header OR admin password
+  const schedulerHeader = req.headers['x-cloudscheduler'] || req.headers['x-appengine-cron'];
+  const authHeader = req.headers['authorization'];
+  const adminPwd = req.query.adminPassword;
+
+  const isScheduler = schedulerHeader === 'true';
+  const isOIDC = authHeader && authHeader.startsWith('Bearer ');
+  const isAdmin = adminPwd === process.env.ADMIN_PASSWORD;
+
+  if (!isScheduler && !isOIDC && !isAdmin) {
+    return res.status(403).json({ error: 'Unauthorized' });
+  }
+
+  if (!admin) {
+    return res.status(500).json({ error: 'Firebase Admin not available' });
+  }
+
+  console.log('[CRON Daily Report] Starting...');
+  const now = new Date();
+  const yesterday = new Date(now.getTime() - 24 * 60 * 60 * 1000);
+
+  try {
+    // 1. Plans created in last 24h
+    const allPlansSnap = await admin.firestore().collection('plans').get();
+    const newPlans = [];
+    const allPlansWithRPE = [];
+
+    allPlansSnap.forEach(doc => {
+      const d = doc.data();
+      // Check if created in last 24h
+      let createdAt = null;
+      if (d.createdAt) {
+        if (d.createdAt._seconds) createdAt = new Date(d.createdAt._seconds * 1000);
+        else if (d.createdAt.toDate) createdAt = d.createdAt.toDate();
+        else if (typeof d.createdAt === 'string') createdAt = new Date(d.createdAt);
+      }
+
+      if (createdAt && createdAt >= yesterday) {
+        newPlans.push({
+          id: doc.id,
+          email: d.userEmail || 'N/A',
+          isPreview: d.isPreview || false,
+          fullPlanGenerated: d.fullPlanGenerated || false,
+          createdAt: createdAt.toISOString(),
+        });
+      }
+
+      // Collect RPE feedback from all plans
+      if (d.weeks && Array.isArray(d.weeks)) {
+        d.weeks.forEach((week, wi) => {
+          if (week.sessions && Array.isArray(week.sessions)) {
+            week.sessions.forEach((session, si) => {
+              if (session.feedback && typeof session.feedback.rpe === 'number' && session.feedback.rpe !== 5) {
+                allPlansWithRPE.push({
+                  planId: doc.id,
+                  email: d.userEmail || 'N/A',
+                  userId: d.userId || null,
+                  week: wi + 1,
+                  sessionIndex: si + 1,
+                  sessionTitle: session.title || 'Sans titre',
+                  rpe: session.feedback.rpe,
+                  notes: session.feedback.notes || '',
+                  completed: session.feedback.completed || false,
+                  completedAt: session.feedback.completedAt || null,
+                });
+              }
+            });
+          }
+        });
+      }
+    });
+
+    // 2. Identify abnormal RPE (< 4 or > 8)
+    const abnormalRPE = allPlansWithRPE.filter(r => r.rpe < 4 || r.rpe > 8);
+
+    // 3. Get premium users
+    const premiumUsersSnap = await admin.firestore().collection('users').where('isPremium', '==', true).get();
+    const premiumEmails = new Set();
+    const premiumUserIds = new Set();
+    premiumUsersSnap.forEach(doc => {
+      const d = doc.data();
+      if (d.email) premiumEmails.add(d.email.toLowerCase());
+      premiumUserIds.add(doc.id);
+    });
+
+    // 4. Cross-reference RPE with premium
+    const premiumAbnormal = abnormalRPE.filter(r =>
+      premiumEmails.has((r.email || '').toLowerCase()) || premiumUserIds.has(r.userId)
+    );
+    const nonPremiumAbnormal = abnormalRPE.filter(r =>
+      !premiumEmails.has((r.email || '').toLowerCase()) && !premiumUserIds.has(r.userId)
+    );
+
+    // 5. Build HTML email
+    const dateStr = now.toLocaleDateString('fr-FR', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
+    const newPlansPreview = newPlans.filter(p => p.isPreview && !p.fullPlanGenerated);
+    const newPlansFull = newPlans.filter(p => p.fullPlanGenerated);
+
+    const htmlContent = `<!DOCTYPE html>
+<html>
+<head><meta charset="utf-8"><style>
+  body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: #f5f5f5; margin: 0; padding: 20px; color: #333; }
+  .container { max-width: 700px; margin: 0 auto; background: white; border-radius: 12px; overflow: hidden; box-shadow: 0 2px 8px rgba(0,0,0,0.1); }
+  .header { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); padding: 30px; color: white; }
+  .header h1 { margin: 0; font-size: 22px; }
+  .header p { margin: 5px 0 0; opacity: 0.9; font-size: 14px; }
+  .section { padding: 20px 30px; border-bottom: 1px solid #eee; }
+  .section h2 { font-size: 16px; color: #4a5568; margin: 0 0 12px; }
+  .stat-row { display: flex; gap: 15px; margin-bottom: 15px; }
+  .stat-box { flex: 1; background: #f7fafc; border-radius: 8px; padding: 15px; text-align: center; }
+  .stat-box .number { font-size: 28px; font-weight: bold; color: #667eea; }
+  .stat-box .label { font-size: 12px; color: #718096; margin-top: 4px; }
+  table { width: 100%; border-collapse: collapse; font-size: 13px; }
+  th { background: #f7fafc; text-align: left; padding: 8px 10px; color: #4a5568; font-weight: 600; }
+  td { padding: 8px 10px; border-bottom: 1px solid #eee; }
+  .badge-premium { background: #ffd700; color: #744210; padding: 2px 8px; border-radius: 10px; font-size: 11px; font-weight: 600; }
+  .badge-alert { background: #fed7d7; color: #9b2c2c; padding: 2px 8px; border-radius: 10px; font-size: 11px; font-weight: 600; }
+  .badge-easy { background: #c6f6d5; color: #276749; padding: 2px 8px; border-radius: 10px; font-size: 11px; font-weight: 600; }
+  .rpe-high { color: #e53e3e; font-weight: bold; }
+  .rpe-low { color: #38a169; font-weight: bold; }
+  .footer { padding: 15px 30px; text-align: center; color: #a0aec0; font-size: 12px; }
+</style></head>
+<body>
+<div class="container">
+  <div class="header">
+    <h1>📊 Rapport Quotidien — Coach Running IA</h1>
+    <p>${dateStr}</p>
+  </div>
+
+  <div class="section">
+    <h2>📋 Plans créés (dernières 24h)</h2>
+    <div class="stat-row">
+      <div class="stat-box"><div class="number">${newPlans.length}</div><div class="label">Total</div></div>
+      <div class="stat-box"><div class="number">${newPlansFull.length}</div><div class="label">Plans complets</div></div>
+      <div class="stat-box"><div class="number">${newPlansPreview.length}</div><div class="label">Preview seul</div></div>
+    </div>
+    ${newPlans.length > 0 ? `<table>
+      <tr><th>ID</th><th>Email</th><th>Type</th><th>Heure</th></tr>
+      ${newPlans.map(p => `<tr>
+        <td><code>${p.id.substring(0, 12)}...</code></td>
+        <td>${p.email}</td>
+        <td>${p.fullPlanGenerated ? '✅ Complet' : '👁️ Preview'}</td>
+        <td>${new Date(p.createdAt).toLocaleTimeString('fr-FR', { hour: '2-digit', minute: '2-digit' })}</td>
+      </tr>`).join('')}
+    </table>` : '<p style="color:#a0aec0;">Aucun plan créé.</p>'}
+  </div>
+
+  <div class="section">
+    <h2>📈 RPE — Vue d'ensemble</h2>
+    <div class="stat-row">
+      <div class="stat-box"><div class="number">${allPlansWithRPE.length}</div><div class="label">RPE reçus (hors défaut)</div></div>
+      <div class="stat-box"><div class="number">${abnormalRPE.length}</div><div class="label">RPE anormaux</div></div>
+      <div class="stat-box"><div class="number">${premiumAbnormal.length}</div><div class="label">⚠️ Premium alertes</div></div>
+    </div>
+  </div>
+
+  ${premiumAbnormal.length > 0 ? `<div class="section" style="background:#fffbeb;">
+    <h2>🌟 ALERTE PREMIUM — RPE anormaux</h2>
+    <table>
+      <tr><th>Email</th><th>Plan ID</th><th>Séance</th><th>RPE</th><th>Commentaire</th></tr>
+      ${premiumAbnormal.map(r => `<tr>
+        <td><strong>${r.email}</strong> <span class="badge-premium">PREMIUM</span></td>
+        <td><code>${r.planId.substring(0, 12)}...</code></td>
+        <td>S${r.week} — ${r.sessionTitle}</td>
+        <td class="${r.rpe > 8 ? 'rpe-high' : 'rpe-low'}">${r.rpe}/10 ${r.rpe > 8 ? '🔴' : '🟢'}</td>
+        <td>${r.notes || '—'}</td>
+      </tr>`).join('')}
+    </table>
+  </div>` : ''}
+
+  ${nonPremiumAbnormal.length > 0 ? `<div class="section">
+    <h2>⚠️ RPE anormaux (non-premium)</h2>
+    <table>
+      <tr><th>Email</th><th>Plan ID</th><th>Séance</th><th>RPE</th><th>Commentaire</th></tr>
+      ${nonPremiumAbnormal.map(r => `<tr>
+        <td>${r.email}</td>
+        <td><code>${r.planId.substring(0, 12)}...</code></td>
+        <td>S${r.week} — ${r.sessionTitle}</td>
+        <td class="${r.rpe > 8 ? 'rpe-high' : 'rpe-low'}">${r.rpe}/10 ${r.rpe > 8 ? '🔴' : '🟢'}</td>
+        <td>${r.notes || '—'}</td>
+      </tr>`).join('')}
+    </table>
+  </div>` : ''}
+
+  <div class="footer">
+    <p>🤖 Rapport généré automatiquement — Coach Running IA CRON Agent</p>
+    <p>Plans en base : ${allPlansSnap.size} | Premium actifs : ${premiumUsersSnap.size}</p>
+  </div>
+</div>
+</body></html>`;
+
+    // 6. Send via Brevo
+    const BREVO_API_KEY = process.env.BREVO_API_KEY;
+    if (!BREVO_API_KEY) {
+      console.error('[CRON Daily Report] BREVO_API_KEY missing');
+      return res.status(500).json({ error: 'BREVO_API_KEY not configured' });
+    }
+
+    const emailResponse = await fetch('https://api.brevo.com/v3/smtp/email', {
+      method: 'POST',
+      headers: {
+        'accept': 'application/json',
+        'api-key': BREVO_API_KEY,
+        'content-type': 'application/json'
+      },
+      body: JSON.stringify({
+        sender: {
+          name: "Coach Running IA — CRON",
+          email: "programme@coachrunningia.fr"
+        },
+        to: [{ email: "programme@coachrunningia.fr", name: "Coach Running IA" }],
+        subject: `📊 Rapport quotidien — ${newPlans.length} plans, ${abnormalRPE.length} RPE anormaux — ${now.toLocaleDateString('fr-FR')}`,
+        htmlContent: htmlContent
+      })
+    });
+
+    const emailData = await emailResponse.json();
+    console.log('[CRON Daily Report] Brevo response:', emailResponse.status, emailData);
+
+    const summary = {
+      date: dateStr,
+      newPlans: newPlans.length,
+      newPlansFull: newPlansFull.length,
+      newPlansPreview: newPlansPreview.length,
+      totalRPE: allPlansWithRPE.length,
+      abnormalRPE: abnormalRPE.length,
+      premiumAlerts: premiumAbnormal.length,
+      emailSent: emailResponse.ok,
+    };
+
+    console.log('[CRON Daily Report] Summary:', JSON.stringify(summary));
+    res.json({ success: true, summary });
+
+  } catch (error) {
+    console.error('[CRON Daily Report] Error:', error);
+    res.status(500).json({ error: error.message });
   }
 });
 

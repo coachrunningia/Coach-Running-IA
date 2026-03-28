@@ -72,6 +72,17 @@ const isConsecutiveDay = (day1: string, day2: string): boolean => {
   return Math.abs(i1 - i2) === 1 || (i1 === 0 && i2 === 6) || (i1 === 6 && i2 === 0);
 };
 
+const parseDurationMinValidator = (d: any): number => {
+  if (!d) return 0;
+  const s = d.toString().toLowerCase();
+  const hMatch = s.match(/(\d+)\s*h\s*(\d*)/);
+  if (hMatch) return parseInt(hMatch[1]) * 60 + (hMatch[2] ? parseInt(hMatch[2]) : 0);
+  const minMatch = s.match(/(\d+)\s*min/);
+  if (minMatch) return parseInt(minMatch[1]);
+  const num = parseInt(s);
+  return num > 0 ? num : 0;
+};
+
 // ---------------------------------------------------------------------------
 // LAYER 1 — Rule-based validation (free)
 // ---------------------------------------------------------------------------
@@ -163,6 +174,26 @@ export const validatePlanRules = (
             severity: 'error',
             rule: 'consecutive_hard',
             message: `2 séances intenses consécutives (${hardSessions[i].day} + ${hardSessions[j].day}) : risque de blessure.`,
+          });
+        }
+      }
+    }
+  }
+
+  // --- Rule 2b: No two long sessions on consecutive days ---
+  // SL + SL ou SL + Trail ou toute séance >= 90min sur jours consécutifs
+  for (const week of weeks) {
+    const longSessions = week.sessions.filter(
+      (s) => s.type === 'Sortie Longue' || (s.duration && parseDurationMinValidator(s.duration) >= 90),
+    );
+    for (let i = 0; i < longSessions.length; i++) {
+      for (let j = i + 1; j < longSessions.length; j++) {
+        if (isConsecutiveDay(longSessions[i].day, longSessions[j].day)) {
+          issues.push({
+            weekNumber: week.weekNumber,
+            severity: 'error',
+            rule: 'consecutive_long',
+            message: `2 séances longues consécutives (${longSessions[i].day} "${longSessions[i].title}" + ${longSessions[j].day} "${longSessions[j].title}") : risque de blessure et surcharge.`,
           });
         }
       }
@@ -340,61 +371,56 @@ export const validatePlanRules = (
   const isPertePoids = goalStr.includes('Perte');
   const isMaintien = goalStr.includes('Maintien') || goalStr.includes('Remise');
 
-  // Max km/semaine DURS par profil + objectif (facteur x1.15 sur volume pic prompt)
+  // Max km/semaine — aligné sur MAX_WEEKLY_VOLUME de geminiService.ts (+10% tolérance validateur)
   const getMaxWeeklyKm = (): number => {
-    if (isPertePoids) return isBeginnerLevel ? 23 : isExpertLevel ? 52 : isConfirmed ? 35 : 35;
-    if (isMaintien) return isBeginnerLevel ? 29 : isExpertLevel ? 63 : isConfirmed ? 46 : 46;
+    if (isPertePoids) return isBeginnerLevel ? 22 : isExpertLevel ? 50 : isConfirmed ? 39 : 33;
+    if (isMaintien) return isBeginnerLevel ? 28 : isExpertLevel ? 61 : isConfirmed ? 50 : 44;
     if (isBeginnerLevel) {
-      if (isUltra) return 40;
-      if (isMarathon) return 52;
-      if (isTrail && trailDist >= 30) return 45;
-      if (isTrail) return 40;
-      if (isSemi) return 40;
-      return 29; // 5K/10K débutant
+      if (isUltra) return 50;      // guard: 45
+      if (isMarathon) return 50;    // guard: 45
+      if (isTrail && trailDist >= 30) return 50; // guard: 45
+      if (isTrail) return 39;       // guard: 35
+      if (isSemi) return 39;        // guard: 35
+      if (is10k) return 33;         // guard: 30
+      return 28;                    // guard: 25 (5K)
     }
     if (isExpertLevel) {
-      // Expert: prompt 60/65/70/85km pic × 1.15
-      if (isUltra) return 115; // prompt: 80-100km pic
-      if (isMarathon) return 98; // prompt: 85km pic
-      if (isTrail && trailDist >= 30) return 92; // prompt: 80km pic
-      if (isTrail) return 75; // prompt: 65km pic
-      if (isSemi) return 81; // prompt: 70km pic
-      if (is10k) return 75; // prompt: 65km pic
-      return 69; // 5K: prompt 60km pic
+      if (isUltra) return 110;      // guard: 100
+      if (isMarathon) return 94;    // guard: 85
+      if (isTrail && trailDist >= 30) return 88; // guard: 80
+      if (isTrail) return 72;       // guard: 65
+      if (isSemi) return 77;        // guard: 70
+      if (is10k) return 72;         // guard: 65
+      return 66;                    // guard: 60 (5K)
     }
     if (isConfirmed) {
-      // Confirmé ≈ intermédiaire dans le prompt (mêmes tableaux)
-      if (isUltra) return 63; // prompt: 55km pic
-      if (isMarathon) return 75; // prompt: 65km pic
-      if (isTrail && trailDist >= 30) return 69; // prompt: 60km pic
-      if (isTrail) return 58; // prompt: 50km pic
-      if (isSemi) return 63; // prompt: 55km pic
-      return 58; // 5K/10K: prompt 40-50km pic
+      if (isUltra) return 77;       // guard: 70
+      if (isMarathon) return 83;    // guard: 75
+      if (isTrail && trailDist >= 30) return 77; // guard: 70
+      if (isTrail) return 61;       // guard: 55
+      if (isSemi) return 66;        // guard: 60
+      if (is10k) return 61;         // guard: 55
+      return 51;                    // guard: 46 (5K)
     }
-    // Intermédiaire (facteur x1.15 sur volume pic prompt)
-    if (isUltra) return 63;
-    if (isMarathon) return 75;
-    if (isTrail && trailDist >= 30) return 69;
-    if (isTrail) return 58;
-    if (isSemi) return 63;
-    return 58; // 5K/10K intermédiaire
+    // Intermédiaire — guard values +10%
+    if (isUltra) return 61;         // guard: 55
+    if (isMarathon) return 72;      // guard: 65
+    if (isTrail && trailDist >= 30) return 66; // guard: 60
+    if (isTrail) return 55;         // guard: 50
+    if (isSemi) return 61;          // guard: 55
+    if (is10k) return 55;           // guard: 50
+    return 44;                      // guard: 40 (5K)
   };
 
-  // Max km/séance DURS par profil + objectif
+  // Max km/séance — aligné sur MAX_SESSION_KM de geminiService.ts (+10% tolérance)
   const getMaxSessionKm = (): number => {
-    if (isPertePoids) return isBeginnerLevel ? 8 : isExpertLevel ? 15 : 12;
-    if (isMaintien) return isBeginnerLevel ? 10 : isExpertLevel ? 18 : 15;
-    if (isBeginnerLevel) return isUltra ? 18 : isMarathon ? 25 : isTrail ? 20 : isSemi ? 18 : is10k ? 15 : 12;
-    if (isExpertLevel) {
-      // Expert: prompt 25/28/28/38km max séance
-      return isUltra ? 50 : isMarathon ? 38 : isTrail ? 35 : isSemi ? 28 : is10k ? 28 : 25;
-    }
-    if (isConfirmed) {
-      // Confirmé ≈ intermédiaire max séance dans le prompt
-      return isUltra ? 35 : isMarathon ? 32 : isTrail ? 28 : isSemi ? 22 : is10k ? 22 : 18;
-    }
-    // Intermédiaire (aligné sur prompt: 10K=22, Semi=22, Marathon=32, Trail=28)
-    return isUltra ? 35 : isMarathon ? 32 : isTrail ? 28 : isSemi ? 22 : is10k ? 22 : 18;
+    if (isPertePoids) return isBeginnerLevel ? 9 : isExpertLevel ? 17 : isConfirmed ? 15 : 13;
+    if (isMaintien) return isBeginnerLevel ? 11 : isExpertLevel ? 20 : isConfirmed ? 19 : 17;
+    if (isBeginnerLevel) return isUltra ? 33 : isMarathon ? 28 : (isTrail && trailDist >= 30) ? 28 : isTrail ? 20 : isSemi ? 20 : is10k ? 17 : 13;
+    if (isExpertLevel) return isUltra ? 61 : isMarathon ? 42 : (isTrail && trailDist >= 30) ? 50 : isTrail ? 33 : isSemi ? 31 : is10k ? 31 : 28;
+    if (isConfirmed) return isUltra ? 55 : isMarathon ? 39 : (isTrail && trailDist >= 30) ? 39 : isTrail ? 28 : isSemi ? 28 : is10k ? 28 : 24;
+    // Intermédiaire (+10% sur guard: 10K=22, Semi=22, Marathon=32, Trail=22/32)
+    return isUltra ? 44 : isMarathon ? 35 : (isTrail && trailDist >= 30) ? 35 : isTrail ? 24 : isSemi ? 24 : is10k ? 24 : 20;
   };
 
   const maxWeeklyKm = getMaxWeeklyKm();
@@ -650,6 +676,74 @@ export const validatePlanRules = (
     }
   }
 
+  // --- Rule 13: Hard rejects — catch critical anomalies before saving ---
+  // These are absolute safety nets for bugs that should never reach production.
+
+  // 13a: VMA sanity check
+  const planVMA = (plan as any).vma || (plan as any).calculatedVMA;
+  if (planVMA && planVMA > 22) {
+    issues.push({
+      weekNumber: 0,
+      severity: 'error',
+      rule: 'vma_absurd',
+      message: `VMA ${planVMA.toFixed(1)} km/h est aberrante (> 22 km/h). Bug probable dans le parsing du temps de course.`,
+    });
+  }
+
+  // 13b: D+ session impossible (> 400m en < 60min)
+  for (const week of weeks) {
+    const wn = week.weekNumber || 1;
+    for (const s of week.sessions) {
+      if (s.type === 'Renforcement' || s.type === 'Repos') continue;
+      const dur = parseDurationMinValidator(s.duration);
+      const dplus = (s as any).elevationGain || 0;
+      if (dplus > 400 && dur < 60) {
+        issues.push({
+          weekNumber: wn,
+          severity: 'error',
+          rule: 'dplus_impossible',
+          message: `"${(s.title || s.type).substring(0, 40)}" : ${dplus}m D+ en ${dur}min est physiquement impossible.`,
+        });
+      }
+    }
+  }
+
+  // 13c: Footing S1 trop long pour un intermédiaire/débutant
+  if (weeks.length > 0) {
+    const w1 = weeks[0];
+    const isInterOrBeginner = isBeginnerLevel || level.includes('Intermédiaire');
+    if (isInterOrBeginner) {
+      for (const s of w1.sessions) {
+        if (s.type === 'Renforcement' || s.type === 'Repos') continue;
+        const dur = parseDurationMinValidator(s.duration);
+        if (dur > 100 && s.type !== 'Sortie Longue' && !/sortie longue/i.test(s.title || '')) {
+          issues.push({
+            weekNumber: 1,
+            severity: 'error',
+            rule: 's1_footing_too_long',
+            message: `"${(s.title || s.type).substring(0, 40)}" : ${dur}min en S1 est trop long pour un ${isBeginnerLevel ? 'débutant' : 'intermédiaire'}.`,
+          });
+        }
+      }
+    }
+  }
+
+  // 13d: 2+ Sortie Longue dans la même semaine
+  for (const week of weeks) {
+    const wn = week.weekNumber || 1;
+    const slCount = week.sessions.filter(
+      (s) => s.type === 'Sortie Longue' || /sortie\s*longue/i.test(s.title || '')
+    ).length;
+    if (slCount >= 2) {
+      issues.push({
+        weekNumber: wn,
+        severity: 'error',
+        rule: 'multiple_sl',
+        message: `${slCount} Sorties Longues dans la même semaine — max 1 recommandée.`,
+      });
+    }
+  }
+
   // Calculate score
   const errorCount = issues.filter((i) => i.severity === 'error').length;
   const warningCount = issues.filter((i) => i.severity === 'warning').length;
@@ -718,7 +812,7 @@ Sois STRICT et HONNÊTE. Un plan trop facile pour un expert est aussi mauvais qu
     const model = genAI.getGenerativeModel({ model: 'gemini-2.0-flash' });
     const result = await model.generateContent({
       contents: [{ role: 'user', parts: [{ text: reviewPrompt }] }],
-      generationConfig: { responseMimeType: 'application/json', maxOutputTokens: 512 },
+      generationConfig: { responseMimeType: 'application/json', maxOutputTokens: 2048 },
     });
 
     const text = result.response.text();

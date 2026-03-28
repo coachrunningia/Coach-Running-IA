@@ -306,12 +306,25 @@ export function buildRenfoMainSet(params: {
   phase: string;
   weight?: number;
   height?: number;
+  injuries?: { hasInjury?: boolean; description?: string };
 }): { mainSet: string; warmup: string; cooldown: string; duration: string; title: string } {
-  const { weekNumber, goal, subGoal, trailDistance, level, phase, weight, height } = params;
+  const { weekNumber, goal, subGoal, trailDistance, level, phase, weight, height, injuries } = params;
 
   // Calcul IMC pour adapter les exercices (protection articulaire si surpoids)
   const bmi = (weight && height && height > 0) ? weight / ((height / 100) ** 2) : 0;
   const isOverweight = bmi >= 28; // IMC ≥ 28 = surpoids significatif → adapter
+
+  // Détection blessures articulaires → forcer low-impact (pas de sauts, pas de pliométrie)
+  const injuryDesc = (injuries?.description || '').toLowerCase();
+  const hasJointInjury = !!(injuries?.hasInjury && (
+    injuryDesc.includes('genou') || injuryDesc.includes('genoux') ||
+    injuryDesc.includes('cheville') || injuryDesc.includes('hanche') ||
+    injuryDesc.includes('dos') || injuryDesc.includes('tendon') ||
+    injuryDesc.includes('achille') || injuryDesc.includes('périoste') ||
+    injuryDesc.includes('shin') || injuryDesc.includes('knee') ||
+    injuryDesc.includes('back') || injuryDesc.includes('articul')
+  ));
+  const needsLowImpact = isOverweight || hasJointInjury;
 
   const isOddWeek = weekNumber % 2 === 1;
   const levelFactor = getLevelFactor(level);
@@ -320,7 +333,7 @@ export function buildRenfoMainSet(params: {
   const tours = getTours(level, goal, phase);
   const rest = getRestBetweenTours(level, goal);
 
-  const warmup = isOverweight
+  const warmup = needsLowImpact
     ? '10 min de mobilité articulaire douce et échauffement progressif (marche rapide, rotations, pas chassés)'
     : '10 min de mobilité articulaire et échauffement dynamique';
   const cooldown = '5 min d\'étirements : quadriceps, ischio-jambiers, mollets, hanches';
@@ -330,7 +343,7 @@ export function buildRenfoMainSet(params: {
   // Perte de poids: circuit adapté (doux si surpoids, HIIT sinon)
   // -----------------------------------------------------------------------
   if (goal === 'Perte de poids') {
-    if (isOverweight) {
+    if (needsLowImpact) {
       // Circuit SANS IMPACT pour protéger les articulations
       const LOW_IMPACT_EXERCISES: Exercise[] = [
         { name: 'Squats poids de corps (descente lente)', sets: '3x12' },
@@ -376,14 +389,20 @@ export function buildRenfoMainSet(params: {
       : `HIIT Full Body - Semaine ${weekNumber}`;
 
     // Alternate between lower-body focused and full-body focused
+    // Filtrer pliométrie pour débutants OU blessures articulaires (squats sautés, fentes sautées, burpees)
+    const isBeginnerLevel = level.includes('Débutant') || level.includes('Debutant');
+    const needsPlioFilter = isBeginnerLevel || hasJointInjury;
+    const safeMetabolic = needsPlioFilter
+      ? METABOLIC_EXERCISES.filter(e => !e.name.includes('saute') && !e.name.includes('sauté') && !e.name.includes('Burpees'))
+      : METABOLIC_EXERCISES;
     const pool = isOddWeek
-      ? METABOLIC_EXERCISES.filter(e =>
+      ? safeMetabolic.filter(e =>
           e.name.includes('Squat') ||
           e.name.includes('Fente') ||
           e.name.includes('Montee') ||
           e.name.includes('Mountain'),
         )
-      : METABOLIC_EXERCISES;
+      : safeMetabolic;
 
     const exercises = pickExercises(pool, 5, weekNumber);
     const scaledExercises = exercises.map(e => ({
@@ -485,16 +504,16 @@ export function buildRenfoMainSet(params: {
       // Focus A trail: excentrique quadriceps
       const excentricFamily = TRAIL_EXERCISES.find(f => f.name === 'EXCENTRIQUE QUADRICEPS')!;
       exercises.push(...pickExercises(excentricFamily.exercises, 2, weekNumber));
-      // Pliométrie pour confirmé+ ET pas de surpoids (protection articulaire)
-      if (!isOverweight && (level.includes('Confirme') || level.includes('Confirmé') || level.includes('Expert'))) {
+      // Pliométrie pour confirmé+ ET pas de contre-indication articulaire
+      if (!needsLowImpact && (level.includes('Confirme') || level.includes('Confirmé') || level.includes('Expert'))) {
         const plioFamily = TRAIL_EXERCISES.find(f => f.name === 'PLIOMETRIE TRAIL')!;
         exercises.push(...pickExercises(plioFamily.exercises, 1, weekNumber));
       }
     } else {
       // Focus B trail: proprioception + gainage rotation
       const proprioFamily = TRAIL_EXERCISES.find(f => f.name === 'PROPRIOCEPTION')!;
-      // Surpoids : proprioception au sol uniquement (pas de sauts)
-      const proprioExercises = isOverweight
+      // Blessures articulaires / surpoids : proprioception au sol uniquement (pas de sauts)
+      const proprioExercises = needsLowImpact
         ? proprioFamily.exercises.filter(e => !e.name.includes('Saut') && !e.name.includes('Corde'))
         : proprioFamily.exercises;
       exercises.push(...pickExercises(proprioExercises, 2, weekNumber));
@@ -519,8 +538,8 @@ export function buildRenfoMainSet(params: {
     exercises.push({ name: 'Gainage ventral long', sets: '2x90-120s' });
   }
 
-  // ---- Short road (5K/10K) explosive emphasis (pas si surpoids) ----
-  if (isShortRoad && !isOverweight && (level.includes('Confirme') || level.includes('Confirmé') || level.includes('Expert'))) {
+  // ---- Short road (5K/10K) explosive emphasis (pas si blessure articulaire ou surpoids) ----
+  if (isShortRoad && !needsLowImpact && (level.includes('Confirme') || level.includes('Confirmé') || level.includes('Expert'))) {
     const explosiveExtras: Exercise[] = [
       { name: 'Squats sautés', sets: '3x10' },
       { name: 'Fentes sautées alternées', sets: '3x8/jambe' },
@@ -573,8 +592,9 @@ export function buildRenfoSession(params: {
   day: string;
   weight?: number;
   height?: number;
+  injuries?: { hasInjury?: boolean; description?: string };
 }): Session {
-  const { weekNumber, goal, subGoal, trailDistance, level, phase, day, weight, height } = params;
+  const { weekNumber, goal, subGoal, trailDistance, level, phase, day, weight, height, injuries } = params;
 
   // Calcul IMC pour adapter les conseils
   const bmi = (weight && height && height > 0) ? weight / ((height / 100) ** 2) : 0;
@@ -589,6 +609,7 @@ export function buildRenfoSession(params: {
     phase,
     weight,
     height,
+    injuries,
   });
 
   _sessionIdCounter += 1;

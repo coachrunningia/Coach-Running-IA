@@ -1,6 +1,6 @@
 
-import React, { useState, useEffect, useCallback, useMemo } from 'react';
-import { TrainingPlan, Session, User, Week } from '../types';
+import React, { useState, useEffect, useCallback, useMemo, useRef } from 'react';
+import { TrainingPlan, Session, User, Week, StravaActivityMatch } from '../types';
 import { Calendar, Clock, Lock, ShieldCheck, CheckCircle, Activity, AlertTriangle, Star, Zap, RefreshCw, X, ChevronDown, ChevronUp, Target, MapPin, TrendingUp, FileText, Loader } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { updateSessionFeedback, savePlan, updateSessionDate, shiftSessionDates, updatePlanStartDate } from '../services/storageService';
@@ -16,7 +16,8 @@ import CrossWeekConfirmModal from './CrossWeekConfirmModal';
 import StartDatePickerModal from './StartDatePickerModal';
 import { resolveSessionDate, getWeekNumberForDate, toISODateString } from '../utils/dateUtils';
 import { useSettings } from '../context/SettingsContext';
-import { compareWeekWithStrava, generateAdaptationSuggestions, applyAdaptation, WeekComparisonResult, AdaptationSuggestion } from '../services/stravaAnalysisService';
+import { compareWeekWithStrava, generateAdaptationSuggestions, applyAdaptation, findStravaActivityForSession, WeekComparisonResult, AdaptationSuggestion } from '../services/stravaAnalysisService';
+import { calculateFeasibility, FeasibilityResult } from '../services/feasibilityService';
 
 interface PlanViewProps {
   plan: TrainingPlan;
@@ -133,6 +134,10 @@ const PlanView: React.FC<PlanViewProps> = ({ plan: initialPlan, isLocked = false
   // Feedback Form State
   const [feedbackRpe, setFeedbackRpe] = useState(5);
   const [feedbackNotes, setFeedbackNotes] = useState("");
+  const [stravaMatch, setStravaMatch] = useState<StravaActivityMatch | null>(null);
+  const [stravaMatchLoading, setStravaMatchLoading] = useState(false);
+  const [stravaSearchDone, setStravaSearchDone] = useState(false);
+  const stravaRequestRef = useRef(0);
 
   useEffect(() => {
     if (user?.stravaConnected) {
@@ -178,6 +183,37 @@ const PlanView: React.FC<PlanViewProps> = ({ plan: initialPlan, isLocked = false
     setSelectedWeekNumber(weekNumber);
     setFeedbackRpe(session.feedback?.rpe || 5);
     setFeedbackNotes(session.feedback?.notes || "");
+    setStravaSearchDone(false);
+
+    // Si Strava connecté, chercher l'activité correspondante
+    const existingStrava = session.feedback?.stravaData;
+    if (existingStrava) {
+      setStravaMatch(existingStrava);
+      setStravaMatchLoading(false);
+      setStravaSearchDone(true);
+    } else if (user?.stravaConnected && user?.id) {
+      setStravaMatch(null);
+      setStravaMatchLoading(true);
+      const requestId = ++stravaRequestRef.current;
+      const sessionDate = resolveSessionDate(session, plan.startDate, weekNumber);
+      findStravaActivityForSession(user.id, sessionDate, session.type)
+        .then(match => {
+          if (requestId !== stravaRequestRef.current) return;
+          setStravaMatch(match);
+          setStravaMatchLoading(false);
+          setStravaSearchDone(true);
+        })
+        .catch(() => {
+          if (requestId !== stravaRequestRef.current) return;
+          setStravaMatch(null);
+          setStravaMatchLoading(false);
+          setStravaSearchDone(true);
+        });
+    } else {
+      setStravaMatch(null);
+      setStravaMatchLoading(false);
+      setStravaSearchDone(false);
+    }
   };
 
   const handleValidateFeedback = async (needsAdaptation: boolean) => {
@@ -190,7 +226,8 @@ const PlanView: React.FC<PlanViewProps> = ({ plan: initialPlan, isLocked = false
             rpe: feedbackRpe,
             notes: feedbackNotes,
             completed: true,
-            adaptationRequested: needsAdaptation
+            adaptationRequested: needsAdaptation,
+            ...(stravaMatch ? { stravaData: stravaMatch } : {})
           }
         };
 
@@ -211,29 +248,103 @@ const PlanView: React.FC<PlanViewProps> = ({ plan: initialPlan, isLocked = false
         }));
 
         if (needsAdaptation && onAdaptPlan) {
+          // Determine adaptation direction from RPE
+          let direction: string;
+          if (feedbackRpe <= 4) {
+            direction = 'TOO_EASY';
+          } else if (feedbackRpe <= 6) {
+            direction = 'OPTIMAL';
+          } else if (feedbackRpe <= 8) {
+            direction = 'HARD';
+          } else {
+            direction = 'TOO_HARD';
+          }
+
+          // Current session details
+          const sessionWeek = plan.weeks.find(w => w.weekNumber === selectedWeekNumber);
+          const sessionPhase = sessionWeek?.phase || 'unknown';
+
+          // Collect recent RPE history for trend detection
+          const recentRPEs: string[] = [];
+          plan.weeks.forEach((w) => {
+            w.sessions.forEach((s) => {
+              if (s.feedback?.completed && s.feedback.rpe) {
+                recentRPEs.push(`S${w.weekNumber} ${s.day} "${s.title}" (${s.type}): RPE ${s.feedback.rpe}/10${s.feedback.notes ? ` — "${s.feedback.notes}"` : ''}`);
+              }
+            });
+          });
+
+          // Count missed/skipped sessions this week + identify which ones
+          const currentWeekSessions = sessionWeek?.sessions || [];
+          const completedThisWeek = currentWeekSessions.filter(s => s.feedback?.completed).length;
+          const totalThisWeek = currentWeekSessions.filter(s => s.type !== 'Repos').length;
+          const missedSessions = currentWeekSessions
+            .filter(s => s.type !== 'Repos' && !s.feedback?.completed && s !== selectedSessionForFeedback)
+            .map(s => `"${s.title}" (${s.type})`)
+            .join(', ');
+
+          // Build Strava comparison block if available
+          const stravaBlock = stravaMatch ? `
+══ DONNÉES STRAVA RÉELLES ══
+Activité: "${stravaMatch.name}" (${stravaMatch.type})
+Distance réelle: ${stravaMatch.distance} km (prévu: ${selectedSessionForFeedback.distance || 'N/A'})
+Durée réelle: ${stravaMatch.movingTime} min (prévu: ${selectedSessionForFeedback.duration})
+Allure moyenne: ${stravaMatch.avgPace} (cible: ${selectedSessionForFeedback.targetPace || 'N/A'})
+D+ réel: ${stravaMatch.elevationGain}m (prévu: ${selectedSessionForFeedback.elevationGain ? selectedSessionForFeedback.elevationGain + 'm' : 'N/A'})
+FC moyenne: ${stravaMatch.avgHeartrate ? stravaMatch.avgHeartrate + ' bpm' : 'N/A'}
+FC max: ${stravaMatch.maxHeartrate ? stravaMatch.maxHeartrate + ' bpm' : 'N/A'}
+` : '';
+
           const adaptationContext = `
-             CONTEXTE: L'utilisateur a trouvé la séance "${selectedSessionForFeedback.title}" trop difficile ou inadaptée.
-             RPE (Ressenti): ${feedbackRpe}/10.
-             COMMENTAIRE: "${feedbackNotes}".
-             ACTION REQUISE: Allège légèrement l'intensité des prochaines séances ou adapte le volume, tout en gardant l'objectif final.
+══ SÉANCE ÉVALUÉE ══
+Titre: "${selectedSessionForFeedback.title}"
+Type: ${selectedSessionForFeedback.type}
+Durée prévue: ${selectedSessionForFeedback.duration}
+Distance prévue: ${selectedSessionForFeedback.distance || 'N/A'}
+D+ prévu: ${selectedSessionForFeedback.elevationGain ? selectedSessionForFeedback.elevationGain + 'm' : 'N/A'}
+Allure cible: ${selectedSessionForFeedback.targetPace || 'N/A'}
+Semaine: ${selectedWeekNumber} | Phase: ${sessionPhase}
+${stravaBlock}
+══ FEEDBACK ══
+RPE: ${feedbackRpe}/10
+Catégorie RPE brut (à cross-checker avec le commentaire) : ${direction}
+Commentaire: "${feedbackNotes.trim()}"
+${sessionWeek?.isRecoveryWeek || sessionWeek?.phase === 'recuperation' ? '⚠️ SEMAINE DE RÉCUPÉRATION — interpréter le RPE en conséquence' : ''}
+
+══ PROGRESSION CETTE SEMAINE ══
+Séances complétées: ${completedThisWeek}/${totalThisWeek}
+${missedSessions ? `Séances non encore faites: ${missedSessions}` : ''}
+
+══ HISTORIQUE RPE RÉCENT ══
+${recentRPEs.length > 0 ? recentRPEs.slice(-8).join('\n') : 'Premier feedback — être conservateur, max 1 modification'}
            `;
-          onAdaptPlan(adaptationContext);
+
+          // Close modal first, then run adaptation (await it so errors are visible)
+          setSelectedSessionForFeedback(null);
+          setToastMessage("Adaptation en cours...");
+          setToastSubMessage("L'IA ajuste les prochaines semaines");
+          setToastVisible(true);
+
+          try {
+            await onAdaptPlan(adaptationContext);
+          } catch (adaptError) {
+            console.error('[Feedback] Adaptation failed:', adaptError);
+          }
+        } else {
+          // Afficher le toast de célébration
+          const encouragements = [
+            "Bravo, tu progresses !",
+            "Excellent travail !",
+            "Continue comme ça !",
+            "Tu es sur la bonne voie !",
+            "Séance validée avec succès !"
+          ];
+          const randomMessage = encouragements[Math.floor(Math.random() * encouragements.length)];
+          setToastMessage(randomMessage);
+          setToastSubMessage(`"${selectedSessionForFeedback.title}" complétée`);
+          setToastVisible(true);
+          setSelectedSessionForFeedback(null);
         }
-
-        // Afficher le toast de célébration
-        const encouragements = [
-          "Bravo, tu progresses !",
-          "Excellent travail !",
-          "Continue comme ça !",
-          "Tu es sur la bonne voie !",
-          "Séance validée avec succès !"
-        ];
-        const randomMessage = encouragements[Math.floor(Math.random() * encouragements.length)];
-        setToastMessage(randomMessage);
-        setToastSubMessage(`"${selectedSessionForFeedback.title}" complétée`);
-        setToastVisible(true);
-
-        setSelectedSessionForFeedback(null);
       } catch (error) {
         console.error("Failed to save feedback", error);
         alert("Erreur lors de l'enregistrement du feedback.");
@@ -304,11 +415,48 @@ const PlanView: React.FC<PlanViewProps> = ({ plan: initialPlan, isLocked = false
       case 'BON': return { bg: 'bg-blue-50', text: 'text-blue-800', border: 'border-blue-200', icon: <CheckCircle /> };
       case 'AMBITIEUX': return { bg: 'bg-yellow-50', text: 'text-yellow-800', border: 'border-yellow-200', icon: <Activity /> };
       case 'RISQUÉ': return { bg: 'bg-red-50', text: 'text-red-800', border: 'border-red-200', icon: <AlertTriangle /> };
+      case 'IRRÉALISTE': return { bg: 'bg-red-100', text: 'text-red-900', border: 'border-red-300', icon: <AlertTriangle /> };
       default: return { bg: 'bg-slate-50', text: 'text-slate-800', border: 'border-slate-200', icon: <Activity /> };
     }
   };
 
-  const fStyle = plan.feasibility ? getFeasibilityStyle(plan.feasibility.status) : getFeasibilityStyle('BON');
+  // Recalcul en temps réel de la faisabilité à partir du contexte de génération
+  // Permet de bénéficier des améliorations du scoring sans re-générer les plans
+  const liveFeasibility = useMemo<FeasibilityResult | null>(() => {
+    const ctx = plan.generationContext;
+    if (!ctx?.vma || !ctx.questionnaireSnapshot) return null;
+    const q = ctx.questionnaireSnapshot;
+    const hasChrono = !!(q.recentRaceTimes?.distance5km || q.recentRaceTimes?.distance10km || q.recentRaceTimes?.distanceHalfMarathon || q.recentRaceTimes?.distanceMarathon);
+    try {
+      return calculateFeasibility({
+        vma: ctx.vma,
+        targetTime: q.targetTime || plan.targetTime,
+        distance: q.subGoal || plan.distance || (q.trailDetails?.distance ? `${q.trailDetails.distance} km` : ''),
+        goal: q.goal || plan.goal || '',
+        level: q.level || '',
+        planWeeks: ctx.periodizationPlan?.totalWeeks || plan.weeks.length,
+        currentVolume: q.currentWeeklyVolume,
+        currentWeeklyElevation: q.currentWeeklyElevation,
+        trailElevation: q.trailDetails?.elevation,
+        trailDistance: q.trailDetails?.distance,
+        hasInjury: q.injuries?.hasInjury || false,
+        hasChrono,
+        age: q.age,
+        weight: q.weight,
+        height: q.height,
+        frequency: q.frequency || plan.sessionsPerWeek,
+      });
+    } catch (e) {
+      console.error('[PlanView] Erreur recalcul faisabilité:', e);
+      return null;
+    }
+  }, [plan]);
+
+  // Utiliser le score recalculé en priorité, sinon le score stocké
+  const activeFeasibility = liveFeasibility || plan.feasibility;
+  const activeConfidenceScore = liveFeasibility?.score ?? plan.confidenceScore;
+
+  const fStyle = activeFeasibility ? getFeasibilityStyle(activeFeasibility.status) : getFeasibilityStyle('BON');
 
   // Calcul de la progression globale
   const progressStats = useMemo(() => {
@@ -759,8 +907,8 @@ const PlanView: React.FC<PlanViewProps> = ({ plan: initialPlan, isLocked = false
                       <span className="text-2xl">🎯</span>
                     </div>
                     <div>
-                      <h3 className="font-bold text-indigo-900">Message de votre Coach IA</h3>
-                      <p className="text-xs text-indigo-600">Conseils personnalisés pour votre préparation</p>
+                      <h3 className="font-bold text-indigo-900">Message de ton Coach IA</h3>
+                      <p className="text-xs text-indigo-600">Conseils personnalisés pour ta préparation</p>
                     </div>
                   </div>
                   <p className="text-indigo-800 leading-relaxed pl-15">{plan.welcomeMessage}</p>
@@ -852,8 +1000,8 @@ const PlanView: React.FC<PlanViewProps> = ({ plan: initialPlan, isLocked = false
                     </button>
                   </div>
 
-                  {/* Score de confiance explicite */}
-                  {(plan.feasibility || plan.confidenceScore) && (
+                  {/* Score de confiance explicite (recalculé en temps réel) */}
+                  {(activeFeasibility || activeConfidenceScore) && (
                     <div className={`mt-3 p-4 rounded-xl ${fStyle.bg} border ${fStyle.border}`}>
                       <div className="flex items-center gap-2 mb-2">
                         <span className={`${fStyle.text}`}>{React.cloneElement(fStyle.icon as React.ReactElement, { size: 18 })}</span>
@@ -861,18 +1009,22 @@ const PlanView: React.FC<PlanViewProps> = ({ plan: initialPlan, isLocked = false
                       </div>
                       <div className="flex items-center justify-between">
                         <div>
-                          <span className={`text-lg font-black ${fStyle.text}`}>{plan.feasibility?.status || 'BON'}</span>
-                          {plan.confidenceScore && (
-                            <span className={`ml-2 text-sm font-bold ${fStyle.text} opacity-70`}>({plan.confidenceScore}%)</span>
+                          <span className={`text-lg font-black ${fStyle.text}`}>{activeFeasibility?.status || 'BON'}</span>
+                          {activeConfidenceScore != null && (
+                            <span className={`ml-2 text-sm font-bold ${fStyle.text} opacity-70`}>({activeConfidenceScore}%)</span>
                           )}
                         </div>
                       </div>
                       <p className={`text-xs ${fStyle.text} opacity-80 mt-2 leading-relaxed`}>
-                        {plan.feasibility?.status === 'EXCELLENT' && "Objectif très réaliste au vu de ton profil. Continue comme ça !"}
-                        {plan.feasibility?.status === 'BON' && "Objectif atteignable avec un entraînement régulier."}
-                        {plan.feasibility?.status === 'AMBITIEUX' && "Objectif ambitieux qui demandera de la rigueur et de la constance."}
-                        {plan.feasibility?.status === 'RISQUÉ' && "Objectif difficile. Écoute ton corps et adapte si nécessaire."}
-                        {!plan.feasibility?.status && "Ton plan est calibré selon ton profil."}
+                        {activeFeasibility?.message || (
+                          <>
+                            {activeFeasibility?.status === 'EXCELLENT' && "Objectif très réaliste au vu de ton profil. Continue comme ça !"}
+                            {activeFeasibility?.status === 'BON' && "Objectif atteignable avec un entraînement régulier."}
+                            {activeFeasibility?.status === 'AMBITIEUX' && "Objectif ambitieux qui demandera de la rigueur et de la constance."}
+                            {activeFeasibility?.status === 'RISQUÉ' && "Objectif difficile. Écoute ton corps et adapte si nécessaire."}
+                            {!activeFeasibility?.status && "Ton plan est calibré selon ton profil."}
+                          </>
+                        )}
                       </p>
                     </div>
                   )}
@@ -1015,10 +1167,10 @@ const PlanView: React.FC<PlanViewProps> = ({ plan: initialPlan, isLocked = false
               </div>
               <div>
                 <h4 className="font-bold text-amber-800 text-sm mb-1">Conseil de prudence</h4>
-                {plan.feasibility?.safetyWarning && (
-                  <p className="text-amber-700 text-sm mb-2">{plan.feasibility.safetyWarning}</p>
+                {activeFeasibility?.safetyWarning && (
+                  <p className="text-amber-700 text-sm mb-2">{activeFeasibility.safetyWarning}</p>
                 )}
-                <p className="text-amber-700 text-sm">Avant de commencer ou reprendre une activité sportive, consultez un médecin pour valider votre aptitude à la pratique de la course à pied.</p>
+                <p className="text-amber-700 text-sm">Avant de commencer ou reprendre une activité sportive, consulte un médecin pour valider ton aptitude à la pratique de la course à pied.</p>
               </div>
             </div>
           </div>
@@ -1161,10 +1313,31 @@ const PlanView: React.FC<PlanViewProps> = ({ plan: initialPlan, isLocked = false
                           )}
                         </div>
 
-                        {/* Date de la semaine */}
-                        <div className="flex items-center gap-2 mt-1">
-                          <Calendar size={14} className="text-slate-400" />
-                          <span className="text-sm text-slate-500 font-medium">{weekStatus.dateRange}</span>
+                        {/* Date + volume de la semaine */}
+                        <div className="flex items-center gap-2 mt-1 flex-wrap">
+                          <span className="flex items-center gap-1">
+                            <Calendar size={14} className="text-slate-400" />
+                            <span className="text-sm text-slate-500 font-medium">{weekStatus.dateRange}</span>
+                          </span>
+                          {(() => {
+                            const weekTotalKm = week.sessions.reduce((sum, s) => {
+                              const distStr = s.distance || s.distance_km || '';
+                              const match = String(distStr).match(/([\d.]+)\s*km/i);
+                              if (match) return sum + parseFloat(match[1]);
+                              const num = parseFloat(String(distStr));
+                              return !isNaN(num) ? sum + num : sum;
+                            }, 0);
+                            const runningSessions = week.sessions.filter(s => s.type !== 'Renforcement' && s.type !== 'Repos' && s.type !== 'Repos Actif').length;
+                            return weekTotalKm > 0 ? (
+                              <span className="text-sm text-slate-400 font-medium">
+                                ~{Math.round(weekTotalKm)} km  ·  {week.sessions.length} séances
+                              </span>
+                            ) : (
+                              <span className="text-sm text-slate-400 font-medium">
+                                {week.sessions.length} séances
+                              </span>
+                            );
+                          })()}
                         </div>
 
                         {/* Barre de progression de la semaine */}
@@ -1313,73 +1486,51 @@ const PlanView: React.FC<PlanViewProps> = ({ plan: initialPlan, isLocked = false
                     </div>
                   )}
 
-                  {/* OVERLAY "GÉNÉRER LA SUITE" (PREMIUM + PLAN PREVIEW avec generationContext) */}
-                  {canViewFullPlan && plan.isPreview && !plan.fullPlanGenerated && index === 1 && onGenerateRemainingWeeks && (
-                    <div className="absolute inset-0 z-10 flex items-center justify-center">
-                      <div className="bg-white/95 backdrop-blur-md p-8 rounded-2xl shadow-2xl text-center border-2 border-accent max-w-lg mx-4">
-                        {isGeneratingRemaining ? (
-                          <>
-                            <div className="w-16 h-16 bg-accent/10 rounded-full flex items-center justify-center mx-auto mb-6 shadow-lg">
-                              <RefreshCw className="text-accent animate-spin" size={32} />
-                            </div>
-                            <h3 className="text-2xl font-bold text-slate-900 mb-2">Génération en cours...</h3>
-                            <p className="text-slate-600 mb-4">
-                              L'IA génère les semaines 2 à {plan.generationContext?.periodizationPlan?.totalWeeks || 12} avec les mêmes allures et la même cohérence que la semaine 1.
-                            </p>
-                            <div className="bg-slate-100 rounded-full h-2 overflow-hidden">
-                              <div className="bg-accent h-full animate-pulse" style={{ width: '60%' }} />
-                            </div>
-                          </>
-                        ) : (
-                          <>
-                            <div className="w-16 h-16 bg-gradient-to-br from-accent to-orange-500 rounded-full flex items-center justify-center mx-auto mb-6 shadow-lg">
-                              <Zap className="text-white" size={32} fill="currentColor" />
-                            </div>
-                            <h3 className="text-2xl font-bold text-slate-900 mb-2">Débloquer la suite du plan</h3>
-                            <p className="text-slate-600 mb-4">
-                              Générez maintenant les semaines 2 à {plan.generationContext?.periodizationPlan?.totalWeeks || 12}.
-                            </p>
-
-                            {/* Aperçu du plan de périodisation */}
-                            {plan.generationContext && (
-                              <div className="bg-slate-50 rounded-xl p-4 mb-6 text-left border border-slate-200">
-                                <p className="text-xs font-bold text-slate-500 uppercase mb-2">Aperçu du plan complet</p>
-                                <div className="grid grid-cols-2 gap-2 text-sm">
-                                  <div className="flex items-center gap-2">
-                                    <span className="w-2 h-2 rounded-full bg-blue-400"></span>
-                                    <span className="text-slate-600">VMA : <strong>{plan.generationContext.vma.toFixed(1)} km/h</strong></span>
-                                  </div>
-                                  <div className="flex items-center gap-2">
-                                    <span className="w-2 h-2 rounded-full bg-green-400"></span>
-                                    <span className="text-slate-600">EF : <strong>{convertPace(plan.generationContext.paces.efPace)}</strong></span>
-                                  </div>
-                                  <div className="flex items-center gap-2">
-                                    <span className="w-2 h-2 rounded-full bg-orange-400"></span>
-                                    <span className="text-slate-600">Seuil : <strong>{convertPace(plan.generationContext.paces.seuilPace)}</strong></span>
-                                  </div>
-                                  <div className="flex items-center gap-2">
-                                    <span className="w-2 h-2 rounded-full bg-red-400"></span>
-                                    <span className="text-slate-600">VMA : <strong>{convertPace(plan.generationContext.paces.vmaPace)}</strong></span>
-                                  </div>
-                                </div>
-                                <p className="text-xs text-slate-400 mt-3">Ces allures seront utilisées identiquement pour toutes les semaines.</p>
-                              </div>
-                            )}
-
-                            <button
-                              onClick={onGenerateRemainingWeeks}
-                              className="bg-gradient-to-r from-accent to-orange-500 hover:from-accent/90 hover:to-orange-500/90 text-white font-bold py-4 px-8 rounded-xl shadow-lg transform hover:scale-105 transition-all w-full flex items-center justify-center gap-2"
-                            >
-                              <Zap size={20} fill="currentColor" /> Générer les semaines restantes
-                            </button>
-                          </>
-                        )}
-                      </div>
-                    </div>
-                  )}
                 </div>
               );
             })}
+
+            {/* Bouton générer pour les premium — JUSTE APRÈS la S1, bien visible */}
+            {plan.isPreview && canViewFullPlan && !plan.fullPlanGenerated && onGenerateRemainingWeeks && (
+              <div className="my-6 bg-gradient-to-r from-accent/10 to-orange-100 rounded-2xl p-6 border-2 border-accent/30 animate-in fade-in slide-in-from-bottom-4 duration-500">
+                <div className="flex flex-col md:flex-row items-center gap-4">
+                  <div className="w-16 h-16 bg-gradient-to-br from-accent to-orange-500 rounded-full flex items-center justify-center flex-shrink-0">
+                    {isGeneratingRemaining ? (
+                      <RefreshCw className="text-white animate-spin" size={28} />
+                    ) : (
+                      <Zap className="text-white" size={28} fill="currentColor" />
+                    )}
+                  </div>
+                  <div className="flex-1 text-center md:text-left">
+                    <h3 className="text-xl font-bold text-slate-900 mb-1">
+                      {isGeneratingRemaining ? 'Génération en cours...' : `Générer les ${previewWeeks.length} semaines restantes`}
+                    </h3>
+                    <p className="text-slate-600">
+                      {isGeneratingRemaining
+                        ? `L'IA génère les semaines 2 à ${plan.generationContext?.periodizationPlan?.totalWeeks || 12} avec les mêmes allures et la même cohérence.`
+                        : `Votre semaine 1 est prête. Cliquez pour générer le plan complet avec la même cohérence d'allures.`
+                      }
+                    </p>
+                    {plan.generationContext && !isGeneratingRemaining && (
+                      <div className="flex flex-wrap gap-3 mt-3 text-xs">
+                        <span className="bg-white/80 px-2 py-1 rounded-full text-slate-600">VMA: <strong>{plan.generationContext.vma.toFixed(1)} km/h</strong></span>
+                        <span className="bg-white/80 px-2 py-1 rounded-full text-slate-600">EF: <strong>{convertPace(plan.generationContext.paces.efPace)}</strong></span>
+                        <span className="bg-white/80 px-2 py-1 rounded-full text-slate-600">Seuil: <strong>{convertPace(plan.generationContext.paces.seuilPace)}</strong></span>
+                      </div>
+                    )}
+                  </div>
+                  {!isGeneratingRemaining && (
+                    <button
+                      onClick={onGenerateRemainingWeeks}
+                      className="bg-gradient-to-r from-accent to-orange-500 hover:from-accent/90 hover:to-orange-500/90 text-white font-bold py-4 px-8 rounded-xl shadow-lg transform hover:scale-105 transition-all flex items-center gap-2"
+                    >
+                      <Zap size={20} fill="currentColor" />
+                      Générer
+                    </button>
+                  )}
+                </div>
+              </div>
+            )}
 
             {/* SEMAINES DE PRÉVISUALISATION (pour les plans en mode preview) */}
             {plan.isPreview && previewWeeks.length > 0 && (
@@ -1409,48 +1560,6 @@ const PlanView: React.FC<PlanViewProps> = ({ plan: initialPlan, isLocked = false
                           </button>
                         </div>
                       </div>
-                    </div>
-                  </div>
-                )}
-
-                {/* Bouton générer pour les premium */}
-                {canViewFullPlan && !plan.fullPlanGenerated && onGenerateRemainingWeeks && (
-                  <div className="my-8 bg-gradient-to-r from-accent/10 to-orange-100 rounded-2xl p-6 border-2 border-accent/30">
-                    <div className="flex flex-col md:flex-row items-center gap-4">
-                      <div className="w-16 h-16 bg-gradient-to-br from-accent to-orange-500 rounded-full flex items-center justify-center flex-shrink-0">
-                        {isGeneratingRemaining ? (
-                          <RefreshCw className="text-white animate-spin" size={28} />
-                        ) : (
-                          <Zap className="text-white" size={28} fill="currentColor" />
-                        )}
-                      </div>
-                      <div className="flex-1 text-center md:text-left">
-                        <h3 className="text-xl font-bold text-slate-900 mb-1">
-                          {isGeneratingRemaining ? 'Génération en cours...' : 'Générer les semaines restantes'}
-                        </h3>
-                        <p className="text-slate-600">
-                          {isGeneratingRemaining
-                            ? `L'IA génère les semaines 2 à ${plan.generationContext?.periodizationPlan?.totalWeeks || 12} avec les mêmes allures et la même cohérence.`
-                            : `Générez maintenant les ${previewWeeks.length} semaines restantes de votre plan.`
-                          }
-                        </p>
-                        {plan.generationContext && !isGeneratingRemaining && (
-                          <div className="flex flex-wrap gap-3 mt-3 text-xs">
-                            <span className="bg-white/80 px-2 py-1 rounded-full text-slate-600">VMA: <strong>{plan.generationContext.vma.toFixed(1)} km/h</strong></span>
-                            <span className="bg-white/80 px-2 py-1 rounded-full text-slate-600">EF: <strong>{convertPace(plan.generationContext.paces.efPace)}</strong></span>
-                            <span className="bg-white/80 px-2 py-1 rounded-full text-slate-600">Seuil: <strong>{convertPace(plan.generationContext.paces.seuilPace)}</strong></span>
-                          </div>
-                        )}
-                      </div>
-                      {!isGeneratingRemaining && (
-                        <button
-                          onClick={onGenerateRemainingWeeks}
-                          className="bg-gradient-to-r from-accent to-orange-500 hover:from-accent/90 hover:to-orange-500/90 text-white font-bold py-4 px-8 rounded-xl shadow-lg transform hover:scale-105 transition-all flex items-center gap-2"
-                        >
-                          <Zap size={20} fill="currentColor" />
-                          Générer
-                        </button>
-                      )}
                     </div>
                   </div>
                 )}
@@ -1558,16 +1667,53 @@ const PlanView: React.FC<PlanViewProps> = ({ plan: initialPlan, isLocked = false
       {/* FEEDBACK MODAL */}
       {selectedSessionForFeedback && (
         <div className="fixed inset-0 z-[100] flex items-center justify-center bg-slate-900/60 backdrop-blur-sm p-4 animate-in fade-in zoom-in duration-200">
-          <div className="bg-white rounded-2xl p-6 w-full max-w-md shadow-2xl">
-            <div className="flex justify-between items-center mb-6">
-              <h3 className="text-xl font-bold text-slate-900">Bilan de séance</h3>
+          <div className="bg-white rounded-2xl w-full max-w-md shadow-2xl max-h-[90vh] flex flex-col">
+            <div className="flex justify-between items-center p-6 pb-0 mb-6">
+              <h3 className="text-xl font-bold text-slate-900">{selectedSessionForFeedback.feedback?.completed ? 'Modifier le bilan' : 'Bilan de séance'}</h3>
               <button onClick={() => setSelectedSessionForFeedback(null)} className="p-1 rounded-full hover:bg-slate-100"><X className="text-slate-400" /></button>
             </div>
 
+            <div className="flex-1 overflow-y-auto p-6 pb-2">
             <div className="mb-6 bg-slate-50 p-4 rounded-xl border border-slate-100">
               <h4 className="font-bold text-slate-800 mb-1">{selectedSessionForFeedback.title}</h4>
               <p className="text-sm text-slate-500">{selectedSessionForFeedback.duration} • {selectedSessionForFeedback.type}</p>
             </div>
+
+            {/* Données Strava auto-matchées */}
+            {stravaMatchLoading && (
+              <div className="mb-4 bg-orange-50 border border-orange-200 rounded-xl p-4 min-h-[110px] flex items-center justify-center">
+                <div className="flex items-center gap-2 text-sm text-orange-700">
+                  <Loader size={14} className="animate-spin" />
+                  Recherche activité Strava...
+                </div>
+              </div>
+            )}
+            {stravaMatch && !stravaMatchLoading && (
+              <div className="mb-4 bg-orange-50 border border-orange-200 rounded-xl p-4">
+                <div className="flex items-center gap-2 mb-2">
+                  <Activity size={16} className="text-orange-600" />
+                  <span className="text-sm font-bold text-orange-800">Strava : {stravaMatch.name}</span>
+                </div>
+                <div className="grid grid-cols-2 gap-2 text-xs text-orange-700">
+                  <div><span className="font-medium">Distance :</span> {stravaMatch.distance} km</div>
+                  <div><span className="font-medium">Durée :</span> {stravaMatch.movingTime} min</div>
+                  <div><span className="font-medium">Allure :</span> {stravaMatch.avgPace}</div>
+                  <div><span className="font-medium">D+ :</span> {stravaMatch.elevationGain}m</div>
+                  {stravaMatch.avgHeartrate && (
+                    <div><span className="font-medium">FC moy :</span> {stravaMatch.avgHeartrate} bpm</div>
+                  )}
+                  {stravaMatch.maxHeartrate && (
+                    <div><span className="font-medium">FC max :</span> {stravaMatch.maxHeartrate} bpm</div>
+                  )}
+                </div>
+              </div>
+            )}
+            {!stravaMatch && !stravaMatchLoading && stravaSearchDone && (
+              <div className="mb-4 bg-slate-50 border border-slate-200 rounded-xl p-3 flex items-center gap-2 text-sm text-slate-500">
+                <Activity size={14} className="text-slate-400" />
+                Aucune activité Strava trouvée pour cette séance
+              </div>
+            )}
 
             <div className="mb-6">
               <label className="block text-sm font-bold text-slate-900 mb-2">Difficulté ressentie (RPE)</label>
@@ -1575,12 +1721,13 @@ const PlanView: React.FC<PlanViewProps> = ({ plan: initialPlan, isLocked = false
               <div className="text-center font-black text-3xl text-slate-800 mt-4">{feedbackRpe}<span className="text-lg text-slate-400 font-normal">/10</span></div>
             </div>
 
-            <div className="mb-8">
+            <div className="mb-2">
               <label className="block text-sm font-bold text-slate-900 mb-2">Sensations & Notes</label>
               <textarea className="w-full border border-slate-300 rounded-xl p-3 h-24 focus:ring-2 focus:ring-accent/50 outline-none text-sm resize-none" placeholder="Ex: Bonnes jambes, mais un peu essoufflé sur la fin..." value={feedbackNotes} onChange={(e) => setFeedbackNotes(e.target.value)} />
             </div>
+            </div>
 
-            <div className="space-y-3">
+            <div className="p-6 pt-3 space-y-3 border-t border-slate-100">
               <button onClick={() => handleValidateFeedback(false)} disabled={isSaving} className="w-full bg-slate-100 hover:bg-slate-200 text-slate-700 p-4 rounded-xl font-bold flex items-center justify-between group transition-all">
                 <span>✓ Enregistrer (sans modifier)</span>
                 <CheckCircle size={18} className="text-slate-400 group-hover:text-slate-600" />

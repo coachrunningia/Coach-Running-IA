@@ -44,10 +44,14 @@ const MarathonLanding: React.FC<MarathonLandingProps> = ({ user, onPlanGeneratio
   return (
     <div className="bg-white">
       <Helmet>
-        <title>Plan Entraînement Marathon - Programme IA Personnalisé | Coach Running IA</title>
-        <meta name="description" content="Créez votre plan entraînement marathon personnalisé par IA en 2 min. Programme 12-20 semaines, export Garmin/Coros, 1ère semaine gratuite. Tous niveaux." />
-        <meta name="keywords" content="plan entraînement marathon, programme marathon, plan marathon 16 semaines, plan marathon débutant, plan marathon sub 4h, préparation marathon" />
+        <title>Plan Entraînement Marathon Personnalisé par IA | Sub 3h30 à Finisher | Coach Running IA</title>
+        <meta name="description" content="Obtenez votre plan marathon sur-mesure en 2 min : 12 à 20 semaines, 3 à 5 séances/semaine, allures calculées sur votre VMA. Du premier marathon au sub 3h. 1ère semaine gratuite." />
+        <meta name="keywords" content="plan entraînement marathon, programme marathon personnalisé, plan marathon 16 semaines, plan marathon débutant, plan marathon sub 3h30, plan marathon sub 4h, préparation marathon IA" />
         <link rel="canonical" href="https://coachrunningia.fr/plan-marathon" />
+        <meta property="og:title" content="Plan Entraînement Marathon Personnalisé par IA | Coach Running IA" />
+        <meta property="og:description" content="Programme marathon sur-mesure : 12-20 semaines, allures VMA, sorties longues progressives. Du premier marathon au sub 3h. Gratuit pour tester." />
+        <meta property="og:url" content="https://coachrunningia.fr/plan-marathon" />
+        <meta property="og:image" content="https://coachrunningia.fr/og-image.png" />
         <script type="application/ld+json">{JSON.stringify({
           "@context": "https://schema.org",
           "@type": "FAQPage",
@@ -108,31 +112,31 @@ const MarathonLanding: React.FC<MarathonLandingProps> = ({ user, onPlanGeneratio
         </div>
       </section>
 
-      {/* SECTION: POURQUOI PAS CHATGPT */}
+      {/* SECTION: PLAN MARATHON GENERIQUE VS IA */}
       <section className="py-16 md:py-24 bg-white">
         <div className="max-w-5xl mx-auto px-4">
           <div className="text-center mb-12">
-            <p className="text-accent font-bold text-sm tracking-wider uppercase mb-3">La question qu'on nous pose le plus</p>
+            <p className="text-accent font-bold text-sm tracking-wider uppercase mb-3">Ce qui change tout sur marathon</p>
             <h2 className="text-3xl md:text-4xl font-black text-slate-900 mb-4">
-              "Je peux faire pareil avec ChatGPT, non ?"
+              Plan marathon PDF vs plan marathon IA
             </h2>
             <p className="text-slate-500 max-w-2xl mx-auto text-lg">
-              Pas vraiment. Et voici pourquoi.
+              Les plans gratuits en PDF vous donnent un cadre. Coach Running IA vous donne VOTRE plan.
             </p>
           </div>
           <div className="grid md:grid-cols-2 gap-6 max-w-4xl mx-auto">
             <div className="bg-slate-50 rounded-2xl p-6 border border-slate-200">
               <div className="flex items-center gap-3 mb-4">
-                <div className="w-10 h-10 bg-slate-200 rounded-xl flex items-center justify-center text-lg">{"🤖"}</div>
-                <h3 className="font-bold text-slate-400 text-lg">ChatGPT</h3>
+                <div className="w-10 h-10 bg-slate-200 rounded-xl flex items-center justify-center text-lg">{"📄"}</div>
+                <h3 className="font-bold text-slate-400 text-lg">Plan marathon générique</h3>
               </div>
               <div className="space-y-3 text-slate-400 text-sm">
-                <div className="flex items-start gap-2"><X size={16} className="text-red-400 mt-0.5 shrink-0" /><span>Génère un plan à partir de tout ce qui existe en ligne — <strong>sans distinguer les bons des mauvais conseils</strong></span></div>
-                <div className="flex items-start gap-2"><X size={16} className="text-red-400 mt-0.5 shrink-0" /><span>Aucune validation médicale sur le renforcement musculaire</span></div>
-                <div className="flex items-start gap-2"><X size={16} className="text-red-400 mt-0.5 shrink-0" /><span>Oublie tout entre chaque conversation</span></div>
-                <div className="flex items-start gap-2"><X size={16} className="text-red-400 mt-0.5 shrink-0" /><span>Aucun suivi réel de ta progression</span></div>
-                <div className="flex items-start gap-2"><X size={16} className="text-red-400 mt-0.5 shrink-0" /><span>Pas d'analyse de tes performances Strava</span></div>
-                <div className="flex items-start gap-2"><X size={16} className="text-red-400 mt-0.5 shrink-0" /><span>Plan en texte brut — pas de calendrier, pas d'export, pas de suivi</span></div>
+                <div className="flex items-start gap-2"><X size={16} className="text-red-400 mt-0.5 shrink-0" /><span>Allure marathon fixe — <strong>la même pour tout le monde</strong>, sans tenir compte de votre VMA</span></div>
+                <div className="flex items-start gap-2"><X size={16} className="text-red-400 mt-0.5 shrink-0" /><span>Volume identique que vous couriez 30 ou 60 km/semaine</span></div>
+                <div className="flex items-start gap-2"><X size={16} className="text-red-400 mt-0.5 shrink-0" /><span>Sortie longue figée à 30 km — sans progression adaptée</span></div>
+                <div className="flex items-start gap-2"><X size={16} className="text-red-400 mt-0.5 shrink-0" /><span>Aucun ajustement si vous êtes fatigué ou blessé</span></div>
+                <div className="flex items-start gap-2"><X size={16} className="text-red-400 mt-0.5 shrink-0" /><span>Pas de phase d'affûtage calibrée à votre profil</span></div>
+                <div className="flex items-start gap-2"><X size={16} className="text-red-400 mt-0.5 shrink-0" /><span>Un PDF qu'on oublie au fond de ses mails</span></div>
               </div>
             </div>
             <div className="bg-gradient-to-br from-orange-50 to-amber-50 rounded-2xl p-6 border-2 border-accent/30 relative">
@@ -142,17 +146,17 @@ const MarathonLanding: React.FC<MarathonLandingProps> = ({ user, onPlanGeneratio
                 <h3 className="font-bold text-slate-900 text-lg">Coach Running IA</h3>
               </div>
               <div className="space-y-3 text-slate-700 text-sm">
-                <div className="flex items-start gap-2"><CheckCircle size={16} className="text-green-500 mt-0.5 shrink-0" /><span>Entraîné sur des <strong>milliers de plans validés par des professionnels</strong></span></div>
-                <div className="flex items-start gap-2"><CheckCircle size={16} className="text-green-500 mt-0.5 shrink-0" /><span>Renforcement musculaire avec <strong>regard médical et exercices spécifiques</strong></span></div>
-                <div className="flex items-start gap-2"><CheckCircle size={16} className="text-green-500 mt-0.5 shrink-0" /><span><strong>Questionnaire personnalisé</strong> — VMA, objectif, jours dispo, blessures</span></div>
-                <div className="flex items-start gap-2"><CheckCircle size={16} className="text-green-500 mt-0.5 shrink-0" /><span><strong>Feedback hebdomadaire</strong> — le plan s'adapte à ton ressenti sans perdre le contexte</span></div>
-                <div className="flex items-start gap-2"><CheckCircle size={16} className="text-green-500 mt-0.5 shrink-0" /><span><strong>Analyse mensuelle Strava</strong> — bilan sur tes performances réelles</span></div>
-                <div className="flex items-start gap-2"><CheckCircle size={16} className="text-green-500 mt-0.5 shrink-0" /><span><strong>Plan structuré</strong> semaine par semaine avec calendrier visuel et export agenda</span></div>
+                <div className="flex items-start gap-2"><CheckCircle size={16} className="text-green-500 mt-0.5 shrink-0" /><span><strong>Allure marathon calculée sur votre VMA</strong> — seuil, allure spé et endurance calibrés</span></div>
+                <div className="flex items-start gap-2"><CheckCircle size={16} className="text-green-500 mt-0.5 shrink-0" /><span><strong>Volume progressif</strong> adapté à votre kilométrage actuel (pas de choc de charge)</span></div>
+                <div className="flex items-start gap-2"><CheckCircle size={16} className="text-green-500 mt-0.5 shrink-0" /><span><strong>Sortie longue progressive</strong> de 15 à 32 km avec allure et nutrition intégrées</span></div>
+                <div className="flex items-start gap-2"><CheckCircle size={16} className="text-green-500 mt-0.5 shrink-0" /><span><strong>Feedback hebdomadaire</strong> — le plan se réajuste à votre ressenti et vos données Strava</span></div>
+                <div className="flex items-start gap-2"><CheckCircle size={16} className="text-green-500 mt-0.5 shrink-0" /><span><strong>Affûtage automatique</strong> — réduction de volume dosée les 2-3 dernières semaines</span></div>
+                <div className="flex items-start gap-2"><CheckCircle size={16} className="text-green-500 mt-0.5 shrink-0" /><span><strong>Calendrier visuel</strong> semaine par semaine + export Google Calendar / PDF</span></div>
               </div>
             </div>
           </div>
           <p className="text-center text-slate-400 text-sm mt-8 max-w-xl mx-auto">
-            ChatGPT est un outil génial — mais généraliste. Coach Running IA est un <strong className="text-slate-600">spécialiste de l'entraînement running</strong>, conçu pour une seule mission : te faire progresser.
+            Un plan marathon PDF est un point de départ. Un plan marathon IA est un <strong className="text-slate-600">coach qui connaît votre VMA, votre volume et vos jours dispo</strong>.
           </p>
         </div>
       </section>

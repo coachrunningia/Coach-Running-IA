@@ -27,10 +27,10 @@ const PlanHero: React.FC<PlanHeroProps> = ({ plan }) => {
     // Messages contextuels basés sur le score
     const getConfidenceText = (s: number) => {
         if (s >= 5) return "Objectif très réaliste, c'est dans la poche !";
-        if (s === 4) return "Objectif ambitieux mais atteignable avec sérieux.";
+        if (s === 4) return "Objectif ambitieux mais atteignable avec du sérieux.";
         if (s === 3) return "Gros challenge en vue, il va falloir être rigoureux !";
-        if (s === 2) return "Objectif difficile, soyez prudent sur la progression.";
-        return "Objectif très élevé, écoutez votre corps avant tout.";
+        if (s === 2) return "Objectif difficile, sois prudent sur la progression.";
+        return "Objectif très élevé, écoute ton corps avant tout.";
     };
 
     return (
@@ -108,9 +108,9 @@ const PlanHero: React.FC<PlanHeroProps> = ({ plan }) => {
                                 <p className="whitespace-pre-line">{plan.welcomeMessage}</p>
                             ) : (
                                 <p>
-                                    {plan.feasibility?.message || "Bienvenue dans votre plan !"}
+                                    {plan.feasibility?.message || "Bienvenue dans ton plan !"}
                                     <br /><br />
-                                    <span className="font-bold text-indigo-600">Note de sécurité :</span> {plan.feasibility?.safetyWarning || "Soyez à l'écoute de vos sensations."}
+                                    <span className="font-bold text-indigo-600">Note de sécurité :</span> {plan.feasibility?.safetyWarning || "Sois à l'écoute de tes sensations."}
                                 </p>
                             )}
                         </div>

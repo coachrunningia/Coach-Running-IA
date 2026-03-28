@@ -55,9 +55,9 @@
         ]
       },
       {
-        "source": "/index.html",
+        "source": "!(assets/**|**/*.js|**/*.css|**/*.png|**/*.jpg|**/*.svg|**/*.ico|**/*.webp|**/*.woff2)",
         "headers": [
-          { "key": "Cache-Control", "value": "no-cache" }
+          { "key": "Cache-Control", "value": "no-cache, no-store, must-revalidate" }
         ]
       }
     ],

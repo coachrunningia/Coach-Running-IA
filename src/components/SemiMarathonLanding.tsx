@@ -44,10 +44,14 @@ const SemiMarathonLanding: React.FC<SemiMarathonLandingProps> = ({ user, onPlanG
   return (
     <div className="bg-white">
       <Helmet>
-        <title>Plan Semi-Marathon - Programme 21km Personnalisé par IA | Coach Running IA</title>
-        <meta name="description" content="Créez votre plan semi-marathon personnalisé par IA en 2 min. Programme 8-16 semaines adapté à votre niveau, export Garmin/Coros. 1ère semaine gratuite." />
-        <meta name="keywords" content="plan semi marathon, plan entraînement semi marathon, programme semi marathon, préparation 21km, plan semi marathon débutant, plan semi personnalisé" />
+        <title>Plan Semi-Marathon Personnalisé par IA | Objectif 1h30 à 2h30 | Coach Running IA</title>
+        <meta name="description" content="Préparez votre semi-marathon avec un plan IA sur-mesure : 8 à 16 semaines, 3 à 4 séances/semaine. Objectifs sub 2h, 1h45 ou 1h30. Allures calculées sur votre VMA. 1ère semaine gratuite." />
+        <meta name="keywords" content="plan semi marathon, plan entraînement semi marathon, programme semi marathon 12 semaines, plan semi marathon 1h45, plan semi marathon débutant, préparation 21km personnalisée" />
         <link rel="canonical" href="https://coachrunningia.fr/plan-semi-marathon" />
+        <meta property="og:title" content="Plan Semi-Marathon Personnalisé par IA | Coach Running IA" />
+        <meta property="og:description" content="Programme 21km sur-mesure : 8-16 semaines, allures VMA, objectifs de 1h30 à 2h30. Premier semi ou record perso. Gratuit pour tester." />
+        <meta property="og:url" content="https://coachrunningia.fr/plan-semi-marathon" />
+        <meta property="og:image" content="https://coachrunningia.fr/og-image.png" />
         <script type="application/ld+json">{JSON.stringify({
           "@context": "https://schema.org",
           "@type": "FAQPage",
@@ -108,31 +112,31 @@ const SemiMarathonLanding: React.FC<SemiMarathonLandingProps> = ({ user, onPlanG
         </div>
       </section>
 
-      {/* SECTION: POURQUOI PAS CHATGPT */}
+      {/* SECTION: PREMIER SEMI VS RECORD PERSO */}
       <section className="py-16 md:py-24 bg-white">
         <div className="max-w-5xl mx-auto px-4">
           <div className="text-center mb-12">
-            <p className="text-accent font-bold text-sm tracking-wider uppercase mb-3">La question qu'on nous pose le plus</p>
+            <p className="text-accent font-bold text-sm tracking-wider uppercase mb-3">Un plan 21km adapté à votre objectif</p>
             <h2 className="text-3xl md:text-4xl font-black text-slate-900 mb-4">
-              "Je peux faire pareil avec ChatGPT, non ?"
+              Premier semi ou record perso : pas le même plan
             </h2>
             <p className="text-slate-500 max-w-2xl mx-auto text-lg">
-              Pas vraiment. Et voici pourquoi.
+              Un plan "sub 1h45" trouvé en ligne n'a aucun sens si votre VMA ne le permet pas encore. L'IA adapte tout à votre niveau réel.
             </p>
           </div>
           <div className="grid md:grid-cols-2 gap-6 max-w-4xl mx-auto">
             <div className="bg-slate-50 rounded-2xl p-6 border border-slate-200">
               <div className="flex items-center gap-3 mb-4">
-                <div className="w-10 h-10 bg-slate-200 rounded-xl flex items-center justify-center text-lg">{"🤖"}</div>
-                <h3 className="font-bold text-slate-400 text-lg">ChatGPT</h3>
+                <div className="w-10 h-10 bg-slate-200 rounded-xl flex items-center justify-center text-lg">{"📄"}</div>
+                <h3 className="font-bold text-slate-400 text-lg">Plan semi-marathon standard</h3>
               </div>
               <div className="space-y-3 text-slate-400 text-sm">
-                <div className="flex items-start gap-2"><X size={16} className="text-red-400 mt-0.5 shrink-0" /><span>Génère un plan à partir de tout ce qui existe en ligne — <strong>sans distinguer les bons des mauvais conseils</strong></span></div>
-                <div className="flex items-start gap-2"><X size={16} className="text-red-400 mt-0.5 shrink-0" /><span>Aucune validation médicale sur le renforcement musculaire</span></div>
-                <div className="flex items-start gap-2"><X size={16} className="text-red-400 mt-0.5 shrink-0" /><span>Oublie tout entre chaque conversation</span></div>
-                <div className="flex items-start gap-2"><X size={16} className="text-red-400 mt-0.5 shrink-0" /><span>Aucun suivi réel de ta progression</span></div>
-                <div className="flex items-start gap-2"><X size={16} className="text-red-400 mt-0.5 shrink-0" /><span>Pas d'analyse de tes performances Strava</span></div>
-                <div className="flex items-start gap-2"><X size={16} className="text-red-400 mt-0.5 shrink-0" /><span>Plan en texte brut — pas de calendrier, pas d'export, pas de suivi</span></div>
+                <div className="flex items-start gap-2"><X size={16} className="text-red-400 mt-0.5 shrink-0" /><span>Un seul plan pour tous — <strong>sub 1h45 ou finisher, même programme</strong></span></div>
+                <div className="flex items-start gap-2"><X size={16} className="text-red-400 mt-0.5 shrink-0" /><span>Allure spécifique imposée sans connaître votre VMA réelle</span></div>
+                <div className="flex items-start gap-2"><X size={16} className="text-red-400 mt-0.5 shrink-0" /><span>Toujours 3 séances/semaine — même si vous pouvez en faire 4</span></div>
+                <div className="flex items-start gap-2"><X size={16} className="text-red-400 mt-0.5 shrink-0" /><span>Aucune prise en compte de vos jours disponibles</span></div>
+                <div className="flex items-start gap-2"><X size={16} className="text-red-400 mt-0.5 shrink-0" /><span>Pas de suivi — si vous ratez une semaine, tout décale</span></div>
+                <div className="flex items-start gap-2"><X size={16} className="text-red-400 mt-0.5 shrink-0" /><span>Renforcement musculaire absent ou générique</span></div>
               </div>
             </div>
             <div className="bg-gradient-to-br from-orange-50 to-amber-50 rounded-2xl p-6 border-2 border-accent/30 relative">
@@ -142,17 +146,17 @@ const SemiMarathonLanding: React.FC<SemiMarathonLandingProps> = ({ user, onPlanG
                 <h3 className="font-bold text-slate-900 text-lg">Coach Running IA</h3>
               </div>
               <div className="space-y-3 text-slate-700 text-sm">
-                <div className="flex items-start gap-2"><CheckCircle size={16} className="text-green-500 mt-0.5 shrink-0" /><span>Entraîné sur des <strong>milliers de plans validés par des professionnels</strong></span></div>
-                <div className="flex items-start gap-2"><CheckCircle size={16} className="text-green-500 mt-0.5 shrink-0" /><span>Renforcement musculaire avec <strong>regard médical et exercices spécifiques</strong></span></div>
-                <div className="flex items-start gap-2"><CheckCircle size={16} className="text-green-500 mt-0.5 shrink-0" /><span><strong>Questionnaire personnalisé</strong> — VMA, objectif, jours dispo, blessures</span></div>
-                <div className="flex items-start gap-2"><CheckCircle size={16} className="text-green-500 mt-0.5 shrink-0" /><span><strong>Feedback hebdomadaire</strong> — le plan s'adapte à ton ressenti sans perdre le contexte</span></div>
-                <div className="flex items-start gap-2"><CheckCircle size={16} className="text-green-500 mt-0.5 shrink-0" /><span><strong>Analyse mensuelle Strava</strong> — bilan sur tes performances réelles</span></div>
-                <div className="flex items-start gap-2"><CheckCircle size={16} className="text-green-500 mt-0.5 shrink-0" /><span><strong>Plan structuré</strong> semaine par semaine avec calendrier visuel et export agenda</span></div>
+                <div className="flex items-start gap-2"><CheckCircle size={16} className="text-green-500 mt-0.5 shrink-0" /><span><strong>Objectif chrono réaliste</strong> calculé sur votre VMA — sub 2h, 1h45 ou 1h30</span></div>
+                <div className="flex items-start gap-2"><CheckCircle size={16} className="text-green-500 mt-0.5 shrink-0" /><span><strong>Allure spécifique semi</strong> calibrée à 80-85% de votre VMA réelle</span></div>
+                <div className="flex items-start gap-2"><CheckCircle size={16} className="text-green-500 mt-0.5 shrink-0" /><span><strong>2, 3 ou 4 séances/semaine</strong> — le plan s'adapte à votre emploi du temps</span></div>
+                <div className="flex items-start gap-2"><CheckCircle size={16} className="text-green-500 mt-0.5 shrink-0" /><span><strong>Jours d'entraînement choisis</strong> — mardi/jeudi/dimanche ou toute autre combinaison</span></div>
+                <div className="flex items-start gap-2"><CheckCircle size={16} className="text-green-500 mt-0.5 shrink-0" /><span><strong>Feedback hebdomadaire</strong> — l'IA réajuste si vous êtes fatigué ou en forme</span></div>
+                <div className="flex items-start gap-2"><CheckCircle size={16} className="text-green-500 mt-0.5 shrink-0" /><span><strong>Renforcement musculaire ciblé</strong> pour prévenir les blessures sur 21 km</span></div>
               </div>
             </div>
           </div>
           <p className="text-center text-slate-400 text-sm mt-8 max-w-xl mx-auto">
-            ChatGPT est un outil génial — mais généraliste. Coach Running IA est un <strong className="text-slate-600">spécialiste de l'entraînement running</strong>, conçu pour une seule mission : te faire progresser.
+            Le semi-marathon est souvent la première course "sérieuse". Autant <strong className="text-slate-600">partir avec un plan taillé pour vous</strong> plutôt qu'un tableau Excel trouvé sur un forum.
           </p>
         </div>
       </section>

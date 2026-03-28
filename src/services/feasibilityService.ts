@@ -10,7 +10,7 @@
 
 export interface FeasibilityResult {
   score: number;            // 0-100
-  status: 'EXCELLENT' | 'BON' | 'AMBITIEUX' | 'RISQUÉ';
+  status: 'EXCELLENT' | 'BON' | 'AMBITIEUX' | 'RISQUÉ' | 'IRRÉALISTE';
   message: string;          // Message concret avec chiffres (FR)
   safetyWarning: string;    // Avertissement sécurité (FR)
   alternativeTarget?: string; // Objectif alternatif si cible irréaliste
@@ -29,9 +29,11 @@ export interface FeasibilityParams {
   trailDistance?: number;    // Distance trail en km
   hasInjury: boolean;
   hasChrono: boolean;       // true si on a un vrai chrono de course, false si VMA estimée
+  vmaFromTarget?: boolean;  // true si VMA recalculée depuis l'objectif (raisonnement circulaire)
   age?: number;
   weight?: number;
   height?: number;
+  frequency?: number;       // séances par semaine
 }
 
 // ---------------------------------------------------------------------------
@@ -54,6 +56,12 @@ export function parseTargetTime(target: string): number | null {
     .toLowerCase()
     .replace(/^sub[- ]?/, '')   // enlever "sub-" / "sub "
     .replace(/\s+/g, '');
+
+  // Format "XXmin" (sans heures, ex. "30min", "45min")
+  const minOnlyMatch = cleaned.match(/^(\d{1,3})min$/);
+  if (minOnlyMatch) {
+    return parseInt(minOnlyMatch[1], 10);
+  }
 
   // Format "XhYY" / "XhYYmin" / "Xh"
   const hMinMatch = cleaned.match(/^(\d{1,2})h(\d{0,2})(min)?$/);
@@ -139,7 +147,20 @@ function getVmaFactor(distanceKm: number): number {
 }
 
 /**
+ * Calcule la distance équivalente plate pour un trail avec D+.
+ * Règle standard trail : chaque 100m de D+ ≈ 1km de distance plate supplémentaire.
+ * On ajoute aussi un facteur pour le terrain technique (sentier vs route).
+ */
+function getEquivalentFlatDistance(distanceKm: number, elevationM?: number): number {
+  if (!elevationM || elevationM <= 0) return distanceKm;
+  // Chaque 100m D+ ≈ 1km plat (règle de Kilian / standard trail)
+  const elevationEquivalent = elevationM / 100;
+  return distanceKm + elevationEquivalent;
+}
+
+/**
  * Calcule le temps théorique en minutes pour une distance donnée à une certaine VMA.
+ * Pour le trail, utiliser getEquivalentFlatDistance AVANT d'appeler cette fonction.
  */
 function theoreticalTimeMinutes(vma: number, distanceKm: number): number {
   const factor = getVmaFactor(distanceKm);
@@ -191,8 +212,9 @@ export function calculateFeasibility(params: FeasibilityParams): FeasibilityResu
   const isTrail = goal.toLowerCase().includes('trail');
   const beginner = isBeginner(level);
   const intermediate = isIntermediate(level);
-  const isMarathon = distanceKm !== null && distanceKm >= 42;
-  const isSemi = distanceKm !== null && distanceKm >= 21 && distanceKm < 42;
+  // isMarathon/isSemi uniquement pour course sur route, pas trail
+  const isMarathon = !isTrail && distanceKm !== null && distanceKm >= 42;
+  const isSemi = !isTrail && distanceKm !== null && distanceKm >= 21 && distanceKm < 42;
 
   // -----------------------------------------------------------------------
   // Cas Trail sans distance standard ou objectif "Finisher" (pas de temps)
@@ -209,10 +231,37 @@ export function calculateFeasibility(params: FeasibilityParams): FeasibilityResu
   // -----------------------------------------------------------------------
   // Temps théorique et écart
   // -----------------------------------------------------------------------
-  const theoMinutes = theoreticalTimeMinutes(vma, distanceKm);
+  // Pour le trail avec D+, utiliser la distance équivalente plate
+  const effectiveDistanceKm = isTrail
+    ? getEquivalentFlatDistance(distanceKm, params.trailElevation)
+    : distanceKm;
+  const theoMinutes = theoreticalTimeMinutes(vma, effectiveDistanceKm);
   // Un temps cible inférieur au théorique = plus rapide = plus ambitieux → écart positif
   const gapPercent = ((theoMinutes - targetMinutes) / theoMinutes) * 100;
   // gapPercent > 0 signifie que la cible est PLUS RAPIDE que le théorique
+
+  // -----------------------------------------------------------------------
+  // Objectif physiquement impossible (VMA requise > 130% de VMA actuelle)
+  // On laisse de la marge pour la progression en entraînement (5-15% VMA
+  // possible sur un plan de 12-20 semaines). IRRÉALISTE = vraiment hors
+  // de portée, même avec progression optimale.
+  // -----------------------------------------------------------------------
+  const vmaNeededForTarget = requiredVmaForTarget(targetMinutes, effectiveDistanceKm);
+  const vmaRatioPercent = Math.round((vmaNeededForTarget / vma) * 100);
+  if (vmaRatioPercent >= 130) {
+    const theoFormatted = formatTime(theoMinutes);
+    const realisticMinutes = theoMinutes * 1.05;
+    const alternativeTarget = formatTime(realisticMinutes);
+    const safetyWarning = buildSafetyWarning(beginner, isMarathon, isSemi, hasInjury, 'IRRÉALISTE', params.weight, params.height);
+
+    return {
+      score: 5,
+      status: 'IRRÉALISTE',
+      message: `Ton objectif de ${formatTime(targetMinutes)} sur ${distance} nécessiterait une VMA de ${vmaNeededForTarget.toFixed(1)} km/h, soit ${vmaRatioPercent}% de ta VMA actuelle (${vma.toFixed(1)} km/h). Même avec une progression optimale, cet écart est trop important. Ton temps théorique est de ${theoFormatted}. Un objectif réaliste serait autour de ${alternativeTarget}.`,
+      safetyWarning,
+      alternativeTarget,
+    };
+  }
 
   let score: number;
   let status: FeasibilityResult['status'];
@@ -294,6 +343,16 @@ export function calculateFeasibility(params: FeasibilityParams): FeasibilityResu
     score = Math.min(score, 60);
   }
 
+  // VMA basse + objectif ambitieux → pénalité supplémentaire
+  // Plus la VMA est basse, plus chaque % d'amélioration est difficile à obtenir.
+  // Ex: VMA 9.6 → gagner 13% = +1.5 km/h de VMA, énorme pour un débutant
+  // Ex: VMA 17.7 → gagner 13% = +2.3 km/h mais sur une base déjà haute = progression naturelle
+  if (vma < 12 && gapPercent > 5) {
+    const lowVmaPenalty = Math.round((12 - vma) * (gapPercent - 5) * 0.5);
+    score -= lowVmaPenalty;
+    reasons.push({ type: 'warn', text: `ta VMA actuelle (${vma.toFixed(1)} km/h) laisse peu de marge de progression — chaque minute gagnée demande un effort d'entraînement important` });
+  }
+
   // Intermédiaire + sub-1h20 semi → très ambitieux
   if (intermediate && isSemi && targetMinutes < 80) {
     score = Math.min(score, 50);
@@ -319,12 +378,20 @@ export function calculateFeasibility(params: FeasibilityParams): FeasibilityResu
     }
   }
 
-  // Pas de chrono + objectif temps précis → plafonner à 65
+  // Pas de chrono + objectif temps précis → plafonner
+  // MAIS si l'objectif est très confortable (cible ≥ 110% du théorique = gapPercent ≤ -10),
+  // la marge d'incertitude sur la VMA est absorbée → cap relevé à 80 (BON)
   if (!hasChrono && hasTimeTarget) {
-    score = Math.min(score, 65);
-    if (score <= 65) {
-      status = resolveStatus(score);
-    }
+    const noChronoCap = gapPercent <= -10 ? 80 : 65;
+    score = Math.min(score, noChronoCap);
+    status = resolveStatus(score);
+  }
+
+  // VMA recalculée depuis l'objectif → raisonnement circulaire, confiance très faible
+  // Le théorique est mathématiquement dérivé de la cible → la comparaison n'a pas de sens
+  if (params.vmaFromTarget && hasTimeTarget) {
+    score = Math.min(score, 50);
+    status = resolveStatus(score);
   }
 
   // Blessure → -10
@@ -351,7 +418,7 @@ export function calculateFeasibility(params: FeasibilityParams): FeasibilityResu
   // -----------------------------------------------------------------------
   // Messages
   // -----------------------------------------------------------------------
-  const vmaNeeded = requiredVmaForTarget(targetMinutes, distanceKm);
+  const vmaNeeded = requiredVmaForTarget(targetMinutes, effectiveDistanceKm);
   const theoFormatted = formatTime(theoMinutes);
   const targetFormatted = formatTime(targetMinutes);
 
@@ -359,7 +426,17 @@ export function calculateFeasibility(params: FeasibilityParams): FeasibilityResu
     vma, theoFormatted, targetFormatted, vmaNeeded,
     distanceKm, distance, score, status, beginner,
     planWeeks, isMarathon, isSemi, hasChrono, currentVolume, targetMinutes,
+    isTrail, params.trailElevation, level,
   );
+
+  // VMA circulaire : remplacer le message par un avertissement clair
+  if (params.vmaFromTarget) {
+    const distLabel = isMarathon ? 'marathon' : isSemi ? 'semi-marathon' : `${distanceKm}km`;
+    message = `Ta VMA est estimée à ${vma.toFixed(1)} km/h à partir de ton objectif de ${targetFormatted} sur ${distLabel} (pas de chrono de référence). Sans donnée réelle, il nous est difficile d'évaluer précisément la faisabilité de cet objectif. Nous te recommandons de réaliser un test VMA ou de renseigner un chrono récent (5km, 10km, semi) pour affiner ton plan et tes allures.`;
+    if (hasInjury) {
+      message += ` Attention : tes blessures déclarées nécessitent une vigilance particulière. Consulte un professionnel de santé avant de démarrer.`;
+    }
+  }
 
   let alternativeTarget: string | undefined;
   if (status === 'AMBITIEUX' || status === 'RISQUÉ') {
@@ -389,123 +466,257 @@ function buildFinisherFeasibility(
   let score = 80; // Base confortable pour un objectif finisher
   let status: FeasibilityResult['status'] = 'BON';
 
+  // Tracking des raisons (positives et négatives) pour construire le message
+  const reasons: { type: 'risk' | 'warn' | 'good'; text: string }[] = [];
+  const trailElev = params.trailElevation || 0;
+  const trailRatio = trailElev > 0 && params.trailDistance ? Math.round(trailElev / params.trailDistance) : 0;
+  const currentElev = params.currentWeeklyElevation || 0;
+  const intermediate = isIntermediate(level);
+
   // -----------------------------------------------------------------------
-  // Débutant + Ultra trail (60km+) → quasi-bloquant
+  // Débutant + Trail
   // -----------------------------------------------------------------------
   if (beginner && isTrail && distanceKm !== null && distanceKm >= 60) {
-    score = clamp(15, 10, 20); // RISQUÉ plancher — ultra débutant = irréaliste
+    score = clamp(15, 10, 20);
+    reasons.push({ type: 'risk', text: `un ultra-trail de ${distanceKm}km n'est pas adapté pour un débutant — il faut plusieurs années d'expérience trail` });
   } else if (beginner && isTrail && distanceKm !== null && distanceKm >= 42) {
-    score = clamp(30, 25, 35); // Trail marathon débutant = très ambitieux
+    score = clamp(30, 25, 35);
+    reasons.push({ type: 'risk', text: `un trail de ${distanceKm}km est très ambitieux pour un débutant — vise d'abord un trail de 20-25km` });
   } else if (beginner && isTrail && distanceKm !== null && distanceKm >= 30) {
-    score = Math.min(score, 55); // Trail long débutant = ambitieux
+    score = Math.min(score, 55);
+    reasons.push({ type: 'warn', text: `trail de ${distanceKm}km pour un débutant : la distance combinée au D+ demande une solide base` });
+  } else if (beginner && isTrail && distanceKm !== null && distanceKm >= 15) {
+    score = Math.min(score, 65);
+    if (params.trailElevation && params.trailElevation >= 500) score -= 5;
+    if (params.trailElevation && params.trailElevation >= 1000) score -= 5;
+    reasons.push({ type: 'warn', text: `trail de ${distanceKm}km pour un débutant : progression prudente nécessaire, alterne marche/course en montée` });
   } else if (beginner && isTrail) {
-    score -= 10; // Trail court débutant = pénalité légère (technique, D+)
+    score -= 15;
+    reasons.push({ type: 'warn', text: `le trail demande de la technique même sur courte distance — sois progressif` });
   }
 
-  // Intermédiaire + ultra 100km+ → très ambitieux
-  const intermediate = isIntermediate(level);
+  // Intermédiaire + ultra
   if (intermediate && isTrail && distanceKm !== null && distanceKm >= 100) {
-    score = Math.min(score, 50); // Ultra 100km+ intermédiaire = ambitieux
+    score = Math.min(score, 50);
+    reasons.push({ type: 'risk', text: `un ultra de ${distanceKm}km demande une expérience significative même pour un intermédiaire` });
   } else if (intermediate && isTrail && distanceKm !== null && distanceKm >= 60) {
-    score = Math.min(score, 60); // Ultra 60km+ intermédiaire = à surveiller
+    score = Math.min(score, 60);
+    reasons.push({ type: 'warn', text: `un ultra de ${distanceKm}km en intermédiaire : la gestion de l'effort sera clé` });
   }
 
   // Débutant + marathon < 12 semaines
   if (beginner && isMarathon && planWeeks < 12) {
     score = Math.min(score, 40);
+    reasons.push({ type: 'risk', text: `marathon débutant en ${planWeeks} semaines : minimum 16-20 semaines recommandées` });
   }
 
-  // Préparation courte
-  if (isSemi && planWeeks < 8) score -= 15;
-  if (isMarathon && planWeeks < 12) score -= 20;
+  // Préparation courte (route)
+  if (isSemi && planWeeks < 8) { score -= 15; reasons.push({ type: 'warn', text: `${planWeeks} semaines pour un semi-marathon, c'est court — 8 à 12 semaines recommandées` }); }
+  if (isMarathon && planWeeks < 12) { score -= 20; reasons.push({ type: 'risk', text: `${planWeeks} semaines pour un marathon, c'est insuffisant — 12 à 16 semaines minimum` }); }
+
+  // Trail : préparation trop courte
+  if (isTrail && distanceKm !== null) {
+    if (distanceKm >= 60 && planWeeks < 20) {
+      score -= 25;
+      if (planWeeks < 12) score -= 15;
+      reasons.push({ type: 'risk', text: `${planWeeks} semaines pour un ultra de ${distanceKm}km est dangereux — 20+ semaines sont nécessaires` });
+    } else if (distanceKm >= 42 && planWeeks < 16) {
+      score -= 20;
+      if (planWeeks < 10) score -= 15;
+      reasons.push({ type: 'risk', text: `${planWeeks} semaines pour un trail de ${distanceKm}km, c'est court — 16 à 20 semaines idéalement` });
+    } else if (distanceKm >= 30 && planWeeks < 12) {
+      score -= 15;
+      if (planWeeks < 8) score -= 10;
+      reasons.push({ type: 'warn', text: `${planWeeks} semaines pour un trail de ${distanceKm}km : 12 à 16 semaines recommandées` });
+    } else if (distanceKm >= 15 && planWeeks < 8) {
+      score -= 10;
+      reasons.push({ type: 'warn', text: `${planWeeks} semaines pour un trail de ${distanceKm}km est un peu juste` });
+    }
+  }
 
   // Volume insuffisant
   if (currentVolume !== undefined && currentVolume > 0) {
-    if (isMarathon && currentVolume < 30) score -= 20;
-    else if (isSemi && currentVolume < 20) score -= 15;
+    if (isMarathon && currentVolume < 30) { score -= 20; reasons.push({ type: 'risk', text: `volume actuel de ${currentVolume}km/sem insuffisant pour un marathon (30km/sem minimum)` }); }
+    else if (isSemi && currentVolume < 20) { score -= 15; reasons.push({ type: 'warn', text: `volume actuel de ${currentVolume}km/sem un peu faible pour un semi (20km/sem minimum)` }); }
   }
 
   // Trail long avec peu de volume
   if (isTrail && distanceKm !== null && distanceKm > 42 && (currentVolume ?? 0) < 40) {
     score -= 20;
+    if ((currentVolume ?? 0) === 0) {
+      reasons.push({ type: 'risk', text: `aucun volume hebdomadaire déclaré pour un trail de ${distanceKm}km — la montée en charge sera très importante` });
+    } else {
+      reasons.push({ type: 'risk', text: `volume actuel de ${currentVolume}km/sem insuffisant pour un trail de ${distanceKm}km (40km/sem recommandés)` });
+    }
+  }
+
+  // Trail moyen (15-42km) avec peu de volume
+  if (isTrail && distanceKm !== null && distanceKm >= 15 && distanceKm <= 42) {
+    if ((currentVolume ?? 0) === 0) {
+      score -= 15;
+      reasons.push({ type: 'risk', text: `aucun volume hebdomadaire déclaré : la progression devra être très prudente` });
+    } else if ((currentVolume ?? 0) < 20) {
+      score -= 10;
+      reasons.push({ type: 'warn', text: `volume actuel de ${currentVolume}km/sem un peu faible pour cette distance` });
+    }
   }
 
   // Trail elevation analysis
   if (isTrail && params.trailElevation && params.trailDistance) {
     const ratio = params.trailElevation / params.trailDistance;
-    const currentElev = params.currentWeeklyElevation || 0;
 
-    // High ratio (>80 D+/km) = very technical/steep trail
     if (ratio > 80 && beginner) {
       score -= 15;
+      reasons.push({ type: 'risk', text: `ratio D+/km de ${trailRatio}m/km très élevé pour un débutant — terrain très exigeant` });
     } else if (ratio > 100) {
-      score -= 10; // Extreme ratio even for experienced
+      score -= 10;
+      reasons.push({ type: 'warn', text: `ratio D+/km de ${trailRatio}m/km extrême — la gestion en montée sera déterminante` });
+    } else if (ratio > 60 && trailElev > 0) {
+      reasons.push({ type: 'warn', text: `${trailRatio}m D+/km : terrain vallonné, la gestion des montées comptera` });
     }
 
     // Ultra trail tier penalties
     if (params.trailDistance >= 100 && planWeeks < 16) {
-      score -= 20; // 100km+ needs 16+ weeks minimum
+      score -= 20;
     } else if (params.trailDistance >= 80 && planWeeks < 14) {
-      score -= 15; // 80km+ needs 14+ weeks
+      score -= 15;
     }
 
     // Current weekly elevation vs race elevation gap
     if (currentElev > 0 && params.trailElevation > 0) {
-      // If current weekly D+ is < 20% of race D+, it's a big gap
       if (currentElev < params.trailElevation * 0.15) {
         score -= 20;
+        reasons.push({ type: 'risk', text: `ton D+ hebdo actuel (${currentElev}m) est très loin des ${params.trailElevation}m de la course — gros travail à faire` });
       } else if (currentElev < params.trailElevation * 0.25) {
         score -= 10;
+        reasons.push({ type: 'warn', text: `ton D+ hebdo actuel (${currentElev}m) est bas par rapport aux ${params.trailElevation}m de la course` });
       }
-    } else if (currentElev === 0 && params.trailElevation > 1500) {
-      // No current elevation training + big D+ race
-      score -= 15;
+    } else if (currentElev === 0 && params.trailElevation > 0) {
+      if (params.trailElevation >= 1500) {
+        score -= 20;
+        reasons.push({ type: 'risk', text: `aucun entraînement en D+ pour ${params.trailElevation}m de dénivelé — intègre du D+ progressivement dès le début` });
+      } else if (params.trailElevation >= 500) {
+        score -= 12;
+        reasons.push({ type: 'warn', text: `pas d'entraînement en D+ actuellement pour ${params.trailElevation}m de dénivelé — à travailler` });
+      } else {
+        score -= 5;
+      }
     }
   }
 
-  if (hasInjury) score -= 10;
+  if (hasInjury) { score -= 10; reasons.push({ type: 'warn', text: `blessure déclarée : adapte les séances et consulte un professionnel de santé` }); }
+
+  // VMA estimée (pas de chrono) → confiance réduite sur l'évaluation
+  if (!params.hasChrono) {
+    score -= 10;
+    reasons.push({ type: 'warn', text: `VMA estimée (pas de chrono validé) : l'évaluation comporte une marge d'incertitude` });
+  }
+
+  // Bonus : volume courant élevé par rapport à la distance
+  // MAIS pas si on a déjà un warn/risk sur le volume (sinon contradiction dans le message)
+  const hasVolumeWarn = reasons.some(r => (r.type === 'warn' || r.type === 'risk') && r.text.includes('volume'));
+  if (currentVolume !== undefined && currentVolume > 0 && distanceKm !== null && !hasVolumeWarn) {
+    if (currentVolume >= distanceKm * 0.50) {
+      score += 15;
+      reasons.push({ type: 'good', text: `ton volume actuel de ${currentVolume}km/sem est une excellente base pour cette distance` });
+    } else if (currentVolume >= distanceKm * 0.30) {
+      score += 8;
+      reasons.push({ type: 'good', text: `ton volume actuel de ${currentVolume}km/sem est un bon point de départ` });
+    }
+  }
+
+  // Bonus : prep longue et volume élevé
+  if (!beginner && planWeeks >= 16 && (currentVolume ?? 0) >= 40) {
+    score += 5;
+    reasons.push({ type: 'good', text: `${planWeeks} semaines de préparation avec un bon volume : conditions favorables` });
+  }
+
+  // Avertissement fréquence insuffisante pour un plan long
+  const frequency = params.frequency;
+  if (frequency && planWeeks && planWeeks > 16 && frequency <= 3) {
+    reasons.push({ type: 'warn', text: `avec ${frequency} séances/semaine sur ${planWeeks} semaines, chaque séance sera très chargée en volume — passer à 4 séances rendrait le plan plus équilibré` });
+  }
+
+  // Avertissement volume < minimum viable par niveau
+  if (currentVolume !== undefined && currentVolume > 0) {
+    const minStartByLevel: Record<string, number> = {
+      'Débutant (0-1 an)': 8, 'Intermédiaire (Régulier)': 15,
+      'Confirmé (Compétition)': 20, 'Expert (Performance)': 25,
+    };
+    const minStart = Object.entries(minStartByLevel).find(([k]) => (level || '').includes(k))?.[1] || 15;
+    if (currentVolume < minStart) {
+      reasons.push({ type: 'warn', text: `ton volume actuel (${currentVolume} km/sem) est en dessous du minimum pour ton niveau (${minStart} km/sem) — le plan démarrera légèrement au-dessus` });
+    }
+  }
 
   score = clamp(score, 10, 100);
   status = resolveStatus(score);
 
-  // Message
+  // -----------------------------------------------------------------------
+  // Construction du message personnalisé à partir des raisons trackées
+  // -----------------------------------------------------------------------
+  const riskReasons = reasons.filter(r => r.type === 'risk');
+  const warnReasons = reasons.filter(r => r.type === 'warn');
+  const goodReasons = reasons.filter(r => r.type === 'good');
+
   let message: string;
-  if (isTrail && distanceKm !== null) {
-    const trailElev = params.trailElevation || 0;
-    const ratio = trailElev > 0 && params.trailDistance ? Math.round(trailElev / params.trailDistance) : 0;
-    message = `Avec ta VMA de ${vma.toFixed(1)} km/h, tu as une base solide pour aborder cette épreuve.`;
-    if (trailElev > 0) {
-      message += ` Trail de ${distanceKm}km avec ${trailElev}m D+ (${ratio}m/km).`;
-      if (ratio > 80) {
-        message += ` Le ratio D+/km est élevé : la gestion de l'effort en montée sera déterminante.`;
-      }
+
+  // Intro contextualisée
+  const goalLower = params.goal.toLowerCase();
+  const isPertePoids = goalLower.includes('perte');
+  const isMaintien = goalLower.includes('maintien') || goalLower.includes('remise');
+  const isNonRace = isPertePoids || isMaintien;
+
+  const distLabel = isNonRace
+    ? (isPertePoids ? 'programme perte de poids' : 'programme remise en forme')
+    : isTrail && distanceKm
+      ? `trail de ${distanceKm}km${trailElev > 0 ? ` / ${trailElev}m D+` : ''}`
+      : isMarathon ? 'marathon' : isSemi ? 'semi-marathon' : distanceKm ? `${distanceKm}km` : 'cette course';
+
+  if (isNonRace) {
+    // Messages spécifiques pour objectifs non-compétitifs
+    if (status === 'EXCELLENT' || status === 'BON') {
+      message = `Ton ${distLabel} sur ${planWeeks} semaines est bien calibré pour ton profil. Avec ta VMA de ${vma.toFixed(1)} km/h, concentre-toi sur la régularité et le plaisir.`;
+    } else {
+      message = `Ton ${distLabel} est ambitieux mais faisable. Sois progressif et écoute ton corps.`;
     }
-    if (distanceKm > 42) {
-      message += ` L'endurance, la nutrition et la gestion de l'effort seront clés.`;
-    }
-    if (distanceKm >= 100) {
-      message += ` Sur un ultra de ${distanceKm}km, la gestion mentale et le ravitaillement sont aussi importants que la condition physique.`;
-    }
-    if (beginner) {
-      message += ` En tant que débutant, concentre-toi sur la régularité et l'écoute de ton corps.`;
-    }
-  } else if (isMarathon) {
-    const theoMarathon = formatTime(theoreticalTimeMinutes(vma, 42.195));
-    message = `Avec ta VMA de ${vma.toFixed(1)} km/h, ton temps théorique marathon est d'environ ${theoMarathon}. Objectif finisher : concentre-toi sur la régularité.`;
-  } else if (isSemi) {
-    const theoSemi = formatTime(theoreticalTimeMinutes(vma, 21.1));
-    message = `Avec ta VMA de ${vma.toFixed(1)} km/h, ton temps théorique semi est d'environ ${theoSemi}. Sans objectif de temps, profite de la course !`;
+  } else if (status === 'EXCELLENT') {
+    message = `Ton profil est très bien adapté à ce ${distLabel}. Avec ta VMA de ${vma.toFixed(1)} km/h et ${planWeeks} semaines de préparation, les conditions sont réunies pour une belle course.`;
+  } else if (status === 'BON') {
+    message = `Ton objectif de finisher sur ce ${distLabel} est tout à fait atteignable. Avec ta VMA de ${vma.toFixed(1)} km/h, concentre-toi sur la régularité.`;
+  } else if (status === 'AMBITIEUX') {
+    message = `Ce ${distLabel} est un beau défi. Avec ta VMA de ${vma.toFixed(1)} km/h, c'est faisable mais attention :`;
+  } else if (status === 'RISQUÉ') {
+    message = `Ce ${distLabel} présente des risques sérieux dans ta configuration actuelle.`;
   } else {
-    message = `Avec ta VMA de ${vma.toFixed(1)} km/h, ce plan est adapté à ton profil. Bonne préparation !`;
+    message = `Ce ${distLabel} n'est pas réaliste dans les conditions actuelles.`;
   }
 
-  // Messages spécifiques débutant + trail
-  if (beginner && isTrail && distanceKm !== null && distanceKm >= 60) {
-    message = `Un ultra-trail de ${distanceKm}km n'est pas adapté pour un débutant. Ce type d'épreuve demande plusieurs années d'expérience en trail et un volume d'entraînement conséquent. Je te recommande de commencer par un trail de 20-30km pour acquérir l'expérience technique et l'endurance nécessaires. C'est le meilleur chemin pour progresser en sécurité !`;
-  } else if (beginner && isTrail && distanceKm !== null && distanceKm >= 42) {
-    message = `Un trail de ${distanceKm}km est très ambitieux pour un débutant. La distance combinée au dénivelé demande une solide base d'endurance. Je te conseille de viser un trail de 20-25km d'abord pour te familiariser avec les spécificités du trail (gestion du D+, descentes, ravitaillement).`;
-  } else if (beginner && isMarathon && planWeeks < 12) {
-    message = `Un marathon nécessite minimum 16-20 semaines de préparation pour un débutant. ${planWeeks} semaines, c'est insuffisant pour construire l'endurance nécessaire sans risque de blessure. Nous te recommandons soit de reporter ta course, soit de viser un semi-marathon.`;
+  // Ajouter les raisons selon le status
+  if (riskReasons.length > 0) {
+    message += ' ' + riskReasons.map(r => r.text.charAt(0).toUpperCase() + r.text.slice(1)).join('. ') + '.';
+  }
+  if (warnReasons.length > 0 && (status !== 'EXCELLENT')) {
+    // En status BON, ne montrer qu'un warning max pour ne pas alarmer
+    const showWarns = status === 'BON' ? warnReasons.slice(0, 1) : warnReasons;
+    message += ' ' + showWarns.map(r => r.text.charAt(0).toUpperCase() + r.text.slice(1)).join('. ') + '.';
+  }
+  if (goodReasons.length > 0 && riskReasons.length > 0) {
+    // Quand il y a des risques, montrer aussi les points positifs pour nuancer
+    message += ' Point positif : ' + goodReasons.map(r => r.text).join(', ') + '.';
+  } else if (goodReasons.length > 0 && status === 'BON') {
+    message += ' ' + goodReasons.map(r => r.text.charAt(0).toUpperCase() + r.text.slice(1)).join('. ') + '.';
+  }
+
+  // Conseil final adapté
+  if (status === 'RISQUÉ' || status === 'IRRÉALISTE') {
+    if (beginner && isTrail && distanceKm !== null && distanceKm >= 42) {
+      message += ` Nous te recommandons de viser un trail de 20-25km d'abord pour acquérir l'expérience nécessaire.`;
+    } else {
+      message += ` Écoute ton corps, sois très progressif, et n'hésite pas à adapter le plan si nécessaire.`;
+    }
+  } else if (status === 'AMBITIEUX') {
+    message += ` Suis le plan avec rigueur et régularité, c'est la clé pour y arriver.`;
   }
 
   const safetyWarning = buildSafetyWarning(beginner, isMarathon, isSemi, hasInjury, status, params.weight, params.height);
@@ -533,10 +744,16 @@ function buildMessage(
   hasChrono: boolean,
   currentVolume?: number,
   targetMinutes?: number,
+  isTrail?: boolean,
+  trailElevation?: number,
+  level?: string,
 ): string {
-  const distanceLabel = distanceKm <= 5 ? '5km'
+  // Label adapté : pour le trail, mentionner distance + D+
+  const distanceLabel = isTrail && trailElevation
+    ? `${distanceKm}km avec ${trailElevation}m D+`
+    : distanceKm <= 5 ? '5km'
     : distanceKm <= 10 ? '10km'
-    : distanceKm <= 21.1 ? 'semi'
+    : distanceKm <= 21.1 ? 'semi-marathon'
     : distanceKm <= 42.195 ? 'marathon'
     : `${distanceKm}km`;
 
@@ -553,15 +770,28 @@ function buildMessage(
   } else if (status === 'BON') {
     parts.push(`Viser ${targetFormatted} est un bel objectif. Avec un entraînement régulier, c'est tout à fait atteignable.`);
   } else if (status === 'AMBITIEUX') {
-    parts.push(
-      `Viser ${targetFormatted} demande une VMA d'environ ${vmaNeeded.toFixed(1)} km/h. C'est un écart significatif par rapport à ton niveau actuel.`
-    );
-    parts.push(`Ce plan te fera progresser, mais un objectif autour de ${theoFormatted} serait plus réaliste pour cette préparation.`);
+    // Si la VMA nécessaire est inférieure à la VMA actuelle, l'objectif est en réalité confortable
+    // mais le score a été capé (ex: pas de chrono). Le message doit refléter ça.
+    if (vmaNeeded < vma) {
+      parts.push(`Ton objectif de ${targetFormatted} est a priori confortable par rapport à ton temps théorique de ${theoFormatted}.`);
+      if (!hasChrono) {
+        parts.push(`Cependant, ta VMA est estimée (pas de chrono validé), ce qui ajoute une marge d'incertitude à cette évaluation.`);
+      }
+    } else {
+      parts.push(
+        `Viser ${targetFormatted} demande une VMA d'environ ${vmaNeeded.toFixed(1)} km/h. C'est un écart significatif par rapport à ton niveau actuel.`
+      );
+      parts.push(`Ce plan te fera progresser, mais un objectif autour de ${theoFormatted} serait plus réaliste pour cette préparation.`);
+    }
   } else {
     // RISQUÉ
-    parts.push(
-      `Viser ${targetFormatted} demande une VMA d'environ ${vmaNeeded.toFixed(1)} km/h. L'écart avec ton niveau actuel (${vma.toFixed(1)} km/h) est très important.`
-    );
+    if (vmaNeeded < vma) {
+      parts.push(`Ton objectif de ${targetFormatted} semble confortable, mais des facteurs de risque limitent la confiance dans cette évaluation.`);
+    } else {
+      parts.push(
+        `Viser ${targetFormatted} demande une VMA d'environ ${vmaNeeded.toFixed(1)} km/h. L'écart avec ton niveau actuel (${vma.toFixed(1)} km/h) est très important.`
+      );
+    }
   }
 
   // Cas concrets débutant
@@ -594,8 +824,9 @@ function buildMessage(
     );
   }
 
-  // Avertissements supplémentaires
-  if (!hasChrono) {
+  // Avertissements supplémentaires (seulement si pas déjà mentionné)
+  const alreadyMentionedChrono = parts.some(p => p.includes('VMA est estimée'));
+  if (!hasChrono && !alreadyMentionedChrono) {
     parts.push(`Note : ta VMA est estimée (pas de chrono de référence), l'évaluation comporte donc une marge d'incertitude.`);
   }
 
@@ -608,10 +839,22 @@ function buildMessage(
   }
 
   if (currentVolume !== undefined && currentVolume > 0) {
+    const distDesc = isTrail ? `un trail de ${distanceKm}km` : isMarathon ? 'un marathon' : 'un semi';
     if (isMarathon && currentVolume < 30) {
-      parts.push(`Ton volume actuel (${currentVolume} km/sem) est bas pour un marathon. La montée en charge sera progressive mais exigeante.`);
+      parts.push(`Ton volume actuel (${currentVolume} km/sem) est bas pour ${distDesc}. La montée en charge sera progressive mais exigeante.`);
     } else if (isSemi && currentVolume < 20) {
-      parts.push(`Ton volume actuel (${currentVolume} km/sem) est bas pour un semi. La montée en charge sera progressive.`);
+      parts.push(`Ton volume actuel (${currentVolume} km/sem) est bas pour ${distDesc}. La montée en charge sera progressive.`);
+    }
+
+    // Avertissement si le volume déclaré est inférieur au minimum viable par niveau
+    // (le plan démarrera au-dessus du volume actuel pour garantir la progression)
+    const minStartByLevel: Record<string, number> = {
+      'Débutant (0-1 an)': 8, 'Intermédiaire (Régulier)': 15,
+      'Confirmé (Compétition)': 20, 'Expert (Performance)': 25,
+    };
+    const minStart = Object.entries(minStartByLevel).find(([k]) => (level || '').includes(k))?.[1] || 15;
+    if (currentVolume < minStart) {
+      parts.push(`Note : ton volume actuel (${currentVolume} km/sem) est en dessous du minimum pour ton niveau (${minStart} km/sem). Le plan démarrera légèrement au-dessus pour garantir une progression cohérente.`);
     }
   }
 
@@ -678,5 +921,6 @@ function resolveStatus(score: number): FeasibilityResult['status'] {
   if (score >= 85) return 'EXCELLENT';
   if (score >= 70) return 'BON';
   if (score >= 55) return 'AMBITIEUX';
-  return 'RISQUÉ';
+  if (score > 10) return 'RISQUÉ';
+  return 'IRRÉALISTE';
 }

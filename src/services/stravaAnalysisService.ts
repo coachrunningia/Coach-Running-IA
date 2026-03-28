@@ -2,7 +2,7 @@
 import { GoogleGenerativeAI } from "@google/generative-ai";
 import { db } from './firebase';
 import { doc, getDoc, updateDoc } from 'firebase/firestore';
-import { Session, Week } from '../types';
+import { Session, Week, StravaActivityMatch } from '../types';
 
 const STRAVA_API_BASE = 'https://www.strava.com/api/v3';
 
@@ -35,24 +35,14 @@ export interface AdaptationSuggestion {
     verdict: 'MAINTENIR' | 'AJUSTER' | 'RÉDUIRE' | 'RÉCUPÉRATION';
 }
 
-// Refresh Strava token when expired
+// Refresh Strava token when expired — proxied through server to protect client_secret
 const refreshStravaToken = async (userId: string, tokenData: any) => {
-    const STRAVA_CLIENT_ID = import.meta.env.VITE_STRAVA_CLIENT_ID;
-    const STRAVA_CLIENT_SECRET = import.meta.env.VITE_STRAVA_CLIENT_SECRET;
+    console.log('[Strava] Refreshing expired token via server proxy...');
 
-    if (!STRAVA_CLIENT_ID || !STRAVA_CLIENT_SECRET) {
-        throw new Error("Configuration Strava manquante");
-    }
-
-    console.log('[Strava] Refreshing expired token...');
-
-    const response = await fetch('https://www.strava.com/oauth/token', {
+    const response = await fetch('/api/strava/refresh-token', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-            client_id: STRAVA_CLIENT_ID,
-            client_secret: STRAVA_CLIENT_SECRET,
-            grant_type: 'refresh_token',
             refresh_token: tokenData.refresh_token
         })
     });
@@ -66,9 +56,15 @@ const refreshStravaToken = async (userId: string, tokenData: any) => {
     const newTokenData = await response.json();
     console.log('[Strava] Token refreshed successfully');
 
+    // Preserve athlete info from original token (not returned in refresh response)
+    const mergedToken = {
+        ...newTokenData,
+        ...(tokenData.athlete ? { athlete: tokenData.athlete } : {})
+    };
+
     // Save new token to Firestore
     await updateDoc(doc(db, 'users', userId), {
-        stravaToken: newTokenData,
+        stravaToken: mergedToken,
         lastStravaSync: new Date().toISOString()
     });
 
@@ -188,7 +184,7 @@ export const analyzeActivitiesWithGemini = async (activities: any[], userId: str
     if (!apiKey) throw new Error("No Gemini Key");
 
     const genAI = new GoogleGenerativeAI(apiKey);
-    const model = genAI.getGenerativeModel({ model: "gemini-2.0-flash" });
+    const model = genAI.getGenerativeModel({ model: "gemini-2.5-flash" });
 
     // Convert m/s to min/km format (e.g. 3.0 m/s → "5:33 min/km")
     const msToMinKm = (ms: number): string => {
@@ -303,6 +299,80 @@ const fetchActivitiesForDateRange = async (userId: string, startDate: Date, endD
     return await response.json();
 };
 
+// ============================================
+// MATCH STRAVA ACTIVITY TO A SESSION
+// ============================================
+
+const msToMinKm = (ms: number): string => {
+    if (!ms || ms <= 0) return '-';
+    const totalMin = 16.6667 / ms;
+    const min = Math.floor(totalMin);
+    const sec = Math.round((totalMin - min) * 60);
+    if (sec >= 60) {
+        return `${min + 1}:00 min/km`;
+    }
+    return `${min}:${String(sec).padStart(2, '0')} min/km`;
+};
+
+/**
+ * Cherche l'activité Strava correspondant à une séance du plan.
+ * Matching : date de la séance ± 1 jour + type running/trail.
+ * Retourne null si aucune activité ne matche.
+ */
+export const findStravaActivityForSession = async (
+    userId: string,
+    sessionDate: Date,
+    sessionType: string
+): Promise<StravaActivityMatch | null> => {
+    try {
+        // Fenêtre de recherche : jour de la séance ± 1 jour
+        const startDate = new Date(sessionDate);
+        startDate.setDate(startDate.getDate() - 1);
+        startDate.setHours(0, 0, 0, 0);
+        const endDate = new Date(sessionDate);
+        endDate.setDate(endDate.getDate() + 2);
+        endDate.setHours(0, 0, 0, 0);
+
+        const activities = await fetchActivitiesForDateRange(userId, startDate, endDate);
+
+        // Filtrer par type compatible
+        const isStrength = sessionType === 'Renforcement';
+        const compatibleActivities = activities.filter((a: any) => {
+            if (isStrength) {
+                return a.type === 'WeightTraining' || a.type === 'Workout';
+            }
+            return a.type === 'Run' || a.type === 'TrailRun' || a.type === 'Trail Run' || a.type === 'VirtualRun';
+        });
+
+        if (compatibleActivities.length === 0) return null;
+
+        // Trouver l'activité la plus proche en date de la séance
+        const sessionTime = sessionDate.getTime();
+        const closest = compatibleActivities.reduce((best: any, a: any) => {
+            const aDate = new Date(a.start_date_local || a.start_date).getTime();
+            const bestDate = new Date(best.start_date_local || best.start_date).getTime();
+            return Math.abs(aDate - sessionTime) < Math.abs(bestDate - sessionTime) ? a : best;
+        });
+
+        return {
+            activityId: closest.id,
+            name: closest.name,
+            distance: Math.round((closest.distance || 0) / 10) / 100,
+            movingTime: Math.round((closest.moving_time || 0) / 60),
+            elapsedTime: Math.round((closest.elapsed_time || 0) / 60),
+            elevationGain: Math.round(closest.total_elevation_gain || 0),
+            avgHeartrate: closest.average_heartrate ? Math.round(closest.average_heartrate) : undefined,
+            maxHeartrate: closest.max_heartrate ? Math.round(closest.max_heartrate) : undefined,
+            avgPace: closest.average_speed ? msToMinKm(closest.average_speed) : '-',
+            type: closest.type,
+            startDate: closest.start_date_local || closest.start_date,
+        };
+    } catch (error) {
+        console.warn('[Strava] Erreur matching activité:', error);
+        return null;
+    }
+};
+
 export const compareWeekWithStrava = async (
     userId: string,
     week: Week,
@@ -315,7 +385,7 @@ export const compareWeekWithStrava = async (
 
     // Count running activities
     const runningActivities = activities.filter((a: any) =>
-        a.type === 'Run' || a.type === 'Trail Run' || a.type === 'VirtualRun'
+        a.type === 'Run' || a.type === 'TrailRun' || a.type === 'Trail Run' || a.type === 'VirtualRun'
     );
 
     // Cross-training detection
@@ -336,8 +406,19 @@ export const compareWeekWithStrava = async (
         }
     });
 
+    // Count renfo/strength activities from Strava
+    const strengthActivities = activities.filter((a: any) =>
+        a.type === 'WeightTraining' || a.type === 'Workout'
+    );
+
+    // Count planned renfo sessions to know how many strength activities to credit
+    const plannedRenfoCount = week.sessions.filter(s =>
+        s.type === 'Renforcement'
+    ).length;
+    const creditedStrength = Math.min(strengthActivities.length, plannedRenfoCount);
+
     const sessionsPlanned = week.sessions.length;
-    const sessionsDone = runningActivities.length;
+    const sessionsDone = runningActivities.length + creditedStrength;
 
     // Compliance: sessions done / planned, capped at 100%
     const compliance = sessionsPlanned > 0

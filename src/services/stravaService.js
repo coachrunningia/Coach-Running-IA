@@ -12,6 +12,7 @@ const getAuthUrl = (redirectUri) => {
     client_id: STRAVA_CLIENT_ID,
     redirect_uri: redirectUri,
     response_type: 'code',
+    approval_prompt: 'auto',
     scope: 'activity:read_all,profile:read_all'
   });
   return `https://www.strava.com/oauth/authorize?${params.toString()}`;
