@@ -823,17 +823,30 @@ const ADMIN_EMAILS = ["programme@coachrunningia.fr"];
         }));
 
         for (const mod of result.modifications) {
-          const weekIdx = (mod.weekNumber || 1) - 1;
-          const sessionIdx = mod.sessionIndex ?? 0;
+          let weekIdx = (mod.weekNumber || 1) - 1;
+          let sessionIdx = mod.sessionIndex ?? 0;
+
+          // Gemini peut retourner des weekNumbers incorrects — chercher par titre dans toutes les semaines
+          if (mod.originalTitle) {
+            let found = false;
+            for (let wi = 0; wi < updatedWeeks.length; wi++) {
+              const foundSi = updatedWeeks[wi].sessions.findIndex(s => s.title === mod.originalTitle);
+              if (foundSi >= 0) {
+                weekIdx = wi;
+                sessionIdx = foundSi;
+                found = true;
+                console.log(`[Adaptation] Matched "${mod.originalTitle}" → W${wi + 1}-S${foundSi + 1} (Gemini said W${mod.weekNumber})`);
+                break;
+              }
+            }
+            if (!found) {
+              console.warn(`[Adaptation] Session "${mod.originalTitle}" not found in any week, using Gemini index W${mod.weekNumber}`);
+            }
+          }
 
           if (weekIdx >= 0 && weekIdx < updatedWeeks.length) {
             const week = updatedWeeks[weekIdx];
-            // Trouver la session par index ou par titre
             let targetIdx = sessionIdx;
-            if (mod.originalTitle) {
-              const foundIdx = week.sessions.findIndex(s => s.title === mod.originalTitle);
-              if (foundIdx >= 0) targetIdx = foundIdx;
-            }
 
             if (targetIdx >= 0 && targetIdx < week.sessions.length) {
               const session = { ...week.sessions[targetIdx] };
