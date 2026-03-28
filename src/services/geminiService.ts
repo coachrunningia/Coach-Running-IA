@@ -2321,33 +2321,54 @@ const buildSafetyInstructions = (data: QuestionnaireData, isBeginnerLevel: boole
   const parts: string[] = [];
   const bmi = (data.weight && data.height) ? data.weight / ((data.height / 100) ** 2) : null;
   const age = data.age || 0;
-  const isOverweight = bmi !== null && bmi >= 30;
+  const weight = data.weight || 0;
+  const isOverweight = (bmi !== null && bmi >= 30) || weight >= 90;
   const isSenior = age >= 50;
   const isRestart = data.fitnessSubGoal === 'Reprendre après une pause' || data.lastActivity === 'Plus de 6 mois';
 
-  parts.push(`🩺 SÉCURITÉ SANTÉ — OBLIGATOIRE
+  // Détection des profils à risque nécessitant un avis médical OBLIGATOIRE
+  const isHighRisk = (isSenior && isBeginnerLevel) || (isOverweight && isBeginnerLevel) || (isSenior && isOverweight);
+  const isModerateRisk = isSenior || isOverweight;
+
+  if (isHighRisk) {
+    parts.push(`🚨 PROFIL À RISQUE ÉLEVÉ — AVIS MÉDICAL IMPÉRATIF
+Dans le message de bienvenue (welcomeMessage), tu DOIS inclure EN PREMIER, AVANT toute autre information :
+"⚠️ Avant de commencer ce programme, il est INDISPENSABLE de consulter votre médecin pour obtenir un certificat médical d'aptitude à la pratique de la course à pied. ${isSenior ? `À partir de ${age} ans` : ''}${isSenior && isOverweight ? ' et ' : ''}${isOverweight ? 'avec votre profil' : ''}, un bilan cardio-vasculaire (test d'effort) est fortement recommandé. Votre santé est notre priorité absolue — ce plan est conçu pour vous accompagner en toute sécurité, mais seul un médecin peut confirmer que vous êtes apte à démarrer."
+- Répète ce rappel dans le advice de la PREMIÈRE séance : "Rappel : assurez-vous d'avoir consulté votre médecin avant de démarrer."
+- Chaque séance DOIT avoir un conseil (advice) qui mentionne d'écouter son corps, de s'arrêter immédiatement en cas de douleur thoracique, essoufflement anormal ou malaise.
+- Ton ton doit être BIENVEILLANT et ENCOURAGEANT, jamais stigmatisant. Le coureur fait un choix courageux en se lançant.`);
+  } else if (isModerateRisk) {
+    parts.push(`🩺 SÉCURITÉ SANTÉ — AVIS MÉDICAL RECOMMANDÉ
+Dans le message de bienvenue (welcomeMessage), tu DOIS inclure :
+"Nous vous recommandons vivement de consulter un médecin avant de débuter ce programme, notamment pour obtenir un certificat médical d'aptitude au sport.${isSenior ? ` À partir de ${age} ans, un bilan cardio-vasculaire est particulièrement conseillé.` : ''}"
+- Chaque séance DOIT avoir un conseil (advice) qui mentionne d'écouter son corps et de ne pas forcer en cas de douleur.`);
+  } else {
+    parts.push(`🩺 SÉCURITÉ SANTÉ — OBLIGATOIRE
 Dans le message de bienvenue (welcomeMessage), tu DOIS inclure :
 "Nous vous recommandons de consulter un médecin avant de débuter ce programme, notamment pour obtenir un certificat médical d'aptitude au sport."
 - Chaque séance DOIT avoir un conseil (advice) qui mentionne d'écouter son corps et de ne pas forcer en cas de douleur.`);
+  }
 
   if (isOverweight) {
-    parts.push(`⚠️ PROFIL NÉCESSITANT DES PRÉCAUTIONS ARTICULAIRES :
+    parts.push(`⚠️ PROFIL NÉCESSITANT DES PRÉCAUTIONS ARTICULAIRES (poids > 85kg) :
 - Priorité absolue : séances à faible impact (marche rapide, marche/course alternée)
-- Pas de sauts, pas de pliométrie
+- Pas de sauts, pas de pliométrie dans le renforcement
 - Durées courtes (20-30 min max au début), augmenter très progressivement
-- Surfaces souples (herbe, terre) plutôt qu'asphalte
+- Surfaces souples (herbe, terre) plutôt qu'asphalte quand possible
 - Volume max semaine 1 : 10-15 km (ou moins si débutant)
 - Le warmup DOIT inclure 5-10 min de marche progressive
-🚫 NE JAMAIS mentionner le poids, l'IMC, la corpulence ou la morphologie du coureur dans AUCUN message.`);
+- Privilégier la RÉGULARITÉ à l'intensité : mieux vaut 3 séances douces que 2 intenses
+🚫 NE JAMAIS mentionner le poids, l'IMC, la corpulence ou la morphologie du coureur dans AUCUN message. Rester positif et encourageant.`);
   }
 
   if (isSenior) {
-    parts.push(`👤 COUREUR DE ${age} ANS — ADAPTATIONS :
-- Échauffements plus longs (10-15 min progressifs)
-- Récupération entre séances : minimum 48h
-- Pas plus de 2 séances intenses par semaine
-- Étirements et mobilité articulaire dans chaque cooldown
-- Surveiller les articulations : genoux, chevilles, hanches`);
+    parts.push(`👤 COUREUR DE ${age} ANS — ADAPTATIONS OBLIGATOIRES :
+- Échauffements LONGS obligatoires (10-15 min progressifs minimum)
+- Récupération entre séances : minimum 48h, idéalement 72h pour les séances intenses
+- Maximum 2 séances intenses par semaine (pas 2 jours consécutifs)
+- Étirements et mobilité articulaire SYSTÉMATIQUES dans chaque cooldown
+- Surveiller les articulations : genoux, chevilles, hanches — mentionner dans les advice
+- Progression plus lente : max +8% volume/semaine (au lieu de 10-12%)`);
   }
 
   if (isRestart) {
