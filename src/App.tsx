@@ -71,6 +71,7 @@ const AppContent = () => {
   const [user, setUser] = useState<User | null>(null);
   const [loading, setLoading] = useState(true);
   const [isGenerating, setIsGenerating] = useState(false);
+  const [showPlanLimitModal, setShowPlanLimitModal] = useState(false);
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -103,7 +104,7 @@ const AppContent = () => {
       if (!quota.allowed) {
         setIsGenerating(false);
         if (quota.reason === 'premium_limit' || quota.reason === 'purchased_limit') {
-          alert("Tu as déjà 2 plans actifs (limite premium). Supprime un plan existant pour en créer un nouveau.");
+          setShowPlanLimitModal(true);
         } else {
           alert("Limite atteinte (1 plan gratuit). Choisis une formule pour continuer.");
           navigate('/pricing');
@@ -161,6 +162,47 @@ const AppContent = () => {
   return (
     <Layout user={user} setUser={setUser}>
       {isGenerating && <LoadingScreen />}
+
+      {/* Modal limite de plans */}
+      {showPlanLimitModal && (
+        <div className="fixed inset-0 z-[100] bg-slate-900/60 backdrop-blur-sm flex items-center justify-center p-4" onClick={() => setShowPlanLimitModal(false)}>
+          <div className="bg-white rounded-2xl shadow-2xl max-w-md w-full p-6" onClick={e => e.stopPropagation()}>
+            <div className="flex justify-between items-start mb-4">
+              <div className="flex items-center gap-3">
+                <div className="w-10 h-10 bg-amber-100 rounded-full flex items-center justify-center flex-shrink-0">
+                  <Lock className="text-amber-600" size={20} />
+                </div>
+                <h3 className="font-bold text-lg text-slate-900">Limite de plans atteinte</h3>
+              </div>
+              <button onClick={() => setShowPlanLimitModal(false)} className="p-1 hover:bg-slate-100 rounded-lg"><X size={20} /></button>
+            </div>
+
+            <div className="space-y-3 text-sm text-slate-600 mb-6">
+              <p>
+                Ton abonnement te donne droit à <strong className="text-slate-900">2 plans simultanément actifs</strong>.
+              </p>
+              <p>
+                Au-delà, nous considérons que les plans ne sont pas générés pour ton usage strictement personnel.
+              </p>
+              <p>
+                Pour générer un nouveau plan, <strong className="text-slate-900">supprime un plan existant</strong> depuis ton tableau de bord.
+              </p>
+            </div>
+
+            <div className="space-y-3">
+              <button
+                onClick={() => { setShowPlanLimitModal(false); navigate('/dashboard'); }}
+                className="w-full px-4 py-3 bg-accent text-white rounded-xl font-bold hover:bg-orange-600 transition-colors flex items-center justify-center gap-2"
+              >
+                Aller au tableau de bord
+              </button>
+              <p className="text-xs text-slate-400 text-center">
+                Si le problème persiste, contacte-nous à <a href="mailto:programme@coachrunningia.fr" className="underline hover:text-slate-600">programme@coachrunningia.fr</a>
+              </p>
+            </div>
+          </div>
+        </div>
+      )}
 
       <Suspense fallback={<div className="min-h-screen flex items-center justify-center"><Loader2 className="animate-spin text-accent" size={32} /></div>}>
       <Routes>
@@ -995,7 +1037,7 @@ const PricingPage = ({ user }: { user: User | null }) => {
           "description": "Programme course à pied personnalisé par IA avec exports PDF, calendrier et Garmin Connect.",
           "brand": { "@type": "Organization", "name": "Coach Running IA" },
           "offers": [
-            { "@type": "Offer", "name": "Plan Unique", "price": "3.90", "priceCurrency": "EUR", "availability": "https://schema.org/InStock" },
+            { "@type": "Offer", "name": "Plan Unique", "price": "9.90", "priceCurrency": "EUR", "availability": "https://schema.org/InStock" },
             { "@type": "Offer", "name": "Premium Mensuel", "price": "5.90", "priceCurrency": "EUR", "availability": "https://schema.org/InStock" },
             { "@type": "Offer", "name": "Premium Annuel", "price": "44.90", "priceCurrency": "EUR", "availability": "https://schema.org/InStock" }
           ]
@@ -1010,12 +1052,11 @@ const PricingPage = ({ user }: { user: User | null }) => {
       <div className="grid md:grid-cols-3 gap-6 mb-16 items-start">
 
         {/* Plan Unique */}
-        <div className="bg-white rounded-2xl border border-slate-200 shadow-sm p-6 flex flex-col">
+        <div className="bg-white rounded-2xl border border-slate-200 shadow-sm p-6 flex flex-col order-3 md:order-1">
           <div className="text-center mb-6">
             <h3 className="text-lg font-bold text-slate-900 mb-3">Plan Unique</h3>
             <div className="flex items-baseline justify-center gap-2">
-              <span className="text-xl line-through text-slate-400">5,90&euro;</span>
-              <span className="text-4xl font-black text-slate-900">3,90&euro;</span>
+              <span className="text-4xl font-black text-slate-900">9,90&euro;</span>
             </div>
             <p className="text-sm text-slate-500 mt-1">Paiement unique</p>
           </div>
@@ -1051,7 +1092,7 @@ const PricingPage = ({ user }: { user: User | null }) => {
         </div>
 
         {/* Mensuel */}
-        <div className="bg-white rounded-2xl border border-slate-200 shadow-sm p-6 flex flex-col relative">
+        <div className="bg-white rounded-2xl border border-slate-200 shadow-sm p-6 flex flex-col relative order-2 md:order-2">
 
           <div className="text-center mb-6">
             <h3 className="text-lg font-bold text-slate-900 mb-3">Premium Mensuel</h3>
@@ -1099,7 +1140,7 @@ const PricingPage = ({ user }: { user: User | null }) => {
         </div>
 
         {/* Annuel - Populaire */}
-        <div className="bg-white rounded-2xl border-2 border-accent shadow-xl p-6 flex flex-col relative">
+        <div className="bg-white rounded-2xl border-2 border-accent shadow-xl p-6 flex flex-col relative order-1 md:order-3">
           <div className="absolute -top-3 left-1/2 -translate-x-1/2 bg-accent text-white px-4 py-1 rounded-full text-xs font-black uppercase">Populaire</div>
 
           <div className="text-center mb-6 mt-2">
@@ -1169,6 +1210,7 @@ const PricingPage = ({ user }: { user: User | null }) => {
                 { feature: 'Disponible 24h/24', coach: false, apps: true, us: true },
                 { feature: 'Prix accessible', coach: false, apps: true, us: true },
                 { feature: 'Ajustement en temps réel', coach: true, apps: false, us: true },
+                { feature: 'Connexion Strava pour analyser', coach: false, apps: true, us: true },
               ].map(({ feature, coach, apps, us }) => (
                 <tr key={feature} className="hover:bg-gray-50/50 transition-colors">
                   <td className="px-6 py-4 font-medium text-slate-700 text-sm">{feature}</td>
