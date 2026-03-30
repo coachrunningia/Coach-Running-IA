@@ -13,6 +13,7 @@ import UserProfile from './UserProfile';
 import Toast from './Toast';
 import DatePickerModal from './DatePickerModal';
 import CrossWeekConfirmModal from './CrossWeekConfirmModal';
+import FeasibilityWarningModal from './FeasibilityWarningModal';
 import StartDatePickerModal from './StartDatePickerModal';
 import { resolveSessionDate, getWeekNumberForDate, toISODateString } from '../utils/dateUtils';
 import { useSettings } from '../context/SettingsContext';
@@ -93,6 +94,7 @@ const PlanView: React.FC<PlanViewProps> = ({ plan: initialPlan, isLocked = false
     session: Session; weekNumber: number; newDateISO: string; daysDiff: number; fromWeek: number; toWeek: number;
   } | null>(null);
   const [showStartDatePicker, setShowStartDatePicker] = useState(false);
+  const [showFeasibilityWarning, setShowFeasibilityWarning] = useState(false);
 
   // Sync plan if prop changes (also normalize)
   useEffect(() => {
@@ -1521,7 +1523,15 @@ ${recentRPEs.length > 0 ? recentRPEs.slice(-8).join('\n') : 'Premier feedback �
                   </div>
                   {!isGeneratingRemaining && (
                     <button
-                      onClick={onGenerateRemainingWeeks}
+                      onClick={() => {
+                        // Si feasibility RISQUÉ ou IRRÉALISTE → afficher modal de warning
+                        const status = activeFeasibility?.status;
+                        if (status === 'RISQUÉ' || status === 'IRRÉALISTE') {
+                          setShowFeasibilityWarning(true);
+                        } else {
+                          onGenerateRemainingWeeks();
+                        }
+                      }}
                       className="bg-gradient-to-r from-accent to-orange-500 hover:from-accent/90 hover:to-orange-500/90 text-white font-bold py-4 px-8 rounded-xl shadow-lg transform hover:scale-105 transition-all flex items-center gap-2"
                     >
                       <Zap size={20} fill="currentColor" />
@@ -1999,6 +2009,23 @@ ${recentRPEs.length > 0 ? recentRPEs.slice(-8).join('\n') : 'Premier feedback �
           currentStartDate={toISODateString(new Date(plan.startDate))}
           onConfirm={handleStartDateChange}
           onClose={() => setShowStartDatePicker(false)}
+        />
+      )}
+
+      {/* FEASIBILITY WARNING MODAL */}
+      {showFeasibilityWarning && activeFeasibility && onGenerateRemainingWeeks && (
+        <FeasibilityWarningModal
+          feasibilityMessage={activeFeasibility.message}
+          recommendation={liveFeasibility?.recommendation ?? activeFeasibility?.recommendation}
+          onAcceptAndGenerate={() => {
+            setShowFeasibilityWarning(false);
+            onGenerateRemainingWeeks();
+          }}
+          onCreateNewPlan={() => {
+            setShowFeasibilityWarning(false);
+            navigate('/');
+          }}
+          onClose={() => setShowFeasibilityWarning(false)}
         />
       )}
 

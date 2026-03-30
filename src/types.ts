@@ -181,9 +181,10 @@ export interface Week {
 }
 
 export interface FeasibilityAnalysis {
-  status: 'EXCELLENT' | 'BON' | 'AMBITIEUX' | 'RISQUÉ';
+  status: 'EXCELLENT' | 'BON' | 'AMBITIEUX' | 'RISQUÉ' | 'IRRÉALISTE';
   message: string;
   safetyWarning: string;
+  recommendation?: string;
 }
 
 export interface LocationSuggestion {

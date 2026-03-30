@@ -950,10 +950,16 @@ const detectLevelFromData = (data: any): string => {
     else vmaLevel = 'expert';
 
     const levelRank: Record<string, number> = { deb: 0, inter: 1, conf: 2, expert: 3 };
-    // Si le niveau déclaré est au-dessus de ce que la VMA indique → override
-    if (levelRank[declared] - levelRank[vmaLevel] >= 1) {
-      console.log(`[Enforce] Level override: declared="${declared}" but VMA=${vma} implies "${vmaLevel}" → using "${vmaLevel}"`);
-      return vmaLevel;
+    const rankNames = ['deb', 'inter', 'conf', 'expert'];
+    // Si le niveau déclaré est au-dessus de ce que la VMA indique → baisser
+    // VMA < 10 : drop jusqu'à 2 crans (VMA très basse = clairement surévalué)
+    // VMA >= 10 : drop max 1 cran (marge d'erreur possible)
+    const gap = levelRank[declared] - levelRank[vmaLevel];
+    if (gap >= 1) {
+      const maxDrop = vma < 10 ? 2 : 1;
+      const adjustedLevel = rankNames[Math.max(levelRank[declared] - maxDrop, levelRank[vmaLevel])];
+      console.log(`[Enforce] Level override: declared="${declared}" but VMA=${vma} implies "${vmaLevel}" (gap=${gap}, maxDrop=${maxDrop}) → using "${adjustedLevel}"`);
+      return adjustedLevel;
     }
   }
 
@@ -1252,7 +1258,12 @@ export const enforceWeekConstraints = (
     console.log(`[Enforce] Week ${week.weekNumber} volume: ${Math.round(currentVolume)}km → ${targetVolume}km (factor ${factor.toFixed(2)})`);
   }
   // Scale UP if more than 20% under target (Gemini sometimes underestimates)
+  // BUT never exceed SL duration cap — the cap exists for safety (especially overweight/low VMA)
   else if (currentVolume < targetVolume * 0.80) {
+    // Determine max allowed duration per session type BEFORE scaling
+    const slMaxDur = slDurRules ? (slDurRules[level] || slDurRules.inter) : 999;
+    const nonSlMaxDur = Math.round(slMaxDur * 0.75);
+
     const factor = targetVolume / currentVolume;
     runSessions.forEach((s: any) => {
       const km = parseFloat((s.distance || '0').toString().replace(/[^0-9.,]/g, '').replace(',', '.'));
@@ -1266,11 +1277,21 @@ export const enforceWeekConstraints = (
         const dur = parseDurationMin(s.duration);
         if (dur > 0) {
           const newDur = Math.round(dur * sessionFactor);
-          s.duration = formatDurationStr(isWalkRun(s) ? Math.min(newDur, 50) : newDur);
+          // Re-apply duration cap: SL stays within SL max, others within non-SL max
+          const isSL = s.type === 'Sortie Longue' || /sortie\s*longue|long\s*run/i.test(s.title || '');
+          const durCap = isSL ? slMaxDur : nonSlMaxDur;
+          const cappedDur = isWalkRun(s) ? Math.min(newDur, 50) : Math.min(newDur, durCap);
+          s.duration = formatDurationStr(cappedDur);
+          // If duration was capped, also cap distance proportionally
+          if (cappedDur < newDur && dur > 0) {
+            const durFactor = cappedDur / newDur;
+            const cappedKm = Math.round(Math.min(newKm, maxKm) * durFactor * 10) / 10;
+            s.distance = `${cappedKm} km`;
+          }
         }
       }
     });
-    console.log(`[Enforce] Week ${week.weekNumber} volume UP: ${Math.round(currentVolume)}km → ${targetVolume}km (factor ${factor.toFixed(2)})`);
+    console.log(`[Enforce] Week ${week.weekNumber} volume UP: ${Math.round(currentVolume)}km → ${targetVolume}km (factor ${factor.toFixed(2)}, SL cap ${slMaxDur}min)`);
   }
 
   // --- 7. Convertir séances running trop courtes en Repos actif ---
@@ -1556,14 +1577,12 @@ const enforceFullPlanConstraints = (
       // Drops vers recovery/taper sont normaux, on skip
       if (increase < 0 && (isToRecovery || isTaperEntry)) continue;
 
-      // Post-recovery : tolérance +30% (au lieu de +15% normal)
+      // Post-recovery : le retour ne dépasse pas la semaine PRÉ-récup
       if (isFromRecovery) {
-        if (increase > 0.30) {
-          const targetNext = Math.round(currKm * 1.30);
-          if (targetNext < nextKm) {
-            scaleWeekVolume(weeks[i + 1], targetNext);
-            console.log(`[Guard] Post-recovery S${weeks[i + 1].weekNumber}: ${Math.round(nextKm)}km → ${targetNext}km (+30% max from recovery ${Math.round(currKm)}km)`);
-          }
+        const preRecovKm = i > 0 ? getWeekKm(weeks[i - 1]) : currKm;
+        if (nextKm > preRecovKm) {
+          scaleWeekVolume(weeks[i + 1], Math.round(preRecovKm));
+          console.log(`[Guard] Post-recovery S${weeks[i + 1].weekNumber}: ${Math.round(nextKm)}km → ${Math.round(preRecovKm)}km (capped at pre-recovery volume)`);
         }
         continue;
       }
@@ -1665,6 +1684,7 @@ const calculateWeekTargetElevation = (
   raceElevation: number,
   level: string,
   currentWeeklyElevation?: number,
+  phase?: string,
 ): number => {
   // Garde-fou : si raceElevation est NaN ou 0, retourner 0 (pas de D+)
   if (!raceElevation || isNaN(raceElevation)) return 0;
@@ -1701,7 +1721,25 @@ const calculateWeekTargetElevation = (
 
   // Progression linéaire startElevation → maxWeeklyElevation
   const progress = Math.min(1, (weekNumber - 1) / Math.max(1, totalWeeks - 1));
-  const target = Math.round(startElevation + (maxWeeklyElevation - startElevation) * progress);
+  let target = Math.round(startElevation + (maxWeeklyElevation - startElevation) * progress);
+
+  // === Réduction D+ par phase (récup & affûtage) ===
+  // Le D+ doit baisser comme le volume dans les phases de récupération et d'affûtage
+  const p = (phase || '').toLowerCase();
+  if (p.includes('recup') || p.includes('récup')) {
+    // Récupération : 55% du D+ calculé (grosse réduction)
+    target = Math.round(target * 0.55);
+    console.log(`[Trail D+] Phase récup S${weekNumber}: D+ réduit à 55% → ${target}m`);
+  } else if (p.includes('affut') || p.includes('affût') || p.includes('taper')) {
+    // Affûtage : réduction progressive selon la position dans le plan
+    // Plus on est proche de la course, plus on réduit
+    const remainingWeeks = totalWeeks - weekNumber;
+    const affutageReduction = remainingWeeks <= 0 ? 0.40  // semaine de course : 40%
+      : remainingWeeks === 1 ? 0.50  // avant-dernière : 50%
+      : 0.70; // début affûtage : 70%
+    target = Math.round(target * affutageReduction);
+    console.log(`[Trail D+] Phase affûtage S${weekNumber}: D+ réduit à ${Math.round(affutageReduction*100)}% → ${target}m (${remainingWeeks} sem avant course)`);
+  }
 
   return target;
 };
@@ -1860,6 +1898,8 @@ const calculatePeriodizationPlan = (
   targetTime?: string,
   age?: number,
   weight?: number,
+  vma?: number,
+  sessionsPerWeek?: number,
 ): { weeklyVolumes: number[]; weeklyPhases: PeriodizationPhase[]; recoveryWeeks: number[] } => {
 
   // Taux de progression selon niveau
@@ -1944,60 +1984,149 @@ const calculatePeriodizationPlan = (
   }
 
   // ══════════════════════════════════════════════════════════════
-  // RÉDUCTION FINISHER : objectif = terminer, pas performer
-  // On réduit le cap de 25% mais le minPeakVolume (150% distance) reste plancher
-  // → Un Finisher semi fait ~45km au lieu de 60km, mais un Finisher ultra 100km
-  //   garde son minPeakVolume de 120km (car 100×1.5 = 150 → cappé par absoluteCap)
+  // AJUSTEMENT PAR FRÉQUENCE DE SESSIONS
+  // Les tables ci-dessus sont calibrées pour ~3 sessions running (4 total).
+  // Plus de sessions = meilleure distribution = plus de volume supportable.
+  // Moins de sessions = tout concentré = moins de volume safe.
   // ══════════════════════════════════════════════════════════════
-  const isFinisher = !targetTime || targetTime.trim() === '';
-  if (isFinisher && !isPertePoids && !isMaintien) {
-    const originalMax = maxVolume;
-    maxVolume = Math.round(maxVolume * 0.75);
-    console.log(`[Periodization] Finisher detected → maxVolume ${originalMax}km × 0.75 = ${maxVolume}km`);
-  }
-
-  // ══════════════════════════════════════════════════════════════
-  // RÉDUCTION PAR ÂGE : ados (<18) et seniors (>55)
-  // Les os d'un ado et les articulations d'un senior ne supportent pas le même volume
-  // ══════════════════════════════════════════════════════════════
-  if (age && age > 0) {
-    if (age < 18) {
-      const originalMax = maxVolume;
-      maxVolume = Math.round(maxVolume * 0.70); // -30% pour les ados
-      console.log(`[Periodization] Ado (${age} ans) → maxVolume ${originalMax}km × 0.70 = ${maxVolume}km`);
-    } else if (age >= 55) {
-      const originalMax = maxVolume;
-      maxVolume = Math.round(maxVolume * 0.85); // -15% pour les seniors
-      console.log(`[Periodization] Senior (${age} ans) → maxVolume ${originalMax}km × 0.85 = ${maxVolume}km`);
+  if (sessionsPerWeek && sessionsPerWeek > 0) {
+    const runningSess = Math.max(1, sessionsPerWeek - 1); // -1 pour le renfo obligatoire
+    // Facteurs : 1run=0.70, 2run=0.85, 3run=1.00, 4run=1.10, 5run=1.20
+    const sessionFactors: Record<number, number> = { 1: 0.70, 2: 0.85, 3: 1.00, 4: 1.10, 5: 1.20 };
+    const sessionFactor = sessionFactors[Math.min(runningSess, 5)] || 1.00;
+    if (sessionFactor !== 1.00) {
+      const before = maxVolume;
+      maxVolume = Math.round(maxVolume * sessionFactor);
+      console.log(`[Periodization] Session factor: ${runningSess} running sessions → ×${sessionFactor} → ${before}km → ${maxVolume}km`);
     }
   }
 
   // ══════════════════════════════════════════════════════════════
-  // RÉDUCTION PAR POIDS : coureurs lourds (>85kg)
-  // Impact articulaire augmenté — réduire le volume pour protéger
+  // RÉDUCTIONS : Finisher, Âge, Poids
+  // Les réductions se cumulent mais sont plafonnées à -40% max du cap de base
+  // pour éviter des volumes trop bas (ex: 25km × 0.75 × 0.70 = 13km pour un 5km)
   // ══════════════════════════════════════════════════════════════
+  const baseMaxVolume = maxVolume; // Sauvegarder le cap de base avant réductions
+  let totalReduction = 1.0;
+
+  const isFinisher = !targetTime || targetTime.trim() === '';
+  if (isFinisher && !isPertePoids && !isMaintien) {
+    totalReduction *= 0.75;
+    console.log(`[Periodization] Finisher detected → factor ×0.75`);
+  }
+
+  if (age && age > 0) {
+    if (age < 18) {
+      totalReduction *= 0.70;
+      console.log(`[Periodization] Ado (${age} ans) → factor ×0.70`);
+    } else if (age >= 55) {
+      totalReduction *= 0.85;
+      console.log(`[Periodization] Senior (${age} ans) → factor ×0.85`);
+    }
+  }
+
   if (weight && weight > 85) {
-    const weightFactor = weight >= 100 ? 0.70 : weight >= 90 ? 0.80 : 0.90;
+    const weightFactor = weight >= 100 ? 0.75 : weight >= 90 ? 0.85 : 0.90;
+    totalReduction *= weightFactor;
+    console.log(`[Periodization] Poids ${weight}kg → factor ×${weightFactor}`);
+  }
+
+  // Plafonner la réduction totale à -40% max (facteur min = 0.60)
+  totalReduction = Math.max(totalReduction, 0.60);
+  if (totalReduction < 1.0) {
     const originalMax = maxVolume;
-    maxVolume = Math.round(maxVolume * weightFactor);
-    console.log(`[Periodization] Poids ${weight}kg → maxVolume ${originalMax}km × ${weightFactor} = ${maxVolume}km`);
+    maxVolume = Math.round(maxVolume * totalReduction);
+    console.log(`[Periodization] Réduction combinée: ${originalMax}km × ${totalReduction.toFixed(2)} = ${maxVolume}km (base=${baseMaxVolume}km)`);
+  }
+
+  // ══════════════════════════════════════════════════════════════
+  // CAP VMA-DURÉE : le volume max ne peut pas dépasser ce qui est
+  // physiquement réalisable en N sessions × durée max par session.
+  // Utilise 75% VMA (optimiste : la VMA s'améliorera pendant le plan)
+  // et compte TOUTES les sessions comme running (Gemini adapte le mix).
+  // Ex: VMA 8, 3 sess → 1 SL 60min + 2×45min à 6.0 km/h = 15km max
+  // ══════════════════════════════════════════════════════════════
+  if (vma && vma > 0 && sessionsPerWeek && sessionsPerWeek > 0) {
+    const objectiveKey = isVK ? 'VK' : isTrailSteep ? 'TrailSteep' :
+      isUltraLong ? 'Trail100+' : isUltra ? 'Trail60+' : isTrail30Plus ? 'Trail30+' : isTrail ? 'Trail<30' :
+      isMarathon ? 'Marathon' : isSemi ? 'Semi' : is10k ? '10K' : isPertePoids ? 'PertePoids' :
+      isMaintien ? 'Maintien' : '5K';
+    const levelKey = level.includes('Débutant') || level.includes('debutant') ? 'deb' :
+      level.includes('Expert') ? 'expert' : level.includes('Confirmé') ? 'conf' : 'inter';
+    const slMaxDur = MAX_SL_DURATION[objectiveKey]?.[levelKey] || MAX_SL_DURATION[objectiveKey]?.inter || 90;
+    const nonSlMaxDur = Math.round(slMaxDur * 0.75);
+
+    // Speed at endurance fondamentale = ~75% VMA (accounts for improvement during plan)
+    const efSpeedKmH = vma * 0.75;
+    // 1 séance est toujours du renforcement (obligatoire dans le prompt)
+    // → seules les sessions running contribuent au volume kilométrique
+    // Ex: 3 séances = 2 running + 1 renfo, 2 séances = 1 running + 1 renfo
+    const runningSessions = Math.max(1, sessionsPerWeek - 1);
+    // 1 SL at slMaxDur + remaining running sessions at nonSlMaxDur
+    const slMaxKm = (slMaxDur / 60) * efSpeedKmH;
+    const otherMaxKm = ((runningSessions - 1) * nonSlMaxDur / 60) * efSpeedKmH;
+    const vmaBasedMaxVolume = Math.round(slMaxKm + otherMaxKm);
+
+    if (vmaBasedMaxVolume < maxVolume) {
+      // Fix: ne pas descendre sous le volume actuel déclaré — la réalité (il court déjà X km)
+      // prime sur l'estimation théorique (VMA recalculée, confidence basse, etc.)
+      // MAIS plafonner par ce qui est physiquement atteignable sur les sessions running
+      // (avec vitesse généreuse à 85% VMA pour compenser une VMA potentiellement sous-estimée)
+      let safeVmaCap = vmaBasedMaxVolume;
+      if (currentVolume > 0 && currentVolume > vmaBasedMaxVolume) {
+        const generousEfSpeed = vma * 0.85;
+        const maxAchievable = runningSessions === 1
+          ? Math.round((slMaxDur / 60) * generousEfSpeed)
+          : Math.round((slMaxDur / 60) * generousEfSpeed + ((runningSessions - 1) * nonSlMaxDur / 60) * generousEfSpeed);
+        safeVmaCap = Math.max(vmaBasedMaxVolume, Math.min(currentVolume, maxAchievable));
+        console.log(`[Periodization] VMA-duration cap: raw=${vmaBasedMaxVolume}km, currentVol=${currentVolume}km, achievable@85%VMA=${maxAchievable}km → safe=${safeVmaCap}km`);
+      }
+      if (safeVmaCap < maxVolume) {
+        console.log(`[Periodization] VMA-duration cap: VMA=${vma}, ${runningSessions} running sess, SL≤${slMaxDur}min, EF=${efSpeedKmH.toFixed(1)}km/h → max ${safeVmaCap}km (was ${maxVolume}km)`);
+        maxVolume = safeVmaCap;
+      }
+    }
+  }
+
+  // Fix: le maxVolume ne peut jamais descendre sous le volume actuel déclaré
+  // Un coureur qui fait déjà 70km/sem ne doit pas avoir un plan qui le fait régresser
+  // Plafonné par ce qui est atteignable avec les sessions running disponibles
+  if (currentVolume > 0 && maxVolume < currentVolume) {
+    console.log(`[Periodization] maxVolume ${maxVolume}km < currentVolume ${currentVolume}km → raised to currentVolume`);
+    maxVolume = currentVolume;
+  }
+
+  // Sauvegarder le cap VMA comme plafond absolu de sécurité
+  // Les planchers (minViableVolume, minPeakVolume) ne peuvent PAS remonter au-dessus
+  // → un runner à VMA 8 SANS volume déclaré ne doit pas avoir 40km/sem
+  const vmaHardCap = maxVolume;
+
+  // Distance de course en km — utilisée pour les planchers et garde-fous
+  const raceDistanceKm = isTrail ? (trailDistance || 10) :
+    isMarathon ? 42.2 : isSemi ? 21.1 : is10k ? 10 : 5;
+
+  // Plancher minimum par distance de course : le peak doit permettre de s'entraîner utilement
+  const minViableVolume = raceDistanceKm <= 5 ? 15 : raceDistanceKm <= 10 ? 20 :
+    raceDistanceKm <= 21.1 ? 30 : raceDistanceKm <= 42.2 ? 35 : 40;
+  if (maxVolume < minViableVolume) {
+    // Ne pas remonter au-dessus du cap VMA-durée (sécurité physique prime)
+    const safeMin = Math.min(minViableVolume, vmaHardCap);
+    if (safeMin > maxVolume) {
+      console.log(`[Periodization] maxVolume ${maxVolume}km < plancher viable ${minViableVolume}km → raised to ${safeMin}km (VMA cap: ${vmaHardCap}km)`);
+      maxVolume = safeMin;
+    }
   }
 
   // Garde-fou : le volume pic doit permettre de couvrir au moins 150% de la distance de course
-  // (pour que la SL atteigne au moins la distance de course)
   // MAIS cappé par MAX_WEEKLY_VOLUME pour le niveau expert du type d'objectif
-  // → Un ultra 400km ne peut PAS forcer un peak de 600km/sem
-  const raceDistanceKm = isTrail ? (trailDistance || 10) :
-    isMarathon ? 42.2 : isSemi ? 21.1 : is10k ? 10 : 5;
+  // ET par le cap VMA-durée (sécurité physique)
   const rawMinPeakVolume = Math.round(raceDistanceKm * 1.5);
-
-  // Cap absolu : le peak ne peut jamais dépasser la limite expert du type d'objectif
   const objectiveKey = isVK ? 'VK' : isTrailSteep ? 'TrailSteep' :
     isUltraLong ? 'Trail100+' : isUltra ? 'Trail60+' : isTrail30Plus ? 'Trail30+' : isTrail ? 'Trail<30' :
     isMarathon ? 'Marathon' : isSemi ? 'Semi' : is10k ? '10K' : isPertePoids ? 'PertePoids' :
     isMaintien ? 'Maintien' : '5K';
   const absoluteCap = MAX_WEEKLY_VOLUME[objectiveKey]?.expert || 100;
-  const minPeakVolume = Math.min(rawMinPeakVolume, absoluteCap);
+  const minPeakVolume = Math.min(rawMinPeakVolume, absoluteCap, vmaHardCap);
 
   if (maxVolume < minPeakVolume) {
     console.log(`[Periodization] maxVolume ${maxVolume}km < min peak (${minPeakVolume}km, raw=${rawMinPeakVolume}, cap=${absoluteCap}) → raised`);
@@ -2119,17 +2248,19 @@ const calculatePeriodizationPlan = (
   let startVolume = Math.max(idealStartVolume, minStartVolume);
   // Si le coureur a déclaré un volume actuel > 0, l'utiliser comme référence
   if (currentVolume > 0) {
-    // Plancher S1 : au moins 70% du volume courant (respecter la condition physique actuelle)
-    // 60% était trop bas pour les experts — un runner à 50km/sem commençait à 30km
+    // Hard floor S1 : au moins 70% du volume courant (respecter la condition physique actuelle)
+    // Un coureur à 45km/sem ne doit JAMAIS démarrer en dessous de 31km
     const currentVolumeFloor = Math.round(currentVolume * 0.70);
     startVolume = Math.max(startVolume, currentVolumeFloor);
     // Plafond S1 : on ne dépasse pas le volume courant NI 65% du pic...
     // ...SAUF si le volume courant est inférieur au minimum viable par niveau
-    // (un débutant à 4km/sem a besoin d'au moins 8km pour un plan cohérent)
-    // Dans ce cas on autorise le saut vers minStartVolume — c'est nécessaire pour
-    // atteindre un peak suffisant sur la durée du plan.
     const volumeCap = Math.max(currentVolume, minStartVolume);
     startVolume = Math.min(startVolume, volumeCap, maxVolume * 0.65);
+    // Re-appliquer le hard floor 70% — il prime sur la règle des 65% du peak
+    // La règle des 65% est là pour garantir de la progression, mais on ne peut pas
+    // faire régresser un coureur de 30%+ sous son volume actuel pour ça
+    // Plafonné à 90% du peak pour garder un minimum de marge de progression
+    startVolume = Math.max(startVolume, Math.min(currentVolumeFloor, maxVolume * 0.90));
   } else {
     // Pas de volume déclaré (débutant ou non renseigné) : utiliser minStartVolume comme base
     // et plafonner à 65% du pic pour garder de la marge de progression
@@ -2142,10 +2273,11 @@ const calculatePeriodizationPlan = (
     const weekNum = i + 1;
 
     if (recoveryWeeks.includes(weekNum)) {
-      // Semaine de récup: -30% du volume de la semaine PRÉCÉDENTE (pas du volume projeté)
-      // On utilise le dernier volume pushé, pas currentVol qui a déjà progressé
+      // Semaine de récup: réduction proportionnelle au volume (plus doux pour gros volumes)
+      // -20% si volume > 60km, -25% si 30-60km, -30% si < 30km
       const prevWeekVol = weeklyVolumes.length > 0 ? weeklyVolumes[weeklyVolumes.length - 1] : currentVol;
-      weeklyVolumes.push(Math.round(prevWeekVol * 0.7));
+      const recoveryFactor = prevWeekVol >= 60 ? 0.80 : prevWeekVol >= 30 ? 0.75 : 0.70;
+      weeklyVolumes.push(Math.round(prevWeekVol * recoveryFactor));
     } else if (phases[i] === 'affutage') {
       // Affûtage: réduction progressive
       const affutageProgress = (weekNum - (totalWeeks - affutageWeeks)) / affutageWeeks;
@@ -2177,9 +2309,10 @@ const calculatePeriodizationPlan = (
       for (let i = 0; i < totalWeeks; i++) {
         const weekNum = i + 1;
         if (recoveryWeeks.includes(weekNum)) {
-          // -30% du volume de la semaine précédente (pas du volume projeté)
+          // Réduction proportionnelle au volume (plus doux pour gros volumes)
           const prevVol = i > 0 ? weeklyVolumes[i - 1] : adjustedVol;
-          weeklyVolumes[i] = Math.round(prevVol * 0.7);
+          const recovFactor = prevVol >= 60 ? 0.80 : prevVol >= 30 ? 0.75 : 0.70;
+          weeklyVolumes[i] = Math.round(prevVol * recovFactor);
         } else if (phases[i] === 'affutage') {
           const affutageProgress = (weekNum - (totalWeeks - affutageWeeks)) / affutageWeeks;
           const reductionFactor = 1 - (0.25 + affutageProgress * 0.25);
@@ -2207,10 +2340,15 @@ const calculatePeriodizationPlan = (
       if (increase < 0) continue;
 
       const isFromRecovery = recoveryWeeks.includes(i + 1) || phases[i] === 'recuperation';
-      const maxIncrease = isFromRecovery ? 0.30 : 0.15;
-
-      if (increase > maxIncrease) {
-        weeklyVolumes[i + 1] = Math.round(curr * (1 + maxIncrease));
+      if (isFromRecovery) {
+        // Post-récup : le retour ne dépasse pas la semaine PRÉ-récup
+        // Chercher le volume de la semaine avant la récup
+        const preRecovVol = i > 0 ? weeklyVolumes[i - 1] : curr;
+        if (next > preRecovVol) {
+          weeklyVolumes[i + 1] = preRecovVol;
+        }
+      } else if (increase > 0.15) {
+        weeklyVolumes[i + 1] = Math.round(curr * 1.15);
       }
     }
   }
@@ -2287,6 +2425,8 @@ const createGenerationContext = (
     data.targetTime,
     data.age,
     data.weight,
+    vma,
+    data.frequency || 3,
   );
 
   return {
@@ -2953,7 +3093,7 @@ RAPPEL : Génère UNIQUEMENT la semaine 1 !
       const detectedLevel = detectLevelFromData(data);
       const weekTarget = calculateWeekTargetElevation(
         1, planDurationWeeks, data.trailDetails.elevation,
-        detectedLevel, data.currentWeeklyElevation,
+        detectedLevel, data.currentWeeklyElevation, plan.weeks[0].phase || 'fondamental',
       );
       console.log(`[Trail D+ Preview] S1: raceElev=${data.trailDetails.elevation}m, level=${detectedLevel}, weekTarget=${weekTarget}m, sessions=${plan.weeks[0].sessions.length}`);
       distributeElevationToSessions(plan.weeks[0].sessions, weekTarget, detectedLevel);
@@ -2980,6 +3120,7 @@ RAPPEL : Génère UNIQUEMENT la semaine 1 !
       status: feasibilityResultPreview.status,
       message: feasibilityResultPreview.message,
       safetyWarning: feasibilityResultPreview.safetyWarning,
+      recommendation: feasibilityResultPreview.recommendation,
     };
     plan.confidenceScore = feasibilityResultPreview.score;
 
@@ -3455,10 +3596,10 @@ Retourne UNIQUEMENT un tableau JSON des semaines ${startWeek} à ${endWeek} :
         if (!week.sessions || !Array.isArray(week.sessions)) return;
         const weekTarget = calculateWeekTargetElevation(
           week.weekNumber, totalWeeks, data.trailDetails!.elevation,
-          detectedLvl, data.currentWeeklyElevation, // Fix: use detectedLevel instead of data.level
+          detectedLvl, data.currentWeeklyElevation, week.phase,
         );
         distributeElevationToSessions(week.sessions, weekTarget, detectedLvl);
-        console.log(`[Trail D+] S${week.weekNumber}: D+ cible = ${weekTarget}m [${detectedLvl}]`);
+        console.log(`[Trail D+] S${week.weekNumber} [${week.phase || '?'}]: D+ cible = ${weekTarget}m [${detectedLvl}]`);
       });
     }
 

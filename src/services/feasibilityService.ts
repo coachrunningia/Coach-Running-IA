@@ -14,6 +14,7 @@ export interface FeasibilityResult {
   message: string;          // Message concret avec chiffres (FR)
   safetyWarning: string;    // Avertissement sécurité (FR)
   alternativeTarget?: string; // Objectif alternatif si cible irréaliste
+  recommendation?: string;  // Suggestion intelligente pour le modal de warning (ex: "un temps cible de 1h23")
 }
 
 export interface FeasibilityParams {
@@ -260,6 +261,7 @@ export function calculateFeasibility(params: FeasibilityParams): FeasibilityResu
       message: `Ton objectif de ${formatTime(targetMinutes)} sur ${distance} nécessiterait une VMA de ${vmaNeededForTarget.toFixed(1)} km/h, soit ${vmaRatioPercent}% de ta VMA actuelle (${vma.toFixed(1)} km/h). Même avec une progression optimale, cet écart est trop important. Ton temps théorique est de ${theoFormatted}. Un objectif réaliste serait autour de ${alternativeTarget}.`,
       safetyWarning,
       alternativeTarget,
+      recommendation: `un temps cible de ${alternativeTarget}`,
     };
   }
 
@@ -439,15 +441,28 @@ export function calculateFeasibility(params: FeasibilityParams): FeasibilityResu
   }
 
   let alternativeTarget: string | undefined;
+  let recommendation: string | undefined;
   if (status === 'AMBITIEUX' || status === 'RISQUÉ') {
     // Proposer un objectif réaliste : temps théorique + 5% de marge
     const realisticMinutes = theoMinutes * 1.05;
     alternativeTarget = formatTime(realisticMinutes);
+    recommendation = `un temps cible de ${alternativeTarget}`;
+  }
+
+  // Affiner la recommendation selon le contexte spécifique
+  // Priorité : 1) ajuster le temps cible  2) allonger la prépa  3) dernier recours = changer distance
+  if (status === 'RISQUÉ') {
+    if (isMarathon && planWeeks < 12) {
+      recommendation = `une durée de préparation d'au moins 16 semaines`;
+    } else if (isSemi && planWeeks < 8) {
+      recommendation = `une durée de préparation d'au moins 10 semaines`;
+    }
+    // sinon on garde le recommendation par défaut = temps cible alternatif
   }
 
   const safetyWarning = buildSafetyWarning(beginner, isMarathon, isSemi, hasInjury, status, params.weight, params.height);
 
-  return { score, status, message, safetyWarning, alternativeTarget };
+  return { score, status, message, safetyWarning, alternativeTarget, recommendation };
 }
 
 // ---------------------------------------------------------------------------
@@ -721,7 +736,36 @@ function buildFinisherFeasibility(
 
   const safetyWarning = buildSafetyWarning(beginner, isMarathon, isSemi, hasInjury, status, params.weight, params.height);
 
-  return { score, status, message, safetyWarning };
+  // Recommendation intelligente pour le modal de warning (finisher = pas de temps cible)
+  // Priorité : 1) allonger la prépa  2) passer en objectif finisher (déjà le cas)  3) dernier recours = distance
+  let recommendation: string | undefined;
+  if (status === 'RISQUÉ' || status === 'IRRÉALISTE') {
+    // D'abord vérifier si la durée de prépa est le problème principal
+    if (isTrail && distanceKm !== null && distanceKm >= 100 && planWeeks < 20) {
+      recommendation = `une durée de préparation d'au moins 20 semaines`;
+    } else if (isTrail && distanceKm !== null && distanceKm >= 60 && planWeeks < 16) {
+      recommendation = `une durée de préparation d'au moins 16 semaines`;
+    } else if (isTrail && distanceKm !== null && distanceKm >= 42 && planWeeks < 12) {
+      recommendation = `une durée de préparation d'au moins 12 semaines`;
+    } else if (isMarathon && planWeeks < 12) {
+      recommendation = `une durée de préparation d'au moins 16 semaines`;
+    } else if (isSemi && planWeeks < 8) {
+      recommendation = `une durée de préparation d'au moins 10 semaines`;
+    } else if (isTrail && distanceKm !== null && distanceKm >= 15 && planWeeks < 8) {
+      recommendation = `une durée de préparation d'au moins 10 semaines`;
+    } else {
+      // Dernier recours : changer de distance (seulement cas extrêmes comme débutant + ultra)
+      if (beginner && isTrail && distanceKm !== null && distanceKm >= 60) {
+        recommendation = `un trail plus court (20-30km) pour acquérir l'expérience`;
+      } else if (beginner && isMarathon) {
+        recommendation = `un semi-marathon comme première expérience longue distance`;
+      } else {
+        recommendation = `un objectif adapté à ton profil actuel`;
+      }
+    }
+  }
+
+  return { score, status, message, safetyWarning, recommendation };
 }
 
 // ---------------------------------------------------------------------------
