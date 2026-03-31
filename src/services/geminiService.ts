@@ -1758,18 +1758,24 @@ const distributeElevationToSessions = (sessions: any[], weekTargetElevation: num
   // Classify each session
   runningSessions.forEach((s: any) => {
     const title = (s.title || '').toLowerCase();
-    const isTrack = trackTypes.some(t => title.includes(t.toLowerCase())) || trackTypes.some(t => (s.type || '').includes(t));
     const isRecovery = /récup|recovery|décrassage|régénér/i.test(s.title || '') ||
       s.intensity === 'Très facile' || s.intensity === 'Très Facile';
-    // Séance de côtes courte = fractionné spécifique, pas une sortie trail
-    const isCotesSession = /côte|hill/i.test(title) && parseDurationMin(s.duration) < 70;
+    // Séance de côtes/montée = fractionné en côte, DOIT recevoir du D+ (pas un fractionné piste)
+    const isCotesSession = /côte|hill|montée|mont[ée]e/i.test(title);
+    // Track = fractionné sur piste plate (VMA, intervalles) — SAUF si c'est une séance de côtes
+    const isTrack = !isCotesSession && (
+      trackTypes.some(t => title.includes(t.toLowerCase())) || trackTypes.some(t => (s.type || '').includes(t))
+    );
 
-    if (isTrack || isRecovery) {
-      s.elevationGain = 0; // Zero D+ on track & recovery
+    if (isRecovery) {
+      s.elevationGain = 0;
+      s._dplusRole = 'ZERO';
+    } else if (isTrack) {
+      s.elevationGain = 0; // Zero D+ on track (piste plate)
       s._dplusRole = 'ZERO';
     } else if (isCotesSession) {
-      // Séance de côtes courte : eligible pour D+ mais pas candidat principal
-      s._dplusRole = 'FOOTING';
+      // Séance de côtes : eligible pour D+ significatif
+      s._dplusRole = 'TRAIL_OR_SL';
     } else if (/trail|côte|dénivelé|montagne|sentier|d\+/i.test(s.title || '') ||
                /sortie longue/i.test(s.title || '') || s.type === 'Sortie Longue') {
       s._dplusRole = 'TRAIL_OR_SL';

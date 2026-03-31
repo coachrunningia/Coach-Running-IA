@@ -234,7 +234,7 @@ const AppContent = () => {
         <Route path="/success" element={<SuccessPage onContinue={() => navigate('/dashboard')} />} />
 
         {/* Pages authentifiées - spinner pendant le chargement auth */}
-        <Route path="/dashboard" element={loading ? authSpinner : user ? <Dashboard user={user} /> : <Navigate to="/auth" replace />} />
+        <Route path="/dashboard" element={loading ? authSpinner : user ? <Dashboard user={user} /> : <Navigate to="/auth?from=dashboard" replace />} />
         <Route path="/profile" element={loading ? authSpinner : user ? <ProfilePage user={user} setUser={setUser} /> : <Navigate to="/auth" replace />} />
         <Route path="/plan/:planId" element={loading ? authSpinner : user ? <PlanDetailsWrapper setIsGenerating={setIsGenerating} user={user} onRegeneratePlan={handlePlanGeneration} /> : <Navigate to="/auth?redirect=back" replace />} />
         <Route path="/admin/blog" element={loading ? authSpinner : (user?.isAdmin || (user && ["programme@coachrunningia.fr"].includes(user.email || ""))) ? <BlogAdmin user={user!} /> : <Navigate to="/" replace />} />

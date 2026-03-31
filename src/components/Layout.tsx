@@ -168,8 +168,24 @@ const Layout: React.FC<LayoutProps> = ({ children, user, setUser }) => {
               )}
             </div>
 
-            {/* Mobile menu button */}
-            <div className="md:hidden flex items-center">
+            {/* Mobile: user info + menu button */}
+            <div className="md:hidden flex items-center gap-3">
+              {user ? (
+                <Link to="/profile" className="flex items-center gap-2 text-sm font-medium text-slate-700">
+                  {user.photoURL ? (
+                    <img src={user.photoURL} className="w-7 h-7 rounded-full border border-slate-200 object-cover" alt="" />
+                  ) : (
+                    <div className="w-7 h-7 rounded-full bg-slate-100 flex items-center justify-center">
+                      <UserIcon size={14} className="text-slate-500" />
+                    </div>
+                  )}
+                  <span className="max-w-[80px] truncate">{user.firstName}</span>
+                </Link>
+              ) : (
+                <Link to="/auth" className="bg-primary text-white px-3 py-1.5 rounded-full text-xs font-medium">
+                  Se connecter
+                </Link>
+              )}
               <button
                 onClick={() => setIsMenuOpen(!isMenuOpen)}
                 className="text-slate-600 hover:text-slate-900 focus:outline-none"

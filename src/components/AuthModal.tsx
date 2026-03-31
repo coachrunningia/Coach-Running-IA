@@ -26,6 +26,7 @@ const AuthModal: React.FC<AuthModalProps> = ({ onAuthSuccess, onClose, isModal =
   // Check if user just verified their email
   const isEmailVerified = searchParams.get('verified') === 'true';
   const emailFromParams = searchParams.get('email');
+  const isFromDashboard = searchParams.get('from') === 'dashboard';
 
   // Initialiser l'email si fourni (props ou query params)
   useEffect(() => {
@@ -262,6 +263,17 @@ const AuthModal: React.FC<AuthModalProps> = ({ onAuthSuccess, onClose, isModal =
           {isLogin ? 'Accédez à vos plans et suivez vos progrès.' : 'Inscrivez-vous pour conserver définitivement votre plan et y accéder partout.'}
         </p>
       </div>
+
+      {/* Message when redirected from dashboard (not logged in) */}
+      {isFromDashboard && isLogin && !isEmailVerified && (
+        <div className="mb-4 p-4 bg-blue-50 border border-blue-200 text-blue-800 rounded-xl flex items-start gap-3 animate-fade-in">
+          <Lock size={20} className="text-blue-600 flex-shrink-0 mt-0.5" />
+          <div>
+            <p className="font-bold text-sm">Connectez-vous pour accéder à vos plans</p>
+            <p className="text-sm text-blue-700">Votre compte et vos plans d'entraînement vous attendent. Connectez-vous pour les retrouver.</p>
+          </div>
+        </div>
+      )}
 
       {/* Success message when email was just verified */}
       {isEmailVerified && isLogin && (
