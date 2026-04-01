@@ -839,6 +839,8 @@ const ADMIN_EMAILS = ["programme@coachrunningia.fr"];
   const handleAdaptPlan = async (feedbackContext: string) => {
     if (!planId || !user?.questionnaireData) {
       console.warn('[Adaptation] Bail: planId=', planId, 'questionnaireData=', !!user?.questionnaireData);
+      setAdaptationMessage('Impossible d\'adapter : données du questionnaire manquantes. Ton feedback a bien été enregistré.');
+      setTimeout(() => setAdaptationMessage(null), 8000);
       return;
     }
 

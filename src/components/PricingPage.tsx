@@ -1,7 +1,7 @@
 
 import React, { useState } from 'react';
 import { Helmet } from "react-helmet-async";
-import { Check, Zap, Crown, ArrowLeft, X } from 'lucide-react';
+import { Check, Zap, Crown, ArrowLeft, X, ShoppingBag } from 'lucide-react';
 import { STRIPE_PRICES } from '../constants';
 
 interface PricingPageProps {
@@ -11,14 +11,16 @@ interface PricingPageProps {
 }
 
 const PricingPage: React.FC<PricingPageProps> = ({ userId, userEmail, onBack }) => {
-  const [loading, setLoading] = useState<'monthly' | 'yearly' | null>(null);
+  const [loading, setLoading] = useState<'monthly' | 'yearly' | 'single' | null>(null);
 
-  const handleSubscribe = async (plan: 'monthly' | 'yearly') => {
+  const handleSubscribe = async (plan: 'monthly' | 'yearly' | 'single') => {
     setLoading(plan);
 
     try {
-      const priceId = plan === 'monthly' ? STRIPE_PRICES.MONTHLY : STRIPE_PRICES.YEARLY;
+      const priceId = plan === 'monthly' ? STRIPE_PRICES.MONTHLY : plan === 'yearly' ? STRIPE_PRICES.YEARLY : STRIPE_PRICES.PLAN_UNIQUE;
       const baseUrl = window.location.origin;
+      const mode = plan === 'single' ? 'payment' : 'subscription';
+      const planLabel = plan === 'monthly' ? 'premium_mensuel' : plan === 'yearly' ? 'premium_annuel' : 'plan_unique';
 
       const response = await fetch('/api/create-checkout-session', {
         method: 'POST',
@@ -27,7 +29,8 @@ const PricingPage: React.FC<PricingPageProps> = ({ userId, userEmail, onBack }) 
           priceId,
           userId,
           userEmail,
-          successUrl: `${baseUrl}/success?session_id={CHECKOUT_SESSION_ID}&plan=${plan === 'monthly' ? 'premium_mensuel' : 'premium_annuel'}`,
+          mode,
+          successUrl: `${baseUrl}/success?session_id={CHECKOUT_SESSION_ID}&plan=${planLabel}`,
           cancelUrl: `${baseUrl}/pricing`
         })
       });
@@ -61,10 +64,10 @@ const PricingPage: React.FC<PricingPageProps> = ({ userId, userEmail, onBack }) 
     <div className="min-h-screen bg-gradient-to-b from-slate-50 to-white py-12 px-4">
       <Helmet>
         <title>Tarifs - Plan Unique et Premium | Coach Running IA</title>
-        <meta name="description" content="Plans d'entraînement course à pied personnalisés par IA dès 9,99€/mois. Essai gratuit 7 jours, sans engagement. Marathon, semi, trail, 10km." />
+        <meta name="description" content="Plans d'entraînement course à pied personnalisés par IA dès 9,90€. Abonnement mensuel ou annuel. Marathon, semi, trail, 10km." />
         <link rel="canonical" href="https://coachrunningia.fr/pricing" />
       </Helmet>
-      <div className="max-w-4xl mx-auto">
+      <div className="max-w-5xl mx-auto">
 
         {/* Header */}
         <button
@@ -89,48 +92,10 @@ const PricingPage: React.FC<PricingPageProps> = ({ userId, userEmail, onBack }) 
         </div>
 
         {/* Pricing Cards */}
-        <div className="grid md:grid-cols-2 gap-6 mb-12">
+        <div className="grid md:grid-cols-3 gap-6 mb-12">
 
-          {/* Monthly */}
-          <div className="bg-white rounded-2xl border border-slate-200 p-8 shadow-sm hover:shadow-lg transition-shadow">
-            <div className="text-center mb-6">
-              <h3 className="text-xl font-bold text-slate-900 mb-2">Mensuel</h3>
-              <div className="flex items-baseline justify-center gap-1">
-                <span className="text-4xl font-black text-slate-900">9,99</span>
-                <span className="text-slate-500">/mois</span>
-              </div>
-              <p className="text-sm text-slate-500 mt-2">Facturation mensuelle</p>
-            </div>
-
-            <div className="mb-6 space-y-2 text-sm text-slate-400">
-              <div className="flex items-center gap-2">
-                <X size={14} className="text-slate-300" />
-                <span>Génération illimitée de plans</span>
-              </div>
-              <div className="flex items-center gap-2">
-                <X size={14} className="text-slate-300" />
-                <span>Réduction du forfait annuel</span>
-              </div>
-            </div>
-
-            <button
-              onClick={() => handleSubscribe('monthly')}
-              disabled={loading !== null}
-              className="w-full py-3 px-6 bg-slate-900 text-white font-bold rounded-xl hover:bg-slate-800 transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
-            >
-              {loading === 'monthly' ? (
-                <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin" />
-              ) : (
-                <>
-                  <Zap size={18} />
-                  Commencer
-                </>
-              )}
-            </button>
-          </div>
-
-          {/* Yearly - Populaire */}
-          <div className="bg-gradient-to-br from-slate-900 to-slate-800 rounded-2xl p-8 shadow-xl relative overflow-hidden">
+          {/* Yearly - Populaire — order-1 on mobile, order-2 on desktop (center) */}
+          <div className="bg-gradient-to-br from-slate-900 to-slate-800 rounded-2xl p-8 shadow-xl relative overflow-hidden order-1 md:order-2">
             <div className="absolute top-4 right-4 bg-amber-400 text-slate-900 text-xs font-black px-3 py-1 rounded-full uppercase">
               Populaire
             </div>
@@ -158,6 +123,82 @@ const PricingPage: React.FC<PricingPageProps> = ({ userId, userEmail, onBack }) 
                 <>
                   <Crown size={18} />
                   Meilleur choix
+                </>
+              )}
+            </button>
+          </div>
+
+          {/* Monthly — order-2 on mobile, order-1 on desktop (left) */}
+          <div className="bg-white rounded-2xl border border-slate-200 p-8 shadow-sm hover:shadow-lg transition-shadow order-2 md:order-1">
+            <div className="text-center mb-6">
+              <h3 className="text-xl font-bold text-slate-900 mb-2">Mensuel</h3>
+              <div className="flex items-baseline justify-center gap-1">
+                <span className="text-4xl font-black text-slate-900">9,99</span>
+                <span className="text-slate-500">/mois</span>
+              </div>
+              <p className="text-sm text-slate-500 mt-2">Sans engagement</p>
+            </div>
+
+            <div className="mb-6 space-y-2 text-sm text-slate-400">
+              <div className="flex items-center gap-2">
+                <X size={14} className="text-slate-300" />
+                <span>Génération illimitée de plans</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <X size={14} className="text-slate-300" />
+                <span>Réduction du forfait annuel</span>
+              </div>
+            </div>
+
+            <button
+              onClick={() => handleSubscribe('monthly')}
+              disabled={loading !== null}
+              className="w-full py-3 px-6 bg-slate-900 text-white font-bold rounded-xl hover:bg-slate-800 transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+            >
+              {loading === 'monthly' ? (
+                <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin" />
+              ) : (
+                <>
+                  <Zap size={18} />
+                  S'abonner
+                </>
+              )}
+            </button>
+          </div>
+
+          {/* Plan Unique — order-3 on mobile, order-3 on desktop (right) */}
+          <div className="bg-white rounded-2xl border border-slate-200 p-8 shadow-sm hover:shadow-lg transition-shadow order-3 md:order-3">
+            <div className="text-center mb-6">
+              <h3 className="text-xl font-bold text-slate-900 mb-2">Plan Unique</h3>
+              <div className="flex items-baseline justify-center gap-1">
+                <span className="text-4xl font-black text-slate-900">9,90</span>
+                <span className="text-slate-500">&euro;</span>
+              </div>
+              <p className="text-sm text-slate-500 mt-2">Paiement unique</p>
+            </div>
+
+            <div className="mb-6 space-y-2 text-sm text-slate-400">
+              <div className="flex items-center gap-2">
+                <X size={14} className="text-slate-300" />
+                <span>Abonnement mensuel/annuel</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <X size={14} className="text-slate-300" />
+                <span>Plans illimités</span>
+              </div>
+            </div>
+
+            <button
+              onClick={() => handleSubscribe('single')}
+              disabled={loading !== null}
+              className="w-full py-3 px-6 bg-slate-900 text-white font-bold rounded-xl hover:bg-slate-800 transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+            >
+              {loading === 'single' ? (
+                <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin" />
+              ) : (
+                <>
+                  <ShoppingBag size={18} />
+                  Acheter mon plan
                 </>
               )}
             </button>

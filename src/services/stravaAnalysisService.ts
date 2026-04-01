@@ -68,7 +68,7 @@ const refreshStravaToken = async (userId: string, tokenData: any) => {
         lastStravaSync: new Date().toISOString()
     });
 
-    return newTokenData;
+    return mergedToken;
 };
 
 // Get valid token (refresh if needed)

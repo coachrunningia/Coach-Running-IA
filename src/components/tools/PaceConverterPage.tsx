@@ -1,7 +1,7 @@
 
 import React, { useState, useMemo } from 'react';
 import { Link } from 'react-router-dom';
-import { ArrowRight, Calculator, RotateCcw, Zap, BookOpen, Target, Clock } from 'lucide-react';
+import { ArrowRight, ArrowLeftRight, Calculator, RotateCcw, Zap, BookOpen, Target, Clock } from 'lucide-react';
 import { Helmet } from 'react-helmet-async';
 
 const PaceConverterPage: React.FC = () => {
@@ -310,7 +310,7 @@ const PaceConverterPage: React.FC = () => {
             <h2 className="text-3xl font-bold text-slate-900 mb-6">
               Autres outils pour coureurs
             </h2>
-            <div className="grid md:grid-cols-3 gap-4">
+            <div className="grid md:grid-cols-4 gap-4">
               <Link to="/outils/calculateur-vma" className="group bg-white rounded-xl border border-slate-200 p-6 hover:shadow-lg hover:border-blue-300 transition-all">
                 <Zap className="text-red-500 mb-3" size={24} />
                 <h3 className="font-bold text-slate-900 group-hover:text-blue-600">Calculateur VMA</h3>
@@ -325,6 +325,11 @@ const PaceConverterPage: React.FC = () => {
                 <Clock className="text-green-500 mb-3" size={24} />
                 <h3 className="font-bold text-slate-900 group-hover:text-blue-600">Prédicteur de temps</h3>
                 <p className="text-sm text-slate-500 mt-1">Prédisez vos temps sur toutes les distances</p>
+              </Link>
+              <Link to="/outils/convertisseur-miles-km" className="group bg-white rounded-xl border border-slate-200 p-6 hover:shadow-lg hover:border-blue-300 transition-all">
+                <ArrowLeftRight className="text-teal-500 mb-3" size={24} />
+                <h3 className="font-bold text-slate-900 group-hover:text-blue-600">Convertisseur Miles / Km</h3>
+                <p className="text-sm text-slate-500 mt-1">Distances et allures miles ↔ kilomètres</p>
               </Link>
             </div>
           </section>

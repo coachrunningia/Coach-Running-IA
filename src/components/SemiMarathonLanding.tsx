@@ -305,7 +305,7 @@ const SemiMarathonLanding: React.FC<SemiMarathonLandingProps> = ({ user, onPlanG
           <h2 className="text-2xl font-black text-center text-slate-900 mb-8">
             Découvrez aussi nos autres programmes
           </h2>
-          <div className="grid md:grid-cols-3 gap-6">
+          <div className="grid md:grid-cols-4 gap-6">
             <Link to="/plan-marathon" className="block rounded-2xl border border-slate-200 p-6 hover:border-accent hover:shadow-lg transition-all text-center">
               <h3 className="font-bold text-slate-900 mb-2">Plan Marathon</h3>
               <p className="text-slate-500 text-sm">Programme 42km personnalisé par IA</p>
@@ -317,6 +317,10 @@ const SemiMarathonLanding: React.FC<SemiMarathonLandingProps> = ({ user, onPlanG
             <Link to="/outils/convertisseur-allure" className="block rounded-2xl border border-slate-200 p-6 hover:border-accent hover:shadow-lg transition-all text-center">
               <h3 className="font-bold text-slate-900 mb-2">Convertisseur d'allure</h3>
               <p className="text-slate-500 text-sm">min/km en km/h et inversement</p>
+            </Link>
+            <Link to="/outils/convertisseur-miles-km" className="block rounded-2xl border border-slate-200 p-6 hover:border-accent hover:shadow-lg transition-all text-center">
+              <h3 className="font-bold text-slate-900 mb-2">Convertisseur Miles / Km</h3>
+              <p className="text-slate-500 text-sm">Distances et allures miles ↔ km</p>
             </Link>
           </div>
         </div>

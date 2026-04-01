@@ -623,6 +623,7 @@ const postProcessWeekQuality = (
   week: any,
   pacesObj: { efPace: string; recoveryPace: string; vmaPace: string; seuilPace?: string } | null,
   defaultWeekGoal?: string,
+  planGoal?: string,
 ): void => {
   // weekGoal
   if (!week.weekGoal && week.theme) week.weekGoal = week.theme;
@@ -664,9 +665,12 @@ const postProcessWeekQuality = (
   if (joggingSessions.length >= 2 && pacesObj) {
     const normalize = (t: string) => t.toLowerCase().replace(/['']/g, "'").replace(/\s+/g, ' ').trim();
     const seen = new Map<string, number>();
+    const isTrailPlan = planGoal === 'Trail';
     const variants = [
       { title: 'Footing Progressif', mainSet: (dur: number) => `${dur - 10} min en commençant à ${pacesObj.recoveryPace} min/km, accélérer progressivement pour finir les 10 dernières minutes à ${pacesObj.efPace} min/km.` },
-      { title: 'Footing Vallonné', mainSet: (dur: number) => `${dur} min sur terrain vallonné en aisance respiratoire (${pacesObj.efPace} min/km), en intégrant des côtes légères sans forcer.` },
+      isTrailPlan
+        ? { title: 'Footing Vallonné', mainSet: (dur: number) => `${dur} min sur terrain vallonné en aisance respiratoire (${pacesObj.efPace} min/km), en intégrant des côtes légères sans forcer.` }
+        : { title: 'Footing en Aisance', mainSet: (dur: number) => `${dur} min en endurance fondamentale (${pacesObj.efPace} min/km), en variant le rythme : 5 min légèrement plus lent, 5 min à allure EF. Focus sur le relâchement et la respiration.` },
       { title: 'Footing Technique', mainSet: (dur: number) => `${dur} min en EF (${pacesObj.efPace} min/km) avec focus technique : cadence 170-180 pas/min, posture haute, foulée médio-pied.` },
     ];
     let variantIdx = 0;
@@ -1906,6 +1910,7 @@ const calculatePeriodizationPlan = (
   weight?: number,
   vma?: number,
   sessionsPerWeek?: number,
+  params?: { height?: number },
 ): { weeklyVolumes: number[]; weeklyPhases: PeriodizationPhase[]; recoveryWeeks: number[] } => {
 
   // Taux de progression selon niveau
@@ -2031,10 +2036,20 @@ const calculatePeriodizationPlan = (
     }
   }
 
-  if (weight && weight > 85) {
-    const weightFactor = weight >= 100 ? 0.75 : weight >= 90 ? 0.85 : 0.90;
+  // IMC-based volume reduction (plus pertinent que le poids brut)
+  const height = params?.height || 0;
+  const bmi = (weight && height > 0) ? weight / ((height / 100) ** 2) : 0;
+  if (bmi >= 35) {
+    totalReduction *= 0.65; // Obésité classe 2+ : peak volume à 65%
+    console.log(`[Periodization] IMC ${bmi.toFixed(1)} (≥35) → factor ×0.65`);
+  } else if (bmi >= 30) {
+    totalReduction *= 0.80; // Obésité classe 1 : peak volume à 80%
+    console.log(`[Periodization] IMC ${bmi.toFixed(1)} (≥30) → factor ×0.80`);
+  } else if (weight && weight > 85 && bmi < 30) {
+    // Poids élevé mais IMC < 30 (musculature) : réduction légère
+    const weightFactor = weight >= 100 ? 0.85 : 0.90;
     totalReduction *= weightFactor;
-    console.log(`[Periodization] Poids ${weight}kg → factor ×${weightFactor}`);
+    console.log(`[Periodization] Poids ${weight}kg (IMC ${bmi.toFixed(1)}) → factor ×${weightFactor}`);
   }
 
   // Plafonner la réduction totale à -40% max (facteur min = 0.60)
@@ -2254,17 +2269,17 @@ const calculatePeriodizationPlan = (
   let startVolume = Math.max(idealStartVolume, minStartVolume);
   // Si le coureur a déclaré un volume actuel > 0, l'utiliser comme référence
   if (currentVolume > 0) {
-    // Hard floor S1 : au moins 70% du volume courant (respecter la condition physique actuelle)
-    // Un coureur à 45km/sem ne doit JAMAIS démarrer en dessous de 31km
-    const currentVolumeFloor = Math.round(currentVolume * 0.70);
+    // Hard floor S1 : au moins 85% du volume courant (respecter la condition physique actuelle)
+    // Un coureur à 30km/sem ne doit JAMAIS démarrer en dessous de 26km
+    const currentVolumeFloor = Math.round(currentVolume * 0.85);
     startVolume = Math.max(startVolume, currentVolumeFloor);
     // Plafond S1 : on ne dépasse pas le volume courant NI 65% du pic...
     // ...SAUF si le volume courant est inférieur au minimum viable par niveau
     const volumeCap = Math.max(currentVolume, minStartVolume);
     startVolume = Math.min(startVolume, volumeCap, maxVolume * 0.65);
-    // Re-appliquer le hard floor 70% — il prime sur la règle des 65% du peak
+    // Re-appliquer le hard floor 85% — il prime sur la règle des 65% du peak
     // La règle des 65% est là pour garantir de la progression, mais on ne peut pas
-    // faire régresser un coureur de 30%+ sous son volume actuel pour ça
+    // faire régresser un coureur de 15%+ sous son volume actuel pour ça
     // Plafonné à 90% du peak pour garder un minimum de marge de progression
     startVolume = Math.max(startVolume, Math.min(currentVolumeFloor, maxVolume * 0.90));
   } else {
@@ -2433,6 +2448,7 @@ const createGenerationContext = (
     data.weight,
     vma,
     data.frequency || 3,
+    { height: data.height },
   );
 
   return {
@@ -2468,13 +2484,18 @@ const buildSafetyInstructions = (data: QuestionnaireData, isBeginnerLevel: boole
   const bmi = (data.weight && data.height) ? data.weight / ((data.height / 100) ** 2) : null;
   const age = data.age || 0;
   const weight = data.weight || 0;
-  const isOverweight = (bmi !== null && bmi >= 30) || weight >= 90;
   const isSenior = age >= 50;
   const isRestart = data.fitnessSubGoal === 'Reprendre après une pause' || data.lastActivity === 'Plus de 6 mois';
 
+  // 3-tier BMI system: 25 (surpoids), 30 (obésité modérée), 35 (obésité sévère)
+  const imcTier: 0 | 1 | 2 | 3 = bmi !== null
+    ? (bmi >= 35 ? 3 : bmi >= 30 ? 2 : bmi >= 25 ? 1 : 0)
+    : 0;
+  const isOverweight = imcTier >= 2; // rétro-compat pour isHighRisk/isModerateRisk
+
   // Détection des profils à risque nécessitant un avis médical OBLIGATOIRE
-  const isHighRisk = (isSenior && isBeginnerLevel) || (isOverweight && isBeginnerLevel) || (isSenior && isOverweight);
-  const isModerateRisk = isSenior || isOverweight;
+  const isHighRisk = (isSenior && isBeginnerLevel) || (isOverweight && isBeginnerLevel) || (isSenior && isOverweight) || imcTier >= 3;
+  const isModerateRisk = isSenior || isOverweight || imcTier >= 1;
 
   if (isHighRisk) {
     parts.push(`🚨 PROFIL À RISQUE ÉLEVÉ — AVIS MÉDICAL IMPÉRATIF
@@ -2495,16 +2516,41 @@ Dans le message de bienvenue (welcomeMessage), tu DOIS inclure :
 - Chaque séance DOIT avoir un conseil (advice) qui mentionne d'écouter son corps et de ne pas forcer en cas de douleur.`);
   }
 
-  if (isOverweight) {
-    parts.push(`⚠️ PROFIL NÉCESSITANT DES PRÉCAUTIONS ARTICULAIRES (poids > 85kg) :
-- Priorité absolue : séances à faible impact (marche rapide, marche/course alternée)
+  if (imcTier >= 3) {
+    parts.push(`🚨 IMC ≥ 35 — PRÉCAUTIONS ARTICULAIRES MAXIMALES :
+- Objectif temps recommandé : applique un malus de -10% sur le temps cible (ex: si objectif 2h, planifier pour 2h12)
+- Priorité ABSOLUE : marche/course alternée systématique les 4 premières semaines minimum
+- Cross-training OBLIGATOIRE : intégrer vélo, natation ou elliptique comme alternatives à au moins 1 séance de course/semaine
+- Pas de sauts, pas de pliométrie, pas de descentes rapides dans le renforcement
+- Durées courtes (20-25 min max au début), augmenter très progressivement (+5 min max/semaine)
+- Surfaces souples UNIQUEMENT (herbe, terre, chemin) — jamais d'asphalte
+- Volume max semaine 1 : 8-12 km (ou moins si débutant)
+- Le warmup DOIT inclure 10 min de marche progressive
+- Privilégier la RÉGULARITÉ à l'intensité : mieux vaut 3 séances douces que 2 intenses
+- Chaussures avec amorti MAXIMAL obligatoire — le mentionner dans le welcomeMessage
+🚫 NE JAMAIS mentionner le poids, l'IMC, la corpulence ou la morphologie du coureur dans AUCUN message. Rester positif et encourageant.`);
+  } else if (imcTier >= 2) {
+    parts.push(`⚠️ IMC 30-35 — PRÉCAUTIONS ARTICULAIRES RENFORCÉES :
+- Priorité : séances à faible impact (marche rapide, marche/course alternée en début de plan)
 - Pas de sauts, pas de pliométrie dans le renforcement
 - Durées courtes (20-30 min max au début), augmenter très progressivement
 - Surfaces souples (herbe, terre) plutôt qu'asphalte quand possible
 - Volume max semaine 1 : 10-15 km (ou moins si débutant)
 - Le warmup DOIT inclure 5-10 min de marche progressive
 - Privilégier la RÉGULARITÉ à l'intensité : mieux vaut 3 séances douces que 2 intenses
+- Cross-training recommandé (vélo, natation) pour réduire l'impact articulaire
+- Chaussures avec amorti renforcé — le mentionner dans le welcomeMessage
 🚫 NE JAMAIS mentionner le poids, l'IMC, la corpulence ou la morphologie du coureur dans AUCUN message. Rester positif et encourageant.`);
+  } else if (imcTier >= 1) {
+    const isLongDistance = data.distance === 'Marathon' || data.distance === 'Semi-marathon' || (data.distance === 'Trail' && data.trailDistance && parseInt(data.trailDistance) >= 30);
+    if (isLongDistance) {
+      parts.push(`💡 IMC 25-30 + LONGUE DISTANCE — PRÉCAUTIONS ARTICULAIRES LÉGÈRES :
+- Chaussures avec bon amorti recommandées — le mentionner dans le welcomeMessage
+- Surfaces souples quand possible, surtout pour les sorties longues
+- Bien s'hydrater pendant et après chaque séance
+- Le warmup DOIT inclure 5 min de marche progressive avant les sorties longues
+🚫 NE JAMAIS mentionner le poids, l'IMC, la corpulence ou la morphologie du coureur dans AUCUN message. Rester positif et encourageant.`);
+    }
   }
 
   if (isSenior) {
@@ -2674,6 +2720,10 @@ VMA : ${paces.vmaKmh} km/h (${vmaSource})
       ? `Séances UNIQUEMENT sur : ${data.preferredDays.join(', ')}`
       : 'Répartition équilibrée (ex: Mardi, Jeudi, Dimanche)';
 
+    // Instruction jour sortie longue
+    const longRunDay = data.preferredLongRunDay || 'Dimanche';
+    const longRunDayInstruction = `La SORTIE LONGUE doit être placée le ${longRunDay}.`;
+
     // Instruction blessures
     let injuryInstruction = '';
     if (data.injuries?.hasInjury && data.injuries.description) {
@@ -2782,6 +2832,7 @@ Tu es un Coach Running Expert. Génère UNIQUEMENT la SEMAINE 1 d'un plan d'entr
 - Date de course : ${data.raceDate || 'Non définie'}
 - Fréquence : ${data.frequency} séances/semaine
 - Jours : ${preferredDaysInstruction}
+- Jour sortie longue : ${longRunDayInstruction}
 - Localisation : ${data.city || 'Non renseignée'}
 ${injuryInstruction}
 ${commentsInstruction}
@@ -2827,6 +2878,7 @@ ${generationContext.periodizationPlan.weeklyPhases.map((p, i) => `S${i + 1}: ${p
 ═══════════════════════════════════════════════════════════════
 🔴 EXACTEMENT ${data.frequency} séances dans la semaine 1.
 🔴 Jours : ${data.preferredDays?.length ? data.preferredDays.join(', ') + ' — CES JOURS UNIQUEMENT.' : 'Répartition équilibrée.'}
+🔴 SORTIE LONGUE le ${longRunDay} — place OBLIGATOIREMENT la séance de type "Sortie Longue" ce jour-là.
 🔴 Le plan TOTAL fait ${planDurationWeeks} semaines (tu ne génères que la semaine 1 ici).
 🔴 VOLUME S1 = ${generationContext.periodizationPlan.weeklyVolumes[0]} km MAXIMUM (somme des distances de toutes les séances running). NE PAS dépasser ce volume.
 🔴 La SORTIE LONGUE doit être la séance la PLUS LONGUE de la semaine et représenter 30-40% du volume hebdo. Durée minimum SL : ${minSlDurForPrompt} min.
@@ -3005,6 +3057,20 @@ RAPPEL : Génère UNIQUEMENT la semaine 1 !
         });
       }
 
+      // Forcer la Sortie Longue sur le jour préféré
+      const slDay = data.preferredLongRunDay || 'Dimanche';
+      const slSession = plan.weeks[0].sessions.find((s: any) => s.type === 'Sortie Longue');
+      if (slSession && slSession.day !== slDay) {
+        // Swap avec la séance qui occupe déjà ce jour
+        const occupant = plan.weeks[0].sessions.find((s: any) => s.day === slDay && s !== slSession);
+        if (occupant) {
+          console.log(`[Gemini Preview] Swap SL: "${slSession.day}" ↔ "${occupant.day}" (${occupant.title})`);
+          occupant.day = slSession.day;
+        }
+        console.log(`[Gemini Preview] SL forcée sur ${slDay} (était ${slSession.day})`);
+        slSession.day = slDay;
+      }
+
       // Dédupliquer
       const usedDays = new Set<string>();
       plan.weeks[0].sessions.forEach((session: any, idx: number) => {
@@ -3078,7 +3144,7 @@ RAPPEL : Génère UNIQUEMENT la semaine 1 !
 
     // === Post-processing qualité séances (Preview) ===
     if (plan.weeks && Array.isArray(plan.weeks)) {
-      plan.weeks.forEach((week: any) => postProcessWeekQuality(week, paces, 'Première semaine — mise en route progressive'));
+      plan.weeks.forEach((week: any) => postProcessWeekQuality(week, paces, 'Première semaine — mise en route progressive', data.goal));
       // Enforcement volumes/durées/caps déterministe
       plan.weeks.forEach((week: any, idx: number) => {
         const targetVol = generationContext.periodizationPlan.weeklyVolumes[idx] || 0;
@@ -3204,6 +3270,7 @@ export const generateRemainingWeeks = async (
   const preferredDaysInstruction = data.preferredDays && data.preferredDays.length > 0
     ? `Séances UNIQUEMENT sur : ${data.preferredDays.join(', ')}`
     : 'Répartition équilibrée';
+  const longRunDayRemaining = data.preferredLongRunDay || 'Dimanche';
 
   // Instructions spécifiques pour les débutants ou VMA très faible (progression marche/course)
   const isBeginnerLevel = data.level === 'Débutant (0-1 an)';
@@ -3367,6 +3434,7 @@ ${batch.map(weekNum => {
 - Temps visé : ${data.targetTime || 'Finisher'}
 - Fréquence : ${data.frequency} séances/semaine
 - Jours : ${preferredDaysInstruction}
+- Sortie Longue : OBLIGATOIREMENT le ${longRunDayRemaining}
 ${data.injuries?.hasInjury ? `⚠️ BLESSURE : ${data.injuries.description}` : ''}
 ${data.comments?.trim() ? `📝 PRÉCISIONS DU COUREUR : "${data.comments.trim()}"` : ''}
 ${beginnerProgressionInstruction}
@@ -3528,6 +3596,19 @@ Retourne UNIQUEMENT un tableau JSON des semaines ${startWeek} à ${endWeek} :
             });
           }
 
+          // Forcer la Sortie Longue sur le jour préféré
+          const slDayR = data.preferredLongRunDay || 'Dimanche';
+          const slSessionR = week.sessions.find((s: any) => s.type === 'Sortie Longue');
+          if (slSessionR && slSessionR.day !== slDayR) {
+            const occupantR = week.sessions.find((s: any) => s.day === slDayR && s !== slSessionR);
+            if (occupantR) {
+              console.log(`[Gemini Remaining] S${week.weekNumber} Swap SL: "${slSessionR.day}" ↔ "${occupantR.day}" (${occupantR.title})`);
+              occupantR.day = slSessionR.day;
+            }
+            console.log(`[Gemini Remaining] S${week.weekNumber} SL forcée sur ${slDayR}`);
+            slSessionR.day = slDayR;
+          }
+
           // Dédupliquer les jours
           const usedDays = new Set<string>();
           week.sessions.forEach((session: any, idx: number) => {
@@ -3653,7 +3734,7 @@ Retourne UNIQUEMENT un tableau JSON des semaines ${startWeek} à ${endWeek} :
       }, 0);
 
     if (fullPlan.weeks && Array.isArray(fullPlan.weeks) && savedPaces) {
-      fullPlan.weeks.forEach((week: any) => postProcessWeekQuality(week, savedPaces));
+      fullPlan.weeks.forEach((week: any) => postProcessWeekQuality(week, savedPaces, undefined, data.goal));
 
       // Snapshot volumes AVANT guard pour mesurer l'impact
       const beforeVolumes = fullPlan.weeks.map(_weekKm);

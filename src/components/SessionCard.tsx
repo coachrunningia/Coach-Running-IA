@@ -45,6 +45,12 @@ const SessionCard: React.FC<SessionCardProps> = ({ session, weekNumber, isLocked
 
     const isCompleted = session.feedback?.completed ?? false;
 
+    // Jour affiché : dynamique si la séance a été déplacée (dateOverride)
+    const JOURS_SEMAINE = ['Dimanche', 'Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi'];
+    const displayDay = session.dateOverride && sessionDate
+        ? JOURS_SEMAINE[sessionDate.getDay()]
+        : session.day;
+
     // Formater la date de la séance
     const formatSessionDate = (date?: Date) => {
         if (!date) return '';
@@ -178,7 +184,7 @@ const SessionCard: React.FC<SessionCardProps> = ({ session, weekNumber, isLocked
                     </button>
                     <div className="md:hidden flex-1">
                         <div className="flex items-center gap-2 mb-1">
-                            <span className="text-[10px] uppercase font-black tracking-widest text-slate-400">{session.day}</span>
+                            <span className="text-[10px] uppercase font-black tracking-widest text-slate-400">{displayDay}</span>
                             {sessionDate && (
                                 <span className={cn("text-[10px] font-bold px-1.5 py-0.5 rounded", isToday ? "bg-accent text-white" : "bg-slate-100 text-slate-500")}>
                                     {isToday ? "Aujourd'hui" : formatSessionDate(sessionDate)}
@@ -204,7 +210,7 @@ const SessionCard: React.FC<SessionCardProps> = ({ session, weekNumber, isLocked
                 {/* 2. Main Info (Hidden on mobile, visible desktop) */}
                 <div className="hidden md:block">
                     <div className="flex items-center gap-2 mb-1">
-                        <span className="text-[10px] uppercase font-black tracking-widest text-slate-400">{session.day}</span>
+                        <span className="text-[10px] uppercase font-black tracking-widest text-slate-400">{displayDay}</span>
                         {sessionDate && (
                             <span className={cn("text-[10px] font-bold px-1.5 py-0.5 rounded", isToday ? "bg-accent text-white" : "bg-slate-100 text-slate-500")}>
                                 {isToday ? "Aujourd'hui" : formatSessionDate(sessionDate)}

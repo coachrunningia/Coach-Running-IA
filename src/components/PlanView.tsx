@@ -347,9 +347,10 @@ ${recentRPEs.length > 0 ? recentRPEs.slice(-8).join('\n') : 'Premier feedback �
           setToastVisible(true);
           setSelectedSessionForFeedback(null);
         }
-      } catch (error) {
+      } catch (error: any) {
         console.error("Failed to save feedback", error);
-        alert("Erreur lors de l'enregistrement du feedback.");
+        const detail = error?.message || error?.code || 'Erreur inconnue';
+        alert(`Erreur lors de l'enregistrement du feedback : ${detail}. Vérifie ta connexion et réessaie.`);
       } finally {
         setIsSaving(false);
       }

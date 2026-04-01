@@ -27,7 +27,9 @@ const DatePickerModal: React.FC<DatePickerModalProps> = ({ session, currentDate,
         </div>
 
         <p className="text-sm text-slate-600 mb-4">
-          <span className="font-semibold">{session.title}</span> ({session.day})
+          <span className="font-semibold">{session.title}</span> ({session.dateOverride
+            ? ['Dimanche','Lundi','Mardi','Mercredi','Jeudi','Vendredi','Samedi'][currentDate.getDay()]
+            : session.day})
         </p>
 
         {/* Warnings */}

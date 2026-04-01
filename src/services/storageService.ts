@@ -282,29 +282,68 @@ export const checkCanGeneratePlan = async (user: User): Promise<{ allowed: boole
 export const updateSessionFeedback = async (planId: string, updatedSession: Session, userId: string, weekNumber: number) => {
   const planRef = doc(db, PLANS_COLLECTION, planId);
   const planSnap = await getDoc(planRef);
-  if (planSnap.exists()) {
-    const plan = planSnap.data() as TrainingPlan;
+  if (!planSnap.exists()) {
+    throw new Error(`Plan ${planId} introuvable dans Firestore`);
+  }
 
-    // Helper to match sessions: prefer ID, fallback to composite key (day + title)
-    const sessionsMatch = (s1: Session, s2: Session): boolean => {
-      // If both have valid IDs, compare by ID
-      if (s1.id && s2.id && s1.id !== '' && s2.id !== '') {
-        return s1.id === s2.id;
-      }
-      // Fallback: match by day + title (should be unique within a week)
-      return s1.day === s2.day && s1.title === s2.title;
+  const plan = planSnap.data() as TrainingPlan;
+
+  // Helper to match sessions: prefer ID, fallback to composite key (day + title)
+  const sessionsMatch = (s1: Session, s2: Session): boolean => {
+    if (s1.id && s2.id && s1.id !== '' && s2.id !== '') {
+      return s1.id === s2.id;
+    }
+    return s1.day === s2.day && s1.title === s2.title;
+  };
+
+  // Only update the specific week to avoid cross-week conflicts
+  const updatedWeeks = plan.weeks.map(w => {
+    if (w.weekNumber !== weekNumber) return w;
+    return {
+      ...w,
+      sessions: w.sessions.map(s => sessionsMatch(s, updatedSession) ? updatedSession : s)
+    };
+  });
+
+  // ══════════════════════════════════════════════════════════════
+  // DÉTECTION AUTOMATIQUE DE BLESSURE via RPE + mots-clés douleur
+  // Si RPE ≥ 7 ET le commentaire mentionne une douleur → flag injury
+  // ══════════════════════════════════════════════════════════════
+  const updateData: Record<string, any> = { weeks: updatedWeeks };
+
+  const rpe = updatedSession.feedback?.rpe || 5;
+  const notes = (updatedSession.feedback?.notes || '').toLowerCase();
+  const injuryKeywords = [
+    'douleur', 'douleurs', 'mal à', 'blessure', 'blessé',
+    'tendon', 'tendinite', 'périostite', 'periostite', 'genou', 'cheville', 'hanche',
+    'pied', 'mollet', 'tibia', 'dos', 'lombalgie', 'sciatique',
+    'claquage', 'entorse', 'contracture', 'élongation', 'fracture',
+    'inflammation', 'gonflement', 'gonflé', 'boite', 'boitant',
+    'impossible de courir', 'pas pu courir', 'abandonné',
+    'pain', 'injury', 'hurt', 'knee', 'ankle', 'shin',
+  ];
+  const hasInjurySignal = rpe >= 7 && injuryKeywords.some(kw => notes.includes(kw));
+
+  // Seulement logger l'injury si generationContext existe déjà dans le plan
+  // (sinon Firestore refuse l'écriture sur un chemin nested inexistant)
+  if (hasInjurySignal && plan.generationContext?.questionnaireSnapshot) {
+    const sessionTitle = updatedSession.title || '';
+    const injuryLog = `[Auto-détecté S${weekNumber}] RPE ${rpe}/10 sur "${sessionTitle}" — ${updatedSession.feedback?.notes || ''}`;
+
+    const existingInjury = plan.generationContext.questionnaireSnapshot.injuries || {};
+    const existingDesc = (existingInjury as any).description || '';
+
+    updateData['generationContext.questionnaireSnapshot.injuries'] = {
+      hasInjury: true,
+      description: existingDesc ? `${existingDesc} | ${injuryLog}` : injuryLog,
+      detectedFromRPE: true,
+      detectedAt: new Date().toISOString(),
     };
 
-    // Only update the specific week to avoid cross-week conflicts
-    const updatedWeeks = plan.weeks.map(w => {
-      if (w.weekNumber !== weekNumber) return w;
-      return {
-        ...w,
-        sessions: w.sessions.map(s => sessionsMatch(s, updatedSession) ? updatedSession : s)
-      };
-    });
-    await updateDoc(planRef, { weeks: updatedWeeks });
+    console.log(`[RPE→Injury] Blessure détectée pour plan ${planId}: ${injuryLog}`);
   }
+
+  await updateDoc(planRef, updateData);
 };
 
 // ============================================

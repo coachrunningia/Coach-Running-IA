@@ -484,7 +484,8 @@ app.post('/api/create-checkout-session', async (req, res) => {
     process.env.STRIPE_PRICE_MONTHLY,
     process.env.STRIPE_PRICE_YEARLY,
     process.env.STRIPE_PRICE_PLAN_UNIQUE,
-    'price_1T67g41WQbIX14t09MD5FAhl', // Plan Unique
+    'price_1T67g41WQbIX14t09MD5FAhl', // Plan Unique (ancien)
+    'price_1TGEMl1WQbIX14t0KTcx7NdV', // Plan Unique 9,90€
     'price_1T67fR1WQbIX14t0eCWWtc68', // Monthly
     'price_1T1pl41WQbIX14t0QycLzNjF', // Yearly
     'price_1S2W601WQbIX14t0rkHRcJLG', // Monthly fallback (legacy)
@@ -498,6 +499,7 @@ app.post('/api/create-checkout-session', async (req, res) => {
   // Determine mode: 'payment' for Plan Unique, 'subscription' for Mensuel/Annuel
   const PLAN_UNIQUE_PRICE_IDS = [
     'price_1T67g41WQbIX14t09MD5FAhl',
+    'price_1TGEMl1WQbIX14t0KTcx7NdV',
     process.env.STRIPE_PRICE_PLAN_UNIQUE
   ].filter(Boolean);
 
@@ -1376,8 +1378,51 @@ app.post('/api/strava/analyze-week', async (req, res) => {
   }
 
   try {
-    // Utiliser directement le token fourni par le frontend
-    const accessToken = stravaAccessToken;
+    // Try frontend token first, but refresh server-side if expired
+    let accessToken = stravaAccessToken;
+
+    // Load user's token from Firestore to check expiry
+    const userDoc = await db.collection('users').doc(userId).get();
+    if (userDoc.exists) {
+      const userData = userDoc.data();
+      const tokenData = userData?.stravaToken;
+      if (tokenData?.expires_at) {
+        const now = Math.floor(Date.now() / 1000);
+        if (tokenData.expires_at < now + 300) {
+          console.log('[Strava Analysis] Token expired, refreshing server-side...');
+          const clientId = process.env.VITE_STRAVA_CLIENT_ID;
+          const clientSecret = process.env.VITE_STRAVA_CLIENT_SECRET;
+          if (clientId && clientSecret && tokenData.refresh_token) {
+            const refreshResponse = await fetch('https://www.strava.com/oauth/token', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({
+                client_id: clientId,
+                client_secret: clientSecret,
+                grant_type: 'refresh_token',
+                refresh_token: tokenData.refresh_token
+              })
+            });
+            if (refreshResponse.ok) {
+              const newTokenData = await refreshResponse.json();
+              accessToken = newTokenData.access_token;
+              // Save refreshed token to Firestore (preserve athlete info)
+              const mergedToken = {
+                ...newTokenData,
+                ...(tokenData.athlete ? { athlete: tokenData.athlete } : {})
+              };
+              await db.collection('users').doc(userId).update({
+                stravaToken: mergedToken,
+                lastStravaSync: new Date().toISOString()
+              });
+              console.log('[Strava Analysis] Token refreshed and saved');
+            } else {
+              console.error('[Strava Analysis] Refresh failed:', await refreshResponse.text());
+            }
+          }
+        }
+      }
+    }
 
     // Fetch activities from last 7 days
     const sevenDaysAgo = Math.floor((Date.now() - 7 * 24 * 60 * 60 * 1000) / 1000);

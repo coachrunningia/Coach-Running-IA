@@ -92,27 +92,12 @@ export interface User {
   source?: 'web' | 'mobile';
 }
 
-export interface StravaActivityMatch {
-  activityId: number;
-  name: string;
-  distance: number;      // km
-  movingTime: number;    // minutes
-  elapsedTime: number;   // minutes
-  elevationGain: number; // mètres
-  avgHeartrate?: number;
-  maxHeartrate?: number;
-  avgPace: string;       // "6:14 min/km"
-  type: string;          // "Run", "Trail Run", etc.
-  startDate: string;     // ISO date
-}
-
 export interface SessionFeedback {
   rpe: number; // 1 (Very Easy) to 10 (Max Effort)
   notes?: string;
   completed: boolean;
   completedAt?: string; // Date de complétion ISO
   adaptationRequested?: boolean; // Si l'user a demandé explicitement une adaptation suite à ce feedback
-  stravaData?: StravaActivityMatch; // Données Strava auto-matchées
 }
 
 // ============================================
@@ -182,10 +167,9 @@ export interface Week {
 }
 
 export interface FeasibilityAnalysis {
-  status: 'EXCELLENT' | 'BON' | 'AMBITIEUX' | 'RISQUÉ' | 'IRRÉALISTE';
+  status: 'EXCELLENT' | 'BON' | 'AMBITIEUX' | 'RISQUÉ';
   message: string;
   safetyWarning: string;
-  recommendation?: string;
 }
 
 export interface LocationSuggestion {

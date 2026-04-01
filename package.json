@@ -5,7 +5,8 @@
   "main": "server.js",
   "scripts": {
     "dev": "vite",
-    "build": "vite build",
+    "build": "vite build && node scripts/prerender.mjs",
+    "build:no-prerender": "vite build",
     "preview": "vite preview",
     "start": "node server.js"
   },
@@ -37,6 +38,7 @@
     "autoprefixer": "^10.4.19",
     "esbuild": "^0.27.4",
     "postcss": "^8.4.38",
+    "puppeteer": "^24.40.0",
     "tailwindcss": "^3.4.17",
     "typescript": "^5.4.5",
     "vite": "^5.2.11",

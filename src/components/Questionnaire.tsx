@@ -131,6 +131,14 @@ const Questionnaire: React.FC<QuestionnaireProps> = ({ onComplete, isGenerating:
     setShowValidationErrors(false);
     setStep(s => s + 1);
   };
+  const nextStepWithValidation = () => {
+    const errors = getValidationErrors();
+    if (errors.length > 0) {
+      setShowValidationErrors(true);
+      return;
+    }
+    nextStep();
+  };
   const prevStep = () => setStep(s => s - 1);
 
   const getValidationErrors = () => {
@@ -157,6 +165,10 @@ const Questionnaire: React.FC<QuestionnaireProps> = ({ onComplete, isGenerating:
     if (step >= 3) {
       if (data.injuries?.hasInjury && !data.injuries.description) {
         errors.push("Veuillez décrire votre blessure ou antécédent.");
+      }
+      if ((data.goal === UserGoal.ROAD_RACE || data.goal === UserGoal.TRAIL) &&
+          (data.currentWeeklyVolume === undefined || data.currentWeeklyVolume === null || isNaN(data.currentWeeklyVolume))) {
+        errors.push("Le volume hebdomadaire actuel est obligatoire. Si vous ne courez pas encore, indiquez 0.");
       }
     }
 
@@ -440,9 +452,9 @@ const Questionnaire: React.FC<QuestionnaireProps> = ({ onComplete, isGenerating:
           </div>
           <div className="grid grid-cols-2 gap-4 pt-2 border-t border-orange-200">
             <div>
-              <label className="block text-xs font-bold text-orange-700 mb-1">Volume actuel (km/sem)</label>
-              <input type="number" disabled={isGenerating} placeholder="Ex: 50" value={data.currentWeeklyVolume || ''}
-                onChange={e => updateData('currentWeeklyVolume', parseInt(e.target.value))}
+              <label className="block text-xs font-bold text-orange-700 mb-1">Volume actuel (km/sem) <span className="text-red-500">*</span></label>
+              <input type="number" min={0} disabled={isGenerating} placeholder="Ex: 50 (0 si débutant)" value={data.currentWeeklyVolume !== undefined && data.currentWeeklyVolume !== null ? data.currentWeeklyVolume : ''}
+                onChange={e => updateData('currentWeeklyVolume', e.target.value === '' ? undefined as any : parseInt(e.target.value))}
                 className="w-full p-2 rounded-lg border-orange-200" />
             </div>
             <div>
@@ -611,19 +623,20 @@ const Questionnaire: React.FC<QuestionnaireProps> = ({ onComplete, isGenerating:
         </div>
         <p className="text-xs text-slate-400 mt-2 italic">Laissez vide si vous ne connaissez pas vos temps.</p>
 
-        {/* Volume hebdomadaire pour Course/Trail */}
+        {/* Volume hebdomadaire pour Course/Trail — OBLIGATOIRE */}
         {(data.goal === UserGoal.ROAD_RACE || data.goal === UserGoal.TRAIL) && (
           <div className="mt-4">
-            <label className="block text-sm font-bold text-slate-700 mb-2">Volume hebdomadaire actuel (optionnel)</label>
+            <label className="block text-sm font-bold text-slate-700 mb-2">Combien de km courez-vous par semaine ? <span className="text-red-500">*</span></label>
             <input
               type="number"
-              placeholder="Ex: 40 km/semaine"
+              min={0}
+              placeholder="Ex: 20 (mettez 0 si vous ne courez pas encore)"
               disabled={isGenerating}
-              value={data.currentWeeklyVolume || ''}
-              onChange={e => updateData('currentWeeklyVolume', parseInt(e.target.value))}
-              className="w-full p-3 border rounded-xl outline-none focus:border-accent"
+              value={data.currentWeeklyVolume !== undefined && data.currentWeeklyVolume !== null ? data.currentWeeklyVolume : ''}
+              onChange={e => updateData('currentWeeklyVolume', e.target.value === '' ? undefined as any : parseInt(e.target.value))}
+              className={`w-full p-3 border rounded-xl outline-none focus:border-accent ${showValidationErrors && (data.currentWeeklyVolume === undefined || data.currentWeeklyVolume === null || isNaN(data.currentWeeklyVolume)) ? 'border-red-400 bg-red-50' : ''}`}
             />
-            <p className="text-xs text-slate-400 mt-1 italic">Aide à calibrer la progression du plan</p>
+            <p className="text-xs text-slate-500 mt-1">Essentiel pour calibrer votre plan. Si vous débutez, indiquez 0.</p>
           </div>
         )}
       </div>
@@ -639,9 +652,17 @@ const Questionnaire: React.FC<QuestionnaireProps> = ({ onComplete, isGenerating:
         />
       </div>
 
+      {showValidationErrors && getValidationErrors().length > 0 && (
+        <div className="p-3 bg-red-50 border border-red-200 rounded-xl">
+          <ul className="text-red-700 text-xs space-y-1 list-disc list-inside">
+            {getValidationErrors().map((err, i) => <li key={i}>{err}</li>)}
+          </ul>
+        </div>
+      )}
+
       <div className="flex justify-between pt-4">
         <button onClick={prevStep} disabled={isGenerating} className="flex items-center text-slate-500 font-bold disabled:opacity-50"><ChevronLeft size={20} /> Retour</button>
-        <button onClick={nextStep} disabled={isGenerating} className="bg-gradient-to-r from-orange-500 to-orange-600 text-white px-10 py-3 rounded-full font-bold shadow-lg shadow-orange-500/20 hover:shadow-orange-500/30 hover:scale-105 transition-all disabled:opacity-50">Continuer</button>
+        <button onClick={nextStepWithValidation} disabled={isGenerating} className="bg-gradient-to-r from-orange-500 to-orange-600 text-white px-10 py-3 rounded-full font-bold shadow-lg shadow-orange-500/20 hover:shadow-orange-500/30 hover:scale-105 transition-all disabled:opacity-50">Continuer</button>
       </div>
     </div>
   );
@@ -1046,6 +1067,38 @@ const Questionnaire: React.FC<QuestionnaireProps> = ({ onComplete, isGenerating:
               }
             </p>
           </div>
+
+          {/* SÉLECTEUR JOUR SORTIE LONGUE */}
+          {(data.goal === 'Course sur route' || data.goal === 'Trail') && data.frequency >= 3 && (
+            <div>
+              <label className="block mb-2 font-bold text-slate-900 flex items-center gap-2">
+                <Calendar size={18} className="text-accent" /> Jour de la sortie longue <span className="text-xs font-normal text-slate-400">(optionnel — Dimanche par défaut)</span>
+              </label>
+              <div className="flex flex-wrap gap-2">
+                {['Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi', 'Dimanche'].map(day => {
+                  const isSelected = (data.preferredLongRunDay || 'Dimanche') === day;
+                  return (
+                    <button
+                      key={day}
+                      type="button"
+                      disabled={isGenerating}
+                      onClick={() => updateData('preferredLongRunDay', day)}
+                      className={`px-3 py-2 rounded-xl text-sm font-bold transition-all disabled:opacity-50 ${
+                        isSelected
+                          ? 'bg-accent text-white shadow-md'
+                          : 'bg-slate-50 text-slate-600 border border-slate-200 hover:border-accent hover:text-accent'
+                      }`}
+                    >
+                      {day.substring(0, 3)}
+                    </button>
+                  );
+                })}
+              </div>
+              <p className="text-xs text-slate-400 mt-1 italic">
+                La sortie longue est la séance clé de ta semaine. Choisis le jour où tu as le plus de temps.
+              </p>
+            </div>
+          )}
         </div>
 
         {!user && (

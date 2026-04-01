@@ -380,11 +380,14 @@ export function calculateFeasibility(params: FeasibilityParams): FeasibilityResu
     }
   }
 
-  // Pas de chrono + objectif temps précis → plafonner
-  // MAIS si l'objectif est très confortable (cible ≥ 110% du théorique = gapPercent ≤ -10),
-  // la marge d'incertitude sur la VMA est absorbée → cap relevé à 80 (BON)
+  // Pas de chrono + objectif temps précis → plafonner avec interpolation continue
+  // Plus le gap est négatif (objectif confortable), plus le cap remonte
+  // -5% → cap 65, -15%+ → cap 85, interpolation linéaire entre les deux
   if (!hasChrono && hasTimeTarget) {
-    const noChronoCap = gapPercent <= -10 ? 80 : 65;
+    const absGap = Math.abs(Math.min(gapPercent, 0)); // seulement le côté confortable
+    const noChronoCap = gapPercent >= 0
+      ? 65 // objectif plus rapide que théorique → cap bas
+      : Math.round(clamp(65 + (absGap - 5) * 2, 65, 85));
     score = Math.min(score, noChronoCap);
     status = resolveStatus(score);
   }
@@ -401,15 +404,18 @@ export function calculateFeasibility(params: FeasibilityParams): FeasibilityResu
     score -= 10;
   }
 
-  // Surpoids (IMC ≥ 28) → risque articulaire accru, surtout longue distance
+  // IMC → risque articulaire, adapté par palier médical
   if (params.weight && params.height && params.height > 0) {
     const bmi = params.weight / ((params.height / 100) ** 2);
-    if (bmi >= 30 && isMarathon) {
-      score -= 15; // Obésité + marathon = risque important
-    } else if (bmi >= 28 && isMarathon) {
-      score -= 10;
+    if (bmi >= 35) {
+      // Obésité classe 2+ : risque très élevé quelle que soit la distance
+      score -= isMarathon ? 30 : 25;
     } else if (bmi >= 30) {
-      score -= 8;
+      // Obésité classe 1 : risque significatif
+      score -= isMarathon ? 20 : 15;
+    } else if (bmi >= 25) {
+      // Surpoids : risque modéré sur longue distance
+      score -= isMarathon ? 10 : isSemi ? 5 : 0;
     }
   }
 
@@ -440,13 +446,24 @@ export function calculateFeasibility(params: FeasibilityParams): FeasibilityResu
     }
   }
 
+  // VMA estimée sans chrono : ajouter la nuance "sous condition" au message
+  if (!hasChrono && hasTimeTarget && !params.vmaFromTarget) {
+    message += ` Cette évaluation repose sur une VMA estimée (${vma.toFixed(1)} km/h) et non sur un chrono validé. Il faudra ajuster le plan au fil des séances selon ton ressenti, ou régénérer un plan en renseignant un chrono de référence (5km, 10km, semi) pour des allures plus précises.`;
+  }
+
   let alternativeTarget: string | undefined;
   let recommendation: string | undefined;
   if (status === 'AMBITIEUX' || status === 'RISQUÉ') {
     // Proposer un objectif réaliste : temps théorique + 5% de marge
-    const realisticMinutes = theoMinutes * 1.05;
-    alternativeTarget = formatTime(realisticMinutes);
-    recommendation = `un temps cible de ${alternativeTarget}`;
+    // MAIS seulement si l'objectif est plus rapide que le théorique (gapPercent > 0)
+    // Sinon l'objectif est déjà confortable, la recommandation serait absurde (plus rapide que la cible)
+    if (gapPercent > 0) {
+      const realisticMinutes = theoMinutes * 1.05;
+      alternativeTarget = formatTime(realisticMinutes);
+      recommendation = `un temps cible de ${alternativeTarget}`;
+    } else if (!hasChrono) {
+      recommendation = `valider ta VMA avec un test terrain ou un chrono récent (5km, 10km) pour affiner l'évaluation`;
+    }
   }
 
   // Affiner la recommendation selon le contexte spécifique
@@ -620,6 +637,21 @@ function buildFinisherFeasibility(
   }
 
   if (hasInjury) { score -= 10; reasons.push({ type: 'warn', text: `blessure déclarée : adapte les séances et consulte un professionnel de santé` }); }
+
+  // IMC → risque articulaire
+  if (params.weight && params.height && params.height > 0) {
+    const bmi = params.weight / ((params.height / 100) ** 2);
+    if (bmi >= 35) {
+      score -= 25;
+      reasons.push({ type: 'risk', text: `ton IMC (${bmi.toFixed(1)}) indique un risque articulaire élevé — consulte un médecin avant de démarrer, privilégie les surfaces souples et le cross-training (vélo, natation)` });
+    } else if (bmi >= 30) {
+      score -= 15;
+      reasons.push({ type: 'warn', text: `ton IMC (${bmi.toFixed(1)}) augmente le risque articulaire — consulte un médecin, privilégie un bon amorti et des surfaces souples` });
+    } else if (bmi >= 25 && (isMarathon || (isTrail && distanceKm !== null && distanceKm >= 30))) {
+      score -= 5;
+      reasons.push({ type: 'warn', text: `avec un IMC de ${bmi.toFixed(1)}, investis dans de bonnes chaussures avec amorti pour cette distance` });
+    }
+  }
 
   // VMA estimée (pas de chrono) → confiance réduite sur l'évaluation
   if (!params.hasChrono) {
@@ -919,23 +951,22 @@ function buildSafetyWarning(
   height?: number,
 ): string {
   const bmi = (weight && height && height > 0) ? weight / ((height / 100) ** 2) : 0;
-  const isOverweight = bmi >= 28;
 
-  // Priorité : blessure > surpoids > premier marathon/semi > débutant > ambitieux > défaut
+  // Priorité : blessure > IMC ≥ 35 > IMC ≥ 30 > IMC ≥ 25 > marathon/semi > débutant > défaut
   if (hasInjury) {
     return 'Fais valider la reprise avec ton kiné/médecin avant de démarrer ce plan. Adapte les séances si nécessaire.';
   }
 
-  if (isOverweight && beginner && (isMarathon || isSemi)) {
-    return 'Consulte ton médecin avant de démarrer ce programme, un certificat médical d\'aptitude est vivement conseillé. Investis dans de bonnes chaussures avec un bon amorti et privilégie les surfaces souples.';
+  if (bmi >= 35) {
+    return 'Consulte impérativement ton médecin avant de démarrer ce programme. Avec ton IMC, le risque articulaire est élevé : privilégie le cross-training (vélo, natation, elliptique), les surfaces souples, et investis dans des chaussures avec un amorti maximal. Alterne marche et course si nécessaire.';
   }
 
-  if (isOverweight && beginner) {
-    return 'Consulte ton médecin avant de démarrer. Investis dans de bonnes chaussures avec amorti et privilégie les surfaces souples (herbe, terre).';
+  if (bmi >= 30) {
+    return 'On te recommande de consulter ton médecin avant de démarrer. Investis dans de bonnes chaussures avec un amorti renforcé, privilégie les surfaces souples (herbe, terre, chemin), et intègre du cross-training (vélo, natation) pour réduire l\'impact sur les articulations.';
   }
 
-  if (isOverweight) {
-    return 'Pense à bien t\'hydrater, à porter des chaussures avec un bon amorti et à privilégier les surfaces souples quand c\'est possible.';
+  if (bmi >= 25 && (isMarathon || isSemi)) {
+    return 'Investis dans de bonnes chaussures avec un bon amorti et privilégie les surfaces souples quand c\'est possible. Pense à bien t\'hydrater.';
   }
 
   if (beginner && (isMarathon || isSemi)) {

@@ -66,6 +66,44 @@ const MilesKmConverterPage: React.FC = () => {
         <meta property="og:title" content="Convertisseur Miles en Km : Conversion Distance et Allure Running" />
         <meta property="og:description" content="Convertissez miles en km et allures min/mile en min/km. Tableau complet des distances de course." />
         <meta property="og:type" content="website" />
+        <script type="application/ld+json">{JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "FAQPage",
+          "mainEntity": [
+            {
+              "@type": "Question",
+              "name": "Combien de kilomètres fait 1 mile ?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "1 mile équivaut exactement à 1,609344 kilomètres. En course à pied, on arrondit souvent à 1,61 km."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "Comment convertir une allure en min/mile en min/km ?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Divisez l'allure en min/mile par 1,609344. Par exemple, 8:00 min/mile = 4:58 min/km. Notre convertisseur effectue ce calcul automatiquement."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "Combien de miles fait un marathon ?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Un marathon fait 26,2 miles, soit exactement 42,195 km. Un semi-marathon fait 13,1 miles (21,0975 km)."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "Pourquoi les courses aux États-Unis sont en miles ?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Les États-Unis utilisent le système impérial. Les distances de course courantes sont 1 mile, 5K (3,1 mi), 10K (6,2 mi), et le marathon (26,2 mi). Le 5K et 10K restent en km même aux USA."
+              }
+            }
+          ]
+        })}</script>
       </Helmet>
 
       <div className="min-h-screen bg-gradient-to-b from-slate-50 to-white">
