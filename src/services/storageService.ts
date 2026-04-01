@@ -343,7 +343,7 @@ export const updateSessionFeedback = async (planId: string, updatedSession: Sess
     console.log(`[RPE→Injury] Blessure détectée pour plan ${planId}: ${injuryLog}`);
   }
 
-  await updateDoc(planRef, updateData);
+  await updateDoc(planRef, cleanObject(updateData));
 };
 
 // ============================================
