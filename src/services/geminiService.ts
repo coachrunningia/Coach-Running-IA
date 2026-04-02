@@ -2944,7 +2944,14 @@ ${(isVKPreview || isTrailSteepPreview) ? `   - fondamental : Jogging (footing EF
    - specifique : + Répétitions spécifiques course (simulation D+/km cible), allure spécifique.
    - affutage : Jogging, Sortie courte avec rappel côte, Renforcement.
    - recuperation : Jogging (footing EF plat) uniquement + Renforcement léger. PAS d'intensité.` :
-`   - fondamental : Jogging (footing EF), Sortie Longue (EF uniquement), Renforcement. PAS de seuil, PAS de fractionné, PAS de VMA. Séances 100% endurance fondamentale.
+`   - fondamental : Jogging (footing EF), Sortie Longue (EF uniquement), Renforcement.
+     ${(!isBeginnerLevel && data.frequency >= 4) ?
+     `⚠️ NIVEAU CONFIRMÉ/EXPERT + 4+ SÉANCES : à partir de la SEMAINE 3 du fondamental, 1 séance par semaine DOIT inclure du travail de vitesse léger :
+       • Fartlek libre (5-6 accélérations de 30s à allure 10km, récup 1min30 trottée) — type "Fractionné", intensité "Modéré"
+       • OU Footing avec gammes de vitesse (8-10 lignes droites de 80-100m en fin de footing)
+       • OU Côtes courtes (6-8 × 20s en côte, récup descente trottée)
+       Cela maintient les qualités neuromusculaires sans casser la base aérobie. Les semaines 1-2 restent 100% EF.` :
+     `PAS de seuil, PAS de fractionné, PAS de VMA. Séances 100% endurance fondamentale.`}
      ⚠️ VARIÉTÉ OBLIGATOIRE en phase fondamentale : chaque footing doit avoir un thème DIFFÉRENT. Exemples :
        • "Footing en aisance respiratoire" (classique plat)
        • "Footing vallonné" (terrain avec légères côtes, toujours en EF)
@@ -3512,7 +3519,14 @@ ${(isVKRemaining || isTrailSteepRemaining) ? `   - fondamental : Jogging (footin
    - specifique : + Répétitions spécifiques course (simulation D+/km cible), allure spécifique.
    - affutage : Jogging, Sortie courte avec rappel côte, Renforcement.
    - recuperation : Jogging (footing EF plat) uniquement + Renforcement léger. PAS d'intensité.` :
-`   - fondamental : Jogging (footing EF), Sortie Longue (EF uniquement), Renforcement. PAS de seuil, PAS de fractionné, PAS de VMA.
+`   - fondamental : Jogging (footing EF), Sortie Longue (EF uniquement), Renforcement.
+     ${(!isBeginnerLevel && data.frequency >= 4) ?
+     `À partir de la SEMAINE 3 du fondamental, 1 séance/semaine DOIT inclure du travail de vitesse léger :
+       • Fartlek libre (5-6 accélérations de 30s à allure 10km, récup 1min30 trottée) — type "Fractionné", intensité "Modéré"
+       • OU Côtes courtes (6-8 × 20s en côte, récup descente trottée)
+       Les semaines 1-2 restent 100% EF.` :
+     `PAS de seuil, PAS de fractionné, PAS de VMA.`}
+     VARIÉTÉ OBLIGATOIRE : chaque footing doit avoir un thème DIFFÉRENT (progressif, vallonné, technique, nature...).
    - developpement : + Fractionné (VMA courte, côtes), seuil court possible.
    - specifique : + Seuil long, allure spécifique course, fractionné seuil.
    - affutage : Jogging, Sortie Longue courte, Renforcement + 1 rappel fractionné court.
