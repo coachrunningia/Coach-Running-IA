@@ -944,25 +944,36 @@ const detectLevelFromData = (data: any): string => {
   else declared = 'inter';
 
   // Override par VMA si incohérence flagrante
-  // VMA < 11 = débutant, 11-14 = inter, 14-17 = confirmé, > 17 = expert
+  // Seuils DIFFÉRENCIÉS par sexe : les femmes ont ~10% de VMA en moins à niveau égal
+  // Homme : <11 deb, 11-14 inter, 14-17 conf, >17 expert
+  // Femme : <9.5 deb, 9.5-12.5 inter, 12.5-15 conf, >15 expert
   const vma = data.vma || data.estimatedVMA;
   if (vma && vma > 0) {
+    const isFemale = data.sex === 'Femme';
     let vmaLevel: string;
-    if (vma < 11) vmaLevel = 'deb';
-    else if (vma < 14) vmaLevel = 'inter';
-    else if (vma < 17) vmaLevel = 'conf';
-    else vmaLevel = 'expert';
+    if (isFemale) {
+      if (vma < 9.5) vmaLevel = 'deb';
+      else if (vma < 12.5) vmaLevel = 'inter';
+      else if (vma < 15) vmaLevel = 'conf';
+      else vmaLevel = 'expert';
+    } else {
+      if (vma < 11) vmaLevel = 'deb';
+      else if (vma < 14) vmaLevel = 'inter';
+      else if (vma < 17) vmaLevel = 'conf';
+      else vmaLevel = 'expert';
+    }
 
     const levelRank: Record<string, number> = { deb: 0, inter: 1, conf: 2, expert: 3 };
     const rankNames = ['deb', 'inter', 'conf', 'expert'];
     // Si le niveau déclaré est au-dessus de ce que la VMA indique → baisser
-    // VMA < 10 : drop jusqu'à 2 crans (VMA très basse = clairement surévalué)
-    // VMA >= 10 : drop max 1 cran (marge d'erreur possible)
+    // VMA < 10 (homme) / < 8.5 (femme) : drop jusqu'à 2 crans
+    // Sinon : drop max 1 cran (marge d'erreur possible)
     const gap = levelRank[declared] - levelRank[vmaLevel];
     if (gap >= 1) {
-      const maxDrop = vma < 10 ? 2 : 1;
+      const hardDropThreshold = isFemale ? 8.5 : 10;
+      const maxDrop = vma < hardDropThreshold ? 2 : 1;
       const adjustedLevel = rankNames[Math.max(levelRank[declared] - maxDrop, levelRank[vmaLevel])];
-      console.log(`[Enforce] Level override: declared="${declared}" but VMA=${vma} implies "${vmaLevel}" (gap=${gap}, maxDrop=${maxDrop}) → using "${adjustedLevel}"`);
+      console.log(`[Enforce] Level override: declared="${declared}" but VMA=${vma} (${isFemale ? 'F' : 'M'}) implies "${vmaLevel}" (gap=${gap}, maxDrop=${maxDrop}) → using "${adjustedLevel}"`);
       return adjustedLevel;
     }
   }
@@ -1910,7 +1921,7 @@ const calculatePeriodizationPlan = (
   weight?: number,
   vma?: number,
   sessionsPerWeek?: number,
-  params?: { height?: number },
+  params?: { height?: number; vmaSource?: string },
 ): { weeklyVolumes: number[]; weeklyPhases: PeriodizationPhase[]; recoveryWeeks: number[] } => {
 
   // Taux de progression selon niveau
@@ -2068,10 +2079,31 @@ const calculatePeriodizationPlan = (
   // Ex: VMA 8, 3 sess → 1 SL 60min + 2×45min à 6.0 km/h = 15km max
   // ══════════════════════════════════════════════════════════════
   if (vma && vma > 0 && sessionsPerWeek && sessionsPerWeek > 0) {
-    const objectiveKey = isVK ? 'VK' : isTrailSteep ? 'TrailSteep' :
+    let objectiveKey = isVK ? 'VK' : isTrailSteep ? 'TrailSteep' :
       isUltraLong ? 'Trail100+' : isUltra ? 'Trail60+' : isTrail30Plus ? 'Trail30+' : isTrail ? 'Trail<30' :
       isMarathon ? 'Marathon' : isSemi ? 'Semi' : is10k ? '10K' : isPertePoids ? 'PertePoids' :
       isMaintien ? 'Maintien' : '5K';
+
+    // FIX: Pour PertePoids/Maintien, si le coureur a des chronos de course validés,
+    // utiliser les caps de sa meilleure distance (pas les caps sédentaire PdP/Maintien).
+    // Un semi-marathonien qui veut perdre du poids ne doit pas être capé comme un débutant.
+    if (objectiveKey === 'PertePoids' || objectiveKey === 'Maintien') {
+      // Détecter la plus longue distance courue via VMA source ou chronos récents
+      const vmaSource = (params as any)?.vmaSource || '';
+      const hasMarathonChrono = vmaSource.toLowerCase().includes('marathon') && !vmaSource.toLowerCase().includes('semi');
+      const hasSemiChrono = vmaSource.toLowerCase().includes('semi');
+      const has10kChrono = vmaSource.toLowerCase().includes('10k') || vmaSource.toLowerCase().includes('10 km');
+
+      if (hasMarathonChrono) { objectiveKey = 'Marathon'; }
+      else if (hasSemiChrono) { objectiveKey = 'Semi'; }
+      else if (has10kChrono) { objectiveKey = '10K'; }
+      // Sinon rester sur PertePoids/Maintien (pas de chrono → profil sédentaire)
+
+      if (objectiveKey !== 'PertePoids' && objectiveKey !== 'Maintien') {
+        console.log(`[Periodization] PdP/Maintien avec expérience course → caps basés sur "${objectiveKey}"`);
+      }
+    }
+
     const levelKey = level.includes('Débutant') || level.includes('debutant') ? 'deb' :
       level.includes('Expert') ? 'expert' : level.includes('Confirmé') ? 'conf' : 'inter';
     const slMaxDur = MAX_SL_DURATION[objectiveKey]?.[levelKey] || MAX_SL_DURATION[objectiveKey]?.inter || 90;
@@ -2431,6 +2463,29 @@ const createGenerationContext = (
     defaultVolume = isPertePoids ? 25 : isMaintien ? 30 : isVKCtx ? 25 : isTrailSteepCtx ? 30 : isUltra ? 60 : isTrail30Plus ? 50 : isMarathon ? 55 : isSemi ? 40 : isTrail ? 40 : 45;
   }
 
+  // FIX: Pour PdP/Maintien avec expérience course, rehausser le defaultVolume
+  // Un semi-marathonien qui veut perdre du poids court déjà bien plus qu'un sédentaire
+  if ((isPertePoids || isMaintien) && vmaSource) {
+    const src = vmaSource.toLowerCase();
+    let raceDefaultVolume = 0;
+    const hasMarathonExp = src.includes('marathon') && !src.includes('semi');
+    const hasSemiExp = src.includes('semi');
+    const has10kExp = src.includes('10k') || src.includes('10 km') || src.includes('10km');
+    if (effectiveLevelKey === 'deb') {
+      raceDefaultVolume = hasMarathonExp ? 20 : hasSemiExp ? 18 : has10kExp ? 15 : 0;
+    } else if (effectiveLevelKey === 'inter') {
+      raceDefaultVolume = hasMarathonExp ? 35 : hasSemiExp ? 28 : has10kExp ? 25 : 0;
+    } else if (effectiveLevelKey === 'conf') {
+      raceDefaultVolume = hasMarathonExp ? 45 : hasSemiExp ? 35 : has10kExp ? 30 : 0;
+    } else {
+      raceDefaultVolume = hasMarathonExp ? 55 : hasSemiExp ? 40 : has10kExp ? 35 : 0;
+    }
+    if (raceDefaultVolume > defaultVolume) {
+      console.log(`[GenCtx] PdP/Maintien uplift: defaultVolume ${defaultVolume}→${raceDefaultVolume} (expérience ${hasMarathonExp ? 'marathon' : hasSemiExp ? 'semi' : '10k'})`);
+      defaultVolume = raceDefaultVolume;
+    }
+  }
+
   // Si le coureur déclare 0 ou ne renseigne pas, on utilise le default
   // Si le coureur déclare un volume > 0 mais très bas pour son niveau, on respecte SA déclaration
   const currentVolume = (declaredVolume && declaredVolume > 0) ? declaredVolume : defaultVolume;
@@ -2448,7 +2503,7 @@ const createGenerationContext = (
     data.weight,
     vma,
     data.frequency || 3,
-    { height: data.height },
+    { height: data.height, vmaSource },
   );
 
   return {
