@@ -346,13 +346,32 @@ export const findStravaActivityForSession = async (
 
         if (compatibleActivities.length === 0) return null;
 
-        // Trouver l'activité la plus proche en date de la séance
-        const sessionTime = sessionDate.getTime();
-        const closest = compatibleActivities.reduce((best: any, a: any) => {
-            const aDate = new Date(a.start_date_local || a.start_date).getTime();
-            const bestDate = new Date(best.start_date_local || best.start_date).getTime();
-            return Math.abs(aDate - sessionTime) < Math.abs(bestDate - sessionTime) ? a : best;
+        // Trouver l'activité la plus proche en date CALENDAIRE de la séance
+        // Comparer par jour (pas par timestamp) pour éviter les décalages soirée→lendemain
+        const sessionDay = sessionDate.toISOString().split('T')[0]; // "YYYY-MM-DD"
+
+        // Prioriser les activités du MÊME JOUR calendaire
+        const sameDayActivities = compatibleActivities.filter((a: any) => {
+            const aLocal = a.start_date_local || a.start_date;
+            const aDay = new Date(aLocal).toISOString().split('T')[0];
+            return aDay === sessionDay;
         });
+
+        let closest;
+        if (sameDayActivities.length > 0) {
+            // Même jour : prendre la plus longue (la "vraie" séance, pas un déplacement)
+            closest = sameDayActivities.reduce((best: any, a: any) =>
+                (a.moving_time || 0) > (best.moving_time || 0) ? a : best
+            );
+        } else {
+            // Pas d'activité le même jour → fallback sur la plus proche en date
+            const sessionTime = sessionDate.getTime();
+            closest = compatibleActivities.reduce((best: any, a: any) => {
+                const aDate = new Date(a.start_date_local || a.start_date).getTime();
+                const bestDate = new Date(best.start_date_local || best.start_date).getTime();
+                return Math.abs(aDate - sessionTime) < Math.abs(bestDate - sessionTime) ? a : best;
+            });
+        }
 
         return {
             activityId: closest.id,
