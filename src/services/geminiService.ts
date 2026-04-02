@@ -2945,8 +2945,8 @@ ${(isVKPreview || isTrailSteepPreview) ? `   - fondamental : Jogging (footing EF
    - affutage : Jogging, Sortie courte avec rappel côte, Renforcement.
    - recuperation : Jogging (footing EF plat) uniquement + Renforcement léger. PAS d'intensité.` :
 `   - fondamental : Jogging (footing EF), Sortie Longue (EF uniquement), Renforcement.
-     ${(!isBeginnerLevel && data.frequency >= 4) ?
-     `⚠️ NIVEAU CONFIRMÉ/EXPERT + 4+ SÉANCES : à partir de la SEMAINE 3 du fondamental, 1 séance par semaine DOIT inclure du travail de vitesse léger :
+     ${(!isBeginnerLevel && !needsMarcheCourse && data.frequency >= 4 && data.fitnessSubGoal !== 'Reprendre après une pause' && data.lastActivity !== 'Plus de 6 mois') ?
+     `⚠️ NIVEAU CONFIRMÉ+ / 4+ SÉANCES : à partir de la SEMAINE 3 du fondamental, 1 séance par semaine DOIT inclure du travail de vitesse léger :
        • Fartlek libre (5-6 accélérations de 30s à allure 10km, récup 1min30 trottée) — type "Fractionné", intensité "Modéré"
        • OU Footing avec gammes de vitesse (8-10 lignes droites de 80-100m en fin de footing)
        • OU Côtes courtes (6-8 × 20s en côte, récup descente trottée)
@@ -3520,7 +3520,7 @@ ${(isVKRemaining || isTrailSteepRemaining) ? `   - fondamental : Jogging (footin
    - affutage : Jogging, Sortie courte avec rappel côte, Renforcement.
    - recuperation : Jogging (footing EF plat) uniquement + Renforcement léger. PAS d'intensité.` :
 `   - fondamental : Jogging (footing EF), Sortie Longue (EF uniquement), Renforcement.
-     ${(!isBeginnerLevel && data.frequency >= 4) ?
+     ${(!isBeginnerLevel && !needsMarcheCourseRemaining && data.frequency >= 4 && data.fitnessSubGoal !== 'Reprendre après une pause' && data.lastActivity !== 'Plus de 6 mois') ?
      `À partir de la SEMAINE 3 du fondamental, 1 séance/semaine DOIT inclure du travail de vitesse léger :
        • Fartlek libre (5-6 accélérations de 30s à allure 10km, récup 1min30 trottée) — type "Fractionné", intensité "Modéré"
        • OU Côtes courtes (6-8 × 20s en côte, récup descente trottée)
