@@ -413,9 +413,12 @@ export function calculateFeasibility(params: FeasibilityParams): FeasibilityResu
     } else if (bmi >= 30) {
       // Obésité classe 1 : risque significatif
       score -= isMarathon ? 20 : 15;
+    } else if (bmi >= 27) {
+      // Surpoids significatif : risque articulaire toutes distances
+      score -= isMarathon ? 10 : isSemi ? 7 : 3;
     } else if (bmi >= 25) {
-      // Surpoids : risque modéré sur longue distance
-      score -= isMarathon ? 10 : isSemi ? 5 : 0;
+      // Surpoids léger : risque modéré sur longue distance uniquement
+      score -= isMarathon ? 5 : isSemi ? 3 : 0;
     }
   }
 
@@ -1007,6 +1010,10 @@ function buildSafetyWarning(
 
   if (isSenior) {
     return `À ${age} ans, on te recommande de consulter ton médecin pour un certificat d'aptitude et idéalement un test d'effort avant de démarrer. Accorde-toi une récupération suffisante entre les séances (48h minimum) et écoute ton corps.`;
+  }
+
+  if (bmi >= 27) {
+    return 'Investis dans de bonnes chaussures avec un bon amorti et privilégie les surfaces souples quand c\'est possible. Pense à bien t\'hydrater et à écouter ton corps.';
   }
 
   if (bmi >= 25 && (isMarathon || isSemi || isLongDistance)) {
