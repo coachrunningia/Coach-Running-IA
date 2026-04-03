@@ -787,8 +787,18 @@ const Questionnaire: React.FC<QuestionnaireProps> = ({ onComplete, isGenerating:
           reason = "5 séances/semaine pour une préparation marathon de qualité.";
         }
       } else if (goal === UserGoal.TRAIL) {
-        base = { min: 4, max: 5, recommended: 4 };
-        reason = "4-5 séances/semaine avec du travail spécifique trail.";
+        const trailDist = data.trailDetails?.distance || 20;
+        if (trailDist >= 80) {
+          base = { min: 5, max: 6, recommended: 5 };
+          reason = "5-6 séances/semaine indispensables pour un ultra de cette envergure.";
+          warning = `Un ultra de ${trailDist}km demande un volume d'entraînement élevé. Avec moins de 5 séances, le volume maximal sera limité.`;
+        } else if (trailDist >= 42) {
+          base = { min: 4, max: 5, recommended: 5 };
+          reason = "5 séances/semaine recommandées pour un trail long.";
+        } else {
+          base = { min: 4, max: 5, recommended: 4 };
+          reason = "4-5 séances/semaine avec du travail spécifique trail.";
+        }
       }
     }
 

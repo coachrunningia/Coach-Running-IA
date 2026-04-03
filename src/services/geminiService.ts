@@ -2134,8 +2134,10 @@ const calculatePeriodizationPlan = (
     // Ex: 3 séances = 2 running + 1 renfo, 2 séances = 1 running + 1 renfo
     const runningSessions = Math.max(1, sessionsPerWeek - 1);
     // 1 SL at slMaxDur + remaining running sessions at nonSlMaxDur
-    const slMaxKm = (slMaxDur / 60) * efSpeedKmH;
-    const otherMaxKm = ((runningSessions - 1) * nonSlMaxDur / 60) * efSpeedKmH;
+    // Utiliser 70% des durées max (réaliste : Gemini ne génère pas des sessions à durée max chaque semaine)
+    const realisticFactor = 0.70;
+    const slMaxKm = (slMaxDur * realisticFactor / 60) * efSpeedKmH;
+    const otherMaxKm = ((runningSessions - 1) * nonSlMaxDur * realisticFactor / 60) * efSpeedKmH;
     const vmaBasedMaxVolume = Math.round(slMaxKm + otherMaxKm);
 
     if (vmaBasedMaxVolume < maxVolume) {

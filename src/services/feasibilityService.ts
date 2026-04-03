@@ -419,6 +419,19 @@ export function calculateFeasibility(params: FeasibilityParams): FeasibilityResu
     }
   }
 
+  // Ultra 100km+ : pénalités spécifiques (même avec temps cible)
+  if (isTrail && distanceKm !== null && distanceKm >= 100) {
+    if (currentVolume !== undefined && currentVolume < 50) {
+      score -= 15;
+    }
+    if (params.frequency && params.frequency < 5) {
+      score -= 15;
+    }
+    if (!hasChrono) {
+      score -= 10;
+    }
+  }
+
   // Clamp final
   score = clamp(score, 10, 100);
   status = resolveStatus(score);
@@ -579,6 +592,25 @@ function buildFinisherFeasibility(
       reasons.push({ type: 'risk', text: `aucun volume hebdomadaire déclaré pour un trail de ${distanceKm}km — la montée en charge sera très importante` });
     } else {
       reasons.push({ type: 'risk', text: `volume actuel de ${currentVolume}km/sem insuffisant pour un trail de ${distanceKm}km (40km/sem recommandés)` });
+    }
+  }
+
+  // Ultra 100km+ : pénalités spécifiques
+  if (isTrail && distanceKm !== null && distanceKm >= 100) {
+    // Volume minimal pour ultra 100km+ = 50km/sem
+    if ((currentVolume ?? 0) < 50) {
+      score -= 15;
+      reasons.push({ type: 'risk', text: `volume actuel de ${currentVolume || 0}km/sem bas pour un ultra de ${distanceKm}km (50km/sem+ recommandés)` });
+    }
+    // Fréquence trop basse pour ultra
+    if (params.frequency && params.frequency < 5) {
+      score -= 15;
+      reasons.push({ type: 'risk', text: `${params.frequency} séances/semaine est insuffisant pour un ultra de ${distanceKm}km — 5-6 séances recommandées pour atteindre le volume nécessaire` });
+    }
+    // VMA estimée sur ultra = risque accru (allures incertaines sur très longue distance)
+    if (!params.hasChrono) {
+      score -= 10;
+      reasons.push({ type: 'warn', text: `VMA estimée sur un ultra de ${distanceKm}km : les allures sont incertaines, valide avec un chrono (10km, semi) pour plus de fiabilité` });
     }
   }
 
