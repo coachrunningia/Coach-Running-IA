@@ -2076,7 +2076,7 @@ ${recentRPEs.length > 0 ? recentRPEs.slice(-8).join('\n') : 'Premier feedback �
                     <CheckCircle size={32} className="text-green-600" />
                   </div>
                   <h4 className="font-bold text-lg text-slate-900 mb-2">Message envoyé !</h4>
-                  <p className="text-slate-600 text-sm">On revient vers toi le plus rapidement possible. En attendant, continue ton plan !</p>
+                  <p className="text-slate-600 text-sm">On revient vers toi le plus rapidement possible. On ne le rappelle jamais assez, mais si une douleur apparaît, consulte rapidement un médecin et stoppe l'entraînement.</p>
                   <button onClick={() => setShowAskCoach(false)} className="mt-6 px-6 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold rounded-xl transition-all">Fermer</button>
                 </div>
               ) : (
