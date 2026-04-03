@@ -1062,7 +1062,9 @@ const Questionnaire: React.FC<QuestionnaireProps> = ({ onComplete, isGenerating:
             </div>
             <p className="text-xs text-slate-400 mt-1 italic">
               {(data.preferredDays || []).length > 0
-                ? `${(data.preferredDays || []).length}/${data.frequency} jours sélectionnés`
+                ? (data.preferredDays || []).length < data.frequency
+                  ? `⚠️ ${(data.preferredDays || []).length}/${data.frequency} jours sélectionnés — sélectionne au moins ${data.frequency} jours ou laisse vide`
+                  : `${(data.preferredDays || []).length}/${data.frequency} jours sélectionnés`
                 : `Sélectionnez jusqu'à ${data.frequency} jours, ou laissez vide pour une répartition automatique`
               }
             </p>

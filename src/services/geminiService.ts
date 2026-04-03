@@ -640,6 +640,24 @@ const postProcessWeekQuality = (
 
   if (!week.sessions || !Array.isArray(week.sessions)) return;
 
+  // Fix type "Running" générique → mapper vers le bon type basé sur le titre
+  week.sessions.forEach((s: any) => {
+    if (s.type === 'Running' || s.type === 'running') {
+      const title = (s.title || '').toLowerCase();
+      if (title.includes('sortie longue') || title.includes('long run')) {
+        s.type = 'Sortie Longue';
+      } else if (title.includes('fractionn') || title.includes('vma') || title.includes('seuil') || title.includes('intervalle') || title.includes('fartlek')) {
+        s.type = 'Fractionné';
+      } else if (title.includes('récup') || title.includes('recup')) {
+        s.type = 'Récupération';
+      } else if (title.includes('marche') && title.includes('course')) {
+        s.type = 'Marche/Course';
+      } else {
+        s.type = 'Jogging';
+      }
+    }
+  });
+
   // Safety net : pas de seuil/fractionné/VMA en phase fondamentale ou récupération
   const phase = (week.phase || '').toLowerCase();
   if (phase === 'fondamental' || phase === 'recuperation') {
@@ -2148,6 +2166,17 @@ const calculatePeriodizationPlan = (
     console.log(`[Periodization] maxVolume ${maxVolume}km < currentVolume ${currentVolume}km → raised to currentVolume`);
     maxVolume = currentVolume;
   }
+  // Garantir une progression minimale de 15% au-dessus du volume actuel
+  // Un coureur à 45km/sem ne doit pas avoir un plan plat à 45km — il doit progresser
+  if (currentVolume > 0 && maxVolume <= currentVolume * 1.05) {
+    const progressionTarget = Math.round(currentVolume * 1.15);
+    // Plafonné par le cap absolu de sécurité (VMA-dur ou table)
+    const safeTarget = Math.min(progressionTarget, baseMaxVolume);
+    if (safeTarget > maxVolume) {
+      console.log(`[Periodization] Progression minimale: maxVolume ${maxVolume}km → ${safeTarget}km (currentVol ${currentVolume} × 1.15, cap ${baseMaxVolume})`);
+      maxVolume = safeTarget;
+    }
+  }
 
   // Sauvegarder le cap VMA comme plafond absolu de sécurité
   // Les planchers (minViableVolume, minPeakVolume) ne peuvent PAS remonter au-dessus
@@ -2320,25 +2349,51 @@ const calculatePeriodizationPlan = (
     startVolume = Math.min(startVolume, maxVolume * 0.65);
   }
 
+  // ══════════════════════════════════════════════════════════════
+  // RATE ADAPTATIF : pour les plans longs, réduire le taux pour que
+  // le pic arrive vers 65-70% du plan (pas trop tôt → pas de plateau)
+  // ══════════════════════════════════════════════════════════════
+  let effectiveRate = progressionRate;
+  if (progressionWeeks > 0 && startVolume > 0 && maxVolume > startVolume) {
+    // Calculer le rate nécessaire pour atteindre le pic à ~70% des semaines de progression
+    const targetPeakAt = Math.round(progressionWeeks * 0.70);
+    const neededRate = Math.pow(maxVolume / startVolume, 1 / Math.max(1, targetPeakAt - 1)) - 1;
+    // Utiliser le min entre le rate déclaré et le rate adapté (ne jamais monter plus vite que prévu)
+    if (neededRate < progressionRate && neededRate > 0.02) {
+      effectiveRate = neededRate;
+      console.log(`[Periodization] Rate adaptatif: ${(progressionRate*100).toFixed(1)}% → ${(effectiveRate*100).toFixed(1)}% (pic visé à S~${targetPeakAt}/${progressionWeeks})`);
+    }
+  }
+
   let currentVol = startVolume;
+  let weeksAtPeak = 0; // Compteur pour ondulation
 
   for (let i = 0; i < totalWeeks; i++) {
     const weekNum = i + 1;
 
     if (recoveryWeeks.includes(weekNum)) {
       // Semaine de récup: réduction proportionnelle au volume (plus doux pour gros volumes)
-      // -20% si volume > 60km, -25% si 30-60km, -30% si < 30km
       const prevWeekVol = weeklyVolumes.length > 0 ? weeklyVolumes[weeklyVolumes.length - 1] : currentVol;
       const recoveryFactor = prevWeekVol >= 60 ? 0.80 : prevWeekVol >= 30 ? 0.75 : 0.70;
       weeklyVolumes.push(Math.round(prevWeekVol * recoveryFactor));
+      weeksAtPeak = 0; // Reset ondulation après récup
     } else if (phases[i] === 'affutage') {
       // Affûtage: réduction progressive
       const affutageProgress = (weekNum - (totalWeeks - affutageWeeks)) / affutageWeeks;
       const reductionFactor = 1 - (0.25 + affutageProgress * 0.25); // De -25% à -50%
       weeklyVolumes.push(Math.round(currentVol * reductionFactor));
     } else {
-      weeklyVolumes.push(Math.round(currentVol));
-      currentVol = Math.min(currentVol * (1 + progressionRate), maxVolume);
+      // Ondulation au pic : alterner 95%→100% quand on est au plafond
+      // Évite le plateau monotone de 5+ semaines au même volume
+      const atPeak = currentVol >= maxVolume * 0.98;
+      if (atPeak) {
+        weeksAtPeak++;
+        const ondulationFactor = weeksAtPeak % 2 === 0 ? 0.95 : 1.0;
+        weeklyVolumes.push(Math.round(maxVolume * ondulationFactor));
+      } else {
+        weeklyVolumes.push(Math.round(currentVol));
+      }
+      currentVol = Math.min(currentVol * (1 + effectiveRate), maxVolume);
     }
   }
 
@@ -3106,15 +3161,37 @@ RAPPEL : Génère UNIQUEMENT la semaine 1 !
 
     // === VALIDATION ET CORRECTION POST-GÉNÉRATION (Preview) ===
     const DAYS_ORDER_PREV = ['Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi', 'Dimanche'];
-    const prefDays = data.preferredDays && data.preferredDays.length > 0 ? data.preferredDays : null;
+    let prefDays = data.preferredDays && data.preferredDays.length > 0 ? [...data.preferredDays] : null;
+
+    // Fix P1-bis: si moins de jours préférés que de séances, compléter automatiquement
+    if (prefDays && prefDays.length < data.frequency) {
+      const allDays = ['Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi', 'Dimanche'];
+      while (prefDays.length < data.frequency) {
+        const available = allDays.filter(d => !prefDays!.includes(d));
+        if (available.length === 0) break;
+        // Ajouter le jour le plus éloigné des jours existants pour une bonne répartition
+        const existingIndices = prefDays!.map(d => allDays.indexOf(d));
+        let bestDay = available[0];
+        let bestMinDist = 0;
+        for (const candidate of available) {
+          const ci = allDays.indexOf(candidate);
+          const minDist = Math.min(...existingIndices.map(ei => Math.min(Math.abs(ci - ei), 7 - Math.abs(ci - ei))));
+          if (minDist > bestMinDist) { bestMinDist = minDist; bestDay = candidate; }
+        }
+        prefDays!.push(bestDay);
+        console.log(`[Gemini Preview] Jour auto-ajouté: ${bestDay} (${prefDays!.length}/${data.frequency})`);
+      }
+      // Trier dans l'ordre de la semaine
+      prefDays!.sort((a, b) => allDays.indexOf(a) - allDays.indexOf(b));
+    }
 
     if (plan.weeks && plan.weeks[0]?.sessions) {
       // Forcer les jours préférés
       if (prefDays) {
         plan.weeks[0].sessions.forEach((session: any, idx: number) => {
-          if (idx < prefDays.length && session.day !== prefDays[idx]) {
-            console.log(`[Gemini Preview] Correction jour: séance ${idx + 1} "${session.day}" → "${prefDays[idx]}"`);
-            session.day = prefDays[idx];
+          if (idx < prefDays!.length && session.day !== prefDays![idx]) {
+            console.log(`[Gemini Preview] Correction jour: séance ${idx + 1} "${session.day}" → "${prefDays![idx]}"`);
+            session.day = prefDays![idx];
           }
         });
       }
