@@ -1531,9 +1531,9 @@ ${recentRPEs.length > 0 ? recentRPEs.slice(-8).join('\n') : 'Premier feedback �
                   {!isGeneratingRemaining && (
                     <button
                       onClick={() => {
-                        // Si feasibility RISQUÉ ou IRRÉALISTE → afficher modal de warning
+                        // Si feasibility RISQUÉ, IRRÉALISTE ou AMBITIEUX → afficher modal de warning
                         const status = activeFeasibility?.status;
-                        if (status === 'RISQUÉ' || status === 'IRRÉALISTE') {
+                        if (status === 'RISQUÉ' || status === 'IRRÉALISTE' || status === 'AMBITIEUX') {
                           setShowFeasibilityWarning(true);
                         } else {
                           onGenerateRemainingWeeks();

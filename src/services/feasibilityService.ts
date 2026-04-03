@@ -253,7 +253,7 @@ export function calculateFeasibility(params: FeasibilityParams): FeasibilityResu
     const theoFormatted = formatTime(theoMinutes);
     const realisticMinutes = theoMinutes * 1.05;
     const alternativeTarget = formatTime(realisticMinutes);
-    const safetyWarning = buildSafetyWarning(beginner, isMarathon, isSemi, hasInjury, 'IRRÉALISTE', params.weight, params.height);
+    const safetyWarning = buildSafetyWarning(beginner, isMarathon, isSemi, hasInjury, 'IRRÉALISTE', params.weight, params.height, params.age, isTrail, isMarathon || isSemi || (distanceKm !== null && distanceKm >= 21));
 
     return {
       score: 5,
@@ -477,7 +477,7 @@ export function calculateFeasibility(params: FeasibilityParams): FeasibilityResu
     // sinon on garde le recommendation par défaut = temps cible alternatif
   }
 
-  const safetyWarning = buildSafetyWarning(beginner, isMarathon, isSemi, hasInjury, status, params.weight, params.height);
+  const safetyWarning = buildSafetyWarning(beginner, isMarathon, isSemi, hasInjury, status, params.weight, params.height, params.age, isTrail, isMarathon || isSemi || (distanceKm !== null && distanceKm >= 21));
 
   return { score, status, message, safetyWarning, alternativeTarget, recommendation };
 }
@@ -766,7 +766,7 @@ function buildFinisherFeasibility(
     message += ` Suis le plan avec rigueur et régularité, c'est la clé pour y arriver.`;
   }
 
-  const safetyWarning = buildSafetyWarning(beginner, isMarathon, isSemi, hasInjury, status, params.weight, params.height);
+  const safetyWarning = buildSafetyWarning(beginner, isMarathon, isSemi, hasInjury, status, params.weight, params.height, params.age, isTrail, isMarathon || isSemi || (distanceKm !== null && distanceKm >= 21));
 
   // Recommendation intelligente pour le modal de warning (finisher = pas de temps cible)
   // Priorité : 1) allonger la prépa  2) passer en objectif finisher (déjà le cas)  3) dernier recours = distance
@@ -949,12 +949,20 @@ function buildSafetyWarning(
   status: FeasibilityResult['status'],
   weight?: number,
   height?: number,
+  age?: number,
+  isTrail?: boolean,
+  isLongDistance?: boolean,
 ): string {
   const bmi = (weight && height && height > 0) ? weight / ((height / 100) ** 2) : 0;
+  const isSenior = (age || 0) >= 50;
 
-  // Priorité : blessure > IMC ≥ 35 > IMC ≥ 30 > IMC ≥ 25 > marathon/semi > débutant > défaut
+  // Priorité : blessure > senior+longue distance > IMC ≥ 35 > IMC ≥ 30 > senior > IMC ≥ 25 > débutant+distance > défaut
   if (hasInjury) {
     return 'Fais valider la reprise avec ton kiné/médecin avant de démarrer ce plan. Adapte les séances si nécessaire.';
+  }
+
+  if (isSenior && (isMarathon || isLongDistance)) {
+    return `À ${age} ans, on te recommande vivement de consulter ton médecin et de réaliser un test d'effort avant de démarrer cette préparation. Un certificat médical d'aptitude est indispensable pour cette distance. Privilégie la récupération (48-72h entre séances intenses), hydrate-toi bien et écoute ton corps.`;
   }
 
   if (bmi >= 35) {
@@ -965,11 +973,15 @@ function buildSafetyWarning(
     return 'On te recommande de consulter ton médecin avant de démarrer. Investis dans de bonnes chaussures avec un amorti renforcé, privilégie les surfaces souples (herbe, terre, chemin), et intègre du cross-training (vélo, natation) pour réduire l\'impact sur les articulations.';
   }
 
-  if (bmi >= 25 && (isMarathon || isSemi)) {
+  if (isSenior) {
+    return `À ${age} ans, on te recommande de consulter ton médecin pour un certificat d'aptitude et idéalement un test d'effort avant de démarrer. Accorde-toi une récupération suffisante entre les séances (48h minimum) et écoute ton corps.`;
+  }
+
+  if (bmi >= 25 && (isMarathon || isSemi || isLongDistance)) {
     return 'Investis dans de bonnes chaussures avec un bon amorti et privilégie les surfaces souples quand c\'est possible. Pense à bien t\'hydrater.';
   }
 
-  if (beginner && (isMarathon || isSemi)) {
+  if (beginner && (isMarathon || isSemi || isLongDistance)) {
     return 'On te recommande de valider ce programme avec ton médecin, surtout pour un premier effort de cette distance. Un certificat médical d\'aptitude est vivement conseillé.';
   }
 
