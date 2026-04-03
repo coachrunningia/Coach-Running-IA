@@ -1298,6 +1298,76 @@ app.post('/api/send-verification-email', async (req, res) => {
   }
 });
 
+// ============================================
+// QUESTION AU COACH — Envoi email à l'équipe
+// ============================================
+app.post('/api/ask-coach', async (req, res) => {
+  const { question, userEmail, userName, planName, sessionTitle, weekNumber } = req.body;
+
+  if (!question || !userEmail) {
+    return res.status(400).json({ error: 'Question et email requis' });
+  }
+
+  if (!BREVO_API_KEY) {
+    return res.status(500).json({ error: 'Service email non disponible' });
+  }
+
+  try {
+    const safeName = userName ? String(userName).slice(0, 50).replace(/[<>]/g, '') : 'Utilisateur';
+    const safeQuestion = String(question).slice(0, 2000).replace(/[<>]/g, '');
+    const context = [
+      planName ? `Plan : ${planName}` : '',
+      weekNumber ? `Semaine : ${weekNumber}` : '',
+      sessionTitle ? `Séance : ${sessionTitle}` : '',
+    ].filter(Boolean).join(' | ');
+
+    const htmlContent = `
+<!DOCTYPE html>
+<html lang="fr">
+<head><meta charset="UTF-8"></head>
+<body style="font-family: 'Segoe UI', sans-serif; background: #f7fafc; padding: 20px;">
+  <div style="max-width: 600px; margin: 0 auto; background: white; border-radius: 16px; overflow: hidden; box-shadow: 0 4px 12px rgba(0,0,0,0.1);">
+    <div style="background: linear-gradient(135deg, #F97316, #EA580C); padding: 20px; text-align: center;">
+      <h1 style="color: white; margin: 0; font-size: 22px;">💬 Question d'un coureur</h1>
+    </div>
+    <div style="padding: 24px;">
+      <p style="font-size: 14px; color: #64748b; margin: 0 0 4px;">De : <strong>${safeName}</strong> (${userEmail})</p>
+      ${context ? `<p style="font-size: 13px; color: #94a3b8; margin: 0 0 16px;">📋 ${context}</p>` : ''}
+      <div style="background: #FFF7ED; border-left: 4px solid #F97316; padding: 16px; border-radius: 0 8px 8px 0; margin: 16px 0;">
+        <p style="margin: 0; font-size: 15px; color: #1e293b; white-space: pre-wrap;">${safeQuestion}</p>
+      </div>
+      <p style="font-size: 12px; color: #94a3b8; margin-top: 16px;">Répondre directement à cet email pour contacter ${safeName}.</p>
+    </div>
+  </div>
+</body>
+</html>`;
+
+    const response = await fetch('https://api.brevo.com/v3/smtp/email', {
+      method: 'POST',
+      headers: { 'accept': 'application/json', 'content-type': 'application/json', 'api-key': BREVO_API_KEY },
+      body: JSON.stringify({
+        sender: { name: "Coach Running IA", email: "programme@coachrunningia.fr" },
+        to: [{ email: "programme@coachrunningia.fr", name: "Coach Running IA" }],
+        replyTo: { email: userEmail, name: safeName },
+        subject: `💬 Question de ${safeName} — ${planName || 'Coach Running IA'}`,
+        htmlContent,
+      })
+    });
+
+    const data = await response.json();
+    if (!response.ok) {
+      console.error('[ask-coach] Brevo error:', data);
+      return res.status(500).json({ error: 'Échec de l\'envoi' });
+    }
+
+    console.log(`[ask-coach] Question de ${userEmail}: "${safeQuestion.substring(0, 80)}..."`);
+    res.json({ success: true });
+  } catch (error) {
+    console.error('[ask-coach] Error:', error);
+    res.status(500).json({ error: error.message });
+  }
+});
+
 // Verify email token
 app.get('/api/verify-email', async (req, res) => {
   const { token } = req.query;

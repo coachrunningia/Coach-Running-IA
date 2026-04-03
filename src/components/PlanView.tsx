@@ -1,7 +1,7 @@
 
 import React, { useState, useEffect, useCallback, useMemo, useRef } from 'react';
 import { TrainingPlan, Session, User, Week, StravaActivityMatch } from '../types';
-import { Calendar, Clock, Lock, ShieldCheck, CheckCircle, Activity, AlertTriangle, Star, Zap, RefreshCw, X, ChevronDown, ChevronUp, Target, MapPin, TrendingUp, FileText, Loader } from 'lucide-react';
+import { Calendar, Clock, Lock, ShieldCheck, CheckCircle, Activity, AlertTriangle, Star, Zap, RefreshCw, X, ChevronDown, ChevronUp, Target, MapPin, TrendingUp, FileText, Loader, MessageCircle, Send } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { updateSessionFeedback, savePlan, updateSessionDate, shiftSessionDates, updatePlanStartDate } from '../services/storageService';
 import { downloadICS, downloadPDF, downloadSessionTCX } from '../services/exportService';
@@ -85,6 +85,12 @@ const PlanView: React.FC<PlanViewProps> = ({ plan: initialPlan, isLocked = false
   const [adaptationSuggestion, setAdaptationSuggestion] = useState<AdaptationSuggestion | null>(null);
   const [showAdaptationModal, setShowAdaptationModal] = useState(false);
   const [adaptationNextWeek, setAdaptationNextWeek] = useState<Week | null>(null);
+
+  // Ask coach modal
+  const [showAskCoach, setShowAskCoach] = useState(false);
+  const [askCoachQuestion, setAskCoachQuestion] = useState('');
+  const [askCoachSending, setAskCoachSending] = useState(false);
+  const [askCoachSent, setAskCoachSent] = useState(false);
 
   // Date editing states
   const [datePickerSession, setDatePickerSession] = useState<Session | null>(null);
@@ -2037,6 +2043,93 @@ ${recentRPEs.length > 0 ? recentRPEs.slice(-8).join('\n') : 'Premier feedback �
         isVisible={toastVisible}
         onClose={handleCloseToast}
       />
+
+      {/* Bouton flottant "Poser une question au coach" — premium uniquement */}
+      {canViewFullPlan && (
+        <button
+          onClick={() => { setShowAskCoach(true); setAskCoachSent(false); setAskCoachQuestion(''); }}
+          className="fixed bottom-6 right-6 bg-gradient-to-r from-accent to-orange-500 text-white p-4 rounded-full shadow-xl hover:shadow-2xl hover:scale-105 transition-all z-40 flex items-center gap-2 group"
+          title="Poser une question au coach"
+        >
+          <MessageCircle size={22} />
+          <span className="hidden md:inline text-sm font-bold">Question au coach</span>
+        </button>
+      )}
+
+      {/* Modale "Poser une question" */}
+      {showAskCoach && (
+        <div className="fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4" onClick={() => setShowAskCoach(false)}>
+          <div className="bg-white rounded-2xl shadow-2xl max-w-lg w-full overflow-hidden" onClick={e => e.stopPropagation()}>
+            <div className="bg-gradient-to-r from-accent to-orange-500 p-5">
+              <div className="flex items-center justify-between">
+                <div className="flex items-center gap-3">
+                  <MessageCircle size={24} className="text-white" />
+                  <h3 className="text-white font-bold text-lg">Une question ?</h3>
+                </div>
+                <button onClick={() => setShowAskCoach(false)} className="text-white/70 hover:text-white"><X size={20} /></button>
+              </div>
+            </div>
+            <div className="p-6">
+              {askCoachSent ? (
+                <div className="text-center py-6">
+                  <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <CheckCircle size={32} className="text-green-600" />
+                  </div>
+                  <h4 className="font-bold text-lg text-slate-900 mb-2">Message envoyé !</h4>
+                  <p className="text-slate-600 text-sm">On revient vers toi le plus rapidement possible. En attendant, continue ton plan !</p>
+                  <button onClick={() => setShowAskCoach(false)} className="mt-6 px-6 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold rounded-xl transition-all">Fermer</button>
+                </div>
+              ) : (
+                <>
+                  <p className="text-slate-600 text-sm mb-4">
+                    Pose ta question, on te répondra le plus vite possible par email. Tu peux demander des précisions sur une séance, signaler un état de forme particulier, ou tout autre question sur ton plan.
+                  </p>
+                  <textarea
+                    className="w-full border border-slate-200 rounded-xl p-4 text-sm min-h-[120px] focus:border-accent focus:ring-1 focus:ring-accent outline-none resize-none"
+                    placeholder="Ex: Je reviens de voyage avec un décalage horaire, comment adapter ma reprise ? / Pourquoi cette séance est-elle plus longue cette semaine ? / J'ai une douleur légère au mollet..."
+                    value={askCoachQuestion}
+                    onChange={e => setAskCoachQuestion(e.target.value)}
+                    maxLength={2000}
+                    disabled={askCoachSending}
+                  />
+                  <div className="flex items-center justify-between mt-4">
+                    <span className="text-xs text-slate-400">{askCoachQuestion.length}/2000</span>
+                    <button
+                      onClick={async () => {
+                        if (!askCoachQuestion.trim()) return;
+                        setAskCoachSending(true);
+                        try {
+                          await fetch('/api/ask-coach', {
+                            method: 'POST',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify({
+                              question: askCoachQuestion.trim(),
+                              userEmail: user?.email || plan.userEmail,
+                              userName: user?.firstName || 'Coureur',
+                              planName: plan.name,
+                            }),
+                          });
+                          setAskCoachSent(true);
+                        } catch (err) {
+                          console.error('[AskCoach] Error:', err);
+                          alert('Erreur lors de l\'envoi. Vérifie ta connexion et réessaie.');
+                        } finally {
+                          setAskCoachSending(false);
+                        }
+                      }}
+                      disabled={!askCoachQuestion.trim() || askCoachSending}
+                      className="flex items-center gap-2 bg-gradient-to-r from-accent to-orange-500 text-white px-6 py-3 rounded-xl font-bold shadow-lg hover:shadow-xl hover:scale-105 transition-all disabled:opacity-50 disabled:hover:scale-100"
+                    >
+                      {askCoachSending ? <Loader size={16} className="animate-spin" /> : <Send size={16} />}
+                      {askCoachSending ? 'Envoi...' : 'Envoyer'}
+                    </button>
+                  </div>
+                </>
+              )}
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
