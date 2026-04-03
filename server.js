@@ -383,12 +383,29 @@ app.post('/api/stripe/webhook', express.raw({ type: 'application/json' }), async
           const userDoc = snapshot.docs[0];
           const userData = userDoc.data();
 
+          // Révoquer le token Strava AVANT de mettre à jour le profil
+          // Libère un slot sur le quota Strava (limite 999 connexions)
+          if (userData.stravaToken && userData.stravaToken.access_token) {
+            try {
+              const deauthResponse = await fetch('https://www.strava.com/oauth/deauthorize', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                body: `access_token=${userData.stravaToken.access_token}`,
+              });
+              console.log(`[Stripe/Strava] Token révoqué pour ${userDoc.id}: status ${deauthResponse.status}`);
+            } catch (stravaErr) {
+              console.warn(`[Stripe/Strava] Erreur révocation token: ${stravaErr.message}`);
+            }
+          }
+
           await userDoc.ref.update({
             isPremium: false,
             premiumCancelledAt: new Date().toISOString(),
-            stripeSubscriptionStatus: 'cancelled'
+            stripeSubscriptionStatus: 'cancelled',
+            stravaConnected: false,
+            stravaToken: admin.firestore.FieldValue.delete(),
           });
-          console.log(`[Stripe] Abonnement résilié pour l'utilisateur ${userDoc.id}`);
+          console.log(`[Stripe] Abonnement résilié + Strava révoqué pour ${userDoc.id}`);
 
           // Move to Brevo désabonnés list (#10) — triggers re-engagement automation
           if (userData.email) {
