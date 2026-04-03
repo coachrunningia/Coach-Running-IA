@@ -126,6 +126,42 @@ const ULTRA_EXERCISES: Exercise[] = [
   { name: 'Chaise murale prolongee', sets: '3x90-120s' },
 ];
 
+// Injury prevention exercises by category
+const POSTERIOR_CHAIN_PREVENTION: Exercise[] = [
+  { name: 'Nordic hamstring curl (ou variante assise)', sets: '3x6' },
+  { name: 'Pont fessier unipodal (tenu 3s en haut)', sets: '3x10/jambe' },
+  { name: 'Deadlift roumain unipodal poids de corps', sets: '3x8/jambe' },
+  { name: 'Étirement actif ischio (allongé, jambe tendue)', sets: '2x20s/jambe' },
+  { name: 'Good morning poids de corps', sets: '3x12' },
+  { name: 'Glissade talon au sol (hamstring slide)', sets: '3x8/jambe' },
+];
+
+const KNEE_PREVENTION: Exercise[] = [
+  { name: 'Quart de squat isométrique (mur)', sets: '3x30s' },
+  { name: 'Step-down excentrique lent', sets: '3x8/jambe' },
+  { name: 'Pont fessier (activation VMO)', sets: '3x15' },
+  { name: 'Clamshell avec élastique', sets: '3x15/côté' },
+  { name: 'Marche latérale élastique', sets: '3x10 pas/côté' },
+  { name: 'Étirement bandelette IT (rouleau)', sets: '2x30s/côté' },
+];
+
+const BACK_PREVENTION: Exercise[] = [
+  { name: 'Cat-cow (mobilité dos)', sets: '2x10' },
+  { name: 'Bird-dog (contrôle lombaire)', sets: '3x10/côté' },
+  { name: 'Pont fessier (décharge lombaire)', sets: '3x15' },
+  { name: 'Dead bug (gainage profond)', sets: '3x10/côté' },
+  { name: 'Étirement psoas (fente basse)', sets: '2x30s/côté' },
+  { name: 'Superman partiel (bras seuls)', sets: '3x10' },
+];
+
+const ANKLE_PREVENTION: Exercise[] = [
+  { name: 'Mobilité cheville (genou au mur)', sets: '2x15/pied' },
+  { name: 'Équilibre unipodal yeux fermés', sets: '3x20s/pied' },
+  { name: 'Mollets excentrique (descente lente 4s)', sets: '3x10' },
+  { name: 'Écriture alphabet avec le pied', sets: '1x/pied' },
+  { name: 'Marche sur pointes + talons', sets: '2x20m chaque' },
+];
+
 // Perte de poids metabolic exercises
 const METABOLIC_EXERCISES: Exercise[] = [
   { name: 'Burpees adaptes', sets: '3x10' },
@@ -314,16 +350,43 @@ export function buildRenfoMainSet(params: {
   const bmi = (weight && height && height > 0) ? weight / ((height / 100) ** 2) : 0;
   const isOverweight = bmi >= 28; // IMC ≥ 28 = surpoids significatif → adapter
 
-  // Détection blessures articulaires → forcer low-impact (pas de sauts, pas de pliométrie)
+  // Détection blessures par catégorie → adapter exercices + prévention ciblée
   const injuryDesc = (injuries?.description || '').toLowerCase();
-  const hasJointInjury = !!(injuries?.hasInjury && (
+  const hasInjury = !!(injuries?.hasInjury);
+
+  const hasPosteriorChainInjury = hasInjury && (
+    injuryDesc.includes('ischio') || injuryDesc.includes('hamstring') ||
+    injuryDesc.includes('posterieur') || injuryDesc.includes('postérieur') ||
+    injuryDesc.includes('cuisse arriere') || injuryDesc.includes('cuisse arrière') ||
+    injuryDesc.includes('chaine posterieur') || injuryDesc.includes('chaîne postérieur') ||
+    injuryDesc.includes('fessier') || injuryDesc.includes('sciatique')
+  );
+
+  const hasKneeInjury = hasInjury && (
     injuryDesc.includes('genou') || injuryDesc.includes('genoux') ||
-    injuryDesc.includes('cheville') || injuryDesc.includes('hanche') ||
-    injuryDesc.includes('dos') || injuryDesc.includes('tendon') ||
-    injuryDesc.includes('achille') || injuryDesc.includes('périoste') ||
-    injuryDesc.includes('shin') || injuryDesc.includes('knee') ||
-    injuryDesc.includes('back') || injuryDesc.includes('articul')
+    injuryDesc.includes('rotule') || injuryDesc.includes('ménisque') || injuryDesc.includes('menisque') ||
+    injuryDesc.includes('ligament croisé') || injuryDesc.includes('knee') ||
+    injuryDesc.includes('bandelette') || injuryDesc.includes('syndrome essuie')
+  );
+
+  const hasBackInjury = hasInjury && (
+    injuryDesc.includes('dos') || injuryDesc.includes('lombaire') || injuryDesc.includes('lombalgie') ||
+    injuryDesc.includes('hernie') || injuryDesc.includes('sciatique') ||
+    injuryDesc.includes('back') || injuryDesc.includes('vertebr')
+  );
+
+  const hasAnkleInjury = hasInjury && (
+    injuryDesc.includes('cheville') || injuryDesc.includes('achille') ||
+    injuryDesc.includes('tendon') || injuryDesc.includes('tendinite') ||
+    injuryDesc.includes('périoste') || injuryDesc.includes('periostite') ||
+    injuryDesc.includes('fasci') || injuryDesc.includes('aponévrose') ||
+    injuryDesc.includes('ankle') || injuryDesc.includes('shin')
+  );
+
+  const hasJointInjury = hasKneeInjury || hasAnkleInjury || (hasInjury && (
+    injuryDesc.includes('hanche') || injuryDesc.includes('articul')
   ));
+  const hasAnySpecificInjury = hasPosteriorChainInjury || hasKneeInjury || hasBackInjury || hasAnkleInjury;
   const needsLowImpact = isOverweight || hasJointInjury;
 
   const isOddWeek = weekNumber % 2 === 1;
@@ -335,8 +398,19 @@ export function buildRenfoMainSet(params: {
 
   const warmup = needsLowImpact
     ? '10 min de mobilité articulaire douce et échauffement progressif (marche rapide, rotations, pas chassés)'
+    : hasPosteriorChainInjury
+    ? '10-15 min d\'échauffement progressif : marche rapide, montées de genoux douces, activation fessiers (ponts au sol), étirements dynamiques ischio-jambiers'
     : '10 min de mobilité articulaire et échauffement dynamique';
-  const cooldown = '5 min d\'étirements : quadriceps, ischio-jambiers, mollets, hanches';
+  let cooldown = '5 min d\'étirements : quadriceps, ischio-jambiers, mollets, hanches';
+  if (hasPosteriorChainInjury) {
+    cooldown = '8-10 min d\'étirements ciblés : ischio-jambiers (30s×2/jambe), fessiers (piriforme 30s×2), mollets (30s×2), psoas (30s×2). Automassage rouleau chaîne postérieure si disponible.';
+  } else if (hasKneeInjury) {
+    cooldown = '8 min d\'étirements : quadriceps (30s×2/jambe), bandelette IT (rouleau, 30s/côté), mollets, mobilité rotule en flexion douce.';
+  } else if (hasBackInjury) {
+    cooldown = '8 min d\'étirements : psoas (fente basse 30s×2), piriforme, cat-cow (10 reps), étirement dos allongé.';
+  } else if (hasAnkleInjury) {
+    cooldown = '8 min : mobilité cheville (genou au mur 15×2), étirements mollets + soléaire, automassage voûte plantaire (balle).';
+  }
   const duration = getDuration(level);
 
   // -----------------------------------------------------------------------
@@ -480,6 +554,17 @@ export function buildRenfoMainSet(params: {
     title = `Renfo Leger - Recuperation (S${weekNumber})`;
   }
 
+  // Injury-specific title enrichment
+  if (hasPosteriorChainInjury) {
+    title = title.replace('Quadriceps & Gainage', 'Quadriceps & Prévention Ischio');
+    title = title.replace('Quadriceps & Excentrique', 'Excentrique & Prévention Ischio');
+    title = title.replace('Fessiers/Hanches', 'Fessiers/Ischio & Prévention');
+    title = title.replace('Hanches & Proprioception', 'Hanches & Prévention Ischio');
+  } else if (hasKneeInjury) {
+    title = title.replace('Quadriceps & Gainage', 'Quadriceps & Prévention Genou');
+    title = title.replace('Quadriceps & Excentrique', 'Excentrique & Prévention Genou');
+  }
+
   // Build exercise list
   const exercises: Exercise[] = [];
 
@@ -548,6 +633,34 @@ export function buildRenfoMainSet(params: {
     exercises.push(...pickExercises(explosiveExtras, 1, weekNumber));
   }
 
+  // ---- Injury prevention exercises ----
+  // Remplace 1-2 exercices génériques par des exercices de prévention ciblés
+  if (hasPosteriorChainInjury) {
+    const prevention = pickExercises(POSTERIOR_CHAIN_PREVENTION, 2, weekNumber);
+    // Retirer les exercices qui sollicitent trop les ischio (fentes marchées, step-up agressifs)
+    const filtered = exercises.filter(e =>
+      !e.name.toLowerCase().includes('fentes marchees') &&
+      !e.name.toLowerCase().includes('fentes sautées')
+    );
+    exercises.length = 0;
+    exercises.push(...filtered, ...prevention);
+  } else if (hasKneeInjury) {
+    const prevention = pickExercises(KNEE_PREVENTION, 2, weekNumber);
+    exercises.push(...prevention);
+  } else if (hasBackInjury) {
+    const prevention = pickExercises(BACK_PREVENTION, 2, weekNumber);
+    // Retirer les exercices de charge axiale lourde
+    const filtered = exercises.filter(e =>
+      !e.name.toLowerCase().includes('squat sauté') &&
+      !e.name.toLowerCase().includes('box jump')
+    );
+    exercises.length = 0;
+    exercises.push(...filtered, ...prevention);
+  } else if (hasAnkleInjury) {
+    const prevention = pickExercises(ANKLE_PREVENTION, 2, weekNumber);
+    exercises.push(...prevention);
+  }
+
   // Scale all exercises for level + phase
   const scaledExercises = exercises.map(e => ({
     ...e,
@@ -556,7 +669,10 @@ export function buildRenfoMainSet(params: {
 
   // Format as circuit string
   const exerciseList = scaledExercises.map(e => `${e.name} (${e.sets})`).join(', ');
-  const mainSet = `Circuit ${tours} tours : ${exerciseList}. Repos ${rest} entre tours.`;
+  const preventionNote = hasAnySpecificInjury
+    ? ` ⚠️ Exercices de prévention inclus pour ta blessure — si douleur, arrête immédiatement.`
+    : '';
+  const mainSet = `Circuit ${tours} tours : ${exerciseList}. Repos ${rest} entre tours.${preventionNote}`;
 
   // Adjust duration for trail/ultra
   let finalDuration = duration;
