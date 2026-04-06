@@ -369,6 +369,19 @@ export function calculateFeasibility(params: FeasibilityParams): FeasibilityResu
     score -= 20;
   }
 
+  // Trail : pénalité durée (même avec temps cible)
+  if (isTrail && distanceKm !== null) {
+    if (distanceKm >= 80 && planWeeks < 16) {
+      score -= 25;
+    } else if (distanceKm >= 60 && planWeeks < 14) {
+      score -= 20;
+    } else if (distanceKm >= 42 && planWeeks < 12) {
+      score -= 15;
+    } else if (distanceKm >= 30 && planWeeks < 8) {
+      score -= 10;
+    }
+  }
+
   // Volume insuffisant
   if (currentVolume !== undefined && currentVolume > 0) {
     if (isMarathon && currentVolume < 30) {
@@ -947,6 +960,16 @@ function buildMessage(
 
   if (isSemi && planWeeks < 8) {
     parts.push(`Attention : ${planWeeks} semaines, c'est court pour une préparation semi-marathon. Le plan sera condensé.`);
+  }
+
+  if (isTrail && distanceKm !== null) {
+    if (distanceKm >= 80 && planWeeks < 16) {
+      parts.push(`Attention : ${planWeeks} semaines pour un ultra de ${distanceKm}km, c'est très court — 16 à 20 semaines idéalement. Le plan sera condensé et chaque semaine comptera.`);
+    } else if (distanceKm >= 60 && planWeeks < 14) {
+      parts.push(`Attention : ${planWeeks} semaines pour un trail de ${distanceKm}km, c'est court — 14 à 18 semaines recommandées. Le plan sera condensé.`);
+    } else if (distanceKm >= 42 && planWeeks < 12) {
+      parts.push(`Attention : ${planWeeks} semaines pour un trail de ${distanceKm}km, c'est juste — 12 semaines minimum recommandées.`);
+    }
   }
 
   if (currentVolume !== undefined && currentVolume > 0) {
