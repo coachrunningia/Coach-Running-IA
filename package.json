@@ -11,6 +11,12 @@
     "start": "node server.js"
   },
   "dependencies": {
+    "@capacitor/android": "^8.3.0",
+    "@capacitor/cli": "^8.3.0",
+    "@capacitor/core": "^8.3.0",
+    "@capacitor/ios": "^8.3.0",
+    "@capacitor/splash-screen": "^8.0.1",
+    "@capacitor/status-bar": "^8.0.2",
     "@garmin/fitsdk": "^21.195.0",
     "@google/genai": "^1.35.0",
     "@google/generative-ai": "^0.24.1",
@@ -26,6 +32,7 @@
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "react-helmet-async": "^2.0.5",
+    "react-is": "^19.2.4",
     "react-router-dom": "^6.23.1",
     "recharts": "^3.6.0",
     "stripe": "^15.6.0",
