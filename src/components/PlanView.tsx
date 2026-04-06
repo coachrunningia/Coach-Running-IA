@@ -806,6 +806,31 @@ ${recentRPEs.length > 0 ? recentRPEs.slice(-8).join('\n') : 'Premier feedback �
 
   const handleStartDateChange = async (newStartDate: string) => {
     try {
+      // Vérifier si le nouveau startDate réduit le nombre de semaines disponibles
+      const raceDate = plan.raceDate || plan.generationContext?.questionnaireSnapshot?.raceDate;
+      if (raceDate) {
+        const newStart = new Date(newStartDate);
+        const race = new Date(raceDate);
+        const availableWeeks = Math.floor((race.getTime() - newStart.getTime()) / (7 * 24 * 60 * 60 * 1000));
+        const planWeeks = plan.weeks.length;
+
+        if (availableWeeks < planWeeks) {
+          const confirmRecreate = window.confirm(
+            `Attention : ta course est dans ${availableWeeks} semaines à partir de cette date, mais ton plan fait ${planWeeks} semaines.\n\n` +
+            `Le plan ne rentrera pas dans ce délai. On te recommande de recréer un plan adapté à cette durée.\n\n` +
+            `Cliquer OK pour revenir au questionnaire et recréer un plan (tes données seront pré-remplies).`
+          );
+          if (confirmRecreate) {
+            setShowStartDatePicker(false);
+            navigate('/');
+            return;
+          }
+          // L'utilisateur a annulé — on ne change pas la date
+          setShowStartDatePicker(false);
+          return;
+        }
+      }
+
       await updatePlanStartDate(plan.id, newStartDate);
       // Update local state: new startDate, remove all dateOverrides
       setPlan(prev => ({
@@ -818,7 +843,7 @@ ${recentRPEs.length > 0 ? recentRPEs.slice(-8).join('\n') : 'Premier feedback �
       }));
       setShowStartDatePicker(false);
       setToastMessage('Date de début modifiée');
-      setToastSubMessage('Toutes les dates ont été recalculées');
+      setToastSubMessage('Les dates des séances ont été recalculées');
       setToastVisible(true);
     } catch (error) {
       console.error('Erreur modification date de début:', error);

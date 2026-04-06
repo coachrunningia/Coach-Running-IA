@@ -955,11 +955,12 @@ const Questionnaire: React.FC<QuestionnaireProps> = ({ onComplete, isGenerating:
         <div className="bg-slate-50 p-6 rounded-2xl border-2 border-slate-100 space-y-4">
           <div>
             <label className="block mb-2 font-bold text-slate-900 flex items-center gap-2">
-              <Calendar size={18} className="text-accent" /> Date de début du plan
+              <Calendar size={18} className="text-accent" /> Quand veux-tu commencer ?
             </label>
+            <p className="text-xs text-slate-500 mb-2">C'est la date de ta première séance. Le plan sera calculé entre cette date et ta course.</p>
             <input type="date" value={data.startDate} min={todayStr} disabled={isGenerating}
               onChange={(e) => updateData('startDate', e.target.value)}
-              className="w-full p-3 border rounded-xl focus:ring-2 focus:ring-accent bg-white disabled:bg-slate-100"
+              className="w-full p-3 border rounded-xl focus:ring-2 focus:ring-accent bg-white disabled:bg-slate-100 text-lg"
             />
           </div>
 
