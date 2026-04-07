@@ -1037,11 +1037,60 @@ const PricingPage = ({ user }: { user: User | null }) => {
           "@type": "Product",
           "name": "Coach Running IA - Programme d'entraînement",
           "description": "Programme course à pied personnalisé par IA avec exports PDF, calendrier et Garmin Connect.",
-          "brand": { "@type": "Organization", "name": "Coach Running IA" },
+          "image": "https://coachrunningia.fr/og-image.png",
+          "brand": { "@type": "Brand", "name": "Coach Running IA" },
           "offers": [
-            { "@type": "Offer", "name": "Plan Unique", "price": "9.90", "priceCurrency": "EUR", "availability": "https://schema.org/InStock" },
-            { "@type": "Offer", "name": "Premium Mensuel", "price": "5.90", "priceCurrency": "EUR", "availability": "https://schema.org/InStock" },
-            { "@type": "Offer", "name": "Premium Annuel", "price": "44.90", "priceCurrency": "EUR", "availability": "https://schema.org/InStock" }
+            {
+              "@type": "Offer", "name": "Plan Unique", "price": "9.90", "priceCurrency": "EUR",
+              "availability": "https://schema.org/InStock",
+              "url": "https://coachrunningia.fr/pricing",
+              "hasMerchantReturnPolicy": {
+                "@type": "MerchantReturnPolicy",
+                "applicableCountry": "FR",
+                "returnPolicyCategory": "https://schema.org/MerchantReturnNotPermitted",
+                "merchantReturnDays": 0
+              },
+              "shippingDetails": {
+                "@type": "OfferShippingDetails",
+                "shippingRate": { "@type": "MonetaryAmount", "value": "0", "currency": "EUR" },
+                "shippingDestination": { "@type": "DefinedRegion", "addressCountry": "FR" },
+                "deliveryTime": { "@type": "ShippingDeliveryTime", "handlingTime": { "@type": "QuantitativeValue", "minValue": 0, "maxValue": 0, "unitCode": "d" }, "transitTime": { "@type": "QuantitativeValue", "minValue": 0, "maxValue": 0, "unitCode": "d" } }
+              }
+            },
+            {
+              "@type": "Offer", "name": "Premium Mensuel", "price": "5.90", "priceCurrency": "EUR",
+              "availability": "https://schema.org/InStock",
+              "url": "https://coachrunningia.fr/pricing",
+              "hasMerchantReturnPolicy": {
+                "@type": "MerchantReturnPolicy",
+                "applicableCountry": "FR",
+                "returnPolicyCategory": "https://schema.org/MerchantReturnNotPermitted",
+                "merchantReturnDays": 0
+              },
+              "shippingDetails": {
+                "@type": "OfferShippingDetails",
+                "shippingRate": { "@type": "MonetaryAmount", "value": "0", "currency": "EUR" },
+                "shippingDestination": { "@type": "DefinedRegion", "addressCountry": "FR" },
+                "deliveryTime": { "@type": "ShippingDeliveryTime", "handlingTime": { "@type": "QuantitativeValue", "minValue": 0, "maxValue": 0, "unitCode": "d" }, "transitTime": { "@type": "QuantitativeValue", "minValue": 0, "maxValue": 0, "unitCode": "d" } }
+              }
+            },
+            {
+              "@type": "Offer", "name": "Premium Annuel", "price": "44.90", "priceCurrency": "EUR",
+              "availability": "https://schema.org/InStock",
+              "url": "https://coachrunningia.fr/pricing",
+              "hasMerchantReturnPolicy": {
+                "@type": "MerchantReturnPolicy",
+                "applicableCountry": "FR",
+                "returnPolicyCategory": "https://schema.org/MerchantReturnNotPermitted",
+                "merchantReturnDays": 0
+              },
+              "shippingDetails": {
+                "@type": "OfferShippingDetails",
+                "shippingRate": { "@type": "MonetaryAmount", "value": "0", "currency": "EUR" },
+                "shippingDestination": { "@type": "DefinedRegion", "addressCountry": "FR" },
+                "deliveryTime": { "@type": "ShippingDeliveryTime", "handlingTime": { "@type": "QuantitativeValue", "minValue": 0, "maxValue": 0, "unitCode": "d" }, "transitTime": { "@type": "QuantitativeValue", "minValue": 0, "maxValue": 0, "unitCode": "d" } }
+              }
+            }
           ]
         })}</script>
       </Helmet>
