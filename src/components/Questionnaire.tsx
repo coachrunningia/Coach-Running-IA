@@ -143,13 +143,17 @@ const Questionnaire: React.FC<QuestionnaireProps> = ({ onComplete, isGenerating:
 
   const getValidationErrors = () => {
     const errors = [];
-    if (step >= 1 && !data.goal) errors.push("Veuillez choisir un objectif.");
 
-    if (step >= 2) {
+    // Validation PAR ÉTAPE — chaque étape ne valide que ses propres champs
+    if (step === 1) {
+      if (!data.goal) errors.push("Choisissez un objectif pour continuer.");
+      if (data.goal === UserGoal.ROAD_RACE && !data.subGoal) errors.push("Choisissez une distance de course.");
+      if (data.goal === UserGoal.FITNESS && !data.fitnessSubGoal) errors.push("Précisez votre objectif forme.");
+    }
+
+    if (step === 2) {
       if ((data.goal === UserGoal.ROAD_RACE || data.goal === UserGoal.TRAIL) && !data.raceDate)
         errors.push("La date de la course est obligatoire.");
-      if (data.goal === UserGoal.ROAD_RACE && !data.subGoal)
-        errors.push("Veuillez choisir une distance de course.");
       if (data.startDate && data.raceDate && new Date(data.startDate) >= new Date(data.raceDate))
         errors.push("La date de début doit être avant la date de la course.");
       if (data.raceDate) {
@@ -157,29 +161,28 @@ const Questionnaire: React.FC<QuestionnaireProps> = ({ onComplete, isGenerating:
         const now = new Date();
         const diffWeeks = Math.floor((raceD.getTime() - now.getTime()) / (1000 * 60 * 60 * 24 * 7));
         if (diffWeeks < 6)
-          errors.push("La date de course doit être dans au moins 6 semaines pour générer un plan adapté.");
+          errors.push("La date de course doit être dans au moins 6 semaines.");
       }
-      if (!data.city) errors.push("Votre ville est requise pour personnaliser l'expérience.");
+      if (!data.city || !data.city.trim()) errors.push("Ta ville est nécessaire pour te proposer des lieux d'entraînement adaptés.");
     }
 
-    if (step >= 3) {
+    if (step === 3) {
       if (data.injuries?.hasInjury && !data.injuries.description) {
-        errors.push("Veuillez décrire votre blessure ou antécédent.");
+        errors.push("Décris ta blessure ou ton antécédent pour qu'on adapte le plan.");
       }
       if ((data.goal === UserGoal.ROAD_RACE || data.goal === UserGoal.TRAIL) &&
           (data.currentWeeklyVolume === undefined || data.currentWeeklyVolume === null || isNaN(data.currentWeeklyVolume))) {
-        errors.push("Le volume hebdomadaire actuel est obligatoire. Si vous ne courez pas encore, indiquez 0.");
+        errors.push("Le volume hebdomadaire actuel est obligatoire. Si tu ne cours pas encore, indique 0.");
       }
     }
 
-    if (step >= 4) {
-      if (!data.level) errors.push("Veuillez indiquer votre niveau.");
-      if (!data.age) errors.push("Votre âge est requis pour adapter le plan à votre profil.");
-      if (!data.weight) errors.push("Votre poids est requis pour calibrer les charges d'entraînement.");
-      if (!data.height) errors.push("Votre taille est requise pour évaluer votre profil physique.");
+    if (step === 4) {
+      if (!data.level) errors.push("Indique ton niveau de course.");
+      if (!data.age) errors.push("Ton âge est nécessaire pour adapter le plan.");
+      if (!data.weight) errors.push("Ton poids est nécessaire pour calibrer les charges.");
+      if (!data.height) errors.push("Ta taille est nécessaire pour évaluer ton profil.");
     }
 
-    // Étape 5 : Inscription obligatoire pour les non-connectés
     if (step === 5 && !user) {
       if (!data.email) errors.push("L'email est requis.");
       if (!firstName.trim()) errors.push("Le prénom est requis.");
@@ -318,7 +321,7 @@ const Questionnaire: React.FC<QuestionnaireProps> = ({ onComplete, isGenerating:
               } else if (option.value !== UserGoal.TRAIL) {
                 setData(prev => ({ ...prev, goal: option.value, trailDetails: undefined }));
               }
-              nextStep();
+              nextStepWithValidation();
             }}
             className={`p-6 rounded-2xl border-2 transition-all text-left flex items-center gap-4 group ${data.goal === option.value ? 'border-accent bg-accent/5' : 'border-slate-100 hover:border-accent/30 bg-white'
               } disabled:opacity-50`}
@@ -533,9 +536,17 @@ const Questionnaire: React.FC<QuestionnaireProps> = ({ onComplete, isGenerating:
         </div>
       )}
 
+      {showValidationErrors && getValidationErrors().length > 0 && (
+        <div className="p-3 bg-red-50 border border-red-200 rounded-xl mt-3">
+          <ul className="text-red-700 text-xs space-y-1 list-disc list-inside">
+            {getValidationErrors().map((err, i) => <li key={i}>{err}</li>)}
+          </ul>
+        </div>
+      )}
+
       <div className="flex justify-between pt-4">
         <button onClick={prevStep} disabled={isGenerating} className="flex items-center text-slate-500 font-bold disabled:opacity-50"><ChevronLeft size={20} /> Retour</button>
-        <button onClick={nextStep} disabled={isGenerating} className="bg-gradient-to-r from-orange-500 to-orange-600 text-white px-10 py-3 rounded-full font-bold shadow-lg shadow-orange-500/20 hover:shadow-orange-500/30 hover:scale-105 transition-all disabled:opacity-50">Continuer</button>
+        <button onClick={nextStepWithValidation} disabled={isGenerating} className="bg-gradient-to-r from-orange-500 to-orange-600 text-white px-10 py-3 rounded-full font-bold shadow-lg shadow-orange-500/20 hover:shadow-orange-500/30 hover:scale-105 transition-all disabled:opacity-50">Continuer</button>
       </div>
     </div>
   );
@@ -935,9 +946,17 @@ const Questionnaire: React.FC<QuestionnaireProps> = ({ onComplete, isGenerating:
         </div>
       </div>
 
+      {showValidationErrors && getValidationErrors().length > 0 && (
+        <div className="p-3 bg-red-50 border border-red-200 rounded-xl">
+          <ul className="text-red-700 text-xs space-y-1 list-disc list-inside">
+            {getValidationErrors().map((err, i) => <li key={i}>{err}</li>)}
+          </ul>
+        </div>
+      )}
+
       <div className="flex justify-between pt-4">
         <button onClick={prevStep} disabled={isGenerating} className="flex items-center text-slate-500 font-bold disabled:opacity-50"><ChevronLeft size={20} /> Retour</button>
-        <button onClick={nextStep} disabled={!data.level || !data.age || !data.weight || !data.height || isGenerating} className="bg-gradient-to-r from-orange-500 to-orange-600 text-white px-10 py-3 rounded-full font-bold shadow-lg shadow-orange-500/20 hover:shadow-orange-500/30 hover:scale-105 transition-all disabled:opacity-50">Suivant</button>
+        <button onClick={nextStepWithValidation} disabled={isGenerating} className="bg-gradient-to-r from-orange-500 to-orange-600 text-white px-10 py-3 rounded-full font-bold shadow-lg shadow-orange-500/20 hover:shadow-orange-500/30 hover:scale-105 transition-all disabled:opacity-50">Suivant</button>
       </div>
     </div>
   );
@@ -1017,10 +1036,26 @@ const Questionnaire: React.FC<QuestionnaireProps> = ({ onComplete, isGenerating:
               </p>
             </div>
 
-            {/* Info : 1 séance réservée au renforcement musculaire */}
-            <div className="mt-3 p-3 bg-slate-50 border border-slate-200 rounded-xl">
-              <p className="text-xs text-slate-600">
-                <span className="font-semibold text-slate-700">1 séance sera dédiée au renforcement musculaire</span> (gainage, proprioception, prévention blessures). Les autres séances seront de la course à pied. Par exemple, {data.frequency}x/semaine = {data.frequency - 1} séance{data.frequency - 1 > 1 ? 's' : ''} de running + 1 renfo.
+            {/* Répartition visuelle running / renfo */}
+            <div className="mt-3 p-4 bg-gradient-to-r from-accent/5 to-orange-50 border-2 border-accent/20 rounded-xl">
+              <div className="flex items-center justify-center gap-3 mb-2">
+                {Array.from({ length: data.frequency - 1 }).map((_, i) => (
+                  <div key={i} className="flex flex-col items-center">
+                    <span className="text-lg">🏃</span>
+                    <span className="text-[10px] font-bold text-accent">Running</span>
+                  </div>
+                ))}
+                <span className="text-lg font-bold text-slate-300">+</span>
+                <div className="flex flex-col items-center">
+                  <span className="text-lg">💪</span>
+                  <span className="text-[10px] font-bold text-blue-600">Renfo</span>
+                </div>
+              </div>
+              <p className="text-center text-sm font-bold text-slate-800">
+                {data.frequency - 1} séance{data.frequency - 1 > 1 ? 's' : ''} de course à pied + 1 séance de renforcement musculaire
+              </p>
+              <p className="text-center text-[11px] text-slate-500 mt-1">
+                Le renforcement (gainage, proprioception) est essentiel pour prévenir les blessures
               </p>
             </div>
 
