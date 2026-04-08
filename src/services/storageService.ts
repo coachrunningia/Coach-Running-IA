@@ -625,7 +625,9 @@ export const createStripeCheckoutSession = async (priceId: string, mode: 'subscr
   // Invalider le cache avant de rediriger vers Stripe
   invalidateStripeCache(user.uid);
 
-  const planParam = priceId === STRIPE_PRICES.MONTHLY ? 'premium_mensuel' : 'premium_annuel';
+  const planParam = priceId === STRIPE_PRICES.MONTHLY ? 'premium_mensuel'
+    : priceId === STRIPE_PRICES.YEARLY ? 'premium_annuel'
+    : 'plan_unique';
   const successUrl = mode === 'payment'
     ? window.location.origin + `/success?session_id={CHECKOUT_SESSION_ID}&plan=plan_unique`
     : window.location.origin + `/success?session_id={CHECKOUT_SESSION_ID}&plan=${planParam}`;
@@ -642,8 +644,16 @@ export const createStripeCheckoutSession = async (priceId: string, mode: 'subscr
       cancelUrl: window.location.origin + '/pricing',
     }),
   });
+  if (!response.ok) {
+    const errorData = await response.json().catch(() => ({}));
+    throw new Error(errorData.error || `Erreur serveur (${response.status})`);
+  }
   const data = await response.json();
-  if (data.url) window.location.assign(data.url);
+  if (data.url) {
+    window.location.assign(data.url);
+  } else {
+    throw new Error('URL de paiement non reçue');
+  }
 };
 
 // Fix: Implement missing createPortalSession export for ProfilePage
