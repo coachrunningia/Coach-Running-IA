@@ -1,8 +1,15 @@
 
 import React, { useState } from 'react';
-import { TrendingUp, Loader, BarChart2, X } from 'lucide-react';
+import { TrendingUp, Loader, BarChart2, X, HeartPulse, AlertTriangle } from 'lucide-react';
 import { auth, db } from '../services/firebase';
 import { doc, getDoc } from 'firebase/firestore';
+
+interface FCAlert {
+    hasAlert: boolean;
+    message?: string;
+    suggestedEFPace?: string;
+    activitiesCount?: number;
+}
 
 interface AnalysisData {
     totalDistance?: string;
@@ -19,6 +26,7 @@ interface AnalysisData {
     coachMessage?: string;
     activities?: any[];
     analysis?: string;
+    fcAlert?: FCAlert;
 }
 
 // Parse **bold** and newlines into React elements
@@ -40,9 +48,10 @@ const renderMarkdown = (text: string): React.ReactNode => {
 
 interface WeeklyAnalysisProps {
     compact?: boolean;
+    onAdjustPaces?: () => void;
 }
 
-const WeeklyAnalysis: React.FC<WeeklyAnalysisProps> = ({ compact = false }) => {
+const WeeklyAnalysis: React.FC<WeeklyAnalysisProps> = ({ compact = false, onAdjustPaces }) => {
   const [loading, setLoading] = useState(false);
   const [analysis, setAnalysis] = useState<AnalysisData | null>(null);
   const [showModal, setShowModal] = useState(false);
@@ -99,7 +108,7 @@ const WeeklyAnalysis: React.FC<WeeklyAnalysisProps> = ({ compact = false }) => {
                 {loading ? <Loader size={16} className="animate-spin" /> : <TrendingUp size={16} />}
                 {loading ? 'Analyse en cours...' : 'Analyser ma semaine avec Strava'}
             </button>
-            {showModal && analysis && <AnalysisModal analysis={analysis} onClose={() => setShowModal(false)} />}
+            {showModal && analysis && <AnalysisModal analysis={analysis} onClose={() => setShowModal(false)} onAdjustPaces={onAdjustPaces} />}
         </>
       );
   }
@@ -135,7 +144,7 @@ const WeeklyAnalysis: React.FC<WeeklyAnalysisProps> = ({ compact = false }) => {
         </button>
       </div>
 
-      {showModal && analysis && <AnalysisModal analysis={analysis} onClose={() => setShowModal(false)} />}
+      {showModal && analysis && <AnalysisModal analysis={analysis} onClose={() => setShowModal(false)} onAdjustPaces={onAdjustPaces} />}
     </>
   );
 };
@@ -225,7 +234,7 @@ const TypeDistributionBar = ({ breakdown }: { breakdown: string }) => {
 };
 
 // --- Main Analysis Modal ---
-const AnalysisModal = ({ analysis, onClose }: { analysis: AnalysisData; onClose: () => void }) => (
+const AnalysisModal = ({ analysis, onClose, onAdjustPaces }: { analysis: AnalysisData; onClose: () => void; onAdjustPaces?: () => void }) => (
     <div className="fixed inset-0 bg-slate-900/60 backdrop-blur-sm flex items-center justify-center p-4 z-[100] animate-in fade-in">
         <div className="bg-white rounded-2xl max-w-2xl w-full max-h-[85vh] overflow-y-auto shadow-2xl">
           {/* Header */}
@@ -274,6 +283,36 @@ const AnalysisModal = ({ analysis, onClose }: { analysis: AnalysisData; onClose:
                 </div>
               )}
             </div>
+
+            {/* FC Alert Bandeau */}
+            {analysis.fcAlert?.hasAlert && (
+              <div className="bg-red-50 rounded-xl p-4 border border-red-200">
+                <div className="flex items-start gap-3">
+                  <div className="shrink-0 mt-0.5">
+                    <HeartPulse size={24} className="text-red-500" />
+                  </div>
+                  <div className="flex-1">
+                    <div className="flex items-center gap-2 mb-1">
+                      <AlertTriangle size={16} className="text-red-500" />
+                      <p className="font-bold text-red-800">Alerte Fréquence Cardiaque</p>
+                    </div>
+                    <p className="text-sm text-red-700">{analysis.fcAlert.message}</p>
+                    {analysis.fcAlert.suggestedEFPace && (
+                      <p className="text-xs text-red-600 mt-1 font-medium">Allure EF suggérée : {analysis.fcAlert.suggestedEFPace}</p>
+                    )}
+                    {onAdjustPaces && (
+                      <button
+                        onClick={() => { onAdjustPaces(); onClose(); }}
+                        className="mt-3 px-4 py-2 bg-red-600 text-white rounded-lg text-sm font-bold hover:bg-red-700 transition-colors flex items-center gap-2"
+                      >
+                        <HeartPulse size={14} />
+                        Ajuster mes allures
+                      </button>
+                    )}
+                  </div>
+                </div>
+              </div>
+            )}
 
             {/* Average Pace */}
             {analysis.avgPace && (

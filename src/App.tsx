@@ -954,6 +954,155 @@ const ADMIN_EMAILS = ["programme@coachrunningia.fr"];
     }
   };
 
+  const handleRecalculateVMA = async (newVMA: number) => {
+    if (!plan || !planId) return;
+
+    // Garde-fou VMA
+    if (newVMA < 8 || newVMA > 25) {
+      setAdaptationMessage('VMA invalide. Valeur attendue entre 8 et 25 km/h.');
+      setTimeout(() => setAdaptationMessage(null), 5000);
+      return;
+    }
+
+    const oldVMA = plan.vma || plan.generationContext?.vma || 0;
+    if (Math.abs(newVMA - oldVMA) < 0.1) {
+      setAdaptationMessage('La VMA est déjà à cette valeur.');
+      setTimeout(() => setAdaptationMessage(null), 5000);
+      return;
+    }
+
+    setAdaptationMessage('Recalcul des allures en cours...');
+
+    try {
+      const { calculateAllPaces, generateRemainingWeeks } = await import('./services/geminiService');
+      const newPaces = calculateAllPaces(newVMA);
+
+      // Mettre à jour le generationContext COMPLET (questionnaire, périodisation, paces, VMA)
+      if (!plan.generationContext) {
+        throw new Error('Pas de contexte de génération. Régénérez le plan depuis le questionnaire.');
+      }
+
+      const updatedContext = {
+        ...plan.generationContext,
+        vma: newVMA,
+        vmaSource: `Ajustée manuellement : ${oldVMA.toFixed(1)} → ${newVMA.toFixed(1)} km/h`,
+        paces: newPaces,
+        // Mettre à jour aussi la VMA dans le snapshot du questionnaire
+        questionnaireSnapshot: {
+          ...plan.generationContext.questionnaireSnapshot,
+          vma: newVMA,
+        },
+      };
+
+      // Identifier les semaines touchées par un feedback (au moins 1 séance complétée)
+      // On conserve ces semaines intactes pour ne pas perdre les données
+      const weeksWithFeedback = plan.weeks.filter(w =>
+        w.sessions.some(s => s.feedback?.completed)
+      );
+      const firstUntouchedWeekIdx = plan.weeks.findIndex(w =>
+        !w.sessions.some(s => s.feedback?.completed)
+      );
+
+      console.log(`[VMA Recalc] ${oldVMA.toFixed(1)} → ${newVMA.toFixed(1)} km/h | ${weeksWithFeedback.length} semaines conservées, ${plan.weeks.length - weeksWithFeedback.length} à régénérer`);
+
+      if (firstUntouchedWeekIdx >= 0 && firstUntouchedWeekIdx < plan.weeks.length) {
+        setAdaptationMessage(`Recalcul VMA ${oldVMA.toFixed(1)} → ${newVMA.toFixed(1)} km/h... Régénération des semaines ${firstUntouchedWeekIdx + 1} à ${plan.weeks.length}.`);
+
+        // Créer un plan "preview" avec uniquement les semaines déjà faites
+        // generateRemainingWeeks va générer à partir de la semaine 2
+        // On lui donne la première semaine (ou les semaines faites) comme base
+        const keptWeeks = plan.weeks.slice(0, Math.max(firstUntouchedWeekIdx, 1));
+        const previewPlan: TrainingPlan = {
+          ...plan,
+          weeks: keptWeeks,
+          isPreview: true,
+          vma: newVMA,
+          vmaSource: updatedContext.vmaSource,
+          paces: newPaces,
+          generationContext: updatedContext,
+        };
+
+        const fullPlan = await generateRemainingWeeks(previewPlan, (partialPlan) => {
+          setPlan({ ...partialPlan, userId: plan.userId, userEmail: plan.userEmail } as TrainingPlan);
+        });
+
+        // Restaurer les semaines avec feedback dans le plan final
+        // (generateRemainingWeeks peut avoir réécrit les semaines 2+)
+        const finalWeeks = fullPlan.weeks.map((week: any, idx: number) => {
+          if (idx < weeksWithFeedback.length) {
+            return weeksWithFeedback[idx]; // Garder les semaines avec feedback intactes
+          }
+          return week; // Utiliser la semaine régénérée
+        });
+
+        fullPlan.weeks = finalWeeks;
+        fullPlan.userId = plan.userId;
+        fullPlan.userEmail = plan.userEmail;
+        fullPlan.vma = newVMA;
+        fullPlan.vmaSource = updatedContext.vmaSource;
+        fullPlan.paces = newPaces;
+        fullPlan.generationContext = updatedContext;
+        fullPlan.isPreview = false;
+        fullPlan.fullPlanGenerated = true;
+
+        await savePlan(fullPlan);
+        setPlan(fullPlan);
+      } else {
+        // Toutes les semaines ont du feedback — on met juste à jour les métadonnées
+        const updatedPlan: TrainingPlan = {
+          ...plan,
+          vma: newVMA,
+          vmaSource: updatedContext.vmaSource,
+          paces: newPaces,
+          generationContext: updatedContext,
+        };
+        await savePlan(updatedPlan);
+        setPlan(updatedPlan);
+      }
+
+      // Recalculer la faisabilité avec la nouvelle VMA pour avertir si l'objectif devient plus dur
+      let feasibilityWarning = '';
+      if (plan.targetTime && plan.generationContext?.questionnaireSnapshot) {
+        try {
+          const { calculateFeasibility } = await import('./services/feasibilityService');
+          const q = plan.generationContext.questionnaireSnapshot;
+          const newFeasibility = calculateFeasibility({
+            vma: newVMA,
+            targetTime: q.targetTime || plan.targetTime,
+            distance: q.subGoal || plan.distance || '',
+            goal: q.goal || plan.goal || '',
+            level: q.level || '',
+            planWeeks: plan.generationContext.periodizationPlan?.totalWeeks || plan.weeks.length,
+            currentVolume: q.currentWeeklyVolume,
+            hasInjury: q.injuries?.hasInjury || false,
+            hasChrono: !!(q.recentRaceTimes?.distance5km || q.recentRaceTimes?.distance10km),
+            age: q.age,
+          });
+          if (newFeasibility.status === 'RISQUÉ' || newFeasibility.status === 'IRRÉALISTE') {
+            feasibilityWarning = ` ⚠️ Attention : avec cette VMA, ton objectif de ${plan.targetTime} devient ${newFeasibility.status.toLowerCase()}. ${newFeasibility.alternativeTarget ? `Un objectif plus réaliste serait ${newFeasibility.alternativeTarget}.` : 'Envisage de revoir ton objectif temps.'}`;
+          } else if (newFeasibility.status === 'AMBITIEUX') {
+            feasibilityWarning = ` ℹ️ Ton objectif de ${plan.targetTime} est maintenant ambitieux avec cette VMA. C'est faisable avec un entraînement rigoureux.`;
+          }
+        } catch (e) {
+          console.warn('[VMA Recalc] Feasibility check failed:', e);
+        }
+      }
+
+      setAdaptationMessage(
+        `✅ Allures recalculées ! VMA : ${oldVMA.toFixed(1)} → ${newVMA.toFixed(1)} km/h. ` +
+        `Nouvelle allure EF : ${newPaces.efPace}. ` +
+        `${weeksWithFeedback.length} semaine${weeksWithFeedback.length > 1 ? 's' : ''} conservée${weeksWithFeedback.length > 1 ? 's' : ''}.` +
+        feasibilityWarning
+      );
+      setTimeout(() => setAdaptationMessage(null), 20000);
+
+    } catch (error) {
+      console.error('[VMA Recalc] Error:', error);
+      setAdaptationMessage('Erreur lors du recalcul des allures. Réessaie.');
+      setTimeout(() => setAdaptationMessage(null), 8000);
+    }
+  };
+
   if (loading) return <div className="flex justify-center py-20"><Loader2 className="animate-spin text-accent" /></div>;
   if (!plan) return <div className="text-center py-20">Plan introuvable ou accès refusé.</div>;
 
@@ -987,6 +1136,7 @@ const ADMIN_EMAILS = ["programme@coachrunningia.fr"];
         isGeneratingRemaining={isGeneratingRemaining}
         onAdaptPlan={handleAdaptPlan}
         user={user}
+        onRecalculateVMA={handleRecalculateVMA}
       />
     </>
   );

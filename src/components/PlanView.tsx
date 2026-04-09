@@ -29,6 +29,7 @@ interface PlanViewProps {
   onGenerateRemainingWeeks?: () => Promise<void>; // Nouveau: génère semaines 2-N
   isGeneratingRemaining?: boolean; // Nouveau: état de génération
   user?: User | null;
+  onRecalculateVMA?: (newVMA: number) => Promise<void>;
 }
 
 // Helper function to fix duplicate days in existing plans
@@ -67,7 +68,7 @@ const normalizePlanDays = (planToNormalize: TrainingPlan): TrainingPlan => {
   return { ...planToNormalize, weeks: normalizedWeeks };
 };
 
-const PlanView: React.FC<PlanViewProps> = ({ plan: initialPlan, isLocked = false, onAdaptPlan, onRegenerateFull, onGenerateRemainingWeeks, isGeneratingRemaining = false, user }) => {
+const PlanView: React.FC<PlanViewProps> = ({ plan: initialPlan, isLocked = false, onAdaptPlan, onRegenerateFull, onGenerateRemainingWeeks, isGeneratingRemaining = false, user, onRecalculateVMA }) => {
   const navigate = useNavigate();
   // Normalize the plan on load to fix any duplicate days from old plans
   const [plan, setPlan] = useState<TrainingPlan>(() => normalizePlanDays(initialPlan));
@@ -101,6 +102,13 @@ const PlanView: React.FC<PlanViewProps> = ({ plan: initialPlan, isLocked = false
   } | null>(null);
   const [showStartDatePicker, setShowStartDatePicker] = useState(false);
   const [showFeasibilityWarning, setShowFeasibilityWarning] = useState(false);
+
+  // VMA recalculation modal states
+  const [showVMAModal, setShowVMAModal] = useState(false);
+  const [vmaMode, setVmaMode] = useState<'manual' | 'feeling'>('manual');
+  const [newVMAValue, setNewVMAValue] = useState(plan.vma ? plan.vma.toFixed(1) : '');
+  const [vmaFeeling, setVmaFeeling] = useState<'too_fast' | 'ok' | 'too_slow'>('too_fast');
+  const [isRecalculating, setIsRecalculating] = useState(false);
 
   // Sync plan if prop changes (also normalize)
   useEffect(() => {
@@ -986,6 +994,15 @@ ${recentRPEs.length > 0 ? recentRPEs.slice(-8).join('\n') : 'Premier feedback �
                   </div>
                 </div>
                 {plan.vmaSource && <p className="text-xs text-orange-600 mt-3">📊 Source : {plan.vmaSource}</p>}
+                {onRecalculateVMA && (
+                  <button
+                    onClick={() => setShowVMAModal(true)}
+                    className="mt-3 w-full py-2 bg-orange-100 hover:bg-orange-200 text-orange-700 rounded-lg text-xs font-bold transition-colors flex items-center justify-center gap-1.5"
+                  >
+                    <RefreshCw size={12} />
+                    Ajuster mes allures
+                  </button>
+                )}
               </div>
             </div>
             {/* ROW 2: 3 cartes côte à côte */}
@@ -2151,6 +2168,123 @@ ${recentRPEs.length > 0 ? recentRPEs.slice(-8).join('\n') : 'Premier feedback �
                   </div>
                 </>
               )}
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* VMA Recalculation Modal */}
+      {showVMAModal && onRecalculateVMA && (
+        <div className="fixed inset-0 bg-slate-900/60 backdrop-blur-sm flex items-center justify-center p-4 z-[100]">
+          <div className="bg-white rounded-2xl max-w-md w-full shadow-2xl">
+            <div className="p-6 border-b border-slate-100">
+              <div className="flex items-center justify-between">
+                <h3 className="text-lg font-bold text-slate-900 flex items-center gap-2">
+                  <RefreshCw size={20} className="text-accent" />
+                  Recalculer mes allures
+                </h3>
+                <button onClick={() => setShowVMAModal(false)} className="p-2 rounded-full hover:bg-slate-100">
+                  <X size={18} className="text-slate-400" />
+                </button>
+              </div>
+            </div>
+
+            <div className="p-6 space-y-4">
+              <p className="text-sm text-slate-600">
+                Si ta VMA a changé ou si tes allures semblent trop rapides/lentes, tu peux recalculer toutes les allures de ton plan.
+              </p>
+
+              {/* Mode tabs */}
+              <div className="flex gap-2">
+                <button
+                  onClick={() => setVmaMode('manual')}
+                  className={`flex-1 py-2 px-3 rounded-lg text-sm font-bold transition-colors ${vmaMode === 'manual' ? 'bg-accent text-white' : 'bg-slate-100 text-slate-600 hover:bg-slate-200'}`}
+                >
+                  VMA connue
+                </button>
+                <button
+                  onClick={() => setVmaMode('feeling')}
+                  className={`flex-1 py-2 px-3 rounded-lg text-sm font-bold transition-colors ${vmaMode === 'feeling' ? 'bg-accent text-white' : 'bg-slate-100 text-slate-600 hover:bg-slate-200'}`}
+                >
+                  Ajustement ressenti
+                </button>
+              </div>
+
+              {vmaMode === 'manual' ? (
+                <div>
+                  <label className="text-sm font-bold text-slate-700 block mb-1">Nouvelle VMA (km/h)</label>
+                  <input
+                    type="number"
+                    step="0.1"
+                    min="8"
+                    max="25"
+                    value={newVMAValue}
+                    onChange={(e) => setNewVMAValue(e.target.value)}
+                    className="w-full border border-slate-300 rounded-xl px-4 py-3 text-lg font-bold text-center focus:border-accent focus:ring-2 focus:ring-accent/20 outline-none"
+                    placeholder="Ex: 14.5"
+                  />
+                  <p className="text-xs text-slate-400 mt-1">VMA actuelle : {plan.vma ? plan.vma.toFixed(1) : '-'} km/h</p>
+                </div>
+              ) : (
+                <div className="space-y-3">
+                  <p className="text-sm font-bold text-slate-700">Comment te sens-tu sur tes allures actuelles ?</p>
+                  {[
+                    { value: 'too_fast' as const, label: 'Trop rapide', desc: 'Je suis souvent essouffle(e) en EF', adjustment: -1 },
+                    { value: 'ok' as const, label: 'Correct', desc: 'Les allures sont bien calibrees', adjustment: 0 },
+                    { value: 'too_slow' as const, label: 'Trop lent', desc: 'Je pourrais aller plus vite sans effort', adjustment: 0.5 },
+                  ].map(option => (
+                    <button
+                      key={option.value}
+                      onClick={() => setVmaFeeling(option.value)}
+                      className={`w-full p-3 rounded-xl border-2 text-left transition-all ${vmaFeeling === option.value ? 'border-accent bg-accent/5' : 'border-slate-200 hover:border-slate-300'}`}
+                    >
+                      <p className="font-bold text-sm text-slate-800">{option.label}</p>
+                      <p className="text-xs text-slate-500">{option.desc}</p>
+                    </button>
+                  ))}
+                </div>
+              )}
+            </div>
+
+            <div className="p-6 border-t border-slate-100 flex gap-3">
+              <button
+                onClick={() => setShowVMAModal(false)}
+                className="flex-1 py-3 bg-slate-100 text-slate-700 rounded-xl font-bold hover:bg-slate-200 transition-colors"
+              >
+                Annuler
+              </button>
+              <button
+                onClick={async () => {
+                  setIsRecalculating(true);
+                  try {
+                    let targetVMA: number;
+                    if (vmaMode === 'manual') {
+                      targetVMA = parseFloat(newVMAValue);
+                      if (isNaN(targetVMA) || targetVMA < 8 || targetVMA > 25) {
+                        alert('VMA invalide (entre 8 et 25 km/h)');
+                        setIsRecalculating(false);
+                        return;
+                      }
+                    } else {
+                      const currentVMA = plan.vma || 12;
+                      const adjustments = { too_fast: -1, ok: 0, too_slow: 0.5 };
+                      targetVMA = currentVMA + adjustments[vmaFeeling];
+                    }
+                    await onRecalculateVMA(targetVMA);
+                    setShowVMAModal(false);
+                  } catch (e) {
+                    console.error('[VMA Recalc] Error:', e);
+                    alert('Erreur lors du recalcul. Reessaie.');
+                  } finally {
+                    setIsRecalculating(false);
+                  }
+                }}
+                disabled={isRecalculating}
+                className="flex-1 py-3 bg-accent text-white rounded-xl font-bold hover:bg-orange-600 transition-colors disabled:opacity-50 flex items-center justify-center gap-2"
+              >
+                {isRecalculating ? <Loader size={16} className="animate-spin" /> : <RefreshCw size={16} />}
+                {isRecalculating ? 'Recalcul...' : 'Recalculer'}
+              </button>
             </div>
           </div>
         </div>

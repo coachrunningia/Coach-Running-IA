@@ -179,7 +179,7 @@ export const fetchRecentActivities = async (userId: string) => {
     }
 };
 
-export const analyzeActivitiesWithGemini = async (activities: any[], userId: string) => {
+export const analyzeActivitiesWithGemini = async (activities: any[], userId: string, userAge?: number) => {
     const apiKey = import.meta.env.VITE_GEMINI_API_KEY;
     if (!apiKey) throw new Error("No Gemini Key");
 
@@ -207,6 +207,35 @@ export const analyzeActivitiesWithGemini = async (activities: any[], userId: str
         sufferScore: a.suffer_score
     }));
 
+    // FC zones calculation
+    const age = userAge || 40;
+    const fcMax = 220 - age;
+    const fcZones = {
+      z1: { min: Math.round(fcMax * 0.50), max: Math.round(fcMax * 0.60), label: 'Z1 Récup' },
+      z2: { min: Math.round(fcMax * 0.60), max: Math.round(fcMax * 0.70), label: 'Z2 EF' },
+      z3: { min: Math.round(fcMax * 0.70), max: Math.round(fcMax * 0.80), label: 'Z3 Tempo' },
+      z4: { min: Math.round(fcMax * 0.80), max: Math.round(fcMax * 0.90), label: 'Z4 Seuil' },
+      z5: { min: Math.round(fcMax * 0.90), max: fcMax, label: 'Z5 VMA/Max' },
+    };
+
+    // Detect FC alerts: easy runs with HR in Z3+
+    const activitiesWithHR = summary.filter(a => a.hr && a.hr > 0);
+    const fcAlertActivities = activitiesWithHR.filter(a => {
+      // If average HR is in Z3+ and it's a "Run" type (likely easy run based on pace)
+      return a.hr && a.hr > fcZones.z2.max;
+    });
+
+    const fcSection = activitiesWithHR.length > 0 ? `
+
+═══════════════════════════════════════════════════════════════
+              ZONES FC (FCmax estimée : ${fcMax} bpm, âge ${age})
+═══════════════════════════════════════════════════════════════
+
+${Object.values(fcZones).map(z => `${z.label}: ${z.min}-${z.max} bpm`).join('\n')}
+
+${fcAlertActivities.length > 0 ? `⚠️ ${fcAlertActivities.length} activité(s) avec FC moyenne au-dessus de Z2 (${fcZones.z2.max} bpm). Analyser si les allures EF sont trop rapides.` : '✅ FC cohérente avec les zones attendues.'}
+` : '';
+
     const prompt = `Tu es un coach running expert diplômé. Analyse ces données Strava des 30 derniers jours
 comme un VRAI coach le ferait lors d'un bilan mensuel avec son athlète.
 
@@ -215,7 +244,7 @@ IMPORTANT : TOUTES les allures doivent être en min/km (format X:XX min/km), JAM
 
 Données des activités (30 derniers jours) :
 ${JSON.stringify(summary)}
-
+${fcSection}
 ═══════════════════════════════════════════════════════════════
               STRUCTURE DE L'ANALYSE
 ═══════════════════════════════════════════════════════════════
@@ -226,6 +255,7 @@ Analyse comme un vrai coach :
 3. Évalue la progression vs les semaines précédentes
 4. Identifie les points forts et les points faibles CONCRETS
 5. Donne des recommandations ACTIONNABLES
+6. ANALYSE FC : si des données FC sont disponibles, vérifie que la FC correspond aux zones attendues. Signale si des footings sont courus trop vite (FC en Z3+ au lieu de Z2).
 
 Format de réponse JSON :
 {
@@ -257,7 +287,13 @@ Format de réponse JSON :
     ],
     "mainInsight": "Phrase résumé principale du bilan (2-3 phrases max, personnalisée et motivante)",
     "coachVerdict": "EXCELLENT|BON|À AMÉLIORER|INSUFFISANT",
-    "coachMessage": "Message personnel du coach comme s'il parlait directement au coureur (3-4 phrases motivantes et constructives)"
+    "coachMessage": "Message personnel du coach comme s'il parlait directement au coureur (3-4 phrases motivantes et constructives)",
+    "fcAlert": {
+        "hasAlert": true,
+        "message": "Tes footings sont courus trop vite : FC moyenne de X bpm (Z3) alors que tu devrais être en Z2 (X-X bpm). Ralentis de 15-30 sec/km.",
+        "suggestedEFPace": "6:30 min/km",
+        "activitiesCount": 3
+    }
 }
 
 RÈGLES :
@@ -266,6 +302,7 @@ RÈGLES :
 - Chaque point doit contenir des CHIFFRES concrets issus des données
 - Le coachVerdict doit être HONNÊTE
 - Le coachMessage doit être motivant mais réaliste
+- Si des données FC montrent des footings trop rapides (FC en Z3+ sur des runs), inclure le champ fcAlert avec hasAlert=true et un message explicatif. Sinon mettre hasAlert=false.
 - Réponds EN FRANÇAIS UNIQUEMENT`;
 
     const result = await model.generateContent({
