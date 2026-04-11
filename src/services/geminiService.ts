@@ -3021,11 +3021,82 @@ ${(isVKPreview || isTrailSteepPreview) ? `   - fondamental : Jogging (footing EF
    - affutage : Jogging, Sortie Longue courte, Renforcement + 1 rappel fractionné court.
    - recuperation : Jogging (footing EF) uniquement + Renforcement léger. PAS d'intensité.`}
 
-${goal.includes('Perte') ? `🔴 PLAN PERTE DE POIDS — RÈGLES SPÉCIFIQUES :
-Ce plan est un plan PERTE DE POIDS, PAS une préparation course. NE PAS mentionner d'allure spécifique semi/marathon/course. Les séances doivent être orientées dépense calorique et endurance.
-- PAS de références à une course cible, PAS d'allure semi/marathon dans les mainSet
-- Priorité : durée des séances, fréquence cardiaque en zone 2, dépense énergétique
-- Séances variées : footing, marche/course, vélo, natation si pertinent` : ''}
+${goal.includes('Perte') ? (() => {
+  const pdpVma = vmaEstimate?.vma || data.vma || 12;
+  const pdpEfPace = paces?.efPace || '8:00';
+  const pdpBmi = (data.weight && data.height) ? data.weight / ((data.height / 100) ** 2) : 0;
+  const pdpIsLowVMA = pdpVma < 12;
+  const pdpIsOverweight = pdpBmi >= 30;
+  const pdpNeedsMarcheCourse = pdpVma < 10.5 || pdpBmi >= 30 || (pdpEfPace > '7:30');
+  const pdpMaxSLmin = pdpIsLowVMA ? 60 : 65;
+  const pdpTotalWeeks = data.durationWeeks || 12;
+  const pdpFondWeeks = Math.max(1, Math.floor(pdpTotalWeeks * 0.45));
+  return `🔴 PLAN PERTE DE POIDS — RÈGLES SPÉCIFIQUES (OBLIGATOIRE) :
+Ce plan est un plan PERTE DE POIDS, PAS une préparation course.
+${pdpIsLowVMA ? `⚠️ VMA ${pdpVma.toFixed(1)} km/h < 12 → TRAITER COMME DÉBUTANT+ quel que soit le niveau déclaré. Réduire volume et intensité en conséquence.` : ''}
+${pdpIsOverweight ? `⚠️ IMC ${pdpBmi.toFixed(1)} ≥ 30 → SURPOIDS : max 2 séances course/semaine + 1 renfo. Alternance marche/course OBLIGATOIRE les 4 premières semaines. Priorité protection articulaire.` : ''}
+
+INTERDICTIONS ABSOLUES :
+- JAMAIS d'allure spécifique semi/marathon/course/5k/10k dans les mainSet
+- JAMAIS de "phase spécifique" ni "phase affûtage" — seules les phases "fondamental", "developpement" et "recuperation" existent
+- JAMAIS de VMA/fractionné intense en phase fondamentale (semaines 1 à ${pdpFondWeeks})
+- JAMAIS "allure spé" ou "allure course" dans aucun mainSet
+
+SÉANCES AUTORISÉES PAR PHASE :
+- Phase FONDAMENTALE : ${pdpNeedsMarcheCourse ? 'Alternance marche/course les 2-3 premières semaines, puis Jogging EF' : 'Jogging EF'} + Renforcement + Sortie Longue EF. ZÉRO intensité.
+- Phase DÉVELOPPEMENT : Jogging EF + Renforcement + SL EF + fartlek DOUX (accélérations 30s-1min, PAS de VMA pure). Le fartlek ne doit PAS dépasser 15-20% de la durée de la séance. Max 1 séance avec intensité légère par semaine.
+- Phase RÉCUPÉRATION : Jogging léger EF + Renforcement allégé. Volume -30%.
+
+STRUCTURE 3+1 OBLIGATOIRE :
+3 semaines de charge progressive → 1 semaine de récupération (-30% volume).
+Ex sur 12 semaines : S1-S3 (charge) → S4 (récup) → S5-S7 (charge) → S8 (récup) → S9-S11 (charge) → S12 (récup/bilan)
+
+PROGRESSION DU VOLUME TOTAL HEBDO (OBLIGATOIRE) :
+- S1-S3 : ${pdpIsLowVMA ? '1h00-1h20' : '1h20-1h40'}/semaine (hors renfo)
+- S5-S7 : ${pdpIsLowVMA ? '1h20-1h45' : '1h40-2h00'}/semaine
+- S9-S11 : ${pdpIsLowVMA ? '1h40-2h00' : '2h00-2h20'}/semaine
+- Augmentation max : +10-15% par semaine. JAMAIS plus.
+Les FOOTINGS doivent aussi progresser (pas seulement la SL) : de 25-30 min (S1) à 35-45 min (S9-S11).
+
+PROGRESSION SORTIE LONGUE (OBLIGATOIRE) :
+- S1-S3 : SL de 30-35 min
+- S5-S7 : SL de 40-50 min
+- S9-S11 : SL de 50-${pdpMaxSLmin} min
+- Semaines de récup : SL réduite de 30% (ex: 50 min → 35 min)
+⚠️ La SL ne doit JAMAIS rester identique 2 semaines de suite. Plafond : ${pdpMaxSLmin} min pour ce profil.
+
+RENFORCEMENT — CADRAGE OBLIGATOIRE :
+- Durée : 20-30 min (JAMAIS plus de 35 min)
+- Exercices : poids de corps uniquement (squats, fentes, gainage ventral/latéral, pompes adaptées, montées de chaise)
+- PAS de pliométrie lourde (pas de box jumps, burpees, sauts en contrebas)
+- PAS de charges lourdes sans expérience confirmée
+- Focus : bas du corps + gainage = protection articulaire + métabolisme
+- Progression : augmenter les reps (3x12 → 3x15 → 3x18) avant de varier les exercices
+
+EFFORT PERÇU DANS LES MAINSET (OBLIGATOIRE) :
+Chaque mainSet DOIT mentionner le niveau d'effort perçu :
+- Jogging EF / SL : "Effort perçu 4/10 — conversation facile, respiration aisée"
+- Fartlek doux (accélérations) : "Effort perçu 6-7/10 sur les accélérations, retour à 4/10 entre"
+- Récupération : "Effort perçu 3/10 — très très facile, trot lent"
+
+${pdpNeedsMarcheCourse ? `ALTERNANCE MARCHE/COURSE (semaines 1-3) :
+L'allure EF (${pdpEfPace}/km) est très lente pour ce profil. Les 2-3 premières semaines, proposer :
+- Jogging : alternance 2 min course / 1 min marche, puis 3 min course / 1 min marche
+- SL : alternance 3 min course / 2 min marche
+Transition vers course continue à partir de S4-S5 selon le ressenti.
+` : ''}
+SIGNAUX D'ALERTE À MENTIONNER :
+Dans l'advice de la première séance, inclure : "Si tu ressens une douleur au genou, à la cheville ou au tibia pendant la course, arrête-toi et marche. Ne force jamais sur une douleur articulaire. Les courbatures musculaires sont normales, les douleurs articulaires ne le sont pas."
+
+COHÉRENCE DURÉE/DISTANCE/MAINSET (CRITIQUE) :
+Le champ "duration" et le contenu du "mainSet" doivent être IDENTIQUES.
+Si duration = "45 min", le mainSet ne doit PAS décrire 1h20 de course.
+Calcul : distance = durée ÷ allure EF. Ex: 45 min à ${pdpEfPace}/km ≈ ${(45 / (parseInt(pdpEfPace.split(':')[0]) + parseInt(pdpEfPace.split(':')[1] || '0') / 60)).toFixed(1)} km.
+
+NOMMAGE : types autorisés = "Jogging", "Sortie Longue", "Renforcement"${pdpNeedsMarcheCourse ? ', "Marche/Course"' : ''}. RIEN d'autre.
+
+PRIORITÉ ABSOLUE : sécurité > régularité > progression > plaisir > dépense calorique.`;
+})() : ''}
 
 ${(!data.targetTime || data.targetTime.trim() === '') && !goal.includes('Perte') && !goal.includes('Maintien') && !goal.includes('Remise') ? `🔴 PLAN FINISHER — RÈGLES SPÉCIFIQUES :
 L'objectif est de TERMINER la course, pas de performer. Adapte la philosophie du plan :
@@ -3049,6 +3120,11 @@ L'objectif est de TERMINER la course, pas de performer. Adapte la philosophie du
    - Durée : 30-45 min
    - Type dans le JSON : "Renforcement"
    - NE PAS mettre de séance "Repos" dans le plan
+7. COHÉRENCE DURÉE/DISTANCE/MAINSET (CRITIQUE) :
+   Le champ "duration", le champ "distance" et le contenu du "mainSet" doivent être COHÉRENTS entre eux.
+   Si duration = "45 min" et allure EF = ${data.vma ? Math.floor(3600 / (data.vma * 0.67) / 60) + ':' + String(Math.round(3600 / (data.vma * 0.67) % 60)).padStart(2, '0') : '8:00'}/km, alors distance ≈ ${data.vma ? (45 / (3600 / (data.vma * 0.67) / 60)).toFixed(1) : '5.6'} km.
+   Le mainSet ne doit JAMAIS décrire une durée différente de "duration". Ex: si duration="45 min", ne PAS écrire "1h20 de course" dans le mainSet.
+8. NOMMAGE : types autorisés = "Jogging", "Fractionné", "Sortie Longue", "Récupération", "Renforcement", "Marche/Course". PAS de variantes ("Footing Léger", "Endurance Fondamentale", "VMA", "Seuil" comme type).
 
 ═══════════════════════════════════════════════════════════════
               RENFORCEMENT & TRAIL & FAISABILITÉ
@@ -3611,11 +3687,46 @@ ${(isVKRemaining || isTrailSteepRemaining) ? `   - fondamental : Jogging (footin
    - affutage : Jogging, Sortie Longue courte, Renforcement + 1 rappel fractionné court.
    - recuperation : Jogging (footing EF) uniquement + Renforcement léger. PAS d'intensité.`}
 
-${isPertePoidsProg ? `🔴 PLAN PERTE DE POIDS — RÈGLES SPÉCIFIQUES :
-Ce plan est un plan PERTE DE POIDS, PAS une préparation course. NE PAS mentionner d'allure spécifique semi/marathon/course. Les séances doivent être orientées dépense calorique et endurance.
-- PAS de références à une course cible, PAS d'allure semi/marathon dans les mainSet
-- Priorité : durée des séances, fréquence cardiaque en zone 2, dépense énergétique
-- Séances variées : footing, marche/course, vélo, natation si pertinent` : ''}
+${isPertePoidsProg ? (() => {
+  const pdpVmaR = ctxVma || 12;
+  const pdpIsLowVMAR = pdpVmaR < 12;
+  const pdpBmiR = (data.weight && data.height) ? data.weight / ((data.height / 100) ** 2) : 0;
+  const pdpIsOverweightR = pdpBmiR >= 30;
+  const pdpMaxSLminR = pdpIsLowVMAR ? 60 : 65;
+  const pdpEfR = paces?.efPace || '8:00';
+  const pdpNeedsMCR = pdpVmaR < 10.5 || pdpIsOverweightR;
+  return `🔴 PLAN PERTE DE POIDS — RÈGLES SPÉCIFIQUES (OBLIGATOIRE) :
+Ce plan est un plan PERTE DE POIDS, PAS une préparation course.
+${pdpIsLowVMAR ? `⚠️ VMA ${pdpVmaR.toFixed(1)} < 12 → TRAITER COMME DÉBUTANT+. Volume et intensité réduits.` : ''}
+${pdpIsOverweightR ? `⚠️ IMC ${pdpBmiR.toFixed(1)} ≥ 30 → SURPOIDS : max 2 séances course/sem + alternance marche/course obligatoire.` : ''}
+
+INTERDICTIONS : JAMAIS d'allure spé course, JAMAIS de phase spécifique/affûtage, JAMAIS de VMA/fractionné intense en fondamental, JAMAIS "allure spé" dans les mainSet.
+
+SÉANCES PAR PHASE :
+- FONDAMENTALE : ${pdpNeedsMCR ? 'Marche/Course puis Jogging EF' : 'Jogging EF'} + Renfo + SL EF. ZÉRO intensité.
+- DÉVELOPPEMENT : Jogging EF + Renfo + SL EF + fartlek DOUX (30s-1min accélérations, max 15-20% de la séance). Max 1 séance intensité légère/semaine.
+- RÉCUPÉRATION : Jogging léger + Renfo allégé. Volume -30%.
+
+STRUCTURE 3+1 : 3 semaines charge → 1 semaine récup (-30%).
+
+PROGRESSION VOLUME TOTAL HEBDO :
+- Semaines début : ${pdpIsLowVMAR ? '1h00-1h20' : '1h20-1h40'}/sem (hors renfo)
+- Semaines milieu : ${pdpIsLowVMAR ? '1h20-1h45' : '1h40-2h00'}/sem
+- Semaines fin : ${pdpIsLowVMAR ? '1h40-2h00' : '2h00-2h20'}/sem
+- Max +10-15%/semaine. Les FOOTINGS progressent aussi (25-30 min → 35-45 min).
+
+PROGRESSION SL : 30-35 min → 40-50 min → 50-${pdpMaxSLminR} min. Récup : SL -30%. JAMAIS identique 2 semaines de suite.
+
+RENFORCEMENT : 20-30 min, poids de corps (squats, fentes, gainage, pompes adaptées). PAS de pliométrie lourde. Progression par reps (3x12 → 3x15 → 3x18).
+
+EFFORT PERÇU dans chaque mainSet : Jogging/SL = "effort 4/10, conversation facile" | Fartlek = "effort 6-7/10 sur accélérations" | Récup = "effort 3/10".
+
+COHÉRENCE DURÉE/DISTANCE/MAINSET : duration et mainSet = MÊME durée. Distance = durée ÷ allure EF.
+
+NOMMAGE : "Jogging", "Sortie Longue", "Renforcement"${pdpNeedsMCR ? ', "Marche/Course"' : ''} uniquement.
+
+PRIORITÉ : sécurité > régularité > progression > plaisir > dépense calorique.`;
+})() : ''}
 
 ${(!data.targetTime || data.targetTime.trim() === '') && !data.goal?.includes('Perte') && !data.goal?.includes('Maintien') && !data.goal?.includes('Remise') ? `🔴 PLAN FINISHER — RÈGLES SPÉCIFIQUES :
 L'objectif est de TERMINER la course, pas de performer. Adapte la philosophie du plan :
