@@ -251,7 +251,7 @@ app.get(['/health', '/api/health'], (req, res) => {
 
 // Configuration CORS sécurisée
 const allowedOrigins = process.env.NODE_ENV === 'production'
-  ? ['https://coachrunningia.fr', 'https://www.coachrunningia.fr', 'https://coach-running-ia.web.app', 'https://coach-running-ia.firebaseapp.com']
+  ? ['https://coachrunningia.fr', 'https://www.coachrunningia.fr', 'https://coach-running-ia.web.app', 'https://coach-running-ia.firebaseapp.com', 'capacitor://localhost']
   : ['http://localhost:5173', 'http://localhost:5174', 'http://localhost:8080', 'http://127.0.0.1:5173'];
 
 app.use(cors({

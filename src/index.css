@@ -2,6 +2,19 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Safe area pour app mobile (notch iPhone, Dynamic Island) */
+:root {
+  --sat: env(safe-area-inset-top, 0px);
+  --sar: env(safe-area-inset-right, 0px);
+  --sab: env(safe-area-inset-bottom, 0px);
+  --sal: env(safe-area-inset-left, 0px);
+}
+
+/* Fix scroll Capacitor iOS */
+html, body {
+  -webkit-overflow-scrolling: touch;
+}
+
 /* Animation shimmer pour les barres de progression */
 @keyframes shimmer {
   0% {

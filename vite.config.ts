@@ -9,7 +9,11 @@ export default defineConfig(({ mode }) => {
   // On récupère la clé API principale pour servir de fallback aux variables Firebase
   const masterApiKey = process.env.API_KEY || env.API_KEY || env.VITE_GEMINI_API_KEY || '';
 
+  // Capacitor a besoin de chemins relatifs (./assets/) au lieu de absolus (/assets/)
+  const isCapacitor = process.env.CAPACITOR_BUILD === 'true';
+
   return {
+    base: isCapacitor ? './' : '/',
     plugins: [react()],
     resolve: {
       alias: {
@@ -19,6 +23,8 @@ export default defineConfig(({ mode }) => {
     build: {
       outDir: 'dist',
       emptyOutDir: true,
+      // Désactiver crossorigin pour Capacitor (bloque dans le scheme capacitor://)
+      ...(isCapacitor ? { modulePreload: { polyfill: false } } : {}),
       rollupOptions: {
         output: {
           manualChunks(id) {
@@ -28,6 +34,11 @@ export default defineConfig(({ mode }) => {
           },
         },
       },
+    },
+    html: {
+      cspNonce: undefined,
+      // Retirer crossorigin des script/link tags pour Capacitor
+      ...(isCapacitor ? { transformIndexHtml: undefined } : {}),
     },
     define: {
       'process.env.API_KEY': JSON.stringify(masterApiKey),

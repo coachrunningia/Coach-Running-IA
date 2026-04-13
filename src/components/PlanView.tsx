@@ -4,6 +4,7 @@ import { TrainingPlan, Session, User, Week, StravaActivityMatch } from '../types
 import { Calendar, Clock, Lock, ShieldCheck, CheckCircle, Activity, AlertTriangle, Star, Zap, RefreshCw, X, ChevronDown, ChevronUp, Target, MapPin, TrendingUp, FileText, Loader, MessageCircle, Send } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { updateSessionFeedback, savePlan, updateSessionDate, shiftSessionDates, updatePlanStartDate } from '../services/storageService';
+import { apiUrl } from '../services/apiConfig';
 import { downloadICS, downloadPDF, downloadSessionTCX } from '../services/exportService';
 import StravaConnect from './StravaConnect';
 import SessionCard from './SessionCard';
@@ -26,8 +27,9 @@ interface PlanViewProps {
   onUnlock?: () => void;
   onAdaptPlan?: (feedback: string) => void;
   onRegenerateFull?: () => void;
-  onGenerateRemainingWeeks?: () => Promise<void>; // Nouveau: génère semaines 2-N
-  isGeneratingRemaining?: boolean; // Nouveau: état de génération
+  onGenerateRemainingWeeks?: () => Promise<void>;
+  isGeneratingRemaining?: boolean;
+  onRecalculateVMA?: (newVMA: number) => Promise<void>;
   user?: User | null;
 }
 
@@ -67,7 +69,7 @@ const normalizePlanDays = (planToNormalize: TrainingPlan): TrainingPlan => {
   return { ...planToNormalize, weeks: normalizedWeeks };
 };
 
-const PlanView: React.FC<PlanViewProps> = ({ plan: initialPlan, isLocked = false, onAdaptPlan, onRegenerateFull, onGenerateRemainingWeeks, isGeneratingRemaining = false, user }) => {
+const PlanView: React.FC<PlanViewProps> = ({ plan: initialPlan, isLocked = false, onAdaptPlan, onRegenerateFull, onGenerateRemainingWeeks, isGeneratingRemaining = false, onRecalculateVMA, user }) => {
   const navigate = useNavigate();
   // Normalize the plan on load to fix any duplicate days from old plans
   const [plan, setPlan] = useState<TrainingPlan>(() => normalizePlanDays(initialPlan));
@@ -85,6 +87,13 @@ const PlanView: React.FC<PlanViewProps> = ({ plan: initialPlan, isLocked = false
   const [adaptationSuggestion, setAdaptationSuggestion] = useState<AdaptationSuggestion | null>(null);
   const [showAdaptationModal, setShowAdaptationModal] = useState(false);
   const [adaptationNextWeek, setAdaptationNextWeek] = useState<Week | null>(null);
+
+  // Modale recalcul VMA
+  const [showVMAModal, setShowVMAModal] = useState(false);
+  const [vmaMode, setVmaMode] = useState<'test' | 'feeling' | null>(null);
+  const [newVMAValue, setNewVMAValue] = useState('');
+  const [vmaFeeling, setVmaFeeling] = useState('');
+  const [isRecalculating, setIsRecalculating] = useState(false);
 
   // Ask coach modal
   const [showAskCoach, setShowAskCoach] = useState(false);
@@ -986,6 +995,15 @@ ${recentRPEs.length > 0 ? recentRPEs.slice(-8).join('\n') : 'Premier feedback �
                   </div>
                 </div>
                 {plan.vmaSource && <p className="text-xs text-orange-600 mt-3">📊 Source : {plan.vmaSource}</p>}
+                {onRecalculateVMA && !plan.isPreview && (
+                  <button
+                    onClick={() => { setShowVMAModal(true); setVmaMode(null); setNewVMAValue(''); setVmaFeeling(''); }}
+                    className="mt-4 w-full py-2.5 px-4 bg-white border-2 border-orange-200 hover:border-orange-400 text-orange-700 rounded-xl font-bold text-sm transition-all hover:shadow-md flex items-center justify-center gap-2"
+                  >
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M21.5 2v6h-6M2.5 22v-6h6M2 11.5a10 10 0 0 1 18.8-4.3M22 12.5a10 10 0 0 1-18.8 4.2"/></svg>
+                    Ajuster mes allures
+                  </button>
+                )}
               </div>
             </div>
             {/* ROW 2: 3 cartes côte à côte */}
@@ -2124,7 +2142,7 @@ ${recentRPEs.length > 0 ? recentRPEs.slice(-8).join('\n') : 'Premier feedback �
                         if (!askCoachQuestion.trim()) return;
                         setAskCoachSending(true);
                         try {
-                          await fetch('/api/ask-coach', {
+                          await fetch(apiUrl('/api/ask-coach'), {
                             method: 'POST',
                             headers: { 'Content-Type': 'application/json' },
                             body: JSON.stringify({
@@ -2152,6 +2170,153 @@ ${recentRPEs.length > 0 ? recentRPEs.slice(-8).join('\n') : 'Premier feedback �
                 </>
               )}
             </div>
+          </div>
+        </div>
+      )}
+      {/* Modale Ajuster VMA */}
+      {showVMAModal && (
+        <div className="fixed inset-0 bg-slate-900/60 backdrop-blur-sm flex items-center justify-center p-4 z-[100]" onClick={() => setShowVMAModal(false)}>
+          <div className="bg-white rounded-2xl max-w-md w-full shadow-2xl" onClick={e => e.stopPropagation()}>
+            <div className="p-6 border-b border-slate-100">
+              <h3 className="text-xl font-bold text-slate-900">Ajuster mes allures</h3>
+              <p className="text-sm text-slate-500 mt-1">
+                VMA actuelle : <strong>{plan.vma?.toFixed(1) || plan.generationContext?.vma?.toFixed(1) || '?'} km/h</strong>
+                {plan.paces?.efPace && <> — EF : <strong>{plan.paces.efPace}</strong></>}
+              </p>
+            </div>
+
+            <div className="p-6 space-y-4">
+              {!vmaMode ? (
+                <>
+                  <p className="text-sm text-slate-600 mb-4">Comment souhaitez-vous ajuster vos allures ?</p>
+                  <button
+                    onClick={() => setVmaMode('test')}
+                    className="w-full p-4 border-2 border-slate-200 hover:border-orange-300 rounded-xl text-left transition-all hover:shadow-md"
+                  >
+                    <p className="font-bold text-slate-900">🎯 J'ai une nouvelle VMA</p>
+                    <p className="text-sm text-slate-500 mt-1">Test VMA, temps de course récent, valeur connue</p>
+                  </button>
+                  <button
+                    onClick={() => setVmaMode('feeling')}
+                    className="w-full p-4 border-2 border-slate-200 hover:border-orange-300 rounded-xl text-left transition-all hover:shadow-md"
+                  >
+                    <p className="font-bold text-slate-900">💬 Mes allures ne me conviennent pas</p>
+                    <p className="text-sm text-slate-500 mt-1">L'EF est trop rapide/lent, je m'essouffle trop vite...</p>
+                  </button>
+                </>
+              ) : vmaMode === 'test' ? (
+                <div className="space-y-4">
+                  <button onClick={() => setVmaMode(null)} className="text-sm text-slate-500 hover:text-slate-700">← Retour</button>
+                  <div>
+                    <label className="block text-sm font-bold text-slate-700 mb-2">Nouvelle VMA (km/h)</label>
+                    <input
+                      type="number"
+                      step="0.1"
+                      min="8"
+                      max="25"
+                      value={newVMAValue}
+                      onChange={e => setNewVMAValue(e.target.value)}
+                      placeholder={plan.vma?.toFixed(1) || '14.0'}
+                      className="w-full px-4 py-3 border-2 border-slate-200 rounded-xl text-lg font-bold text-center focus:border-orange-400 focus:ring-2 focus:ring-orange-100 outline-none"
+                    />
+                    <p className="text-xs text-slate-400 mt-2">Votre VMA actuelle est {plan.vma?.toFixed(1) || plan.generationContext?.vma?.toFixed(1) || '?'} km/h</p>
+                  </div>
+                  {newVMAValue && (
+                    <div className="bg-orange-50 rounded-xl p-4 border border-orange-200">
+                      <p className="text-sm text-orange-800">
+                        <strong>Nouvelle allure EF estimée :</strong> {(() => {
+                          const vma = parseFloat(newVMAValue);
+                          if (!vma || vma <= 0) return '-';
+                          const efSpeed = vma * 0.67;
+                          const totalSec = 3600 / efSpeed;
+                          const min = Math.floor(totalSec / 60);
+                          const sec = Math.round(totalSec % 60);
+                          return `${min}:${String(sec).padStart(2, '0')} min/km`;
+                        })()}
+                      </p>
+                    </div>
+                  )}
+                </div>
+              ) : (
+                <div className="space-y-4">
+                  <button onClick={() => setVmaMode(null)} className="text-sm text-slate-500 hover:text-slate-700">← Retour</button>
+                  <div>
+                    <label className="block text-sm font-bold text-slate-700 mb-2">Décrivez votre ressenti</label>
+                    <textarea
+                      value={vmaFeeling}
+                      onChange={e => setVmaFeeling(e.target.value)}
+                      placeholder="Ex: Mes footings à 5:07/km me mettent en zone 3, je m'essouffle. J'aimerais courir à 5:45-6:00/km en EF."
+                      className="w-full px-4 py-3 border-2 border-slate-200 rounded-xl text-sm focus:border-orange-400 focus:ring-2 focus:ring-orange-100 outline-none resize-none"
+                      rows={4}
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-sm font-bold text-slate-700 mb-2">Quelle allure EF vous conviendrait ? (optionnel)</label>
+                    <input
+                      type="text"
+                      value={newVMAValue}
+                      onChange={e => setNewVMAValue(e.target.value)}
+                      placeholder="Ex: 6:00 min/km"
+                      className="w-full px-4 py-3 border-2 border-slate-200 rounded-xl text-sm focus:border-orange-400 focus:ring-2 focus:ring-orange-100 outline-none"
+                    />
+                    <p className="text-xs text-slate-400 mt-2">Si vous indiquez une allure EF, la VMA sera recalculée en conséquence.</p>
+                  </div>
+                </div>
+              )}
+            </div>
+
+            {vmaMode && (
+              <div className="p-6 pt-0 space-y-3">
+                <div className="bg-amber-50 border border-amber-200 rounded-xl p-3">
+                  <p className="text-xs text-amber-700">
+                    ⚠️ Vos semaines à venir seront régénérées avec les nouvelles allures. Les séances déjà complétées sont conservées.
+                  </p>
+                </div>
+                <button
+                  onClick={async () => {
+                    if (!onRecalculateVMA) return;
+                    let targetVMA: number;
+                    if (vmaMode === 'test') {
+                      targetVMA = parseFloat(newVMAValue);
+                      if (!targetVMA || targetVMA < 8 || targetVMA > 25) {
+                        alert('VMA invalide (entre 8 et 25 km/h)');
+                        return;
+                      }
+                    } else {
+                      // Mode "feeling" : estimer la VMA depuis l'allure EF souhaitée
+                      const paceMatch = newVMAValue.match(/(\d+)[:\.](\d+)/);
+                      if (paceMatch) {
+                        const min = parseInt(paceMatch[1]);
+                        const sec = parseInt(paceMatch[2]);
+                        const efSpeedKmh = 60 / (min + sec / 60);
+                        targetVMA = Math.round((efSpeedKmh / 0.67) * 10) / 10;
+                      } else {
+                        // Pas d'allure indiquée : baisser la VMA de 10% par défaut
+                        const currentVMA = plan.vma || plan.generationContext?.vma || 14;
+                        targetVMA = Math.round(currentVMA * 0.90 * 10) / 10;
+                      }
+                    }
+                    setIsRecalculating(true);
+                    try {
+                      await onRecalculateVMA(targetVMA);
+                      setShowVMAModal(false);
+                    } catch (e: any) {
+                      alert('Erreur : ' + (e.message || 'Réessayez'));
+                    } finally {
+                      setIsRecalculating(false);
+                    }
+                  }}
+                  disabled={isRecalculating || (vmaMode === 'test' && !newVMAValue) || (vmaMode === 'feeling' && !vmaFeeling && !newVMAValue)}
+                  className="w-full py-3 bg-orange-500 hover:bg-orange-600 text-white rounded-xl font-bold transition-colors disabled:opacity-50 flex items-center justify-center gap-2"
+                >
+                  {isRecalculating ? (
+                    <><svg className="animate-spin h-5 w-5" viewBox="0 0 24 24"><circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" fill="none"/><path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"/></svg> Recalcul en cours...</>
+                  ) : (
+                    'Recalculer mes allures'
+                  )}
+                </button>
+              </div>
+            )}
           </div>
         </div>
       )}

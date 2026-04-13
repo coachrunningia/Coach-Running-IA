@@ -3,7 +3,9 @@ import React, { useState, useEffect, Suspense, lazy } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { BrowserRouter as Router, Routes, Route, Navigate, useNavigate, useParams, useLocation } from 'react-router-dom';
 import Layout from './components/Layout';
+import MobileLayout from './components/MobileLayout';
 import LandingPage from './components/LandingPage';
+import { Capacitor } from '@capacitor/core';
 import LoadingScreen from './components/LoadingScreen';
 import { User, TrainingPlan, QuestionnaireData } from './types';
 import {
@@ -68,6 +70,9 @@ const NotFoundPage = () => (
 );
 
 const AppContent = () => {
+  // Choix automatique du Layout : mobile natif ou web
+  const isMobile = (() => { try { return Capacitor.isNativePlatform(); } catch { return false; } })();
+  const AppLayout = isMobile ? MobileLayout : Layout;
   const [user, setUser] = useState<User | null>(null);
   const [loading, setLoading] = useState(true);
   const [isGenerating, setIsGenerating] = useState(false);
@@ -160,7 +165,7 @@ const AppContent = () => {
   const authSpinner = <div className="min-h-screen flex items-center justify-center bg-surface"><Loader2 className="animate-spin text-accent" /></div>;
 
   return (
-    <Layout user={user} setUser={setUser}>
+    <AppLayout user={user} setUser={setUser}>
       {isGenerating && <LoadingScreen />}
 
       {/* Modal limite de plans */}
@@ -250,7 +255,7 @@ const AppContent = () => {
         <Route path="*" element={<NotFoundPage />} />
       </Routes>
       </Suspense>
-    </Layout>
+    </AppLayout>
   );
 };
 
@@ -954,6 +959,68 @@ const ADMIN_EMAILS = ["programme@coachrunningia.fr"];
     }
   };
 
+  const handleRecalculateVMA = async (newVMA: number) => {
+    if (!planId || !plan || !user) throw new Error('Données manquantes');
+
+    setAdaptationMessage('Recalcul des allures en cours...');
+
+    try {
+      const { calculateAllPaces, generateRemainingWeeks } = await import('./services/geminiService');
+      const newPaces = calculateAllPaces(newVMA);
+      const oldVMA = plan.vma || plan.generationContext?.vma || 0;
+
+      // Mettre à jour le generationContext avec la nouvelle VMA
+      const updatedContext = plan.generationContext ? {
+        ...plan.generationContext,
+        vma: newVMA,
+        vmaSource: `Ajustée manuellement (${oldVMA.toFixed(1)} → ${newVMA.toFixed(1)} km/h)`,
+        paces: newPaces,
+      } : undefined;
+
+      // Identifier les semaines déjà complétées (au moins 1 séance avec feedback)
+      const completedWeekCount = plan.weeks.filter(w =>
+        w.sessions.some(s => s.feedback?.completed)
+      ).length;
+
+      // Créer le plan mis à jour avec les semaines complétées conservées + nouvelle VMA
+      const updatedPlan: typeof plan = {
+        ...plan,
+        vma: newVMA,
+        vmaSource: `Ajustée manuellement (${oldVMA.toFixed(1)} → ${newVMA.toFixed(1)} km/h)`,
+        paces: newPaces,
+        generationContext: updatedContext,
+      };
+
+      // Régénérer les semaines restantes avec les nouvelles allures
+      if (updatedContext && completedWeekCount < plan.weeks.length) {
+        const regenerated = await generateRemainingWeeks(updatedPlan);
+        // Garder les semaines complétées, remplacer les autres
+        const finalWeeks = plan.weeks.map((week, i) => {
+          const hasCompletedSession = week.sessions.some(s => s.feedback?.completed);
+          if (hasCompletedSession) return week; // Conserver la semaine déjà faite
+          // Trouver la semaine correspondante dans le plan régénéré
+          const regenWeek = regenerated.weeks?.find((w: any) => w.weekNumber === week.weekNumber);
+          return regenWeek || week;
+        });
+        updatedPlan.weeks = finalWeeks;
+      }
+
+      await savePlan(updatedPlan);
+      setPlan(updatedPlan);
+
+      setAdaptationMessage(
+        `✅ Allures recalculées ! VMA : ${oldVMA.toFixed(1)} → ${newVMA.toFixed(1)} km/h. ` +
+        `Nouvelle allure EF : ${newPaces.efPace}. ${completedWeekCount} semaine${completedWeekCount > 1 ? 's' : ''} conservée${completedWeekCount > 1 ? 's' : ''}, le reste a été régénéré.`
+      );
+      setTimeout(() => setAdaptationMessage(null), 15000);
+    } catch (error) {
+      console.error('[RecalculateVMA] Error:', error);
+      setAdaptationMessage('Erreur lors du recalcul. Réessayez.');
+      setTimeout(() => setAdaptationMessage(null), 8000);
+      throw error;
+    }
+  };
+
   if (loading) return <div className="flex justify-center py-20"><Loader2 className="animate-spin text-accent" /></div>;
   if (!plan) return <div className="text-center py-20">Plan introuvable ou accès refusé.</div>;
 
@@ -986,6 +1053,7 @@ const ADMIN_EMAILS = ["programme@coachrunningia.fr"];
         onGenerateRemainingWeeks={handleGenerateRemainingWeeks}
         isGeneratingRemaining={isGeneratingRemaining}
         onAdaptPlan={handleAdaptPlan}
+        onRecalculateVMA={handleRecalculateVMA}
         user={user}
       />
     </>

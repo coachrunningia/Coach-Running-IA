@@ -1,8 +1,18 @@
 
 import React, { useState } from 'react';
-import { TrendingUp, Loader, BarChart2, X } from 'lucide-react';
+import { TrendingUp, Loader, BarChart2, X, HeartPulse, AlertTriangle } from 'lucide-react';
 import { auth, db } from '../services/firebase';
 import { doc, getDoc } from 'firebase/firestore';
+import { apiUrl } from '../services/apiConfig';
+
+interface FCAlert {
+    severity: 'WARNING' | 'CRITICAL';
+    message: string;
+    affectedSessions?: string;
+    currentEFPace?: string;
+    suggestedEFPace?: string;
+    recommendation?: string;
+}
 
 interface AnalysisData {
     totalDistance?: string;
@@ -14,6 +24,7 @@ interface AnalysisData {
     strengths?: { title: string; detail: string }[];
     weaknesses?: { title: string; detail: string }[];
     recommendations?: { priority: string; title: string; detail: string; why: string }[];
+    fcAlert?: FCAlert | null;
     mainInsight?: string;
     coachVerdict?: string;
     coachMessage?: string;
@@ -40,9 +51,10 @@ const renderMarkdown = (text: string): React.ReactNode => {
 
 interface WeeklyAnalysisProps {
     compact?: boolean;
+    onAdjustPaces?: () => void;
 }
 
-const WeeklyAnalysis: React.FC<WeeklyAnalysisProps> = ({ compact = false }) => {
+const WeeklyAnalysis: React.FC<WeeklyAnalysisProps> = ({ compact = false, onAdjustPaces }) => {
   const [loading, setLoading] = useState(false);
   const [analysis, setAnalysis] = useState<AnalysisData | null>(null);
   const [showModal, setShowModal] = useState(false);
@@ -63,7 +75,7 @@ const WeeklyAnalysis: React.FC<WeeklyAnalysisProps> = ({ compact = false }) => {
         return;
       }
 
-      const response = await fetch('/api/strava/analyze-week', {
+      const response = await fetch(apiUrl('/api/strava/analyze-week'), {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -99,7 +111,7 @@ const WeeklyAnalysis: React.FC<WeeklyAnalysisProps> = ({ compact = false }) => {
                 {loading ? <Loader size={16} className="animate-spin" /> : <TrendingUp size={16} />}
                 {loading ? 'Analyse en cours...' : 'Analyser ma semaine avec Strava'}
             </button>
-            {showModal && analysis && <AnalysisModal analysis={analysis} onClose={() => setShowModal(false)} />}
+            {showModal && analysis && <AnalysisModal analysis={analysis} onClose={() => setShowModal(false)} onAdjustPaces={onAdjustPaces} />}
         </>
       );
   }
@@ -135,7 +147,7 @@ const WeeklyAnalysis: React.FC<WeeklyAnalysisProps> = ({ compact = false }) => {
         </button>
       </div>
 
-      {showModal && analysis && <AnalysisModal analysis={analysis} onClose={() => setShowModal(false)} />}
+      {showModal && analysis && <AnalysisModal analysis={analysis} onClose={() => setShowModal(false)} onAdjustPaces={onAdjustPaces} />}
     </>
   );
 };
@@ -225,7 +237,7 @@ const TypeDistributionBar = ({ breakdown }: { breakdown: string }) => {
 };
 
 // --- Main Analysis Modal ---
-const AnalysisModal = ({ analysis, onClose }: { analysis: AnalysisData; onClose: () => void }) => (
+const AnalysisModal = ({ analysis, onClose, onAdjustPaces }: { analysis: AnalysisData; onClose: () => void; onAdjustPaces?: () => void }) => (
     <div className="fixed inset-0 bg-slate-900/60 backdrop-blur-sm flex items-center justify-center p-4 z-[100] animate-in fade-in">
         <div className="bg-white rounded-2xl max-w-2xl w-full max-h-[85vh] overflow-y-auto shadow-2xl">
           {/* Header */}
@@ -274,6 +286,72 @@ const AnalysisModal = ({ analysis, onClose }: { analysis: AnalysisData; onClose:
                 </div>
               )}
             </div>
+
+            {/* FC ALERT - Bandeau d'alerte fréquence cardiaque */}
+            {analysis.fcAlert && (
+              <div className={`rounded-xl p-5 border-2 ${
+                analysis.fcAlert.severity === 'CRITICAL'
+                  ? 'bg-red-50 border-red-300'
+                  : 'bg-amber-50 border-amber-300'
+              }`}>
+                <div className="flex items-start gap-3">
+                  <div className={`p-2 rounded-full shrink-0 ${
+                    analysis.fcAlert.severity === 'CRITICAL' ? 'bg-red-100' : 'bg-amber-100'
+                  }`}>
+                    <HeartPulse size={24} className={
+                      analysis.fcAlert.severity === 'CRITICAL' ? 'text-red-600' : 'text-amber-600'
+                    } />
+                  </div>
+                  <div className="flex-1">
+                    <div className="flex items-center gap-2 mb-2">
+                      <AlertTriangle size={16} className={
+                        analysis.fcAlert.severity === 'CRITICAL' ? 'text-red-600' : 'text-amber-600'
+                      } />
+                      <h4 className={`font-bold ${
+                        analysis.fcAlert.severity === 'CRITICAL' ? 'text-red-800' : 'text-amber-800'
+                      }`}>
+                        {analysis.fcAlert.severity === 'CRITICAL' ? 'Alerte cardio critique' : 'Attention à votre fréquence cardiaque'}
+                      </h4>
+                    </div>
+                    <p className="text-sm text-slate-700 mb-3">{renderMarkdown(analysis.fcAlert.message)}</p>
+                    {analysis.fcAlert.affectedSessions && (
+                      <p className="text-xs text-slate-500 mb-2">
+                        <strong>Séances concernées :</strong> {analysis.fcAlert.affectedSessions}
+                      </p>
+                    )}
+                    {(analysis.fcAlert.currentEFPace || analysis.fcAlert.suggestedEFPace) && (
+                      <div className="flex flex-wrap gap-3 mb-3">
+                        {analysis.fcAlert.currentEFPace && (
+                          <div className="bg-red-100 px-3 py-1.5 rounded-lg">
+                            <p className="text-[10px] text-red-500 font-bold uppercase">Allure actuelle</p>
+                            <p className="text-sm font-bold text-red-700">{analysis.fcAlert.currentEFPace}</p>
+                          </div>
+                        )}
+                        {analysis.fcAlert.suggestedEFPace && (
+                          <div className="bg-emerald-100 px-3 py-1.5 rounded-lg">
+                            <p className="text-[10px] text-emerald-500 font-bold uppercase">Allure recommandée</p>
+                            <p className="text-sm font-bold text-emerald-700">{analysis.fcAlert.suggestedEFPace}</p>
+                          </div>
+                        )}
+                      </div>
+                    )}
+                    {analysis.fcAlert.recommendation && (
+                      <p className="text-sm font-medium text-slate-800 bg-white/60 rounded-lg p-3">
+                        💡 {analysis.fcAlert.recommendation}
+                      </p>
+                    )}
+                    {onAdjustPaces && (
+                      <button
+                        onClick={() => { onClose(); onAdjustPaces(); }}
+                        className="mt-3 w-full py-2.5 bg-orange-500 hover:bg-orange-600 text-white rounded-xl font-bold text-sm transition-colors flex items-center justify-center gap-2"
+                      >
+                        🔄 Ajuster mes allures maintenant
+                      </button>
+                    )}
+                  </div>
+                </div>
+              </div>
+            )}
 
             {/* Average Pace */}
             {analysis.avgPace && (

@@ -4,6 +4,7 @@ import { fetchRecentActivities, analyzeActivitiesWithGemini, checkCanAnalyze, de
 import { auth, db } from '../services/firebase';
 import { useNavigate } from 'react-router-dom';
 import { doc, updateDoc, onSnapshot } from 'firebase/firestore';
+import { apiUrl } from '../services/apiConfig';
 
 // ...
 
@@ -71,7 +72,7 @@ const StravaConnect: React.FC<StravaConnectProps> = ({ isConnected, onConnect, i
       console.log('[Strava] Fetching auth URL...');
 
       // Appel à l'API pour récupérer l'URL d'autorisation
-      const response = await fetch('/api/strava/auth', {
+      const response = await fetch(apiUrl('/api/strava/auth'), {
         method: 'GET'
       });
 

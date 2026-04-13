@@ -5,6 +5,7 @@ import { useSearchParams, useNavigate } from 'react-router-dom';
 import { Mail, RefreshCw, CheckCircle, ArrowLeft, AlertTriangle } from 'lucide-react';
 import Logo from './Logo';
 import { createEmailVerificationToken } from '../services/storageService';
+import { apiUrl } from '../services/apiConfig';
 
 const MAX_RESENDS = 3;
 
@@ -43,7 +44,7 @@ const EmailSentScreen: React.FC = () => {
       const newToken = await createEmailVerificationToken(userId, email, undefined, firstName);
 
       // Envoyer l'email via le serveur
-      const response = await fetch('/api/send-verification-email', {
+      const response = await fetch(apiUrl('/api/send-verification-email'), {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({

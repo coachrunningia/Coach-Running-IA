@@ -8,7 +8,12 @@
     "build": "vite build && node scripts/prerender.mjs",
     "build:no-prerender": "vite build",
     "preview": "vite preview",
-    "start": "node server.js"
+    "start": "node server.js",
+    "mobile:build": "CAPACITOR_BUILD=true vite build",
+    "mobile:sync": "npx cap sync",
+    "mobile:ios": "CAPACITOR_BUILD=true vite build && npx cap sync ios && npx cap open ios",
+    "mobile:android": "CAPACITOR_BUILD=true vite build && npx cap sync android && npx cap open android",
+    "mobile:dev": "npx cap sync ios && npx cap open ios"
   },
   "dependencies": {
     "@capacitor/android": "^8.3.0",

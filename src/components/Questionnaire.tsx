@@ -5,6 +5,7 @@ import { QuestionnaireData, UserGoal, RunningLevel, User } from '../types';
 import { GOAL_OPTIONS, LEVEL_OPTIONS, ROAD_DISTANCES } from '../constants';
 import { ChevronRight, ChevronLeft, Calendar, AlertCircle, Info, MapPin, Activity, Mountain, Clock, Mail, ShieldAlert, Scale, Ruler, Lock, User as UserIcon, Eye, EyeOff } from 'lucide-react';
 import { registerUser, savePlan, saveUserQuestionnaire, createEmailVerificationToken } from '../services/storageService';
+import { apiUrl } from '../services/apiConfig';
 
 interface QuestionnaireProps {
   initialGoal?: string;
@@ -215,7 +216,7 @@ const Questionnaire: React.FC<QuestionnaireProps> = ({ onComplete, isGenerating:
       const emailToCheck = data.email!;
 
       try {
-        const response = await fetch('/api/check-plan-limit', {
+        const response = await fetch(apiUrl('/api/check-plan-limit'), {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ email: emailToCheck })
@@ -275,7 +276,7 @@ const Questionnaire: React.FC<QuestionnaireProps> = ({ onComplete, isGenerating:
         console.log('[Questionnaire] Token created:', verificationToken.substring(0, 10) + '...');
 
         // Envoyer l'email via le serveur (le serveur n'a plus besoin d'écrire dans Firestore)
-        await fetch('/api/send-verification-email', {
+        await fetch(apiUrl('/api/send-verification-email'), {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({

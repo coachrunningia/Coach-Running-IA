@@ -3,7 +3,7 @@
   <head>
 
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
     
     <!-- Titre SEO (50-60 caractères) -->
     <title>Coach Running IA - Programme course à pied personnalisé par IA</title>
@@ -83,22 +83,22 @@
     <div id="root"></div>
     <script type="module" src="/src/index.tsx"></script>
 
-    <!-- Analytics (chargé après le contenu pour ne pas bloquer le rendu) -->
+    <!-- Analytics & trackers : désactivés dans l'app mobile Capacitor -->
     <script>
-    !function(f,b,e,v,n,t,s)
-    {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
-    n.callMethod.apply(n,arguments):n.queue.push(arguments)};
-    if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
-    n.queue=[];t=b.createElement(e);t.async=!0;
-    t.src=v;s=b.getElementsByTagName(e)[0];
-    s.parentNode.insertBefore(t,s)}(window, document,'script',
-    'https://connect.facebook.net/en_US/fbevents.js');
-    fbq('init', '1434110431562090');
-    fbq('track', 'PageView');
-    </script>
-    <noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=1434110431562090&ev=PageView&noscript=1"/></noscript>
-    <!-- Service Worker PWA -->
-    <script>
+    if (!window.Capacitor) {
+      // Facebook Pixel
+      !function(f,b,e,v,n,t,s)
+      {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+      n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+      if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+      n.queue=[];t=b.createElement(e);t.async=!0;
+      t.src=v;s=b.getElementsByTagName(e)[0];
+      s.parentNode.insertBefore(t,s)}(window, document,'script',
+      'https://connect.facebook.net/en_US/fbevents.js');
+      fbq('init', '1434110431562090');
+      fbq('track', 'PageView');
+
+      // Service Worker PWA
       if ('serviceWorker' in navigator) {
         window.addEventListener('load', () => {
           navigator.serviceWorker.register('/sw.js').then(
@@ -107,14 +107,17 @@
           );
         });
       }
-    </script>
 
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-P0641L8TPT"></script>
-    <script>
+      // Google Analytics
+      var s = document.createElement('script');
+      s.async = true;
+      s.src = 'https://www.googletagmanager.com/gtag/js?id=G-P0641L8TPT';
+      document.head.appendChild(s);
       window.dataLayer = window.dataLayer || [];
       function gtag(){dataLayer.push(arguments);}
       gtag("js", new Date());
       gtag("config", "G-P0641L8TPT");
+    }
     </script>
   </body>
 </html>

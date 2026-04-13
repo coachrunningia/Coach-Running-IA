@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import { Helmet } from "react-helmet-async";
 import { Check, Zap, Crown, ArrowLeft, X, ShoppingBag } from 'lucide-react';
 import { STRIPE_PRICES } from '../constants';
+import { apiUrl } from '../services/apiConfig';
 
 interface PricingPageProps {
   userId: string;
@@ -22,7 +23,7 @@ const PricingPage: React.FC<PricingPageProps> = ({ userId, userEmail, onBack }) 
       const mode = plan === 'single' ? 'payment' : 'subscription';
       const planLabel = plan === 'monthly' ? 'premium_mensuel' : plan === 'yearly' ? 'premium_annuel' : 'plan_unique';
 
-      const response = await fetch('/api/create-checkout-session', {
+      const response = await fetch(apiUrl('/api/create-checkout-session'), {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({

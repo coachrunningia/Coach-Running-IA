@@ -4,6 +4,15 @@ import { HelmetProvider } from 'react-helmet-async';
 import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
+import { Capacitor } from '@capacitor/core';
+
+// Marquer le HTML comme Capacitor pour les overrides CSS mobiles
+try {
+  if (Capacitor.isNativePlatform()) {
+    document.documentElement.classList.add('capacitor');
+  }
+} catch {}
+
 
 // --- SÉCURITÉ : DÉSACTIVATION SERVICE WORKER ---
 // Si un Service Worker traîne d'une ancienne version, on le tue pour éviter les problèmes de cache.

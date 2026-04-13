@@ -127,7 +127,7 @@ interface TrainingPaces {
   allureSpecifiqueMarathon: string;
 }
 
-const calculateAllPaces = (vma: number): TrainingPaces => {
+export const calculateAllPaces = (vma: number): TrainingPaces => {
   // VMA en pace (secondes par km)
   const vmaPaceSeconds = 3600 / vma;
 
@@ -4559,17 +4559,62 @@ ${weekLines}`;
       weeksRemaining = Math.max(0, Math.ceil(diffTime / (1000 * 60 * 60 * 24 * 7)));
     }
 
-    // === FEEDBACK HISTORY (enrichi avec Strava si disponible) ===
+    // === FC ZONES (basées sur l'âge) ===
+    const age = questionnaireData.age || 40;
+    const fcMax = 220 - age;
+    const fcZones = {
+      z1: { min: Math.round(fcMax * 0.50), max: Math.round(fcMax * 0.60), label: 'Z1 Récup' },
+      z2: { min: Math.round(fcMax * 0.60), max: Math.round(fcMax * 0.70), label: 'Z2 EF' },
+      z3: { min: Math.round(fcMax * 0.70), max: Math.round(fcMax * 0.80), label: 'Z3 Tempo' },
+      z4: { min: Math.round(fcMax * 0.80), max: Math.round(fcMax * 0.90), label: 'Z4 Seuil' },
+      z5: { min: Math.round(fcMax * 0.90), max: fcMax, label: 'Z5 VMA/Max' },
+    };
+    const getHRZone = (hr: number): string => {
+      if (hr <= fcZones.z1.max) return 'Z1';
+      if (hr <= fcZones.z2.max) return 'Z2';
+      if (hr <= fcZones.z3.max) return 'Z3';
+      if (hr <= fcZones.z4.max) return 'Z4';
+      return 'Z5';
+    };
+    const getExpectedZone = (sessionType: string, sessionTitle?: string): string => {
+      const t = sessionType || '';
+      const title = (sessionTitle || '').toLowerCase();
+      // Types exacts du plan : 'Jogging' | 'Fractionné' | 'Sortie Longue' | 'Récupération' | 'Renforcement' | 'Marche/Course'
+      if (t === 'Récupération') return 'Z1';
+      if (t === 'Jogging') return 'Z2';
+      if (t === 'Sortie Longue') return 'Z2';
+      if (t === 'Marche/Course') return 'Z1-Z2';
+      if (t === 'Fractionné') {
+        // Fractionné inclut seuil, VMA, tempo — la FC moyenne dépend du type
+        if (/seuil|tempo|allure/i.test(title)) return 'Z3-Z4';
+        if (/vma|intervalle|30.30|200m|300m|400m/i.test(title)) return 'Z4-Z5';
+        return 'Z3-Z4';
+      }
+      if (t === 'Renforcement') return 'N/A'; // pas de cardio pertinent
+      return 'Z2';
+    };
+
+    // === FEEDBACK HISTORY (enrichi avec Strava + analyse FC) ===
     const feedbackHistory: string[] = [];
+    let fcAlerts: string[] = [];
     plan.weeks.forEach((week, weekIdx) => {
       week.sessions.forEach((session) => {
         if (session.feedback?.completed && session.feedback.rpe) {
           let line = `S${weekIdx + 1} ${session.day} "${session.title}" (${session.type}): RPE ${session.feedback.rpe}/10`;
           if (session.feedback.notes) line += ` — "${session.feedback.notes}"`;
-          // Ajouter les données Strava si disponibles
           const sd = session.feedback.stravaData;
           if (sd) {
-            line += ` | Strava: ${sd.distance}km en ${sd.movingTime}min, allure ${sd.avgPace}, D+${sd.elevationGain}m${sd.avgHeartrate ? `, FC ${sd.avgHeartrate}bpm` : ''}`;
+            line += ` | Strava: ${sd.distance}km en ${sd.movingTime}min, allure ${sd.avgPace}, D+${sd.elevationGain}m`;
+            if (sd.avgHeartrate) {
+              const zone = getHRZone(sd.avgHeartrate);
+              const expected = getExpectedZone(session.type, session.title);
+              line += `, FC ${sd.avgHeartrate}bpm (${zone})`;
+              // Détecter inadéquation zone FC vs type de séance (seulement sur séances aérobie)
+              if ((expected === 'Z1' || expected === 'Z2' || expected === 'Z1-Z2') && (zone === 'Z3' || zone === 'Z4' || zone === 'Z5')) {
+                line += ` ⚠️ FC TROP HAUTE pour ${session.type}`;
+                fcAlerts.push(`S${weekIdx + 1} "${session.title}": FC ${sd.avgHeartrate}bpm (${zone}) alors que la zone attendue est ${expected}. L'allure EF est probablement trop rapide pour ce coureur.`);
+              }
+            }
           }
           feedbackHistory.push(line);
         }
@@ -4674,6 +4719,27 @@ ${(() => {
 })()}
 
 ═══════════════════════════════════════════════════════════════
+              ZONES FC DU COUREUR (FCmax estimée : ${fcMax} bpm, âge ${age})
+═══════════════════════════════════════════════════════════════
+
+${Object.values(fcZones).map(z => `${z.label}: ${z.min}-${z.max} bpm`).join('\n')}
+
+Zone attendue par type de séance :
+- EF / Footing / Sortie longue → Z2 (${fcZones.z2.min}-${fcZones.z2.max} bpm)
+- Seuil / Tempo → Z3-Z4 (${fcZones.z3.min}-${fcZones.z4.max} bpm)
+- VMA / Fractionné → Z4-Z5 (${fcZones.z4.min}-${fcZones.z5.max} bpm)
+- Récupération → Z1 (${fcZones.z1.min}-${fcZones.z1.max} bpm)
+${fcAlerts.length > 0 ? `
+⚠️ ALERTES FC DÉTECTÉES (${fcAlerts.length}) :
+${fcAlerts.join('\n')}
+→ PRIORITÉ : si ces alertes sont récurrentes, les allures EF du coureur sont TROP RAPIDES pour sa condition réelle.
+  Recommander de RALENTIR de 15-30 sec/km sur les séances EF et d'ajuster le mainSet des prochaines séances en conséquence.
+  Si 3+ alertes FC : recommander un RECALCUL DE VMA (VMA actuelle probablement surestimée).
+  Mentionner explicitement dans le coachNote : "Ta fréquence cardiaque montre que tes allures EF sont trop rapides.
+  Ralentis à [allure corrigée] pour rester en zone 2 et progresser sans risque de surentraînement."
+` : '✅ Aucune alerte FC détectée — les zones cardiaques semblent cohérentes avec les allures.'}
+
+═══════════════════════════════════════════════════════════════
               HISTORIQUE RPE (${feedbackHistory.length} feedbacks)
 ═══════════════════════════════════════════════════════════════
 
@@ -4702,8 +4768,9 @@ ${upcomingSessions.length > 12 ? `\n... et ${upcomingSessions.length - 12} autre
 3. Phase actuelle : ${currentPhase}${weeksRemaining <= 3 ? ' — AFFÛTAGE/FIN DE PLAN : priorité récupération' : ''}
 4. ${plan.weeks[currentWeekIdx]?.isRecoveryWeek ? 'SEMAINE DE RÉCUP : RPE bas est NORMAL. Ne PAS augmenter le volume/intensité.' : 'Consulte la périodisation pour comprendre le rôle de cette semaine.'}
 5. Si des DONNÉES STRAVA sont disponibles, compare prévu vs réalisé et argumente tes modifications avec ces données concrètes
-6. Modifie UNIQUEMENT les séances futures listées ci-dessus (max 3)
-7. UTILISE les allures calculées (EF: ${paces.efPace}, Seuil: ${paces.seuilPace}, VMA: ${paces.vmaPace})
+6. ⚠️ ANALYSE FC OBLIGATOIRE : si des données FC Strava sont disponibles, VÉRIFIE que la FC correspond à la zone attendue. Si FC en Z3+ sur une séance EF → ALERTE et RALENTIR les allures EF des prochaines séances de 15-30 sec/km. C'est PRIORITAIRE sur toute autre modification.
+7. Modifie UNIQUEMENT les séances futures listées ci-dessus (max 3)
+8. UTILISE les allures calculées (EF: ${paces.efPace}, Seuil: ${paces.seuilPace}, VMA: ${paces.vmaPace})
 8. VARIE les formats de séance modifiée
 9. Chaque advice doit être PERSONNEL et référencer l'objectif/la phase/les données Strava
 `;

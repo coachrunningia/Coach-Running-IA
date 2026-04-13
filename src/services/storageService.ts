@@ -3,6 +3,7 @@ import { User, TrainingPlan, Session, QuestionnaireData } from '../types';
 import { resolveSessionDate, toISODateString } from '../utils/dateUtils';
 import { STRIPE_PRICES } from '../constants';
 import { auth, db } from './firebase';
+import { apiUrl } from './apiConfig';
 import {
   onAuthStateChanged,
   updateProfile,
@@ -166,16 +167,20 @@ const verifySubscriptionStatusInBackground = async (userId: string) => {
   }
 
   try {
-    const response = await fetch('/api/verify-subscription', {
+    // Timeout de 5s pour ne pas bloquer l'UI (surtout en contexte mobile)
+    const controller = new AbortController();
+    const timeout = setTimeout(() => controller.abort(), 5000);
+    const response = await fetch(apiUrl('/api/verify-subscription'), {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ userId }),
+      signal: controller.signal,
     });
+    clearTimeout(timeout);
 
     if (response.ok) {
       const data = await response.json();
       console.log(`[Auth] Subscription verified: isPremium=${data.isPremium}, status=${data.status}`);
-      // Mettre en cache le résultat
       setStripeCache(userId, data.isPremium);
     }
   } catch (error) {
@@ -439,7 +444,7 @@ export const logAdaptation = async (
 // Helper to register contact in Brevo (fire and forget)
 const registerBrevoContact = async (email: string, firstName: string) => {
   try {
-    await fetch('/api/brevo/register', {
+    await fetch(apiUrl('/api/brevo/register'), {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ email, firstName }),
@@ -483,9 +488,24 @@ export const registerUser = async (
 };
 
 // Connexion avec Google
+// Note: signInWithPopup ne fonctionne pas dans les WebView Capacitor
+// On utilise signInWithRedirect en contexte mobile natif
 export const loginWithGoogle = async (): Promise<User> => {
+  const { Capacitor } = await import('@capacitor/core');
   const provider = new GoogleAuthProvider();
-  const userCredential = await signInWithPopup(auth, provider);
+
+  let userCredential;
+  if (Capacitor.isNativePlatform()) {
+    // En mobile natif, ouvrir la page auth Firebase dans le navigateur système
+    const { signInWithRedirect, getRedirectResult } = await import('firebase/auth');
+    await signInWithRedirect(auth, provider);
+    // Le résultat sera récupéré au prochain chargement via getRedirectResult
+    const result = await getRedirectResult(auth);
+    if (!result) throw new Error('Connexion Google annulée');
+    userCredential = result;
+  } else {
+    userCredential = await signInWithPopup(auth, provider);
+  }
   const fbUser = userCredential.user;
 
   const userRef = doc(db, USERS_COLLECTION, fbUser.uid);
@@ -586,7 +606,7 @@ export const verifySubscriptionStatus = async (userId: string): Promise<{
   cancelAt: string | null;
 }> => {
   try {
-    const response = await fetch('/api/verify-subscription', {
+    const response = await fetch(apiUrl('/api/verify-subscription'), {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ userId }),
@@ -625,12 +645,14 @@ export const createStripeCheckoutSession = async (priceId: string, mode: 'subscr
   // Invalider le cache avant de rediriger vers Stripe
   invalidateStripeCache(user.uid);
 
-  const planParam = priceId === STRIPE_PRICES.MONTHLY ? 'premium_mensuel' : 'premium_annuel';
+  const planParam = priceId === STRIPE_PRICES.MONTHLY ? 'premium_mensuel'
+    : priceId === STRIPE_PRICES.YEARLY ? 'premium_annuel'
+    : 'plan_unique';
   const successUrl = mode === 'payment'
     ? window.location.origin + `/success?session_id={CHECKOUT_SESSION_ID}&plan=plan_unique`
     : window.location.origin + `/success?session_id={CHECKOUT_SESSION_ID}&plan=${planParam}`;
 
-  const response = await fetch('/api/create-checkout-session', {
+  const response = await fetch(apiUrl('/api/create-checkout-session'), {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({
@@ -642,8 +664,16 @@ export const createStripeCheckoutSession = async (priceId: string, mode: 'subscr
       cancelUrl: window.location.origin + '/pricing',
     }),
   });
+  if (!response.ok) {
+    const errorData = await response.json().catch(() => ({}));
+    throw new Error(errorData.error || `Erreur serveur (${response.status})`);
+  }
   const data = await response.json();
-  if (data.url) window.location.assign(data.url);
+  if (data.url) {
+    window.location.assign(data.url);
+  } else {
+    throw new Error('URL de paiement non reçue');
+  }
 };
 
 // Fix: Implement missing createPortalSession export for ProfilePage
@@ -663,7 +693,7 @@ export const createPortalSession = async () => {
   // Invalider le cache car l'utilisateur peut modifier son abonnement dans le portail
   invalidateStripeCache(user.uid);
 
-  const response = await fetch('/api/create-portal-session', {
+  const response = await fetch(apiUrl('/api/create-portal-session'), {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({

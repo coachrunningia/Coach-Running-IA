@@ -3,6 +3,7 @@ import { GoogleGenerativeAI } from "@google/generative-ai";
 import { db } from './firebase';
 import { doc, getDoc, updateDoc } from 'firebase/firestore';
 import { Session, Week, StravaActivityMatch } from '../types';
+import { apiUrl } from './apiConfig';
 
 const STRAVA_API_BASE = 'https://www.strava.com/api/v3';
 
@@ -39,7 +40,7 @@ export interface AdaptationSuggestion {
 const refreshStravaToken = async (userId: string, tokenData: any) => {
     console.log('[Strava] Refreshing expired token via server proxy...');
 
-    const response = await fetch('/api/strava/refresh-token', {
+    const response = await fetch(apiUrl('/api/strava/refresh-token'), {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -179,7 +180,7 @@ export const fetchRecentActivities = async (userId: string) => {
     }
 };
 
-export const analyzeActivitiesWithGemini = async (activities: any[], userId: string) => {
+export const analyzeActivitiesWithGemini = async (activities: any[], userId: string, userAge?: number) => {
     const apiKey = import.meta.env.VITE_GEMINI_API_KEY;
     if (!apiKey) throw new Error("No Gemini Key");
 
@@ -207,6 +208,18 @@ export const analyzeActivitiesWithGemini = async (activities: any[], userId: str
         sufferScore: a.suffer_score
     }));
 
+    // Calcul des zones FC pour l'analyse
+    const age = userAge || 40;
+    const fcMax = 220 - age;
+    const fcZonesInfo = `
+FCmax estimée : ${fcMax} bpm (âge ${age} ans, formule 220-âge)
+Zones de fréquence cardiaque :
+- Z1 Récupération : ${Math.round(fcMax * 0.50)}-${Math.round(fcMax * 0.60)} bpm
+- Z2 Endurance Fondamentale : ${Math.round(fcMax * 0.60)}-${Math.round(fcMax * 0.70)} bpm
+- Z3 Tempo/Seuil aérobie : ${Math.round(fcMax * 0.70)}-${Math.round(fcMax * 0.80)} bpm
+- Z4 Seuil anaérobie : ${Math.round(fcMax * 0.80)}-${Math.round(fcMax * 0.90)} bpm
+- Z5 VMA/Max : ${Math.round(fcMax * 0.90)}-${fcMax} bpm`;
+
     const prompt = `Tu es un coach running expert diplômé. Analyse ces données Strava des 30 derniers jours
 comme un VRAI coach le ferait lors d'un bilan mensuel avec son athlète.
 
@@ -215,6 +228,22 @@ IMPORTANT : TOUTES les allures doivent être en min/km (format X:XX min/km), JAM
 
 Données des activités (30 derniers jours) :
 ${JSON.stringify(summary)}
+
+═══════════════════════════════════════════════════════════════
+              ZONES DE FRÉQUENCE CARDIAQUE
+═══════════════════════════════════════════════════════════════
+${fcZonesInfo}
+
+ANALYSE FC OBLIGATOIRE :
+Pour chaque activité ayant une FC moyenne (champ "hr"), compare la FC avec la zone attendue :
+- Les footings/sorties faciles (allure > 5:30 min/km ou nommées "easy"/"footing"/"EF") doivent être en Z2 max
+- Les séances de seuil/tempo doivent être en Z3-Z4
+- Les séances de VMA/intervalles peuvent être en Z4-Z5
+
+Si des footings/sorties longues montrent une FC moyenne en Z3, Z4 ou Z5 :
+→ C'est une ALERTE MAJEURE : le coureur court ses séances faciles TROP VITE
+→ Risque de surentraînement, fatigue chronique, stagnation
+→ Remplis le champ "fcAlert" dans la réponse
 
 ═══════════════════════════════════════════════════════════════
               STRUCTURE DE L'ANALYSE
@@ -226,6 +255,7 @@ Analyse comme un vrai coach :
 3. Évalue la progression vs les semaines précédentes
 4. Identifie les points forts et les points faibles CONCRETS
 5. Donne des recommandations ACTIONNABLES
+6. ANALYSE la cohérence FC vs allure sur chaque séance (PRIORITAIRE si données FC disponibles)
 
 Format de réponse JSON :
 {
@@ -255,6 +285,14 @@ Format de réponse JSON :
             "why": "Explication de pourquoi c'est important pour progresser"
         }
     ],
+    "fcAlert": null ou {
+        "severity": "WARNING|CRITICAL",
+        "message": "Explication claire et pédagogique du problème de FC détecté",
+        "affectedSessions": "3 footings sur 5 étaient en zone 3-4 au lieu de zone 2",
+        "currentEFPace": "5:07 min/km (trop rapide pour ta zone 2)",
+        "suggestedEFPace": "5:45-6:00 min/km (pour rester en zone 2)",
+        "recommendation": "Ralentis tes footings de 30-40 sec/km. Tu dois pouvoir parler sans essoufflement."
+    },
     "mainInsight": "Phrase résumé principale du bilan (2-3 phrases max, personnalisée et motivante)",
     "coachVerdict": "EXCELLENT|BON|À AMÉLIORER|INSUFFISANT",
     "coachMessage": "Message personnel du coach comme s'il parlait directement au coureur (3-4 phrases motivantes et constructives)"
@@ -266,6 +304,8 @@ RÈGLES :
 - Chaque point doit contenir des CHIFFRES concrets issus des données
 - Le coachVerdict doit être HONNÊTE
 - Le coachMessage doit être motivant mais réaliste
+- Le champ fcAlert est null si aucun problème FC détecté, sinon remplis-le avec les détails
+- Si fcAlert est rempli, la première recommandation doit OBLIGATOIREMENT être liée à ce problème de FC (priorité HAUTE)
 - Réponds EN FRANÇAIS UNIQUEMENT`;
 
     const result = await model.generateContent({
