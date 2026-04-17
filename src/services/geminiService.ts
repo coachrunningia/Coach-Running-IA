@@ -3084,10 +3084,21 @@ INTERDICTIONS ABSOLUES :
 - JAMAIS de "phase spécifique" ni "phase affûtage" — seules les phases "fondamental", "developpement" et "recuperation" existent
 - JAMAIS de VMA/fractionné intense en phase fondamentale (semaines 1 à ${pdpFondWeeks})
 - JAMAIS "allure spé" ou "allure course" dans aucun mainSet
+${pdpIsOverweight ? `- JAMAIS de fractionné, fartlek, côtes, ni séance à haute intensité (IMC ${pdpBmi.toFixed(1)} ≥ 30 → risque articulaire). Uniquement : Jogging EF, Sortie Longue EF, Renforcement, Marche/Course. Footing progressif autorisé mais finir en endurance active MAX (PAS au seuil).` : ''}
 
 SÉANCES AUTORISÉES PAR PHASE :
 - Phase FONDAMENTALE : ${pdpNeedsMarcheCourse ? 'Alternance marche/course les 2-3 premières semaines, puis Jogging EF' : 'Jogging EF'} + Renforcement + Sortie Longue EF. ZÉRO intensité.
+  ${!pdpIsOverweight ? '• Varier les formats : footing nature (sentiers, parcs), footing urbain, marche rapide active avec dénivelé léger.' : '• Varier : footing sur sol souple (parcs, chemins), marche rapide active (excellent pour brûler sans impact).'}
 - Phase DÉVELOPPEMENT : Jogging EF + Renforcement + SL EF + fartlek DOUX (accélérations 30s-1min, PAS de VMA pure). Le fartlek ne doit PAS dépasser 15-20% de la durée de la séance. Max 1 séance avec intensité légère par semaine.
+  ${!pdpIsOverweight ? `• DIVERSIFIER les séances (OBLIGATOIRE — ne jamais répéter le même format 2 fois dans la semaine) :
+    - Fartlek nature : accélérations libres 30s-1min30 au feeling dans un parc/forêt, récup en trottinant
+    - Séance côtes douces : 4-6 montées de 30-45s à effort modéré (6-7/10), redescente en marchant
+    - Circuit cardio-renfo : alternance 4-5 min course EF + 3-4 exercices renfo (squats, fentes, gainage) × 3-4 tours
+    - Footing progressif : départ très lent (récup) → finir les 5 dernières min en endurance active
+    - Footing technique : focus cadence élevée (170-180 pas/min), foulée courte, posture droite` : `• Diversifier SANS impact excessif :
+    - Footing progressif : départ très lent → finir légèrement plus vite les 5 dernières min
+    - Marche rapide en côte : excellent ratio dépense calorique / impact articulaire
+    - Circuit renfo allongé : alterner marche rapide 3 min + exercices bas du corps × 4-5 tours`}
 - Phase RÉCUPÉRATION : Jogging léger EF + Renforcement allégé. Volume -30%.
 
 STRUCTURE 3+1 OBLIGATOIRE :
@@ -3136,7 +3147,13 @@ Le champ "duration" et le contenu du "mainSet" doivent être IDENTIQUES.
 Si duration = "45 min", le mainSet ne doit PAS décrire 1h20 de course.
 Calcul : distance = durée ÷ allure EF. Ex: 45 min à ${pdpEfPace}/km ≈ ${(45 / (parseInt(pdpEfPace.split(':')[0]) + parseInt(pdpEfPace.split(':')[1] || '0') / 60)).toFixed(1)} km.
 
-NOMMAGE : types autorisés = "Jogging", "Sortie Longue", "Renforcement"${pdpNeedsMarcheCourse ? ', "Marche/Course"' : ''}. RIEN d'autre.
+NOMMAGE : types autorisés = "Jogging", "Sortie Longue", "Renforcement"${!pdpIsOverweight ? ', "Fractionné"' : ''}${pdpNeedsMarcheCourse ? ', "Marche/Course"' : ''}. ${!pdpIsOverweight ? 'Le type "Fractionné" inclut fartlek doux, côtes douces, circuit cardio-renfo (uniquement en phase développement).' : ''}
+
+DIVERSITÉ OBLIGATOIRE :
+- Chaque séance de la semaine DOIT avoir un titre et un format DIFFÉRENT. JAMAIS 2 footings identiques.
+- Varier les lieux suggérés (parc, forêt, berges, piste, ville).
+- Varier les durées entre les footings (ex: un court 30 min + un long 45 min, pas 2×35 min).
+- D'une semaine à l'autre, alterner les formats pour maintenir la motivation.
 
 PRIORITÉ ABSOLUE : sécurité > régularité > progression > plaisir > dépense calorique.`;
 })() : ''}
@@ -3755,10 +3772,21 @@ ${pdpIsLowVMAR ? `⚠️ VMA ${pdpVmaR.toFixed(1)} < 12 → TRAITER COMME DÉBUT
 ${pdpIsOverweightR ? `⚠️ IMC ${pdpBmiR.toFixed(1)} ≥ 30 → SURPOIDS : max 2 séances course/sem + alternance marche/course obligatoire.` : ''}
 
 INTERDICTIONS : JAMAIS d'allure spé course, JAMAIS de phase spécifique/affûtage, JAMAIS de VMA/fractionné intense en fondamental, JAMAIS "allure spé" dans les mainSet.
+${pdpIsOverweightR ? `JAMAIS de fractionné, fartlek, côtes, ni haute intensité (IMC ${pdpBmiR.toFixed(1)} ≥ 30 → risque articulaire). Uniquement Jogging EF, SL EF, Renforcement, Marche/Course.` : ''}
 
 SÉANCES PAR PHASE :
 - FONDAMENTALE : ${pdpNeedsMCR ? 'Marche/Course puis Jogging EF' : 'Jogging EF'} + Renfo + SL EF. ZÉRO intensité.
+  ${!pdpIsOverweightR ? '• Varier les formats : footing nature, footing urbain, marche rapide active avec dénivelé léger.' : '• Varier : footing sol souple, marche rapide active (brûler sans impact).'}
 - DÉVELOPPEMENT : Jogging EF + Renfo + SL EF + fartlek DOUX (30s-1min accélérations, max 15-20% de la séance). Max 1 séance intensité légère/semaine.
+  ${!pdpIsOverweightR ? `• DIVERSIFIER (OBLIGATOIRE — jamais 2 séances identiques dans la semaine) :
+    - Fartlek nature : accélérations libres 30s-1min30 au feeling, récup en trottinant
+    - Côtes douces : 4-6 montées 30-45s effort modéré (6-7/10), redescente en marchant
+    - Circuit cardio-renfo : alternance 4-5 min course EF + 3-4 exos renfo × 3-4 tours
+    - Footing progressif : départ très lent → finir 5 dernières min en endurance active
+    - Footing technique : focus cadence élevée, foulée courte, posture droite` : `• Diversifier SANS impact :
+    - Footing progressif : départ lent → finir légèrement plus vite les 5 dernières min
+    - Marche rapide en côte : excellent ratio calories / impact articulaire
+    - Circuit renfo allongé : marche rapide 3 min + exos bas du corps × 4-5 tours`}
 - RÉCUPÉRATION : Jogging léger + Renfo allégé. Volume -30%.
 
 STRUCTURE 3+1 : 3 semaines charge → 1 semaine récup (-30%).
@@ -3777,7 +3805,13 @@ EFFORT PERÇU dans chaque mainSet : Jogging/SL = "effort 4/10, conversation faci
 
 COHÉRENCE DURÉE/DISTANCE/MAINSET : duration et mainSet = MÊME durée. Distance = durée ÷ allure EF.
 
-NOMMAGE : "Jogging", "Sortie Longue", "Renforcement"${pdpNeedsMCR ? ', "Marche/Course"' : ''} uniquement.
+NOMMAGE : "Jogging", "Sortie Longue", "Renforcement"${!pdpIsOverweightR ? ', "Fractionné"' : ''}${pdpNeedsMCR ? ', "Marche/Course"' : ''}. ${!pdpIsOverweightR ? 'Le type "Fractionné" inclut fartlek doux, côtes douces, circuit cardio-renfo (uniquement en phase développement).' : ''}
+
+DIVERSITÉ OBLIGATOIRE :
+- Chaque séance de la semaine DOIT avoir un titre et un format DIFFÉRENT. JAMAIS 2 footings identiques.
+- Varier les lieux suggérés (parc, forêt, berges, piste, ville).
+- Varier les durées entre les footings (ex: un court 30 min + un long 45 min, pas 2×35 min).
+- D'une semaine à l'autre, alterner les formats pour maintenir la motivation.
 
 PRIORITÉ : sécurité > régularité > progression > plaisir > dépense calorique.`;
 })() : ''}
