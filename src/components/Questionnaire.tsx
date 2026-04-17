@@ -147,11 +147,11 @@ const Questionnaire: React.FC<QuestionnaireProps> = ({ onComplete, isGenerating:
     // Validation PAR ÉTAPE — chaque étape ne valide que ses propres champs
     if (step === 1) {
       if (!data.goal) errors.push("Choisissez un objectif pour continuer.");
-      if (data.goal === UserGoal.ROAD_RACE && !data.subGoal) errors.push("Choisissez une distance de course.");
-      if (data.goal === UserGoal.FITNESS && !data.fitnessSubGoal) errors.push("Précisez votre objectif forme.");
     }
 
     if (step === 2) {
+      if (data.goal === UserGoal.ROAD_RACE && !data.subGoal) errors.push("Choisissez une distance de course.");
+      if (data.goal === UserGoal.FITNESS && !data.fitnessSubGoal) errors.push("Précisez votre objectif forme.");
       if ((data.goal === UserGoal.ROAD_RACE || data.goal === UserGoal.TRAIL) && !data.raceDate)
         errors.push("La date de la course est obligatoire.");
       if (data.startDate && data.raceDate && new Date(data.startDate) >= new Date(data.raceDate))
@@ -314,14 +314,14 @@ const Questionnaire: React.FC<QuestionnaireProps> = ({ onComplete, isGenerating:
             key={option.value}
             disabled={isGenerating}
             onClick={() => {
-              updateData('goal', option.value);
-              // Initialize trailDetails when Trail is selected, clear when other goal selected
-              if (option.value === UserGoal.TRAIL && !data.trailDetails) {
-                setData(prev => ({ ...prev, goal: option.value, trailDetails: { distance: 20, elevation: 500 } }));
-              } else if (option.value !== UserGoal.TRAIL) {
+              // Single setState to avoid race condition — all goal + trailDetails in one call
+              if (option.value === UserGoal.TRAIL) {
+                setData(prev => ({ ...prev, goal: option.value, trailDetails: prev.trailDetails || { distance: 20, elevation: 500 } }));
+              } else {
                 setData(prev => ({ ...prev, goal: option.value, trailDetails: undefined }));
               }
-              nextStepWithValidation();
+              // All goals go directly to step 2 (sub-selections like distance, trail details, etc. are on step 2)
+              nextStep();
             }}
             className={`p-6 rounded-2xl border-2 transition-all text-left flex items-center gap-4 group ${data.goal === option.value ? 'border-accent bg-accent/5' : 'border-slate-100 hover:border-accent/30 bg-white'
               } disabled:opacity-50`}

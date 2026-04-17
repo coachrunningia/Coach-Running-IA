@@ -624,6 +624,7 @@ const postProcessWeekQuality = (
   pacesObj: { efPace: string; recoveryPace: string; vmaPace: string; seuilPace?: string } | null,
   defaultWeekGoal?: string,
   planGoal?: string,
+  trailDistance?: number,
 ): void => {
   // weekGoal
   if (!week.weekGoal && week.theme) week.weekGoal = week.theme;
@@ -775,45 +776,72 @@ const postProcessWeekQuality = (
   });
 
   // ══════════════════════════════════════════════════════════════
-  // GARDE-FOU : max 1 SL par semaine (sauf Trail back-to-back)
+  // GARDE-FOU : max 1 SL par semaine (sauf Trail 70km+ back-to-back en phase spécifique)
   // Si 2+ SL détectées, garder la plus longue, convertir les autres en Jogging
+  // Exception : ultra-trail 70km+ en phase spécifique/développement → autoriser max 2 SL (back-to-back sam/dim)
   // ══════════════════════════════════════════════════════════════
   const DAYS_ORDER = ['Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi', 'Dimanche'];
+  const isUltraTrailPhase = (trailDistance || 0) >= 70 &&
+    ['specifique', 'spécifique', 'developpement', 'développement'].includes((week.phase || '').toLowerCase()) &&
+    !week.isRecoveryWeek;
+
   const slSessions = week.sessions.filter((s: any) =>
     s.type === 'Sortie Longue' || /sortie\s*longue/i.test(s.title || '')
   );
   if (slSessions.length >= 2) {
-    // Garder la plus longue, convertir les autres en Jogging EF
-    slSessions.sort((a: any, b: any) => parseDurationMin(b.duration) - parseDurationMin(a.duration));
-    for (let i = 1; i < slSessions.length; i++) {
-      const extra = slSessions[i];
-      console.warn(`[PostProcess] ${slSessions.length} SL détectées → "${extra.title}" converti en Jogging EF`);
-      extra.type = 'Jogging';
-      extra._dedupedFromSL = true; // Marker pour empêcher l'enforcer de retaper en SL
-      extra.intensity = 'Facile';
-      const oldTitle = extra.title || '';
-      if (!/footing/i.test(oldTitle)) extra.title = "Footing d'Endurance Fondamentale";
-      // Cap à 60min pour un footing converti
-      const dur = parseDurationMin(extra.duration);
-      if (dur > 60) {
-        extra.duration = '50 min';
-        if (pacesObj) {
-          extra.mainSet = `40 min de course en endurance fondamentale à ${pacesObj.efPace} min/km. Maintiens une allure confortable.`;
-          extra.warmup = `5 min de footing léger à ${pacesObj.recoveryPace} min/km`;
-          extra.cooldown = `5 min de retour au calme à ${pacesObj.recoveryPace} min/km + étirements`;
-        }
+    if (isUltraTrailPhase && slSessions.length === 2) {
+      // Back-to-back autorisé : vérifier que c'est bien samedi/dimanche et capper la 2e sortie
+      slSessions.sort((a: any, b: any) => parseDurationMin(b.duration) - parseDurationMin(a.duration));
+      const longer = slSessions[0];
+      const shorter = slSessions[1];
+      const shorterDur = parseDurationMin(shorter.duration);
+      const longerDur = parseDurationMin(longer.duration);
+
+      // Garde-fou sécurité : la 2e sortie ne doit pas dépasser 60% de la 1ère (prévention blessure)
+      const maxBackToBackDur = Math.min(Math.round(longerDur * 0.6), 150); // Cap absolu 2h30
+      if (shorterDur > maxBackToBackDur) {
+        shorter.duration = maxBackToBackDur >= 60 ? `${Math.floor(maxBackToBackDur / 60)}h${maxBackToBackDur % 60 > 0 ? (maxBackToBackDur % 60).toString().padStart(2, '0') : ''}` : `${maxBackToBackDur} min`;
+        recalculateSessionDistance(shorter);
+        console.log(`[PostProcess] Back-to-back ultra: 2e SL cappée à ${maxBackToBackDur}min (60% de la 1ère ou 2h30 max)`);
       }
-      if (pacesObj) extra.targetPace = pacesObj.efPace;
-      recalculateSessionDistance(extra);
+      // La 2e sortie doit être en intensité Facile/Modéré (pas Difficile)
+      if (shorter.intensity === 'Difficile') {
+        shorter.intensity = 'Modéré';
+      }
+      console.log(`[PostProcess] Back-to-back ultra autorisé: "${longer.title}" + "${shorter.title}"`);
+    } else {
+      // Hors ultra ou 3+ SL : comportement normal, garder la plus longue
+      slSessions.sort((a: any, b: any) => parseDurationMin(b.duration) - parseDurationMin(a.duration));
+      for (let i = 1; i < slSessions.length; i++) {
+        const extra = slSessions[i];
+        console.warn(`[PostProcess] ${slSessions.length} SL détectées → "${extra.title}" converti en Jogging EF`);
+        extra.type = 'Jogging';
+        extra._dedupedFromSL = true; // Marker pour empêcher l'enforcer de retaper en SL
+        extra.intensity = 'Facile';
+        const oldTitle = extra.title || '';
+        if (!/footing/i.test(oldTitle)) extra.title = "Footing d'Endurance Fondamentale";
+        // Cap à 60min pour un footing converti
+        const dur = parseDurationMin(extra.duration);
+        if (dur > 60) {
+          extra.duration = '50 min';
+          if (pacesObj) {
+            extra.mainSet = `40 min de course en endurance fondamentale à ${pacesObj.efPace} min/km. Maintiens une allure confortable.`;
+            extra.warmup = `5 min de footing léger à ${pacesObj.recoveryPace} min/km`;
+            extra.cooldown = `5 min de retour au calme à ${pacesObj.recoveryPace} min/km + étirements`;
+          }
+        }
+        if (pacesObj) extra.targetPace = pacesObj.efPace;
+        recalculateSessionDistance(extra);
+      }
     }
   }
 
-  // GARDE-FOU : pas de 2 séances longues sur jours consécutifs
+  // GARDE-FOU : pas de 2 séances longues sur jours consécutifs (sauf back-to-back ultra autorisé)
   const longSessions = week.sessions.filter((s: any) =>
     s.type === 'Sortie Longue' || (s.duration && parseDurationMin(s.duration) >= 90 &&
       !['Fractionné', 'VMA', 'Intervalle', 'Seuil', 'Renforcement', 'Repos'].some((t: string) => (s.type || '').includes(t)))
   );
-  if (longSessions.length >= 2) {
+  if (longSessions.length >= 2 && !isUltraTrailPhase) {
     longSessions.sort((a: any, b: any) => DAYS_ORDER.indexOf(a.day) - DAYS_ORDER.indexOf(b.day));
     for (let i = 0; i < longSessions.length - 1; i++) {
       const dayA = DAYS_ORDER.indexOf(longSessions[i].day);
@@ -2895,6 +2923,21 @@ VMA : ${paces.vmaKmh} km/h (${vmaSource})
 - GESTION D'ALLURE : l'allure ultra est PLUS LENTE que l'EF. Prévoir des sections à 7:00-8:00 min/km.
 - Chaque séance trail DOIT mentionner le D+ cible
 - Renforcement : excentrique quadriceps (descente), gainage, proprioception
+` : data.trailDetails.distance >= 70 ? `
+🏔️ ULTRA-TRAIL 70km+ : ${data.trailDetails.distance} km, D+ ${data.trailDetails.elevation} m
+⚠️ FORMAT ULTRA — Règles spécifiques :
+- BACK-TO-BACK OBLIGATOIRE en phase spécifique et développement :
+  • Samedi = Sortie Longue principale (longue, avec D+ important)
+  • Dimanche = 2e Sortie Longue sur jambes fatiguées (50-60% de la durée du samedi, en EF strict, D+ modéré)
+  • Simuler la fatigue cumulée de l'ultra, apprendre à courir/marcher fatigué, travailler l'alimentation
+  • Placer 2 à 3 week-ends back-to-back en phase spécifique (PAS en semaine de récupération)
+  • Après chaque back-to-back : lundi repos ou récupération très légère
+- SL pic doit atteindre 4h30-6h au pic d'entraînement
+- MARCHE EN CÔTE (power hiking) : sections de marche rapide en montée dans les SL ≥ 2h30
+- RAVITAILLEMENT : les SL ≥ 3h doivent mentionner la stratégie nutrition (manger toutes les 30-45min)
+- MATÉRIEL : s'entraîner avec sac et bâtons dès la phase développement
+- Chaque séance trail DOIT mentionner le D+ cible
+- Renforcement : excentrique quadriceps (descente), gainage, proprioception
 ` : `
 🏔️ TRAIL : ${data.trailDetails.distance} km, D+ ${data.trailDetails.elevation} m
 - Sortie longue avec D+ progressif, fractionné en côte
@@ -3361,7 +3404,8 @@ RAPPEL : Génère UNIQUEMENT la semaine 1 !
 
     // === Post-processing qualité séances (Preview) ===
     if (plan.weeks && Array.isArray(plan.weeks)) {
-      plan.weeks.forEach((week: any) => postProcessWeekQuality(week, paces, 'Première semaine — mise en route progressive', data.goal));
+      const trailDist = data.goal === 'Trail' && data.trailDetails?.distance ? data.trailDetails.distance : 0;
+      plan.weeks.forEach((week: any) => postProcessWeekQuality(week, paces, 'Première semaine — mise en route progressive', data.goal, trailDist));
       // Enforcement volumes/durées/caps déterministe
       plan.weeks.forEach((week: any, idx: number) => {
         const targetVol = generationContext.periodizationPlan.weeklyVolumes[idx] || 0;
@@ -3562,7 +3606,17 @@ ${data.trailDetails!.distance >= 100 ? `- 🔴 ULTRA 100km+ : BACK-TO-BACK OBLIG
 - Marche en côte (power hiking) intégrée dans les SL — sur un ultra on marche 30-50% du temps
 - SL pic doit atteindre 50-65km ou 6-8h minimum
 - Allure ultra PLUS LENTE que EF (7:00-8:00 min/km)
-- Stratégie ravitaillement dans les SL ≥ 3h` : data.trailDetails!.distance >= 80 ? '- Back-to-back long (SL samedi + sortie dimanche)\n- Gestion effort sur très longue durée' : ''}
+- Stratégie ravitaillement dans les SL ≥ 3h` : data.trailDetails!.distance >= 70 ? `- 🔴 ULTRA-TRAIL 70km+ : BACK-TO-BACK OBLIGATOIRE en phase spécifique et développement :
+  • Samedi = Sortie Longue principale (la plus longue de la semaine, avec D+ important)
+  • Dimanche = 2e Sortie Longue sur jambes fatiguées (50-60% de la durée du samedi, en EF strict, avec D+ modéré)
+  • Objectif : simuler la fatigue cumulée de l'ultra, apprendre à courir/marcher fatigué, travailler l'alimentation en effort
+  • Placer 2 à 3 week-ends back-to-back en phase spécifique (PAS en semaine de récupération)
+  • Après chaque week-end back-to-back : lundi repos ou récupération très légère
+- SL pic doit atteindre 4h30-6h au pic d'entraînement (semaine de volume max)
+- MARCHE EN CÔTE (power hiking) : intégrer des sections de marche rapide en montée dans les SL ≥ 2h30
+- RAVITAILLEMENT : les SL ≥ 3h doivent mentionner la stratégie nutrition (manger toutes les 30-45min, boire régulièrement)
+- MATÉRIEL : s'entraîner avec le sac et les bâtons dès la phase développement
+- Gestion effort sur très longue durée : alterner course et marche en montée` : ''}
 `) : '';
 
   const DAYS_ORDER = ['Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi', 'Dimanche'];
@@ -3993,7 +4047,8 @@ Retourne UNIQUEMENT un tableau JSON des semaines ${startWeek} à ${endWeek} :
       }, 0);
 
     if (fullPlan.weeks && Array.isArray(fullPlan.weeks) && savedPaces) {
-      fullPlan.weeks.forEach((week: any) => postProcessWeekQuality(week, savedPaces, undefined, data.goal));
+      const trailDistFull = data.goal === 'Trail' && data.trailDetails?.distance ? data.trailDetails.distance : 0;
+      fullPlan.weeks.forEach((week: any) => postProcessWeekQuality(week, savedPaces, undefined, data.goal, trailDistFull));
 
       // Snapshot volumes AVANT guard pour mesurer l'impact
       const beforeVolumes = fullPlan.weeks.map(_weekKm);

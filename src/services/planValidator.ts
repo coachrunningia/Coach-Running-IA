@@ -631,8 +631,8 @@ export const validatePlanRules = (
       }
     }
 
-    // 11d: Ultra trail (80km+) should have back-to-back long runs in specific phase
-    if (trailDist >= 80 && weeks.length >= 6) {
+    // 11d: Ultra trail (70km+) should have back-to-back long runs in specific phase
+    if (trailDist >= 70 && weeks.length >= 6) {
       const specificWeeks = weeks.filter(w => w.phase === 'specifique' || (w.phase as string) === 'spécifique');
       const hasBackToBack = specificWeeks.some(w => {
         const longSessions = w.sessions.filter(s =>
