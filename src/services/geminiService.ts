@@ -981,7 +981,7 @@ const detectObjectiveFromData = (data: any): string => {
 };
 
 /** Détecte le niveau normalisé — avec override VMA si incohérence flagrante */
-const detectLevelFromData = (data: any): string => {
+export const detectLevelFromData = (data: any): string => {
   const level = (data.level || '').toLowerCase();
   let declared: string;
   if (level.includes('débutant') || level.includes('debutant')) declared = 'deb';

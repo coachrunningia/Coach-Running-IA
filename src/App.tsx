@@ -974,7 +974,7 @@ const ADMIN_EMAILS = ["programme@coachrunningia.fr"];
     setAdaptationMessage('Recalcul des allures en cours...');
 
     try {
-      const { calculateAllPaces, generateRemainingWeeks } = await import('./services/geminiService');
+      const { calculateAllPaces, generateRemainingWeeks, detectLevelFromData } = await import('./services/geminiService');
       const newPaces = calculateAllPaces(newVMA);
 
       // Mettre à jour le generationContext COMPLET (questionnaire, périodisation, paces, VMA)
@@ -982,16 +982,24 @@ const ADMIN_EMAILS = ["programme@coachrunningia.fr"];
         throw new Error('Pas de contexte de génération. Régénérez le plan depuis le questionnaire.');
       }
 
+      // Recalculer le niveau effectif avec la nouvelle VMA
+      const snapshotWithNewVMA = {
+        ...plan.generationContext.questionnaireSnapshot,
+        vma: newVMA,
+      };
+      const newEffectiveLevel = detectLevelFromData(snapshotWithNewVMA);
+      const oldLevel = detectLevelFromData(plan.generationContext.questionnaireSnapshot);
+      if (newEffectiveLevel !== oldLevel) {
+        console.log(`[VMA Recalc] Niveau recalculé : ${oldLevel} → ${newEffectiveLevel}`);
+      }
+
       const updatedContext = {
         ...plan.generationContext,
         vma: newVMA,
         vmaSource: `Ajustée manuellement : ${oldVMA.toFixed(1)} → ${newVMA.toFixed(1)} km/h`,
         paces: newPaces,
-        // Mettre à jour aussi la VMA dans le snapshot du questionnaire
-        questionnaireSnapshot: {
-          ...plan.generationContext.questionnaireSnapshot,
-          vma: newVMA,
-        },
+        // Mettre à jour VMA et niveau dans le snapshot du questionnaire
+        questionnaireSnapshot: snapshotWithNewVMA,
       };
 
       // Identifier les semaines touchées par un feedback (au moins 1 séance complétée)
@@ -1088,13 +1096,28 @@ const ADMIN_EMAILS = ["programme@coachrunningia.fr"];
         }
       }
 
+      // Warning si gros changement de VMA (> 2 km/h) → recommander nouveau plan
+      let bigChangeWarning = '';
+      if (Math.abs(newVMA - oldVMA) > 2) {
+        bigChangeWarning = ` 💡 Ta VMA a beaucoup évolué (${oldVMA.toFixed(1)} → ${newVMA.toFixed(1)}). Les allures ont été mises à jour, mais la structure du plan (volumes, phases) reste celle d'origine. Pour un plan 100% adapté à ton nouveau niveau, tu peux créer un nouveau plan depuis ton profil.`;
+      }
+
+      // Info si le niveau effectif a changé
+      let levelChangeInfo = '';
+      if (newEffectiveLevel !== oldLevel) {
+        const levelLabels: Record<string, string> = { deb: 'Débutant', inter: 'Intermédiaire', conf: 'Confirmé', expert: 'Expert' };
+        levelChangeInfo = ` Niveau ajusté : ${levelLabels[oldLevel] || oldLevel} → ${levelLabels[newEffectiveLevel] || newEffectiveLevel}.`;
+      }
+
       setAdaptationMessage(
         `✅ Allures recalculées ! VMA : ${oldVMA.toFixed(1)} → ${newVMA.toFixed(1)} km/h. ` +
         `Nouvelle allure EF : ${newPaces.efPace}. ` +
         `${weeksWithFeedback.length} semaine${weeksWithFeedback.length > 1 ? 's' : ''} conservée${weeksWithFeedback.length > 1 ? 's' : ''}.` +
-        feasibilityWarning
+        levelChangeInfo +
+        feasibilityWarning +
+        bigChangeWarning
       );
-      setTimeout(() => setAdaptationMessage(null), 20000);
+      setTimeout(() => setAdaptationMessage(null), 25000);
 
     } catch (error) {
       console.error('[VMA Recalc] Error:', error);
