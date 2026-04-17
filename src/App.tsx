@@ -983,14 +983,56 @@ const ADMIN_EMAILS = ["programme@coachrunningia.fr"];
       }
 
       // Recalculer le niveau effectif avec la nouvelle VMA
-      const snapshotWithNewVMA = {
-        ...plan.generationContext.questionnaireSnapshot,
-        vma: newVMA,
-      };
+      const oldSnapshot = plan.generationContext.questionnaireSnapshot;
+      const oldLevel = detectLevelFromData(oldSnapshot);
+      const snapshotWithNewVMA = { ...oldSnapshot, vma: newVMA };
       const newEffectiveLevel = detectLevelFromData(snapshotWithNewVMA);
-      const oldLevel = detectLevelFromData(plan.generationContext.questionnaireSnapshot);
-      if (newEffectiveLevel !== oldLevel) {
+
+      // Mapper le niveau court vers le niveau long pour le prompt Gemini
+      const levelShortToLong: Record<string, string> = {
+        deb: 'Débutant (0-1 an)',
+        inter: 'Intermédiaire (Régulier)',
+        conf: 'Confirmé (Compétition)',
+        expert: 'Expert (Performance)',
+      };
+      const levelChanged = newEffectiveLevel !== oldLevel;
+      if (levelChanged) {
         console.log(`[VMA Recalc] Niveau recalculé : ${oldLevel} → ${newEffectiveLevel}`);
+        // Mettre à jour le level string dans le snapshot pour que le prompt Gemini utilise le bon niveau
+        snapshotWithNewVMA.level = levelShortToLong[newEffectiveLevel] || snapshotWithNewVMA.level;
+      }
+
+      const vmaDecreased = newVMA < oldVMA;
+      const vmaChangeAbs = Math.abs(newVMA - oldVMA);
+
+      // Identifier les semaines touchées par un feedback AVANT la réduction des volumes
+      const weeksWithFeedback = plan.weeks.filter(w =>
+        w.sessions.some(s => s.feedback?.completed)
+      );
+      const firstUntouchedWeekIdx = plan.weeks.findIndex(w =>
+        !w.sessions.some(s => s.feedback?.completed)
+      );
+
+      // Si le niveau baisse, réduire les volumes des semaines futures proportionnellement
+      let updatedPeriodization = { ...plan.generationContext.periodizationPlan };
+      if (levelChanged && vmaDecreased) {
+        const levelRank: Record<string, number> = { deb: 0, inter: 1, conf: 2, expert: 3 };
+        const oldRank = levelRank[oldLevel] ?? 1;
+        const newRank = levelRank[newEffectiveLevel] ?? 1;
+        if (newRank < oldRank) {
+          // Réduire les volumes de 12-15% par niveau de baisse (ex: conf→inter = -12%, expert→inter = -24%)
+          const reductionFactor = 1 - (oldRank - newRank) * 0.12;
+          const oldVolumes = updatedPeriodization.weeklyVolumes || [];
+          updatedPeriodization = {
+            ...updatedPeriodization,
+            weeklyVolumes: oldVolumes.map((v: number, idx: number) => {
+              // Ne réduire que les semaines futures (après les semaines complétées)
+              if (idx < (firstUntouchedWeekIdx >= 0 ? firstUntouchedWeekIdx : 0)) return v;
+              return Math.round(v * reductionFactor);
+            }),
+          };
+          console.log(`[VMA Recalc] Volumes réduits de ${Math.round((1 - reductionFactor) * 100)}% pour les semaines futures (${oldLevel} → ${newEffectiveLevel})`);
+        }
       }
 
       const updatedContext = {
@@ -998,18 +1040,9 @@ const ADMIN_EMAILS = ["programme@coachrunningia.fr"];
         vma: newVMA,
         vmaSource: `Ajustée manuellement : ${oldVMA.toFixed(1)} → ${newVMA.toFixed(1)} km/h`,
         paces: newPaces,
-        // Mettre à jour VMA et niveau dans le snapshot du questionnaire
+        periodizationPlan: updatedPeriodization,
         questionnaireSnapshot: snapshotWithNewVMA,
       };
-
-      // Identifier les semaines touchées par un feedback (au moins 1 séance complétée)
-      // On conserve ces semaines intactes pour ne pas perdre les données
-      const weeksWithFeedback = plan.weeks.filter(w =>
-        w.sessions.some(s => s.feedback?.completed)
-      );
-      const firstUntouchedWeekIdx = plan.weeks.findIndex(w =>
-        !w.sessions.some(s => s.feedback?.completed)
-      );
 
       console.log(`[VMA Recalc] ${oldVMA.toFixed(1)} → ${newVMA.toFixed(1)} km/h | ${weeksWithFeedback.length} semaines conservées, ${plan.weeks.length - weeksWithFeedback.length} à régénérer`);
 
@@ -1096,10 +1129,14 @@ const ADMIN_EMAILS = ["programme@coachrunningia.fr"];
         }
       }
 
-      // Warning si gros changement de VMA (> 2 km/h) → recommander nouveau plan
+      // Warning adapté selon la direction et l'amplitude du changement
       let bigChangeWarning = '';
-      if (Math.abs(newVMA - oldVMA) > 2) {
-        bigChangeWarning = ` 💡 Ta VMA a beaucoup évolué (${oldVMA.toFixed(1)} → ${newVMA.toFixed(1)}). Les allures ont été mises à jour, mais la structure du plan (volumes, phases) reste celle d'origine. Pour un plan 100% adapté à ton nouveau niveau, tu peux créer un nouveau plan depuis ton profil.`;
+      if (vmaDecreased && vmaChangeAbs > 1.5) {
+        // VMA en baisse significative → warning spécifique (risque de surcharge)
+        bigChangeWarning = ` ⚠️ Ta VMA a baissé de ${vmaChangeAbs.toFixed(1)} km/h. Si c'est suite à une blessure ou une période de pause, on te recommande fortement de créer un nouveau plan adapté — les volumes actuels pourraient être trop élevés pour ton état de forme actuel.`;
+      } else if (!vmaDecreased && vmaChangeAbs > 2) {
+        // VMA en hausse importante → les volumes pourraient être trop faibles
+        bigChangeWarning = ` 💡 Ta VMA a bien progressé (+${vmaChangeAbs.toFixed(1)} km/h). Les allures sont mises à jour, mais la structure du plan (volumes, phases) reste celle d'origine. Pour un plan 100% adapté à ton nouveau niveau, tu peux créer un nouveau plan depuis ton profil.`;
       }
 
       // Info si le niveau effectif a changé
