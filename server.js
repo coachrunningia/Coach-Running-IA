@@ -2142,12 +2142,26 @@ app.get('/api/cron/daily-report', async (req, res) => {
         });
       }
 
-      // Collect RPE feedback from all plans
+      // Collect RPE feedback from plans — ONLY last 24h
       if (d.weeks && Array.isArray(d.weeks)) {
         d.weeks.forEach((week, wi) => {
           if (week.sessions && Array.isArray(week.sessions)) {
             week.sessions.forEach((session, si) => {
-              if (session.feedback && typeof session.feedback.rpe === 'number' && session.feedback.rpe !== 5) {
+              if (session.feedback && typeof session.feedback.rpe === 'number' && session.feedback.completed) {
+                // Filter: only feedbacks from the last 24h
+                let feedbackDate = null;
+                if (session.feedback.completedAt) {
+                  if (typeof session.feedback.completedAt === 'string') feedbackDate = new Date(session.feedback.completedAt);
+                  else if (session.feedback.completedAt._seconds) feedbackDate = new Date(session.feedback.completedAt._seconds * 1000);
+                  else if (session.feedback.completedAt.toDate) feedbackDate = session.feedback.completedAt.toDate();
+                }
+                if (!feedbackDate || feedbackDate < yesterday) return; // Skip old feedbacks
+
+                const intensity = session.intensity || 'N/A';
+                const isAbnormal = (session.feedback.rpe >= 7 && ['Facile', 'Modéré'].includes(intensity))
+                  || session.feedback.rpe >= 9
+                  || session.feedback.rpe <= 3;
+
                 allPlansWithRPE.push({
                   planId: doc.id,
                   email: d.userEmail || 'N/A',
@@ -2155,10 +2169,13 @@ app.get('/api/cron/daily-report', async (req, res) => {
                   week: wi + 1,
                   sessionIndex: si + 1,
                   sessionTitle: session.title || 'Sans titre',
+                  sessionIntensity: intensity,
+                  sessionType: session.type || 'N/A',
                   rpe: session.feedback.rpe,
                   notes: session.feedback.notes || '',
                   completed: session.feedback.completed || false,
-                  completedAt: session.feedback.completedAt || null,
+                  completedAt: feedbackDate ? feedbackDate.toISOString() : null,
+                  isAbnormal: isAbnormal,
                 });
               }
             });
@@ -2167,8 +2184,8 @@ app.get('/api/cron/daily-report', async (req, res) => {
       }
     });
 
-    // 2. Identify abnormal RPE (< 4 or > 8)
-    const abnormalRPE = allPlansWithRPE.filter(r => r.rpe < 4 || r.rpe > 8);
+    // 2. Identify abnormal RPE (contextuel: RPE élevé sur séance facile, RPE très haut/bas)
+    const abnormalRPE = allPlansWithRPE.filter(r => r.isAbnormal);
 
     // 3. Get premium users
     const premiumUsersSnap = await admin.firestore().collection('users').where('isPremium', '==', true).get();
@@ -2245,35 +2262,56 @@ app.get('/api/cron/daily-report', async (req, res) => {
   <div class="section">
     <h2>📈 RPE — Vue d'ensemble</h2>
     <div class="stat-row">
-      <div class="stat-box"><div class="number">${allPlansWithRPE.length}</div><div class="label">RPE reçus (hors défaut)</div></div>
+      <div class="stat-box"><div class="number">${allPlansWithRPE.length}</div><div class="label">RPE reçus (24h)</div></div>
       <div class="stat-box"><div class="number">${abnormalRPE.length}</div><div class="label">RPE anormaux</div></div>
       <div class="stat-box"><div class="number">${premiumAbnormal.length}</div><div class="label">⚠️ Premium alertes</div></div>
     </div>
   </div>
 
   ${premiumAbnormal.length > 0 ? `<div class="section" style="background:#fffbeb;">
-    <h2>🌟 ALERTE PREMIUM — RPE anormaux</h2>
+    <h2>🌟 ALERTE PREMIUM — RPE anormaux (dernières 24h)</h2>
     <table>
-      <tr><th>Email</th><th>Plan ID</th><th>Séance</th><th>RPE</th><th>Commentaire</th></tr>
+      <tr><th>Email</th><th>Séance</th><th>Intensité prévue</th><th>RPE</th><th>Heure</th><th>Commentaire</th></tr>
       ${premiumAbnormal.map(r => `<tr>
         <td><strong>${r.email}</strong> <span class="badge-premium">PREMIUM</span></td>
-        <td><code>${r.planId.substring(0, 12)}...</code></td>
         <td>S${r.week} — ${r.sessionTitle}</td>
-        <td class="${r.rpe > 8 ? 'rpe-high' : 'rpe-low'}">${r.rpe}/10 ${r.rpe > 8 ? '🔴' : '🟢'}</td>
+        <td>${r.sessionIntensity} (${r.sessionType})</td>
+        <td class="${r.rpe >= 7 ? 'rpe-high' : 'rpe-low'}">${r.rpe}/10 ${r.rpe >= 7 ? '🔴' : '🟢'}</td>
+        <td>${r.completedAt ? new Date(r.completedAt).toLocaleTimeString('fr-FR', { hour: '2-digit', minute: '2-digit' }) : '—'}</td>
         <td>${r.notes || '—'}</td>
       </tr>`).join('')}
     </table>
   </div>` : ''}
 
   ${nonPremiumAbnormal.length > 0 ? `<div class="section">
-    <h2>⚠️ RPE anormaux (non-premium)</h2>
+    <h2>⚠️ RPE anormaux — non-premium (dernières 24h)</h2>
     <table>
-      <tr><th>Email</th><th>Plan ID</th><th>Séance</th><th>RPE</th><th>Commentaire</th></tr>
+      <tr><th>Email</th><th>Séance</th><th>Intensité prévue</th><th>RPE</th><th>Heure</th><th>Commentaire</th></tr>
       ${nonPremiumAbnormal.map(r => `<tr>
         <td>${r.email}</td>
-        <td><code>${r.planId.substring(0, 12)}...</code></td>
         <td>S${r.week} — ${r.sessionTitle}</td>
-        <td class="${r.rpe > 8 ? 'rpe-high' : 'rpe-low'}">${r.rpe}/10 ${r.rpe > 8 ? '🔴' : '🟢'}</td>
+        <td>${r.sessionIntensity} (${r.sessionType})</td>
+        <td class="${r.rpe >= 7 ? 'rpe-high' : 'rpe-low'}">${r.rpe}/10 ${r.rpe >= 7 ? '🔴' : '🟢'}</td>
+        <td>${r.completedAt ? new Date(r.completedAt).toLocaleTimeString('fr-FR', { hour: '2-digit', minute: '2-digit' }) : '—'}</td>
+        <td>${r.notes || '—'}</td>
+      </tr>`).join('')}
+    </table>
+  </div>` : ''}
+
+  ${allPlansWithRPE.length > 0 && abnormalRPE.length === 0 ? `<div class="section">
+    <h2>✅ Tous les RPE sont normaux</h2>
+    <p>${allPlansWithRPE.length} feedback(s) reçu(s) dans les dernières 24h, aucune alerte.</p>
+  </div>` : ''}
+
+  ${allPlansWithRPE.length > 0 ? `<div class="section">
+    <h2>📝 Tous les RPE du jour</h2>
+    <table>
+      <tr><th>Email</th><th>Séance</th><th>Intensité</th><th>RPE</th><th>Commentaire</th></tr>
+      ${allPlansWithRPE.map(r => `<tr>
+        <td>${r.email}</td>
+        <td>S${r.week} — ${r.sessionTitle}</td>
+        <td>${r.sessionIntensity}</td>
+        <td class="${r.isAbnormal ? (r.rpe >= 7 ? 'rpe-high' : 'rpe-low') : ''}">${r.rpe}/10</td>
         <td>${r.notes || '—'}</td>
       </tr>`).join('')}
     </table>
