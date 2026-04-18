@@ -383,8 +383,13 @@ export function buildRenfoMainSet(params: {
     injuryDesc.includes('ankle') || injuryDesc.includes('shin')
   );
 
-  const hasJointInjury = hasKneeInjury || hasAnkleInjury || (hasInjury && (
-    injuryDesc.includes('hanche') || injuryDesc.includes('articul')
+  const hasHipInjury = hasInjury && (
+    injuryDesc.includes('hanche') || injuryDesc.includes('hip') ||
+    injuryDesc.includes('tendineu') || injuryDesc.includes('tendinopathie')
+  );
+
+  const hasJointInjury = hasKneeInjury || hasAnkleInjury || hasHipInjury || (hasInjury && (
+    injuryDesc.includes('articul') || injuryDesc.includes('statique')
   ));
   const hasAnySpecificInjury = hasPosteriorChainInjury || hasKneeInjury || hasBackInjury || hasAnkleInjury;
   const needsLowImpact = isOverweight || hasJointInjury;
@@ -631,6 +636,16 @@ export function buildRenfoMainSet(params: {
       { name: 'Skipping haut', sets: '3x15' },
     ];
     exercises.push(...pickExercises(explosiveExtras, 1, weekNumber));
+  }
+
+  // ---- Filtrer les exercices à risque articulaire (squat bulgare, fentes sautées, pliométrie) ----
+  if (hasJointInjury) {
+    const riskyPatterns = ['bulgare', 'sauté', 'sautée', 'sautés', 'sautées', 'box jump', 'pliomét', 'pliomet'];
+    const safeExercises = exercises.filter(e =>
+      !riskyPatterns.some(p => e.name.toLowerCase().includes(p))
+    );
+    exercises.length = 0;
+    exercises.push(...safeExercises);
   }
 
   // ---- Injury prevention exercises ----
