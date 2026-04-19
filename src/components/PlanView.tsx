@@ -242,6 +242,7 @@ const PlanView: React.FC<PlanViewProps> = ({ plan: initialPlan, isLocked = false
             rpe: feedbackRpe,
             notes: feedbackNotes,
             completed: true,
+            completedAt: new Date().toISOString(),
             adaptationRequested: needsAdaptation,
             ...(stravaMatch ? { stravaData: stravaMatch } : {})
           }
