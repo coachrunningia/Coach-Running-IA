@@ -82,9 +82,10 @@ const LandingPage: React.FC<LandingPageProps> = ({ user, onPlanGeneration, isGen
         </div>
 
         <div className="relative max-w-5xl mx-auto px-4 text-center py-24 md:py-32">
-          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-orange-200 bg-orange-50 mb-8">
-            <span className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></span>
-            <span className="text-sm text-orange-700 font-medium">1ère semaine gratuite - Sans carte bancaire</span>
+          <div className="flex items-center justify-center gap-2 mb-8">
+            <span className="text-sm md:text-base text-slate-500 font-medium">Powered by</span>
+            <svg className="w-5 h-5 md:w-6 md:h-6 text-[#FC4C02]" viewBox="0 0 24 24" fill="currentColor" aria-label="Logo Strava"><path d="M15.387 17.944l-2.089-4.116h-3.065L15.387 24l5.15-10.172h-3.066m-7.008-5.599l2.836 5.598h4.172L10.463 0l-7 13.828h4.169"/></svg>
+            <span className="text-sm md:text-base font-bold text-[#FC4C02]">Strava</span>
           </div>
 
           <h1 className="text-5xl md:text-6xl lg:text-7xl font-black mb-8 leading-[1.1] tracking-tight text-slate-900">
@@ -103,10 +104,9 @@ const LandingPage: React.FC<LandingPageProps> = ({ user, onPlanGeneration, isGen
             <ArrowRight size={20} className="group-hover:translate-x-1 transition-transform" />
           </button>
 
-          <div className="mt-6 flex items-center justify-center gap-1.5 opacity-50">
-            <span className="text-xs text-slate-400">Powered by</span>
-            <svg className="w-3.5 h-3.5 text-[#FC4C02]" viewBox="0 0 24 24" fill="currentColor" aria-label="Logo Strava"><path d="M15.387 17.944l-2.089-4.116h-3.065L15.387 24l5.15-10.172h-3.066m-7.008-5.599l2.836 5.598h4.172L10.463 0l-7 13.828h4.169"/></svg>
-            <span className="text-xs font-medium text-[#FC4C02]">Strava</span>
+          <div className="mt-6 inline-flex items-center gap-2 px-4 py-2 rounded-full border border-orange-200 bg-orange-50">
+            <span className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></span>
+            <span className="text-sm text-orange-700 font-medium">1ère semaine gratuite - Sans carte bancaire</span>
           </div>
         </div>
       </section>
