@@ -179,6 +179,7 @@ const Questionnaire: React.FC<QuestionnaireProps> = ({ onComplete, isGenerating:
     if (step === 4) {
       if (!data.level) errors.push("Indique ton niveau de course.");
       if (!data.age) errors.push("Ton âge est nécessaire pour adapter le plan.");
+      if (data.age && data.age < 18) errors.push("Tu dois avoir au moins 18 ans pour utiliser Coach Running IA. Demande à un adulte de t'accompagner dans ta pratique sportive.");
       if (!data.weight) errors.push("Ton poids est nécessaire pour calibrer les charges.");
       if (!data.height) errors.push("Ta taille est nécessaire pour évaluer ton profil.");
     }
@@ -881,7 +882,7 @@ const Questionnaire: React.FC<QuestionnaireProps> = ({ onComplete, isGenerating:
         <button disabled={isGenerating} onClick={() => updateData('sex', 'Homme')} className={`p-3 rounded-xl border-2 font-bold ${data.sex === 'Homme' ? 'border-accent bg-accent/5' : 'border-slate-100'} disabled:opacity-50`}>👨 Homme</button>
         <button disabled={isGenerating} onClick={() => updateData('sex', 'Femme')} className={`p-3 rounded-xl border-2 font-bold ${data.sex === 'Femme' ? 'border-accent bg-accent/5' : 'border-slate-100'} disabled:opacity-50`}>👩 Femme</button>
         <div className="relative">
-          <input type="number" disabled={isGenerating} placeholder="Âge *" min="10" max="99" value={data.age || ''} onChange={e => updateData('age', parseInt(e.target.value))}
+          <input type="number" disabled={isGenerating} placeholder="Âge (18 ans min.) *" min="18" max="99" value={data.age || ''} onChange={e => updateData('age', parseInt(e.target.value))}
             className={`w-full p-3 border-2 rounded-xl focus:border-accent outline-none disabled:bg-slate-50 ${data.age ? 'border-slate-100' : 'border-orange-200'}`} />
         </div>
       </div>

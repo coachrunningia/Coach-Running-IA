@@ -506,7 +506,14 @@ export function calculateFeasibility(params: FeasibilityParams): FeasibilityResu
     // sinon on garde le recommendation par défaut = temps cible alternatif
   }
 
-  const safetyWarning = buildSafetyWarning(beginner, isMarathon, isSemi, hasInjury, status, params.weight, params.height, params.age, isTrail, isMarathon || isSemi || (distanceKm !== null && distanceKm >= 21));
+  let safetyWarning = buildSafetyWarning(beginner, isMarathon, isSemi, hasInjury, status, params.weight, params.height, params.age, isTrail, isMarathon || isSemi || (distanceKm !== null && distanceKm >= 21));
+
+  // Warning plans trop longs pour le profil
+  const maxRecommendedWeeks = isMarathon ? 20 : isSemi ? 18 : isTrail ? 20 : 14;
+  if (planWeeks > maxRecommendedWeeks && !beginner) {
+    const longPlanWarning = `⚠️ DURÉE DU PLAN : ${planWeeks} semaines, c'est long pour ton profil. La plupart des coureurs de ton niveau préparent cette distance en ${maxRecommendedWeeks} semaines maximum. Un plan trop long peut entraîner de la lassitude et une stagnation. Si tu te sens prêt, tu peux envisager de rapprocher ta date de début.`;
+    safetyWarning = safetyWarning ? `${safetyWarning}\n\n${longPlanWarning}` : longPlanWarning;
+  }
 
   return { score, status, message, safetyWarning, alternativeTarget, recommendation };
 }
@@ -843,6 +850,14 @@ function buildFinisherFeasibility(
         recommendation = `un objectif adapté à ton profil actuel`;
       }
     }
+  }
+
+  // Warning plans trop longs pour le profil
+  const isTrailLong = isTrail && distanceKm !== null && distanceKm >= 42;
+  const maxWeeksTrail = isTrailLong ? 22 : isTrail ? 20 : isMarathon ? 20 : isSemi ? 18 : 14;
+  if (planWeeks > maxWeeksTrail && !beginner) {
+    const longPlanWarning = `⚠️ DURÉE DU PLAN : ${planWeeks} semaines, c'est long pour ton profil. La plupart des coureurs de ton niveau préparent cette distance en ${maxWeeksTrail} semaines maximum. Un plan trop long peut entraîner de la lassitude et une stagnation. Si tu te sens prêt, tu peux envisager de rapprocher ta date de début.`;
+    safetyWarning = safetyWarning ? `${safetyWarning}\n\n${longPlanWarning}` : longPlanWarning;
   }
 
   return { score, status, message, safetyWarning, recommendation };
