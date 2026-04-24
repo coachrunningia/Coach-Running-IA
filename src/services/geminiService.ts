@@ -2797,6 +2797,38 @@ export const generatePreviewPlan = async (data: QuestionnaireData): Promise<Trai
     }
 
     // ══════════════════════════════════════════════════════════════
+    // ALLURE SPÉ COURSE = MAX(allure VMA, allure objectif)
+    // Si le coureur vise un temps plus lent que son potentiel VMA,
+    // l'allure spé doit être celle de l'OBJECTIF, pas du potentiel.
+    // Ex: VMA 14.4 → allure spé marathon théorique = 5:13 (3h40)
+    //     mais objectif = 4h00 → allure spé = 5:41. On prend 5:41.
+    // ══════════════════════════════════════════════════════════════
+    if (data.targetTime && data.subGoal) {
+      const raceDistMap: Record<string, { dist: number; paceKey: keyof TrainingPaces }> = {
+        '5 km': { dist: 5, paceKey: 'allureSpecifique5k' },
+        '10 km': { dist: 10, paceKey: 'allureSpecifique10k' },
+        'Semi-Marathon': { dist: 21.1, paceKey: 'allureSpecifiqueSemi' },
+        'Marathon': { dist: 42.195, paceKey: 'allureSpecifiqueMarathon' },
+      };
+      const raceInfo = raceDistMap[data.subGoal];
+      if (raceInfo) {
+        const targetSec = timeToSeconds(data.targetTime, raceInfo.dist);
+        if (targetSec > 0) {
+          const targetPaceSec = targetSec / raceInfo.dist; // secondes par km
+          const currentPace = paces[raceInfo.paceKey] as string;
+          const currentPaceParts = currentPace.split(':');
+          const currentPaceSec = parseInt(currentPaceParts[0]) * 60 + parseInt(currentPaceParts[1] || '0');
+          // Si l'objectif est plus lent que le potentiel → utiliser l'allure objectif
+          if (targetPaceSec > currentPaceSec) {
+            const targetPaceStr = secondsToPace(targetPaceSec);
+            console.log(`[Paces] Allure spé ${data.subGoal} : ${currentPace} (potentiel VMA) → ${targetPaceStr} (objectif ${data.targetTime}). On prend l'objectif.`);
+            (paces as any)[raceInfo.paceKey] = targetPaceStr;
+          }
+        }
+      }
+    }
+
+    // ══════════════════════════════════════════════════════════════
     // GARDE-FOU FRÉQUENCE MINIMUM (indépendant du UI)
     // Semi, Marathon, Trail nécessitent au minimum 3 séances
     // (2 running + 1 renfo). Avec 2 séances = 1 running + 1 renfo,
@@ -4558,6 +4590,31 @@ export const adaptPlanFromFeedback = async (
             paces = calculateAllPaces(correctedVma);
             vmaSource = `Recalculée depuis objectif ${questionnaireData.subGoal} en ${questionnaireData.targetTime}`;
             vmaEstimate = { vma: correctedVma, source: vmaSource };
+          }
+        }
+      }
+    }
+
+    // Allure spé course = objectif si plus lent que potentiel VMA
+    if (questionnaireData.targetTime && questionnaireData.subGoal) {
+      const raceDistMapBatch: Record<string, { dist: number; paceKey: keyof TrainingPaces }> = {
+        '5 km': { dist: 5, paceKey: 'allureSpecifique5k' },
+        '10 km': { dist: 10, paceKey: 'allureSpecifique10k' },
+        'Semi-Marathon': { dist: 21.1, paceKey: 'allureSpecifiqueSemi' },
+        'Marathon': { dist: 42.195, paceKey: 'allureSpecifiqueMarathon' },
+      };
+      const raceInfoBatch = raceDistMapBatch[questionnaireData.subGoal];
+      if (raceInfoBatch) {
+        const targetSecBatch = timeToSeconds(questionnaireData.targetTime, raceInfoBatch.dist);
+        if (targetSecBatch > 0) {
+          const targetPaceSecBatch = targetSecBatch / raceInfoBatch.dist;
+          const curPace = paces[raceInfoBatch.paceKey] as string;
+          const curParts = curPace.split(':');
+          const curPaceSec = parseInt(curParts[0]) * 60 + parseInt(curParts[1] || '0');
+          if (targetPaceSecBatch > curPaceSec) {
+            const targetPaceStrBatch = secondsToPace(targetPaceSecBatch);
+            console.log(`[Paces Batch] Allure spé ${questionnaireData.subGoal} : ${curPace} → ${targetPaceStrBatch} (objectif ${questionnaireData.targetTime})`);
+            (paces as any)[raceInfoBatch.paceKey] = targetPaceStrBatch;
           }
         }
       }
