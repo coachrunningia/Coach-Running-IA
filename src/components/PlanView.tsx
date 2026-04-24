@@ -1574,9 +1574,10 @@ ${recentRPEs.length > 0 ? recentRPEs.slice(-8).join('\n') : 'Premier feedback �
                   {!isGeneratingRemaining && (
                     <button
                       onClick={() => {
-                        // Si feasibility RISQUÉ, IRRÉALISTE ou AMBITIEUX → afficher modal de warning
+                        // Si feasibility RISQUÉ, IRRÉALISTE, AMBITIEUX ou score < 15 → afficher modal de warning
                         const status = activeFeasibility?.status;
-                        if (status === 'RISQUÉ' || status === 'IRRÉALISTE' || status === 'AMBITIEUX') {
+                        const score = activeConfidenceScore ?? 100;
+                        if (status === 'RISQUÉ' || status === 'IRRÉALISTE' || status === 'AMBITIEUX' || score < 15) {
                           setShowFeasibilityWarning(true);
                         } else {
                           onGenerateRemainingWeeks();
@@ -2067,6 +2068,7 @@ ${recentRPEs.length > 0 ? recentRPEs.slice(-8).join('\n') : 'Premier feedback �
         <FeasibilityWarningModal
           feasibilityMessage={activeFeasibility.message}
           recommendation={liveFeasibility?.recommendation ?? activeFeasibility?.recommendation}
+          confidenceScore={activeConfidenceScore}
           onAcceptAndGenerate={() => {
             setShowFeasibilityWarning(false);
             onGenerateRemainingWeeks();

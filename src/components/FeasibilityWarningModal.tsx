@@ -5,6 +5,7 @@ import { AlertTriangle, X, Zap, RefreshCw } from 'lucide-react';
 interface FeasibilityWarningModalProps {
   feasibilityMessage: string;
   recommendation?: string;  // ex: "un temps cible de 1h23", "une durée de 16 semaines"
+  confidenceScore?: number;
   onAcceptAndGenerate: () => void;
   onCreateNewPlan: () => void;
   onClose: () => void;
@@ -13,11 +14,13 @@ interface FeasibilityWarningModalProps {
 const FeasibilityWarningModal: React.FC<FeasibilityWarningModalProps> = ({
   feasibilityMessage,
   recommendation,
+  confidenceScore,
   onAcceptAndGenerate,
   onCreateNewPlan,
   onClose,
 }) => {
   const [accepted, setAccepted] = useState(false);
+  const isVeryLowScore = (confidenceScore ?? 100) < 15;
 
   return (
     <div className="fixed inset-0 z-[100] bg-slate-900/60 backdrop-blur-sm flex items-center justify-center p-4" onClick={onClose}>
@@ -25,17 +28,24 @@ const FeasibilityWarningModal: React.FC<FeasibilityWarningModalProps> = ({
         {/* Header */}
         <div className="flex justify-between items-start mb-4">
           <div className="flex items-center gap-3">
-            <div className="w-12 h-12 bg-red-100 rounded-full flex items-center justify-center flex-shrink-0">
-              <AlertTriangle className="text-red-600" size={24} />
+            <div className={`w-12 h-12 ${isVeryLowScore ? 'bg-red-200' : 'bg-red-100'} rounded-full flex items-center justify-center flex-shrink-0`}>
+              <AlertTriangle className={isVeryLowScore ? 'text-red-700' : 'text-red-600'} size={24} />
             </div>
-            <h3 className="font-bold text-lg text-slate-900">Objectif ambitieux</h3>
+            <h3 className="font-bold text-lg text-slate-900">
+              {isVeryLowScore ? 'Objectif irréaliste' : 'Objectif ambitieux'}
+            </h3>
           </div>
           <button onClick={onClose} className="p-1 hover:bg-slate-100 rounded-lg"><X size={20} /></button>
         </div>
 
         {/* Feasibility message */}
-        <div className="bg-red-50 border border-red-200 rounded-xl p-4 mb-5">
-          <p className="text-sm text-red-800 leading-relaxed">{feasibilityMessage}</p>
+        <div className={`${isVeryLowScore ? 'bg-red-100 border-red-300' : 'bg-red-50 border-red-200'} border rounded-xl p-4 mb-5`}>
+          <p className={`text-sm ${isVeryLowScore ? 'text-red-900 font-medium' : 'text-red-800'} leading-relaxed`}>{feasibilityMessage}</p>
+          {isVeryLowScore && (
+            <p className="text-sm text-red-800 mt-3 font-bold">
+              Notre indice de confiance pour ce plan est de {confidenceScore}/100. Nous te recommandons fortement de revoir ton objectif temps ou ta distance pour obtenir un plan adapté à ton niveau.
+            </p>
+          )}
         </div>
 
         {/* Attestation checkbox */}
@@ -47,7 +57,10 @@ const FeasibilityWarningModal: React.FC<FeasibilityWarningModalProps> = ({
             className="mt-1 w-5 h-5 rounded border-slate-300 text-accent focus:ring-accent cursor-pointer flex-shrink-0"
           />
           <span className="text-sm text-slate-700 leading-relaxed group-hover:text-slate-900 transition-colors">
-            J'atteste avoir pris note que ce plan est, selon Coach Running IA, trop ambitieux pour mon niveau actuel et pourrait comporter des risques (surcharge, blessure, écart trop important). Je décide de générer ce plan en connaissance de cause.
+            {isVeryLowScore
+              ? "Je comprends que cet objectif est considéré comme irréaliste par Coach Running IA. Je souhaite quand même générer ce plan en connaissance de cause, en acceptant que les allures et la structure ne seront pas optimales pour cet objectif."
+              : "J'atteste avoir pris note que ce plan est, selon Coach Running IA, trop ambitieux pour mon niveau actuel et pourrait comporter des risques (surcharge, blessure, écart trop important). Je décide de générer ce plan en connaissance de cause."
+            }
           </span>
         </label>
 

@@ -639,7 +639,8 @@ export function buildRenfoMainSet(params: {
   }
 
   // ---- Filtrer les exercices à risque articulaire (squat bulgare, fentes sautées, pliométrie) ----
-  if (hasJointInjury) {
+  // needsLowImpact = isOverweight (IMC ≥ 30) OU hasJointInjury (blessure articulaire)
+  if (needsLowImpact) {
     const riskyPatterns = ['bulgare', 'sauté', 'sautée', 'sautés', 'sautées', 'box jump', 'pliomét', 'pliomet'];
     const safeExercises = exercises.filter(e =>
       !riskyPatterns.some(p => e.name.toLowerCase().includes(p))
