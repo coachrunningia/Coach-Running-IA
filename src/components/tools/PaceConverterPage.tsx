@@ -59,6 +59,10 @@ const PaceConverterPage: React.FC = () => {
         <meta name="description" content="Convertissez instantanément votre allure de course (min/km) en vitesse (km/h) et inversement. Outil gratuit pour coureurs avec tableau de conversion et conseils d'entraînement." />
         <meta name="keywords" content="convertisseur allure, min/km en km/h, calculateur vitesse course, allure running, pace calculator, conversion vitesse course à pied" />
         <link rel="canonical" href="https://coachrunningia.fr/outils/convertisseur-allure" />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content="Convertisseur Allure Running : min/km en km/h | Calculateur Gratuit" />
+        <meta name="twitter:description" content="Convertissez instantanément votre allure de course (min/km) en vitesse (km/h) et inversement. Outil gratuit pour coureurs." />
+        <meta name="twitter:image" content="https://coachrunningia.fr/og-image.png" />
       </Helmet>
 
       <div className="min-h-screen bg-gradient-to-b from-slate-50 to-white">

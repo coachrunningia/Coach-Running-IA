@@ -61,6 +61,10 @@ const SemiMarathonLanding: React.FC<SemiMarathonLandingProps> = ({ user, onPlanG
             "acceptedAnswer": { "@type": "Answer", "text": faq.answer }
           }))
         })}</script>
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content="Plan Semi-Marathon Personnalisé par IA | Coach Running IA" />
+        <meta name="twitter:description" content="Préparez votre semi-marathon avec un plan IA sur-mesure : 8 à 16 semaines, 3 à 4 séances/semaine. 1ère semaine gratuite." />
+        <meta name="twitter:image" content="https://coachrunningia.fr/og-image.png" />
       </Helmet>
 
       {/* HERO */}

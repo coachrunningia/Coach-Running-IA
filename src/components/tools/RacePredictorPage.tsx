@@ -88,6 +88,10 @@ const RacePredictorPage: React.FC = () => {
         <meta property="og:title" content="Prédicteur de Temps Course à Pied : Estimez vos Chronos" />
         <meta property="og:description" content="Calculez vos temps potentiels sur toutes les distances running à partir d'une seule performance de référence." />
         <meta property="og:type" content="website" />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content="Prédicteur de Temps Course à Pied | Calculateur Gratuit" />
+        <meta name="twitter:description" content="Prédisez vos temps de course sur 5km, 10km, semi-marathon et marathon à partir d'une performance récente." />
+        <meta name="twitter:image" content="https://coachrunningia.fr/og-image.png" />
       </Helmet>
 
       <div className="min-h-screen bg-gradient-to-b from-slate-50 to-white">

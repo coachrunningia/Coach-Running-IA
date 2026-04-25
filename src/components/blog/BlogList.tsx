@@ -44,6 +44,10 @@ const BlogList: React.FC = () => {
         <meta property="og:title" content="Blog Running : Conseils Entraînement et Nutrition" />
         <meta property="og:description" content="Conseils running, entraînement et nutrition pour progresser en course à pied." />
         <meta property="og:url" content="https://coachrunningia.fr/blog" />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content="Blog Running : Conseils Entraînement et Nutrition | Coach Running IA" />
+        <meta name="twitter:description" content="Conseils running, entraînement et nutrition : articles rédigés par des experts pour progresser en course à pied." />
+        <meta name="twitter:image" content="https://coachrunningia.fr/og-image.png" />
       </Helmet>
       {/* Hero */}
       <div className="bg-slate-900 text-white py-16 md:py-24">

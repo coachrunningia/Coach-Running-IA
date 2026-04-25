@@ -97,6 +97,10 @@ const MarathonPacePage: React.FC = () => {
         <meta property="og:title" content="Calculateur Allure Marathon : Trouvez Votre Pace Idéal" />
         <meta property="og:description" content="Convertissez votre objectif temps en allure au km. Obtenez vos temps de passage et une stratégie de course optimale." />
         <meta property="og:type" content="website" />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content="Calculateur Allure Marathon : Trouvez Votre Pace Idéal | Outil Gratuit" />
+        <meta name="twitter:description" content="Calculez l'allure parfaite pour votre marathon. Convertissez votre objectif temps en allure au km. Tableaux de passage inclus." />
+        <meta name="twitter:image" content="https://coachrunningia.fr/og-image.png" />
       </Helmet>
 
       <div className="min-h-screen bg-gradient-to-b from-slate-50 to-white">

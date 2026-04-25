@@ -104,6 +104,10 @@ const MilesKmConverterPage: React.FC = () => {
             }
           ]
         })}</script>
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content="Convertisseur Miles en Km | Outil Gratuit" />
+        <meta name="twitter:description" content="Convertissez miles en kilomètres et km en miles instantanément. Distances de course + conversion d'allure min/mile en min/km." />
+        <meta name="twitter:image" content="https://coachrunningia.fr/og-image.png" />
       </Helmet>
 
       <div className="min-h-screen bg-gradient-to-b from-slate-50 to-white">

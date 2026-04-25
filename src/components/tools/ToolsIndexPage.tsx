@@ -73,6 +73,10 @@ const ToolsIndexPage: React.FC = () => {
         <meta property="og:title" content="Outils Running Gratuits : Calculateurs et Simulateurs" />
         <meta property="og:description" content="Calculateurs gratuits pour optimiser votre entraînement running : VMA, allure, prédiction de temps, pace marathon." />
         <meta property="og:type" content="website" />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content="Outils Running Gratuits : Calculateurs et Simulateurs | Coach Running IA" />
+        <meta name="twitter:description" content="Outils running gratuits : convertisseur allure, calculateur VMA, prédicteur de temps, allure marathon, convertisseur miles/km." />
+        <meta name="twitter:image" content="https://coachrunningia.fr/og-image.png" />
       </Helmet>
 
       <div className="min-h-screen bg-gradient-to-b from-slate-50 to-white">

@@ -97,6 +97,10 @@ const BlogArticle: React.FC = () => {
           "datePublished": post.createdAt?.toDate?.()?.toISOString?.() || new Date().toISOString(),
           "url": `https://coachrunningia.fr/blog/${post.slug}`
         })}</script>
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content={`${post.seoTitle || post.title} | Coach Running IA`} />
+        <meta name="twitter:description" content={post.excerpt} />
+        <meta name="twitter:image" content={post.coverImage || "https://coachrunningia.fr/og-image.png"} />
       </Helmet>
       {/* Hero Image */}
       {post.coverImage && (

@@ -729,6 +729,10 @@ const GlossaryPage: React.FC = () => {
         <title>Glossaire Running : Définitions VMA, Allures, Entraînement | Coach Running IA</title>
         <meta name="description" content="Glossaire running complet : VMA, fartlek, fractionné, seuil, D+... Toutes les définitions pour comprendre l'entraînement course à pied." />
         <link rel="canonical" href="https://coachrunningia.fr/glossary" />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content="Glossaire Running : Définitions VMA, Allures, Entraînement | Coach Running IA" />
+        <meta name="twitter:description" content="Glossaire running complet : VMA, fartlek, fractionné, seuil, D+... Toutes les définitions pour comprendre l'entraînement." />
+        <meta name="twitter:image" content="https://coachrunningia.fr/og-image.png" />
       </Helmet>
       {/* Hero */}
       <div className="bg-slate-900 text-white py-16">

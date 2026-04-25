@@ -70,6 +70,10 @@ const LandingPage: React.FC<LandingPageProps> = ({ user, onPlanGeneration, isGen
             "acceptedAnswer": { "@type": "Answer", "text": faq.answer }
           }))
         })}</script>
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content="Coach Running IA - Programme course à pied personnalisé par IA" />
+        <meta name="twitter:description" content="Programme course à pied 100% personnalisé par IA. Plans marathon, semi, trail, 10km adaptés à votre niveau et vos disponibilités. 1ère semaine offerte." />
+        <meta name="twitter:image" content="https://coachrunningia.fr/og-image.png" />
       </Helmet>
 
       {/* SECTION 1: HERO */}

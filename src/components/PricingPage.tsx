@@ -66,6 +66,10 @@ const PricingPage: React.FC<PricingPageProps> = ({ userId, userEmail, onBack }) 
         <title>Tarifs - Plan Unique et Premium | Coach Running IA</title>
         <meta name="description" content="Plans d'entraînement course à pied personnalisés par IA dès 9,90€. Abonnement mensuel ou annuel. Marathon, semi, trail, 10km." />
         <link rel="canonical" href="https://coachrunningia.fr/pricing" />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content="Tarifs - Plan Unique et Premium | Coach Running IA" />
+        <meta name="twitter:description" content="Plans d'entraînement course à pied personnalisés par IA dès 9,90€. Abonnement mensuel ou annuel. Marathon, semi, trail, 10km." />
+        <meta name="twitter:image" content="https://coachrunningia.fr/og-image.png" />
       </Helmet>
       <div className="max-w-5xl mx-auto">
 

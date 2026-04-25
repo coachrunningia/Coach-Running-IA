@@ -72,6 +72,10 @@ const VMACalculatorPage: React.FC = () => {
         <meta property="og:title" content="Calculateur VMA : Estimez Votre Vitesse Maximale Aérobie" />
         <meta property="og:description" content="Calculez votre VMA gratuitement avec les tests Cooper, Demi-Cooper, VAMEVAL ou par temps de course. Zones d'entraînement personnalisées." />
         <meta property="og:type" content="website" />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content="Calculateur VMA : Estimez Votre Vitesse Maximale Aérobie | Test Gratuit" />
+        <meta name="twitter:description" content="Calculez votre VMA gratuitement. Tests Cooper, VAMEVAL ou estimation par temps de course. Zones d'entraînement personnalisées." />
+        <meta name="twitter:image" content="https://coachrunningia.fr/og-image.png" />
       </Helmet>
 
       <div className="min-h-screen bg-gradient-to-b from-slate-50 to-white">

@@ -61,6 +61,10 @@ const MarathonLanding: React.FC<MarathonLandingProps> = ({ user, onPlanGeneratio
             "acceptedAnswer": { "@type": "Answer", "text": faq.answer }
           }))
         })}</script>
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content="Plan Entraînement Marathon Personnalisé par IA | Coach Running IA" />
+        <meta name="twitter:description" content="Obtenez votre plan marathon sur-mesure en 2 min : 12 à 20 semaines, allures calculées sur votre VMA. Du premier marathon au sub 3h. 1ère semaine gratuite." />
+        <meta name="twitter:image" content="https://coachrunningia.fr/og-image.png" />
       </Helmet>
 
       {/* HERO */}

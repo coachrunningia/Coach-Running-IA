@@ -61,6 +61,10 @@ const TrailLanding: React.FC<TrailLandingProps> = ({ user, onPlanGeneration, isG
             "acceptedAnswer": { "@type": "Answer", "text": faq.answer }
           }))
         })}</script>
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content="Plan Entraînement Trail Personnalisé par IA | Coach Running IA" />
+        <meta name="twitter:description" content="Générez votre plan trail sur-mesure en 2 min : D+ progressif, renforcement musculaire, rando-course. Trail court, long ou ultra." />
+        <meta name="twitter:image" content="https://coachrunningia.fr/og-image.png" />
       </Helmet>
 
       {/* HERO */}
