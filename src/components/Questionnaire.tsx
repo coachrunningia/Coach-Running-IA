@@ -152,7 +152,7 @@ const Questionnaire: React.FC<QuestionnaireProps> = ({ onComplete, isGenerating:
     if (step === 2) {
       if (data.goal === UserGoal.ROAD_RACE && !data.subGoal) errors.push("Choisissez une distance de course.");
       if (data.goal === UserGoal.FITNESS && !data.fitnessSubGoal) errors.push("Précisez votre objectif forme.");
-      if ((data.goal === UserGoal.ROAD_RACE || data.goal === UserGoal.TRAIL) && !data.raceDate)
+      if ((data.goal === UserGoal.ROAD_RACE || data.goal === UserGoal.TRAIL || data.goal === UserGoal.HYROX) && !data.raceDate)
         errors.push("La date de la course est obligatoire.");
       if (data.startDate && data.raceDate && new Date(data.startDate) >= new Date(data.raceDate))
         errors.push("La date de début doit être avant la date de la course.");
@@ -346,8 +346,8 @@ const Questionnaire: React.FC<QuestionnaireProps> = ({ onComplete, isGenerating:
         <p className="text-slate-500">Précisons les paramètres techniques.</p>
       </div>
 
-      {/* Date de course - uniquement pour Course sur route et Trail */}
-      {(data.goal === UserGoal.ROAD_RACE || data.goal === UserGoal.TRAIL) && (
+      {/* Date de course - pour Course sur route, Trail et Hyrox */}
+      {(data.goal === UserGoal.ROAD_RACE || data.goal === UserGoal.TRAIL || data.goal === UserGoal.HYROX) && (
         <div className="grid md:grid-cols-2 gap-4">
           <div className="space-y-2">
             <label className="block text-sm font-bold text-slate-700 flex items-center gap-2"><Calendar size={16} /> Date de la course</label>
@@ -390,8 +390,8 @@ const Questionnaire: React.FC<QuestionnaireProps> = ({ onComplete, isGenerating:
         </div>
       )}
 
-      {/* Temps visé - uniquement pour Course sur route et Trail */}
-      {(data.goal === UserGoal.ROAD_RACE || data.goal === UserGoal.TRAIL) && (
+      {/* Temps visé - pour Course sur route, Trail et Hyrox */}
+      {(data.goal === UserGoal.ROAD_RACE || data.goal === UserGoal.TRAIL || data.goal === UserGoal.HYROX) && (
         <div className="space-y-2">
           <label className="block text-sm font-bold text-slate-700 flex items-center gap-2"><Clock size={16} /> Temps visé (optionnel)</label>
           <div className="flex items-center gap-2">
@@ -469,6 +469,29 @@ const Questionnaire: React.FC<QuestionnaireProps> = ({ onComplete, isGenerating:
             </div>
           </div>
           <p className="text-xs text-orange-600 italic">Optionnel - Aide à calibrer la progression</p>
+        </div>
+      )}
+
+      {/* HYROX */}
+      {data.goal === UserGoal.HYROX && (
+        <div className="p-4 bg-violet-50 rounded-2xl border border-violet-100 space-y-4">
+          <div className="flex items-center gap-2 text-violet-800 font-bold"><Activity size={18} /> Prépa Course Hyrox</div>
+          <p className="text-xs text-violet-600">Ce programme couvre <strong>uniquement la partie course à pied</strong> de ta préparation Hyrox. Combine-le avec tes entraînements fonctionnels (rameur, sled, wall balls, etc.).</p>
+          <div className="grid grid-cols-2 gap-4">
+            <div>
+              <label className="block text-xs font-bold text-violet-700 mb-1">Volume actuel (km/sem)</label>
+              <input type="number" min={0} disabled={isGenerating} placeholder="Ex: 20 (0 si débutant)" value={data.currentWeeklyVolume !== undefined && data.currentWeeklyVolume !== null ? data.currentWeeklyVolume : ''}
+                onChange={e => updateData('currentWeeklyVolume', e.target.value === '' ? undefined as any : parseInt(e.target.value))}
+                className="w-full p-2 rounded-lg border-violet-200" />
+            </div>
+            <div>
+              <label className="block text-xs font-bold text-violet-700 mb-1">Temps Hyrox précédent</label>
+              <input type="text" disabled={isGenerating} placeholder="Ex: 1h15 (optionnel)" value={data.hyroxPreviousTime || ''}
+                onChange={e => updateData('hyroxPreviousTime', e.target.value)}
+                className="w-full p-2 rounded-lg border-violet-200" />
+            </div>
+          </div>
+          <p className="text-xs text-violet-500 italic">Le temps Hyrox précédent aide à contextualiser ton niveau — il n'est pas utilisé pour calculer les allures.</p>
         </div>
       )}
 

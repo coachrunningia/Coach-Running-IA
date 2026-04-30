@@ -884,6 +884,7 @@ const MAX_SESSION_KM: Record<string, Record<string, number>> = {
   'Trail30+':  { deb: 25, inter: 32, conf: 35, expert: 45 },
   'Trail60+':  { deb: 30, inter: 40, conf: 50, expert: 55 },
   'Trail100+': { deb: 40, inter: 55, conf: 65, expert: 70 },
+  'Hyrox':     { deb: 8,  inter: 12, conf: 14, expert: 15 },
   'PertePoids':{ deb: 8,  inter: 12, conf: 14, expert: 15 },
   'Maintien':  { deb: 10, inter: 15, conf: 17, expert: 18 },
 };
@@ -894,6 +895,7 @@ const MAX_SL_DURATION: Record<string, Record<string, number>> = {
   '10K':       { deb: 60, inter: 75, conf: 85, expert: 90 },
   'Semi':      { deb: 90, inter: 105, conf: 115, expert: 120 },
   'Marathon':  { deb: 120, inter: 135, conf: 145, expert: 150 },
+  'Hyrox':     { deb: 55, inter: 65, conf: 75, expert: 80 },
   'VK':        { deb: 60, inter: 80, conf: 100, expert: 120 },
   'TrailSteep':{ deb: 75, inter: 100, conf: 120, expert: 140 },
   'Trail<30':  { deb: 90, inter: 120, conf: 140, expert: 150 },
@@ -910,6 +912,7 @@ const MAX_WEEKLY_VOLUME: Record<string, Record<string, number>> = {
   '10K':       { deb: 30, inter: 50, conf: 55, expert: 65 },
   'Semi':      { deb: 35, inter: 55, conf: 60, expert: 70 },
   'Marathon':  { deb: 45, inter: 65, conf: 75, expert: 85 },
+  'Hyrox':     { deb: 25, inter: 40, conf: 50, expert: 55 },
   'VK':        { deb: 20, inter: 30, conf: 35, expert: 45 },
   'TrailSteep':{ deb: 25, inter: 35, conf: 45, expert: 55 },
   'Trail<30':  { deb: 35, inter: 50, conf: 55, expert: 65 },
@@ -926,6 +929,7 @@ const MIN_SL_PROPORTION: Record<string, Record<string, number>> = {
   '10K':       { deb: 0.30, inter: 0.30, conf: 0.30, expert: 0.30 },
   'Semi':      { deb: 0.32, inter: 0.32, conf: 0.30, expert: 0.30 },
   'Marathon':  { deb: 0.35, inter: 0.35, conf: 0.33, expert: 0.30 },
+  'Hyrox':     { deb: 0.28, inter: 0.28, conf: 0.28, expert: 0.25 },
   'VK':        { deb: 0.28, inter: 0.28, conf: 0.25, expert: 0.25 },
   'TrailSteep':{ deb: 0.30, inter: 0.30, conf: 0.28, expert: 0.28 },
   'Trail<30':  { deb: 0.33, inter: 0.33, conf: 0.30, expert: 0.30 },
@@ -942,6 +946,7 @@ const MIN_SL_DURATION_MIN: Record<string, Record<string, number>> = {
   '10K':       { deb: 35, inter: 35, conf: 35, expert: 35 },
   'Semi':      { deb: 40, inter: 45, conf: 45, expert: 45 },
   'Marathon':  { deb: 50, inter: 55, conf: 55, expert: 60 },
+  'Hyrox':     { deb: 30, inter: 35, conf: 35, expert: 40 },
   'VK':        { deb: 35, inter: 40, conf: 45, expert: 50 },
   'TrailSteep':{ deb: 40, inter: 45, conf: 50, expert: 55 },
   'Trail<30':  { deb: 40, inter: 45, conf: 50, expert: 50 },
@@ -958,6 +963,7 @@ const detectObjectiveFromData = (data: any): string => {
   const sub = (data.subGoal || '').toLowerCase();
   const name = (data.name || '').toLowerCase();
   if (goal.includes('perte')) return 'PertePoids';
+  if (goal.includes('hyrox')) return 'Hyrox';
   if (goal.includes('maintien') || goal.includes('remise')) return 'Maintien';
   if (goal.includes('trail') || name.includes('trail')) {
     const td = data.trailDetails?.distance || 0;
@@ -1717,6 +1723,10 @@ const buildPlanName = (data: QuestionnaireData, planDurationWeeks: number): stri
     const e = data.trailDetails.elevation || 0;
     const time = formattedTime ? ` en ${formattedTime}` : ' — Finisher';
     return `Préparation Trail ${d}km / ${e}m D+${time} — ${planDurationWeeks} sem.`;
+  }
+  if (goal.includes('Hyrox')) {
+    const time = formattedTime ? ` — Objectif ${formattedTime}` : '';
+    return `Prépa Course Hyrox${time} — ${planDurationWeeks} sem.`;
   }
   if (data.subGoal) {
     const time = formattedTime ? ` en ${formattedTime}` : ' — Finisher';
@@ -3190,7 +3200,39 @@ DIVERSITÉ OBLIGATOIRE :
 PRIORITÉ ABSOLUE : sécurité > régularité > progression > plaisir > dépense calorique.`;
 })() : ''}
 
-${(!data.targetTime || data.targetTime.trim() === '') && !goal.includes('Perte') && !goal.includes('Maintien') && !goal.includes('Remise') ? `🔴 PLAN FINISHER — RÈGLES SPÉCIFIQUES :
+${goal.includes('Hyrox') ? `🔴 PLAN HYROX — PRÉPA COURSE À PIED (OBLIGATOIRE) :
+Ce plan couvre UNIQUEMENT la partie course à pied de la préparation Hyrox.
+L'athlète fait ses entraînements fonctionnels (rameur, sled push, wall balls, burpees, etc.) À CÔTÉ de ce plan.
+${data.hyroxPreviousTime ? `Temps Hyrox précédent : ${data.hyroxPreviousTime} (pour contextualiser le niveau, pas pour calculer les allures).` : ''}
+
+FORMAT HYROX : 8 × 1km de course entrecoupés de 8 stations fonctionnelles.
+→ L'effort running est de type SEUIL FRACTIONNÉ avec coupures.
+→ La capacité à RELANCER après un effort non-running est la clé.
+
+SÉANCES SPÉCIFIQUES HYROX (à intégrer dès la phase développement) :
+- **Simulation Hyrox** : 8×1km à allure seuil (${paces?.seuilPace || '4:30'} min/km), récup 2min entre chaque (marche ou trot). C'est LA séance clé. 1x/semaine en phase spécifique.
+- **Relances sous fatigue** : footing EF 20min → puis 6×(30s sprint à VMA + 1min30 récup) → 10min EF. Simule la relance après une station.
+- **Tempo Run** : 20-30min continu à allure seuil (${paces?.seuilPace || '4:30'} min/km). Endurance spécifique Hyrox.
+- **Intervalles courts haute intensité** : 12×400m à allure VMA (${paces?.vmaPace || '3:30'} min/km), récup 1min. Développe la puissance.
+- **Footings EF** : base aérobie classique, 30-50min.
+- **Renforcement prévention** : gainage, quadriceps, mollets — protège contre les blessures. PAS de renfo fonctionnel Hyrox (il le fait à côté).
+
+STRUCTURE SPÉCIFIQUE :
+- Phase FONDAMENTALE : Footings EF + 1 fartlek doux + Renfo prévention. PAS de simulation Hyrox encore.
+- Phase DÉVELOPPEMENT : 1 séance seuil/semaine (tempo ou intervalles) + footings EF + renfo. Introduction progressive de l'intensité.
+- Phase SPÉCIFIQUE : 1 simulation Hyrox (8×1km) + 1 séance relances sous fatigue + footings EF + renfo. C'est ici que le plan devient spécifique.
+- Phase AFFÛTAGE : Rappels d'allure courts + footings légers. Volume -40%.
+
+VOLUME : le Hyrox est un effort de 8km running. Les SL ne dépassent PAS 1h15 (12-15km max).
+Le volume hebdo reste modéré (20-50km selon le niveau) car l'athlète fait du cross-training à côté.
+
+MESSAGE IMPORTANT dans chaque advice :
+"Ce programme couvre la partie course de ta préparation Hyrox. Planifie tes entraînements fonctionnels (stations) sur les jours off ou en complément des footings EF."
+
+NOMMAGE : types autorisés = "Jogging", "Sortie Longue", "Fractionné", "Renforcement". Le titre des séances DOIT mentionner "Hyrox" quand c'est une séance spécifique (ex: "Simulation Hyrox 8×1km", "Relances sous fatigue Hyrox").
+` : ''}
+
+${(!data.targetTime || data.targetTime.trim() === '') && !goal.includes('Perte') && !goal.includes('Maintien') && !goal.includes('Remise') && !goal.includes('Hyrox') ? `🔴 PLAN FINISHER — RÈGLES SPÉCIFIQUES :
 L'objectif est de TERMINER la course, pas de performer. Adapte la philosophie du plan :
 - Priorité ABSOLUE : endurance fondamentale (EF), régularité, résistance à la fatigue
 - MOINS d'intensité que pour un plan chrono : pas de fractionné VMA avant la phase développement, seuil limité

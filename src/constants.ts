@@ -4,6 +4,7 @@ import { UserGoal, RunningLevel } from './types';
 export const GOAL_OPTIONS = [
   { value: UserGoal.ROAD_RACE, label: "Course sur route", icon: "🛣️" },
   { value: UserGoal.TRAIL, label: "Trail & Nature", icon: "🏔️" },
+  { value: UserGoal.HYROX, label: "Hyrox — Prépa Course", icon: "🏋️" },
   { value: UserGoal.LOSE_WEIGHT, label: "Perte de poids", icon: "⚖️" },
   { value: UserGoal.FITNESS, label: "Maintien en forme / Santé", icon: "❤️" },
 ];

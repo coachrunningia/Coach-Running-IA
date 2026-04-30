@@ -4,6 +4,7 @@ export enum UserGoal {
   FITNESS = 'Maintien en forme',
   ROAD_RACE = 'Course sur route',
   TRAIL = 'Trail',
+  HYROX = 'Hyrox',
 }
 
 export enum RunningLevel {
@@ -59,6 +60,9 @@ export interface QuestionnaireData {
   // Remise en forme
   fitnessSubGoal?: string;
   lastActivity?: string;
+
+  // Hyrox
+  hyroxPreviousTime?: string; // Temps Hyrox précédent (optionnel, ex: "1h15")
 
   comments?: string;
   email?: string;
