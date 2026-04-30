@@ -380,7 +380,15 @@ export function buildRenfoMainSet(params: {
     injuryDesc.includes('tendon') || injuryDesc.includes('tendinite') ||
     injuryDesc.includes('périoste') || injuryDesc.includes('periostite') ||
     injuryDesc.includes('fasci') || injuryDesc.includes('aponévrose') ||
-    injuryDesc.includes('ankle') || injuryDesc.includes('shin')
+    injuryDesc.includes('ankle') || injuryDesc.includes('shin') ||
+    injuryDesc.includes('mollet') || injuryDesc.includes('calf')
+  );
+
+  const hasMuscleTear = hasInjury && (
+    injuryDesc.includes('déchirure') || injuryDesc.includes('dechirure') ||
+    injuryDesc.includes('claquage') || injuryDesc.includes('élongation') ||
+    injuryDesc.includes('elongation') || injuryDesc.includes('contracture') ||
+    injuryDesc.includes('tear') || injuryDesc.includes('strain')
   );
 
   const hasHipInjury = hasInjury && (
@@ -391,8 +399,8 @@ export function buildRenfoMainSet(params: {
   const hasJointInjury = hasKneeInjury || hasAnkleInjury || hasHipInjury || (hasInjury && (
     injuryDesc.includes('articul') || injuryDesc.includes('statique')
   ));
-  const hasAnySpecificInjury = hasPosteriorChainInjury || hasKneeInjury || hasBackInjury || hasAnkleInjury;
-  const needsLowImpact = isOverweight || hasJointInjury;
+  const hasAnySpecificInjury = hasPosteriorChainInjury || hasKneeInjury || hasBackInjury || hasAnkleInjury || hasMuscleTear;
+  const needsLowImpact = isOverweight || hasJointInjury || hasMuscleTear;
 
   const isOddWeek = weekNumber % 2 === 1;
   const levelFactor = getLevelFactor(level);
@@ -641,7 +649,15 @@ export function buildRenfoMainSet(params: {
   // ---- Filtrer les exercices à risque articulaire (squat bulgare, fentes sautées, pliométrie) ----
   // needsLowImpact = isOverweight (IMC ≥ 30) OU hasJointInjury (blessure articulaire)
   if (needsLowImpact) {
-    const riskyPatterns = ['bulgare', 'sauté', 'sautée', 'sautés', 'sautées', 'box jump', 'pliomét', 'pliomet'];
+    let riskyPatterns = ['bulgare', 'sauté', 'sautée', 'sautés', 'sautées', 'box jump', 'pliomét', 'pliomet'];
+    // Déchirure musculaire (mollet, ischio, etc.) : filtrer aussi corde à sauter, skipping, tout impact
+    if (hasMuscleTear) {
+      riskyPatterns = [...riskyPatterns, 'corde', 'skipping', 'bondissant', 'drop jump'];
+    }
+    // Blessure mollet spécifique : filtrer les extensions mollets explosives
+    if (injuryDesc.includes('mollet') || injuryDesc.includes('calf')) {
+      riskyPatterns = [...riskyPatterns, 'mollet'];
+    }
     const safeExercises = exercises.filter(e =>
       !riskyPatterns.some(p => e.name.toLowerCase().includes(p))
     );
