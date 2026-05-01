@@ -17,6 +17,7 @@ const toolsLinks = [
 
 const plansLinks = [
   { name: "Débutant", path: "/programme-running-debutant", desc: "Commencer à courir" },
+  { name: "10 km", path: "/plan-10km", desc: "Programme 10 kilomètres" },
   { name: "Semi-marathon", path: "/plan-semi-marathon", desc: "21,1 km" },
   { name: "Marathon", path: "/plan-marathon", desc: "42,195 km" },
   { name: "Trail", path: "/plan-trail", desc: "Nature & dénivelé" },

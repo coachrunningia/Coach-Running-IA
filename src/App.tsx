@@ -42,6 +42,7 @@ const MarathonLanding = lazy(() => import('./components/MarathonLanding'));
 const TrailLanding = lazy(() => import('./components/TrailLanding'));
 const HyroxLanding = lazy(() => import('./components/HyroxLanding'));
 const BeginnerLanding = lazy(() => import('./components/BeginnerLanding'));
+const TenKLanding = lazy(() => import('./components/TenKLanding'));
 const PaceConverterPage = lazy(() => import('./components/tools/PaceConverterPage'));
 const VMACalculatorPage = lazy(() => import('./components/tools/VMACalculatorPage'));
 const RacePredictorPage = lazy(() => import('./components/tools/RacePredictorPage'));
@@ -216,6 +217,7 @@ const AppContent = () => {
         <Route path="/plan-trail" element={<TrailLanding user={user} onPlanGeneration={handlePlanGeneration} isGenerating={isGenerating} />} />
         <Route path="/plan-hyrox" element={<HyroxLanding user={user} onPlanGeneration={handlePlanGeneration} isGenerating={isGenerating} />} />
         <Route path="/programme-running-debutant" element={<BeginnerLanding user={user} onPlanGeneration={handlePlanGeneration} isGenerating={isGenerating} />} />
+        <Route path="/plan-10km" element={<TenKLanding user={user} onPlanGeneration={handlePlanGeneration} isGenerating={isGenerating} />} />
         <Route path="/glossary" element={<GlossaryPage />} />
         <Route path="/cgv" element={<CGVPage />} />
         <Route path="/confidentialite" element={<ConfidentialitePage />} />
