@@ -350,7 +350,7 @@ const Questionnaire: React.FC<QuestionnaireProps> = ({ onComplete, isGenerating:
       {(data.goal === UserGoal.ROAD_RACE || data.goal === UserGoal.TRAIL || data.goal === UserGoal.HYROX) && (
         <div className="grid md:grid-cols-2 gap-4">
           <div className="space-y-2">
-            <label className="block text-sm font-bold text-slate-700 flex items-center gap-2"><Calendar size={16} /> {data.goal === UserGoal.HYROX ? 'Date du Hyrox' : 'Date de la course'}</label>
+            <label className="block text-sm font-bold text-slate-700 flex items-center gap-2"><Calendar size={16} /> {data.goal === UserGoal.HYROX ? "Date de l'Hyrox" : 'Date de la course'}</label>
             <input type="date" min={minRaceDateStr} disabled={isGenerating} className="w-full p-3 border rounded-xl focus:ring-2 focus:ring-accent/50 outline-none"
               onChange={(e) => updateData('raceDate', e.target.value)}
               value={data.raceDate || ''}

@@ -2005,9 +2005,12 @@ const calculatePeriodizationPlan = (
   const isVK = isTrail && (trailDistance || 0) <= 5 && dPlusPerKm >= 150;
   const isTrailSteep = !isVK && isTrail && (trailDistance || 0) <= 15 && dPlusPerKm >= 80;
 
+  const isHyrox = goal.includes('Hyrox');
+
   let maxVolume: number;
   if (level === 'Débutant (0-1 an)') {
-    if (isPertePoids) maxVolume = 20;
+    if (isHyrox) maxVolume = 20;
+    else if (isPertePoids) maxVolume = 20;
     else if (isMaintien) maxVolume = 25;
     else if (isVK) maxVolume = 20;
     else if (isTrailSteep) maxVolume = 25;
@@ -2020,7 +2023,8 @@ const calculatePeriodizationPlan = (
     else if (is10k) maxVolume = 30;
     else maxVolume = 25; // 5K
   } else if (level === 'Expert (Performance)') {
-    if (isPertePoids) maxVolume = 45;
+    if (isHyrox) maxVolume = 50;
+    else if (isPertePoids) maxVolume = 45;
     else if (isMaintien) maxVolume = 55;
     else if (isVK) maxVolume = 45;
     else if (isTrailSteep) maxVolume = 55;
@@ -2033,7 +2037,8 @@ const calculatePeriodizationPlan = (
     else if (is10k) maxVolume = 65;
     else maxVolume = 60; // 5K
   } else if (level === 'Confirmé (Compétition)') {
-    if (isPertePoids) maxVolume = 35;
+    if (isHyrox) maxVolume = 40;
+    else if (isPertePoids) maxVolume = 35;
     else if (isMaintien) maxVolume = 45;
     else if (isVK) maxVolume = 35;
     else if (isTrailSteep) maxVolume = 45;
@@ -2047,7 +2052,8 @@ const calculatePeriodizationPlan = (
     else maxVolume = 46; // 5K
   } else {
     // Intermédiaire
-    if (isPertePoids) maxVolume = 30;
+    if (isHyrox) maxVolume = 30;
+    else if (isPertePoids) maxVolume = 30;
     else if (isMaintien) maxVolume = 40;
     else if (isVK) maxVolume = 30;
     else if (isTrailSteep) maxVolume = 35;
@@ -3200,37 +3206,113 @@ DIVERSITÉ OBLIGATOIRE :
 PRIORITÉ ABSOLUE : sécurité > régularité > progression > plaisir > dépense calorique.`;
 })() : ''}
 
-${goal.includes('Hyrox') ? `🔴 PLAN HYROX — PRÉPA COURSE À PIED (OBLIGATOIRE) :
+${goal.includes('Hyrox') ? (() => {
+  const hyroxFreq = data.frequency || 3;
+  const hyroxVma = vmaEstimate?.vma || data.vma || 14;
+  const hyroxLevel = data.level || 'Intermédiaire (Régulier)';
+  const hyroxIsBeginnerish = hyroxLevel.includes('Débutant') || hyroxVma < 12;
+  const hyroxPrevTime = data.hyroxPreviousTime || '';
+  const hyroxVolActuel = data.currentWeeklyVolume;
+  return `🔴 PLAN HYROX — PRÉPA COURSE À PIED (OBLIGATOIRE) :
 Ce plan couvre UNIQUEMENT la partie course à pied de la préparation Hyrox.
 L'athlète fait ses entraînements fonctionnels (rameur, sled push, wall balls, burpees, etc.) À CÔTÉ de ce plan.
-${data.hyroxPreviousTime ? `Temps Hyrox précédent : ${data.hyroxPreviousTime} (pour contextualiser le niveau, pas pour calculer les allures).` : ''}
+${hyroxPrevTime ? `Temps Hyrox précédent : ${hyroxPrevTime} (contexte niveau, pas pour les allures).` : ''}
 
 FORMAT HYROX : 8 × 1km de course entrecoupés de 8 stations fonctionnelles.
 → L'effort running est de type SEUIL FRACTIONNÉ avec coupures.
 → La capacité à RELANCER après un effort non-running est la clé.
+→ Distance running totale : 8 km. Ce n'est PAS un 10km continu.
 
-SÉANCES SPÉCIFIQUES HYROX (à intégrer dès la phase développement) :
-- **Simulation Hyrox** : 8×1km à allure seuil (${paces?.seuilPace || '4:30'} min/km), récup 2min entre chaque (marche ou trot). C'est LA séance clé. 1x/semaine en phase spécifique.
-- **Relances sous fatigue** : footing EF 20min → puis 6×(30s sprint à VMA + 1min30 récup) → 10min EF. Simule la relance après une station.
-- **Tempo Run** : 20-30min continu à allure seuil (${paces?.seuilPace || '4:30'} min/km). Endurance spécifique Hyrox.
-- **Intervalles courts haute intensité** : 12×400m à allure VMA (${paces?.vmaPace || '3:30'} min/km), récup 1min. Développe la puissance.
-- **Footings EF** : base aérobie classique, 30-50min.
-- **Renforcement prévention** : gainage, quadriceps, mollets — protège contre les blessures. PAS de renfo fonctionnel Hyrox (il le fait à côté).
+═══════════════════════════════════════
+GESTION PAR FRÉQUENCE — ${hyroxFreq} SÉANCES/SEMAINE
+═══════════════════════════════════════
+${hyroxFreq <= 2 ? `⚠️ FRÉQUENCE BASSE (${hyroxFreq}x/sem) — L'athlète fait beaucoup de fonctionnel à côté.
+PRIORITÉ DES SÉANCES (par ordre d'importance) :
+1. 🔑 Séance clé Hyrox (simulation 8×1km OU tempo seuil OU relances sous fatigue) — TOUJOURS présente
+2. Footing EF (base aérobie, récupération active)
+RENFO : intégré en fin de footing EF (10 min de gainage/proprioception) plutôt qu'une séance dédiée.
+Volume cible : ${hyroxIsBeginnerish ? '10-15' : '15-25'} km/sem max. Chaque séance compte.` :
+hyroxFreq === 3 ? `FRÉQUENCE STANDARD (3x/sem) — Bon équilibre running/fonctionnel.
+STRUCTURE HEBDO IDÉALE :
+1. 🔑 Séance clé Hyrox (simulation OU tempo OU relances) — OBLIGATOIRE
+2. Footing EF (30-45 min) — base aérobie
+3. Renforcement prévention (25-35 min) OU 2e footing EF
+Volume cible : ${hyroxIsBeginnerish ? '15-20' : '20-35'} km/sem.` :
+hyroxFreq === 4 ? `FRÉQUENCE ÉLEVÉE (4x/sem) — Athlète qui investit dans le running.
+STRUCTURE HEBDO IDÉALE :
+1. 🔑 Séance clé Hyrox (simulation OU tempo OU relances) — OBLIGATOIRE
+2. Footing EF (35-50 min) — base aérobie
+3. 2e séance qualité OU footing progressif
+4. Renforcement prévention
+Volume cible : ${hyroxIsBeginnerish ? '20-30' : '30-45'} km/sem.` :
+`FRÉQUENCE HAUTE (${hyroxFreq}x/sem) — Volume running important.
+STRUCTURE HEBDO IDÉALE :
+1. 🔑 Séance clé Hyrox (simulation 8×1km) — OBLIGATOIRE
+2. 2e séance qualité (tempo OU relances OU VMA courte)
+3-4. Footings EF variés (progressif, nature, technique)
+5. Renforcement prévention
+Volume cible : ${hyroxIsBeginnerish ? '25-35' : '35-50'} km/sem.
+⚠️ Attention à la charge totale (running + fonctionnel). Prévoir au moins 1 jour OFF complet/semaine.`}
 
-STRUCTURE SPÉCIFIQUE :
-- Phase FONDAMENTALE : Footings EF + 1 fartlek doux + Renfo prévention. PAS de simulation Hyrox encore.
-- Phase DÉVELOPPEMENT : 1 séance seuil/semaine (tempo ou intervalles) + footings EF + renfo. Introduction progressive de l'intensité.
-- Phase SPÉCIFIQUE : 1 simulation Hyrox (8×1km) + 1 séance relances sous fatigue + footings EF + renfo. C'est ici que le plan devient spécifique.
-- Phase AFFÛTAGE : Rappels d'allure courts + footings légers. Volume -40%.
-
-VOLUME : le Hyrox est un effort de 8km running. Les SL ne dépassent PAS 1h15 (12-15km max).
-Le volume hebdo reste modéré (20-50km selon le niveau) car l'athlète fait du cross-training à côté.
-
-MESSAGE IMPORTANT dans chaque advice :
-"Ce programme couvre la partie course de ta préparation Hyrox. Planifie tes entraînements fonctionnels (stations) sur les jours off ou en complément des footings EF."
-
-NOMMAGE : types autorisés = "Jogging", "Sortie Longue", "Fractionné", "Renforcement". Le titre des séances DOIT mentionner "Hyrox" quand c'est une séance spécifique (ex: "Simulation Hyrox 8×1km", "Relances sous fatigue Hyrox").
+${hyroxIsBeginnerish ? `
+🚶‍♂️ ADAPTATION DÉBUTANT / VMA BASSE (${hyroxVma.toFixed(1)} km/h) :
+- Semaines 1-3 : PAS de séance seuil. Uniquement footings EF + renfo. Construire la base.
+- Semaine 4+ : introduction progressive avec fartlek doux (accélérations 20-30s au feeling, récup 1min30).
+- Simulation Hyrox (8×1km) : PAS AVANT la phase spécifique. Et commencer par 4×1km puis monter à 6 puis 8.
+- Allure des 1km : commencer à allure EA (${paces?.eaPace || '5:30'} min/km), pas au seuil.
+- Les footings peuvent inclure de la marche si nécessaire.
 ` : ''}
+
+${hyroxVolActuel !== undefined && hyroxVolActuel !== null ? `VOLUME ACTUEL DÉCLARÉ : ${hyroxVolActuel} km/sem.
+${hyroxVolActuel === 0 ? '→ L\'athlète ne court PAS actuellement. Démarrer à 8-12 km/sem max. Progression très progressive. Marche/course autorisée.' :
+hyroxVolActuel < 15 ? `→ Volume faible. Démarrer à ${Math.max(hyroxVolActuel, 8)} km/sem. Ne pas dépasser +15%/semaine.` :
+hyroxVolActuel < 30 ? `→ Volume modéré. Démarrer à ${Math.round(hyroxVolActuel * 0.9)} km/sem. Marge de progression confortable.` :
+`→ Volume élevé (${hyroxVolActuel}km). Attention : l'athlète fait aussi du fonctionnel. Ne pas cumuler > ${hyroxVolActuel + 10} km running/sem.`}
+` : ''}
+
+CATALOGUE DE SÉANCES HYROX (choisir selon la phase et la fréquence) :
+
+1. **Simulation Hyrox (séance reine)** : 8×1km à allure seuil (${paces?.seuilPace || '4:30'}/km), récup 2min marche/trot entre chaque.
+   → Phase spécifique uniquement. ${hyroxIsBeginnerish ? 'Débutant : commencer par 4×1km puis progresser.' : '1x/semaine en phase spécifique.'}
+
+2. **Relances sous fatigue** : 15min EF → 6×(30s accélération VMA + 1min30 récup trot) → 10min EF.
+   → Simule la relance après une station. Phase développement+.
+
+3. **Tempo Run Hyrox** : 20-30min continu à allure seuil (${paces?.seuilPace || '4:30'}/km).
+   → Endurance spécifique. Phase développement+.
+
+4. **Intervalles courts** : 10-12×400m à allure VMA (${paces?.vmaPace || '3:30'}/km), récup 1min.
+   → Puissance et vitesse. Phase développement+.
+
+5. **Fartlek libre** : footing EF avec 6-8 accélérations de 20-40s au feeling, récup libre.
+   → Introduction à l'intensité. Dès la phase fondamentale (S3+).
+
+6. **Footing EF** : 30-50min à ${paces?.efPace || '6:00'}/km. Base aérobie.
+   → Toutes les phases. Varier les parcours et les durées.
+
+7. **Footing progressif** : départ EF → finir 5-10min à allure EA ou seuil.
+   → Transition entre EF et intensité. Toutes les phases.
+
+8. **Renforcement prévention** : gainage, quadriceps, mollets, proprioception. 25-35min.
+   → Toutes les phases. PAS de fonctionnel Hyrox (il le fait à côté). Focus protection articulaire.
+
+PHASES :
+- FONDAMENTALE : Footings EF variés + fartlek doux dès S3 + Renfo. PAS de simulation Hyrox.
+- DÉVELOPPEMENT : 1 séance qualité/sem (tempo OU intervalles OU relances) + footings EF + renfo.
+- SPÉCIFIQUE : 1 simulation Hyrox (8×1km) + ${hyroxFreq >= 4 ? '1 séance qualité (relances ou tempo) + ' : ''}footings EF + renfo.
+- AFFÛTAGE : volume -40%. Rappels d'allure courts (3-4×1km). Footings légers.
+
+VOLUME RUNNING HYROX (le running est 8km, pas 42km — adapter les volumes) :
+- Les SL ne dépassent PAS 1h15 (12-15km max).
+- Le volume hebdo doit rester MODÉRÉ car l'athlète fait du cross-training intense à côté.
+- Prévoir au moins 1 jour OFF complet sans running NI fonctionnel par semaine.
+
+MESSAGE dans chaque advice de séance :
+"Ce programme couvre la partie course à pied de ta préparation Hyrox. Planifie tes entraînements fonctionnels sur les jours off ou en complément des footings EF. Évite de cumuler une séance intense running et une séance fonctionnelle lourde le même jour."
+
+NOMMAGE : types = "Jogging", "Sortie Longue", "Fractionné", "Renforcement".
+Les titres des séances spécifiques DOIVENT mentionner "Hyrox" (ex: "Simulation Hyrox 8×1km", "Relances sous fatigue Hyrox", "Tempo Hyrox").`;
+})() : ''}
 
 ${(!data.targetTime || data.targetTime.trim() === '') && !goal.includes('Perte') && !goal.includes('Maintien') && !goal.includes('Remise') && !goal.includes('Hyrox') ? `🔴 PLAN FINISHER — RÈGLES SPÉCIFIQUES :
 L'objectif est de TERMINER la course, pas de performer. Adapte la philosophie du plan :
