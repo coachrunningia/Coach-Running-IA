@@ -238,7 +238,7 @@ const TenKLanding: React.FC<TenKLandingProps> = ({ user, onPlanGeneration, isGen
               <li><strong>55-65 min</strong> : débutant — l'objectif est de terminer. Allure 5'30-6'30/km.</li>
               <li><strong>45-55 min</strong> : intermédiaire — entraînement régulier 2-3×/semaine. Allure 4'30-5'30/km.</li>
               <li><strong>38-45 min</strong> : confirmé — entraînement structuré 3-4×/semaine. Allure 3'48-4'30/km.</li>
-              <li><strong>Moins de 38 min</strong> : expert — volume élevé, fractionné spécifique, VMA > 16 km/h.</li>
+              <li><strong>Moins de 38 min</strong> : expert — volume élevé, fractionné spécifique, VMA supérieure à 16 km/h.</li>
             </ul>
 
             <h3 className="text-xl font-bold text-slate-900 mt-8 mb-4">Les erreurs à éviter sur 10 km</h3>
