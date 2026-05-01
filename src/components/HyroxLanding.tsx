@@ -44,12 +44,12 @@ const HyroxLanding: React.FC<HyroxLandingProps> = ({ user, onPlanGeneration, isG
   return (
     <div className="bg-white">
       <Helmet>
-        <title>Programme Course à Pied Hyrox — Plan Running Spécifique | Coach Running IA</title>
-        <meta name="description" content="Optimisez la partie running de votre Hyrox avec un programme course à pied spécifique : simulations 8×1km au seuil, relances sous fatigue, tempo. À combiner avec votre entraînement fonctionnel. 1ère semaine gratuite." />
+        <title>Programme Course à Pied Hyrox — Plan d'Entraînement Running Hyrox Personnalisé | Coach Running IA</title>
+        <meta name="description" content="Programme course à pied Hyrox personnalisé par IA : plan d'entraînement running spécifique avec simulations 8×1km au seuil, relances sous fatigue et tempo. À combiner avec votre préparation fonctionnelle. 1ère semaine gratuite." />
         <meta name="keywords" content="programme course à pied hyrox, plan running hyrox, entraînement course hyrox, préparation running hyrox, plan hyrox course à pied, améliorer running hyrox, 8x1km hyrox, allure hyrox, entraînement hyrox running" />
         <link rel="canonical" href="https://coachrunningia.fr/plan-hyrox" />
-        <meta property="og:title" content="Programme Course à Pied Hyrox — Plan Running Spécifique | Coach Running IA" />
-        <meta property="og:description" content="Plan running spécifique Hyrox : simulations 8×1km au seuil, relances sous fatigue, tempo. 1ère semaine gratuite." />
+        <meta property="og:title" content="Programme Course à Pied Hyrox — Plan d'Entraînement Personnalisé | Coach Running IA" />
+        <meta property="og:description" content="Programme course à pied Hyrox : plan d'entraînement running avec simulations 8×1km, relances sous fatigue. 1ère semaine gratuite." />
         <meta property="og:url" content="https://coachrunningia.fr/plan-hyrox" />
         <meta property="og:image" content="https://coachrunningia.fr/og-image.png" />
         <script type="application/ld+json">{JSON.stringify({
@@ -62,8 +62,8 @@ const HyroxLanding: React.FC<HyroxLandingProps> = ({ user, onPlanGeneration, isG
           }))
         })}</script>
         <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content="Programme Course à Pied Hyrox — Plan Running Spécifique | Coach Running IA" />
-        <meta name="twitter:description" content="Optimisez la partie running de votre Hyrox : simulations 8×1km, relances sous fatigue. 1ère semaine gratuite." />
+        <meta name="twitter:title" content="Programme Course à Pied Hyrox — Plan d'Entraînement Personnalisé | Coach Running IA" />
+        <meta name="twitter:description" content="Programme course à pied Hyrox : plan d'entraînement running avec simulations 8×1km, relances sous fatigue. 1ère semaine gratuite." />
         <meta name="twitter:image" content="https://coachrunningia.fr/og-image.png" />
       </Helmet>
 
@@ -76,7 +76,7 @@ const HyroxLanding: React.FC<HyroxLandingProps> = ({ user, onPlanGeneration, isG
 
         <div className="relative max-w-5xl mx-auto px-4 text-center">
           <h1 className="text-4xl md:text-5xl lg:text-6xl font-black mb-6 leading-tight">
-            Programme course à pied <span className="text-accent">Hyrox</span>
+            Programme course à pied <span className="text-accent">Hyrox</span> personnalisé
           </h1>
           <p className="text-xl md:text-2xl text-slate-300 mb-4 max-w-3xl mx-auto">
             Optimisez vos 8 km de running pour performer en Hyrox. Plan spécifique généré par IA, à combiner avec votre entraînement fonctionnel.
@@ -122,7 +122,7 @@ const HyroxLanding: React.FC<HyroxLandingProps> = ({ user, onPlanGeneration, isG
           <div className="text-center mb-12">
             <p className="text-accent font-bold text-sm tracking-wider uppercase mb-3">Ce qui change tout pour Hyrox</p>
             <h2 className="text-3xl md:text-4xl font-black text-slate-900 mb-4">
-              Plan 10km générique vs programme running Hyrox spécifique
+              Plan d'entraînement course à pied Hyrox vs plan 10km générique
             </h2>
             <p className="text-slate-500 max-w-2xl mx-auto text-lg">
               Un plan 10km classique ne vous prépare pas au format unique du Hyrox.
@@ -165,7 +165,7 @@ const HyroxLanding: React.FC<HyroxLandingProps> = ({ user, onPlanGeneration, isG
       <section className="py-16 md:py-24">
         <div className="max-w-5xl mx-auto px-4">
           <h2 className="text-3xl md:text-4xl font-black text-center text-slate-900 mb-4">
-            Pourquoi un programme course à pied spécifique Hyrox ?
+            Pourquoi un plan d'entraînement course à pied Hyrox spécifique ?
           </h2>
           <p className="text-center text-slate-500 mb-12 max-w-2xl mx-auto">
             Le running représente 8 km de votre Hyrox. C'est souvent là où se gagnent (ou se perdent) les minutes.
@@ -211,7 +211,7 @@ const HyroxLanding: React.FC<HyroxLandingProps> = ({ user, onPlanGeneration, isG
       <section className="py-16 md:py-24 bg-slate-50">
         <div className="max-w-4xl mx-auto px-4">
           <h2 className="text-3xl font-black text-slate-900 mb-8">
-            Comment préparer la partie course à pied du Hyrox ?
+            Comment préparer la partie course à pied de l'Hyrox ?
           </h2>
 
           <div className="prose prose-slate max-w-none">
@@ -224,7 +224,7 @@ const HyroxLanding: React.FC<HyroxLandingProps> = ({ user, onPlanGeneration, isG
               Contrairement à un 10 km classique, le running Hyrox est un effort fractionné par nature. Vos 8 km sont courus en 8 segments de 1 km, chacun précédé et suivi d'une station fonctionnelle. Cela signifie que vous devez être capable de <strong>relancer à allure seuil après un effort non-running</strong> — c'est la compétence clé que notre programme course à pied Hyrox développe.
             </p>
 
-            <h3 className="text-xl font-bold text-slate-900 mt-8 mb-4">Les séances clés du plan running Hyrox</h3>
+            <h3 className="text-xl font-bold text-slate-900 mt-8 mb-4">Les séances clés du programme course à pied Hyrox</h3>
             <ul className="text-slate-600 space-y-2 mb-6">
               <li><strong>Simulation Hyrox (8×1km)</strong> : la séance reine. 8 répétitions de 1 km à allure seuil avec 2 min de récupération entre chaque. Reproduit fidèlement l'effort de course en compétition.</li>
               <li><strong>Relances sous fatigue</strong> : footing facile puis accélérations intenses. Simule la capacité à repartir fort après une station fonctionnelle.</li>
