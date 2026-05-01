@@ -19,6 +19,7 @@ const plansLinks = [
   { name: "Semi-marathon", path: "/plan-semi-marathon", desc: "21,1 km" },
   { name: "Marathon", path: "/plan-marathon", desc: "42,195 km" },
   { name: "Trail", path: "/plan-trail", desc: "Nature & dénivelé" },
+  { name: "Hyrox", path: "/plan-hyrox", desc: "Prépa running Hyrox" },
 ];
 
 interface LayoutProps {
@@ -31,6 +32,8 @@ const Layout: React.FC<LayoutProps> = ({ children, user, setUser }) => {
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
   const [isToolsOpen, setIsToolsOpen] = React.useState(false);
   const [isPlansOpen, setIsPlansOpen] = React.useState(false);
+  const [isMobilePlansOpen, setIsMobilePlansOpen] = React.useState(false);
+  const [isMobileToolsOpen, setIsMobileToolsOpen] = React.useState(false);
   const location = useLocation();
 
   const handleLogout = () => {
@@ -210,12 +213,16 @@ const Layout: React.FC<LayoutProps> = ({ children, user, setUser }) => {
                   {link.name}
                 </Link>
               ))}
-{/* Plans Section Mobile */}
+{/* Plans Section Mobile — cliquable pour ouvrir/fermer */}
               <div className="border-t border-slate-100 pt-2 mt-2">
-                <div className="px-3 py-2 text-xs font-bold text-slate-400 uppercase tracking-wider flex items-center gap-2">
-                  🏃 Plans d'entraînement
-                </div>
-                {plansLinks.map((plan) => (
+                <button
+                  onClick={() => setIsMobilePlansOpen(!isMobilePlansOpen)}
+                  className="w-full px-3 py-2 text-xs font-bold text-slate-400 uppercase tracking-wider flex items-center justify-between"
+                >
+                  <span className="flex items-center gap-2">🏃 Plans d'entraînement</span>
+                  <ChevronDown size={14} className={`transition-transform ${isMobilePlansOpen ? "rotate-180" : ""}`} />
+                </button>
+                {isMobilePlansOpen && plansLinks.map((plan) => (
                   <Link
                     key={plan.path}
                     to={plan.path}
@@ -226,12 +233,16 @@ const Layout: React.FC<LayoutProps> = ({ children, user, setUser }) => {
                   </Link>
                 ))}
               </div>
-              {/* Outils Section Mobile */}
+              {/* Outils Section Mobile — cliquable pour ouvrir/fermer */}
               <div className="border-t border-slate-100 pt-2 mt-2">
-                <div className="px-3 py-2 text-xs font-bold text-slate-400 uppercase tracking-wider flex items-center gap-2">
-                  <Calculator size={14} /> Outils Running
-                </div>
-                {/* Lien vers la page index des outils */}
+                <button
+                  onClick={() => setIsMobileToolsOpen(!isMobileToolsOpen)}
+                  className="w-full px-3 py-2 text-xs font-bold text-slate-400 uppercase tracking-wider flex items-center justify-between"
+                >
+                  <span className="flex items-center gap-2"><Calculator size={14} /> Outils Running</span>
+                  <ChevronDown size={14} className={`transition-transform ${isMobileToolsOpen ? "rotate-180" : ""}`} />
+                </button>
+                {isMobileToolsOpen && <>
                 <Link
                   to="/outils"
                   className="block px-3 py-2 rounded-md text-sm font-semibold text-accent hover:bg-accent/10"
@@ -249,6 +260,7 @@ const Layout: React.FC<LayoutProps> = ({ children, user, setUser }) => {
                     {tool.name}
                   </Link>
                 ))}
+                </>}
               </div>
 
               {user ? (
