@@ -9,14 +9,24 @@ import { registerUser, savePlan, saveUserQuestionnaire, createEmailVerificationT
 interface QuestionnaireProps {
   initialGoal?: string;
   initialSubGoal?: string;
+  initialLevel?: string;
+  beginnerMode?: boolean; // Mode débutant : step 1 = sous-objectifs fitness directement
   onComplete: (data: QuestionnaireData) => void;
   isGenerating: boolean;
   user?: User | null;
 }
 
-const Questionnaire: React.FC<QuestionnaireProps> = ({ onComplete, isGenerating: externalIsGenerating, user, initialGoal, initialSubGoal }) => {
+const BEGINNER_OPTIONS = [
+  { value: "restart", label: "Reprendre le sport en douceur", icon: "🔄" },
+  { value: "20-30min", label: "Courir 20-30 min sans s'arrêter", icon: "🏃" },
+  { value: "routine", label: "Établir une routine sportive régulière", icon: "📅" },
+  { value: "general", label: "Améliorer ma condition physique", icon: "💪" },
+  { value: "wellbeing", label: "Réduire le stress / bien-être mental", icon: "🧘" },
+];
+
+const Questionnaire: React.FC<QuestionnaireProps> = ({ onComplete, isGenerating: externalIsGenerating, user, initialGoal, initialSubGoal, initialLevel, beginnerMode }) => {
   const navigate = useNavigate();
-  const [step, setStep] = useState(initialGoal ? 2 : 1);
+  const [step, setStep] = useState(initialGoal && !beginnerMode ? 2 : 1);
   const totalSteps = 5;
   const todayStr = new Date().toISOString().split('T')[0];
   const minRaceDate = new Date(Date.now() + 6 * 7 * 24 * 60 * 60 * 1000);
@@ -25,7 +35,7 @@ const Questionnaire: React.FC<QuestionnaireProps> = ({ onComplete, isGenerating:
   const [data, setData] = useState<QuestionnaireData>({
     goal: initialGoal || null,
     subGoal: initialSubGoal || undefined,
-    level: null,
+    level: initialLevel || null,
     frequency: 3,
     preferredDays: [],
     startDate: todayStr,
@@ -303,7 +313,41 @@ const Questionnaire: React.FC<QuestionnaireProps> = ({ onComplete, isGenerating:
   };
 
   // --- Step 1: Objectif ---
-  const renderStep1 = () => (
+  const renderStep1 = () => {
+    // Mode débutant : afficher directement les sous-objectifs fitness
+    if (beginnerMode) {
+      return (
+        <div className="space-y-6 animate-fade-in">
+          <div className="text-center mb-8">
+            <h2 className="text-3xl font-black text-slate-900">Quel objectif pour débuter ?</h2>
+            <p className="text-slate-500">Choisissez ce qui vous motive le plus pour commencer la course à pied.</p>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            {BEGINNER_OPTIONS.map((option) => (
+              <button
+                key={option.value}
+                disabled={isGenerating}
+                onClick={() => {
+                  setData(prev => ({ ...prev, goal: UserGoal.FITNESS, fitnessSubGoal: option.value, level: RunningLevel.BEGINNER }));
+                  nextStep();
+                }}
+                className={`p-6 rounded-2xl border-2 transition-all text-left flex items-center gap-4 group ${data.fitnessSubGoal === option.value ? 'border-accent bg-accent/5' : 'border-slate-100 hover:border-accent/30 bg-white'
+                  } disabled:opacity-50`}
+              >
+                <span className="text-4xl group-hover:scale-110 transition-transform">{option.icon}</span>
+                <div>
+                  <span className="block font-bold text-lg text-slate-800">{option.label}</span>
+                  <span className="text-xs text-slate-400">Cliquez pour sélectionner</span>
+                </div>
+              </button>
+            ))}
+          </div>
+        </div>
+      );
+    }
+
+    // Mode normal : afficher les 5 objectifs principaux
+    return (
     <div className="space-y-6 animate-fade-in">
       <div className="text-center mb-8">
         <h2 className="text-3xl font-black text-slate-900">Quel est votre défi ?</h2>
@@ -315,13 +359,11 @@ const Questionnaire: React.FC<QuestionnaireProps> = ({ onComplete, isGenerating:
             key={option.value}
             disabled={isGenerating}
             onClick={() => {
-              // Single setState to avoid race condition — all goal + trailDetails in one call
               if (option.value === UserGoal.TRAIL) {
                 setData(prev => ({ ...prev, goal: option.value, trailDetails: prev.trailDetails || { distance: 20, elevation: 500 } }));
               } else {
                 setData(prev => ({ ...prev, goal: option.value, trailDetails: undefined }));
               }
-              // All goals go directly to step 2 (sub-selections like distance, trail details, etc. are on step 2)
               nextStep();
             }}
             className={`p-6 rounded-2xl border-2 transition-all text-left flex items-center gap-4 group ${data.goal === option.value ? 'border-accent bg-accent/5' : 'border-slate-100 hover:border-accent/30 bg-white'
@@ -337,6 +379,7 @@ const Questionnaire: React.FC<QuestionnaireProps> = ({ onComplete, isGenerating:
       </div>
     </div>
   );
+  };
 
   // --- Step 2: Détails Techniques ---
   const renderStep2 = () => (
