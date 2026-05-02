@@ -4,6 +4,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { Session } from '../types';
 import { useSettings } from '../context/SettingsContext';
 import { downloadSessionTCX } from '../services/exportService';
+import ExerciseDetailDrawer from './ExerciseDetailDrawer';
 import {
     Clock, MapPin, ChevronDown, Activity, Dumbbell, Watch, HelpCircle,
     Flame, CheckCircle, MessageSquare, Zap, Target, X, Calendar, Download
@@ -29,6 +30,7 @@ interface SessionCardProps {
 const SessionCard: React.FC<SessionCardProps> = ({ session, weekNumber, isLocked, onFeedbackClick, onQuickComplete, onDateChange, sessionDate, isToday }) => {
     const [expanded, setExpanded] = useState(false);
     const [showLocationTip, setShowLocationTip] = useState(false);
+    const [showExerciseDetail, setShowExerciseDetail] = useState(false);
     const locationRef = useRef<HTMLSpanElement>(null);
     const { paceUnit } = useSettings();
 
@@ -146,6 +148,7 @@ const SessionCard: React.FC<SessionCardProps> = ({ session, weekNumber, isLocked
     };
 
     return (
+        <>
         <div className={cn(
             "bg-white rounded-2xl border transition-all duration-300 overflow-hidden group mb-4 relative",
             expanded ? "shadow-xl border-primary/30 ring-1 ring-primary/10" : "shadow-sm border-slate-200 hover:shadow-md hover:border-primary/30",
@@ -338,6 +341,16 @@ const SessionCard: React.FC<SessionCardProps> = ({ session, weekNumber, isLocked
                                     <div className="font-medium text-slate-900 text-base leading-relaxed bg-white p-3 rounded-lg border border-slate-200 shadow-sm">
                                         {formatText(session.mainSet)}
                                     </div>
+                                    {/* Bouton "Voir les exercices" pour les séances Renforcement */}
+                                    {session.type === 'Renforcement' && session.mainSet && (
+                                        <button
+                                            onClick={(e) => { e.stopPropagation(); setShowExerciseDetail(true); }}
+                                            className="mt-3 flex items-center gap-1.5 text-xs font-bold text-accent hover:text-orange-700 bg-orange-50 hover:bg-orange-100 border border-orange-200 px-3 py-2 rounded-lg transition-all"
+                                        >
+                                            <Dumbbell size={14} />
+                                            Voir les exercices en détail
+                                        </button>
+                                    )}
                                 </div>
 
                                 {/* COOLDOWN */}
@@ -433,6 +446,18 @@ const SessionCard: React.FC<SessionCardProps> = ({ session, weekNumber, isLocked
                 </div>
             </div>
         </div>
+
+            {/* ExerciseDetailDrawer pour les séances Renforcement */}
+            {session.type === 'Renforcement' && session.mainSet && showExerciseDetail && (
+                <ExerciseDetailDrawer
+                    mainSet={session.mainSet}
+                    sessionTitle={session.title}
+                    isOpen={showExerciseDetail}
+                    onClose={() => setShowExerciseDetail(false)}
+                    isPremium={true}
+                />
+            )}
+        </>
     );
 };
 

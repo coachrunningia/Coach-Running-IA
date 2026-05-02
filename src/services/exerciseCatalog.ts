@@ -805,6 +805,620 @@ export const EXERCISE_CATALOG: Record<string, ExerciseInfo> = {
     alternative: "Glissade talon au sol (hamstring slide) ou descente partielle uniquement"
   },
 
+  // ═══════════════════════════════════════
+  // PLIOMÉTRIE (suite)
+  // ═══════════════════════════════════════
+
+  "fentes sautees alternees": {
+    name: "fentes sautees alternees",
+    displayName: "Fentes sautées alternées",
+    muscle: "Quadriceps, fessiers, psoas",
+    muscleSecondary: "Mollets, adducteurs",
+    icon: "⚡",
+    runningBenefit: "Renforce la propulsion unilatérale et la stabilité au changement d'appui.",
+    posture: [
+      "Buste vertical, regard horizontal",
+      "Genou avant au-dessus de la cheville, genou arrière vers le sol",
+      "Réception souple sur l'avant-pied, genoux fléchis",
+      "Enchaîner immédiatement le switch en l'air"
+    ],
+    mistakes: [
+      "Genou avant qui dépasse les orteils (risque : surcharge rotulienne)",
+      "Tronc penché en avant (risque : perte d'équilibre, chute)",
+      "Réception jambes raides (risque : impact articulaire)"
+    ],
+    contraindications: "IMC ≥ 30, tendinopathie rotulienne active, instabilité de cheville, déchirure musculaire",
+    tipCoach: "Commencer sans saut (fentes alternées rapides) puis ajouter la phase aérienne.",
+    tempo: "Descente contrôlée 1s, switch explosif",
+    progression: "Augmenter l'amplitude ou ajouter des haltères légers",
+    alternative: "Fentes alternées sans saut, rythme rapide"
+  },
+
+  "box jumps": {
+    name: "box jumps",
+    displayName: "Box jumps / sauts sur banc",
+    muscle: "Quadriceps, fessiers, mollets",
+    muscleSecondary: "Ischio-jambiers, abdominaux",
+    icon: "⚡",
+    runningBenefit: "Améliore la détente verticale et le recrutement neuromusculaire rapide.",
+    posture: [
+      "Pieds largeur de hanches, bras en balancier",
+      "Impulsion simultanée des deux pieds",
+      "Réception complète sur le banc, pieds à plat, genoux fléchis",
+      "Redescendre en MARCHANT, jamais en sautant"
+    ],
+    mistakes: [
+      "Banc trop haut (risque : réception sur la pointe, chute)",
+      "Sauter pour redescendre (risque : surcharge tendons d'Achille)",
+      "Dos arrondi à la réception (risque : lombalgie)"
+    ],
+    contraindications: "IMC ≥ 30, tendinopathie d'Achille, rupture LCA non stabilisée, déchirure musculaire",
+    tipCoach: "Hauteur initiale = un step ou une marche d'escalier. Augmenter de 5 cm/semaine max.",
+    tempo: "Impulsion explosive, réception 2s contrôlée",
+    progression: "Augmenter la hauteur ou enchaîner en rebond",
+    alternative: "Step-up dynamique sur marche basse"
+  },
+
+  "skipping haut": {
+    name: "skipping haut",
+    displayName: "Skipping haut",
+    muscle: "Psoas-iliaque, mollets",
+    muscleSecondary: "Quadriceps, abdominaux",
+    icon: "⚡",
+    runningBenefit: "Améliore la fréquence de foulée et le retour actif du genou.",
+    posture: [
+      "Genou monté à 90° minimum",
+      "Pied de contact au sol sous le bassin, pas devant",
+      "Bras opposé synchronisé avec le genou",
+      "Gainage abdominal constant, buste droit"
+    ],
+    mistakes: [
+      "Pied qui frappe le sol devant le corps (risque : freinage, périostite)",
+      "Épaules montées et crispées (risque : tension cervicale)",
+      "Amplitudes inégales droite/gauche (risque : déséquilibre musculaire)"
+    ],
+    contraindications: "Périostite tibiale en phase aiguë, fracture de fatigue",
+    tipCoach: "Filmer de profil pour vérifier que le pied atterrit sous le centre de gravité.",
+    tempo: "Rapide et rythmé, contact au sol minimal",
+    progression: "Ajouter une résistance élastique aux chevilles",
+    alternative: "Montées de genoux sur place, tempo modéré"
+  },
+
+  "sauts directionnels": {
+    name: "sauts directionnels",
+    displayName: "Sauts directionnels",
+    muscle: "Moyen fessier, adducteurs",
+    muscleSecondary: "Mollets, quadriceps",
+    icon: "⚡",
+    runningBenefit: "Développe la stabilité latérale essentielle en trail sur terrain instable.",
+    posture: [
+      "Position semi-fléchie, pieds parallèles",
+      "Sauter latéralement, en avant ou en diagonale selon la consigne",
+      "Réception genoux fléchis, buste stable",
+      "Stabiliser 1-2 secondes avant le saut suivant"
+    ],
+    mistakes: [
+      "Valgus de genou à la réception (risque : ligaments croisés)",
+      "Ne pas stabiliser entre les sauts (risque : perte de contrôle)",
+      "Surface glissante (risque : chute)"
+    ],
+    contraindications: "Entorse de cheville récente (<6 semaines), instabilité chronique de genou",
+    tipCoach: "Travailler d'abord la réception statique sur une jambe avant les sauts multidirectionnels.",
+    tempo: "Impulsion explosive, stabilisation 2s à la réception",
+    progression: "Augmenter la distance ou enchaîner sans pause",
+    alternative: "Pas chassés latéraux rapides"
+  },
+
+  "jumping jacks": {
+    name: "jumping jacks",
+    displayName: "Jumping jacks",
+    muscle: "Mollets, deltoïdes",
+    muscleSecondary: "Adducteurs, abdominaux",
+    icon: "⚡",
+    runningBenefit: "Échauffement cardiovasculaire complet qui active les chaînes latérales.",
+    posture: [
+      "Pieds joints au départ, bras le long du corps",
+      "Écarter pieds et bras simultanément",
+      "Réception sur l'avant-pied, genoux souples",
+      "Rythme régulier et contrôlé"
+    ],
+    mistakes: [
+      "Réception talons lourds (risque : impact transmis au dos)",
+      "Bras qui ne montent pas complètement (risque : perte d'efficacité)",
+      "Hyperextension lombaire en haut (risque : lombalgie)"
+    ],
+    contraindications: "Incontinence urinaire d'effort non rééduquée, pathologie d'épaule limitant l'élévation",
+    tipCoach: "Rapide et continu, 1 répétition par seconde.",
+    tempo: "Rapide et continu",
+    progression: "Variante squat jack (descendre en squat à chaque ouverture)",
+    alternative: "Step jack (un pied après l'autre, sans saut)"
+  },
+
+  "montees de genoux": {
+    name: "montees de genoux",
+    displayName: "Montées de genoux",
+    muscle: "Psoas-iliaque, quadriceps",
+    muscleSecondary: "Abdominaux, mollets",
+    icon: "⚡",
+    runningBenefit: "Renforce le psoas et améliore la phase de levée du genou en foulée.",
+    posture: [
+      "Genou monté à hauteur de hanche minimum",
+      "Appui sur l'avant-pied, talon ne touche pas le sol",
+      "Abdominaux verrouillés, pas de bascule du bassin",
+      "Bras synchronisés avec les jambes"
+    ],
+    mistakes: [
+      "Bassin qui recule (risque : compensation, perte de gainage)",
+      "Se pencher en arrière (risque : surcharge lombaire)",
+      "Fréquence trop rapide sacrifiant l'amplitude (risque : travail incomplet)"
+    ],
+    contraindications: "Conflit de hanche (FAI) symptomatique, pubalgie aiguë",
+    tipCoach: "Privilégier l'amplitude avant la vitesse — la hauteur du genou prime sur la cadence.",
+    tempo: "Rapide, fréquence haute, gainage actif",
+    progression: "Contre résistance élastique ou en côte",
+    alternative: "Marche avec genoux hauts, tempo lent"
+  },
+
+  "burpees adaptes": {
+    name: "burpees adaptes",
+    displayName: "Burpees adaptés",
+    muscle: "Quadriceps, pectoraux, fessiers",
+    muscleSecondary: "Abdominaux, épaules",
+    icon: "⚡",
+    runningBenefit: "Développe la puissance globale et la capacité de relance après effort.",
+    posture: [
+      "Descente contrôlée, mains au sol largeur d'épaules",
+      "Extension des jambes en arrière en position de planche",
+      "Retour des pieds entre les mains",
+      "Extension verticale (sans saut en version adaptée)"
+    ],
+    mistakes: [
+      "Dos creux en position planche (risque : surcharge lombaire)",
+      "Laisser tomber le bassin au sol (risque : compression discale)",
+      "Se relever en arrondissant le dos (risque : lombalgie)"
+    ],
+    contraindications: "Hernie discale symptomatique, syndrome du canal carpien, IMC ≥ 30",
+    tipCoach: "Version adaptée = supprimer le saut final et la descente au sol. Rester en planche haute.",
+    tempo: "Fluide et contrôlé, sans effondrement",
+    progression: "Ajouter un tuck jump en haut ou une pompe en bas",
+    alternative: "Squat + recul des pieds en planche sans pompe ni saut"
+  },
+
+  // ═══════════════════════════════════════
+  // EXCENTRIQUE (suite)
+  // ═══════════════════════════════════════
+
+  "good morning poids de corps": {
+    name: "good morning poids de corps",
+    displayName: "Good morning poids de corps",
+    muscle: "Ischio-jambiers, érecteurs du rachis",
+    muscleSecondary: "Fessiers, abdominaux",
+    icon: "🦵",
+    runningBenefit: "Renforce la chaîne postérieure pour maintenir une posture stable en fin de course.",
+    posture: [
+      "Pieds largeur de hanches, genoux très légèrement fléchis et fixes",
+      "Mains derrière la tête ou croisées sur la poitrine",
+      "Pencher le buste en avant par flexion de hanche, dos PLAT",
+      "Descendre jusqu'à sentir la tension dans les ischio-jambiers"
+    ],
+    mistakes: [
+      "Arrondir le dos (risque : contrainte discale majeure)",
+      "Verrouiller les genoux en extension complète (risque : surcharge)",
+      "Descendre trop bas sans contrôle (risque : perte de gainage)"
+    ],
+    contraindications: "Hernie discale postérieure, lumbago aigu, hyperlaxité ligamentaire",
+    tipCoach: "Place un bâton le long du dos (occiput, dorsales, sacrum) pour apprendre la charnière de hanche.",
+    tempo: "3s descente, 2s remontée",
+    progression: "Barre sur les épaules ou version unipodale",
+    alternative: "Même mouvement avec amplitude réduite, mains sur les hanches"
+  },
+
+  "deadlift roumain unipodal": {
+    name: "deadlift roumain unipodal",
+    displayName: "Deadlift roumain unipodal",
+    muscle: "Ischio-jambiers, grand fessier",
+    muscleSecondary: "Érecteurs du rachis, moyen fessier",
+    icon: "🦵",
+    runningBenefit: "Renforce fessiers et ischio-jambiers en appui unipodal, comme en course.",
+    posture: [
+      "Appui sur une jambe, genou légèrement fléchi",
+      "Basculer le buste en avant, jambe libre s'allonge en arrière",
+      "Ligne droite de la tête au talon arrière",
+      "Hanches parallèles au sol, pas de rotation"
+    ],
+    mistakes: [
+      "Hanche qui s'ouvre du côté de la jambe libre (risque : rotation lombaire)",
+      "Dos arrondi (risque : perte de gainage)",
+      "Regarder en l'air (risque : hyperextension cervicale)"
+    ],
+    contraindications: "Instabilité de cheville non rééduquée, vertiges positionnels",
+    tipCoach: "Toucher un mur du bout des doigts pour l'équilibre les premières semaines.",
+    tempo: "3s descente, 1s pause, 2s remontée",
+    progression: "Ajouter un haltère ou un kettlebell",
+    alternative: "Même mouvement avec un doigt posé sur un support"
+  },
+
+  "glissade talon au sol": {
+    name: "glissade talon au sol",
+    displayName: "Glissade talon au sol (hamstring slide)",
+    muscle: "Ischio-jambiers, fessiers",
+    muscleSecondary: "Abdominaux",
+    icon: "🦵",
+    runningBenefit: "Travaille les ischio-jambiers en course interne, calquant leur rôle en fin de phase oscillante.",
+    posture: [
+      "Allongé sur le dos, un talon sur une serviette ou un sac plastique",
+      "Lever le bassin en pont",
+      "Glisser le talon loin du corps sur 3-4 secondes",
+      "Contrôler le retour sans laisser le bassin tomber"
+    ],
+    mistakes: [
+      "Bassin qui s'affaisse pendant l'extension (risque : perte de recrutement)",
+      "Crampe ischio-jambière — aller trop loin trop vite (risque : claquage)",
+      "Compenser avec le bas du dos (risque : lombalgie)"
+    ],
+    contraindications: "Lésion aiguë des ischio-jambiers (<3 semaines), douleur sciatique irradiante",
+    tipCoach: "Si crampe, réduire l'amplitude de moitié et augmenter de 2 cm par séance.",
+    tempo: "2s extension, 2s retour, contrôle permanent",
+    progression: "Version unipodale ou ajout d'un pont fessier maintenu",
+    alternative: "Pont fessier classique, pieds au sol"
+  },
+
+  // ═══════════════════════════════════════
+  // MOBILITÉ / PROPRIOCEPTION (suite)
+  // ═══════════════════════════════════════
+
+  "equilibre sur coussin instable": {
+    name: "equilibre sur coussin instable",
+    displayName: "Équilibre sur coussin instable",
+    muscle: "Stabilisateurs de cheville, tibial postérieur",
+    muscleSecondary: "Moyen fessier, abdominaux",
+    icon: "🧘",
+    runningBenefit: "Entraîne les réflexes posturaux pour les terrains irréguliers.",
+    posture: [
+      "Pied nu centré sur le coussin",
+      "Genou légèrement fléchi, jamais verrouillé",
+      "Regard fixé sur un point au mur à hauteur des yeux",
+      "Bras libres pour l'équilibre puis le long du corps"
+    ],
+    mistakes: [
+      "Genou verrouillé en hyperextension (risque : instabilité paradoxale)",
+      "Regard au sol (risque : supprime la difficulté vestibulaire)",
+      "Orteils en griffe (risque : crispation, fatigue prématurée)"
+    ],
+    contraindications: "Entorse de cheville <3 semaines, fracture du pied non consolidée",
+    tipCoach: "Progresser yeux fermés seulement quand 60s yeux ouverts est stable.",
+    tempo: "Maintien 30-45s, puis ajouter du mouvement",
+    progression: "Yeux fermés ou ajout de squats sur le coussin",
+    alternative: "Serviette pliée au sol en guise de surface instable"
+  },
+
+  "ecriture alphabet avec le pied": {
+    name: "ecriture alphabet avec le pied",
+    displayName: "Écriture alphabet avec le pied",
+    muscle: "Tibial antérieur, péroniers",
+    muscleSecondary: "Mollets, extenseurs des orteils",
+    icon: "🧘",
+    runningBenefit: "Mobilise toutes les amplitudes articulaires de la cheville pour prévenir les raideurs.",
+    posture: [
+      "Assis ou allongé, cheville dans le vide sans appui",
+      "Dessiner chaque lettre lentement avec le gros orteil",
+      "Mouvement initié par la cheville, pas par le genou",
+      "Amplitude maximale dans toutes les directions"
+    ],
+    mistakes: [
+      "Bouger tout le tibia au lieu de la cheville (risque : pas de gain de mobilité)",
+      "Aller trop vite (risque : perte de contrôle)",
+      "Négliger les lettres en inversion — S, Z (risque : travail incomplet)"
+    ],
+    contraindications: "Fracture malléolaire récente non consolidée, arthrodèse de cheville",
+    tipCoach: "Idéal en post-entorse après J21. Alphabet complet matin et soir.",
+    tempo: "Lent et appliqué, lettres amples",
+    progression: "Avec élastique de résistance autour du pied",
+    alternative: "Cercles simples de cheville (10 dans chaque sens)"
+  },
+
+  "etirements dynamiques": {
+    name: "etirements dynamiques",
+    displayName: "Étirements dynamiques",
+    muscle: "Variable selon la zone ciblée",
+    muscleSecondary: "Chaîne musculaire complète",
+    icon: "🧘",
+    runningBenefit: "Prépare muscles et tendons à l'effort sans diminuer la performance (contrairement au statique pré-course).",
+    posture: [
+      "Mouvements amples et contrôlés, sans à-coup",
+      "Progression d'amplitude sur 8-10 répétitions",
+      "Respiration fluide, jamais en apnée",
+      "Couvrir toutes les directions articulaires de la zone ciblée"
+    ],
+    mistakes: [
+      "Mouvements balistiques avec rebond (risque : micro-lésion musculaire)",
+      "Étirer à froid sans échauffement préalable (risque : claquage)",
+      "Confondre dynamique et balistique (risque : blessure)"
+    ],
+    contraindications: "Lésion musculaire <15 jours, hyperlaxité constitutionnelle",
+    tipCoach: "Placer dans l'échauffement, jamais en récupération (préférer le statique après).",
+    tempo: "Mouvements fluides, amplitude croissante",
+    progression: "Augmenter l'amplitude et la vitesse progressivement",
+    alternative: "Réduire l'amplitude et maintenir un tempo lent"
+  },
+
+  "mobilite hanche": {
+    name: "mobilite hanche",
+    displayName: "Mobilité hanche (cercles)",
+    muscle: "Fléchisseurs de hanche, rotateurs profonds",
+    muscleSecondary: "Moyen fessier, adducteurs",
+    icon: "🧘",
+    runningBenefit: "Libère l'amplitude de hanche pour allonger la foulée sans compensation lombaire.",
+    posture: [
+      "En appui unipodal ou à quatre pattes",
+      "Genou fléchi à 90°, dessiner des cercles avec le genou",
+      "Bassin stable, le mouvement vient de la hanche uniquement",
+      "Cercles dans les deux sens, amplitude progressive"
+    ],
+    mistakes: [
+      "Compenser avec le bas du dos — rotation lombaire (risque : lombalgie)",
+      "Cercles trop petits (risque : aucun gain articulaire)",
+      "Négliger un sens de rotation (risque : déséquilibre)"
+    ],
+    contraindications: "Conflit fémoro-acétabulaire (FAI) avec douleur, prothèse de hanche récente",
+    tipCoach: "Cercles lents et amples, 10 par sens et par côté.",
+    tempo: "Cercles lents et amples",
+    progression: "En appui unipodal sans support ou avec élastique",
+    alternative: "Assis sur une chaise, cercles de genou réduits"
+  },
+
+  "chat-vache": {
+    name: "chat-vache",
+    displayName: "Chat-vache (mobilité dos)",
+    muscle: "Érecteurs du rachis, abdominaux",
+    muscleSecondary: "Multifides, diaphragme",
+    icon: "🧘",
+    runningBenefit: "Restaure la mobilité rachidienne pour permettre la rotation du tronc en course.",
+    posture: [
+      "À quatre pattes, mains sous les épaules, genoux sous les hanches",
+      "Chat : arrondir le dos vertèbre par vertèbre, rentrer le menton",
+      "Vache : creuser le dos, relever la tête, ouvrir la poitrine",
+      "Mouvement lent et fluide, synchronisé avec la respiration"
+    ],
+    mistakes: [
+      "Mouvement trop rapide sans contrôle segmentaire (risque : à-coup vertébral)",
+      "Forcer en extension cervicale (risque : comprimer les cervicales)",
+      "Négliger la respiration (risque : perte du bénéfice de mobilité)"
+    ],
+    contraindications: "Spondylolisthésis symptomatique en extension, hernie discale cervicale aiguë",
+    tipCoach: "Inspirer sur la vache, expirer sur le chat. 10 cycles minimum pour un effet réel.",
+    tempo: "3s par position, respiration synchronisée",
+    progression: "Ajouter une extension de bras/jambe opposés (bird-dog)",
+    alternative: "Même mouvement assis sur une chaise"
+  },
+
+  "fente rotation tronc": {
+    name: "fente rotation tronc",
+    displayName: "Fente + rotation tronc",
+    muscle: "Obliques, quadriceps, fessiers",
+    muscleSecondary: "Abdominaux, adducteurs",
+    icon: "🧘",
+    runningBenefit: "Travaille la dissociation haut/bas du corps présente à chaque foulée.",
+    posture: [
+      "Position de fente avant stable, genou avant à 90°",
+      "Rotation du tronc vers le côté du genou avant",
+      "Bras tendus devant ou mains jointes pour guider la rotation",
+      "Bassin fixe face à l'avant, seul le tronc tourne"
+    ],
+    mistakes: [
+      "Genou avant qui part en valgus pendant la rotation (risque : ligaments)",
+      "Bassin qui tourne avec le tronc — pas de dissociation (risque : travail inefficace)",
+      "Rotation forcée avec élan (risque : lombalgie)"
+    ],
+    contraindications: "Hernie discale en phase aiguë, douleur sacro-iliaque en rotation",
+    tipCoach: "Exercice clé pour la dissociation bassin-tronc du coureur. Le placer dans l'échauffement.",
+    tempo: "2s descente, rotation contrôlée, 2s remontée",
+    progression: "Ajouter un médecine-ball ou un élastique en résistance",
+    alternative: "Fente statique avec rotation sans descente profonde"
+  },
+
+  "etirement psoas": {
+    name: "etirement psoas",
+    displayName: "Étirement psoas (fente basse)",
+    muscle: "Psoas-iliaque, droit fémoral",
+    muscleSecondary: "Quadriceps, abdominaux",
+    icon: "🧘",
+    runningBenefit: "Compense la rétraction du psoas due à la position assise, améliorant l'extension de hanche.",
+    posture: [
+      "Genou arrière au sol sur un coussin",
+      "Genou avant à 90°, au-dessus de la cheville",
+      "Serrer les fessiers du côté arrière pour verrouiller le bassin en rétroversion",
+      "Avancer doucement le bassin sans cambrer le dos"
+    ],
+    mistakes: [
+      "Cambrer le dos au lieu de pousser le bassin en avant (risque : le psoas n'est pas étiré)",
+      "Genou avant qui dépasse les orteils (risque : surcharge rotulienne)",
+      "Oublier la contraction du fessier (risque : étirement inefficace)"
+    ],
+    contraindications: "Bursite pré-rotulienne, prothèse de genou récente",
+    tipCoach: "Sans rétroversion du bassin, cet étirement est inefficace. Contracter le fessier est LA clé.",
+    tempo: "Maintien 30-45s, enfoncement progressif",
+    progression: "Lever le bras du même côté et incliner le tronc latéralement",
+    alternative: "Même position avec le genou arrière sur un coussin épais"
+  },
+
+  "etirement bandelette it": {
+    name: "etirement bandelette it",
+    displayName: "Étirement bandelette IT (rouleau)",
+    muscle: "Tenseur du fascia lata, bandelette ilio-tibiale",
+    muscleSecondary: "Vaste latéral",
+    icon: "🧘",
+    runningBenefit: "Réduit les tensions latérales du genou fréquentes chez les coureurs (syndrome de l'essuie-glace).",
+    posture: [
+      "Allongé sur le côté, rouleau sous la face externe de la cuisse",
+      "Bras et jambe supérieure en appui pour doser la pression",
+      "Rouler lentement du genou à la hanche",
+      "Insister 20 secondes sur les points sensibles"
+    ],
+    mistakes: [
+      "Rouler sur la face externe du genou (risque : bourse séreuse)",
+      "Pression excessive d'emblée (risque : ecchymose, douleur)",
+      "Passer trop rapidement sans pause (risque : inefficace)"
+    ],
+    contraindications: "Prise d'anticoagulants, phlébite, lésion cutanée sur la zone",
+    tipCoach: "Si trop douloureux, commencer avec une bouteille d'eau au lieu du rouleau dur.",
+    tempo: "Rouleaux lents, 30s par zone sensible",
+    progression: "Utiliser un rouleau à picots ou une balle de cross",
+    alternative: "Étirement debout en croisant les jambes, inclinaison latérale"
+  },
+
+  // ═══════════════════════════════════════
+  // COMPLÉMENTAIRES
+  // ═══════════════════════════════════════
+
+  "dips sur banc": {
+    name: "dips sur banc",
+    displayName: "Dips sur banc",
+    muscle: "Triceps, deltoïde antérieur",
+    muscleSecondary: "Pectoraux, abdominaux",
+    icon: "💪",
+    runningBenefit: "Renforce les bras et épaules pour le balancier actif, surtout en côte et au sprint.",
+    posture: [
+      "Mains sur le bord du banc, doigts vers l'avant",
+      "Fesses proches du banc, jambes fléchies (plus facile) ou tendues",
+      "Descendre en pliant les coudes à 90° maximum",
+      "Coudes serrés, dirigés vers l'arrière"
+    ],
+    mistakes: [
+      "Descendre trop bas (risque : stress capsulaire antérieur de l'épaule)",
+      "Coudes qui s'écartent (risque : surcharge acromio-claviculaire)",
+      "Épaules qui montent vers les oreilles (risque : tension cervicale)"
+    ],
+    contraindications: "Instabilité antérieure d'épaule, tendinopathie du long biceps",
+    tipCoach: "Limiter l'amplitude à 90° de flexion du coude. Ne jamais forcer en bas du mouvement.",
+    tempo: "2s descente, 1s remontée",
+    progression: "Jambes tendues ou pieds surélevés",
+    alternative: "Mains sur le banc, pieds proches, amplitude réduite"
+  },
+
+  "tirage elastique horizontal": {
+    name: "tirage elastique horizontal",
+    displayName: "Tirage élastique horizontal",
+    muscle: "Rhomboïdes, trapèzes moyens",
+    muscleSecondary: "Deltoïde postérieur, biceps",
+    icon: "💪",
+    runningBenefit: "Corrige la posture en renforçant le haut du dos, évitant l'affaissement en fin de course.",
+    posture: [
+      "Élastique fixé à hauteur de poitrine",
+      "Pieds largeur de hanches, genoux légèrement fléchis",
+      "Tirer les coudes vers l'arrière en serrant les omoplates",
+      "Contrôler le retour sur 3 secondes"
+    ],
+    mistakes: [
+      "Tirer avec les bras sans engager les omoplates (risque : surcharge deltoïde)",
+      "Se pencher en arrière pour tricher (risque : lombalgie)",
+      "Lâcher l'élastique d'un coup (risque : perte excentrique)"
+    ],
+    contraindications: "Conflit sous-acromial en phase inflammatoire, capsulite rétractile",
+    tipCoach: "Imagine écraser un crayon entre les omoplates à chaque traction. C'est le repère clé.",
+    tempo: "2s tirage, 1s contraction, 3s retour",
+    progression: "Élastique plus résistant ou tirage unibras",
+    alternative: "Élastique léger, amplitude partielle"
+  },
+
+  "planche tirage": {
+    name: "planche tirage",
+    displayName: "Planche + tirage (plank row)",
+    muscle: "Abdominaux (transverse, obliques), grand dorsal",
+    muscleSecondary: "Érecteurs, deltoïde postérieur",
+    icon: "💪",
+    runningBenefit: "Combine gainage anti-rotation et renforcement dos, simulant la stabilité requise en course.",
+    posture: [
+      "Position de planche haute, mains sur des haltères ou au sol",
+      "Pieds écartés plus large que les hanches pour la stabilité",
+      "Tirer un coude vers le plafond en gardant les hanches immobiles",
+      "Alterner les bras, tempo lent"
+    ],
+    mistakes: [
+      "Rotation du bassin à chaque tirage (risque : perte totale du bénéfice anti-rotation)",
+      "S'affaisser au niveau des lombaires (risque : compression discale)",
+      "Tourner les épaules au lieu de verrouiller (risque : travail inefficace)"
+    ],
+    contraindications: "Douleur lombaire en charge, syndrome du canal carpien, tendinopathie du poignet",
+    tipCoach: "Si le bassin tourne, élargir les pieds ou retirer le tirage et travailler la planche seule.",
+    tempo: "Tirage 2s, maintien 1s, retour 2s, hanche immobile",
+    progression: "Pieds rapprochés ou élastique plus fort",
+    alternative: "Planche sur genoux avec tirage léger"
+  },
+
+  "gainage ventral long": {
+    name: "gainage ventral long",
+    displayName: "Gainage ventral long",
+    muscle: "Transverse, grand droit abdominal",
+    muscleSecondary: "Obliques, lombaires, épaules, fessiers",
+    icon: "💪",
+    runningBenefit: "Développe l'endurance du gainage pour maintenir la posture sur des courses longues.",
+    posture: [
+      "Même position que la planche classique",
+      "Maintien prolongé (90-120s)",
+      "Respiration calme et régulière, pas d'apnée",
+      "Contracter les fessiers pour protéger le bas du dos"
+    ],
+    mistakes: [
+      "Hanches qui s'affaissent progressivement (risque : lombalgie)",
+      "Retenir sa respiration (risque : pic de tension)",
+      "Tête relevée (risque : compression cervicale)"
+    ],
+    tipCoach: "Si la posture se dégrade avant la fin du temps, arrête. La qualité prime sur la durée.",
+    tempo: "Maintien 90-120s, respiration libre",
+    progression: "Ajouter des micro-mouvements (lever un pied, toucher l'épaule)",
+    alternative: "Planche classique 30-60s avec parfaite exécution"
+  },
+
+  "bird-dog avec rotation": {
+    name: "bird-dog avec rotation",
+    displayName: "Bird-dog avec rotation",
+    muscle: "Multifides, obliques",
+    muscleSecondary: "Grand fessier, transverse, deltoïdes",
+    icon: "💪",
+    runningBenefit: "Ajoute la composante rotationnelle du tronc présente dans la foulée de course.",
+    posture: [
+      "Position bird-dog classique (quatre pattes, bras-jambe opposés)",
+      "En haut du mouvement, tourner le tronc vers le côté du bras levé",
+      "Maintenir 2s en rotation, revenir à la position alignée",
+      "Bassin stable malgré la rotation"
+    ],
+    mistakes: [
+      "Tourner le bassin avec le tronc (risque : perte de gainage)",
+      "Amplitude de rotation excessive (risque : torsion lombaire)",
+      "Perdre l'alignement bras-tronc-jambe (risque : travail inefficace)"
+    ],
+    tipCoach: "Maîtrise d'abord le bird-dog classique 3×10 avant d'ajouter la rotation.",
+    tempo: "2s extension, 2s rotation, 2s retour",
+    progression: "Depuis une position de planche complète",
+    alternative: "Bird-dog classique sans rotation"
+  },
+
+  "planche rotation laterale": {
+    name: "planche rotation laterale",
+    displayName: "Planche + rotation latérale",
+    muscle: "Obliques, transverse",
+    muscleSecondary: "Deltoïdes, abdominaux, moyen fessier",
+    icon: "💪",
+    runningBenefit: "Renforce la stabilité anti-rotation essentielle pour garder le tronc stable en course.",
+    posture: [
+      "Position planche haute, bras tendus",
+      "Pivoter en planche latérale, un bras vers le plafond",
+      "Revenir en planche face au sol, alterner",
+      "Pieds écartés pour la stabilité"
+    ],
+    mistakes: [
+      "Vitesse excessive (risque : perte d'alignement, chute)",
+      "Bras d'appui fléchi (risque : chute, douleur poignet)",
+      "Hanches qui s'affaissent pendant la transition (risque : lombalgie)"
+    ],
+    contraindications: "Instabilité d'épaule, tendinopathie du poignet",
+    tipCoach: "Maîtriser 30s de planche + 30s de gainage latéral de chaque côté avant de combiner.",
+    tempo: "2s par rotation, mouvement contrôlé",
+    progression: "Ajouter un temps de maintien 3s en position latérale",
+    alternative: "Faire la transition depuis les genoux"
+  },
+
 };
 
 /**
