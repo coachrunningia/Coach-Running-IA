@@ -7,7 +7,7 @@ import { downloadSessionTCX } from '../services/exportService';
 import ExerciseDetailDrawer from './ExerciseDetailDrawer';
 import {
     Clock, MapPin, ChevronDown, Activity, Dumbbell, Watch, HelpCircle,
-    Flame, CheckCircle, MessageSquare, Zap, Target, X, Calendar, Download
+    Flame, CheckCircle, MessageSquare, Zap, Target, X, Calendar, Download, Lock
 } from 'lucide-react';
 import { clsx, type ClassValue } from 'clsx';
 import { twMerge } from 'tailwind-merge';
@@ -241,6 +241,19 @@ const SessionCard: React.FC<SessionCardProps> = ({ session, weekNumber, isLocked
                         {session.title}
                         {isCompleted && <span className="ml-2 text-[10px] bg-emerald-100 text-emerald-700 px-1.5 py-0.5 rounded-full font-bold align-middle">Fait ✓</span>}
                     </h3>
+                    {/* Mini bouton exercices dans le header pour Renfo — toujours visible */}
+                    {session.type === 'Renforcement' && session.mainSet && (
+                        <button
+                            onClick={(e) => { e.stopPropagation(); setShowExerciseDetail(true); }}
+                            className="mt-1 inline-flex items-center gap-1 text-xs font-bold text-accent hover:text-orange-700 bg-accent/10 hover:bg-accent/20 px-2.5 py-1 rounded-lg transition-all"
+                        >
+                            <Dumbbell size={12} />
+                            Voir les exercices
+                            {!(isPremium || EXERCISE_DETAIL_TESTERS.includes(userEmail || '')) && (
+                                <Lock size={10} className="ml-0.5" />
+                            )}
+                        </button>
+                    )}
                     <div className="flex items-center gap-3 text-sm text-slate-500 mt-1">
                         <span className="flex items-center gap-1"><Clock size={14} /> {session.duration}</span>
                         {session.distance && <span className="flex items-center gap-1">• <MapPin size={14} /> {session.distance}</span>}
