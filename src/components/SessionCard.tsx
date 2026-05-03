@@ -16,6 +16,9 @@ function cn(...inputs: ClassValue[]) {
     return twMerge(clsx(inputs));
 }
 
+// Emails autorisés à voir la feature en test (feature flag)
+const EXERCISE_DETAIL_TESTERS = ['romane.m2@hotmail.fr', 'programme@coachrunningia.fr', 'marino.romane@gmail.com'];
+
 interface SessionCardProps {
     session: Session;
     weekNumber: number;
@@ -25,9 +28,11 @@ interface SessionCardProps {
     onDateChange?: (session: Session, weekNumber: number) => void;
     sessionDate?: Date;
     isToday?: boolean;
+    isPremium?: boolean;
+    userEmail?: string;
 }
 
-const SessionCard: React.FC<SessionCardProps> = ({ session, weekNumber, isLocked, onFeedbackClick, onQuickComplete, onDateChange, sessionDate, isToday }) => {
+const SessionCard: React.FC<SessionCardProps> = ({ session, weekNumber, isLocked, onFeedbackClick, onQuickComplete, onDateChange, sessionDate, isToday, isPremium, userEmail }) => {
     const [expanded, setExpanded] = useState(false);
     const [showLocationTip, setShowLocationTip] = useState(false);
     const [showExerciseDetail, setShowExerciseDetail] = useState(false);
@@ -341,8 +346,8 @@ const SessionCard: React.FC<SessionCardProps> = ({ session, weekNumber, isLocked
                                     <div className="font-medium text-slate-900 text-base leading-relaxed bg-white p-3 rounded-lg border border-slate-200 shadow-sm">
                                         {formatText(session.mainSet)}
                                     </div>
-                                    {/* Bouton "Voir les exercices" pour les séances Renforcement */}
-                                    {session.type === 'Renforcement' && session.mainSet && (
+                                    {/* Bouton "Voir les exercices" pour les séances Renforcement (premium ou testers) */}
+                                    {session.type === 'Renforcement' && session.mainSet && (isPremium || EXERCISE_DETAIL_TESTERS.includes(userEmail || '')) && (
                                         <button
                                             onClick={(e) => { e.stopPropagation(); setShowExerciseDetail(true); }}
                                             className="mt-3 flex items-center gap-1.5 text-xs font-bold text-accent hover:text-orange-700 bg-orange-50 hover:bg-orange-100 border border-orange-200 px-3 py-2 rounded-lg transition-all"
@@ -454,7 +459,7 @@ const SessionCard: React.FC<SessionCardProps> = ({ session, weekNumber, isLocked
                     sessionTitle={session.title}
                     isOpen={showExerciseDetail}
                     onClose={() => setShowExerciseDetail(false)}
-                    isPremium={true}
+                    isPremium={isPremium || EXERCISE_DETAIL_TESTERS.includes(userEmail || '')}
                 />
             )}
         </>

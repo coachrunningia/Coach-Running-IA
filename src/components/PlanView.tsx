@@ -1494,6 +1494,8 @@ ${recentRPEs.length > 0 ? recentRPEs.slice(-8).join('\n') : 'Premier feedback â€
                               onDateChange={isWeekLocked ? undefined : handleOpenDatePicker}
                               sessionDate={sessionDate}
                               isToday={sessionIsToday}
+                              isPremium={userIsPremium || isPlanUniqueUser}
+                              userEmail={user?.email}
                             />
                           );
                         })}

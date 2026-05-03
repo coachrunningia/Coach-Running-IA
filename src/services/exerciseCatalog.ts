@@ -37,6 +37,7 @@ export const EXERCISE_CATALOG: Record<string, ExerciseInfo> = {
     muscle: "Quadriceps, fessiers",
     muscleSecondary: "Ischio-jambiers, mollets, lombaires",
     icon: "🦵",
+    imageUrl: "/exercises/squats-poids-de-corps.png",
     runningBenefit: "Renforce les muscles moteurs de la foulée et améliore la puissance de propulsion.",
     posture: [
       "Pieds largeur d'épaules, pointes légèrement ouvertes",
@@ -62,6 +63,7 @@ export const EXERCISE_CATALOG: Record<string, ExerciseInfo> = {
     muscle: "Quadriceps, grand fessier",
     muscleSecondary: "Ischio-jambiers, adducteurs, stabilisateurs de hanche",
     icon: "🦵",
+    imageUrl: "/exercises/squat-bulgare.png",
     runningBenefit: "Travaille la force unilatérale et la stabilité de hanche, essentielle pour chaque appui en course.",
     posture: [
       "Pied arrière posé sur un banc ou une marche (dessus du pied)",
@@ -87,6 +89,7 @@ export const EXERCISE_CATALOG: Record<string, ExerciseInfo> = {
     muscle: "Quadriceps, grand fessier",
     muscleSecondary: "Ischio-jambiers, mollets, adducteurs",
     icon: "🦵",
+    imageUrl: "/exercises/fentes-avant.png",
     runningBenefit: "Reproduit le schéma de propulsion unilatérale de la foulée.",
     posture: [
       "Grand pas vers l'avant, genou avant aligné au-dessus de la cheville",
@@ -111,6 +114,7 @@ export const EXERCISE_CATALOG: Record<string, ExerciseInfo> = {
     muscle: "Quadriceps, grand fessier",
     muscleSecondary: "Ischio-jambiers, adducteurs, stabilisateurs de hanche",
     icon: "🦵",
+    imageUrl: "/exercises/fentes-marchees.png",
     runningBenefit: "Travaille la propulsion et l'équilibre en mouvement, très proche du geste de course.",
     posture: [
       "Enchaîner les fentes en avançant, comme en marchant",
@@ -135,6 +139,7 @@ export const EXERCISE_CATALOG: Record<string, ExerciseInfo> = {
     muscle: "Quadriceps, grand fessier",
     muscleSecondary: "Mollets, stabilisateurs de hanche",
     icon: "🦵",
+    imageUrl: "/exercises/step-up.png",
     runningBenefit: "Simule la montée d'escalier et renforce la propulsion en côte.",
     posture: [
       "Pied entier posé sur la marche (pas seulement la pointe)",
@@ -159,6 +164,7 @@ export const EXERCISE_CATALOG: Record<string, ExerciseInfo> = {
     muscle: "Grand fessier",
     muscleSecondary: "Ischio-jambiers, lombaires, abdominaux",
     icon: "🍑",
+    imageUrl: "/exercises/hip-thrust.png",
     runningBenefit: "Le fessier est le moteur principal de l'extension de hanche en course.",
     posture: [
       "Dos appuyé sur un banc ou le bord du canapé (omoplates sur le bord)",
@@ -183,6 +189,7 @@ export const EXERCISE_CATALOG: Record<string, ExerciseInfo> = {
     muscle: "Grand fessier",
     muscleSecondary: "Ischio-jambiers, lombaires",
     icon: "🍑",
+    imageUrl: "/exercises/pont-fessier.png",
     runningBenefit: "Active les fessiers souvent inhibés par la position assise prolongée.",
     posture: [
       "Allongé sur le dos, genoux pliés, pieds à plat au sol largeur du bassin",
@@ -207,6 +214,7 @@ export const EXERCISE_CATALOG: Record<string, ExerciseInfo> = {
     muscle: "Grand fessier",
     muscleSecondary: "Ischio-jambiers, lombaires",
     icon: "🍑",
+    imageUrl: "/exercises/pont-fessier.png",
     runningBenefit: "Active les fessiers souvent inhibés par la position assise prolongée.",
     posture: [
       "Allongé sur le dos, genoux pliés, pieds à plat au sol largeur du bassin",
@@ -231,6 +239,7 @@ export const EXERCISE_CATALOG: Record<string, ExerciseInfo> = {
     muscle: "Grand fessier, moyen fessier",
     muscleSecondary: "Ischio-jambiers, stabilisateurs du bassin",
     icon: "🍑",
+    imageUrl: "/exercises/pont-unipodal.png",
     runningBenefit: "Renforce le fessier en appui unipodal, comme à chaque foulée.",
     posture: [
       "Position de pont fessier, une jambe tendue vers le plafond",
@@ -255,6 +264,7 @@ export const EXERCISE_CATALOG: Record<string, ExerciseInfo> = {
     muscle: "Quadriceps (isométrique)",
     muscleSecondary: "Fessiers, mollets",
     icon: "🦵",
+    imageUrl: "/exercises/chaise-murale.png",
     runningBenefit: "Développe l'endurance musculaire du quadriceps pour les descentes et la fin de course.",
     posture: [
       "Dos plaqué contre le mur, glisser jusqu'à ce que les cuisses soient parallèles au sol",
@@ -283,6 +293,7 @@ export const EXERCISE_CATALOG: Record<string, ExerciseInfo> = {
     muscle: "Transverse, grand droit abdominal",
     muscleSecondary: "Obliques, lombaires, épaules, fessiers",
     icon: "💪",
+    imageUrl: "/exercises/gainage-ventral.png",
     runningBenefit: "Stabilise le tronc pour transmettre efficacement la force des jambes au sol.",
     posture: [
       "Appui sur les avant-bras et les pointes de pieds",
@@ -307,6 +318,7 @@ export const EXERCISE_CATALOG: Record<string, ExerciseInfo> = {
     muscle: "Obliques, carré des lombes",
     muscleSecondary: "Moyen fessier, transverse, épaules",
     icon: "💪",
+    imageUrl: "/exercises/gainage-lateral.png",
     runningBenefit: "Empêche la chute du bassin à chaque foulée, stabilise le tronc latéralement.",
     posture: [
       "Appui sur un avant-bras et le côté du pied, corps aligné de la tête aux pieds",
@@ -331,6 +343,7 @@ export const EXERCISE_CATALOG: Record<string, ExerciseInfo> = {
     muscle: "Transverse, grand droit abdominal",
     muscleSecondary: "Psoas, obliques, plancher pelvien",
     icon: "💪",
+    imageUrl: "/exercises/dead-bug.png",
     runningBenefit: "Apprend au corps à stabiliser le tronc pendant le mouvement des jambes, comme en course.",
     posture: [
       "Allongé sur le dos, bras tendus vers le plafond, genoux au-dessus des hanches à 90°",
@@ -355,6 +368,7 @@ export const EXERCISE_CATALOG: Record<string, ExerciseInfo> = {
     muscle: "Multifides, érecteurs du rachis",
     muscleSecondary: "Grand fessier, transverse, deltoïdes",
     icon: "💪",
+    imageUrl: "/exercises/bird-dog.png",
     runningBenefit: "Renforce la coordination croisée bras-jambe opposée, le schéma exact de la course.",
     posture: [
       "À quatre pattes, mains sous les épaules, genoux sous les hanches",
@@ -379,6 +393,7 @@ export const EXERCISE_CATALOG: Record<string, ExerciseInfo> = {
     muscle: "Érecteurs du rachis, lombaires",
     muscleSecondary: "Grand fessier, ischio-jambiers, trapèzes",
     icon: "💪",
+    imageUrl: "/exercises/superman.png",
     runningBenefit: "Renforce la chaîne postérieure complète pour maintenir la posture en fin de course.",
     posture: [
       "Allongé face contre terre, bras tendus devant, jambes tendues",
@@ -403,6 +418,7 @@ export const EXERCISE_CATALOG: Record<string, ExerciseInfo> = {
     muscle: "Pectoraux, triceps, deltoïdes antérieurs",
     muscleSecondary: "Abdominaux, dentelé antérieur",
     icon: "💪",
+    imageUrl: "/exercises/pompes.png",
     runningBenefit: "Renforce le haut du corps pour un balancier de bras efficace et une posture stable.",
     posture: [
       "Mains au sol légèrement plus larges que les épaules",
@@ -431,6 +447,7 @@ export const EXERCISE_CATALOG: Record<string, ExerciseInfo> = {
     muscle: "Gastrocnémiens (jumeaux)",
     muscleSecondary: "Soléaire, tibial postérieur",
     icon: "🦶",
+    imageUrl: "/exercises/extensions-mollets.png",
     runningBenefit: "Le mollet est le ressort de la foulée — chaque appui sollicite ce muscle intensément.",
     posture: [
       "Debout au bord d'une marche, talons dans le vide",
@@ -455,6 +472,7 @@ export const EXERCISE_CATALOG: Record<string, ExerciseInfo> = {
     muscle: "Soléaire, tibial postérieur",
     muscleSecondary: "Gastrocnémiens, tibial antérieur",
     icon: "🦶",
+    imageUrl: "/exercises/mobilite-cheville.png",
     runningBenefit: "Améliore la flexion dorsale de cheville, essentielle pour absorber les chocs en course.",
     posture: [
       "Face au mur, pied à 5-10 cm du mur",
@@ -483,6 +501,7 @@ export const EXERCISE_CATALOG: Record<string, ExerciseInfo> = {
     muscle: "Moyen fessier, petit fessier",
     muscleSecondary: "Rotateurs externes de hanche, TFL",
     icon: "🍑",
+    imageUrl: "/exercises/clamshell.png",
     runningBenefit: "Prévient le syndrome de l'essuie-glace et la chute du bassin en course.",
     posture: [
       "Allongé sur le côté, genoux pliés à 45°, élastique autour des genoux",
@@ -507,6 +526,7 @@ export const EXERCISE_CATALOG: Record<string, ExerciseInfo> = {
     muscle: "Stabilisateurs de cheville, moyen fessier",
     muscleSecondary: "Abdominaux profonds, tibial postérieur",
     icon: "🦶",
+    imageUrl: "/exercises/equilibre-unipodal.png",
     runningBenefit: "Chaque foulée est un appui unipodal — l'équilibre est la base de la course.",
     posture: [
       "Debout sur un pied, genou légèrement fléchi (pas tendu en hyperextension)",
@@ -531,6 +551,7 @@ export const EXERCISE_CATALOG: Record<string, ExerciseInfo> = {
     muscle: "Moyen fessier, TFL",
     muscleSecondary: "Quadriceps, adducteurs",
     icon: "🍑",
+    imageUrl: "/exercises/marche-laterale-elastique.png",
     runningBenefit: "Active les stabilisateurs latéraux qui empêchent le genou de rentrer en course.",
     posture: [
       "Élastique autour des chevilles ou des genoux, pieds largeur du bassin",
@@ -555,6 +576,7 @@ export const EXERCISE_CATALOG: Record<string, ExerciseInfo> = {
     muscle: "Adducteurs, quadriceps, fessiers",
     muscleSecondary: "Ischio-jambiers, moyen fessier",
     icon: "🦵",
+    imageUrl: "/exercises/fente-laterale.png",
     runningBenefit: "Renforce le plan frontal souvent négligé, protège contre les entorses et douleurs de genou.",
     posture: [
       "Grand pas latéral, pied qui atterrit bien à plat",
@@ -583,6 +605,7 @@ export const EXERCISE_CATALOG: Record<string, ExerciseInfo> = {
     muscle: "Quadriceps (excentrique)",
     muscleSecondary: "Fessiers, ischio-jambiers",
     icon: "🦵",
+    imageUrl: "/exercises/squat-excentrique.png",
     runningBenefit: "Prépare les quadriceps aux descentes en trail et réduit les douleurs post-course.",
     posture: [
       "Même position que le squat classique",
@@ -607,6 +630,7 @@ export const EXERCISE_CATALOG: Record<string, ExerciseInfo> = {
     muscle: "Quadriceps, grand fessier (excentrique)",
     muscleSecondary: "Ischio-jambiers, adducteurs",
     icon: "🦵",
+    imageUrl: "/exercises/fente-arriere-lente.png",
     runningBenefit: "Renforce quadriceps et fessiers en excentrique pour absorber les chocs de la foulée.",
     posture: [
       "Grand pas vers l'ARRIÈRE (moins de stress sur le genou que la fente avant)",
@@ -631,6 +655,7 @@ export const EXERCISE_CATALOG: Record<string, ExerciseInfo> = {
     muscle: "Quadriceps (vaste médial)",
     muscleSecondary: "Fessiers, mollets",
     icon: "🦵",
+    imageUrl: "/exercises/step-down-excentrique.png",
     runningBenefit: "Protège le tendon rotulien en renforçant le quadriceps en phase freinatrice (descentes).",
     posture: [
       "Debout sur une marche, un pied dans le vide",
@@ -660,6 +685,7 @@ export const EXERCISE_CATALOG: Record<string, ExerciseInfo> = {
     muscle: "Quadriceps, fessiers, mollets",
     muscleSecondary: "Ischio-jambiers, abdominaux",
     icon: "⚡",
+    imageUrl: "/exercises/squats-sautes.png",
     runningBenefit: "Développe la puissance d'impulsion pour les côtes et les relances.",
     posture: [
       "Position de squat classique, descendre en fléchissant les genoux",
@@ -685,6 +711,7 @@ export const EXERCISE_CATALOG: Record<string, ExerciseInfo> = {
     muscle: "Abdominaux, psoas",
     muscleSecondary: "Épaules, quadriceps, mollets",
     icon: "⚡",
+    imageUrl: "/exercises/mountain-climbers.png",
     runningBenefit: "Combine gainage et travail cardio spécifique au geste de course.",
     posture: [
       "Position de planche haute (bras tendus), corps gainé",
@@ -709,6 +736,7 @@ export const EXERCISE_CATALOG: Record<string, ExerciseInfo> = {
     muscle: "Mollets, tibial antérieur",
     muscleSecondary: "Quadriceps, épaules, abdominaux",
     icon: "⚡",
+    imageUrl: "/exercises/corde-a-sauter.png",
     runningBenefit: "Renforce la raideur du tendon d'Achille et l'économie de course.",
     posture: [
       "Rebonds légers sur l'avant du pied, genoux légèrement fléchis",
@@ -738,6 +766,7 @@ export const EXERCISE_CATALOG: Record<string, ExerciseInfo> = {
     muscle: "Stabilisateurs de cheville, moyen fessier",
     muscleSecondary: "Abdominaux profonds, tibial postérieur",
     icon: "🧘",
+    imageUrl: "/exercises/equilibre-yeux-fermes.png",
     runningBenefit: "Améliore la proprioception de cheville, réduisant le risque d'entorse en trail.",
     posture: [
       "Même position que l'équilibre unipodal, puis fermer les yeux",
@@ -762,6 +791,7 @@ export const EXERCISE_CATALOG: Record<string, ExerciseInfo> = {
     muscle: "Obliques, transverse",
     muscleSecondary: "Grand droit abdominal, fléchisseurs de hanche",
     icon: "💪",
+    imageUrl: "/exercises/russian-twist.png",
     runningBenefit: "Renforce la rotation du tronc nécessaire au balancier bras-jambes en course.",
     posture: [
       "Assis au sol, genoux fléchis, pieds au sol ou légèrement levés",
@@ -786,6 +816,7 @@ export const EXERCISE_CATALOG: Record<string, ExerciseInfo> = {
     muscle: "Ischio-jambiers (excentrique)",
     muscleSecondary: "Mollets, fessiers",
     icon: "🦵",
+    imageUrl: "/exercises/nordic-hamstring.png",
     runningBenefit: "Réduit de 50% le risque de lésion des ischio-jambiers (étude FIFA 11+).",
     posture: [
       "À genoux, pieds bloqués sous un meuble lourd ou tenus par un partenaire",
@@ -815,6 +846,7 @@ export const EXERCISE_CATALOG: Record<string, ExerciseInfo> = {
     muscle: "Quadriceps, fessiers, psoas",
     muscleSecondary: "Mollets, adducteurs",
     icon: "⚡",
+    imageUrl: "/exercises/fentes-sautees.png",
     runningBenefit: "Renforce la propulsion unilatérale et la stabilité au changement d'appui.",
     posture: [
       "Buste vertical, regard horizontal",
@@ -840,6 +872,7 @@ export const EXERCISE_CATALOG: Record<string, ExerciseInfo> = {
     muscle: "Quadriceps, fessiers, mollets",
     muscleSecondary: "Ischio-jambiers, abdominaux",
     icon: "⚡",
+    imageUrl: "/exercises/box-jumps.png",
     runningBenefit: "Améliore la détente verticale et le recrutement neuromusculaire rapide.",
     posture: [
       "Pieds largeur de hanches, bras en balancier",
@@ -865,6 +898,7 @@ export const EXERCISE_CATALOG: Record<string, ExerciseInfo> = {
     muscle: "Psoas-iliaque, mollets",
     muscleSecondary: "Quadriceps, abdominaux",
     icon: "⚡",
+    imageUrl: "/exercises/skipping-haut.png",
     runningBenefit: "Améliore la fréquence de foulée et le retour actif du genou.",
     posture: [
       "Genou monté à 90° minimum",
@@ -890,6 +924,7 @@ export const EXERCISE_CATALOG: Record<string, ExerciseInfo> = {
     muscle: "Moyen fessier, adducteurs",
     muscleSecondary: "Mollets, quadriceps",
     icon: "⚡",
+    imageUrl: "/exercises/sauts-directionnels.png",
     runningBenefit: "Développe la stabilité latérale essentielle en trail sur terrain instable.",
     posture: [
       "Position semi-fléchie, pieds parallèles",
@@ -915,6 +950,7 @@ export const EXERCISE_CATALOG: Record<string, ExerciseInfo> = {
     muscle: "Mollets, deltoïdes",
     muscleSecondary: "Adducteurs, abdominaux",
     icon: "⚡",
+    imageUrl: "/exercises/jumping-jacks.png",
     runningBenefit: "Échauffement cardiovasculaire complet qui active les chaînes latérales.",
     posture: [
       "Pieds joints au départ, bras le long du corps",
@@ -940,6 +976,7 @@ export const EXERCISE_CATALOG: Record<string, ExerciseInfo> = {
     muscle: "Psoas-iliaque, quadriceps",
     muscleSecondary: "Abdominaux, mollets",
     icon: "⚡",
+    imageUrl: "/exercises/montees-genoux.png",
     runningBenefit: "Renforce le psoas et améliore la phase de levée du genou en foulée.",
     posture: [
       "Genou monté à hauteur de hanche minimum",
@@ -965,6 +1002,7 @@ export const EXERCISE_CATALOG: Record<string, ExerciseInfo> = {
     muscle: "Quadriceps, pectoraux, fessiers",
     muscleSecondary: "Abdominaux, épaules",
     icon: "⚡",
+    imageUrl: "/exercises/burpees-adaptes.png",
     runningBenefit: "Développe la puissance globale et la capacité de relance après effort.",
     posture: [
       "Descente contrôlée, mains au sol largeur d'épaules",
@@ -994,6 +1032,7 @@ export const EXERCISE_CATALOG: Record<string, ExerciseInfo> = {
     muscle: "Ischio-jambiers, érecteurs du rachis",
     muscleSecondary: "Fessiers, abdominaux",
     icon: "🦵",
+    imageUrl: "/exercises/good-morning.png",
     runningBenefit: "Renforce la chaîne postérieure pour maintenir une posture stable en fin de course.",
     posture: [
       "Pieds largeur de hanches, genoux très légèrement fléchis et fixes",
@@ -1019,6 +1058,7 @@ export const EXERCISE_CATALOG: Record<string, ExerciseInfo> = {
     muscle: "Ischio-jambiers, grand fessier",
     muscleSecondary: "Érecteurs du rachis, moyen fessier",
     icon: "🦵",
+    imageUrl: "/exercises/deadlift-roumain-unipodal.png",
     runningBenefit: "Renforce fessiers et ischio-jambiers en appui unipodal, comme en course.",
     posture: [
       "Appui sur une jambe, genou légèrement fléchi",
@@ -1044,6 +1084,7 @@ export const EXERCISE_CATALOG: Record<string, ExerciseInfo> = {
     muscle: "Ischio-jambiers, fessiers",
     muscleSecondary: "Abdominaux",
     icon: "🦵",
+    imageUrl: "/exercises/glissade-talon.png",
     runningBenefit: "Travaille les ischio-jambiers en course interne, calquant leur rôle en fin de phase oscillante.",
     posture: [
       "Allongé sur le dos, un talon sur une serviette ou un sac plastique",
@@ -1073,6 +1114,7 @@ export const EXERCISE_CATALOG: Record<string, ExerciseInfo> = {
     muscle: "Stabilisateurs de cheville, tibial postérieur",
     muscleSecondary: "Moyen fessier, abdominaux",
     icon: "🧘",
+    imageUrl: "/exercises/equilibre-coussin.png",
     runningBenefit: "Entraîne les réflexes posturaux pour les terrains irréguliers.",
     posture: [
       "Pied nu centré sur le coussin",
@@ -1098,6 +1140,7 @@ export const EXERCISE_CATALOG: Record<string, ExerciseInfo> = {
     muscle: "Tibial antérieur, péroniers",
     muscleSecondary: "Mollets, extenseurs des orteils",
     icon: "🧘",
+    imageUrl: "/exercises/ecriture-alphabet-pied.png",
     runningBenefit: "Mobilise toutes les amplitudes articulaires de la cheville pour prévenir les raideurs.",
     posture: [
       "Assis ou allongé, cheville dans le vide sans appui",
@@ -1123,6 +1166,7 @@ export const EXERCISE_CATALOG: Record<string, ExerciseInfo> = {
     muscle: "Variable selon la zone ciblée",
     muscleSecondary: "Chaîne musculaire complète",
     icon: "🧘",
+    imageUrl: "/exercises/etirements-dynamiques.png",
     runningBenefit: "Prépare muscles et tendons à l'effort sans diminuer la performance (contrairement au statique pré-course).",
     posture: [
       "Mouvements amples et contrôlés, sans à-coup",
@@ -1148,6 +1192,7 @@ export const EXERCISE_CATALOG: Record<string, ExerciseInfo> = {
     muscle: "Fléchisseurs de hanche, rotateurs profonds",
     muscleSecondary: "Moyen fessier, adducteurs",
     icon: "🧘",
+    imageUrl: "/exercises/mobilite-hanche.png",
     runningBenefit: "Libère l'amplitude de hanche pour allonger la foulée sans compensation lombaire.",
     posture: [
       "En appui unipodal ou à quatre pattes",
@@ -1173,6 +1218,7 @@ export const EXERCISE_CATALOG: Record<string, ExerciseInfo> = {
     muscle: "Érecteurs du rachis, abdominaux",
     muscleSecondary: "Multifides, diaphragme",
     icon: "🧘",
+    imageUrl: "/exercises/chat-vache.png",
     runningBenefit: "Restaure la mobilité rachidienne pour permettre la rotation du tronc en course.",
     posture: [
       "À quatre pattes, mains sous les épaules, genoux sous les hanches",
@@ -1198,6 +1244,7 @@ export const EXERCISE_CATALOG: Record<string, ExerciseInfo> = {
     muscle: "Obliques, quadriceps, fessiers",
     muscleSecondary: "Abdominaux, adducteurs",
     icon: "🧘",
+    imageUrl: "/exercises/fente-rotation-tronc.png",
     runningBenefit: "Travaille la dissociation haut/bas du corps présente à chaque foulée.",
     posture: [
       "Position de fente avant stable, genou avant à 90°",
@@ -1223,6 +1270,7 @@ export const EXERCISE_CATALOG: Record<string, ExerciseInfo> = {
     muscle: "Psoas-iliaque, droit fémoral",
     muscleSecondary: "Quadriceps, abdominaux",
     icon: "🧘",
+    imageUrl: "/exercises/etirement-psoas.png",
     runningBenefit: "Compense la rétraction du psoas due à la position assise, améliorant l'extension de hanche.",
     posture: [
       "Genou arrière au sol sur un coussin",
@@ -1248,6 +1296,7 @@ export const EXERCISE_CATALOG: Record<string, ExerciseInfo> = {
     muscle: "Tenseur du fascia lata, bandelette ilio-tibiale",
     muscleSecondary: "Vaste latéral",
     icon: "🧘",
+    imageUrl: "/exercises/etirement-bandelette-it.png",
     runningBenefit: "Réduit les tensions latérales du genou fréquentes chez les coureurs (syndrome de l'essuie-glace).",
     posture: [
       "Allongé sur le côté, rouleau sous la face externe de la cuisse",
@@ -1277,6 +1326,7 @@ export const EXERCISE_CATALOG: Record<string, ExerciseInfo> = {
     muscle: "Triceps, deltoïde antérieur",
     muscleSecondary: "Pectoraux, abdominaux",
     icon: "💪",
+    imageUrl: "/exercises/dips-banc.png",
     runningBenefit: "Renforce les bras et épaules pour le balancier actif, surtout en côte et au sprint.",
     posture: [
       "Mains sur le bord du banc, doigts vers l'avant",
@@ -1302,6 +1352,7 @@ export const EXERCISE_CATALOG: Record<string, ExerciseInfo> = {
     muscle: "Rhomboïdes, trapèzes moyens",
     muscleSecondary: "Deltoïde postérieur, biceps",
     icon: "💪",
+    imageUrl: "/exercises/tirage-elastique.png",
     runningBenefit: "Corrige la posture en renforçant le haut du dos, évitant l'affaissement en fin de course.",
     posture: [
       "Élastique fixé à hauteur de poitrine",
@@ -1327,6 +1378,7 @@ export const EXERCISE_CATALOG: Record<string, ExerciseInfo> = {
     muscle: "Abdominaux (transverse, obliques), grand dorsal",
     muscleSecondary: "Érecteurs, deltoïde postérieur",
     icon: "💪",
+    imageUrl: "/exercises/planche-tirage.png",
     runningBenefit: "Combine gainage anti-rotation et renforcement dos, simulant la stabilité requise en course.",
     posture: [
       "Position de planche haute, mains sur des haltères ou au sol",
@@ -1352,6 +1404,7 @@ export const EXERCISE_CATALOG: Record<string, ExerciseInfo> = {
     muscle: "Transverse, grand droit abdominal",
     muscleSecondary: "Obliques, lombaires, épaules, fessiers",
     icon: "💪",
+    imageUrl: "/exercises/gainage-ventral-long.png",
     runningBenefit: "Développe l'endurance du gainage pour maintenir la posture sur des courses longues.",
     posture: [
       "Même position que la planche classique",
@@ -1376,6 +1429,7 @@ export const EXERCISE_CATALOG: Record<string, ExerciseInfo> = {
     muscle: "Multifides, obliques",
     muscleSecondary: "Grand fessier, transverse, deltoïdes",
     icon: "💪",
+    imageUrl: "/exercises/bird-dog-rotation.png",
     runningBenefit: "Ajoute la composante rotationnelle du tronc présente dans la foulée de course.",
     posture: [
       "Position bird-dog classique (quatre pattes, bras-jambe opposés)",
@@ -1400,6 +1454,7 @@ export const EXERCISE_CATALOG: Record<string, ExerciseInfo> = {
     muscle: "Obliques, transverse",
     muscleSecondary: "Deltoïdes, abdominaux, moyen fessier",
     icon: "💪",
+    imageUrl: "/exercises/planche-rotation-laterale.png",
     runningBenefit: "Renforce la stabilité anti-rotation essentielle pour garder le tronc stable en course.",
     posture: [
       "Position planche haute, bras tendus",
