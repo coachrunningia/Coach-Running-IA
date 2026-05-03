@@ -331,6 +331,17 @@ const SessionCard: React.FC<SessionCardProps> = ({ session, weekNumber, isLocked
                                 Structure de la séance
                             </h4>
 
+                            {/* Bouton "Voir les exercices" — en haut, bien visible */}
+                            {session.type === 'Renforcement' && session.mainSet && (isPremium || EXERCISE_DETAIL_TESTERS.includes(userEmail || '')) && (
+                                <button
+                                    onClick={(e) => { e.stopPropagation(); setShowExerciseDetail(true); }}
+                                    className="w-full flex items-center justify-center gap-2 text-sm font-bold text-white bg-accent hover:bg-orange-600 px-4 py-3 rounded-xl transition-all shadow-md hover:shadow-lg"
+                                >
+                                    <Dumbbell size={18} />
+                                    Voir les exercices illustrés
+                                </button>
+                            )}
+
                             <div className="relative space-y-6 pl-2">
                                 {/* WARMUP */}
                                 <div className="relative pl-6 border-l-2 border-emerald-300 pb-2">
@@ -346,16 +357,6 @@ const SessionCard: React.FC<SessionCardProps> = ({ session, weekNumber, isLocked
                                     <div className="font-medium text-slate-900 text-base leading-relaxed bg-white p-3 rounded-lg border border-slate-200 shadow-sm">
                                         {formatText(session.mainSet)}
                                     </div>
-                                    {/* Bouton "Voir les exercices" pour les séances Renforcement (premium ou testers) */}
-                                    {session.type === 'Renforcement' && session.mainSet && (isPremium || EXERCISE_DETAIL_TESTERS.includes(userEmail || '')) && (
-                                        <button
-                                            onClick={(e) => { e.stopPropagation(); setShowExerciseDetail(true); }}
-                                            className="mt-3 flex items-center gap-1.5 text-xs font-bold text-accent hover:text-orange-700 bg-orange-50 hover:bg-orange-100 border border-orange-200 px-3 py-2 rounded-lg transition-all"
-                                        >
-                                            <Dumbbell size={14} />
-                                            Voir les exercices en détail
-                                        </button>
-                                    )}
                                 </div>
 
                                 {/* COOLDOWN */}
