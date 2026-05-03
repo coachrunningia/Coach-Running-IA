@@ -17,8 +17,8 @@ function cn(...inputs: ClassValue[]) {
     return twMerge(clsx(inputs));
 }
 
-// Emails autorisés à voir la feature en test (feature flag)
-const EXERCISE_DETAIL_TESTERS = ['romane.m2@hotmail.fr', 'programme@coachrunningia.fr', 'marino.romane@gmail.com'];
+// Emails autorisés à voir la feature complète en test (feature flag)
+const EXERCISE_DETAIL_TESTERS = ['romane.m2@hotmail.fr', 'marino.romane@gmail.com'];
 
 interface SessionCardProps {
     session: Session;
@@ -467,7 +467,7 @@ const SessionCard: React.FC<SessionCardProps> = ({ session, weekNumber, isLocked
         </div>
 
             {/* ExerciseDetailDrawer — rendu via portail pour éviter tout blocage CSS parent */}
-            {session.type === 'Renforcement' && session.mainSet && showExerciseDetail && createPortal(
+            {session.type === 'Renforcement' && session.mainSet && createPortal(
                 <ExerciseDetailDrawer
                     mainSet={session.mainSet}
                     sessionTitle={session.title}

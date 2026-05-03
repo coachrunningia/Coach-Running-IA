@@ -1485,7 +1485,7 @@ ${recentRPEs.length > 0 ? recentRPEs.slice(-8).join('\n') : 'Premier feedback â€
                           const sessionIsToday = isToday(sessionDate);
                           return (
                             <SessionCard
-                              key={sIdx}
+                              key={session.id || `w${week.weekNumber}-${session.day}-${session.title}`}
                               session={session}
                               weekNumber={week.weekNumber}
                               isLocked={isWeekLocked}
