@@ -45,63 +45,61 @@ const ExerciseDetailDrawer: React.FC<ExerciseDetailDrawerProps> = ({
 
   if (!isOpen || exercises.length === 0) return null;
 
-  // Si pas premium, afficher un aperçu flouté qui donne envie
+  // Si pas premium, afficher un aperçu flouté statique qui donne envie
   if (!isPremium) {
     return (
       <div className="fixed inset-0 z-[90] bg-slate-900/60 backdrop-blur-sm flex items-end md:items-center justify-center" onClick={onClose}>
-        <div className="bg-white rounded-t-3xl md:rounded-2xl w-full md:max-w-2xl max-h-[90vh] overflow-hidden relative" onClick={e => e.stopPropagation()}>
-          {/* Fausse fiche floutée en arrière-plan */}
-          <div className="filter blur-[6px] pointer-events-none select-none p-6 space-y-4">
-            {/* Header flouté */}
-            <div className="flex items-center gap-4">
-              <div className="w-24 h-24 rounded-xl overflow-hidden border border-slate-200">
-                <img src="/exercises/squats-poids-de-corps.png" alt="" className="w-full h-full object-cover" />
-              </div>
+        <div className="bg-white rounded-t-3xl md:rounded-2xl w-full md:max-w-2xl max-h-[85vh] overflow-hidden relative" onClick={e => e.stopPropagation()}>
+          {/* Contenu flouté statique — image fixe simulant une fiche */}
+          <div className="filter blur-[5px] pointer-events-none select-none">
+            {/* Header avec image */}
+            <div className="p-5 flex items-center gap-4 border-b border-slate-100">
+              <img src="/exercises/squats-poids-de-corps.png" alt="" className="w-20 h-20 rounded-xl object-cover" />
               <div>
-                <h4 className="text-xl font-black text-slate-900">Squats poids de corps</h4>
-                <span className="inline-block mt-1 bg-accent/10 text-accent font-bold text-sm px-3 py-1 rounded-full">3×15</span>
+                <div className="text-lg font-black text-slate-900">Squats poids de corps</div>
+                <div className="bg-orange-100 text-orange-600 text-sm font-bold px-3 py-0.5 rounded-full inline-block mt-1">3×15</div>
               </div>
             </div>
-            {/* Bénéfice running flouté */}
-            <div className="bg-accent/5 border border-accent/20 rounded-xl p-3">
-              <p className="text-xs font-bold text-accent">POURQUOI POUR LE RUNNING</p>
-              <p className="text-sm text-slate-700">Renforce les muscles moteurs de la foulée et améliore la puissance...</p>
-            </div>
-            {/* Posture floutée */}
-            <div className="bg-green-50 border border-green-200 rounded-xl p-3">
-              <p className="text-sm font-bold text-green-800">✅ Posture correcte</p>
-              <p className="text-sm text-green-900">• Pieds largeur d'épaules, pointes ouvertes</p>
-              <p className="text-sm text-green-900">• Dos droit, regard devant, poitrine ouverte</p>
-              <p className="text-sm text-green-900">• Descendre cuisses parallèles au sol</p>
-            </div>
-            {/* Erreurs floutées */}
-            <div className="bg-red-50 border border-red-200 rounded-xl p-3">
-              <p className="text-sm font-bold text-red-800">❌ Erreurs à éviter</p>
-              <p className="text-sm text-red-900">• Genoux qui rentrent vers l'intérieur</p>
-              <p className="text-sm text-red-900">• Dos arrondi en bas du mouvement</p>
-            </div>
-            {/* Tips flouté */}
-            <div className="bg-blue-50 border border-blue-200 rounded-xl p-3">
-              <p className="text-sm font-bold text-blue-800">💡 Conseil coach</p>
-              <p className="text-sm text-blue-900">Inspire en descendant, expire en remontant...</p>
+            {/* Sections simulées */}
+            <div className="p-5 space-y-3">
+              <div className="bg-orange-50 rounded-lg p-3">
+                <div className="text-xs font-bold text-orange-500 mb-1">🎯 POURQUOI POUR LE RUNNING</div>
+                <div className="text-sm text-slate-600">Renforce les muscles moteurs de la foulée...</div>
+              </div>
+              <div className="bg-green-50 rounded-lg p-3">
+                <div className="text-sm font-bold text-green-700 mb-1">✅ Posture correcte</div>
+                <div className="text-sm text-green-800">• Pieds largeur d'épaules • Dos droit • Cuisses parallèles</div>
+              </div>
+              <div className="bg-red-50 rounded-lg p-3">
+                <div className="text-sm font-bold text-red-700 mb-1">❌ Erreurs à éviter</div>
+                <div className="text-sm text-red-800">• Genoux qui rentrent • Dos arrondi • Talons décollés</div>
+              </div>
+              <div className="bg-blue-50 rounded-lg p-3">
+                <div className="text-sm font-bold text-blue-700 mb-1">💡 Conseil coach</div>
+                <div className="text-sm text-blue-800">Inspire en descendant, expire en remontant. Tempo 2s...</div>
+              </div>
+              <div className="flex gap-2">
+                <div className="bg-slate-50 rounded-lg p-2 flex-1"><div className="text-xs text-slate-400">TEMPO</div><div className="text-sm">2s descente</div></div>
+                <div className="bg-slate-50 rounded-lg p-2 flex-1"><div className="text-xs text-slate-400">PROGRESSION</div><div className="text-sm">Squat sauté</div></div>
+              </div>
             </div>
           </div>
 
-          {/* Overlay avec CTA */}
-          <div className="absolute inset-0 bg-gradient-to-t from-white via-white/90 to-white/60 flex flex-col items-center justify-center p-8">
-            <div className="w-16 h-16 bg-accent/10 rounded-full flex items-center justify-center mb-4">
-              <Lock size={28} className="text-accent" />
+          {/* Overlay CTA par-dessus le flouté */}
+          <div className="absolute inset-0 bg-gradient-to-t from-white via-white/80 to-transparent flex flex-col items-center justify-end pb-10 px-6">
+            <div className="w-14 h-14 bg-accent/10 rounded-full flex items-center justify-center mb-3">
+              <Lock size={24} className="text-accent" />
             </div>
-            <h3 className="text-2xl font-black text-slate-900 mb-2 text-center">Fiches exercices illustrées</h3>
-            <p className="text-slate-600 text-center mb-2 max-w-md">
-              {exercises.length} exercices avec illustration, posture correcte, erreurs à éviter et conseils de coach.
+            <h3 className="text-xl font-black text-slate-900 mb-1 text-center">Fiches exercices illustrées</h3>
+            <p className="text-sm text-slate-500 text-center mb-1">
+              Posture, erreurs, conseils kiné pour chaque exercice
             </p>
-            <p className="text-sm text-slate-400 mb-6 text-center">Validé par des kinésithérapeutes et préparateurs physiques</p>
-            <a href="/pricing" className="bg-accent hover:bg-orange-600 text-white px-8 py-3.5 rounded-full font-bold transition-all shadow-lg hover:shadow-xl hover:scale-105 inline-flex items-center gap-2">
-              <Zap size={18} fill="currentColor" />
+            <p className="text-xs text-slate-400 mb-5 text-center">Validé par des kinésithérapeutes et préparateurs physiques</p>
+            <a href="/pricing" className="bg-accent hover:bg-orange-600 text-white px-8 py-3 rounded-full font-bold transition-all shadow-lg hover:shadow-xl hover:scale-105 inline-flex items-center gap-2 text-sm">
+              <Zap size={16} fill="currentColor" />
               Débloquer avec Premium
             </a>
-            <button onClick={onClose} className="mt-3 text-sm text-slate-400 hover:text-slate-600 transition-colors">
+            <button onClick={onClose} className="mt-3 text-xs text-slate-400 hover:text-slate-600">
               Fermer
             </button>
           </div>
