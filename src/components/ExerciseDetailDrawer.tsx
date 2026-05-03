@@ -20,6 +20,14 @@ const ExerciseDetailDrawer: React.FC<ExerciseDetailDrawerProps> = ({
   const [currentIndex, setCurrentIndex] = useState(0);
   const exercises = parseMainSetExercises(mainSet);
 
+  // Extraire le nombre de tours du mainSet (ex: "Circuit 3 tours", "Circuit 4 tours")
+  const toursMatch = mainSet.match(/(\d+)\s*tours?/i);
+  const nbTours = toursMatch ? parseInt(toursMatch[1]) : null;
+
+  // Extraire le repos entre tours (ex: "Repos 1 min 30 entre tours")
+  const reposMatch = mainSet.match(/repos?\s*([\d]+\s*min\s*\d*)\s*entre\s*tours/i);
+  const reposTours = reposMatch ? reposMatch[1].trim() : null;
+
   useEffect(() => {
     if (isOpen) setCurrentIndex(0);
   }, [isOpen]);
@@ -88,32 +96,42 @@ const ExerciseDetailDrawer: React.FC<ExerciseDetailDrawerProps> = ({
           />
         </div>
 
-        {/* Exercise content */}
-        <div className="p-6 space-y-5">
-          {/* Exercise name + sets */}
-          <div className="text-center">
-            <span className="text-4xl mb-2 block">{info?.icon || '💪'}</span>
-            <h4 className="text-2xl font-black text-slate-900">{current.name}</h4>
-            <span className="inline-block mt-2 bg-accent/10 text-accent font-bold text-sm px-4 py-1.5 rounded-full">
-              {current.sets}
-            </span>
+        {/* Rappel circuit */}
+        {nbTours && (
+          <div className="mx-4 md:mx-6 mt-3 bg-slate-900 text-white rounded-xl px-4 py-2.5 flex items-center justify-between text-sm">
+            <span className="font-bold">🔄 Circuit {nbTours} tours</span>
+            {reposTours && <span className="text-slate-300">Repos {reposTours} entre tours</span>}
           </div>
+        )}
 
-          {/* Image placeholder */}
-          {info?.imageUrl ? (
-            <div className="rounded-2xl overflow-hidden border border-slate-200">
-              <img src={info.imageUrl} alt={current.name} className="w-full h-auto" loading="lazy" />
+        {/* Exercise content */}
+        <div className="p-4 md:p-6 space-y-3">
+          {/* Exercise name + sets */}
+          <div>
+            <div className="flex items-center gap-4">
+              {/* Image compacte à gauche */}
+              {info?.imageUrl ? (
+                <div className="w-24 h-24 md:w-32 md:h-32 rounded-xl overflow-hidden border border-slate-200 shrink-0">
+                  <img src={info.imageUrl} alt={current.name} className="w-full h-full object-cover" loading="lazy" />
+                </div>
+              ) : (
+                <div className="w-24 h-24 md:w-32 md:h-32 rounded-xl bg-slate-50 border border-slate-200 flex items-center justify-center shrink-0">
+                  <span className="text-4xl">{info?.icon || '💪'}</span>
+                </div>
+              )}
+              {/* Nom + reps à droite */}
+              <div>
+                <h4 className="text-xl md:text-2xl font-black text-slate-900">{current.name}</h4>
+                <span className="inline-block mt-1 bg-accent/10 text-accent font-bold text-sm px-3 py-1 rounded-full">
+                  {current.sets}
+                </span>
+              </div>
             </div>
-          ) : (
-            <div className="rounded-2xl bg-gradient-to-br from-slate-50 to-slate-100 border border-slate-200 p-8 text-center">
-              <span className="text-6xl block mb-2">{info?.icon || '💪'}</span>
-              <p className="text-xs text-slate-400">Illustration bientôt disponible</p>
-            </div>
-          )}
+          </div>
 
           {/* Running benefit */}
           {info?.runningBenefit && (
-            <div className="bg-accent/5 border border-accent/20 rounded-xl p-4 flex items-start gap-3">
+            <div className="bg-accent/5 border border-accent/20 rounded-xl p-3 flex items-start gap-2">
               <Target className="text-accent shrink-0 mt-0.5" size={18} />
               <div>
                 <p className="text-xs font-bold text-accent uppercase tracking-wider mb-1">Pourquoi pour le running</p>

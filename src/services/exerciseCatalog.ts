@@ -1474,6 +1474,58 @@ export const EXERCISE_CATALOG: Record<string, ExerciseInfo> = {
     alternative: "Faire la transition depuis les genoux"
   },
 
+  "mollets debout unipodal": {
+    name: "mollets debout unipodal",
+    displayName: "Mollets debout unipodal",
+    muscle: "Gastrocnémiens (jumeaux)",
+    muscleSecondary: "Soléaire, tibial postérieur",
+    icon: "🦶",
+    imageUrl: "/exercises/extensions-mollets.png",
+    runningBenefit: "Le mollet est le ressort de la foulée — le travail unipodal reproduit la charge réelle en course.",
+    posture: [
+      "Debout sur un pied au bord d'une marche, talon dans le vide",
+      "Autre pied crocheté derrière la cheville",
+      "Monter au maximum sur la pointe, descendre sous le niveau de la marche",
+      "Appui léger au mur du bout des doigts pour l'équilibre"
+    ],
+    mistakes: [
+      "S'aider trop du mur (risque : divise la charge par deux)",
+      "Vitesse excessive (risque : tendon non renforcé en excentrique)",
+      "Amplitude partielle (risque : travail incomplet)"
+    ],
+    contraindications: "Tendinopathie d'Achille insertionnelle (ne PAS descendre sous l'horizontale), déchirure mollet récente",
+    tipCoach: "Objectif coureur : 25 reps consécutives par jambe avant d'augmenter la charge.",
+    tempo: "1s montée, 1s tenue, 3s descente",
+    progression: "Ajouter un poids (sac à dos lesté)",
+    alternative: "Même exercice sur les deux pieds"
+  },
+
+  "sauts directionnels multi-axes": {
+    name: "sauts directionnels multi-axes",
+    displayName: "Sauts directionnels multi-axes",
+    muscle: "Moyen fessier, adducteurs",
+    muscleSecondary: "Mollets, quadriceps",
+    icon: "⚡",
+    imageUrl: "/exercises/sauts-directionnels.png",
+    runningBenefit: "Développe la stabilité latérale et la réactivité sur terrain instable.",
+    posture: [
+      "Position semi-fléchie, pieds parallèles",
+      "Sauter dans plusieurs directions (latéral, avant, diagonale)",
+      "Réception genoux fléchis, buste stable",
+      "Stabiliser 1-2 secondes avant le saut suivant"
+    ],
+    mistakes: [
+      "Valgus de genou à la réception (risque : ligaments croisés)",
+      "Ne pas stabiliser entre les sauts (risque : perte de contrôle)",
+      "Surface glissante (risque : chute)"
+    ],
+    contraindications: "Entorse de cheville récente (<6 semaines), instabilité chronique de genou",
+    tipCoach: "Travailler d'abord la réception statique sur une jambe avant les sauts multidirectionnels.",
+    tempo: "Impulsion explosive, stabilisation 2s à la réception",
+    progression: "Augmenter la distance ou enchaîner sans pause",
+    alternative: "Pas chassés latéraux rapides"
+  },
+
 };
 
 /**
