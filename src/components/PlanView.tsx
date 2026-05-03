@@ -1472,7 +1472,7 @@ ${recentRPEs.length > 0 ? recentRPEs.slice(-8).join('\n') : 'Premier feedback �
                       {canAccessPremiumFeatures && stravaConnected && (weekStatus.status === 'past' || weekStatus.status === 'current') && !isWeekLocked && (
                         <p className="px-4 pt-2 text-xs text-orange-500 italic">À utiliser quand tu as terminé ta semaine</p>
                       )}
-                      <div className={`p-4 pt-2 space-y-3 ${isWeekLocked ? 'blur-sm opacity-50 pointer-events-none' : ''}`}>
+                      <div className={`p-4 pt-2 space-y-3 ${isWeekLocked ? 'blur-sm opacity-50' : ''}`}>
                         {week.sessions
                           .slice()
                           .sort((a, b) => {
