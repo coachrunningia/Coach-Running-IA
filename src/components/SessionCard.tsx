@@ -332,13 +332,16 @@ const SessionCard: React.FC<SessionCardProps> = ({ session, weekNumber, isLocked
                             </h4>
 
                             {/* Bouton "Voir les exercices" — en haut, bien visible */}
-                            {session.type === 'Renforcement' && session.mainSet && (isPremium || EXERCISE_DETAIL_TESTERS.includes(userEmail || '')) && (
+                            {session.type === 'Renforcement' && session.mainSet && (
                                 <button
                                     onClick={(e) => { e.stopPropagation(); setShowExerciseDetail(true); }}
                                     className="w-full flex items-center justify-center gap-2 text-sm font-bold text-white bg-accent hover:bg-orange-600 px-4 py-3 rounded-xl transition-all shadow-md hover:shadow-lg"
                                 >
                                     <Dumbbell size={18} />
                                     Voir les exercices illustrés
+                                    {!(isPremium || EXERCISE_DETAIL_TESTERS.includes(userEmail || '')) && (
+                                        <span className="ml-1 bg-white/20 text-white text-xs px-2 py-0.5 rounded-full">Premium</span>
+                                    )}
                                 </button>
                             )}
 
@@ -460,7 +463,7 @@ const SessionCard: React.FC<SessionCardProps> = ({ session, weekNumber, isLocked
                     sessionTitle={session.title}
                     isOpen={showExerciseDetail}
                     onClose={() => setShowExerciseDetail(false)}
-                    isPremium={isPremium || EXERCISE_DETAIL_TESTERS.includes(userEmail || '')}
+                    isPremium={!!(isPremium || EXERCISE_DETAIL_TESTERS.includes(userEmail || ''))}
                 />
             )}
         </>
