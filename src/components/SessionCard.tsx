@@ -1,5 +1,6 @@
 
 import React, { useState, useEffect, useRef } from 'react';
+import { createPortal } from 'react-dom';
 
 import { Session } from '../types';
 import { useSettings } from '../context/SettingsContext';
@@ -317,12 +318,18 @@ const SessionCard: React.FC<SessionCardProps> = ({ session, weekNumber, isLocked
                 </div>
             </div>
 
-            {/* Bouton exercices — TOUJOURS cliquable, hors de la zone pointer-events-none */}
+            {/* Bouton exercices — TOUJOURS cliquable */}
             {session.type === 'Renforcement' && session.mainSet && (
-                <div className="px-5 pb-3 -mt-1">
+                <div className="px-5 pb-3 -mt-1" style={{pointerEvents: 'auto'}}>
                     <button
-                        onClick={() => setShowExerciseDetail(true)}
-                        className="w-full flex items-center justify-center gap-2 text-sm font-bold text-white bg-accent hover:bg-orange-600 px-4 py-3 rounded-xl transition-all shadow-md hover:shadow-lg active:scale-95"
+                        onClick={(e) => {
+                            e.preventDefault();
+                            e.stopPropagation();
+                            console.log('[ExerciseBtn] clicked, opening drawer');
+                            setShowExerciseDetail(true);
+                        }}
+                        className="w-full flex items-center justify-center gap-2 text-sm font-bold text-white bg-accent hover:bg-orange-600 px-4 py-3 rounded-xl transition-all shadow-md hover:shadow-lg active:scale-95 cursor-pointer"
+                        style={{pointerEvents: 'auto', position: 'relative', zIndex: 50}}
                     >
                         <Dumbbell size={16} />
                         Voir les exercices illustrés
@@ -460,15 +467,16 @@ const SessionCard: React.FC<SessionCardProps> = ({ session, weekNumber, isLocked
             </div>
         </div>
 
-            {/* ExerciseDetailDrawer pour les séances Renforcement */}
-            {session.type === 'Renforcement' && session.mainSet && showExerciseDetail && (
+            {/* ExerciseDetailDrawer — rendu via portail pour éviter tout blocage CSS parent */}
+            {session.type === 'Renforcement' && session.mainSet && showExerciseDetail && createPortal(
                 <ExerciseDetailDrawer
                     mainSet={session.mainSet}
                     sessionTitle={session.title}
                     isOpen={showExerciseDetail}
                     onClose={() => setShowExerciseDetail(false)}
                     isPremium={!!(isPremium || EXERCISE_DETAIL_TESTERS.includes(userEmail || ''))}
-                />
+                />,
+                document.body
             )}
         </>
     );
