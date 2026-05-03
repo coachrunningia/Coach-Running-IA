@@ -325,7 +325,6 @@ const SessionCard: React.FC<SessionCardProps> = ({ session, weekNumber, isLocked
                         onClick={(e) => {
                             e.preventDefault();
                             e.stopPropagation();
-                            console.log('[ExerciseBtn] clicked, opening drawer');
                             setShowExerciseDetail(true);
                         }}
                         className="w-full flex items-center justify-center gap-2 text-sm font-bold text-white bg-accent hover:bg-orange-600 px-4 py-3 rounded-xl transition-all shadow-md hover:shadow-lg active:scale-95 cursor-pointer"

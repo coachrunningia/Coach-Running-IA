@@ -43,9 +43,9 @@ const ExerciseDetailDrawer: React.FC<ExerciseDetailDrawerProps> = ({
     return () => window.removeEventListener('keydown', handleKey);
   }, [isOpen, currentIndex, exercises.length, onClose]);
 
-  if (!isOpen || exercises.length === 0) return null;
+  if (!isOpen) return null;
 
-  // Si pas premium, afficher un aperçu flouté statique qui donne envie
+  // Si pas premium, afficher un aperçu flouté statique (pas besoin de parser les exercices)
   if (!isPremium) {
     return (
       <div className="fixed inset-0 z-[90] bg-slate-900/60 backdrop-blur-sm flex items-end md:items-center justify-center" onClick={onClose}>
@@ -107,6 +107,9 @@ const ExerciseDetailDrawer: React.FC<ExerciseDetailDrawerProps> = ({
       </div>
     );
   }
+
+  // Premium mais aucun exercice trouvé
+  if (exercises.length === 0) return null;
 
   const current = exercises[currentIndex];
   const info = current.info;
