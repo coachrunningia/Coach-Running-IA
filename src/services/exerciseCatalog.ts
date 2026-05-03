@@ -1500,6 +1500,32 @@ export const EXERCISE_CATALOG: Record<string, ExerciseInfo> = {
     alternative: "Même exercice sur les deux pieds"
   },
 
+  "protocole stanish excentrique": {
+    name: "protocole stanish excentrique",
+    displayName: "Protocole Stanish excentrique",
+    muscle: "Gastrocnémiens, soléaire (excentrique)",
+    muscleSecondary: "Tibial postérieur, tendon d'Achille",
+    icon: "🦶",
+    imageUrl: "/exercises/extensions-mollets.png",
+    runningBenefit: "Protocole validé scientifiquement pour traiter et prévenir les tendinopathies d'Achille.",
+    posture: [
+      "Debout sur une marche, monter sur les deux pieds puis lever un pied",
+      "Descendre lentement sur un seul pied en 4 secondes",
+      "Talon descend sous le niveau de la marche, amplitude complète",
+      "Augmenter progressivement la vitesse de descente au fil des semaines"
+    ],
+    mistakes: [
+      "Descente trop rapide dès le début (risque : re-réactivation de la tendinopathie)",
+      "Stopper si douleur légère (risque : une gêne modérée 3-4/10 est normale et attendue)",
+      "Flexion du genou pour compenser (risque : travail transféré aux ischio-jambiers)"
+    ],
+    contraindications: "Rupture tendineuse, tendon d'Achille sous fluoroquinolones récentes, douleur > 5/10 pendant l'exercice",
+    tipCoach: "Protocole validé : 3×15, 2 fois/jour pendant 12 semaines. Tenir un journal de douleur (0-10) après chaque séance.",
+    tempo: "Semaines 1-2 : descente lente 4s. Semaines 3-4 : vitesse modérée. Semaines 5+ : descente rapide contrôlée.",
+    progression: "Augmenter progressivement la vitesse de descente, puis ajouter un poids",
+    alternative: "Mollets excentrique classique (descente lente sans progression de vitesse)"
+  },
+
   "sauts directionnels multi-axes": {
     name: "sauts directionnels multi-axes",
     displayName: "Sauts directionnels multi-axes",
