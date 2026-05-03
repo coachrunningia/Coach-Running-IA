@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 import { Helmet } from "react-helmet-async";
 import { useParams, Link, useNavigate } from 'react-router-dom';
 import { BlogPost } from '../../types';
-import { getBlogPostBySlug, getRecentBlogPosts, BLOG_CATEGORIES } from '../../services/blogService';
+import { getBlogPostBySlug, getRecentBlogPosts, getBlogPostsByCategory, BLOG_CATEGORIES } from '../../services/blogService';
 import { Calendar, Clock, Tag, ArrowLeft, ArrowRight, Share2, Loader2, User } from 'lucide-react';
 
 const BlogArticle: React.FC = () => {
@@ -27,9 +27,17 @@ const BlogArticle: React.FC = () => {
         setPost(data);
         // Update page title for SEO
         document.title = data.seoTitle || data.title;
-        // Load related posts
-        const recent = await getRecentBlogPosts(4);
-        setRelatedPosts(recent.filter(p => p.id !== data.id).slice(0, 3));
+        // Load related posts — même catégorie d'abord, sinon récents
+        let related: BlogPost[] = [];
+        if (data.category) {
+          related = (await getBlogPostsByCategory(data.category)).filter(p => p.id !== data.id);
+        }
+        if (related.length < 3) {
+          const recent = await getRecentBlogPosts(6);
+          const recentFiltered = recent.filter(p => p.id !== data.id && !related.some(r => r.id === p.id));
+          related = [...related, ...recentFiltered];
+        }
+        setRelatedPosts(related.slice(0, 3));
       }
     } catch (error) {
       console.error('Error loading post:', error);
@@ -84,30 +92,55 @@ const BlogArticle: React.FC = () => {
     <div className="min-h-screen bg-white">
 <Helmet>
         <title>{post.seoTitle || post.title} | Coach Running IA</title>
-        <meta name="description" content={post.excerpt} />
+        <meta name="description" content={post.excerpt?.length > 155 ? post.excerpt.substring(0, 152) + '...' : post.excerpt} />
         <link rel="canonical" href={`https://coachrunningia.fr/blog/${post.slug}`} />
+        {/* Open Graph */}
+        <meta property="og:type" content="article" />
+        <meta property="og:title" content={post.seoTitle || post.title} />
+        <meta property="og:description" content={post.excerpt?.length > 155 ? post.excerpt.substring(0, 152) + '...' : post.excerpt} />
+        <meta property="og:image" content={post.coverImage || "https://coachrunningia.fr/og-image.png"} />
+        <meta property="og:url" content={`https://coachrunningia.fr/blog/${post.slug}`} />
+        <meta property="og:site_name" content="Coach Running IA" />
+        <meta property="og:locale" content="fr_FR" />
+        <meta property="article:published_time" content={post.createdAt?.toDate?.()?.toISOString?.() || ''} />
+        {category && <meta property="article:section" content={category.label} />}
+        {post.tags?.map((tag: string, i: number) => <meta key={i} property="article:tag" content={tag} />)}
+        {/* Twitter Card */}
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content={`${post.seoTitle || post.title} | Coach Running IA`} />
+        <meta name="twitter:description" content={post.excerpt?.length > 155 ? post.excerpt.substring(0, 152) + '...' : post.excerpt} />
+        <meta name="twitter:image" content={post.coverImage || "https://coachrunningia.fr/og-image.png"} />
+        {/* Schema Article enrichi */}
         <script type="application/ld+json">{JSON.stringify({
           "@context": "https://schema.org",
           "@type": "Article",
-          "headline": post.title,
+          "headline": post.seoTitle || post.title,
           "description": post.excerpt,
           "image": post.coverImage || "https://coachrunningia.fr/og-image.png",
-          "author": { "@type": "Organization", "name": "Coach Running IA" },
-          "publisher": { "@type": "Organization", "name": "Coach Running IA", "logo": { "@type": "ImageObject", "url": "https://coachrunningia.fr/favicon-32x32.png" } },
+          "author": { "@type": "Organization", "name": "Coach Running IA", "url": "https://coachrunningia.fr" },
+          "publisher": {
+            "@type": "Organization",
+            "name": "Coach Running IA",
+            "logo": { "@type": "ImageObject", "url": "https://coachrunningia.fr/favicon-32x32.png" }
+          },
           "datePublished": post.createdAt?.toDate?.()?.toISOString?.() || new Date().toISOString(),
-          "url": `https://coachrunningia.fr/blog/${post.slug}`
+          "dateModified": (post as any).updatedAt?.toDate?.()?.toISOString?.() || post.createdAt?.toDate?.()?.toISOString?.() || new Date().toISOString(),
+          "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": `https://coachrunningia.fr/blog/${post.slug}`
+          },
+          "url": `https://coachrunningia.fr/blog/${post.slug}`,
+          "articleSection": category?.label || "Running",
+          "wordCount": post.content?.split(/\s+/).length || 0,
+          "inLanguage": "fr-FR"
         })}</script>
-        <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content={`${post.seoTitle || post.title} | Coach Running IA`} />
-        <meta name="twitter:description" content={post.excerpt} />
-        <meta name="twitter:image" content={post.coverImage || "https://coachrunningia.fr/og-image.png"} />
       </Helmet>
       {/* Hero Image */}
       {post.coverImage && (
         <div className="w-full h-[40vh] md:h-[50vh] relative">
           <img
             src={post.coverImage}
-            alt={post.title}
+            alt={`${post.title} — ${category?.label || 'Running'} | Coach Running IA`}
             className="w-full h-full object-cover"
           />
           <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
