@@ -1022,7 +1022,8 @@ export const detectLevelFromData = (data: any): string => {
     // Sinon : drop max 1 cran (marge d'erreur possible)
     const gap = levelRank[declared] - levelRank[vmaLevel];
     if (gap >= 1) {
-      const hardDropThreshold = isFemale ? 8.5 : 10;
+      // VMA basse → drop plus agressif (VMA < 12 homme / < 10.5 femme = clairement pas le niveau déclaré)
+      const hardDropThreshold = isFemale ? 10.5 : 12;
       const maxDrop = vma < hardDropThreshold ? 2 : 1;
       const adjustedLevel = rankNames[Math.max(levelRank[declared] - maxDrop, levelRank[vmaLevel])];
       console.log(`[Enforce] Level override: declared="${declared}" but VMA=${vma} (${isFemale ? 'F' : 'M'}) implies "${vmaLevel}" (gap=${gap}, maxDrop=${maxDrop}) → using "${adjustedLevel}"`);
@@ -2640,7 +2641,7 @@ const buildSafetyInstructions = (data: QuestionnaireData, isBeginnerLevel: boole
   const bmi = (data.weight && data.height) ? data.weight / ((data.height / 100) ** 2) : null;
   const age = data.age || 0;
   const weight = data.weight || 0;
-  const isSenior = age >= 50;
+  const isSenior = age >= 45;
   const isRestart = data.fitnessSubGoal === 'Reprendre après une pause' || data.lastActivity === 'Plus de 6 mois';
 
   // 3-tier BMI system: 25 (surpoids), 30 (obésité modérée), 35 (obésité sévère)

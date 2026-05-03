@@ -1027,7 +1027,7 @@ function buildSafetyWarning(
   isLongDistance?: boolean,
 ): string {
   const bmi = (weight && height && height > 0) ? weight / ((height / 100) ** 2) : 0;
-  const isSenior = (age || 0) >= 50;
+  const isSenior = (age || 0) >= 45;
 
   // Priorité : blessure > senior+longue distance > IMC ≥ 35 > IMC ≥ 30 > senior > IMC ≥ 25 > débutant+distance > défaut
   if (hasInjury) {
