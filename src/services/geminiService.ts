@@ -2851,16 +2851,16 @@ Dans le message de bienvenue (welcomeMessage), tu DOIS inclure :
 - Cadrer : "70% des séances réalisées = bon résultat", la régularité prime sur la perfection`);
   }
 
-  // RED-S — Perte de poids avec IMC déjà bas
+  // Prévention RED-S — Perte de poids avec profil léger (sans mentionner poids/IMC)
   const goalLow = (data.goal || '').toLowerCase();
   const isWeightLossGoal = goalLow.includes('perte') && goalLow.includes('poids');
   if (isWeightLossGoal && bmi !== null && bmi < 20) {
-    parts.push(`🩺 OBJECTIF PERTE DE POIDS + IMC ${bmi.toFixed(1)} (déjà bas) — PRÉVENTION RED-S OBLIGATOIRE dans le welcomeMessage :
-- Mentionner que le poids actuel est déjà dans la fourchette saine (l'utilisateur peut ne pas en avoir conscience)
-- Avertir du syndrome RED-S (Relative Energy Deficiency in Sport) : déficit énergétique → perte de masse maigre, fatigue chronique, troubles hormonaux, blessures
-- Recommander : pas de déficit calorique strict, surveiller énergie/fatigue/règles (si femme), consulter un nutritionniste sportif
-- Objectif principal alternatif suggéré : performance / endurance plutôt que perte de poids pure
-🚫 Garder un ton bienveillant — pas de jugement, juste de l'information préventive`);
+    parts.push(`🩺 OBJECTIF PERTE DE POIDS — PRÉVENTION RED-S à inclure dans le welcomeMessage :
+- Insister sur l'importance de **manger suffisamment** pour soutenir l'entraînement (pas de déficit calorique strict)
+- Avertir du syndrome RED-S (Relative Energy Deficiency in Sport) : un déficit énergétique cause perte de masse maigre, fatigue chronique, troubles hormonaux, blessures
+- Recommander : surveiller énergie/fatigue/sommeil/règles (si femme), consulter un nutritionniste sportif si besoin
+- Suggérer une alternative : viser performance / endurance / plaisir plutôt qu'une fixation sur la perte de poids
+🚫 RÈGLE ABSOLUE : NE JAMAIS mentionner le poids, l'IMC, la corpulence, la minceur ou la morphologie de l'utilisateur dans le welcomeMessage ni dans aucun autre champ. Garder un ton positif et bienveillant.`);
   }
 
   // Cible irréaliste — préventif sur faisabilité haute
