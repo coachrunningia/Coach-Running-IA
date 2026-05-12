@@ -2840,6 +2840,32 @@ Dans le message de bienvenue (welcomeMessage), tu DOIS inclure :
 - Conseil systématique : hydratation, chaussures adaptées, ne pas forcer`);
   }
 
+  // === Messages préventifs additionnels (sécurité utilisateur, pas blocage) ===
+  // Plan long (>24 sem) : risque abandon
+  const totalWeeks = data.durationWeeks || 0;
+  if (totalWeeks > 24) {
+    parts.push(`⚠️ PLAN LONG (${totalWeeks} sem) — MESSAGE D'ADHÉRENCE OBLIGATOIRE dans le welcomeMessage :
+- Les plans > 24 semaines ont un taux d'abandon élevé chez les coureurs en construction
+- Mentionner : importance de noter les séances, partenaire d'entraînement, reprise possible après pause sans tout recommencer
+- À mi-parcours, suggérer d'évaluer la motivation et éventuellement basculer sur un objectif intermédiaire
+- Cadrer : "70% des séances réalisées = bon résultat", la régularité prime sur la perfection`);
+  }
+
+  // RED-S — Perte de poids avec IMC déjà bas
+  const goalLow = (data.goal || '').toLowerCase();
+  const isWeightLossGoal = goalLow.includes('perte') && goalLow.includes('poids');
+  if (isWeightLossGoal && bmi !== null && bmi < 20) {
+    parts.push(`🩺 OBJECTIF PERTE DE POIDS + IMC ${bmi.toFixed(1)} (déjà bas) — PRÉVENTION RED-S OBLIGATOIRE dans le welcomeMessage :
+- Mentionner que le poids actuel est déjà dans la fourchette saine (l'utilisateur peut ne pas en avoir conscience)
+- Avertir du syndrome RED-S (Relative Energy Deficiency in Sport) : déficit énergétique → perte de masse maigre, fatigue chronique, troubles hormonaux, blessures
+- Recommander : pas de déficit calorique strict, surveiller énergie/fatigue/règles (si femme), consulter un nutritionniste sportif
+- Objectif principal alternatif suggéré : performance / endurance plutôt que perte de poids pure
+🚫 Garder un ton bienveillant — pas de jugement, juste de l'information préventive`);
+  }
+
+  // Cible irréaliste — préventif sur faisabilité haute
+  // (Note : le blocage IRRÉALISTE est géré ailleurs avec décharge explicite)
+
   return parts.join('\n\n');
 };
 
