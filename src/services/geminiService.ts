@@ -605,10 +605,11 @@ const recalculateSessionDistance = (session: any): void => {
   const calculatedKm = durationMinutes / paceMinPerKm;
   const currentKm = parseFloat((session.distance || '0').toString().replace(/[^0-9.,]/g, '').replace(',', '.'));
 
-  // Corriger si l'écart est > 20% (tolérance pour warmup/cooldown à pace différent)
-  if (currentKm > 0 && Math.abs(calculatedKm - currentKm) / calculatedKm > 0.20) {
+  // Patch D: tolérance abaissée 20% → 10% pour forcer la cohérence dist × pace = duration
+  // (les écarts >10% étaient massifs sur les plans audités, jusqu'à +78%)
+  if (currentKm > 0 && Math.abs(calculatedKm - currentKm) / calculatedKm > 0.10) {
     const corrected = Math.round(calculatedKm * 10) / 10;
-    console.log(`[PostProcess] Distance corrigée: "${session.title}" ${currentKm}km → ${corrected}km (${durationMinutes}min à ${paceStr}/km)`);
+    console.log(`[PostProcess] Distance corrigée (tol 10%): "${session.title}" ${currentKm}km → ${corrected}km (${durationMinutes}min à ${paceStr}/km)`);
     session.distance = `${corrected} km`;
   } else if (!currentKm || currentKm === 0) {
     session.distance = `${Math.round(calculatedKm * 10) / 10} km`;
@@ -767,7 +768,15 @@ const postProcessWeekQuality = (
         'Marche/Course': pacesObj.recoveryPace,
         'Fractionné': pacesObj.vmaPace,
       };
-      session.targetPace = paceForType[session.type] || pacesObj.efPace;
+      // Patch C: Fractionné avec intensité Facile/Modéré = fartlek doux, pas vraie VMA
+      // → assigner EF pace plutôt que VMA pace pour éviter le mismatch séance/allure
+      const isFartlekDoux = session.type === 'Fractionné' &&
+        /facile|moder/i.test((session.intensity || '').normalize('NFD').replace(/[̀-ͯ]/g, ''));
+      if (isFartlekDoux) {
+        session.targetPace = pacesObj.efPace;
+      } else {
+        session.targetPace = paceForType[session.type] || pacesObj.efPace;
+      }
     }
 
     // Distance : recalculer si incohérente
@@ -786,7 +795,8 @@ const postProcessWeekQuality = (
     !week.isRecoveryWeek;
 
   const slSessions = week.sessions.filter((s: any) =>
-    s.type === 'Sortie Longue' || /sortie\s*longue/i.test(s.title || '')
+    s.type === 'Sortie Longue' || s.type === 'Sortie longue' ||
+    /sortie\s*longue/i.test(s.type || '') || /sortie\s*longue/i.test(s.title || '')
   );
   if (slSessions.length >= 2) {
     if (isUltraTrailPhase && slSessions.length === 2) {
@@ -894,15 +904,15 @@ const MAX_SL_DURATION: Record<string, Record<string, number>> = {
   '5K':        { deb: 50, inter: 60, conf: 70, expert: 75 },
   '10K':       { deb: 60, inter: 75, conf: 85, expert: 90 },
   'Semi':      { deb: 90, inter: 105, conf: 115, expert: 120 },
-  'Marathon':  { deb: 120, inter: 135, conf: 145, expert: 150 },
+  'Marathon':  { deb: 150, inter: 170, conf: 190, expert: 200 },
   'Hyrox':     { deb: 55, inter: 65, conf: 75, expert: 80 },
   'VK':        { deb: 60, inter: 80, conf: 100, expert: 120 },
   'TrailSteep':{ deb: 75, inter: 100, conf: 120, expert: 140 },
   'Trail<30':  { deb: 90, inter: 120, conf: 140, expert: 150 },
-  'Trail30+':  { deb: 120, inter: 180, conf: 200, expert: 210 },
+  'Trail30+':  { deb: 140, inter: 190, conf: 220, expert: 240 },
   'Trail60+':  { deb: 150, inter: 240, conf: 270, expert: 300 },
   'Trail100+': { deb: 180, inter: 300, conf: 360, expert: 480 },
-  'PertePoids':{ deb: 45, inter: 60, conf: 70, expert: 75 },
+  'PertePoids':{ deb: 60, inter: 75, conf: 90, expert: 105 },
   'Maintien':  { deb: 50, inter: 70, conf: 80, expert: 90 },
 };
 
@@ -912,14 +922,14 @@ const MAX_WEEKLY_VOLUME: Record<string, Record<string, number>> = {
   '10K':       { deb: 30, inter: 50, conf: 55, expert: 65 },
   'Semi':      { deb: 35, inter: 55, conf: 60, expert: 70 },
   'Marathon':  { deb: 45, inter: 65, conf: 75, expert: 85 },
-  'Hyrox':     { deb: 25, inter: 40, conf: 50, expert: 55 },
+  'Hyrox':     { deb: 19, inter: 30, conf: 38, expert: 42 },
   'VK':        { deb: 20, inter: 30, conf: 35, expert: 45 },
   'TrailSteep':{ deb: 25, inter: 35, conf: 45, expert: 55 },
   'Trail<30':  { deb: 35, inter: 50, conf: 55, expert: 65 },
   'Trail30+':  { deb: 45, inter: 60, conf: 70, expert: 80 },
   'Trail60+':  { deb: 45, inter: 55, conf: 70, expert: 100 },
   'Trail100+': { deb: 55, inter: 75, conf: 95, expert: 120 },
-  'PertePoids':{ deb: 20, inter: 30, conf: 35, expert: 45 },
+  'PertePoids':{ deb: 25, inter: 40, conf: 50, expert: 60 },
   'Maintien':  { deb: 25, inter: 40, conf: 45, expert: 55 },
 };
 
@@ -1094,6 +1104,52 @@ export const enforceWeekConstraints = (
     });
   }
 
+  // --- 1a-bis. Garde-fou SL minimum en KM selon distance de course ---
+  // Le cap en minutes peut produire des SL trop courtes pour les VMA basses
+  // On vérifie que la SL max atteint un % minimum de la distance de course
+  const raceDistKm = questionnaireData?.trailDetails?.distance ||
+    ((questionnaireData?.subGoal || '').toLowerCase().includes('marathon') && !(questionnaireData?.subGoal || '').toLowerCase().includes('semi') ? 42.2 :
+     (questionnaireData?.subGoal || '').toLowerCase().includes('semi') ? 21.1 : 0);
+
+  if (raceDistKm > 0) {
+    const minSLRatios: Record<string, number> = {
+      'Marathon': 0.65,  // SL ≥ 65% = 27.4 km
+      'Semi': 0.75,      // SL ≥ 75% = 15.8 km
+      'Trail<30': 0.55,  // SL ≥ 55%
+      'Trail30+': 0.50,  // SL ≥ 50%
+      'Trail60+': 0.40,  // SL ≥ 40%
+      'Trail100+': 0.30, // SL ≥ 30%
+      '10K': 0.80,       // SL ≥ 80% = 8 km
+      '5K': 0.90,        // SL ≥ 90% = 4.5 km
+    };
+    const minRatio = minSLRatios[objective] || 0.50;
+    const minSLKm = Math.round(raceDistKm * minRatio);
+
+    // Trouver la SL dans cette semaine
+    const slInWeek = week.sessions.find((s: any) =>
+      s.type === 'Sortie Longue' || /sortie\s*longue/i.test(s.type || '') || /sortie\s*longue/i.test(s.title || '')
+    );
+    if (slInWeek) {
+      const slKm = parseFloat((slInWeek.distance || '0').toString().replace(/[^0-9.,]/g, '').replace(',', '.'));
+      // Ne booste la SL que si on est en phase spécifique ou pic (pas en fondamental S1)
+      const isLatePhase = ['specifique', 'spécifique', 'developpement', 'développement'].includes((week.phase || '').toLowerCase());
+      if (slKm > 0 && slKm < minSLKm && isLatePhase) {
+        console.log(`[Enforce] SL trop courte: ${slKm}km < ${minSLKm}km (min ${Math.round(minRatio*100)}% de ${raceDistKm}km) → boost`);
+        // Ne pas dépasser le cap en minutes converti en km
+        const efSpeed = (questionnaireData?.vma || 13) * 0.67; // km/h
+        const maxSlKmFromDur = slDurRules ? Math.round((slDurRules[level] || slDurRules.inter) / 60 * efSpeed * 10) / 10 : minSLKm;
+        const targetKm = Math.min(minSLKm, maxSlKmFromDur);
+        const factor = targetKm / slKm;
+        slInWeek.distance = `${targetKm} km`;
+        // Ajuster la durée proportionnellement
+        const currentDur = parseDurationMin(slInWeek.duration);
+        const newDur = Math.round(currentDur * factor);
+        slInWeek.duration = formatDurationStr(newDur);
+        console.log(`[Enforce] SL boostée: ${slKm}km/${currentDur}min → ${targetKm}km/${newDur}min`);
+      }
+    }
+  }
+
   // --- 1b. Cap durée max TOUTE séance de course (filet de sécurité) ---
   // Aucune séance non-SL ne devrait dépasser 75% de la durée max SL
   if (slDurRules) {
@@ -1256,6 +1312,21 @@ export const enforceWeekConstraints = (
         eligible[0].elevationGain = (eligible[0].elevationGain || 0) + freedDPlus;
         console.log(`[Enforce] Week ${week.weekNumber}: ${freedDPlus}m D+ freed from track/recovery → added to "${eligible[0].title}"`);
       }
+    }
+  }
+
+  // --- 3b. Si la course déclare 0m D+, supprimer tout D+ des séances ---
+  const trailElev = questionnaireData?.trailDetails?.elevation;
+  if (trailElev !== undefined && trailElev !== null && parseInt(trailElev) === 0) {
+    let removedDPlus = 0;
+    week.sessions.forEach((s: any) => {
+      if (s.elevationGain && s.elevationGain > 0) {
+        removedDPlus += s.elevationGain;
+        s.elevationGain = 0;
+      }
+    });
+    if (removedDPlus > 0) {
+      console.log(`[Enforce] Course 0m D+ → supprimé ${removedDPlus}m D+ des séances S${week.weekNumber}`);
     }
   }
 
@@ -1983,9 +2054,20 @@ const calculatePeriodizationPlan = (
 
   // Taux de progression selon niveau
   // Débutant à 0.08 (comme inter) pour pouvoir atteindre la distance de course
-  const progressionRate = level === 'Débutant (0-1 an)' ? 0.08 :
-                          level === 'Intermédiaire (Régulier)' ? 0.08 :
-                          level === 'Confirmé (Compétition)' ? 0.10 : 0.12;
+  let progressionRate = level === 'Débutant (0-1 an)' ? 0.08 :
+                        level === 'Intermédiaire (Régulier)' ? 0.08 :
+                        level === 'Confirmé (Compétition)' ? 0.10 : 0.12;
+
+  // IMC élevé → progression plus douce (priorité = régularité, pas volume)
+  const height = params?.height || 0;
+  const bmiForRate = (weight && height > 0) ? weight / ((height / 100) ** 2) : 0;
+  if (bmiForRate >= 35) {
+    progressionRate = Math.min(progressionRate, 0.05); // IMC 35+ : max +5%/sem
+    console.log(`[Periodization] IMC ${bmiForRate.toFixed(1)} ≥ 35 → progression réduite à ${(progressionRate*100).toFixed(0)}%/sem`);
+  } else if (bmiForRate >= 30) {
+    progressionRate = Math.min(progressionRate, 0.06); // IMC 30-35 : max +6%/sem
+    console.log(`[Periodization] IMC ${bmiForRate.toFixed(1)} ≥ 30 → progression réduite à ${(progressionRate*100).toFixed(0)}%/sem`);
+  }
 
   // ══════════════════════════════════════════════════════════════
   // PLAFOND DE VOLUME PIC — aligné sur les tableaux du prompt
@@ -2010,7 +2092,7 @@ const calculatePeriodizationPlan = (
 
   let maxVolume: number;
   if (level === 'Débutant (0-1 an)') {
-    if (isHyrox) maxVolume = 20;
+    if (isHyrox) maxVolume = 16; // -25% vs route (athlète fait aussi fonctionnel)
     else if (isPertePoids) maxVolume = 20;
     else if (isMaintien) maxVolume = 25;
     else if (isVK) maxVolume = 20;
@@ -2024,7 +2106,7 @@ const calculatePeriodizationPlan = (
     else if (is10k) maxVolume = 30;
     else maxVolume = 25; // 5K
   } else if (level === 'Expert (Performance)') {
-    if (isHyrox) maxVolume = 50;
+    if (isHyrox) maxVolume = 38; // -25% vs route
     else if (isPertePoids) maxVolume = 45;
     else if (isMaintien) maxVolume = 55;
     else if (isVK) maxVolume = 45;
@@ -2038,7 +2120,7 @@ const calculatePeriodizationPlan = (
     else if (is10k) maxVolume = 65;
     else maxVolume = 60; // 5K
   } else if (level === 'Confirmé (Compétition)') {
-    if (isHyrox) maxVolume = 40;
+    if (isHyrox) maxVolume = 30; // -25% vs route
     else if (isPertePoids) maxVolume = 35;
     else if (isMaintien) maxVolume = 45;
     else if (isVK) maxVolume = 35;
@@ -2053,7 +2135,7 @@ const calculatePeriodizationPlan = (
     else maxVolume = 46; // 5K
   } else {
     // Intermédiaire
-    if (isHyrox) maxVolume = 30;
+    if (isHyrox) maxVolume = 23; // -25% vs route
     else if (isPertePoids) maxVolume = 30;
     else if (isMaintien) maxVolume = 40;
     else if (isVK) maxVolume = 30;
@@ -2111,8 +2193,7 @@ const calculatePeriodizationPlan = (
   }
 
   // IMC-based volume reduction (plus pertinent que le poids brut)
-  const height = params?.height || 0;
-  const bmi = (weight && height > 0) ? weight / ((height / 100) ** 2) : 0;
+  const bmi = bmiForRate; // Déjà calculé plus haut
   if (bmi >= 35) {
     totalReduction *= 0.65; // Obésité classe 2+ : peak volume à 65%
     console.log(`[Periodization] IMC ${bmi.toFixed(1)} (≥35) → factor ×0.65`);
@@ -2370,9 +2451,18 @@ const calculatePeriodizationPlan = (
   // Et le MIN avec :
   // - currentVolume (on ne fait pas courir plus que ce qu'il court déjà)
   // - maxVolume * 0.65 (jamais plus de 65% du pic en S1, sinon pas de progression)
-  const minStartVolume = level === 'Débutant (0-1 an)' ? 8 :
-                         level === 'Intermédiaire (Régulier)' ? 15 :
-                         level === 'Confirmé (Compétition)' ? 20 : 25;
+  let minStartVolume = level === 'Débutant (0-1 an)' ? 8 :
+                      level === 'Intermédiaire (Régulier)' ? 15 :
+                      level === 'Confirmé (Compétition)' ? 20 : 25;
+
+  // Ajuster le volume de départ pour les profils IMC élevé (marche/course = moins de km)
+  if (bmiForRate >= 35 && minStartVolume > 5) {
+    minStartVolume = Math.max(5, Math.round(minStartVolume * 0.60));
+    console.log(`[Periodization] IMC ${bmiForRate.toFixed(1)} ≥ 35 → minStartVolume réduit à ${minStartVolume}km`);
+  } else if (bmiForRate >= 30 && minStartVolume > 6) {
+    minStartVolume = Math.max(6, Math.round(minStartVolume * 0.75));
+    console.log(`[Periodization] IMC ${bmiForRate.toFixed(1)} ≥ 30 → minStartVolume réduit à ${minStartVolume}km`);
+  }
 
   let startVolume = Math.max(idealStartVolume, minStartVolume);
   // Si le coureur a déclaré un volume actuel > 0, l'utiliser comme référence
@@ -2406,7 +2496,8 @@ const calculatePeriodizationPlan = (
     const targetPeakAt = Math.round(progressionWeeks * 0.70);
     const neededRate = Math.pow(maxVolume / startVolume, 1 / Math.max(1, targetPeakAt - 1)) - 1;
     // Utiliser le min entre le rate déclaré et le rate adapté (ne jamais monter plus vite que prévu)
-    if (neededRate < progressionRate && neededRate > 0.02) {
+    // MAIS ne jamais descendre en dessous de 5% — sinon les plans longs stagnent
+    if (neededRate < progressionRate && neededRate > 0.05) {
       effectiveRate = neededRate;
       console.log(`[Periodization] Rate adaptatif: ${(progressionRate*100).toFixed(1)}% → ${(effectiveRate*100).toFixed(1)}% (pic visé à S~${targetPeakAt}/${progressionWeeks})`);
     }
@@ -2421,7 +2512,8 @@ const calculatePeriodizationPlan = (
     if (recoveryWeeks.includes(weekNum)) {
       // Semaine de récup: réduction proportionnelle au volume (plus doux pour gros volumes)
       const prevWeekVol = weeklyVolumes.length > 0 ? weeklyVolumes[weeklyVolumes.length - 1] : currentVol;
-      const recoveryFactor = prevWeekVol >= 60 ? 0.80 : prevWeekVol >= 30 ? 0.75 : 0.70;
+      // Drop de récup proportionnel au volume : plus doux pour les petits volumes
+      const recoveryFactor = prevWeekVol >= 60 ? 0.80 : prevWeekVol >= 30 ? 0.78 : 0.80;
       weeklyVolumes.push(Math.round(prevWeekVol * recoveryFactor));
       weeksAtPeak = 0; // Reset ondulation après récup
     } else if (phases[i] === 'affutage') {
@@ -2466,7 +2558,7 @@ const calculatePeriodizationPlan = (
         if (recoveryWeeks.includes(weekNum)) {
           // Réduction proportionnelle au volume (plus doux pour gros volumes)
           const prevVol = i > 0 ? weeklyVolumes[i - 1] : adjustedVol;
-          const recovFactor = prevVol >= 60 ? 0.80 : prevVol >= 30 ? 0.75 : 0.70;
+          const recovFactor = prevVol >= 60 ? 0.80 : prevVol >= 30 ? 0.78 : 0.80;
           weeklyVolumes[i] = Math.round(prevVol * recovFactor);
         } else if (phases[i] === 'affutage') {
           const affutageProgress = (weekNum - (totalWeeks - affutageWeeks)) / affutageWeeks;
@@ -2496,11 +2588,12 @@ const calculatePeriodizationPlan = (
 
       const isFromRecovery = recoveryWeeks.includes(i + 1) || phases[i] === 'recuperation';
       if (isFromRecovery) {
-        // Post-récup : le retour ne dépasse pas la semaine PRÉ-récup
-        // Chercher le volume de la semaine avant la récup
+        // Post-récup : le retour ne dépasse pas +15% de la semaine de récup
+        // ET ne dépasse pas la semaine PRÉ-récup (double garde-fou)
         const preRecovVol = i > 0 ? weeklyVolumes[i - 1] : curr;
-        if (next > preRecovVol) {
-          weeklyVolumes[i + 1] = preRecovVol;
+        const maxPostRecov = Math.min(preRecovVol, Math.round(curr * 1.15));
+        if (next > maxPostRecov) {
+          weeklyVolumes[i + 1] = maxPostRecov;
         }
       } else if (increase > 0.15) {
         weeklyVolumes[i + 1] = Math.round(curr * 1.15);
@@ -2727,6 +2820,16 @@ Dans le message de bienvenue (welcomeMessage), tu DOIS inclure :
 - Augmenter le volume de maximum 10% par semaine
 - Intégrer du marche/course même si le coureur est de niveau intermédiaire`);
   }
+
+  // Forcer la diversité des types de séances (patch E v2 : exception Perte de Poids)
+  const isPertePoids = /perte.*poids|weight.*loss/i.test(data.goal || '');
+  parts.push(`🔴 DIVERSITÉ OBLIGATOIRE DES SÉANCES :
+- ${isPertePoids
+    ? 'MAXIMUM 2 séances de type "Sortie Longue" par semaine pour la perte de poids (1 principale dimanche + 1 molle en milieu de semaine — la durée prime sur l\'intensité pour oxydation lipidique).'
+    : 'MAXIMUM 1 séance de type "Sortie Longue" par semaine. JAMAIS 2 Sortie Longue la même semaine.'}
+- Si le plan a 3 séances/semaine : 1 Jogging/Footing/Marche-Course + 1 Sortie Longue + 1 Renforcement. En phase développement/spécifique : remplacer le Jogging par du Fractionné ou du Seuil.
+- Si le plan a 4 séances/semaine : 2 Jogging/Footing + 1 Sortie Longue + 1 Renforcement. En phase développement : 1 Jogging + 1 Fractionné + 1 SL + 1 Renfo.
+- Chaque séance de course doit avoir un type DIFFÉRENT (pas 2 "Jogging" identiques — varier : footing EF, footing vallonné, fartlek, progressif, etc.)`);
 
   if (isBeginnerLevel) {
     parts.push(`🛡️ PROTECTION DÉBUTANT :
@@ -3084,7 +3187,7 @@ ${generationContext.periodizationPlan.weeklyPhases.map((p, i) => `S${i + 1}: ${p
 🔴 Jours : ${data.preferredDays?.length ? data.preferredDays.join(', ') + ' — CES JOURS UNIQUEMENT.' : 'Répartition équilibrée.'}
 🔴 SORTIE LONGUE le ${longRunDay} — place OBLIGATOIREMENT la séance de type "Sortie Longue" ce jour-là.
 🔴 Le plan TOTAL fait ${planDurationWeeks} semaines (tu ne génères que la semaine 1 ici).
-🔴 VOLUME S1 = ${generationContext.periodizationPlan.weeklyVolumes[0]} km MAXIMUM (somme des distances de toutes les séances running). NE PAS dépasser ce volume.
+🔴 VOLUME S1 = ${generationContext.periodizationPlan.weeklyVolumes[0]} km — CIBLE BILATÉRALE (somme des distances de toutes les séances running). Tu dois VISER ce volume à ±5%, ni en dessous (sous-stimulation) ni au-dessus (surcharge). Distribue les km entre les séances pour atteindre exactement ce volume.
 🔴 La SORTIE LONGUE doit être la séance la PLUS LONGUE de la semaine et représenter 30-40% du volume hebdo. Durée minimum SL : ${minSlDurForPrompt} min.
 
 🔴 TYPES DE SÉANCES AUTORISÉS PAR PHASE :
@@ -3273,8 +3376,8 @@ hyroxVolActuel < 30 ? `→ Volume modéré. Démarrer à ${Math.round(hyroxVolAc
 
 CATALOGUE DE SÉANCES HYROX (choisir selon la phase et la fréquence) :
 
-1. **Simulation Hyrox (séance reine)** : 8×1km à allure seuil (${paces?.seuilPace || '4:30'}/km), récup 2min marche/trot entre chaque.
-   → Phase spécifique uniquement. ${hyroxIsBeginnerish ? 'Débutant : commencer par 4×1km puis progresser.' : '1x/semaine en phase spécifique.'}
+1. **Simulation Hyrox (séance reine)** : à allure seuil (${paces?.seuilPace || '4:30'}/km), récup 2min marche/trot entre chaque.
+   → Phase spécifique uniquement. PROGRESSION OBLIGATOIRE : début phase spé = 4×1km, milieu = 6×1km, fin = 8×1km. Ne JAMAIS commencer directement par 8×1km.
 
 2. **Relances sous fatigue** : 15min EF → 6×(30s accélération VMA + 1min30 récup trot) → 10min EF.
    → Simule la relance après une station. Phase développement+.
@@ -3300,7 +3403,7 @@ CATALOGUE DE SÉANCES HYROX (choisir selon la phase et la fréquence) :
 PHASES :
 - FONDAMENTALE : Footings EF variés + fartlek doux dès S3 + Renfo. PAS de simulation Hyrox.
 - DÉVELOPPEMENT : 1 séance qualité/sem (tempo OU intervalles OU relances) + footings EF + renfo.
-- SPÉCIFIQUE : 1 simulation Hyrox (8×1km) + ${hyroxFreq >= 4 ? '1 séance qualité (relances ou tempo) + ' : ''}footings EF + renfo.
+- SPÉCIFIQUE : 1 simulation Hyrox (progression 4→6→8×1km) + ${hyroxFreq >= 4 ? '1 séance qualité (relances ou tempo) + ' : ''}footings EF + renfo.
 - AFFÛTAGE : volume -40%. Rappels d'allure courts (3-4×1km). Footings légers.
 
 VOLUME RUNNING HYROX (le running est 8km, pas 42km — adapter les volumes) :
@@ -3308,11 +3411,35 @@ VOLUME RUNNING HYROX (le running est 8km, pas 42km — adapter les volumes) :
 - Le volume hebdo doit rester MODÉRÉ car l'athlète fait du cross-training intense à côté.
 - Prévoir au moins 1 jour OFF complet sans running NI fonctionnel par semaine.
 
-MESSAGE dans chaque advice de séance :
-"Ce programme couvre la partie course à pied de ta préparation Hyrox. Planifie tes entraînements fonctionnels sur les jours off ou en complément des footings EF. Évite de cumuler une séance intense running et une séance fonctionnelle lourde le même jour."
+NOMMAGE TITRES (Hyrox-flavored sur les séances de course — le titre du renfo est généré séparément par le code, NE PAS le réécrire) :
+- Footing EF → "Footing — Base aérobie Hyrox" ou "Footing en aisance — Prépa Hyrox"
+- Sortie Longue → "Sortie Longue — Volume aérobie Hyrox"
+- Marche/Course → "Marche/Course — Démarrage progressif Hyrox"
+- Séances spécifiques → "Simulation Hyrox 4×1km", "Simulation Hyrox 6×1km", "Simulation Hyrox 8×1km", "Tempo Hyrox", "Relances sous fatigue Hyrox"
+- Types JSON inchangés : "Jogging", "Sortie Longue", "Fractionné", "Renforcement", "Marche/Course"
+→ Objectif : l'utilisateur doit voir "Hyrox" sur les titres des séances de course pour percevoir la spécificité du plan. Le titre du renfo est automatiquement "Renfo Hyrox Focus A/B - ..." via le code.
 
-NOMMAGE : types = "Jogging", "Sortie Longue", "Fractionné", "Renforcement".
-Les titres des séances spécifiques DOIVENT mentionner "Hyrox" (ex: "Simulation Hyrox 8×1km", "Relances sous fatigue Hyrox", "Tempo Hyrox").`;
+ADVICE PAR SÉANCE — INTERDICTION DE COPY-PASTE :
+Chaque advice DOIT être UNIQUE. Pour les séances de COURSE, faire le lien avec la performance Hyrox (réservoir aérobie, capacité à enchaîner les 8 segments de course coupés).
+⚠️ Pour le RENFO : le renforcement est du renfo classique de prévention des blessures liées à la course à pied (squats, fentes, gainage). NE PAS faire de lien avec les stations Hyrox (sled push, wall balls, sandbag lunges, etc.) — ce n'est pas l'objet de cette séance. Le renfo prépare le corps à supporter le volume de course, pas à exécuter les stations.
+
+Exemples (à adapter, ne pas copier) :
+- Footing EF : "Cette base aérobie te permet de tenir les 8×1km Hyrox sans saturer dès le 3e segment de course. C'est le réservoir cardio sur lequel reposera ta course."
+- Renfo : "Ce travail de renforcement prévient les blessures liées à la course à pied (genoux, mollets, chaîne postérieure). Un corps solide tient mieux le volume hebdomadaire et limite le risque d'arrêt sur blessure."
+- Sortie Longue : "Volume aérobie = ton réservoir pour enchaîner les 8km coupés. Tu construis ton endurance globale de coureur."
+- Marche/Course : "Démarrage en douceur pour habituer ton corps à l'effort répété sans risque de blessure."
+- Séance clé Hyrox (phase spé+) : conseils de pacing et technique de relance après un segment de course rapide.
+🚫 INTERDIT : répéter "Ce programme couvre la partie course à pied" dans plusieurs advice.
+La mention "ce plan = running uniquement, fonctionnel à côté" doit aller UNE SEULE FOIS dans le welcomeMessage.
+
+WELCOMEMESSAGE HYROX (obligatoirement) :
+1. UNE phrase qui clarifie : ce plan couvre la partie course à pied de la prépa Hyrox. L'athlète gère son fonctionnel à côté.
+2. Mini-roadmap des phases sur ${planDurationWeeks} semaines pour donner de la perspective dès la S1 :
+   - "Semaines 1-3 : base aérobie + technique (tu y es)"
+   - "Semaines 4-6 : introduction fartlek + accélérations courtes"
+   - "Semaines 7+ : simulations Hyrox progressives 4×1km → 6×1km → 8×1km"
+   - "Affûtage final : rappels d'allure avant ta course"
+3. Une phrase de motivation orientée Hyrox spécifiquement (pas un message running générique).`;
 })() : ''}
 
 ${(!data.targetTime || data.targetTime.trim() === '') && !goal.includes('Perte') && !goal.includes('Maintien') && !goal.includes('Remise') && !goal.includes('Hyrox') ? `🔴 PLAN FINISHER — RÈGLES SPÉCIFIQUES :
@@ -3505,12 +3632,16 @@ RAPPEL : Génère UNIQUEMENT la semaine 1 !
         slSession.day = slDay;
       }
 
-      // Dédupliquer
+      // Dédupliquer — fallback sur DAYS_ORDER complet si prefDays épuisé
       const usedDays = new Set<string>();
       plan.weeks[0].sessions.forEach((session: any, idx: number) => {
         if (usedDays.has(session.day)) {
           const pool = prefDays || DAYS_ORDER_PREV;
-          const available = pool.filter((d: string) => !usedDays.has(d));
+          let available = pool.filter((d: string) => !usedDays.has(d));
+          // Fallback sur tous les jours si le pool préféré est épuisé
+          if (available.length === 0) {
+            available = DAYS_ORDER_PREV.filter((d: string) => !usedDays.has(d));
+          }
           if (available.length > 0) session.day = available[0];
         }
         usedDays.add(session.day);
@@ -3669,7 +3800,7 @@ RAPPEL : Génère UNIQUEMENT la semaine 1 !
  */
 export const generateRemainingWeeks = async (
   plan: TrainingPlan,
-  onProgress?: (partialPlan: TrainingPlan, batchIndex: number, totalBatches: number) => void,
+  onProgress?: (partialPlan: TrainingPlan, batchIndex: number, totalBatches: number) => void | Promise<void>,
 ): Promise<TrainingPlan> => {
   if (!plan.isPreview || !plan.generationContext) {
     throw new Error('Ce plan n\'est pas en mode preview ou manque le contexte de génération');
@@ -3725,6 +3856,45 @@ Ce coureur est DÉBUTANT. Tu dois appliquer une progression d'alternance marche/
 - VMA/Fractionné : PAS AVANT semaine 8-10, et uniquement sous forme de fartlek doux
 
 ⚠️ Le type "Marche/Course" doit rester dominant jusqu'à semaine 6-7 !
+` : '';
+
+  // === SECTION HYROX pour les lots remaining ===
+  const isHyroxRemaining = (data.goal || '').includes('Hyrox');
+  const hyroxIsBeginnerishRemaining = (data.level || '').includes('Débutant') || ctxVma < 12;
+  const hyroxSectionRemaining = isHyroxRemaining ? `
+═══════════════════════════════════════
+       SPÉCIFICITÉS HYROX
+═══════════════════════════════════════
+Ce plan couvre UNIQUEMENT la course à pied de la prépa Hyrox. L'athlète gère son fonctionnel à côté.
+Format Hyrox : 8×1km coupés par 8 stations fonctionnelles → priorité = SEUIL FRACTIONNÉ + capacité à relancer.
+
+NOMMAGE TITRES (séances de course Hyrox-flavored — le titre du renfo est généré par le code, ne pas le réécrire) :
+- Footing EF → "Footing — Base aérobie Hyrox" ou "Footing en aisance — Prépa Hyrox"
+- Sortie Longue → "Sortie Longue — Volume aérobie Hyrox"
+- Marche/Course → "Marche/Course — Démarrage progressif Hyrox"
+- Séances spécifiques (phase spé+) → "Simulation Hyrox 4×1km" → "Simulation Hyrox 6×1km" → "Simulation Hyrox 8×1km", "Tempo Hyrox", "Relances sous fatigue Hyrox"
+
+ADVICE PAR SÉANCE — UNIQUE (PAS de copy-paste) :
+Pour les séances de COURSE, faire le lien avec la performance Hyrox (capacité aérobie pour enchaîner les 8 segments de course coupés).
+⚠️ Le RENFO est du renfo classique de prévention des blessures liées à la course à pied. NE PAS faire de lien avec les stations Hyrox (sled, wall balls, sandbag lunges, etc.) — c'est hors périmètre. Le renfo prépare le corps à tenir le volume de course.
+- Footing : base aérobie pour tenir les 8×1km sans saturer cardio
+- Renfo : prévention des blessures de course (genoux, mollets, chaîne postérieure) — permet de tenir le volume sans casse
+- Sortie Longue : réservoir pour enchaîner les 8km coupés
+- Simulation/Tempo : conseils pacing et technique de relance après un segment de course rapide
+🚫 INTERDIT : répéter "Ce programme couvre la partie course à pied" dans plusieurs advice.
+
+PROGRESSION SIMULATION HYROX (séance reine, phase SPÉCIFIQUE uniquement) :
+- Début phase spé : 4×1km à allure seuil, récup 2min marche/trot
+- Milieu : 6×1km
+- Fin : 8×1km
+- JAMAIS commencer directement par 8×1km
+
+${hyroxIsBeginnerishRemaining ? `🚶 ADAPTATION DÉBUTANT (VMA ${ctxVma.toFixed(1)} km/h) :
+- Semaines 1-3 (fondamental) : PAS de séance seuil. Uniquement footings EF + renfo.
+- Semaines 4+ : introduction fartlek doux (accélérations 20-30s au feeling).
+- Simulation Hyrox : commencer par 4×1km en phase spécifique seulement.
+` : ''}
+VOLUME : SL max 1h15 (12-15km). Volume hebdo modéré (cross-training à côté).
 ` : '';
 
   // === SECTION TRAIL pour les lots remaining ===
@@ -3794,11 +3964,33 @@ ${data.trailDetails!.distance >= 100 ? `- 🔴 ULTRA 100km+ : BACK-TO-BACK OBLIG
 `) : '';
 
   const DAYS_ORDER = ['Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi', 'Dimanche'];
-  const allGeneratedWeeks: any[] = [];
+
+  // === RESUME-FROM-WHERE-WE-STOPPED ===
+  // Si une génération précédente a partiellement sauvegardé (par batch), on reprend où on en était.
+  // plan.weeks contient au minimum la semaine 1 (preview). Si > 1, c'est qu'on a déjà progressé.
+  const existingWeekNums = (plan.weeks || []).map((w: any) => w.weekNumber || 0).filter((n: number) => n > 0);
+  const lastGeneratedWeek = existingWeekNums.length > 0 ? Math.max(...existingWeekNums) : 1;
+  const startFromWeek = lastGeneratedWeek + 1;
+
+  // Pré-remplir allGeneratedWeeks avec les semaines déjà générées (au-delà de la semaine 1)
+  // pour que le merge final + le previousWeeksSummary fonctionnent correctement.
+  const allGeneratedWeeks: any[] = (plan.weeks || []).filter((w: any) => (w.weekNumber || 0) > 1);
+
+  if (startFromWeek > totalWeeks) {
+    console.log(`[Gemini Remaining] Toutes les ${totalWeeks} semaines déjà générées. Plan marqué comme complet.`);
+    return {
+      ...plan,
+      weeks: (plan.weeks || []).slice().sort((a: any, b: any) => (a.weekNumber || 0) - (b.weekNumber || 0)),
+      isPreview: false,
+      fullPlanGenerated: true,
+    } as TrainingPlan;
+  }
+
+  console.log(`[Gemini Remaining] Reprise: semaines 1-${lastGeneratedWeek} déjà OK, génération à partir de S${startFromWeek}`);
 
   // Calculer les lots de semaines à générer
   const weeksToGenerate: number[] = [];
-  for (let w = 2; w <= totalWeeks; w++) {
+  for (let w = startFromWeek; w <= totalWeeks; w++) {
     weeksToGenerate.push(w);
   }
 
@@ -3884,6 +4076,7 @@ ${data.injuries?.hasInjury ? `⚠️ BLESSURE : ${data.injuries.description}` : 
 ${data.comments?.trim() ? `📝 PRÉCISIONS DU COUREUR : "${data.comments.trim()}"` : ''}
 ${beginnerProgressionInstruction}
 ${trailSectionRemaining}
+${hyroxSectionRemaining}
 ${isTrailRemaining ? `
 📊 D+ CIBLE PAR SEMAINE (progression 50% → 100%) :
 ${batch.map(weekNum => {
@@ -4113,12 +4306,15 @@ Retourne UNIQUEMENT un tableau JSON des semaines ${startWeek} à ${endWeek} :
             slSessionR.day = slDayR;
           }
 
-          // Dédupliquer les jours
+          // Dédupliquer les jours — fallback sur DAYS_ORDER complet si pool épuisé
           const usedDays = new Set<string>();
           week.sessions.forEach((session: any, idx: number) => {
             if (usedDays.has(session.day)) {
               const pool = preferredDaysRemaining || DAYS_ORDER;
-              const available = pool.filter((d: string) => !usedDays.has(d));
+              let available = pool.filter((d: string) => !usedDays.has(d));
+              if (available.length === 0) {
+                available = DAYS_ORDER.filter((d: string) => !usedDays.has(d));
+              }
               if (available.length > 0) session.day = available[0];
             }
             usedDays.add(session.day);
@@ -4167,9 +4363,10 @@ Retourne UNIQUEMENT un tableau JSON des semaines ${startWeek} à ${endWeek} :
       console.log(`[Gemini Remaining] Lot ${batchIndex + 1} terminé: ${batchWeeks.length} semaines`);
 
       // Callback de progression : montrer les semaines au fur et à mesure
+      // ATTENTION : on AWAIT pour éviter race condition entre sauvegardes par batch.
       if (onProgress) {
         const partialWeeks = [plan.weeks[0], ...allGeneratedWeeks].sort((a: any, b: any) => a.weekNumber - b.weekNumber);
-        onProgress(
+        await onProgress(
           { ...plan, weeks: partialWeeks } as TrainingPlan,
           batchIndex + 1,
           batches.length,
