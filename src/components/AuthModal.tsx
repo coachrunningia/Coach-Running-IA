@@ -73,8 +73,13 @@ const AuthModal: React.FC<AuthModalProps> = ({ onAuthSuccess, onClose, isModal =
       }
 
       // French Error Translations
-      if (err.code === 'auth/email-already-in-use' || err.code === 'auth/credential-already-in-use') {
+      if (err.code === 'account-exists') {
+        // Email déjà lié à un autre provider (Google) — basculer en mode login email
+        setError(err.message);
+        setView('LOGIN');
+      } else if (err.code === 'auth/email-already-in-use' || err.code === 'auth/credential-already-in-use') {
         setError("Cet email est déjà utilisé. Connectez-vous ?");
+        setView('LOGIN');
       } else if (err.code === 'auth/invalid-credential' || err.code === 'auth/wrong-password' || err.code === 'auth/user-not-found') {
         setError("Email ou mot de passe incorrect.");
       } else if (err.code === 'auth/weak-password') {
@@ -98,9 +103,14 @@ const AuthModal: React.FC<AuthModalProps> = ({ onAuthSuccess, onClose, isModal =
     } catch (err: any) {
       console.error("Google Auth Error:", err);
       
-      if (err.code === 'auth/popup-closed-by-user') {
+      if (err.code === 'auth/popup-closed-by-user' || err.code === 'popup-cancelled') {
          // L'utilisateur a fermé la fenêtre, ce n'est pas vraiment une erreur
          return;
+      } else if (err.code === 'account-exists') {
+         // Email déjà associé à un compte email/password — message friendly
+         setError(err.message);
+         setView('LOGIN');
+         setFormData({ ...formData, email: lastEmailUsed || formData.email });
       } else if (err.code === 'auth/unauthorized-domain') {
          // UX IMPROVEMENT: On affiche le domaine exact à ajouter
          const currentDomain = window.location.hostname;

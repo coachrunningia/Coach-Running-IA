@@ -253,8 +253,8 @@ const Questionnaire: React.FC<QuestionnaireProps> = ({ onComplete, isGenerating:
         console.log('[Questionnaire] User registered:', newUser.id);
       } catch (authError: any) {
         setIsProcessing(false);
-        if (authError.code === 'auth/email-already-in-use') {
-          alert('Cet email est déjà utilisé. Veuillez vous connecter.');
+        if (authError.code === 'account-exists' || authError.code === 'auth/email-already-in-use') {
+          alert(authError.message || 'Un compte existe déjà avec cet email. Connecte-toi pour générer ton plan.');
           navigate('/auth');
         } else {
           alert('Erreur lors de la création du compte : ' + authError.message);

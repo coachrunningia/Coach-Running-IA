@@ -460,7 +460,19 @@ export const registerUser = async (
   password: string,
   questionnaireData?: QuestionnaireData
 ): Promise<User> => {
-  const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+  let userCredential;
+  try {
+    userCredential = await createUserWithEmailAndPassword(auth, email, password);
+  } catch (error: any) {
+    // Firebase Auth refuse la création quand l'email est déjà associé à un autre provider
+    // (Google Sign-In par ex.) si l'option "Associer les comptes" est activée côté Firebase.
+    if (error?.code === 'auth/email-already-in-use' || error?.code === 'auth/account-exists-with-different-credential') {
+      const friendly: any = new Error('Un compte existe déjà avec cet email. Connecte-toi avec ta méthode habituelle (mot de passe ou Google).');
+      friendly.code = 'account-exists';
+      throw friendly;
+    }
+    throw error;
+  }
   const fbUser = userCredential.user;
   await updateProfile(fbUser, { displayName: firstName });
 
@@ -486,7 +498,24 @@ export const registerUser = async (
 // Connexion avec Google
 export const loginWithGoogle = async (): Promise<User> => {
   const provider = new GoogleAuthProvider();
-  const userCredential = await signInWithPopup(auth, provider);
+  let userCredential;
+  try {
+    userCredential = await signInWithPopup(auth, provider);
+  } catch (error: any) {
+    // Erreur Firebase quand l'email Google est déjà associé à un compte email/password
+    // (option "Associer les comptes qui utilisent la même adresse e-mail" activée côté Firebase).
+    if (error?.code === 'auth/account-exists-with-different-credential') {
+      const friendly: any = new Error('Un compte existe déjà avec cet email. Connecte-toi avec ton mot de passe via email.');
+      friendly.code = 'account-exists';
+      throw friendly;
+    }
+    if (error?.code === 'auth/popup-closed-by-user' || error?.code === 'auth/cancelled-popup-request') {
+      const friendly: any = new Error('Connexion annulée.');
+      friendly.code = 'popup-cancelled';
+      throw friendly;
+    }
+    throw error;
+  }
   const fbUser = userCredential.user;
 
   const userRef = doc(db, USERS_COLLECTION, fbUser.uid);
