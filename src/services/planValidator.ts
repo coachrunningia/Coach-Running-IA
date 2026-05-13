@@ -7,6 +7,7 @@
  */
 import { GoogleGenerativeAI } from '@google/generative-ai';
 import { TrainingPlan, Week, Session, QuestionnaireData } from '../types';
+import { buildRenfoMainSet } from './renfoService';
 
 const GEMINI_API_KEY = import.meta.env.VITE_GEMINI_API_KEY || '';
 const genAI = new GoogleGenerativeAI(GEMINI_API_KEY);
@@ -927,6 +928,35 @@ GÉNÈRE les semaines corrigées (${flaggedWeeks.join(', ')}) en JSON :
       }
     });
 
+    // Réinjecter le mainSet renfo via la fonction officielle pour avoir le format
+    // Nom(NxM) qui permet l'affichage des images d'exercices. Sans ça, Gemini produit
+    // du texte libre non parsable par parseMainSetExercises (= 0 image côté UI).
+    // Même logique que generatePreviewPlan:3713 et generateRemainingWeeks:4362.
+    if (questionnaire) {
+      correctedWeeks.forEach((week: any) => {
+        (week.sessions || []).forEach((session: any) => {
+          if (session.type === 'Renforcement') {
+            const renfo = buildRenfoMainSet({
+              weekNumber: week.weekNumber,
+              goal: questionnaire.goal || '',
+              subGoal: questionnaire.subGoal,
+              trailDistance: questionnaire.goal === 'Trail' ? questionnaire.trailDetails?.distance : undefined,
+              level: questionnaire.level || '',
+              phase: week.phase || 'fondamental',
+              weight: questionnaire.weight,
+              height: questionnaire.height,
+              injuries: questionnaire.injuries,
+            });
+            session.mainSet = renfo.mainSet;
+            session.warmup = renfo.warmup;
+            session.cooldown = renfo.cooldown;
+            session.duration = renfo.duration;
+            session.title = renfo.title;
+          }
+        });
+      });
+    }
+
     console.log(`[PlanValidator] Corrected ${correctedWeeks.length} weeks`);
     return correctedWeeks;
   } catch (error) {
@@ -934,6 +964,26 @@ GÉNÈRE les semaines corrigées (${flaggedWeeks.join(', ')}) en JSON :
     return [];
   }
 };
+
+// ---------------------------------------------------------------------------
+// Auto-correction D+ pour les séances dont le titre évoque du relief
+// (Gemini peut produire un titre "Footing vallonné" avec elevationGain=0).
+// Mute in-place chaque session concernée. ~15 m/km = vallonné modéré.
+// ---------------------------------------------------------------------------
+const HILL_TITLE_RE = /vallonn|colline|c[ôo]te|d\+|denivel|d[ée]nivel|mont[ée]e/i;
+function fixHillySessionsElevation(plan: TrainingPlan): void {
+  for (const week of plan.weeks || []) {
+    for (const s of (week.sessions || []) as any[]) {
+      if (!s || !HILL_TITLE_RE.test(s.title || '')) continue;
+      const elev = typeof s.elevationGain === 'number' ? s.elevationGain : 0;
+      if (elev > 0) continue;
+      const km = parseFloat(String(s.distance || '0').replace(',', '.').replace(/[^0-9.]/g, ''));
+      if (!isNaN(km) && km > 0) {
+        s.elevationGain = Math.round(km * 15);
+      }
+    }
+  }
+}
 
 // ---------------------------------------------------------------------------
 // Full validation pipeline
@@ -995,6 +1045,8 @@ export const validateAndCorrectPlan = async (
         const revalidation = validatePlanRules(correctedPlan, questionnaire);
         console.log(`[PlanValidator] Post-correction: score=${revalidation.score}`);
 
+        fixHillySessionsElevation(correctedPlan);
+
         return {
           plan: correctedPlan,
           validation: revalidation,
@@ -1007,5 +1059,6 @@ export const validateAndCorrectPlan = async (
     console.log(`[PlanValidator] Preview plan — ${errorWeeks.length} error weeks, skipping correction`);
   }
 
+  fixHillySessionsElevation(plan);
   return { plan, validation, aiReview };
 };

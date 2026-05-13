@@ -351,22 +351,25 @@ export function buildRenfoMainSet(params: {
   const isOverweight = bmi >= 28; // IMC ≥ 28 = surpoids significatif → adapter
 
   // Détection blessures par catégorie → adapter exercices + prévention ciblée
-  const injuryDesc = (injuries?.description || '').toLowerCase();
+  // Normalisation : minuscules + suppression accents pour couvrir toutes les variantes
+  const injuryDesc = (injuries?.description || '').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '');
   const hasInjury = !!(injuries?.hasInjury);
 
   const hasPosteriorChainInjury = hasInjury && (
     injuryDesc.includes('ischio') || injuryDesc.includes('hamstring') ||
-    injuryDesc.includes('posterieur') || injuryDesc.includes('postérieur') ||
-    injuryDesc.includes('cuisse arriere') || injuryDesc.includes('cuisse arrière') ||
-    injuryDesc.includes('chaine posterieur') || injuryDesc.includes('chaîne postérieur') ||
+    injuryDesc.includes('posterieur') ||
+    injuryDesc.includes('cuisse arriere') ||
+    injuryDesc.includes('chaine posterieur') ||
     injuryDesc.includes('fessier') || injuryDesc.includes('sciatique')
   );
 
   const hasKneeInjury = hasInjury && (
     injuryDesc.includes('genou') || injuryDesc.includes('genoux') ||
-    injuryDesc.includes('rotule') || injuryDesc.includes('ménisque') || injuryDesc.includes('menisque') ||
-    injuryDesc.includes('ligament croisé') || injuryDesc.includes('knee') ||
-    injuryDesc.includes('bandelette') || injuryDesc.includes('syndrome essuie')
+    injuryDesc.includes('rotule') || injuryDesc.includes('rotulien') ||
+    injuryDesc.includes('menisque') ||
+    injuryDesc.includes('ligament croise') || injuryDesc.includes('knee') ||
+    injuryDesc.includes('bandelette') || injuryDesc.includes('syndrome essuie') ||
+    injuryDesc.includes('femoro') || injuryDesc.includes('patellaire') || injuryDesc.includes('condromalac')
   );
 
   const hasBackInjury = hasInjury && (
@@ -378,16 +381,17 @@ export function buildRenfoMainSet(params: {
   const hasAnkleInjury = hasInjury && (
     injuryDesc.includes('cheville') || injuryDesc.includes('achille') ||
     injuryDesc.includes('tendon') || injuryDesc.includes('tendinite') ||
-    injuryDesc.includes('périoste') || injuryDesc.includes('periostite') ||
-    injuryDesc.includes('fasci') || injuryDesc.includes('aponévrose') ||
+    injuryDesc.includes('tendinopathie') ||
+    injuryDesc.includes('perioste') || injuryDesc.includes('periostite') ||
+    injuryDesc.includes('fasci') || injuryDesc.includes('aponevrose') || injuryDesc.includes('plantaire') ||
     injuryDesc.includes('ankle') || injuryDesc.includes('shin') ||
     injuryDesc.includes('mollet') || injuryDesc.includes('calf')
   );
 
   const hasMuscleTear = hasInjury && (
-    injuryDesc.includes('déchirure') || injuryDesc.includes('dechirure') ||
-    injuryDesc.includes('claquage') || injuryDesc.includes('élongation') ||
-    injuryDesc.includes('elongation') || injuryDesc.includes('contracture') ||
+    injuryDesc.includes('dechirure') ||
+    injuryDesc.includes('claquage') || injuryDesc.includes('elongation') ||
+    injuryDesc.includes('contracture') ||
     injuryDesc.includes('tear') || injuryDesc.includes('strain')
   );
 
@@ -396,11 +400,18 @@ export function buildRenfoMainSet(params: {
     injuryDesc.includes('tendineu') || injuryDesc.includes('tendinopathie')
   );
 
+  // Douleur musculaire générale (adducteur, quadriceps, mollet, etc.) → pas de pliométrie
+  const hasMusclePain = hasInjury && (
+    injuryDesc.includes('adducteur') || injuryDesc.includes('adductor') ||
+    injuryDesc.includes('douleur') || injuryDesc.includes('pubalgie') ||
+    injuryDesc.includes('aine') || injuryDesc.includes('groin')
+  );
+
   const hasJointInjury = hasKneeInjury || hasAnkleInjury || hasHipInjury || (hasInjury && (
     injuryDesc.includes('articul') || injuryDesc.includes('statique')
   ));
   const hasAnySpecificInjury = hasPosteriorChainInjury || hasKneeInjury || hasBackInjury || hasAnkleInjury || hasMuscleTear;
-  const needsLowImpact = isOverweight || hasJointInjury || hasMuscleTear;
+  const needsLowImpact = isOverweight || hasJointInjury || hasMuscleTear || hasMusclePain;
 
   const isOddWeek = weekNumber % 2 === 1;
   const levelFactor = getLevelFactor(level);
@@ -500,10 +511,17 @@ export function buildRenfoMainSet(params: {
     // Add base route exercises for variety
     const routeQuads = ROUTE_EXERCISES.find(f => f.name === 'QUADRICEPS/FESSIERS')!;
     const bonusExercise = pickExercises(routeQuads.exercises, 1, weekNumber + 3);
-    const allExercises = [...scaledExercises, ...bonusExercise.map(e => ({
+    let allExercises = [...scaledExercises, ...bonusExercise.map(e => ({
       ...e,
       sets: scaleSets(e.sets, combinedFactor),
     }))];
+
+    // Filtrer exercices à risque pour IMC élevé / blessures articulaires
+    if (needsLowImpact) {
+      const normalize = (s: string) => s.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+      const riskyPatterns = ['bulgare', 'saute', 'sautee', 'box jump', 'pliomet'];
+      allExercises = allExercises.filter(e => !riskyPatterns.some(p => normalize(e.name).includes(p)));
+    }
 
     const exerciseList = allExercises.map(e => `${e.name} (${e.sets})`).join(', ');
     const mainSet = `Circuit ${tours} tours, repos ${rest} entre exercices, 1 min entre tours : ${exerciseList}.`;
@@ -527,8 +545,17 @@ export function buildRenfoMainSet(params: {
     const molletsPicks = pickExercises(focus.mollets, 1, weekNumber);
     const fitnessPicks = pickExercises(FITNESS_EXERCISES, 1, weekNumber);
 
-    const allExercises = [...primaryPicks, ...gainagePicks, ...molletsPicks, ...fitnessPicks]
+    let allExercises = [...primaryPicks, ...gainagePicks, ...molletsPicks, ...fitnessPicks]
       .map(e => ({ ...e, sets: scaleSets(e.sets, combinedFactor) }));
+
+    // Filtrer exercices à risque pour IMC élevé / blessures articulaires (même logique que trail/route)
+    if (needsLowImpact) {
+      const normalize = (s: string) => s.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+      let riskyPatterns = ['bulgare', 'saute', 'sautee', 'box jump', 'pliomet'];
+      if (hasMuscleTear) riskyPatterns = [...riskyPatterns, 'corde', 'skipping', 'bondissant', 'drop jump'];
+      if (injuryDesc.includes('mollet') || injuryDesc.includes('calf')) riskyPatterns = [...riskyPatterns, 'mollet'];
+      allExercises = allExercises.filter(e => !riskyPatterns.some(p => normalize(e.name).includes(p)));
+    }
 
     const exerciseList = allExercises.map(e => `${e.name} (${e.sets})`).join(', ');
     const mainSet = `Circuit ${tours} tours : ${exerciseList}. Repos ${rest} entre tours.`;
@@ -537,9 +564,10 @@ export function buildRenfoMainSet(params: {
   }
 
   // -----------------------------------------------------------------------
-  // Course sur route / Trail
+  // Course sur route / Trail / Hyrox
   // -----------------------------------------------------------------------
   const isTrail = goal === 'Trail';
+  const isHyrox = goal === 'Hyrox';
   const isUltra = isTrail && (trailDistance || 0) >= 60;
   const isTrailLong = isTrail && (trailDistance || 0) >= 30;
   const isMarathon = goal === 'Course sur route' &&
@@ -548,23 +576,32 @@ export function buildRenfoMainSet(params: {
   const isSemi = goal === 'Course sur route' && subGoal?.toLowerCase().includes('semi');
   const isShortRoad = goal === 'Course sur route' && !isMarathon && !isSemi;
 
-  // Build title
+  // Build title — Hyrox suit la même structure que Trail mais sur les focus course à pied
+  // (le renfo Hyrox est identique à celui du running, on prévient les blessures de course, pas les stations)
   let title: string;
   if (isOddWeek) {
-    title = isTrail
+    title = isHyrox
+      ? `Renfo Hyrox Focus A - Quadriceps & Gainage (S${weekNumber})`
+      : isTrail
       ? `Renfo Trail Focus A - Quadriceps & Excentrique (S${weekNumber})`
       : `Renfo Focus A - Quadriceps & Gainage (S${weekNumber})`;
   } else {
-    title = isTrail
+    title = isHyrox
+      ? `Renfo Hyrox Focus B - Fessiers/Hanches & Gainage lateral (S${weekNumber})`
+      : isTrail
       ? `Renfo Trail Focus B - Hanches & Proprioception (S${weekNumber})`
       : `Renfo Focus B - Fessiers/Hanches & Gainage lateral (S${weekNumber})`;
   }
 
   // Phase-specific title override
   if (phase === 'affutage') {
-    title = `Renfo Maintien Leger - Affutage (S${weekNumber})`;
+    title = isHyrox
+      ? `Renfo Hyrox Maintien Leger - Affutage (S${weekNumber})`
+      : `Renfo Maintien Leger - Affutage (S${weekNumber})`;
   } else if (phase === 'recuperation') {
-    title = `Renfo Leger - Recuperation (S${weekNumber})`;
+    title = isHyrox
+      ? `Renfo Hyrox Leger - Recuperation (S${weekNumber})`
+      : `Renfo Leger - Recuperation (S${weekNumber})`;
   }
 
   // Injury-specific title enrichment
@@ -649,7 +686,7 @@ export function buildRenfoMainSet(params: {
   // ---- Filtrer les exercices à risque articulaire (squat bulgare, fentes sautées, pliométrie) ----
   // needsLowImpact = isOverweight (IMC ≥ 30) OU hasJointInjury (blessure articulaire)
   if (needsLowImpact) {
-    let riskyPatterns = ['bulgare', 'sauté', 'sautée', 'sautés', 'sautées', 'box jump', 'pliomét', 'pliomet'];
+    let riskyPatterns = ['bulgare', 'saute', 'sautee', 'box jump', 'pliomet'];
     // Déchirure musculaire (mollet, ischio, etc.) : filtrer aussi corde à sauter, skipping, tout impact
     if (hasMuscleTear) {
       riskyPatterns = [...riskyPatterns, 'corde', 'skipping', 'bondissant', 'drop jump'];
@@ -658,8 +695,10 @@ export function buildRenfoMainSet(params: {
     if (injuryDesc.includes('mollet') || injuryDesc.includes('calf')) {
       riskyPatterns = [...riskyPatterns, 'mollet'];
     }
+    // Normaliser les noms d'exercices (retirer accents) avant de comparer avec les patterns
+    const normalize = (s: string) => s.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '');
     const safeExercises = exercises.filter(e =>
-      !riskyPatterns.some(p => e.name.toLowerCase().includes(p))
+      !riskyPatterns.some(p => normalize(e.name).includes(p))
     );
     exercises.length = 0;
     exercises.push(...safeExercises);

@@ -1187,6 +1187,73 @@ app.post('/api/admin/merge-user', async (req, res) => {
 });
 
 // ============================================
+// ALERTE ADMIN : ÉCHEC GÉNÉRATION PLAN
+// ============================================
+// Appelé côté client dans le catch de handleGenerateRemainingWeeks
+// pour avertir l'admin qu'un user a tenté de générer son plan et que ça a planté.
+app.post('/api/admin/generation-failed', async (req, res) => {
+  const { userId, userEmail, planId, errorMessage, weeksGenerated, totalWeeks, timestamp } = req.body || {};
+
+  console.log('[generation-failed] Alerte échec:', { userEmail, planId, weeksGenerated, totalWeeks });
+
+  if (!BREVO_API_KEY) {
+    console.warn('[generation-failed] Brevo API key non configurée — skip email');
+    return res.status(200).json({ ok: true, skipped: true });
+  }
+
+  try {
+    const safeUserEmail = String(userEmail || 'unknown').replace(/[<>]/g, '');
+    const safeUserId = String(userId || 'unknown').replace(/[<>]/g, '');
+    const safePlanId = String(planId || 'unknown').replace(/[<>]/g, '');
+    const safeError = String(errorMessage || 'Erreur inconnue').slice(0, 1000).replace(/[<>]/g, '');
+    const progress = `${weeksGenerated || 1}/${totalWeeks || '?'} semaines déjà sauvegardées`;
+
+    const htmlContent = `
+<!DOCTYPE html><html><body style="font-family:Arial,sans-serif;background:#f7fafc;padding:20px;">
+<table cellpadding="0" cellspacing="0" border="0" width="600" align="center" style="background:#fff;border-radius:12px;padding:30px;box-shadow:0 4px 12px rgba(0,0,0,0.08);">
+  <tr><td>
+    <h1 style="color:#dc2626;font-size:22px;margin:0 0 20px;">⚠️ Échec de génération de plan</h1>
+    <p style="color:#374151;font-size:14px;">Un utilisateur premium a tenté de générer son plan et la génération a échoué.</p>
+    <table cellpadding="8" cellspacing="0" border="0" width="100%" style="background:#f9fafb;border-radius:8px;margin:20px 0;">
+      <tr><td style="color:#6b7280;width:140px;">Email user</td><td style="color:#111;font-weight:600;">${safeUserEmail}</td></tr>
+      <tr><td style="color:#6b7280;">UID</td><td style="color:#111;font-family:monospace;font-size:12px;">${safeUserId}</td></tr>
+      <tr><td style="color:#6b7280;">Plan ID</td><td style="color:#111;font-family:monospace;font-size:12px;">${safePlanId}</td></tr>
+      <tr><td style="color:#6b7280;">Progression</td><td style="color:#111;">${progress}</td></tr>
+      <tr><td style="color:#6b7280;">Timestamp</td><td style="color:#111;">${timestamp || new Date().toISOString()}</td></tr>
+    </table>
+    <h3 style="color:#dc2626;font-size:16px;margin:20px 0 8px;">Erreur :</h3>
+    <pre style="background:#fef2f2;border-left:4px solid #dc2626;padding:12px;border-radius:6px;color:#7f1d1d;font-size:12px;overflow:auto;white-space:pre-wrap;">${safeError}</pre>
+    <p style="color:#6b7280;font-size:13px;margin-top:20px;">→ Avec le mécanisme de sauvegarde par lot, l'utilisateur peut re-cliquer "Générer" et la génération reprendra à partir de la semaine ${(weeksGenerated || 1) + 1}.</p>
+    <p style="color:#9ca3af;font-size:12px;margin-top:20px;text-align:center;">Coach Running IA — Alerte automatique</p>
+  </td></tr>
+</table>
+</body></html>`;
+
+    const response = await fetch('https://api.brevo.com/v3/smtp/email', {
+      method: 'POST',
+      headers: { 'accept': 'application/json', 'api-key': BREVO_API_KEY, 'content-type': 'application/json' },
+      body: JSON.stringify({
+        sender: { name: "Coach Running IA — Alertes", email: "programme@coachrunningia.fr" },
+        to: [{ email: "programme@coachrunningia.fr", name: "Admin" }],
+        subject: `🚨 Échec génération plan — ${safeUserEmail}`,
+        htmlContent,
+      }),
+    });
+
+    if (!response.ok) {
+      const data = await response.json();
+      console.error('[generation-failed] Brevo error:', data);
+      return res.status(200).json({ ok: false, brevoError: data });
+    }
+
+    return res.status(200).json({ ok: true });
+  } catch (e) {
+    console.error('[generation-failed] Error:', e);
+    return res.status(200).json({ ok: false, error: String(e.message || e) });
+  }
+});
+
+// ============================================
 // EMAIL VERIFICATION VIA BREVO
 // ============================================
 

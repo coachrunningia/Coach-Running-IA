@@ -108,8 +108,63 @@ const ExerciseDetailDrawer: React.FC<ExerciseDetailDrawerProps> = ({
     );
   }
 
-  // Premium mais aucun exercice trouvé
-  if (exercises.length === 0) return null;
+  // Premium mais aucun exercice détecté par le parser (mainSet en texte libre)
+  // → on ouvre quand même le drawer avec le texte brut pour ne pas bloquer l'utilisateur
+  if (exercises.length === 0) {
+    return (
+      <div className="fixed inset-0 z-[90] bg-slate-900/60 backdrop-blur-sm flex items-end md:items-center justify-center" onClick={onClose}>
+        <div
+          className="bg-white rounded-t-3xl md:rounded-2xl w-full md:max-w-2xl max-h-[85vh] overflow-y-auto shadow-2xl animate-in slide-in-from-bottom-4 duration-300"
+          onClick={e => e.stopPropagation()}
+        >
+          <div className="sticky top-0 bg-white border-b border-slate-100 px-6 py-4 flex items-center justify-between">
+            <div className="flex items-center gap-3">
+              <div className="w-10 h-10 bg-accent/10 rounded-xl flex items-center justify-center">
+                <Dumbbell className="text-accent" size={20} />
+              </div>
+              <div>
+                <h3 className="font-bold text-slate-900 text-sm">{sessionTitle}</h3>
+                <p className="text-xs text-slate-500">Programme renfo</p>
+              </div>
+            </div>
+            <button onClick={onClose} className="p-2 hover:bg-slate-100 rounded-lg transition-colors">
+              <X size={20} className="text-slate-400" />
+            </button>
+          </div>
+
+          <div className="p-6 space-y-4">
+            <div className="bg-amber-50 border border-amber-200 rounded-xl p-4 flex items-start gap-3">
+              <Lightbulb className="text-amber-600 shrink-0 mt-0.5" size={18} />
+              <div>
+                <p className="text-sm font-bold text-amber-900 mb-1">Programme en format libre</p>
+                <p className="text-xs text-amber-800">
+                  Cette séance utilise un format général sans exercices détaillés. Les fiches illustrées seront disponibles dans les prochaines semaines de ton plan, quand le programme passera à un format structuré.
+                </p>
+              </div>
+            </div>
+
+            <div>
+              <h4 className="font-bold text-slate-900 text-sm mb-2 uppercase tracking-wider">Séance principale</h4>
+              <div className="bg-slate-50 border border-slate-200 rounded-xl p-4 text-sm text-slate-700 leading-relaxed whitespace-pre-line">
+                {mainSet}
+              </div>
+            </div>
+
+            <div className="bg-blue-50 border border-blue-200 rounded-xl p-4">
+              <p className="text-xs font-bold text-blue-700 uppercase tracking-wider mb-2">💡 Conseil général</p>
+              <ul className="text-sm text-blue-900 space-y-1.5">
+                <li>• Échauffement de 5-10 min avant de commencer</li>
+                <li>• Privilégie la qualité d'exécution à la vitesse</li>
+                <li>• Respire de manière contrôlée</li>
+                <li>• Repos 30-60 s entre les exercices</li>
+                <li>• Étirements doux en fin de séance</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   const current = exercises[currentIndex];
   const info = current.info;

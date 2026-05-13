@@ -184,6 +184,7 @@ const verifySubscriptionStatusInBackground = async (userId: string) => {
   }
 };
 
+
 // --- PLAN MANAGEMENT (Collection séparée) ---
 
 export const savePlan = async (plan: TrainingPlan) => {

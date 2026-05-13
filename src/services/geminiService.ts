@@ -3136,6 +3136,7 @@ VMA : ${paces.vmaKmh} km/h (${vmaSource})
       trailElevation: data.goal === 'Trail' ? data.trailDetails?.elevation : undefined,
       trailDistance: data.goal === 'Trail' ? data.trailDetails?.distance : undefined,
       hasInjury: !!(data.injuries?.hasInjury),
+      injuryDescription: data.injuries?.description,
       hasChrono: hasChronoPreview,
       vmaFromTarget: vmaSource.includes('Recalculée depuis objectif'),
       age: data.age,

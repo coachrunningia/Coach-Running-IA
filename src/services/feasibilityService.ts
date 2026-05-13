@@ -29,6 +29,7 @@ export interface FeasibilityParams {
   trailElevation?: number;  // D+ total de la course trail
   trailDistance?: number;    // Distance trail en km
   hasInjury: boolean;
+  injuryDescription?: string; // texte libre saisi par l'utilisateur (utilisé pour détecter les drapeaux rouges médicaux)
   hasChrono: boolean;       // true si on a un vrai chrono de course, false si VMA estimée
   vmaFromTarget?: boolean;  // true si VMA recalculée depuis l'objectif (raisonnement circulaire)
   age?: number;
@@ -40,6 +41,17 @@ export interface FeasibilityParams {
 // ---------------------------------------------------------------------------
 // Helpers
 // ---------------------------------------------------------------------------
+
+/**
+ * Détecte un "drapeau rouge médical" dans une description de blessure :
+ * fracture, douleur osseuse, ostéonécrose, etc. → nécessitent imagerie + avis médical
+ * AVANT tout démarrage de plan. Renvoie true si match.
+ */
+const MEDICAL_RED_FLAGS_RE = /douleur osseuse|fracture|fissure|œdème osseux|stress fracture|ostéonécrose|hernie discale|sciatique aigu/i;
+export function hasMedicalRedFlag(injuryDescription?: string): boolean {
+  if (!injuryDescription) return false;
+  return MEDICAL_RED_FLAGS_RE.test(injuryDescription);
+}
 
 /**
  * Parse une chaîne d'objectif temps en minutes.
@@ -417,6 +429,12 @@ export function calculateFeasibility(params: FeasibilityParams): FeasibilityResu
     score -= 10;
   }
 
+  // Drapeau rouge médical (fracture / douleur osseuse / etc.) → forcer score ≤ 25 (= RISQUÉ)
+  // Déclenche la modal de validation utilisateur lors du déploiement du plan complet.
+  if (hasMedicalRedFlag(params.injuryDescription)) {
+    score = Math.min(score, 25);
+  }
+
   // IMC → risque articulaire, adapté par palier médical
   if (params.weight && params.height && params.height > 0) {
     const bmi = params.weight / ((params.height / 100) ** 2);
@@ -432,6 +450,25 @@ export function calculateFeasibility(params: FeasibilityParams): FeasibilityResu
     } else if (bmi >= 25) {
       // Surpoids léger : risque modéré sur longue distance uniquement
       score -= isMarathon ? 5 : isSemi ? 3 : 0;
+    }
+  }
+
+  // Cumul facteurs de risque : IMC + senior + débutant + blessure
+  if (params.weight && params.height && params.height > 0) {
+    const bmi = params.weight / ((params.height / 100) ** 2);
+    const isSeniorAge = params.age !== undefined && params.age >= 45;
+    const isBmiHigh = bmi >= 30;
+    const hasInjuryFlag = hasInjury;
+    // Cumul 3 facteurs : très risqué
+    if (isBmiHigh && isSeniorAge && beginner) {
+      score -= 25;
+    }
+    // Cumul 2 facteurs avec blessure : avis médical obligatoire
+    else if (isBmiHigh && hasInjuryFlag) {
+      score -= 15;
+    }
+    else if (isSeniorAge && beginner && hasInjuryFlag) {
+      score -= 15;
     }
   }
 
@@ -584,7 +621,11 @@ function buildFinisherFeasibility(
 
   // Trail : préparation trop courte
   if (isTrail && distanceKm !== null) {
-    if (distanceKm >= 60 && planWeeks < 20) {
+    if (distanceKm >= 100 && planWeeks < 20) {
+      score -= 40; // Ultra 100km+ en < 20 sem : pénalité sévère
+      if (planWeeks < 16) score -= 20;
+      reasons.push({ type: 'risk', text: `${planWeeks} semaines pour un ultra de ${distanceKm}km est très dangereux — 20-24 semaines sont le strict minimum` });
+    } else if (distanceKm >= 60 && planWeeks < 20) {
       score -= 25;
       if (planWeeks < 12) score -= 15;
       reasons.push({ type: 'risk', text: `${planWeeks} semaines pour un ultra de ${distanceKm}km est dangereux — 20+ semaines sont nécessaires` });
@@ -600,6 +641,21 @@ function buildFinisherFeasibility(
       score -= 10;
       reasons.push({ type: 'warn', text: `${planWeeks} semaines pour un trail de ${distanceKm}km est un peu juste` });
     }
+  }
+
+  // Trail : D+ course vs D+ hebdo actuel — risque musculaire excentrique
+  if (isTrail && trailElev > 0 && currentElev > 0) {
+    const dPlusRatio = trailElev / currentElev;
+    if (dPlusRatio >= 3) {
+      score -= 20;
+      reasons.push({ type: 'risk', text: `le D+ de la course (${trailElev}m) est ${dPlusRatio.toFixed(1)}x ton D+ hebdomadaire actuel (${currentElev}m/sem) — risque musculaire très élevé en descente, impossible de construire la résistance excentrique nécessaire en ${planWeeks} semaines` });
+    } else if (dPlusRatio >= 2) {
+      score -= 10;
+      reasons.push({ type: 'warn', text: `le D+ de la course (${trailElev}m) est ${dPlusRatio.toFixed(1)}x ton D+ hebdomadaire actuel (${currentElev}m/sem) — renforce le travail excentrique (descentes, squats excentriques)` });
+    }
+  } else if (isTrail && trailElev >= 2000 && currentElev === 0) {
+    score -= 15;
+    reasons.push({ type: 'risk', text: `${trailElev}m de D+ en course sans volume de D+ hebdomadaire déclaré — la préparation musculaire en descente sera critique` });
   }
 
   // Volume insuffisant
@@ -692,6 +748,12 @@ function buildFinisherFeasibility(
   }
 
   if (hasInjury) { score -= 10; reasons.push({ type: 'warn', text: `blessure déclarée : adapte les séances et consulte un professionnel de santé` }); }
+
+  // Drapeau rouge médical : cap score 25 (= RISQUÉ) + reason explicite
+  if (hasMedicalRedFlag(params.injuryDescription)) {
+    score = Math.min(score, 25);
+    reasons.push({ type: 'risk', text: `blessure articulaire/osseuse déclarée — imagerie médicale + avis d'un spécialiste indispensables avant de démarrer` });
+  }
 
   // IMC → risque articulaire
   if (params.weight && params.height && params.height > 0) {
@@ -821,7 +883,7 @@ function buildFinisherFeasibility(
     message += ` Suis le plan avec rigueur et régularité, c'est la clé pour y arriver.`;
   }
 
-  const safetyWarning = buildSafetyWarning(beginner, isMarathon, isSemi, hasInjury, status, params.weight, params.height, params.age, isTrail, isMarathon || isSemi || (distanceKm !== null && distanceKm >= 21));
+  let safetyWarning = buildSafetyWarning(beginner, isMarathon, isSemi, hasInjury, status, params.weight, params.height, params.age, isTrail, isMarathon || isSemi || (distanceKm !== null && distanceKm >= 21));
 
   // Recommendation intelligente pour le modal de warning (finisher = pas de temps cible)
   // Priorité : 1) allonger la prépa  2) passer en objectif finisher (déjà le cas)  3) dernier recours = distance
@@ -1029,7 +1091,18 @@ function buildSafetyWarning(
   const bmi = (weight && height && height > 0) ? weight / ((height / 100) ** 2) : 0;
   const isSenior = (age || 0) >= 45;
 
-  // Priorité : blessure > senior+longue distance > IMC ≥ 35 > IMC ≥ 30 > senior > IMC ≥ 25 > débutant+distance > défaut
+  // Priorité : cumul facteurs > blessure > senior+longue distance > IMC ≥ 35 > IMC ≥ 30 > senior > IMC ≥ 25 > débutant+distance > défaut
+
+  // Cumul IMC + blessure : avis médical OBLIGATOIRE
+  if (hasInjury && bmi >= 30) {
+    return 'AVIS MÉDICAL OBLIGATOIRE : tu cumules un IMC élevé et des antécédents de blessure. Consulte impérativement ton médecin et ton kiné avant de démarrer. Privilégie le cross-training, les surfaces souples et des chaussures à amorti maximal.';
+  }
+
+  // Cumul IMC + senior + débutant
+  if (bmi >= 30 && isSenior && beginner) {
+    return `AVIS MÉDICAL OBLIGATOIRE : à ${age} ans, avec ton IMC et en tant que débutant, consulte impérativement ton médecin pour un test d'effort avant de commencer. Démarre très progressivement en alternant marche et course.`;
+  }
+
   if (hasInjury) {
     return 'Fais valider la reprise avec ton kiné/médecin avant de démarrer ce plan. Adapte les séances si nécessaire.';
   }

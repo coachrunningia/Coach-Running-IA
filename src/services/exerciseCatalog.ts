@@ -1603,8 +1603,11 @@ export const findExercise = (rawName: string): ExerciseInfo | null => {
 export const parseMainSetExercises = (mainSet: string): Array<{ name: string; sets: string; info: ExerciseInfo | null }> => {
   const exercises: Array<{ name: string; sets: string; info: ExerciseInfo | null }> = [];
 
-  // Pattern: "NomExercice (3x10)" ou "NomExercice (3x10/jambe)" ou "NomExercice (2x30s)"
-  const regex = /([A-ZÀ-Ü][a-zà-ü\-\s']+(?:[A-ZÀ-Ü][a-zà-ü\-\s']*)*)\s*\((\d+x\d+[^)]*)\)/g;
+  // Pattern: "NomExercice (3x10)" — autorise une ou plusieurs parenthèses non-sets dans le nom
+  // ex: "Fente arrière lente (3s) (3x10/jambe)" ou "Squats poids de corps (descente lente) (3x6)"
+  // Le nom = lettres/espaces/tirets/apostrophes uniquement (rejette "Circuit 3 tours :" prefix)
+  // Les parens internes sont autorisées si elles ne contiennent PAS le pattern "NxM" (lookahead négatif)
+  const regex = /([A-ZÀ-Ü][a-zà-ü\-\s']+(?:[A-ZÀ-Ü][a-zà-ü\-\s']*)*(?:\s*\((?!\d+x\d+)[^)]*\))*)\s*\((\d+x\d+[^)]*)\)/g;
   let match;
 
   while ((match = regex.exec(mainSet)) !== null) {

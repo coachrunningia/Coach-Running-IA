@@ -458,6 +458,7 @@ ${recentRPEs.length > 0 ? recentRPEs.slice(-8).join('\n') : 'Premier feedback �
         trailElevation: q.trailDetails?.elevation,
         trailDistance: q.trailDetails?.distance,
         hasInjury: q.injuries?.hasInjury || false,
+        injuryDescription: q.injuries?.description,
         hasChrono,
         age: q.age,
         weight: q.weight,
@@ -2194,7 +2195,8 @@ ${recentRPEs.length > 0 ? recentRPEs.slice(-8).join('\n') : 'Premier feedback �
               </div>
             </div>
 
-            <div className="p-6 space-y-4">
+            <div className="relative">
+            <div className={`p-6 space-y-4 ${!canViewFullPlan ? 'blur-sm pointer-events-none select-none' : ''}`}>
               <p className="text-sm text-slate-600">
                 Si ta VMA a changé ou si tes allures semblent trop rapides/lentes, tu peux recalculer toutes les allures de ton plan.
               </p>
@@ -2251,13 +2253,35 @@ ${recentRPEs.length > 0 ? recentRPEs.slice(-8).join('\n') : 'Premier feedback �
               )}
             </div>
 
+            {!canViewFullPlan && (
+              <div className="absolute inset-0 flex items-center justify-center px-6">
+                <div className="bg-white rounded-2xl border-2 border-orange-200 shadow-xl p-5 max-w-xs text-center">
+                  <div className="w-12 h-12 rounded-full bg-orange-100 flex items-center justify-center mx-auto mb-3">
+                    <Lock className="text-orange-600" size={22} />
+                  </div>
+                  <h4 className="font-bold text-slate-900 mb-2">Réservé aux abonnés</h4>
+                  <p className="text-xs text-slate-600 mb-4">
+                    Recalcule tes allures et régénère ton plan complet quand ta VMA évolue.
+                  </p>
+                  <button
+                    onClick={() => { setShowVMAModal(false); navigate('/pricing'); }}
+                    className="w-full py-2.5 bg-accent text-white rounded-xl font-bold hover:bg-orange-600 transition-colors text-sm"
+                  >
+                    Voir les abonnements
+                  </button>
+                </div>
+              </div>
+            )}
+            </div>
+
             <div className="p-6 border-t border-slate-100 flex gap-3">
               <button
                 onClick={() => setShowVMAModal(false)}
                 className="flex-1 py-3 bg-slate-100 text-slate-700 rounded-xl font-bold hover:bg-slate-200 transition-colors"
               >
-                Annuler
+                {canViewFullPlan ? 'Annuler' : 'Fermer'}
               </button>
+              {canViewFullPlan && (
               <button
                 onClick={async () => {
                   setIsRecalculating(true);
@@ -2290,6 +2314,7 @@ ${recentRPEs.length > 0 ? recentRPEs.slice(-8).join('\n') : 'Premier feedback �
                 {isRecalculating ? <Loader size={16} className="animate-spin" /> : <RefreshCw size={16} />}
                 {isRecalculating ? 'Recalcul...' : 'Recalculer'}
               </button>
+              )}
             </div>
           </div>
         </div>

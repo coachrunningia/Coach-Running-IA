@@ -1,5 +1,5 @@
 
-import React, { useState, useEffect, Suspense, lazy } from 'react';
+import React, { useState, useEffect, useRef, Suspense, lazy } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { BrowserRouter as Router, Routes, Route, Navigate, useNavigate, useParams, useLocation } from 'react-router-dom';
 import Layout from './components/Layout';
@@ -780,6 +780,7 @@ const ADMIN_EMAILS = ["programme@coachrunningia.fr"];
       }
     }
   }, [planId, user]);
+
   const handleRegenerateFull = async () => {
     if (user?.questionnaireData) {
       await onRegeneratePlan(user.questionnaireData);
@@ -796,15 +797,28 @@ const ADMIN_EMAILS = ["programme@coachrunningia.fr"];
     setIsGeneratingRemaining(true);
     console.log('[Remaining] Début génération des semaines restantes...');
     const totalWeeks = plan.generationContext?.periodizationPlan?.totalWeeks || 12;
+    const generationStartedAt = Date.now();
 
     try {
       setAdaptationMessage(`Génération des séances... Cette opération prend environ 1 minute.`);
       const { generateRemainingWeeks } = await import('./services/geminiService');
-      const fullPlan = await generateRemainingWeeks(plan, (partialPlan, batchDone, totalBatches) => {
+      const fullPlan = await generateRemainingWeeks(plan, async (partialPlan, batchDone, totalBatches) => {
         // Afficher les semaines au fur et à mesure
-        setPlan({ ...partialPlan, userId: plan.userId, userEmail: plan.userEmail } as any);
+        const planWithUser = { ...partialPlan, userId: plan.userId, userEmail: plan.userEmail } as any;
+        setPlan(planWithUser);
         const pct = Math.round((batchDone / totalBatches) * 70); // 0-70% pour la génération
         setAdaptationMessage(`Génération en cours (${pct}%)... ${partialPlan.weeks.length} semaines sur ${totalWeeks} générées.`);
+
+        // CRITIQUE : sauvegarder progressivement en Firestore après CHAQUE batch
+        // pour ne pas perdre le travail en cas de plantage. Plan reste en preview (flags inchangés)
+        // → si l'utilisateur revient, on reprendra à la semaine suivante via le mécanisme resume.
+        try {
+          await savePlan(planWithUser);
+          console.log(`[Remaining] Sauvegarde intermédiaire OK après batch ${batchDone}/${totalBatches} (${partialPlan.weeks.length} semaines)`);
+        } catch (saveErr) {
+          // Ne pas bloquer la génération si une sauvegarde intermédiaire échoue
+          console.warn(`[Remaining] Sauvegarde intermédiaire échouée (batch ${batchDone}):`, saveErr);
+        }
       });
 
       setAdaptationMessage(`Vérification qualité et cohérence... (90%)`);
@@ -829,6 +843,26 @@ const ADMIN_EMAILS = ["programme@coachrunningia.fr"];
 
     } catch (error: any) {
       console.error('[Remaining] Erreur:', error);
+
+      // Alerte email admin (best-effort, ne bloque pas)
+      try {
+        await fetch('/api/admin/generation-failed', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            userId: plan.userId,
+            userEmail: plan.userEmail,
+            planId: plan.id,
+            errorMessage: String(error?.message || error || 'Unknown'),
+            weeksGenerated: plan.weeks?.length || 1,
+            totalWeeks,
+            timestamp: new Date().toISOString(),
+          }),
+        });
+      } catch (notifyErr) {
+        console.warn('[Remaining] Notification admin échouée:', notifyErr);
+      }
+
       // Si c'est une erreur de chargement de module (cache stale après déploiement), forcer un refresh
       if (error?.message?.includes('dynamically imported module') || error?.message?.includes('Failed to fetch')) {
         console.warn('[Remaining] Module stale détecté, rechargement de la page...');
@@ -963,6 +997,13 @@ const ADMIN_EMAILS = ["programme@coachrunningia.fr"];
   const handleRecalculateVMA = async (newVMA: number) => {
     if (!plan || !planId) return;
 
+    // Gate Premium : régénération réservée aux abonnés (Premium ou Plan Unique)
+    if (!user?.isPremium && !user?.hasPurchasedPlan) {
+      setAdaptationMessage('Le recalcul des allures est réservé aux abonnés.');
+      setTimeout(() => setAdaptationMessage(null), 5000);
+      return;
+    }
+
     // Garde-fou VMA
     if (newVMA < 8 || newVMA > 25) {
       setAdaptationMessage('VMA invalide. Valeur attendue entre 8 et 25 km/h.');
@@ -1074,10 +1115,45 @@ const ADMIN_EMAILS = ["programme@coachrunningia.fr"];
         });
 
         // Restaurer les semaines avec feedback dans le plan final
-        // (generateRemainingWeeks peut avoir réécrit les semaines 2+)
+        // Mettre à jour les allures cibles dans les séances conservées (bug: anciennes allures sinon).
+        // RÈGLE : toutes les allures dérivées de la VMA (EF, SL, Récup, Seuil, VMA) sont recalculées.
+        // Les allures spécifiques course (marathon/semi/10k/5k) restent intactes — elles dérivent
+        // de l'objectif temps, pas de la VMA.
+        const updateSessionPaces = (session: any) => {
+          if (!session.targetPace || !newPaces) return session;
+          const title = (session.title || '').toLowerCase();
+          const intens = (session.intensity || '').toLowerCase();
+          const type = (session.type || '').toLowerCase();
+
+          // Allures spécifiques course → liées à l'objectif temps, ne pas écraser
+          const isRaceSpecific = /sp[ée]cifique|allure marathon|allure semi|allure 10\s?k|allure 5\s?k/i.test(
+            title + ' ' + intens
+          );
+          if (isRaceSpecific) return session;
+
+          const haystack = type + ' ' + intens + ' ' + title;
+          const updated = { ...session };
+          // Priorité : récup > seuil > VMA > facile/EF/SL
+          if (/r[ée]cup/.test(haystack) && newPaces.recoveryPace) {
+            updated.targetPace = newPaces.recoveryPace;
+          } else if (haystack.includes('seuil') && newPaces.seuilPace) {
+            updated.targetPace = newPaces.seuilPace;
+          } else if ((haystack.includes('vma') || intens.includes('rapide')) && newPaces.vmaPace) {
+            updated.targetPace = newPaces.vmaPace;
+          } else if ((type.includes('longue') || intens.includes('facile') || type.includes('jogging') || type.includes('footing')) && newPaces.efPace) {
+            updated.targetPace = newPaces.efPace;
+          }
+          // Sinon : pas de mapping clair → laisser inchangé
+          return updated;
+        };
+
         const finalWeeks = fullPlan.weeks.map((week: any, idx: number) => {
           if (idx < weeksWithFeedback.length) {
-            return weeksWithFeedback[idx]; // Garder les semaines avec feedback intactes
+            // Garder les semaines avec feedback mais mettre à jour les allures
+            return {
+              ...weeksWithFeedback[idx],
+              sessions: weeksWithFeedback[idx].sessions.map(updateSessionPaces),
+            };
           }
           return week; // Utiliser la semaine régénérée
         });
@@ -1122,6 +1198,7 @@ const ADMIN_EMAILS = ["programme@coachrunningia.fr"];
             planWeeks: plan.generationContext.periodizationPlan?.totalWeeks || plan.weeks.length,
             currentVolume: q.currentWeeklyVolume,
             hasInjury: q.injuries?.hasInjury || false,
+            injuryDescription: q.injuries?.description,
             hasChrono: !!(q.recentRaceTimes?.distance5km || q.recentRaceTimes?.distance10km),
             age: q.age,
           });
