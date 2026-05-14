@@ -945,6 +945,7 @@ GÉNÈRE les semaines corrigées (${flaggedWeeks.join(', ')}) en JSON :
               phase: week.phase || 'fondamental',
               weight: questionnaire.weight,
               height: questionnaire.height,
+              age: questionnaire.age,
               injuries: questionnaire.injuries,
             });
             session.mainSet = renfo.mainSet;

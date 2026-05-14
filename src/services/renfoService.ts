@@ -342,13 +342,17 @@ export function buildRenfoMainSet(params: {
   phase: string;
   weight?: number;
   height?: number;
+  age?: number;
   injuries?: { hasInjury?: boolean; description?: string };
 }): { mainSet: string; warmup: string; cooldown: string; duration: string; title: string } {
-  const { weekNumber, goal, subGoal, trailDistance, level, phase, weight, height, injuries } = params;
+  const { weekNumber, goal, subGoal, trailDistance, level, phase, weight, height, age, injuries } = params;
 
   // Calcul IMC pour adapter les exercices (protection articulaire si surpoids)
   const bmi = (weight && height && height > 0) ? weight / ((height / 100) ** 2) : 0;
   const isOverweight = bmi >= 28; // IMC ≥ 28 = surpoids significatif → adapter
+  // Senior 60+ : la pliométrie / les sauts augmentent le risque tendineux et articulaire
+  // même sans blessure préexistante → on bascule en mode "low impact".
+  const isSenior60 = (age || 0) >= 60;
 
   // Détection blessures par catégorie → adapter exercices + prévention ciblée
   // Normalisation : minuscules + suppression accents pour couvrir toutes les variantes
@@ -411,7 +415,7 @@ export function buildRenfoMainSet(params: {
     injuryDesc.includes('articul') || injuryDesc.includes('statique')
   ));
   const hasAnySpecificInjury = hasPosteriorChainInjury || hasKneeInjury || hasBackInjury || hasAnkleInjury || hasMuscleTear;
-  const needsLowImpact = isOverweight || hasJointInjury || hasMuscleTear || hasMusclePain;
+  const needsLowImpact = isOverweight || hasJointInjury || hasMuscleTear || hasMusclePain || isSenior60;
 
   const isOddWeek = weekNumber % 2 === 1;
   const levelFactor = getLevelFactor(level);
@@ -779,9 +783,10 @@ export function buildRenfoSession(params: {
   day: string;
   weight?: number;
   height?: number;
+  age?: number;
   injuries?: { hasInjury?: boolean; description?: string };
 }): Session {
-  const { weekNumber, goal, subGoal, trailDistance, level, phase, day, weight, height, injuries } = params;
+  const { weekNumber, goal, subGoal, trailDistance, level, phase, day, weight, height, age, injuries } = params;
 
   // Calcul IMC pour adapter les conseils
   const bmi = (weight && height && height > 0) ? weight / ((height / 100) ** 2) : 0;
@@ -796,6 +801,7 @@ export function buildRenfoSession(params: {
     phase,
     weight,
     height,
+    age,
     injuries,
   });
 

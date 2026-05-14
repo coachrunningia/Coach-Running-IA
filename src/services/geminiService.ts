@@ -3723,6 +3723,7 @@ RAPPEL : Génère UNIQUEMENT la semaine 1 !
             phase: plan.weeks[0].phase || 'fondamental',
             weight: data.weight,
             height: data.height,
+            age: data.age,
             injuries: data.injuries,
           });
           session.mainSet = renfo.mainSet;
@@ -4374,6 +4375,7 @@ Retourne UNIQUEMENT un tableau JSON des semaines ${startWeek} à ${endWeek} :
               phase: week.phase || 'fondamental',
               weight: data.weight,
               height: data.height,
+              age: data.age,
               injuries: data.injuries,
             });
             session.mainSet = renfo.mainSet;
