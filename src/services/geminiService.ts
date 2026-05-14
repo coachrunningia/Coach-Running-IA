@@ -3,6 +3,7 @@ import { GoogleGenerativeAI } from "@google/generative-ai";
 import { QuestionnaireData, TrainingPlan, GenerationContext, PeriodizationPhase } from "../types";
 import { calculateFeasibility } from './feasibilityService';
 import { buildRenfoMainSet } from './renfoService';
+import { buildFootingVariant, detectFootingFlags } from './footingVariants';
 
 // --- UTILITAIRES DE CALCUL DES ALLURES ---
 
@@ -3735,6 +3736,40 @@ RAPPEL : Génère UNIQUEMENT la semaine 1 !
       });
     }
 
+    // === Injection des variantes de footing (Preview) — phase fondamentale/récupération ===
+    // Casse la monotonie : varie la FORME des footings EF sans changer l'intensité.
+    if (plan.weeks && plan.weeks[0]?.sessions) {
+      const w1 = plan.weeks[0];
+      const phaseLc = (w1.phase || 'fondamental').toLowerCase();
+      if (phaseLc === 'fondamental' || phaseLc === 'recuperation') {
+        const footingFlags = detectFootingFlags({
+          weight: data.weight, height: data.height, age: data.age,
+          level: data.level, injuries: data.injuries,
+        });
+        w1.sessions.forEach((session: any) => {
+          if (session.type === 'Jogging' && (session.intensity === 'Facile' || !session.intensity)) {
+            const variant = buildFootingVariant({
+              weekNumber: 1,
+              goal: data.goal || '',
+              durationStr: session.duration || '45 min',
+              efPace: paces.efPace || session.targetPace || '',
+              flags: footingFlags,
+              seed: plan.id || '',
+            });
+            session.title = variant.title;
+            session.warmup = variant.warmup;
+            session.mainSet = variant.mainSet;
+            session.cooldown = variant.cooldown;
+            session.advice = variant.advice;
+            if (variant.addsElevation && (!session.elevationGain || session.elevationGain === 0)) {
+              const km = parseFloat(String(session.distance || '0').replace(',', '.').replace(/[^0-9.]/g, ''));
+              if (km > 0) session.elevationGain = Math.round(km * 15);
+            }
+          }
+        });
+      }
+    }
+
     // === Post-processing qualité séances (Preview) ===
     if (plan.weeks && Array.isArray(plan.weeks)) {
       const trailDist = data.goal === 'Trail' && data.trailDetails?.distance ? data.trailDetails.distance : 0;
@@ -4383,6 +4418,38 @@ Retourne UNIQUEMENT un tableau JSON des semaines ${startWeek} à ${endWeek} :
             session.cooldown = renfo.cooldown;
             session.duration = renfo.duration;
             session.title = renfo.title;
+          }
+        });
+      });
+
+      // Injection des variantes de footing sur ce lot — phases fondamentale/récupération
+      const remainingFootingFlags = detectFootingFlags({
+        weight: data.weight, height: data.height, age: data.age,
+        level: data.level, injuries: data.injuries,
+      });
+      batchWeeks.forEach((week: any) => {
+        if (!week.sessions || !Array.isArray(week.sessions)) return;
+        const phaseLc = (week.phase || 'fondamental').toLowerCase();
+        if (phaseLc !== 'fondamental' && phaseLc !== 'recuperation') return;
+        week.sessions.forEach((session: any) => {
+          if (session.type === 'Jogging' && (session.intensity === 'Facile' || !session.intensity)) {
+            const variant = buildFootingVariant({
+              weekNumber: week.weekNumber,
+              goal: data.goal || '',
+              durationStr: session.duration || '45 min',
+              efPace: (plan as any).paces?.efPace || session.targetPace || '',
+              flags: remainingFootingFlags,
+              seed: plan.id || '',
+            });
+            session.title = variant.title;
+            session.warmup = variant.warmup;
+            session.mainSet = variant.mainSet;
+            session.cooldown = variant.cooldown;
+            session.advice = variant.advice;
+            if (variant.addsElevation && (!session.elevationGain || session.elevationGain === 0)) {
+              const km = parseFloat(String(session.distance || '0').replace(',', '.').replace(/[^0-9.]/g, ''));
+              if (km > 0) session.elevationGain = Math.round(km * 15);
+            }
           }
         });
       });
