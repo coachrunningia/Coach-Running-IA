@@ -3746,10 +3746,11 @@ RAPPEL : Génère UNIQUEMENT la semaine 1 !
           weight: data.weight, height: data.height, age: data.age,
           level: data.level, injuries: data.injuries,
         });
-        w1.sessions.forEach((session: any) => {
+        w1.sessions.forEach((session: any, idx: number) => {
           if (session.type === 'Jogging' && (session.intensity === 'Facile' || !session.intensity)) {
             const variant = buildFootingVariant({
               weekNumber: 1,
+              sessionIndex: idx,
               goal: data.goal || '',
               durationStr: session.duration || '45 min',
               efPace: paces.efPace || session.targetPace || '',
@@ -4431,10 +4432,11 @@ Retourne UNIQUEMENT un tableau JSON des semaines ${startWeek} à ${endWeek} :
         if (!week.sessions || !Array.isArray(week.sessions)) return;
         const phaseLc = (week.phase || 'fondamental').toLowerCase();
         if (phaseLc !== 'fondamental' && phaseLc !== 'recuperation') return;
-        week.sessions.forEach((session: any) => {
+        week.sessions.forEach((session: any, idx: number) => {
           if (session.type === 'Jogging' && (session.intensity === 'Facile' || !session.intensity)) {
             const variant = buildFootingVariant({
               weekNumber: week.weekNumber,
+              sessionIndex: idx,
               goal: data.goal || '',
               durationStr: session.duration || '45 min',
               efPace: (plan as any).paces?.efPace || session.targetPace || '',

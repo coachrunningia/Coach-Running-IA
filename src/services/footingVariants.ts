@@ -194,16 +194,23 @@ export function mapToFootingGoal(goal: string): FootingGoal {
   return 'Route'; // Course sur route, 10k, semi, marathon, Hyrox...
 }
 
-/** Parse une durée type "51 min", "1h00", "1h 20 min", "45 min" → minutes totales. */
+/**
+ * Parse une durée vers des minutes totales. Gère tous les formats rencontrés :
+ *   "51 min" → 51   |   "1h00" → 60   |   "1h31" → 91   |   "1h 20 min" → 80
+ *   "1h 02 min" → 62   |   "45" → 45
+ */
 export function parseDurationToMin(durationStr: string): number {
   if (!durationStr) return 45;
   const s = String(durationStr);
+  // Format "XhYY" / "Xh YY" / "Xh YY min" : heures + minutes (collées ou espacées)
+  const hm = s.match(/(\d+)\s*h\s*(\d+)/i);
+  if (hm) return parseInt(hm[1]) * 60 + parseInt(hm[2]);
   let total = 0;
-  const h = s.match(/(\d+)\s*h/i);
-  if (h) total += parseInt(h[1]) * 60;
-  const m = s.match(/(\d+)\s*min/i);
-  if (m) total += parseInt(m[1]);
-  if (!h && !m) {
+  const hOnly = s.match(/(\d+)\s*h/i);
+  if (hOnly) total += parseInt(hOnly[1]) * 60;
+  const mOnly = s.match(/(\d+)\s*min/i);
+  if (mOnly) total += parseInt(mOnly[1]);
+  if (total === 0) {
     const n = s.match(/^(\d+)/);
     if (n) total = parseInt(n[1]);
   }
@@ -224,11 +231,13 @@ function hashSeed(seed: string): number {
  * le contenu de la séance. Pioche en rotation selon weekNumber pour garantir
  * la diversité d'une semaine à l'autre.
  *
- * Deux mécanismes garantissent la diversité visible dès la S1 :
+ * Trois mécanismes garantissent la diversité :
  *   - le pool éligible est INTERLEAVÉ (universelle / conditionnelle alternées)
  *     pour qu'on ne pioche pas 4 footings "classiques" d'affilée ;
  *   - un seedOffset dérivé du `seed` (planId / userId) décale le point de départ
- *     de la rotation → deux plans ne commencent pas par la même variante.
+ *     de la rotation → deux plans ne commencent pas par la même variante ;
+ *   - `sessionIndex` distingue les footings AU SEIN d'une même semaine → deux
+ *     footings de la même semaine reçoivent des variantes différentes.
  *
  * Retourne uniquement les champs de CONTENU (title, warmup, mainSet, cooldown,
  * advice) + addsElevation. La durée / distance / allure / jour de la séance
@@ -236,13 +245,14 @@ function hashSeed(seed: string): number {
  */
 export function buildFootingVariant(params: {
   weekNumber: number;
+  sessionIndex?: number; // index du footing dans la semaine (0, 1, 2...) — évite 2 footings identiques/semaine
   goal: string;
   durationStr: string;
   efPace: string;
   flags: FootingProfileFlags;
   seed?: string;
 }): { slug: string; title: string; warmup: string; mainSet: string; cooldown: string; advice: string; addsElevation: boolean } {
-  const { weekNumber, goal, durationStr, efPace, flags, seed } = params;
+  const { weekNumber, sessionIndex = 0, goal, durationStr, efPace, flags, seed } = params;
   const footingGoal = mapToFootingGoal(goal);
 
   // 1. Filtrer les variantes éligibles : sécurité + pertinence
@@ -270,9 +280,11 @@ export function buildFootingVariant(params: {
     if (i < conditionals.length) pool.push(conditionals[i]);
   }
 
-  // 3. Rotation déterministe : weekNumber + offset dérivé de la seed du plan
+  // 3. Rotation déterministe : weekNumber + sessionIndex + offset seed du plan.
+  //    Le sessionIndex garantit que 2 footings d'une même semaine diffèrent.
   const seedOffset = seed ? hashSeed(seed) : 0;
-  const variant = pool[(Math.max(1, weekNumber) - 1 + seedOffset) % pool.length];
+  const rotationIndex = (Math.max(1, weekNumber) - 1) + sessionIndex + seedOffset;
+  const variant = pool[rotationIndex % pool.length];
 
   // 3. Composer le mainSet (corps de séance = durée totale - warmup/cooldown estimés)
   const totalMin = parseDurationToMin(durationStr);
