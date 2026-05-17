@@ -179,6 +179,63 @@ describe('computeNutrition — intégration doctrine', () => {
     expect(json).not.toMatch(/imc|bmi/i);
   });
 
+  it('B1+B2 fix : Jamais nutrition recalibre min/max ET target (cohérence affichage)', () => {
+    const noob = computeNutrition({
+      sexe: 'H', poidsKg: 70, niveau: 'Débutant', premierMode: false,
+      chronoSec: 4.7 * 3600, tempC: 15, hygrometrie: 'Standard',
+      expNutrition: 'Jamais', sudation: 'Modéré', cafeineHabit: 'Aucune',
+    });
+    // Plancher 40 g/h (Pfeiffer 2012)
+    expect(noob.carbsPerHour.target).toBeGreaterThanOrEqual(40);
+    expect(noob.carbsPerHour.min).toBeGreaterThanOrEqual(40);
+    // Cohérence : target doit être entre min et max
+    expect(noob.carbsPerHour.target).toBeGreaterThanOrEqual(noob.carbsPerHour.min);
+    expect(noob.carbsPerHour.target).toBeLessThanOrEqual(noob.carbsPerHour.max);
+  });
+
+  it('B4 fix : hydratation pondérée par poids (105 kg > 70 kg pour mêmes conditions)', () => {
+    const light = computeNutrition({
+      sexe: 'H', poidsKg: 70, niveau: 'Régulier', premierMode: false,
+      chronoSec: 4.5 * 3600, tempC: 15, hygrometrie: 'Standard',
+      expNutrition: 'Habitué', sudation: 'Élevé', cafeineHabit: 'Aucune',
+    });
+    const heavy = computeNutrition({
+      sexe: 'H', poidsKg: 105, niveau: 'Débutant', premierMode: false,
+      chronoSec: 4.5 * 3600, tempC: 15, hygrometrie: 'Standard',
+      expNutrition: 'Habitué', sudation: 'Élevé', cafeineHabit: 'Aucune',
+    });
+    expect(heavy.hydrationPerHour).toBeGreaterThan(light.hydrationPerHour);
+  });
+
+  it('B5 fix : warning chaleur si T° >= 25°C', () => {
+    const hot = computeNutrition({
+      sexe: 'F', poidsKg: 58, niveau: 'Régulier', premierMode: false,
+      chronoSec: 4.5 * 3600, tempC: 30, hygrometrie: 'Humide',
+      expNutrition: 'Occasionnel', sudation: 'Salty sweater', cafeineHabit: '1-2 cafés/j',
+    });
+    expect(hot.warnings.some(w => /chaleur|>25|épuisement thermique/i.test(w))).toBe(true);
+    // Combo chaleur + caféine = warning supplémentaire
+    expect(hot.warnings.some(w => /caféine.*30%|thermogenèse/i.test(w))).toBe(true);
+  });
+
+  it('B5 fix : warning froid si T° <= 8°C (soif émoussée Kenefick 2004)', () => {
+    const cold = computeNutrition({
+      sexe: 'H', poidsKg: 70, niveau: 'Confirmé', premierMode: false,
+      chronoSec: 3 * 3600, tempC: 4, hygrometrie: 'Sec',
+      expNutrition: 'Habitué', sudation: 'Modéré', cafeineHabit: '3+ cafés/j',
+    });
+    expect(cold.warnings.some(w => /froid|soif.*trompeuse|Kenefick/i.test(w))).toBe(true);
+  });
+
+  it('Ratio glucose/fructose : warning si target ≥ 60 g/h', () => {
+    const high = computeNutrition({
+      sexe: 'H', poidsKg: 70, niveau: 'Confirmé', premierMode: false,
+      chronoSec: 3 * 3600, tempC: 15, hygrometrie: 'Standard',
+      expNutrition: 'Habitué', sudation: 'Modéré', cafeineHabit: '1-2 cafés/j',
+    });
+    expect(high.warnings.some(w => /glucose.*fructose|SGLT1|2:1/i.test(w))).toBe(true);
+  });
+
   it('Expérience nutrition = Jamais réduit la cible glucides de 20%', () => {
     const expert = computeNutrition({
       sexe: 'H', poidsKg: 70, niveau: 'Confirmé', premierMode: false,

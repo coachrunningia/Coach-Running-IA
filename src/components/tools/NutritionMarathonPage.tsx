@@ -91,8 +91,11 @@ const carbsByChrono = (chronoSec: number): { min: number; max: number; target: n
   return { min: 35, max: 50, target: 40 };                                     // 5h+
 };
 
-// Matrice hydratation mL/h selon profil sudation × température (Sawka 2007)
-const hydrationByProfil = (sudation: Sudation, tempC: number): number => {
+// Matrice hydratation mL/h selon profil sudation × température (Sawka 2007).
+// Bug B4 fix : la sudation absolue scale linéairement avec la masse corporelle
+// (Sawka 2007, Baker 2019). Un homme 105 kg perd ~50% de plus qu'un 70 kg pour
+// même T°/intensité. Cap ±25% pour éviter dérive sur gabarits extrêmes.
+const hydrationByProfil = (sudation: Sudation, tempC: number, poidsKg: number = 70): number => {
   // Lookup table 4 profils × 4 fourchettes température
   const tempBucket: 0 | 1 | 2 | 3 =
     tempC < 10 ? 0 : tempC < 18 ? 1 : tempC < 25 ? 2 : 3;
@@ -104,6 +107,9 @@ const hydrationByProfil = (sudation: Sudation, tempC: number): number => {
     'Salty sweater':  [600, 700, 850, 950],
   };
   let ml = table[sudation][tempBucket];
+  // Pondération poids corporel : ±0.5%/kg autour 70 kg, capé entre 0.85x et 1.25x
+  const weightFactor = Math.min(1.25, Math.max(0.85, 1 + (poidsKg - 70) * 0.005));
+  ml = Math.round(ml * weightFactor);
   // Cap absolu hyponatrémie d'effort (Hew-Butler 2015 — max 1000 mL/h)
   if (ml > 1000) ml = 1000;
   return ml;
@@ -162,23 +168,37 @@ const computeNutrition = (params: {
   const warnings: string[] = [];
 
   // ─── Glucides ───
+  // Bug B1+B2 fix : quand on ajuste target, on ajuste AUSSI min/max pour cohérence
+  // d'affichage (synthèse, plage, timeline). Plancher 40 g/h (Pfeiffer 2012 — sous ce
+  // seuil, perte de bénéfice ergogénique).
   const carbsBase = carbsByChrono(chronoSec);
   let target = carbsBase.target;
+  let carbsMin = carbsBase.min;
+  let carbsMax = carbsBase.max;
   // Ajustement -20% si jamais d'expérience nutrition
   if (expNutrition === 'Jamais') {
-    target = Math.round(target * 0.8);
-    warnings.push("Cible glucides réduite de 20% car aucune expérience nutrition en course. Progresse graduellement.");
+    target = Math.max(40, Math.round(target * 0.8));
+    carbsMin = Math.max(40, Math.round(carbsMin * 0.8));
+    carbsMax = Math.max(carbsMin + 5, Math.round(carbsMax * 0.8));
+    warnings.push("Cible glucides réduite de 20% car aucune expérience nutrition en course. Progresse graduellement (plancher 40 g/h, Pfeiffer 2012).");
   }
-  // Mode Premier : cap à 60 g/h max
+  // Mode Premier : cap à 60 g/h max (cap aussi max pour cohérence affichage)
   if (premierMode && target > 60) {
     target = 60;
+    carbsMax = Math.min(carbsMax, 60);
+    carbsMin = Math.min(carbsMin, target);
     warnings.push("Mode Premier marathon : cible glucides plafonnée à 60 g/h pour limiter le risque digestif.");
   }
-  const carbsPerHour = { ...carbsBase, target };
+  // Warning ratio glucose/fructose si target >= 60 g/h (Jeukendrup 2014 — plafond
+  // physiologique SGLT1 à 60 g/h sans fructose, sinon GI distress garanti)
+  if (target >= 60) {
+    warnings.push("Cible ≥ 60 g/h : vérifie que tes gels contiennent un ratio glucose:fructose 2:1 (mention sur l'étiquette). Sinon plafond physiologique 60 g/h (saturation SGLT1).");
+  }
+  const carbsPerHour = { min: carbsMin, max: carbsMax, target };
   const totalCarbs = Math.round((target * chronoSec) / 3600);
 
   // ─── Hydratation ───
-  let hydrationPerHour = hydrationByProfil(sudation, tempC);
+  let hydrationPerHour = hydrationByProfil(sudation, tempC, poidsKg);
   // Ajustement humidité
   if (hygrometrie === 'Humide') hydrationPerHour = Math.round(hydrationPerHour * 1.1);
   if (hygrometrie === 'Sec') hydrationPerHour = Math.round(hydrationPerHour * 0.95);
@@ -186,6 +206,16 @@ const computeNutrition = (params: {
   if (hydrationPerHour > 1000) hydrationPerHour = 1000;
   if (hydrationPerHour > 800) {
     warnings.push("Hydratation > 800 mL/h : surveille les signes d'hyponatrémie (nausées, confusion, gonflement). Cap absolu 1000 mL/h.");
+  }
+  // Bug B5 fix : warnings T° extrêmes (chaleur >25°C + froid <8°C)
+  if (tempC >= 25) {
+    warnings.push("Marathon par >25°C : envisage de ralentir ton allure de 15-20%. Surveille l'épuisement thermique (frissons paradoxaux, désorientation).");
+  }
+  if (tempC >= 25 && cafeineHabit !== 'Aucune') {
+    warnings.push("Chaleur + caféine = thermogenèse accrue. Envisage de réduire ta dose pré-course de 30%.");
+  }
+  if (tempC <= 8) {
+    warnings.push("Par temps froid, la soif est trompeuse (Kenefick 2004). Bois selon ton plan chronométré, pas selon la soif uniquement.");
   }
   const totalHydration = Math.round((hydrationPerHour * chronoSec) / 3600);
 
@@ -400,23 +430,23 @@ const NutritionMarathonPage: React.FC = () => {
   return (
     <>
       <Helmet>
-        <title>Calculateur Nutrition Marathon Gratuit & Instantané | Glucides, Eau, Caféine</title>
+        <title>Calculateur Nutrition Marathon Gratuit & Instantané</title>
         <meta
           name="description"
-          content="🍯 Calcule ta stratégie nutrition marathon en 30 secondes. Gratuit, instantané, scientifique (ACSM/Jeukendrup). Glucides g/h, hydratation mL/h, sodium, caféine personnalisés selon ton chrono (sub-3h à sub-5h), ton profil et la météo. Plan nutrition sur-mesure."
+          content="Plan nutrition marathon gratuit : glucides, hydratation, sodium, caféine personnalisés selon ton chrono (sub-3h à sub-5h) et la météo."
         />
         <meta
           name="keywords"
           content="nutrition marathon, plan nutrition marathon, calculateur nutrition marathon, glucides marathon, hydratation marathon, caféine marathon, gels marathon, plan nutrition marathon sub 3h, plan nutrition marathon sub 4h, mur du 30e km, ravitaillement marathon, boisson isotonique marathon, sodium marathon, premier marathon nutrition, stratégie nutrition course, gut training marathon"
         />
         <link rel="canonical" href="https://coachrunningia.fr/outils/nutrition-marathon" />
-        <meta property="og:title" content="Calculateur Nutrition Marathon Gratuit & Instantané — Plan personnalisé" />
-        <meta property="og:description" content="🍯 Plan nutrition marathon en 30 secondes. Glucides, hydratation, sodium et caféine personnalisés selon ton chrono et la météo. Gratuit & scientifique (ACSM/Jeukendrup)." />
+        <meta property="og:title" content="Calculateur Nutrition Marathon Gratuit & Instantané" />
+        <meta property="og:description" content="Plan nutrition marathon gratuit : glucides, hydratation, caféine selon ton chrono et la météo." />
         <meta property="og:type" content="website" />
         <meta property="og:url" content="https://coachrunningia.fr/outils/nutrition-marathon" />
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:title" content="Calculateur Nutrition Marathon Gratuit & Instantané" />
-        <meta name="twitter:description" content="🍯 Plan nutrition marathon en 30 sec. Glucides, hydratation, sodium, caféine selon ton chrono. Gratuit." />
+        <meta name="twitter:description" content="Plan nutrition marathon gratuit : glucides, hydratation, caféine selon ton chrono et la météo." />
         <meta name="twitter:image" content="https://coachrunningia.fr/og-image.png" />
         <script type="application/ld+json">{JSON.stringify({
           "@context": "https://schema.org",
@@ -898,8 +928,13 @@ const NutritionMarathonPage: React.FC = () => {
                     <div className="text-xs text-slate-500 mt-1">mL eau</div>
                   </div>
                   <div className="text-center p-3 bg-emerald-50 rounded-lg">
-                    <div className="text-2xl font-bold text-emerald-700">{result.totalSodium}</div>
-                    <div className="text-xs text-slate-500 mt-1">mg sodium</div>
+                    <div className="text-2xl font-bold text-emerald-700">{result.sodiumPerLiter}</div>
+                    <div className="text-xs text-slate-500 mt-1">
+                      mg sodium / L
+                      <span className="block text-[10px] text-slate-400 mt-0.5">
+                        dans ta boisson
+                      </span>
+                    </div>
                   </div>
                   <div className="text-center p-3 bg-purple-50 rounded-lg">
                     <div className="text-2xl font-bold text-purple-700">{result.caffeinePreRace + result.caffeineBoost}</div>
