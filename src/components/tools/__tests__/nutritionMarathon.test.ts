@@ -1,7 +1,8 @@
 /**
  * Tests unitaires des formules nutrition marathon.
- * Couvre : plages glucides par chrono, cap absolu hydratation 1000 mL/h,
- * mode Premier cap caféine 3 mg/kg, doctrine "poids jamais affiché".
+ * Couvre : plages glucides par chrono (recalibrées borne basse-médiane),
+ * cap absolu hydratation 1000 mL/h, caféine 3 mg/kg cible + split pré/boost,
+ * mode Premier (cap glucides + zéro caféine), doctrine "poids jamais affiché".
  *
  * Lancer : npx vitest run src/components/tools/__tests__/nutritionMarathon.test.ts
  */
@@ -15,29 +16,34 @@ import {
   computeNutrition,
 } from '../NutritionMarathonPage';
 
-describe('carbsByChrono — plages glucides selon chrono', () => {
-  it('sub-3h cible 80-100 g/h', () => {
+describe('carbsByChrono — plages recalibrées borne basse-médiane', () => {
+  it('sub-3h cible 70-95 g/h', () => {
     const r = carbsByChrono(2.5 * 3600 + 1); // 2h30+
-    expect(r.target).toBeGreaterThanOrEqual(80);
-    expect(r.target).toBeLessThanOrEqual(100);
+    expect(r.target).toBeGreaterThanOrEqual(70);
+    expect(r.target).toBeLessThanOrEqual(95);
   });
 
-  it('sub-4h cible 60-80 g/h', () => {
-    const r = carbsByChrono(3.7 * 3600);
-    expect(r.target).toBeGreaterThanOrEqual(60);
-    expect(r.target).toBeLessThanOrEqual(80);
+  it('sub-4h cible recalibrée 50-75 g/h (ex-70 g/h trop haut pour 55 kg)', () => {
+    const r = carbsByChrono(3.7 * 3600); // 3h42 (entre 3h30 et 4h)
+    expect(r.target).toBeGreaterThanOrEqual(50);
+    expect(r.target).toBeLessThanOrEqual(75);
   });
 
-  it('sub-5h cible 45-60 g/h', () => {
+  it('sub-3h35 (3h30-4h palier) target = 60 g/h (ex Romane 55 kg)', () => {
+    const r = carbsByChrono(3 * 3600 + 35 * 60); // 3h35
+    expect(r.target).toBe(60);
+  });
+
+  it('sub-5h cible 40-55 g/h', () => {
     const r = carbsByChrono(4.7 * 3600);
-    expect(r.target).toBeGreaterThanOrEqual(45);
-    expect(r.target).toBeLessThanOrEqual(70);
-  });
-
-  it('5h+ cible 40-55 g/h', () => {
-    const r = carbsByChrono(5.5 * 3600);
     expect(r.target).toBeGreaterThanOrEqual(40);
     expect(r.target).toBeLessThanOrEqual(55);
+  });
+
+  it('5h+ cible 35-50 g/h', () => {
+    const r = carbsByChrono(5.5 * 3600);
+    expect(r.target).toBeGreaterThanOrEqual(35);
+    expect(r.target).toBeLessThanOrEqual(50);
   });
 });
 
@@ -66,17 +72,41 @@ describe('sodiumByProfil', () => {
   });
 });
 
-describe('caffeineDose — mode Premier cap à 3 mg/kg', () => {
-  it('Mode Premier plafonne à 3 mg/kg même si 3+ cafés/j', () => {
+describe('caffeineDose — 3 mg/kg cible (Spriet 2014) + split pré/boost', () => {
+  it('Mode Premier = ZÉRO caféine (pas 3 mg/kg, vraiment 0)', () => {
     const r = caffeineDose(70, '3+ cafés/j', true);
-    expect(r.mgPerKg).toBeLessThanOrEqual(3);
-    expect(r.totalMg).toBeLessThanOrEqual(70 * 3);
+    expect(r.preRaceMg).toBe(0);
+    expect(r.boostMg).toBe(0);
   });
 
-  it('Hors mode Premier, 3+ cafés/j réduit la dose de 30%', () => {
-    const normal = caffeineDose(70, 'Aucune', false);
+  it('Habitude caféine = Aucune → pas de caféine (l\'user a dit non)', () => {
+    const r = caffeineDose(70, 'Aucune', false);
+    expect(r.preRaceMg).toBe(0);
+    expect(r.boostMg).toBe(0);
+  });
+
+  it('Femme 55 kg, 1-2 cafés/j → ~165 mg pré (3 mg/kg), pas 220 mg (ex-4 mg/kg)', () => {
+    const r = caffeineDose(55, '1-2 cafés/j', false);
+    expect(r.preRaceMg).toBeGreaterThanOrEqual(155);
+    expect(r.preRaceMg).toBeLessThanOrEqual(170);
+  });
+
+  it('Boost final = 50 mg fixe (gel caféiné standard), indépendant du poids', () => {
+    const r1 = caffeineDose(55, '1-2 cafés/j', false);
+    const r2 = caffeineDose(85, '1-2 cafés/j', false);
+    expect(r1.boostMg).toBe(50);
+    expect(r2.boostMg).toBe(50);
+  });
+
+  it('Total combiné reste ≤ 5 mg/kg (cap sécurité Spriet)', () => {
+    const r = caffeineDose(55, '1-2 cafés/j', false);
+    expect(r.mgPerKgTotal).toBeLessThanOrEqual(5);
+  });
+
+  it('3+ cafés/j réduit la dose pré (-17% : 2.5 mg/kg au lieu de 3)', () => {
+    const normal = caffeineDose(70, '1-2 cafés/j', false);
     const reduced = caffeineDose(70, '3+ cafés/j', false);
-    expect(reduced.mgPerKg).toBeLessThan(normal.mgPerKg);
+    expect(reduced.preRaceMg).toBeLessThan(normal.preRaceMg);
   });
 });
 
@@ -87,15 +117,31 @@ describe('computeNutrition — intégration doctrine', () => {
       poidsKg: 70,
       niveau: 'Débutant',
       premierMode: true,
-      chronoSec: 3 * 3600, // sub-3h, normalement 90 g/h
+      chronoSec: 3 * 3600, // sub-3h, normalement 80 g/h
       tempC: 15,
       hygrometrie: 'Standard',
       expNutrition: 'Habitué',
       sudation: 'Modéré',
       cafeineHabit: 'Aucune',
-      cycle: null,
     });
     expect(r.carbsPerHour.target).toBeLessThanOrEqual(60);
+  });
+
+  it('Mode Premier = zéro caféine (preRace + boost tous deux = 0)', () => {
+    const r = computeNutrition({
+      sexe: 'F',
+      poidsKg: 55,
+      niveau: 'Débutant',
+      premierMode: true,
+      chronoSec: 3.5 * 3600,
+      tempC: 15,
+      hygrometrie: 'Standard',
+      expNutrition: 'Habitué',
+      sudation: 'Modéré',
+      cafeineHabit: '1-2 cafés/j',
+    });
+    expect(r.caffeinePreRace).toBe(0);
+    expect(r.caffeineBoost).toBe(0);
   });
 
   it('Cap hydratation 1000 mL/h respecté même conditions extrêmes', () => {
@@ -110,12 +156,11 @@ describe('computeNutrition — intégration doctrine', () => {
       expNutrition: 'Habitué',
       sudation: 'Salty sweater',
       cafeineHabit: '1-2 cafés/j',
-      cycle: null,
     });
     expect(r.hydrationPerHour).toBeLessThanOrEqual(1000);
   });
 
-  it('Aucun champ "poids" ni dérivé direct visible dans le résultat', () => {
+  it('Aucun champ "poids" / "weight" / "imc" visible dans le résultat sérialisé', () => {
     const r = computeNutrition({
       sexe: 'H',
       poidsKg: 70,
@@ -127,7 +172,6 @@ describe('computeNutrition — intégration doctrine', () => {
       expNutrition: 'Habitué',
       sudation: 'Modéré',
       cafeineHabit: '1-2 cafés/j',
-      cycle: null,
     });
     const json = JSON.stringify(r);
     expect(json).not.toMatch(/poids/i);
@@ -139,12 +183,12 @@ describe('computeNutrition — intégration doctrine', () => {
     const expert = computeNutrition({
       sexe: 'H', poidsKg: 70, niveau: 'Confirmé', premierMode: false,
       chronoSec: 3.5 * 3600, tempC: 15, hygrometrie: 'Standard',
-      expNutrition: 'Habitué', sudation: 'Modéré', cafeineHabit: 'Aucune', cycle: null,
+      expNutrition: 'Habitué', sudation: 'Modéré', cafeineHabit: 'Aucune',
     });
     const noob = computeNutrition({
       sexe: 'H', poidsKg: 70, niveau: 'Confirmé', premierMode: false,
       chronoSec: 3.5 * 3600, tempC: 15, hygrometrie: 'Standard',
-      expNutrition: 'Jamais', sudation: 'Modéré', cafeineHabit: 'Aucune', cycle: null,
+      expNutrition: 'Jamais', sudation: 'Modéré', cafeineHabit: 'Aucune',
     });
     expect(noob.carbsPerHour.target).toBeLessThan(expert.carbsPerHour.target);
   });

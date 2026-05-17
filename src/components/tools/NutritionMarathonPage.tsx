@@ -18,6 +18,11 @@ import {
   CheckCircle2,
   Info,
   X,
+  HelpCircle,
+  Beaker,
+  Target,
+  Flame,
+  ListChecks,
 } from 'lucide-react';
 
 // ─────────────────────────────────────────────────────────────────────────────
@@ -32,7 +37,6 @@ type Hygrometrie = 'Sec' | 'Standard' | 'Humide';
 type ExpNutrition = 'Jamais' | 'Occasionnel' | 'Habitué';
 type Sudation = 'Faible' | 'Modéré' | 'Élevé' | 'Salty sweater';
 type Cafeine = 'Aucune' | '1-2 cafés/j' | '3+ cafés/j';
-type Cycle = 'Phase folliculaire' | 'Phase lutéale' | 'Pas concernée';
 
 interface CalcResult {
   durationSec: number;
@@ -44,7 +48,8 @@ interface CalcResult {
   sodiumPerLiter: number;
   totalSodium: number;
   caffeinePreRace: number;
-  caffeineDoseMgPerKg: number;
+  caffeineBoost: number;
+  caffeineDoseMgPerKgTotal: number;
   kcalPerHour: number;
   totalKcal: number;
   premierMode: boolean;
@@ -72,14 +77,18 @@ const formatDuration = (sec: number): string => {
 };
 
 // Glucides g/h selon chrono (Jeukendrup 2014, Cermak & van Loon 2013)
+// Plages glucides g/h marathon — calibrées sur retours terrain (femme 55 kg 3h35
+// trouvait 70 g/h trop haut → on cible la borne basse-médiane des plages
+// scientifiques pour rester réaliste sans gut training extrême).
+// Source : ACSM/AND 2016 + Jeukendrup 2014 + retours coaches CRIA.
 const carbsByChrono = (chronoSec: number): { min: number; max: number; target: number } => {
-  if (chronoSec < 2.5 * 3600) return { min: 90, max: 120, target: 100 };       // sub-2h30
-  if (chronoSec < 3 * 3600) return { min: 80, max: 100, target: 90 };          // sub-3h
-  if (chronoSec < 3.5 * 3600) return { min: 70, max: 90, target: 80 };         // sub-3h30
-  if (chronoSec < 4 * 3600) return { min: 60, max: 80, target: 70 };           // sub-4h
-  if (chronoSec < 4.5 * 3600) return { min: 50, max: 70, target: 60 };         // sub-4h30
-  if (chronoSec < 5 * 3600) return { min: 45, max: 60, target: 50 };           // sub-5h
-  return { min: 40, max: 55, target: 45 };                                     // 5h+
+  if (chronoSec < 2.5 * 3600) return { min: 80, max: 110, target: 90 };        // sub-2h30
+  if (chronoSec < 3 * 3600) return { min: 70, max: 95, target: 80 };           // sub-3h
+  if (chronoSec < 3.5 * 3600) return { min: 60, max: 85, target: 70 };         // sub-3h30
+  if (chronoSec < 4 * 3600) return { min: 50, max: 75, target: 60 };           // sub-4h ⬅ ex-70
+  if (chronoSec < 4.5 * 3600) return { min: 45, max: 65, target: 55 };         // sub-4h30
+  if (chronoSec < 5 * 3600) return { min: 40, max: 55, target: 45 };           // sub-5h
+  return { min: 35, max: 50, target: 40 };                                     // 5h+
 };
 
 // Matrice hydratation mL/h selon profil sudation × température (Sawka 2007)
@@ -111,19 +120,25 @@ const sodiumByProfil = (sudation: Sudation): number => {
   return table[sudation];
 };
 
-// Caféine pré-course (Maughan 2016 : 3-5 mg/kg)
-// Note : on calcule en mg/kg, mais on n'affiche JAMAIS le poids.
-// On affiche uniquement la dose totale en mg.
-const caffeineDose = (poidsKg: number, cafeineHabit: Cafeine, premierMode: boolean): { totalMg: number; mgPerKg: number } => {
-  let mgPerKg = 3; // base prudente
-  if (!premierMode) {
-    mgPerKg = 4; // dose moyenne
-    if (cafeineHabit === '3+ cafés/j') mgPerKg = Math.round(mgPerKg * 0.7 * 10) / 10; // -30% si tolérance
-  } else {
-    mgPerKg = 3; // cap Premier
-  }
-  const totalMg = Math.round(poidsKg * mgPerKg);
-  return { totalMg, mgPerKg };
+// Caféine pré-course — Spriet 2014 : dose ergogenic minimale 2-3 mg/kg.
+// Au-delà : bénéfices décroissants + risques GI/cardio/nervosité.
+// Maughan 2016 confirme 3 mg/kg comme cible efficace et bien tolérée.
+// Si caféine en course (gel km 30) : on garde un coussin pour ne pas dépasser ~4 mg/kg total.
+// Note : on calcule en mg/kg, mais on n'affiche JAMAIS le poids. Uniquement les doses en mg.
+const caffeineDose = (poidsKg: number, cafeineHabit: Cafeine, premierMode: boolean): { preRaceMg: number; boostMg: number; mgPerKgTotal: number } => {
+  // Premier marathon : 0 caféine (trop de risque inconnu sur stress digestif + cardio)
+  if (premierMode) return { preRaceMg: 0, boostMg: 0, mgPerKgTotal: 0 };
+  if (cafeineHabit === 'Aucune') return { preRaceMg: 0, boostMg: 0, mgPerKgTotal: 0 };
+
+  // Cible 3 mg/kg pré-course (Spriet 2014, Maughan 2016)
+  let mgPerKgPre = 3;
+  if (cafeineHabit === '3+ cafés/j') mgPerKgPre = 2.5; // -17% si tolérance élevée
+  const preRaceMg = Math.round(poidsKg * mgPerKgPre / 5) * 5; // arrondi à 5 mg
+
+  // Boost final ~30 km : gel caféiné standard 40-60 mg (fixe, indépendant du poids)
+  const boostMg = 50;
+  const mgPerKgTotal = Math.round((preRaceMg + boostMg) / poidsKg * 10) / 10;
+  return { preRaceMg, boostMg, mgPerKgTotal };
 };
 
 // Calcul principal
@@ -138,7 +153,6 @@ const computeNutrition = (params: {
   expNutrition: ExpNutrition;
   sudation: Sudation;
   cafeineHabit: Cafeine;
-  cycle: Cycle | null;
 }): CalcResult => {
   const {
     poidsKg, premierMode, chronoSec, tempC, hygrometrie, expNutrition,
@@ -181,7 +195,7 @@ const computeNutrition = (params: {
   const totalSodium = Math.round((sodiumPerLiter * totalHydration) / 1000);
 
   // ─── Caféine ───
-  const { totalMg: caffeinePreRace, mgPerKg } = caffeineDose(poidsKg, cafeineHabit, premierMode);
+  const { preRaceMg: caffeinePreRace, boostMg: caffeineBoost, mgPerKgTotal } = caffeineDose(poidsKg, cafeineHabit, premierMode);
 
   // ─── Énergie (ACSM, kcal/h ≈ poids × vitesse_kmh × 0.95) ───
   const distanceKm = 42.195;
@@ -203,7 +217,9 @@ const computeNutrition = (params: {
   const timeline: { window: string; instruction: string; tone: 'normal' | 'warning' | 'highlight' }[] = [];
   timeline.push({
     window: 'H-30 → H-0',
-    instruction: `Hydratation 200-400 mL d'eau plate. Si caféine : prends ${caffeinePreRace} mg (équivalent ~${Math.round(caffeinePreRace / 80)} expressos) 45-60 min avant le départ.`,
+    instruction: caffeinePreRace > 0
+      ? `Hydratation 200-400 mL d'eau plate. Caféine : ${caffeinePreRace} mg (≈ ${Math.round(caffeinePreRace / 80)} expressos ou 1 gélule) 45-60 min avant le départ.`
+      : `Hydratation 200-400 mL d'eau plate. ${premierMode ? 'Pas de caféine sur premier marathon (trop d\'inconnues).' : 'Pas de caféine.'}`,
     tone: 'highlight',
   });
   timeline.push({
@@ -223,7 +239,16 @@ const computeNutrition = (params: {
   });
   timeline.push({
     window: 'km 10 → arrivée',
-    instruction: `1 gel toutes les ${Math.max(15, Math.round(60 / (target / carbsPerGel)))} min + 150-250 mL liquide. Alterne eau/isotonique selon ravitos.`,
+    instruction: (() => {
+      // Plage de prise — borne basse-haute en min, arrondi à 5 min, plancher 25 min
+      // (rythme < 25 min trop rigide pour la majorité, risque GI).
+      const minIntervalRaw = 60 / (carbsPerHour.max / carbsPerGel); // intervalle court (cible max)
+      const maxIntervalRaw = 60 / (carbsPerHour.min / carbsPerGel); // intervalle long (cible min)
+      const intervalLow = Math.max(25, Math.round(minIntervalRaw / 5) * 5);
+      const intervalHigh = Math.max(intervalLow + 5, Math.round(maxIntervalRaw / 5) * 5);
+      const range = intervalLow === intervalHigh ? `${intervalLow}` : `${intervalLow}-${intervalHigh}`;
+      return `1 gel toutes les ${range} min + 150-250 mL liquide. Alterne eau/isotonique selon ravitos. Cible ${carbsPerHour.min}-${carbsPerHour.max} g/h selon ta tolérance.`;
+    })(),
     tone: 'normal',
   });
   if (chronoSec > 4 * 3600) {
@@ -233,10 +258,10 @@ const computeNutrition = (params: {
       tone: 'normal',
     });
   }
-  if (cafeineHabit !== 'Aucune' && !premierMode) {
+  if (caffeineBoost > 0) {
     timeline.push({
-      window: 'km 30-35',
-      instruction: `Boost caféine final : gel caféiné (~50 mg) pour le 30e km. Pas plus tard que 5 km avant l'arrivée.`,
+      window: 'km 28-32',
+      instruction: `Boost caféine final : gel caféiné (~${caffeineBoost} mg) au km 28-32. Pas plus tard que 5 km avant l'arrivée (effet 30-45 min).`,
       tone: 'highlight',
     });
   }
@@ -251,7 +276,8 @@ const computeNutrition = (params: {
     sodiumPerLiter,
     totalSodium,
     caffeinePreRace,
-    caffeineDoseMgPerKg: mgPerKg,
+    caffeineBoost,
+    caffeineDoseMgPerKgTotal: mgPerKgTotal,
     kcalPerHour,
     totalKcal,
     premierMode,
@@ -295,7 +321,6 @@ const NutritionMarathonPage: React.FC = () => {
   const [showAffinages, setShowAffinages] = useState<boolean>(false);
   const [sudation, setSudation] = useState<Sudation>('Modéré');
   const [cafeineHabit, setCafeineHabit] = useState<Cafeine>('1-2 cafés/j');
-  const [cycle, setCycle] = useState<Cycle>('Pas concernée');
 
   const [result, setResult] = useState<CalcResult | null>(null);
   const [showSafety, setShowSafety] = useState<boolean>(false);
@@ -322,11 +347,6 @@ const NutritionMarathonPage: React.FC = () => {
   useEffect(() => {
     if (niveau === 'Débutant') setPremierMode(true);
   }, [niveau]);
-
-  // ─── Reset cycle si Sexe = H ───
-  useEffect(() => {
-    if (sexe === 'H') setCycle('Pas concernée');
-  }, [sexe]);
 
   // ─── Validation et calcul ───
   const calculate = () => {
@@ -358,7 +378,6 @@ const NutritionMarathonPage: React.FC = () => {
       expNutrition,
       sudation,
       cafeineHabit,
-      cycle: sexe === 'F' ? cycle : null,
     });
     setResult(r);
     trackEvent('nutrition_marathon_calculate', {
@@ -381,22 +400,23 @@ const NutritionMarathonPage: React.FC = () => {
   return (
     <>
       <Helmet>
-        <title>Calculateur Nutrition Marathon Gratuit | Coach Running IA</title>
+        <title>Calculateur Nutrition Marathon Gratuit & Instantané | Glucides, Eau, Caféine</title>
         <meta
           name="description"
-          content="Calculateur nutrition marathon gratuit : glucides, hydratation, sodium et caféine personnalisés selon ton chrono, ton profil et la météo. Stratégie scientifique ACSM/Jeukendrup."
+          content="🍯 Calcule ta stratégie nutrition marathon en 30 secondes. Gratuit, instantané, scientifique (ACSM/Jeukendrup). Glucides g/h, hydratation mL/h, sodium, caféine personnalisés selon ton chrono (sub-3h à sub-5h), ton profil et la météo. Plan nutrition sur-mesure."
         />
         <meta
           name="keywords"
-          content="nutrition marathon, plan nutrition marathon, glucides marathon, hydratation marathon, caféine marathon, calculateur nutrition course, stratégie nutrition marathon, gels marathon"
+          content="nutrition marathon, plan nutrition marathon, calculateur nutrition marathon, glucides marathon, hydratation marathon, caféine marathon, gels marathon, plan nutrition marathon sub 3h, plan nutrition marathon sub 4h, mur du 30e km, ravitaillement marathon, boisson isotonique marathon, sodium marathon, premier marathon nutrition, stratégie nutrition course, gut training marathon"
         />
         <link rel="canonical" href="https://coachrunningia.fr/outils/nutrition-marathon" />
-        <meta property="og:title" content="Calculateur Nutrition Marathon : Glucides, Hydratation, Sodium personnalisés" />
-        <meta property="og:description" content="Plan nutrition marathon personnalisé en 30 secondes. Glucides, hydratation, sodium et caféine adaptés à ton chrono et à la météo." />
+        <meta property="og:title" content="Calculateur Nutrition Marathon Gratuit & Instantané — Plan personnalisé" />
+        <meta property="og:description" content="🍯 Plan nutrition marathon en 30 secondes. Glucides, hydratation, sodium et caféine personnalisés selon ton chrono et la météo. Gratuit & scientifique (ACSM/Jeukendrup)." />
         <meta property="og:type" content="website" />
+        <meta property="og:url" content="https://coachrunningia.fr/outils/nutrition-marathon" />
         <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content="Calculateur Nutrition Marathon Gratuit" />
-        <meta name="twitter:description" content="Plan nutrition marathon personnalisé : glucides, hydratation, sodium, caféine selon ton chrono." />
+        <meta name="twitter:title" content="Calculateur Nutrition Marathon Gratuit & Instantané" />
+        <meta name="twitter:description" content="🍯 Plan nutrition marathon en 30 sec. Glucides, hydratation, sodium, caféine selon ton chrono. Gratuit." />
         <meta name="twitter:image" content="https://coachrunningia.fr/og-image.png" />
         <script type="application/ld+json">{JSON.stringify({
           "@context": "https://schema.org",
@@ -431,7 +451,7 @@ const NutritionMarathonPage: React.FC = () => {
               "name": "Faut-il prendre de la caféine en marathon ?",
               "acceptedAnswer": {
                 "@type": "Answer",
-                "text": "La caféine améliore la performance d'environ 2-3% (Maughan 2016). Dose recommandée : 3-5 mg/kg de poids corporel, 45-60 min avant le départ. Réduis la dose si tu consommes 3 cafés/j ou plus (tolérance). Évite si premier marathon."
+                "text": "La caféine améliore la performance d'environ 2-3% (Maughan 2016). Dose efficace dès 3 mg/kg de poids corporel (Spriet 2014) — au-delà de 5 mg/kg, bénéfices décroissants et risques GI/cardio. Prends 3 mg/kg en pré-course 45-60 min avant le départ. Optionnel : 1 gel caféiné ~50 mg au km 28-32 pour un boost final. Réduis la dose si tu consommes 3 cafés/j ou plus (tolérance). Évite totalement si premier marathon."
               }
             },
             {
@@ -568,12 +588,24 @@ const NutritionMarathonPage: React.FC = () => {
             </nav>
 
             <h1 className="text-4xl md:text-5xl font-bold mb-6">
-              Calculateur Nutrition Marathon : ta stratégie personnalisée
+              Calculateur Nutrition Marathon — Gratuit, Instantané & Personnalisé
             </h1>
-            <p className="text-xl text-slate-300 max-w-3xl">
-              Glucides, hydratation, sodium et caféine adaptés à ton chrono, ton profil et la météo
-              du jour J. Basé sur les recommandations ACSM, Jeukendrup et Cermak.
+            <p className="text-xl text-slate-300 max-w-3xl mb-4">
+              Calcule en <strong className="text-white">30 secondes</strong> ta stratégie nutrition marathon sur-mesure :
+              glucides g/h, hydratation mL/h, sodium et caféine adaptés à ton chrono visé
+              (sub-3h à sub-5h), ton profil et la météo.
             </p>
+            <p className="text-sm text-slate-400 max-w-3xl">
+              Basé sur les recommandations scientifiques ACSM (2016), Jeukendrup (2014), Cermak &amp; van Loon (2013),
+              Hew-Butler (2015) et Spriet (2014). Outil 100 % gratuit, sans inscription.
+            </p>
+            <div className="mt-6 flex flex-wrap gap-2 text-xs">
+              <span className="px-3 py-1 bg-emerald-500/20 text-emerald-200 rounded-full">✓ Gratuit</span>
+              <span className="px-3 py-1 bg-emerald-500/20 text-emerald-200 rounded-full">✓ Instantané (30 sec)</span>
+              <span className="px-3 py-1 bg-emerald-500/20 text-emerald-200 rounded-full">✓ Sans inscription</span>
+              <span className="px-3 py-1 bg-emerald-500/20 text-emerald-200 rounded-full">✓ Sources scientifiques</span>
+              <span className="px-3 py-1 bg-emerald-500/20 text-emerald-200 rounded-full">✓ Sub-3h à Sub-5h</span>
+            </div>
           </div>
         </section>
 
@@ -799,21 +831,6 @@ const NutritionMarathonPage: React.FC = () => {
                       </select>
                     </div>
 
-                    {/* Cycle conditionnel Sexe = F uniquement */}
-                    {sexe === 'F' && (
-                      <div className="md:col-span-2">
-                        <label className="block text-sm font-medium text-slate-700 mb-2">Cycle menstruel</label>
-                        <select
-                          value={cycle}
-                          onChange={(e) => setCycle(e.target.value as Cycle)}
-                          className="w-full p-4 border border-slate-300 rounded-xl focus:ring-2 focus:ring-accent focus:border-accent"
-                        >
-                          <option value="Phase folliculaire">Phase folliculaire (post-règles, ~J1-J14)</option>
-                          <option value="Phase lutéale">Phase lutéale (~J15-J28)</option>
-                          <option value="Pas concernée">Pas concernée / je préfère ne pas indiquer</option>
-                        </select>
-                      </div>
-                    )}
                   </div>
                 )}
               </div>
@@ -885,8 +902,15 @@ const NutritionMarathonPage: React.FC = () => {
                     <div className="text-xs text-slate-500 mt-1">mg sodium</div>
                   </div>
                   <div className="text-center p-3 bg-purple-50 rounded-lg">
-                    <div className="text-2xl font-bold text-purple-700">{result.caffeinePreRace}</div>
-                    <div className="text-xs text-slate-500 mt-1">mg caféine</div>
+                    <div className="text-2xl font-bold text-purple-700">{result.caffeinePreRace + result.caffeineBoost}</div>
+                    <div className="text-xs text-slate-500 mt-1">
+                      mg caféine
+                      {result.caffeineBoost > 0 && (
+                        <span className="block text-[10px] text-slate-400 mt-0.5">
+                          {result.caffeinePreRace} mg pré + {result.caffeineBoost} mg km 28-32
+                        </span>
+                      )}
+                    </div>
                   </div>
                 </div>
 
@@ -974,7 +998,10 @@ const NutritionMarathonPage: React.FC = () => {
                     <li className="flex items-center gap-3 p-3 bg-purple-50 rounded-lg">
                       <CheckCircle2 className="w-5 h-5 text-purple-600 flex-shrink-0" />
                       <span className="text-sm text-slate-700">
-                        <strong>{result.caffeinePreRace} mg de caféine</strong> pré-course (gélule, expresso ou boisson énergisante)
+                        <strong>{result.caffeinePreRace} mg caféine pré-course</strong> (gélule, expresso ou boisson énergisante)
+                        {result.caffeineBoost > 0 && (
+                          <> + <strong>1 gel caféiné ~{result.caffeineBoost} mg</strong> au km 28-32 (boost final, optionnel)</>
+                        )}
                       </span>
                     </li>
                   )}
@@ -1030,17 +1057,6 @@ const NutritionMarathonPage: React.FC = () => {
                         8 à 12 semaines avant ton marathon : sorties longues avec gels, augmentation progressive de 30 à 60-90 g/h.
                       </p>
                     </div>
-
-                    {sexe === 'F' && cycle !== 'Pas concernée' && (
-                      <div className="border-l-4 border-pink-400 bg-pink-50 p-4 rounded-r-lg">
-                        <h3 className="font-bold text-sm text-pink-900 mb-1">Cycle menstruel</h3>
-                        <p className="text-sm text-pink-800">
-                          {cycle === 'Phase lutéale'
-                            ? 'En phase lutéale, la température corporelle est légèrement plus élevée et la sensibilité à la déshydratation augmente. Vérifie ton hydratation de près.'
-                            : 'En phase folliculaire, l\'absorption glucidique est généralement optimale. Profite-en pour tester des charges plus élevées en sortie longue.'}
-                        </p>
-                      </div>
-                    )}
 
                     {/* Disclaimer médical — accordéon dans l'accordéon */}
                     <div className="border border-slate-200 rounded-lg">
@@ -1113,226 +1129,269 @@ const NutritionMarathonPage: React.FC = () => {
           </section>
         )}
 
-        {/* CONTENU SEO */}
-        <section className="py-16 bg-white">
-          <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 prose prose-slate max-w-none">
+        {/* CONTENU SEO — mise en page premium cards */}
+        <section className="py-16 bg-gradient-to-b from-slate-50 to-white">
+          <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 space-y-10">
 
-            <h2>À quoi sert ce calculateur nutrition marathon ?</h2>
-            <p>
-              Le marathon est une épreuve où la <strong>stratégie nutritionnelle</strong> détermine
-              autant la performance que l'entraînement. Au-delà de 2h d'effort, les stocks de
-              <strong> glycogène</strong> s'épuisent, l'<strong>hydratation</strong> devient critique et
-              les <strong>électrolytes</strong> commencent à manquer. Un mauvais plan nutrition transforme
-              un marathon préparé en cauchemar à partir du 25e km.
-            </p>
-            <p>
-              Cet outil personnalise ta stratégie selon ton <strong>chrono visé</strong>, ton <strong>profil
-              physiologique</strong> (sudation, expérience) et les conditions <strong>météo du jour J</strong>
-              (température, hygrométrie). Tu obtiens un plan complet : glucides/heure, hydratation/heure,
-              sodium, caféine, timeline km par km et liste matérielle à prévoir.
-            </p>
-
-            <h2>Comment fonctionne le calculateur ?</h2>
-            <p>
-              Les formules s'appuient sur les <strong>consensus scientifiques internationaux</strong> :
-            </p>
-            <ul>
-              <li><strong>ACSM/AND 2016</strong> : recommandations sodium et hydratation (Sawka et al. 2007)</li>
-              <li><strong>Jeukendrup 2014</strong> : tables glucides/heure selon la durée d'effort</li>
-              <li><strong>Cermak & van Loon 2013</strong> : méta-analyse glucides et performance endurance</li>
-              <li><strong>Hew-Butler 2015</strong> : prévention hyponatrémie d'effort (EAH)</li>
-              <li><strong>Maughan 2016</strong> : protocoles caféine et performance</li>
-            </ul>
-            <p>
-              Le calculateur intègre aussi des <strong>ajustements doctrine</strong> : cap glucides 60 g/h
-              en mode "premier marathon", cap hydratation absolu 1000 mL/h (sécurité EAH), réduction de la
-              cible glucidique si l'expérience nutrition est nulle (gut training non fait).
-            </p>
-
-            <h2>Glucides par heure : 40-120 g/h selon ton chrono</h2>
-            <p>
-              La cible <strong>glucides/heure</strong> dépend principalement de la durée d'effort
-              et de la tolérance digestive entraînée :
-            </p>
-            <div className="not-prose overflow-x-auto my-6">
-              <table className="w-full bg-white rounded-xl shadow-sm border border-slate-200">
-                <thead className="bg-slate-100">
-                  <tr>
-                    <th className="px-4 py-3 text-left text-sm font-semibold text-slate-700">Chrono visé</th>
-                    <th className="px-4 py-3 text-left text-sm font-semibold text-slate-700">Glucides/h cible</th>
-                    <th className="px-4 py-3 text-left text-sm font-semibold text-slate-700">Plage</th>
-                    <th className="px-4 py-3 text-left text-sm font-semibold text-slate-700">Notes</th>
-                  </tr>
-                </thead>
-                <tbody className="divide-y divide-slate-200 text-sm">
-                  <tr><td className="px-4 py-3 font-medium">sub-3h</td><td>90 g/h</td><td>80-100</td><td>Ratio 2:1 glucose/fructose obligatoire</td></tr>
-                  <tr className="bg-slate-50"><td className="px-4 py-3 font-medium">sub-3h30</td><td>80 g/h</td><td>70-90</td><td>Ratio 2:1 recommandé</td></tr>
-                  <tr><td className="px-4 py-3 font-medium">sub-4h</td><td>70 g/h</td><td>60-80</td><td>Gel + boisson glucidique</td></tr>
-                  <tr className="bg-slate-50"><td className="px-4 py-3 font-medium">sub-4h30</td><td>60 g/h</td><td>50-70</td><td>Plafond physiologique standard</td></tr>
-                  <tr><td className="px-4 py-3 font-medium">sub-5h+</td><td>50 g/h</td><td>40-60</td><td>Mode prudent, alterner solide/liquide</td></tr>
-                </tbody>
-              </table>
-            </div>
-            <p>
-              <em>Source : Jeukendrup, Sports Medicine 2014. Cermak & van Loon, Sports Medicine 2013.</em>
-            </p>
-
-            <h2>Hydratation marathon : ne pas trop boire est aussi dangereux que se déshydrater</h2>
-            <p>
-              L'erreur classique du débutant : forcer la boisson "pour bien faire" → <strong>hyponatrémie
-              d'effort (EAH)</strong>, complication grave (œdème cérébral possible). La règle ACSM :
-              <strong> boire selon la soif</strong>, jamais plus de 1000 mL/h.
-            </p>
-            <div className="not-prose overflow-x-auto my-6">
-              <table className="w-full bg-white rounded-xl shadow-sm border border-slate-200 text-sm">
-                <thead className="bg-slate-100">
-                  <tr>
-                    <th className="px-4 py-3 text-left font-semibold">Profil sudation</th>
-                    <th className="px-4 py-3 text-left font-semibold">&lt; 10°C</th>
-                    <th className="px-4 py-3 text-left font-semibold">10-18°C</th>
-                    <th className="px-4 py-3 text-left font-semibold">18-25°C</th>
-                    <th className="px-4 py-3 text-left font-semibold">&gt; 25°C</th>
-                  </tr>
-                </thead>
-                <tbody className="divide-y divide-slate-200">
-                  <tr><td className="px-4 py-3 font-medium">Faible</td><td>350 mL/h</td><td>450</td><td>550</td><td>650</td></tr>
-                  <tr className="bg-slate-50"><td className="px-4 py-3 font-medium">Modéré</td><td>450</td><td>550</td><td>650</td><td>800</td></tr>
-                  <tr><td className="px-4 py-3 font-medium">Élevé</td><td>550</td><td>650</td><td>800</td><td>900</td></tr>
-                  <tr className="bg-slate-50"><td className="px-4 py-3 font-medium">Salty sweater</td><td>600</td><td>700</td><td>850</td><td>950</td></tr>
-                </tbody>
-              </table>
+            {/* H2 À quoi sert */}
+            <div className="bg-white rounded-2xl shadow-md border border-slate-100 p-6 md:p-8">
+              <div className="flex items-start gap-4 mb-4">
+                <div className="p-3 bg-orange-50 rounded-xl flex-shrink-0">
+                  <Target className="w-6 h-6 text-orange-600" />
+                </div>
+                <h2 className="text-2xl md:text-3xl font-bold text-slate-900 leading-tight">
+                  À quoi sert ce calculateur nutrition marathon&nbsp;?
+                </h2>
+              </div>
+              <div className="prose prose-slate max-w-none">
+              <p>Le marathon est une épreuve où la <strong>stratégie nutritionnelle</strong> détermine autant la performance que l'entraînement. Au-delà de 2&nbsp;h d'effort, les stocks de <strong>glycogène</strong> s'épuisent, l'<strong>hydratation</strong> devient critique et les <strong>électrolytes</strong> commencent à manquer. Un mauvais plan nutrition transforme un marathon préparé en cauchemar à partir du 25e&nbsp;km.</p>
+              <p>Cet outil personnalise ta stratégie selon ton <strong>chrono visé</strong>, ton <strong>profil physiologique</strong> (sudation, expérience) et les conditions <strong>météo du jour J</strong> (température, hygrométrie). Tu obtiens un plan complet&nbsp;: glucides/heure, hydratation/heure, sodium, caféine, timeline km par km et liste matérielle à prévoir.</p>
+              </div>
             </div>
 
-            <h2>Sodium en marathon : combien et pourquoi</h2>
-            <p>
-              Le <strong>sodium</strong> joue 3 rôles : il facilite l'absorption intestinale de l'eau
-              et des glucides, prévient les <strong>crampes</strong> et protège contre l'<strong>hyponatrémie</strong>.
-              La perte sodique varie énormément d'un coureur à l'autre (de 400 à 1500 mg/L de sueur).
-            </p>
-            <ul>
-              <li>Sudation faible : <strong>400 mg/L</strong> de boisson</li>
-              <li>Sudation modérée : <strong>600 mg/L</strong></li>
-              <li>Sudation élevée : <strong>900 mg/L</strong></li>
-              <li>Salty sweater (traces blanches) : <strong>1200 mg/L</strong></li>
-            </ul>
+            {/* H2 Comment fonctionne */}
+            <div className="bg-white rounded-2xl shadow-md border border-slate-100 p-6 md:p-8">
+              <div className="flex items-start gap-4 mb-4">
+                <div className="p-3 bg-blue-50 rounded-xl flex-shrink-0">
+                  <Beaker className="w-6 h-6 text-blue-600" />
+                </div>
+                <h2 className="text-2xl md:text-3xl font-bold text-slate-900 leading-tight">
+                  Comment fonctionne le calculateur&nbsp;?
+                </h2>
+              </div>
+              <p className="text-slate-700 mb-4">Les formules s'appuient sur les <strong>consensus scientifiques internationaux</strong>&nbsp;:</p>
+              <div className="grid sm:grid-cols-2 gap-3 mb-4">
+                {[
+                  { name: 'ACSM/AND 2016', desc: 'Sodium + hydratation (Sawka 2007)' },
+                  { name: 'Jeukendrup 2014', desc: 'Tables glucides/h par durée' },
+                  { name: 'Cermak & van Loon 2013', desc: 'Méta-analyse glucides + perf endurance' },
+                  { name: 'Hew-Butler 2015', desc: 'Prévention hyponatrémie d\'effort (EAH)' },
+                  { name: 'Spriet 2014', desc: 'Dose ergogenic minimale caféine 3 mg/kg' },
+                  { name: 'Maughan 2016', desc: 'Protocoles caféine et performance' },
+                ].map((s, i) => (
+                  <div key={i} className="flex gap-3 p-3 bg-slate-50 rounded-lg border border-slate-100">
+                    <CheckCircle2 className="w-5 h-5 text-blue-600 flex-shrink-0 mt-0.5" />
+                    <div className="text-sm">
+                      <div className="font-semibold text-slate-900">{s.name}</div>
+                      <div className="text-slate-600 text-xs mt-0.5">{s.desc}</div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+              <div className="bg-amber-50 border border-amber-200 p-4 rounded-lg flex gap-3">
+                <Info className="w-5 h-5 text-amber-600 flex-shrink-0 mt-0.5" />
+                <p className="text-sm text-amber-900">
+                  <strong>Ajustements doctrine&nbsp;:</strong> cap glucides 60 g/h en mode "premier marathon",
+                  cap hydratation absolu 1000 mL/h (sécurité EAH), réduction -20&nbsp;% de la cible glucidique
+                  si l'expérience nutrition est nulle (gut training non fait), zéro caféine si premier marathon.
+                </p>
+              </div>
+            </div>
 
-            <h2>Caféine et marathon : dosage et timing</h2>
-            <p>
-              La caféine améliore la performance d'environ <strong>2-3% sur le marathon</strong> (Maughan 2016).
-              Dose efficace : <strong>3-5 mg/kg</strong> de poids corporel, prise 45 à 60 minutes avant le départ.
-            </p>
-            <ul>
-              <li>Si tu bois <strong>3 cafés/jour ou plus</strong> : réduis la dose de 30% (tolérance installée).</li>
-              <li>Si <strong>premier marathon</strong> ou caféine non testée : pas de boost final, dose réduite.</li>
-              <li>Plafond de sécurité : <strong>6 mg/kg cumulés sur 24h</strong> (insomnie, palpitations au-delà).</li>
-            </ul>
+            {/* H2 Glucides */}
+            <div className="bg-white rounded-2xl shadow-md border border-slate-100 p-6 md:p-8">
+              <div className="flex items-start gap-4 mb-4">
+                <div className="p-3 bg-orange-50 rounded-xl flex-shrink-0">
+                  <Zap className="w-6 h-6 text-orange-600" />
+                </div>
+                <h2 className="text-2xl md:text-3xl font-bold text-slate-900 leading-tight">
+                  Glucides par heure&nbsp;: 35 à 100 g/h selon ton chrono
+                </h2>
+              </div>
+              <p className="text-slate-700 mb-5">La cible <strong>glucides/heure</strong> dépend principalement de la durée d'effort et de la tolérance digestive entraînée&nbsp;:</p>
+              <div className="overflow-x-auto -mx-2">
+                <table className="w-full text-sm">
+                  <thead className="bg-orange-100">
+                    <tr>
+                      <th className="px-4 py-3 text-left font-semibold text-orange-900 rounded-l-lg">Chrono visé</th>
+                      <th className="px-4 py-3 text-left font-semibold text-orange-900">Cible</th>
+                      <th className="px-4 py-3 text-left font-semibold text-orange-900">Plage</th>
+                      <th className="px-4 py-3 text-left font-semibold text-orange-900 rounded-r-lg">Notes</th>
+                    </tr>
+                  </thead>
+                  <tbody className="divide-y divide-orange-100">
+                    <tr><td className="px-4 py-3 font-semibold text-slate-900">sub-3h</td><td className="px-4 py-3 text-orange-700 font-bold">80 g/h</td><td className="px-4 py-3 text-slate-600">70-95</td><td className="px-4 py-3 text-slate-600 text-xs">Ratio 2:1 glucose/fructose</td></tr>
+                    <tr className="bg-orange-50/40"><td className="px-4 py-3 font-semibold text-slate-900">sub-3h30</td><td className="px-4 py-3 text-orange-700 font-bold">70 g/h</td><td className="px-4 py-3 text-slate-600">60-85</td><td className="px-4 py-3 text-slate-600 text-xs">Ratio 2:1 recommandé</td></tr>
+                    <tr><td className="px-4 py-3 font-semibold text-slate-900">sub-4h</td><td className="px-4 py-3 text-orange-700 font-bold">60 g/h</td><td className="px-4 py-3 text-slate-600">50-75</td><td className="px-4 py-3 text-slate-600 text-xs">Gel + boisson glucidique</td></tr>
+                    <tr className="bg-orange-50/40"><td className="px-4 py-3 font-semibold text-slate-900">sub-4h30</td><td className="px-4 py-3 text-orange-700 font-bold">55 g/h</td><td className="px-4 py-3 text-slate-600">45-65</td><td className="px-4 py-3 text-slate-600 text-xs">Alterner gel/solide</td></tr>
+                    <tr><td className="px-4 py-3 font-semibold text-slate-900">sub-5h</td><td className="px-4 py-3 text-orange-700 font-bold">45 g/h</td><td className="px-4 py-3 text-slate-600">40-55</td><td className="px-4 py-3 text-slate-600 text-xs">Diversité (gel, banane, fruit)</td></tr>
+                    <tr className="bg-orange-50/40"><td className="px-4 py-3 font-semibold text-slate-900">5h+</td><td className="px-4 py-3 text-orange-700 font-bold">40 g/h</td><td className="px-4 py-3 text-slate-600">35-50</td><td className="px-4 py-3 text-slate-600 text-xs">Mode prudent, oxydation lipides</td></tr>
+                  </tbody>
+                </table>
+              </div>
+              <p className="text-xs text-slate-500 mt-4 italic">Source&nbsp;: Jeukendrup, Sports Medicine 2014 · Cermak &amp; van Loon, Sports Medicine 2013.</p>
+            </div>
 
-            <h2>Le mur du 30e km : pourquoi et comment l'éviter</h2>
-            <p>
-              Le fameux <strong>"mur"</strong> n'est pas une fatalité : c'est l'épuisement des stocks de
-              glycogène musculaire et hépatique. Trois leviers pour le prévenir :
-            </p>
-            <ol>
-              <li><strong>Carb-loading 48h avant</strong> : 8-10 g de glucides/kg/jour les 2 jours précédant la course</li>
-              <li><strong>Apport régulier pendant la course</strong> : 60-90 g/h dès le 8e km, sans rupture</li>
-              <li><strong>Allure de départ contrôlée</strong> : sortir vite = brûler du glycogène 2x plus vite</li>
-            </ol>
+            {/* H2 Hydratation */}
+            <div className="bg-white rounded-2xl shadow-md border border-slate-100 p-6 md:p-8">
+              <div className="flex items-start gap-4 mb-4">
+                <div className="p-3 bg-blue-50 rounded-xl flex-shrink-0">
+                  <Droplet className="w-6 h-6 text-blue-600" />
+                </div>
+                <h2 className="text-2xl md:text-3xl font-bold text-slate-900 leading-tight">
+                  Hydratation marathon&nbsp;: trop boire est aussi dangereux que se déshydrater
+                </h2>
+              </div>
+              <div className="bg-red-50 border-l-4 border-red-400 p-4 rounded-r-lg mb-5">
+                <p className="text-sm text-red-900">
+                  <strong>⚠ Erreur classique&nbsp;:</strong> forcer la boisson "pour bien faire" → <strong>hyponatrémie d'effort (EAH)</strong>, complication grave (œdème cérébral possible).
+                  <br /><strong>Règle ACSM&nbsp;:</strong> boire selon la soif, jamais plus de <strong>1000 mL/h</strong>.
+                </p>
+              </div>
+              <p className="text-sm text-slate-600 mb-3 font-medium">Matrice mL/h par profil de sudation × température&nbsp;:</p>
+              <div className="overflow-x-auto -mx-2">
+                <table className="w-full text-sm">
+                  <thead className="bg-blue-100">
+                    <tr>
+                      <th className="px-3 py-3 text-left font-semibold text-blue-900 rounded-l-lg">Sudation</th>
+                      <th className="px-3 py-3 text-center font-semibold text-blue-900">&lt; 10°C</th>
+                      <th className="px-3 py-3 text-center font-semibold text-blue-900">10-18°C</th>
+                      <th className="px-3 py-3 text-center font-semibold text-blue-900">18-25°C</th>
+                      <th className="px-3 py-3 text-center font-semibold text-blue-900 rounded-r-lg">&gt; 25°C</th>
+                    </tr>
+                  </thead>
+                  <tbody className="divide-y divide-blue-100">
+                    <tr><td className="px-3 py-3 font-semibold">Faible</td><td className="px-3 py-3 text-center">350</td><td className="px-3 py-3 text-center">450</td><td className="px-3 py-3 text-center">550</td><td className="px-3 py-3 text-center">650</td></tr>
+                    <tr className="bg-blue-50/40"><td className="px-3 py-3 font-semibold">Modéré</td><td className="px-3 py-3 text-center">450</td><td className="px-3 py-3 text-center">550</td><td className="px-3 py-3 text-center">650</td><td className="px-3 py-3 text-center">800</td></tr>
+                    <tr><td className="px-3 py-3 font-semibold">Élevé</td><td className="px-3 py-3 text-center">550</td><td className="px-3 py-3 text-center">650</td><td className="px-3 py-3 text-center">800</td><td className="px-3 py-3 text-center">900</td></tr>
+                    <tr className="bg-blue-50/40"><td className="px-3 py-3 font-semibold">Salty sweater</td><td className="px-3 py-3 text-center">600</td><td className="px-3 py-3 text-center">700</td><td className="px-3 py-3 text-center">850</td><td className="px-3 py-3 text-center font-bold text-blue-700">950</td></tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
 
-            <h2>Plan nutrition par chrono</h2>
+            {/* H2 Sodium */}
+            <div className="bg-white rounded-2xl shadow-md border border-slate-100 p-6 md:p-8">
+              <div className="flex items-start gap-4 mb-4">
+                <div className="p-3 bg-emerald-50 rounded-xl flex-shrink-0">
+                  <Shield className="w-6 h-6 text-emerald-600" />
+                </div>
+                <h2 className="text-2xl md:text-3xl font-bold text-slate-900 leading-tight">
+                  Sodium en marathon&nbsp;: combien et pourquoi
+                </h2>
+              </div>
+              <p className="text-slate-700 mb-4">Le <strong>sodium</strong> joue 3 rôles essentiels&nbsp;: il facilite l'absorption intestinale de l'eau et des glucides, prévient les <strong>crampes</strong> et protège contre l'<strong>hyponatrémie</strong>. La perte sodique varie énormément (400 à 1500 mg/L de sueur).</p>
+              <div className="grid sm:grid-cols-2 gap-3">
+                {[
+                  { label: 'Sudation faible', value: '400 mg/L', color: 'emerald' },
+                  { label: 'Sudation modérée', value: '600 mg/L', color: 'emerald' },
+                  { label: 'Sudation élevée', value: '900 mg/L', color: 'emerald' },
+                  { label: 'Salty sweater (traces blanches)', value: '1200 mg/L', color: 'emerald' },
+                ].map((s, i) => (
+                  <div key={i} className="flex items-center justify-between p-4 bg-emerald-50 rounded-lg border border-emerald-100">
+                    <span className="text-sm text-slate-700 font-medium">{s.label}</span>
+                    <span className="text-lg font-bold text-emerald-700">{s.value}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
 
-            <h3>Plan nutrition marathon sub-3h</h3>
-            <p>
-              Pour un sub-3h, l'apport glucidique doit être <strong>maximisé</strong> : 80-100 g/h dès le 8e km,
-              avec ratio glucose/fructose 2:1 obligatoire (transporteurs SGLT1 + GLUT5). Hydratation
-              500-700 mL/h selon météo. Caféine 4-5 mg/kg pré-course + gel caféiné au 30e km.
-            </p>
+            {/* H2 Caféine */}
+            <div className="bg-white rounded-2xl shadow-md border border-slate-100 p-6 md:p-8">
+              <div className="flex items-start gap-4 mb-4">
+                <div className="p-3 bg-purple-50 rounded-xl flex-shrink-0">
+                  <Coffee className="w-6 h-6 text-purple-600" />
+                </div>
+                <h2 className="text-2xl md:text-3xl font-bold text-slate-900 leading-tight">
+                  Caféine et marathon&nbsp;: dosage et timing
+                </h2>
+              </div>
+              <p className="text-slate-700 mb-4">
+                La caféine améliore la performance d'environ <strong>2-3 % sur le marathon</strong> (Maughan 2016).
+                <strong> Dose efficace dès 3 mg/kg</strong> (Spriet 2014), prise <strong>45 à 60 min avant le départ</strong>.
+                Au-delà de 5 mg/kg&nbsp;: bénéfices décroissants + risques GI/cardio (nervosité, dérive cardiaque après 25 km).
+              </p>
+              <div className="space-y-2 mb-4">
+                {[
+                  { ic: '🎯', txt: <><strong>Cible 3 mg/kg pré-course</strong> — la dose minimale qui marche, la plus sûre.</> },
+                  { ic: '⚡', txt: <>Optionnel&nbsp;: <strong>1 gel caféiné ~50 mg au km 28-32</strong> pour un boost final (à tester en SL).</> },
+                  { ic: '☕', txt: <>Si <strong>3 cafés/jour ou plus</strong>&nbsp;: réduis la dose de 17&nbsp;% (tolérance installée).</> },
+                  { ic: '🚫', txt: <>Si <strong>premier marathon</strong> ou caféine non testée&nbsp;: zéro caféine. Trop d'inconnues à gérer.</> },
+                  { ic: '⚠️', txt: <>Plafond sécurité&nbsp;: <strong>5 mg/kg cumulés en course</strong>. Au-delà&nbsp;: palpitations, insomnie, troubles GI.</> },
+                ].map((b, i) => (
+                  <div key={i} className="flex gap-3 p-3 bg-purple-50/50 rounded-lg">
+                    <span className="text-lg flex-shrink-0">{b.ic}</span>
+                    <span className="text-sm text-slate-700">{b.txt}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
 
-            <h3>Plan nutrition marathon sub-3h30</h3>
-            <p>
-              Cible 70-90 g/h, soit environ 1 gel toutes les 20-25 min après le km 8. Hydratation
-              500-650 mL/h. Le mur frappe souvent vers le 32-35e km : maintenir l'apport coûte que coûte
-              dans les 15 derniers km, même sans envie.
-            </p>
+            {/* H2 Mur du 30e km */}
+            <div className="bg-white rounded-2xl shadow-md border border-slate-100 p-6 md:p-8">
+              <div className="flex items-start gap-4 mb-4">
+                <div className="p-3 bg-red-50 rounded-xl flex-shrink-0">
+                  <Flame className="w-6 h-6 text-red-600" />
+                </div>
+                <h2 className="text-2xl md:text-3xl font-bold text-slate-900 leading-tight">
+                  Le mur du 30e km&nbsp;: pourquoi et comment l'éviter
+                </h2>
+              </div>
+              <p className="text-slate-700 mb-5">Le fameux <strong>"mur"</strong> n'est pas une fatalité&nbsp;: c'est l'épuisement des stocks de glycogène musculaire et hépatique. Trois leviers pour le prévenir&nbsp;:</p>
+              <div className="grid md:grid-cols-3 gap-4">
+                {[
+                  { n: 1, title: 'Carb-loading 48 h avant', desc: '8-10 g de glucides/kg/jour les 2 jours précédant la course' },
+                  { n: 2, title: 'Apport régulier en course', desc: '50-80 g/h dès le 8e km, sans rupture' },
+                  { n: 3, title: 'Allure de départ contrôlée', desc: 'Sortir vite = brûler du glycogène 2× plus vite' },
+                ].map((s) => (
+                  <div key={s.n} className="bg-gradient-to-br from-red-50 to-orange-50 p-5 rounded-xl border border-red-100">
+                    <div className="w-10 h-10 bg-red-500 text-white rounded-full flex items-center justify-center font-bold text-lg mb-3">{s.n}</div>
+                    <div className="font-bold text-slate-900 text-sm mb-1">{s.title}</div>
+                    <div className="text-xs text-slate-600">{s.desc}</div>
+                  </div>
+                ))}
+              </div>
+            </div>
 
-            <h3>Plan nutrition marathon sub-4h</h3>
-            <p>
-              Sub-4h = 60-80 g/h. Un gel toutes les 25 min suffit. Hydratation 500-650 mL/h. Caféine
-              optionnelle (3-4 mg/kg) si tu es habitué. Sodium 600-900 mg/L selon ta sudation.
-            </p>
+            {/* H2 Plan nutrition par chrono — H3 same-page SEO */}
+            <div className="bg-white rounded-2xl shadow-md border border-slate-100 p-6 md:p-8">
+              <div className="flex items-start gap-4 mb-6">
+                <div className="p-3 bg-amber-50 rounded-xl flex-shrink-0">
+                  <ListChecks className="w-6 h-6 text-amber-600" />
+                </div>
+                <div>
+                  <h2 className="text-2xl md:text-3xl font-bold text-slate-900 leading-tight">
+                    Plan nutrition marathon par chrono
+                  </h2>
+                  <p className="text-sm text-slate-500 mt-1">6 paliers — du sub-3h au sub-5h30</p>
+                </div>
+              </div>
+              <div className="space-y-4">
+                {[
+                  { chrono: 'sub-3h', allure: '4:15/km', carbs: '70-95 g/h', body: 'Apport glucidique poussé près du plafond physiologique, dès le 8e km, ratio glucose/fructose 2:1 obligatoire (transporteurs SGLT1 + GLUT5). Hydratation 500-700 mL/h selon météo. Caféine 3 mg/kg pré-course + gel caféiné 50 mg au km 28-32. Gut training 8-12 semaines indispensable.' },
+                  { chrono: 'sub-3h30', allure: '4:58/km', carbs: '60-85 g/h', body: '1 gel toutes les 25 min après le km 8. Hydratation 500-650 mL/h. Le mur frappe souvent vers le 32-35e km : maintenir l\'apport coûte que coûte dans les 15 derniers km, même sans envie. Sodium 600-900 mg/L selon sudation.' },
+                  { chrono: 'sub-4h', allure: '5:41/km', carbs: '50-75 g/h', body: 'Un gel toutes les 25-30 min suffit. Hydratation 500-650 mL/h. Caféine optionnelle (3 mg/kg) si tu es habitué. Sodium 600-900 mg/L. Plus gros segment de marathoniens français — sois patient avec ta nutrition.' },
+                  { chrono: 'sub-4h30', allure: '6:24/km', carbs: '45-65 g/h', body: 'Alterne gel et boisson glucidique pour limiter la saturation digestive. Hydratation 450-600 mL/h. Pas de boost caféine final si premier marathon. Pense aussi solide (banane ravitos) pour casser la monotonie.' },
+                  { chrono: 'sub-5h', allure: '7:06/km', carbs: '40-55 g/h', body: 'Privilégie la diversité : gel, banane ravitos, pâte de fruits, boisson isotonique. La lassitude gustative est ton vrai ennemi. Hydratation 400-600 mL/h selon météo. Mode prudent obligatoire si premier marathon.' },
+                  { chrono: 'sub-5h30', allure: '7:49/km', carbs: '35-50 g/h', body: 'À cette intensité, l\'oxydation des graisses contribue plus à l\'énergie totale — l\'apport glucidique reste essentiel pour le système nerveux. Hydratation prioritaire sur glucides en cas de forte chaleur. Pas de caféine si pas testée à l\'entraînement.' },
+                ].map((p) => (
+                  <div key={p.chrono} className="border border-slate-200 rounded-xl p-5 hover:border-amber-300 hover:bg-amber-50/30 transition-colors">
+                    <div className="flex flex-wrap items-baseline gap-3 mb-2">
+                      <h3 className="text-lg font-bold text-slate-900">Plan nutrition marathon {p.chrono}</h3>
+                      <span className="text-xs text-slate-500">({p.allure})</span>
+                      <span className="ml-auto px-3 py-1 bg-orange-100 text-orange-700 text-xs font-bold rounded-full">{p.carbs}</span>
+                    </div>
+                    <p className="text-sm text-slate-600 leading-relaxed">{p.body}</p>
+                  </div>
+                ))}
+              </div>
+            </div>
 
-            <h3>Plan nutrition marathon sub-4h30</h3>
-            <p>
-              Cible 50-70 g/h. Alterne gel et boisson glucidique pour limiter la saturation digestive.
-              Hydratation 450-600 mL/h. Pas de boost caféine final si premier marathon.
-            </p>
+          </div>
+        </section>
 
-            <h3>Plan nutrition marathon sub-5h</h3>
-            <p>
-              Sub-5h = ~45-60 g/h. Privilégie la <strong>diversité</strong> : gel, banane ravitos,
-              pâte de fruits, boisson isotonique. La lassitude gustative est ton vrai ennemi.
-              Hydratation 400-600 mL/h selon météo.
-            </p>
-
-            <h2>FAQ marathon nutrition</h2>
-
-            <h3>Combien de glucides par heure prendre en marathon ?</h3>
-            <p>Entre 40 et 120 g/h selon ton chrono. Sub-3h : 80-100 g/h. Sub-4h : 60-80 g/h.
-            Sub-5h : 45-60 g/h. Adapte progressivement via le gut training.</p>
-
-            <h3>Combien boire pendant un marathon ?</h3>
-            <p>Entre 400 et 800 mL/h selon ta sudation et la température. Cap absolu 1000 mL/h pour
-            éviter l'hyponatrémie d'effort. Boire selon la soif, jamais en excès.</p>
-
-            <h3>Quand prendre son premier gel en marathon ?</h3>
-            <p>Entre le km 8 et le km 10, soit après 45-60 min de course. Évite tout gel dans les
-            15 minutes précédant le départ (hypoglycémie réactionnelle).</p>
-
-            <h3>Faut-il prendre de la caféine en marathon ?</h3>
-            <p>3-5 mg/kg de poids corporel, 45-60 min avant le départ. Réduis la dose si tu bois
-            3 cafés/j ou plus. Évite si premier marathon.</p>
-
-            <h3>Comment éviter le mur du 30e km ?</h3>
-            <p>Carb-loading 48h avant + apport glucidique régulier (60-90 g/h dès le km 8) +
-            allure de départ contrôlée.</p>
-
-            <h3>Quelle différence entre eau et boisson isotonique ?</h3>
-            <p>L'eau hydrate seulement. L'isotonique (60-80 g/L + sodium) couvre 3 besoins simultanément.
-            Alterne les deux pour limiter la saturation.</p>
-
-            <h3>Combien de gels prévoir pour un marathon ?</h3>
-            <p>5 à 8 gels selon ton chrono et ta cible glucidique. Toujours un de plus en sécurité.</p>
-
-            <h3>Qu'est-ce que le gut training ?</h3>
-            <p>Entraînement digestif : habituer ton intestin à absorber 60-90 g/h. Démarre 8-12
-            semaines avant le marathon.</p>
-
-            <h3>Pourquoi du sodium en marathon ?</h3>
-            <p>Le sodium aide l'absorption, prévient les crampes et l'hyponatrémie.
-            Cible : 400-1200 mg/L de boisson selon ton profil.</p>
-
-            <h3>Que manger 1h avant le marathon ?</h3>
-            <p>Cet outil ne traite que la nutrition PENDANT la course. Le pré-course nécessite
-            une approche dédiée (3-4h avant : repas pauvre en fibres et riche en glucides simples).</p>
-
-            <h3>Doit-on tester sa nutrition avant le marathon ?</h3>
-            <p>Oui, c'est NON négociable. Teste toute ta stratégie au moins 3 fois en sortie longue.</p>
-
-            <h3>Que faire si j'ai mal au ventre pendant la course ?</h3>
-            <p>Stoppe les gels 15-20 min, passe à l'eau plate, ralentis. Si ça persiste : alterne
-            gel et solide (banane ravitos).</p>
-
-            <h3>Le ratio glucose-fructose change quoi ?</h3>
-            <p>Au-delà de 60 g/h, mélanger glucose et fructose (ratio 2:1 ou 1:0.8) permet d'absorber
-            jusqu'à 90-120 g/h via 2 transporteurs intestinaux.</p>
-
-            <h3>Premier marathon : quelle stratégie nutrition ?</h3>
-            <p>Mode prudent : cap glucides 60 g/h, hydratation modérée, pas de caféine si pas habitué,
-            gels testés en sortie longue. Objectif : finir confortablement.</p>
-
-            <h3>L'outil remplace-t-il un avis médical ?</h3>
-            <p>Non. Il donne des estimations basées sur la littérature scientifique générale (±15%).
-            Si tu as une condition médicale (diabète, troubles digestifs, pathologie cardiaque,
-            grossesse, etc.), consulte un professionnel de santé.</p>
+        {/* FAQ accordéon — section SEO dédiée */}
+        <section className="py-16 bg-white border-t border-slate-100">
+          <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="text-center mb-10">
+              <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-3">
+                Questions fréquentes — Nutrition Marathon
+              </h2>
+              <p className="text-slate-600">
+                15 réponses scientifiques aux questions que tu te poses sur la nutrition en marathon.
+              </p>
+            </div>
+            <FaqAccordion items={MARATHON_FAQ_ITEMS} />
           </div>
         </section>
 
@@ -1392,6 +1451,116 @@ const NutritionMarathonPage: React.FC = () => {
         }
       `}</style>
     </>
+  );
+};
+
+// ─────────────────────────────────────────────────────────────────────────────
+// FAQ accordéon (interactif, ouvre/ferme)
+// Le ld+json FAQPage en tête de page liste les mêmes Q/R pour Google.
+// ─────────────────────────────────────────────────────────────────────────────
+type FaqItem = { q: string; a: React.ReactNode };
+
+const MARATHON_FAQ_ITEMS: FaqItem[] = [
+  {
+    q: 'Combien de glucides par heure prendre en marathon ?',
+    a: <>Entre <strong>35 et 95 g/h</strong> selon ton chrono. Sub-3h&nbsp;: 70-95 g/h. Sub-4h&nbsp;: 50-75 g/h. Sub-5h&nbsp;: 40-55 g/h. Adapte progressivement via le gut training (8-12 sem) avant ta course objectif.</>,
+  },
+  {
+    q: 'Combien boire pendant un marathon ?',
+    a: <>Entre <strong>400 et 950 mL/h</strong> selon ta sudation et la température. <strong>Cap absolu 1000 mL/h</strong> pour éviter l'hyponatrémie d'effort (EAH). Règle ACSM&nbsp;: boire selon la soif, jamais en excès.</>,
+  },
+  {
+    q: 'Quand prendre son premier gel en marathon ?',
+    a: <>Entre le <strong>km 8 et le km 10</strong>, soit après 45-60 min de course. Évite tout gel dans les 15 minutes précédant le départ (risque d'hypoglycémie réactionnelle). Ensuite, un gel toutes les 25-30 min.</>,
+  },
+  {
+    q: 'Faut-il prendre de la caféine en marathon ?',
+    a: <>Oui, sauf si premier marathon. La caféine améliore la perf de 2-3 % (Maughan 2016). <strong>Dose efficace dès 3 mg/kg</strong> (Spriet 2014), 45-60 min avant le départ. Au-delà de 5 mg/kg&nbsp;: bénéfices décroissants + risques GI/cardio. Optionnel&nbsp;: gel caféiné 50 mg au km 28-32. Réduis la dose si tu bois 3 cafés/j ou plus.</>,
+  },
+  {
+    q: 'Comment éviter le mur du 30e km ?',
+    a: <>Trois leviers&nbsp;: (1) carb-loading 48 h avant (8-10 g/kg/j), (2) apport glucidique régulier en course (50-80 g/h dès le km 8 sans rupture), (3) allure de départ contrôlée (sortir vite = épuiser le glycogène 2× plus vite).</>,
+  },
+  {
+    q: 'Quelle différence entre eau et boisson isotonique ?',
+    a: <>L'eau hydrate seulement. L'isotonique (60-80 g/L glucides + sodium) couvre 3 besoins en même temps&nbsp;: hydratation, énergie, électrolytes. <strong>Alterne les deux</strong> aux ravitos pour limiter la saturation gustative.</>,
+  },
+  {
+    q: 'Combien de gels prévoir pour un marathon ?',
+    a: <>Entre <strong>5 et 8 gels</strong> selon ton chrono et ta cible glucidique. Toujours en prévoir <strong>1 de plus</strong> en sécurité. Le calculateur ci-dessus te donne le nombre exact selon ton profil.</>,
+  },
+  {
+    q: 'Qu\'est-ce que le gut training ?',
+    a: <>L'entraînement digestif&nbsp;: habituer ton intestin à absorber 50-80 g/h sans rejet (ballonnement, diarrhée). Démarre <strong>8 à 12 semaines avant ton marathon</strong> en testant gels et boissons sur tes sorties longues, en augmentant progressivement la dose.</>,
+  },
+  {
+    q: 'Pourquoi du sodium en marathon ?',
+    a: <>Le sodium joue 3 rôles&nbsp;: (1) facilite l'absorption intestinale de l'eau et des glucides, (2) prévient les <strong>crampes</strong>, (3) protège contre l'<strong>hyponatrémie</strong>. Cible 400-1200 mg/L de boisson selon ton profil de sudation.</>,
+  },
+  {
+    q: 'Que manger 1 h avant le marathon ?',
+    a: <>⚠️ Cet outil ne traite que la nutrition <strong>PENDANT</strong> la course. Le pré-course (3-4 h avant&nbsp;: repas pauvre en fibres et riche en glucides simples, 1-4 g/kg) nécessite une approche dédiée — consulte un coach ou un diététicien du sport.</>,
+  },
+  {
+    q: 'Doit-on tester sa nutrition avant le marathon ?',
+    a: <><strong>Oui, c'est non négociable.</strong> Teste toute ta stratégie (marque de gels, fréquence, boisson) au moins <strong>3 fois en sortie longue</strong> avant le jour J. Aucun produit ne doit être découvert le jour J.</>,
+  },
+  {
+    q: 'Que faire si j\'ai mal au ventre pendant la course ?',
+    a: <>Stoppe les gels pendant <strong>15-20 min</strong>, passe à l'eau plate, ralentis légèrement. Si ça persiste&nbsp;: alterne gel et solide (banane des ravitos). Évite tout produit jamais testé à l'entraînement.</>,
+  },
+  {
+    q: 'Le ratio glucose-fructose change quoi ?',
+    a: <>Au-delà de 60 g/h, mélanger glucose et fructose (ratio <strong>2:1 ou 1:0.8</strong>) permet d'absorber jusqu'à 90-120 g/h via 2 transporteurs intestinaux distincts (SGLT1 + GLUT5). Sans ce mélange, le plafond physiologique est ~60 g/h.</>,
+  },
+  {
+    q: 'Premier marathon : quelle stratégie nutrition ?',
+    a: <>Mode prudent activé par le calculateur si tu coches "premier marathon"&nbsp;: <strong>cap glucides 60 g/h</strong>, hydratation modérée (500-700 mL/h selon météo), <strong>zéro caféine</strong> (trop d'inconnues), gels testés en sortie longue. Objectif&nbsp;: finir confortablement, pas d'optimiser à la marge.</>,
+  },
+  {
+    q: 'L\'outil remplace-t-il un avis médical ?',
+    a: <><strong>Non.</strong> Il donne des estimations basées sur la littérature scientifique générale (±15 %). Si tu as une condition médicale (diabète, troubles digestifs, pathologie cardiaque, grossesse, asthme à l'effort, etc.), consulte un professionnel de santé.</>,
+  },
+];
+
+const FaqAccordion: React.FC<{ items: FaqItem[] }> = ({ items }) => {
+  const [openIndex, setOpenIndex] = useState<number | null>(0);
+  return (
+    <div className="space-y-3">
+      {items.map((item, i) => {
+        const isOpen = openIndex === i;
+        return (
+          <div
+            key={i}
+            className={`bg-white border rounded-xl shadow-sm transition-all ${
+              isOpen ? 'border-accent shadow-md' : 'border-slate-200 hover:border-slate-300'
+            }`}
+          >
+            <button
+              type="button"
+              onClick={() => setOpenIndex(isOpen ? null : i)}
+              className="w-full flex items-center justify-between gap-4 p-5 text-left"
+              aria-expanded={isOpen}
+            >
+              <span className="flex items-start gap-3 flex-1">
+                <HelpCircle className={`w-5 h-5 flex-shrink-0 mt-0.5 ${isOpen ? 'text-accent' : 'text-slate-400'}`} />
+                <span className="font-semibold text-slate-900 text-sm md:text-base">{item.q}</span>
+              </span>
+              {isOpen ? (
+                <ChevronUp className="w-5 h-5 text-accent flex-shrink-0" />
+              ) : (
+                <ChevronDown className="w-5 h-5 text-slate-400 flex-shrink-0" />
+              )}
+            </button>
+            {isOpen && (
+              <div className="px-5 pb-5 pt-0 pl-14 text-sm text-slate-700 leading-relaxed border-t border-slate-100">
+                <div className="pt-4">{item.a}</div>
+              </div>
+            )}
+          </div>
+        );
+      })}
+    </div>
   );
 };
 
