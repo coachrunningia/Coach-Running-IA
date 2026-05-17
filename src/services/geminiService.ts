@@ -3290,17 +3290,17 @@ VMA : ${paces.vmaKmh} km/h (${vmaSource})
 
     // Instruction jour sortie longue
     const longRunDay = data.preferredLongRunDay || 'Dimanche';
-    const longRunDayInstruction = `La SORTIE LONGUE doit être placée le ${longRunDay}.`;
+    // S6: longRunDayInstruction const supprimée (utilisation directe ${longRunDay} L3416, règle complète portée par RÈGLES ABSOLUES L3462)
 
-    // Instruction blessures
+    // Instruction blessures (S4: queue "Adapter les séances !" retirée — instruction triviale pour LLM, sécurité portée par buildSafetyInstructions)
     let injuryInstruction = '';
     if (data.injuries?.hasInjury && data.injuries.description) {
-      injuryInstruction = `⚠️ BLESSURE : ${data.injuries.description} - Adapter les séances !`;
+      injuryInstruction = `⚠️ BLESSURE : ${data.injuries.description}`;
     }
 
-    // Instruction commentaires libres du coureur
+    // Instruction commentaires libres du coureur (S4: meta-instruction "Prends en compte..." retirée — déjà listé en contexte)
     const commentsInstruction = data.comments?.trim()
-      ? `📝 PRÉCISIONS DU COUREUR : "${data.comments.trim()}" — Prends en compte ces préférences dans la construction du plan (jours, horaires, habitudes, contraintes).`
+      ? `📝 PRÉCISIONS DU COUREUR : "${data.comments.trim()}"`
       : '';
 
     // Section marche/course pour les débutants ou VMA très faible (perte de poids/maintien)
@@ -3413,7 +3413,7 @@ Tu es un Coach Running Expert. Génère UNIQUEMENT la SEMAINE 1 d'un plan d'entr
 - Date de course : ${data.raceDate || 'Non définie'}
 - Fréquence : ${data.frequency} séances/semaine
 - Jours : ${preferredDaysInstruction}
-- Jour sortie longue : ${longRunDayInstruction}
+- Jour sortie longue : ${longRunDay}
 - Localisation : ${data.city || 'Non renseignée'}
 ${injuryInstruction}
 ${commentsInstruction}
@@ -3466,7 +3466,7 @@ ${generationContext.periodizationPlan.weeklyPhases.map((p, i) => `S${i + 1}: ${p
 
 🔴 TYPES DE SÉANCES AUTORISÉS PAR PHASE :
 ${(isVKPreview || isTrailSteepPreview) ? `   - fondamental : Jogging (footing EF), Sortie Longue (EF + D+), Renforcement, Côtes en EF (montée marchée ou trottée). Le travail en côte modéré EST autorisé dès cette phase pour VK/Trail raide.
-   - developpement : + Fractionné en côte (VMA côte, côtes courtes/longues), seuil en montée.
+   - developpement : + intensification (côtes courtes/longues, seuil en montée).
    - specifique : + Répétitions spécifiques course (simulation D+/km cible), allure spécifique.
    - affutage : Jogging, Sortie courte avec rappel côte, Renforcement.
    - recuperation : Jogging (footing EF plat) uniquement + Renforcement léger. PAS d'intensité.` :
@@ -3506,10 +3506,9 @@ ${pdpIsLowVMA ? `⚠️ VMA ${pdpVma.toFixed(1)} km/h < 12 → TRAITER COMME DÉ
 ${pdpIsOverweight ? `⚠️ IMC ${pdpBmi.toFixed(1)} ≥ 30 → SURPOIDS : max 2 séances course/semaine + 1 renfo. Alternance marche/course OBLIGATOIRE les 4 premières semaines. Priorité protection articulaire.` : ''}
 
 INTERDICTIONS ABSOLUES :
-- JAMAIS d'allure spécifique semi/marathon/course/5k/10k dans les mainSet
+- JAMAIS d'allure spécifique (5k/10k/semi/marathon/course) dans les mainSet ni de mention "allure spé" / "allure course".
 - JAMAIS de "phase spécifique" ni "phase affûtage" — seules les phases "fondamental", "developpement" et "recuperation" existent
 - JAMAIS de VMA/fractionné intense en phase fondamentale (semaines 1 à ${pdpFondWeeks})
-- JAMAIS "allure spé" ou "allure course" dans aucun mainSet
 ${pdpIsOverweight ? `- JAMAIS de fractionné, fartlek, côtes, ni séance à haute intensité (IMC ${pdpBmi.toFixed(1)} ≥ 30 → risque articulaire). Uniquement : Jogging EF, Sortie Longue EF, Renforcement, Marche/Course. Footing progressif autorisé mais finir en endurance active MAX (PAS au seuil).` : ''}
 
 SÉANCES AUTORISÉES PAR PHASE :
@@ -3574,12 +3573,6 @@ Si duration = "45 min", le mainSet ne doit PAS décrire 1h20 de course.
 Calcul : distance = durée ÷ allure EF. Ex: 45 min à ${pdpEfPace}/km ≈ ${(45 / (parseInt(pdpEfPace.split(':')[0]) + parseInt(pdpEfPace.split(':')[1] || '0') / 60)).toFixed(1)} km.
 
 NOMMAGE : types autorisés = "Jogging", "Sortie Longue", "Renforcement"${!pdpIsOverweight ? ', "Fractionné"' : ''}${pdpNeedsMarcheCourse ? ', "Marche/Course"' : ''}. ${!pdpIsOverweight ? 'Le type "Fractionné" inclut fartlek doux, côtes douces, circuit cardio-renfo (uniquement en phase développement).' : ''}
-
-DIVERSITÉ OBLIGATOIRE :
-- Chaque séance de la semaine DOIT avoir un titre et un format DIFFÉRENT. JAMAIS 2 footings identiques.
-- Varier les lieux suggérés (parc, forêt, berges, piste, ville).
-- Varier les durées entre les footings (ex: un court 30 min + un long 45 min, pas 2×35 min).
-- D'une semaine à l'autre, alterner les formats pour maintenir la motivation.
 
 PRIORITÉ ABSOLUE : sécurité > régularité > progression > plaisir > dépense calorique.`;
 })() : ''}
@@ -3665,14 +3658,7 @@ CATALOGUE DE SÉANCES HYROX (choisir selon la phase et la fréquence) :
 5. **Fartlek libre** : footing EF avec 6-8 accélérations de 20-40s au feeling, récup libre.
    → Introduction à l'intensité. Dès la phase fondamentale (S3+).
 
-6. **Footing EF** : 30-50min à ${paces?.efPace || '6:00'}/km. Base aérobie.
-   → Toutes les phases. Varier les parcours et les durées.
-
-7. **Footing progressif** : départ EF → finir 5-10min à allure EA ou seuil.
-   → Transition entre EF et intensité. Toutes les phases.
-
-8. **Renforcement prévention** : gainage, quadriceps, mollets, proprioception. 25-35min.
-   → Toutes les phases. PAS de fonctionnel Hyrox (il le fait à côté). Focus protection articulaire.
+6-8. **Footing EF** (${paces?.efPace || '6:00'}/km), **Footing progressif** (fin à allure EA/seuil), **Renforcement prévention** (gainage+quads+mollets+proprio, 25-35min — PAS DE FONCTIONNEL HYROX, il le fait à côté).
 
 PHASES :
 - FONDAMENTALE : Footings EF variés + fartlek doux dès S3 + Renfo. PAS de simulation Hyrox.
@@ -3742,7 +3728,7 @@ L'objectif est de TERMINER la course, pas de performer. Adapte la philosophie du
    Le champ "duration", le champ "distance" et le contenu du "mainSet" doivent être COHÉRENTS entre eux.
    Si duration = "45 min" et allure EF = ${data.vma ? Math.floor(3600 / (data.vma * 0.67) / 60) + ':' + String(Math.round(3600 / (data.vma * 0.67) % 60)).padStart(2, '0') : '8:00'}/km, alors distance ≈ ${data.vma ? (45 / (3600 / (data.vma * 0.67) / 60)).toFixed(1) : '5.6'} km.
    Le mainSet ne doit JAMAIS décrire une durée différente de "duration". Ex: si duration="45 min", ne PAS écrire "1h20 de course" dans le mainSet.
-${!(data.goal || '').toLowerCase().includes('perte') && !(data.goal || '').toLowerCase().includes('hyrox') ? `7. NOMMAGE : types autorisés = "Jogging", "Fractionné", "Sortie Longue", "Récupération", "Renforcement", "Marche/Course". PAS de variantes ("Footing Léger", "Endurance Fondamentale", "VMA", "Seuil" comme type).` : ''}
+${!(data.goal || '').toLowerCase().includes('perte') && !(data.goal || '').toLowerCase().includes('hyrox') ? `7. NOMMAGE types : "Jogging", "Fractionné", "Sortie Longue", "Récupération", "Renforcement", "Marche/Course" (pas de variantes).` : ''}
 
 ═══════════════════════════════════════════════════════════════
               TRAIL & FAISABILITÉ
@@ -3801,8 +3787,6 @@ ${buildSafetyInstructions(data, (data.level || '').includes('Débutant'))}
     }
   ]
 }
-
-RAPPEL : Génère UNIQUEMENT la semaine 1 !
 `;
 
     console.log('[Gemini Preview] Envoi prompt optimisé...');
@@ -4174,11 +4158,7 @@ Ce coureur est DÉBUTANT. Tu dois appliquer une progression d'alternance marche/
 Ce plan couvre UNIQUEMENT la course à pied de la prépa Hyrox. L'athlète gère son fonctionnel à côté.
 Format Hyrox : 8×1km coupés par 8 stations fonctionnelles → priorité = SEUIL FRACTIONNÉ + capacité à relancer.
 
-NOMMAGE TITRES (séances de course Hyrox-flavored — le titre du renfo est généré par le code, ne pas le réécrire) :
-- Footing EF → "Footing — Base aérobie Hyrox" ou "Footing en aisance — Prépa Hyrox"
-- Sortie Longue → "Sortie Longue — Volume aérobie Hyrox"
-- Marche/Course → "Marche/Course — Démarrage progressif Hyrox"
-- Séances spécifiques (phase spé+) → "Simulation Hyrox 4×1km" → "Simulation Hyrox 6×1km" → "Simulation Hyrox 8×1km", "Tempo Hyrox", "Relances sous fatigue Hyrox"
+NOMMAGE TITRES Hyrox-flavored (titre du renfo généré par le code, ne pas le réécrire) : suffixer/préfixer "Hyrox" sur les titres des séances de course (Footing "Base aérobie Hyrox", SL "Volume aérobie Hyrox", spécifiques "Simulation Hyrox N×1km / Tempo Hyrox / Relances sous fatigue Hyrox"). Types JSON inchangés ("Jogging", "Sortie Longue", "Fractionné", "Renforcement", "Marche/Course").
 
 ADVICE PAR SÉANCE — UNIQUE (PAS de copy-paste) :
 Pour les séances de COURSE, faire le lien avec la performance Hyrox (capacité aérobie pour enchaîner les 8 segments de course coupés).
@@ -4221,8 +4201,6 @@ Ratio D+/km : ${Math.round(data.trailDetails!.elevation / data.trailDetails!.dis
 - Sortie longue orientée DÉNIVELÉ (pas distance) — 1h-1h30 max avec D+ maximum
 - Le fractionné en côte EST AUTORISÉ dès la phase fondamentale (geste spécifique VK)
 - Renforcement spécifique : squats, fentes, mollets, gainage, proprioception
-
-- elevationGain OBLIGATOIRE sur chaque séance (sauf Renforcement)
 ` : isTrailSteepRemaining ? `
 ═══════════════════════════════════════
        SPÉCIFICITÉS TRAIL RAIDE
@@ -4236,8 +4214,6 @@ Ratio D+/km : ${Math.round(data.trailDetails!.elevation / data.trailDetails!.dis
 - Sortie longue avec D+ progressif important — le D+ prime sur la distance
 - Le fractionné en côte EST AUTORISÉ dès la phase fondamentale
 - Renforcement : quadriceps excentrique, mollets, proprioception
-
-- elevationGain OBLIGATOIRE sur chaque séance (sauf Renforcement)
 ` : `
 ═══════════════════════════════════════
        SPÉCIFICITÉS TRAIL
@@ -4384,11 +4360,7 @@ ${hyroxSectionRemaining}
 NE PAS générer le contenu du mainSet renfo — le code le fera. Place simplement la séance au bon jour.
 
 🔴 TYPES DE SÉANCES AUTORISÉS PAR PHASE :
-${(isVKRemaining || isTrailSteepRemaining) ? `   - fondamental : Jogging (footing EF), Sortie Longue (EF + D+), Renforcement, Côtes en EF (montée marchée ou trottée). Le travail en côte modéré EST autorisé dès cette phase pour VK/Trail raide.
-   - developpement : + Fractionné en côte (VMA côte, côtes courtes/longues), seuil en montée.
-   - specifique : + Répétitions spécifiques course (simulation D+/km cible), allure spécifique.
-   - affutage : Jogging, Sortie courte avec rappel côte, Renforcement.
-   - recuperation : Jogging (footing EF plat) uniquement + Renforcement léger. PAS d'intensité.` :
+${(isVKRemaining || isTrailSteepRemaining) ? `   - fondamental : Jogging (footing EF), Sortie Longue (EF + D+), Renforcement, Côtes en EF (montée marchée ou trottée). Le travail en côte modéré EST autorisé dès cette phase pour VK/Trail raide.` :
 `   - fondamental : Jogging (footing EF), Sortie Longue (EF uniquement), Renforcement.
      ${(!isBeginnerLevel && !needsMarcheCourseRemaining && data.frequency >= 4 && data.fitnessSubGoal !== 'Reprendre après une pause' && data.lastActivity !== 'Plus de 6 mois') ?
      `À partir de la SEMAINE 3 du fondamental, 1 séance/semaine DOIT inclure du travail de vitesse léger :
@@ -4408,7 +4380,6 @@ ${isPertePoidsProg ? (() => {
   const pdpBmiR = (data.weight && data.height) ? data.weight / ((data.height / 100) ** 2) : 0;
   const pdpIsOverweightR = pdpBmiR >= 30;
   const pdpMaxSLminR = pdpIsLowVMAR ? 60 : 65;
-  const pdpEfR = paces?.efPace || '8:00';
   const pdpNeedsMCR = pdpVmaR < 10.5 || pdpIsOverweightR;
   return `🔴 PLAN PERTE DE POIDS — RÈGLES SPÉCIFIQUES (OBLIGATOIRE) :
 Ce plan est un plan PERTE DE POIDS, PAS une préparation course.
@@ -4450,12 +4421,6 @@ EFFORT PERÇU dans chaque mainSet : Jogging/SL = "effort 4/10, conversation faci
 COHÉRENCE DURÉE/DISTANCE/MAINSET : duration et mainSet = MÊME durée. Distance = durée ÷ allure EF.
 
 NOMMAGE : "Jogging", "Sortie Longue", "Renforcement"${!pdpIsOverweightR ? ', "Fractionné"' : ''}${pdpNeedsMCR ? ', "Marche/Course"' : ''}. ${!pdpIsOverweightR ? 'Le type "Fractionné" inclut fartlek doux, côtes douces, circuit cardio-renfo (uniquement en phase développement).' : ''}
-
-DIVERSITÉ OBLIGATOIRE :
-- Chaque séance de la semaine DOIT avoir un titre et un format DIFFÉRENT. JAMAIS 2 footings identiques.
-- Varier les lieux suggérés (parc, forêt, berges, piste, ville).
-- Varier les durées entre les footings (ex: un court 30 min + un long 45 min, pas 2×35 min).
-- D'une semaine à l'autre, alterner les formats pour maintenir la motivation.
 
 PRIORITÉ : sécurité > régularité > progression > plaisir > dépense calorique.`;
 })() : ''}
