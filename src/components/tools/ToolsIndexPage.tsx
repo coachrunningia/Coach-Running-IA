@@ -2,7 +2,7 @@
 import React from 'react';
 import { Helmet } from 'react-helmet-async';
 import { Link } from 'react-router-dom';
-import { ArrowRight, Calculator, Zap, Clock, Target, TrendingUp, ArrowLeftRight, Apple } from 'lucide-react';
+import { ArrowRight, Calculator, Zap, Clock, Target, TrendingUp, ArrowLeftRight, Apple, Mountain, Leaf } from 'lucide-react';
 
 const tools = [
   {
@@ -70,6 +70,28 @@ const tools = [
     color: 'from-amber-500 to-orange-500',
     bgColor: 'bg-amber-50',
     keywords: ['nutrition marathon', 'glucides marathon', 'hydratation marathon', 'gels marathon']
+  },
+  {
+    id: 'nutrition-trail',
+    path: '/outils/nutrition-trail',
+    title: 'Nutrition Trail',
+    subtitle: 'Trail court à ultra-trail (distance, D+, altitude)',
+    description: 'Calculateur nutrition trail : glucides, hydratation, sodium, caféine, protéines selon distance, D+, durée et altitude. Plan B estomac fermé, bases de vie, distance équivalente ITRA. Basé sur Jeukendrup, Tiller ISSN 2019, Minetti 2002.',
+    icon: Mountain,
+    color: 'from-emerald-500 to-teal-600',
+    bgColor: 'bg-emerald-50',
+    keywords: ['nutrition trail', 'pack nutrition trail', 'nutrition ultra trail', 'hydratation trail']
+  },
+  {
+    id: 'nutrition-semi-marathon',
+    path: '/outils/nutrition-semi-marathon',
+    title: 'Nutrition Semi-Marathon',
+    subtitle: 'Faut-il vraiment manger ? Réponse honnête selon ton chrono',
+    description: 'Calculateur nutrition semi-marathon : mouth rinse, gels, hydratation et caféine selon ton chrono (sub-1h15 à sub-2h30). Basé sur Chambers 2009 (mouth rinse), Jeukendrup 2014.',
+    icon: Leaf,
+    color: 'from-lime-500 to-green-500',
+    bgColor: 'bg-lime-50',
+    keywords: ['nutrition semi marathon', 'mouth rinse semi', 'gels semi marathon', 'faut-il manger semi']
   }
 ];
 
@@ -78,7 +100,7 @@ const ToolsIndexPage: React.FC = () => {
     <>
       <Helmet>
         <title>Outils Running Gratuits | Coach Running IA</title>
-        <meta name="description" content="Outils running gratuits : convertisseur allure min/km, calculateur VMA, prédicteur de temps, allure marathon, convertisseur miles/km, calculateur nutrition marathon." />
+        <meta name="description" content="Outils running gratuits : convertisseur allure min/km, calculateur VMA, prédicteur de temps, allure marathon, convertisseur miles/km, calculateurs nutrition (marathon, trail, semi-marathon)." />
         <meta name="keywords" content="outils running, calculateur course à pied, convertisseur allure, calculateur VMA, prédicteur temps marathon, convertisseur miles km, simulateur running gratuit" />
         <link rel="canonical" href="https://coachrunningia.fr/outils" />
         <meta property="og:title" content="Outils Running Gratuits : Calculateurs et Simulateurs" />
@@ -110,7 +132,7 @@ const ToolsIndexPage: React.FC = () => {
             {/* Quick Stats */}
             <div className="flex flex-wrap justify-center gap-8 mt-12">
               <div className="text-center">
-                <div className="text-4xl font-black text-accent">6</div>
+                <div className="text-4xl font-black text-accent">8</div>
                 <div className="text-sm text-slate-400">Outils disponibles</div>
               </div>
               <div className="text-center">
