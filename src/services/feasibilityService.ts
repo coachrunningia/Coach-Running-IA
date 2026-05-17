@@ -246,15 +246,23 @@ function applyR2Gates(ctx: R2Context): { irrealisticCap?: number; scorePenalty: 
     const isUltra = ctx.distanceKm >= 60;
 
     // Règle 1 — Total D+ cycle insuffisant
-    // BUG 2 FIX : coef ultra abaissé 0.65→0.50 car cap calculateWeekTargetElevation
-    // pour Expert = min(raceElev, 3500). Pour ultra D+ massif (>5000m race),
-    // mathématiquement impossible d'atteindre 0.65 × race × N_weeks même pour
-    // Expert avec gros volume. 0.50 reste exigeant mais réaliste.
-    const r1Coef = isCourt ? 0.45 : isMoyen ? 0.55 : 0.50;
-    const r1Min = r1Coef * ctx.raceDplus * ctx.planWeeks;
+    // ARBITRAGE EXPERT TRAIL (UTMB Academy) + PM : formule originale
+    // (coef × race × N_weeks) imposait mathématiquement impossible pour ultra
+    // long (UTMB 170/10000 = 150 000m cycle exigé, infaisable même Expert pro).
+    // Doctrine UTMB Academy : D+ cycle = 3-5× race D+ (pas 0.5×N).
+    // Formule patchée : min = race_dplus × multiplier selon distance.
+    //   5-20 km : 5× | 20-50 km : 4× | 50-100 km : 3.5× | 100+ km : 3×
+    // Pour Peterson 50/3500 11sem : min = 3500×3.5 = 12 250m (vs projetté 6000) → IRR via gate 1
+    // Pour UTMB 170/10000 30sem Expert : min = 10000×3 = 30 000m (vs 75 000 projeté) → PASS
+    // Pour Valentine 20/1000 7sem : min = 1000×4 = 4 000m (vs 4 640 projeté) → PASS
+    const r1Multiplier = ctx.distanceKm < 20 ? 5
+      : ctx.distanceKm < 50 ? 4
+      : ctx.distanceKm < 100 ? 3.5
+      : 3;
+    const r1Min = r1Multiplier * ctx.raceDplus;
     if (ctx.totalDplusCycle > 0 && ctx.totalDplusCycle < r1Min) {
       irrealisticCap = 10;
-      reasons.push(`D+ cycle projeté ${ctx.totalDplusCycle}m < min ${Math.round(r1Min)}m (${Math.round(r1Coef*100)}% race × N sem)`);
+      reasons.push(`D+ cycle projeté ${ctx.totalDplusCycle}m < min ${Math.round(r1Min)}m (${r1Multiplier}× race D+, doctrine UTMB Academy)`);
     }
 
     // Règle 2 — Ratio D+ actuel/race trop élevé
