@@ -2,7 +2,7 @@
 import React from 'react';
 import { Helmet } from 'react-helmet-async';
 import { Link } from 'react-router-dom';
-import { ArrowRight, Calculator, Zap, Clock, Target, TrendingUp, ArrowLeftRight } from 'lucide-react';
+import { ArrowRight, Calculator, Zap, Clock, Target, TrendingUp, ArrowLeftRight, Apple } from 'lucide-react';
 
 const tools = [
   {
@@ -59,6 +59,17 @@ const tools = [
     color: 'from-teal-500 to-emerald-500',
     bgColor: 'bg-teal-50',
     keywords: ['miles en km', 'conversion miles kilomètres', 'allure min/mile']
+  },
+  {
+    id: 'nutrition-marathon',
+    path: '/outils/nutrition-marathon',
+    title: 'Nutrition Marathon',
+    subtitle: 'Glucides, hydratation, sodium, caféine',
+    description: 'Calculateur nutrition marathon : ta stratégie complète pendant la course selon ton chrono, ton profil et la météo du jour J. Basé sur ACSM, Jeukendrup, Cermak.',
+    icon: Apple,
+    color: 'from-amber-500 to-orange-500',
+    bgColor: 'bg-amber-50',
+    keywords: ['nutrition marathon', 'glucides marathon', 'hydratation marathon', 'gels marathon']
   }
 ];
 
@@ -67,7 +78,7 @@ const ToolsIndexPage: React.FC = () => {
     <>
       <Helmet>
         <title>Outils Running Gratuits | Coach Running IA</title>
-        <meta name="description" content="Outils running gratuits : convertisseur allure min/km, calculateur VMA, prédicteur de temps, allure marathon, convertisseur miles/km." />
+        <meta name="description" content="Outils running gratuits : convertisseur allure min/km, calculateur VMA, prédicteur de temps, allure marathon, convertisseur miles/km, calculateur nutrition marathon." />
         <meta name="keywords" content="outils running, calculateur course à pied, convertisseur allure, calculateur VMA, prédicteur temps marathon, convertisseur miles km, simulateur running gratuit" />
         <link rel="canonical" href="https://coachrunningia.fr/outils" />
         <meta property="og:title" content="Outils Running Gratuits : Calculateurs et Simulateurs" />
@@ -99,7 +110,7 @@ const ToolsIndexPage: React.FC = () => {
             {/* Quick Stats */}
             <div className="flex flex-wrap justify-center gap-8 mt-12">
               <div className="text-center">
-                <div className="text-4xl font-black text-accent">5</div>
+                <div className="text-4xl font-black text-accent">6</div>
                 <div className="text-sm text-slate-400">Outils disponibles</div>
               </div>
               <div className="text-center">

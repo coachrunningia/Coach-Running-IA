@@ -49,6 +49,7 @@ const RacePredictorPage = lazy(() => import('./components/tools/RacePredictorPag
 const MarathonPacePage = lazy(() => import('./components/tools/MarathonPacePage'));
 const ToolsIndexPage = lazy(() => import('./components/tools/ToolsIndexPage'));
 const MilesKmConverterPage = lazy(() => import('./components/tools/MilesKmConverterPage'));
+const NutritionMarathonPage = lazy(() => import('./components/tools/NutritionMarathonPage'));
 
 
 // Redirection des anciennes URLs /post/* vers /blog/*
@@ -246,6 +247,7 @@ const AppContent = () => {
         <Route path="/outils/predicteur-temps" element={<RacePredictorPage />} />
         <Route path="/outils/allure-marathon" element={<MarathonPacePage />} />
         <Route path="/outils/convertisseur-miles-km" element={<MilesKmConverterPage />} />
+        <Route path="/outils/nutrition-marathon" element={<NutritionMarathonPage />} />
         <Route path="/blog" element={<BlogList />} />
         <Route path="/blog/:slug" element={<BlogArticle />} />
         <Route path="/post/:slug" element={<PostRedirect />} />
