@@ -3310,7 +3310,7 @@ VMA : ${paces.vmaKmh} km/h (${vmaSource})
     const needsMarcheCourse = isBeginnerLevel || (vmaEstimate.vma < 10.5 && (isPertePoidsPrev || isMaintienPrev));
     const beginnerInstructionPreview = needsMarcheCourse ? `
 
-🚶‍♂️🏃 IMPORTANT - NIVEAU DÉBUTANT DÉTECTÉ :
+🚶 IMPORTANT - NIVEAU DÉBUTANT DÉTECTÉ :
 - Type de séance : "Marche/Course" (OBLIGATOIRE pour au moins 2 séances sur ${data.frequency})
 - Format semaine 1 : 8-10 x (1 min course légère + 2 min marche active)
 - Pas de VMA, pas de fractionné intense
@@ -3411,9 +3411,7 @@ Tu es un Coach Running Expert. Génère UNIQUEMENT la SEMAINE 1 d'un plan d'entr
 - Objectif : ${data.goal} ${data.subGoal ? `(${data.subGoal})` : ''}
 - Temps visé : ${data.targetTime || 'Finisher'}
 - Date de course : ${data.raceDate || 'Non définie'}
-- Fréquence : ${data.frequency} séances/semaine
 - Jours : ${preferredDaysInstruction}
-- Jour sortie longue : ${longRunDay}
 - Localisation : ${data.city || 'Non renseignée'}
 ${injuryInstruction}
 ${commentsInstruction}
@@ -3442,7 +3440,6 @@ Chaque séance DOIT avoir un "locationSuggestion" avec un lieu RÉEL de ${data.c
 ═══════════════════════════════════════════════════════════════
 ${pacesSection}
 
-⚠️ UTILISE CES ALLURES EXACTES dans chaque séance !
 
 ═══════════════════════════════════════════════════════════════
               PLAN DE PÉRIODISATION PRÉ-CALCULÉ
@@ -3552,11 +3549,7 @@ RENFORCEMENT — CADRAGE OBLIGATOIRE :
 - Focus : bas du corps + gainage = protection articulaire + métabolisme
 - Progression : augmenter les reps (3x12 → 3x15 → 3x18) avant de varier les exercices
 
-EFFORT PERÇU DANS LES MAINSET (OBLIGATOIRE) :
-Chaque mainSet DOIT mentionner le niveau d'effort perçu :
-- Jogging EF / SL : "Effort perçu 4/10 — conversation facile, respiration aisée"
-- Fartlek doux (accélérations) : "Effort perçu 6-7/10 sur les accélérations, retour à 4/10 entre"
-- Récupération : "Effort perçu 3/10 — très très facile, trot lent"
+EFFORT PERÇU dans chaque mainSet (OBLIGATOIRE) : Jogging/SL = "4/10, conversation facile" | Fartlek = "6-7/10 sur accélérations, retour 4/10 entre" | Récup = "3/10, très très facile".
 
 ${pdpNeedsMarcheCourse ? `ALTERNANCE MARCHE/COURSE (semaines 1-3) :
 L'allure EF (${pdpEfPace}/km) est très lente pour ce profil. Les 2-3 premières semaines, proposer :
@@ -3720,7 +3713,6 @@ L'objectif est de TERMINER la course, pas de performer. Adapte la philosophie du
 4. Évaluation de faisabilité HONNÊTE avec chiffres
 5. OBLIGATOIRE : 1 séance de type "Renforcement" par semaine (comptée dans les ${data.frequency} séances)
    - Répartition : ${data.frequency} séances = ${data.frequency - 1} running + 1 renfo
-   - Durée : 30-45 min
    - Type dans le JSON : "Renforcement"
    - NE PAS mettre de séance "Repos" dans le plan
    - NE PAS générer le contenu du mainSet renfo — le code le fera
@@ -3734,9 +3726,8 @@ ${!(data.goal || '').toLowerCase().includes('perte') && !(data.goal || '').toLow
               TRAIL & FAISABILITÉ
 ═══════════════════════════════════════════════════════════════
 ${trailSectionPreview}
-📊 FAISABILITÉ PRÉ-CALCULÉE :
+📊 CONTEXTE FAISABILITÉ (le welcomeMessage DOIT rester cohérent avec ce texte) :
 ${feasibilityTextPreview}
-🚨 NE PAS reformuler ce message. Le champ feasibility.message dans ton JSON DOIT être EXACTEMENT le texte ci-dessus, mot pour mot, sans changer aucun chiffre ni aucune distance. Copie-le tel quel.
 
 ${buildSafetyInstructions(data, (data.level || '').includes('Débutant'))}
 
@@ -3744,24 +3735,20 @@ ${buildSafetyInstructions(data, (data.level || '').includes('Débutant'))}
                     FORMAT JSON
 ═══════════════════════════════════════════════════════════════
 {
-  "name": "Nom du plan incluant objectif",
+  "name": "${buildPlanName(data, planDurationWeeks)}",
   "goal": "${data.goal}",
   "startDate": "${data.startDate || new Date().toISOString().split('T')[0]}",
   "durationWeeks": ${planDurationWeeks},
   "sessionsPerWeek": ${data.frequency},
   "targetTime": "${data.targetTime || ''}",
-  "distance": "${data.goal === 'Trail' && data.trailDetails ? `${data.trailDetails.distance}km D+${data.trailDetails.elevation}m` : (data.subGoal || '')}",
+  "distance": "${data.subGoal || ''}",
   "location": "${data.city || ''}",
   "suggestedLocations": [
     { "name": "Nom réel du lieu", "type": "PARK|TRACK|NATURE|HILL", "description": "Pour quel type de séance" }
   ],
   "welcomeMessage": "Message personnalisé orienté OBJECTIF et STRUCTURE du plan (NE PAS mentionner VMA ni allures)",
-  "confidenceScore": 75,
-  "feasibility": {
-    "status": "BON",
-    "message": "Analyse avec chiffres VMA/temps théorique",
-    "safetyWarning": "Conseil sécurité"
-  },
+  "confidenceScore": 0,
+  "feasibility": { "status": "rempli code", "message": "rempli code", "safetyWarning": "rempli code" },
   "weeks": [
     {
       "weekNumber": 1,
@@ -4136,7 +4123,7 @@ export const generateRemainingWeeks = async (
   const needsMarcheCourseRemaining = isBeginnerLevel || (ctxVma < 10.5 && (isPertePoidsProg || isMaintienProg));
   const beginnerProgressionInstruction = needsMarcheCourseRemaining ? `
 
-🚶‍♂️🏃 PROGRESSION MARCHE/COURSE POUR DÉBUTANT 🚶‍♀️🏃‍♀️
+🚶 PROGRESSION MARCHE/COURSE POUR DÉBUTANT :
 Ce coureur est DÉBUTANT. Tu dois appliquer une progression d'alternance marche/course :
 
 - Semaines 2-3 : Continuer avec "Marche/Course" - 6-8 x (2 min course + 1 min marche)
@@ -4479,7 +4466,7 @@ Retourne UNIQUEMENT un tableau JSON des semaines ${startWeek} à ${endWeek} :
 ]
 
 ⚠️ GÉNÈRE EXACTEMENT ${batch.length} semaine(s) : ${batch.join(', ')}
-🔴 CHAQUE semaine DOIT avoir EXACTEMENT ${data.frequency} séances.
+🔴 CHAQUE semaine doit avoir ${data.frequency} séances.
 🔴 Jours : ${data.preferredDays?.length ? data.preferredDays.join(', ') + ' — CES JOURS UNIQUEMENT.' : 'Répartition équilibrée.'}
 🔴 La SORTIE LONGUE doit être la séance la PLUS LONGUE de la semaine et représenter 30-40% du volume hebdo. Durée minimum SL : ${batchMinSlDurForPrompt} min.
 `;
