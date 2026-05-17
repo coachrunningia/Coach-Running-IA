@@ -180,8 +180,11 @@ const Questionnaire: React.FC<QuestionnaireProps> = ({ onComplete, isGenerating:
       if (data.injuries?.hasInjury && !data.injuries.description) {
         errors.push("Décris ta blessure ou ton antécédent pour qu'on adapte le plan.");
       }
-      if ((data.goal === UserGoal.ROAD_RACE || data.goal === UserGoal.TRAIL) &&
-          (data.currentWeeklyVolume === undefined || data.currentWeeklyVolume === null || isNaN(data.currentWeeklyVolume))) {
+      // Volume hebdo course actuel : obligatoire pour TOUS les objectifs.
+      // 0 reste une réponse valide (vrai débutant sédentaire).
+      // Permet au moteur de périodisation de calibrer correctement le pic + détecter
+      // les cas mal dimensionnés (cf. cas Fred 1779001846380 : vol=0 + chrono ambitieux).
+      if (data.currentWeeklyVolume === undefined || data.currentWeeklyVolume === null || isNaN(data.currentWeeklyVolume)) {
         errors.push("Le volume hebdomadaire actuel est obligatoire. Si tu ne cours pas encore, indique 0.");
       }
     }
@@ -522,10 +525,10 @@ const Questionnaire: React.FC<QuestionnaireProps> = ({ onComplete, isGenerating:
           <p className="text-xs text-orange-600">Ce programme couvre <strong>uniquement la partie course à pied</strong> de ta préparation Hyrox. Combine-le avec tes entraînements fonctionnels (rameur, sled, wall balls, etc.).</p>
           <div className="grid grid-cols-2 gap-4">
             <div>
-              <label className="block text-xs font-bold text-orange-700 mb-1">Volume actuel (km/sem)</label>
+              <label className="block text-xs font-bold text-orange-700 mb-1">Volume actuel (km/sem) <span className="text-red-500">*</span></label>
               <input type="number" min={0} disabled={isGenerating} placeholder="Ex: 20 (0 si débutant)" value={data.currentWeeklyVolume !== undefined && data.currentWeeklyVolume !== null ? data.currentWeeklyVolume : ''}
                 onChange={e => updateData('currentWeeklyVolume', e.target.value === '' ? undefined as any : parseInt(e.target.value))}
-                className="w-full p-2 rounded-lg border-orange-200" />
+                className={`w-full p-2 rounded-lg border-orange-200 ${showValidationErrors && (data.currentWeeklyVolume === undefined || data.currentWeeklyVolume === null || isNaN(data.currentWeeklyVolume)) ? 'border-red-400 bg-red-50' : ''}`} />
             </div>
             <div>
               <label className="block text-xs font-bold text-orange-700 mb-1">Temps Hyrox précédent</label>
@@ -701,8 +704,9 @@ const Questionnaire: React.FC<QuestionnaireProps> = ({ onComplete, isGenerating:
         </div>
         <p className="text-xs text-slate-400 mt-2 italic">Laissez vide si vous ne connaissez pas vos temps.</p>
 
-        {/* Volume hebdomadaire pour Course/Trail — OBLIGATOIRE */}
-        {(data.goal === UserGoal.ROAD_RACE || data.goal === UserGoal.TRAIL) && (
+        {/* Volume hebdomadaire — OBLIGATOIRE pour TOUS les goals
+            (sauf HYROX qui a son propre champ dans son bloc dédié) */}
+        {data.goal !== UserGoal.HYROX && (
           <div className="mt-4">
             <label className="block text-sm font-bold text-slate-700 mb-2">Combien de km courez-vous par semaine ? <span className="text-red-500">*</span></label>
             <input

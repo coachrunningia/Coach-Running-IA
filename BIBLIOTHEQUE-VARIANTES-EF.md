@@ -1,84 +1,65 @@
 # Bibliothèque de variantes — Footing aérobie / Endurance fondamentale
 
-> Validée par agent coach expert. Objectif : casser la monotonie de la phase
-> fondamentale en gardant 100 % du travail en zone aérobie. La variété vient
-> de la FORME, jamais de l'intensité.
+> Validée par agent coach expert. Objectif : casser la monotonie des footings EF
+> des premières semaines. C'est **purement décoratif** — on ne change que
+> l'habillage (titre, warmup, mainSet, cooldown, advice). La structure de la
+> séance (durée, distance, intensité, **dénivelé**) reste TOUJOURS intacte.
+> Tout reste 100 % en zone aérobie EF : la variété vient de la FORME.
 
-## Socle universel (4 variantes — passent tous les filtres)
+## Règle musclée — le terrain de la séance est sacré
 
-| Slug | Titre affiché | Durée | Contre-indications |
-|---|---|---|---|
-| `footing_classique` | Footing en endurance fondamentale | 35-50 min | aucune |
-| `footing_negative_split` | Footing progressif (négative split) | 40-50 min | aucune |
-| `footing_fractionne_marche` | Footing en blocs souples | 35-55 min | aucune |
-| `footing_lignes_droites` | Footing + lignes droites | 40-50 min | aucune |
+Chaque variante a un `terrain` : `flat` ou `relief`.
 
-## Variantes conditionnelles (4 variantes)
+- Séance avec **D+ voulu** (`elevationGain > 0` ou titre vallonné/côte/D+) → pool **relief uniquement**. Ne peut jamais être rendue plate.
+- Séance **plate** (`elevationGain === 0`, titre neutre) → pool **flat uniquement**.
 
-| Slug | Titre affiché | Durée | Contre-indications | goalFit |
+On ne mélange jamais les terrains : aucun ajout ni retrait de dénivelé. Un plan trail à 3000/4000 D+ avec 3 séances vallonnées/semaine garde ses 3 séances, chacune recevant une variante relief **différente**.
+
+**Hors scope total** : débutants (séances Marche/Course) — ils alternent déjà marche et course.
+
+## Pool PLAT (6 variantes)
+
+| Slug | Titre affiché | Univ. | Contre-indications | goalFit |
 |---|---|---|---|---|
-| `footing_educatifs` | Footing + gammes athlétiques | 45-55 min | jointInjury, kneeInjury, ankleInjury, muscleTear, isOverweight, beginner | Trail, Route, Maintien |
-| `footing_cotes_douces` | Footing vallonné | 45-55 min | jointInjury, kneeInjury, isOverweight, isSenior60 | Trail, Route, Maintien |
-| `footing_terrain_varie` | Footing nature, terrain varié | 45-55 min | ankleInjury, jointInjury | Trail, Route, Maintien, PerteDePoids |
-| `footing_fartlek_souple` | Footing au ressenti (fartlek doux) | 45-50 min | beginner | Trail, Route, Maintien, PerteDePoids |
+| `footing_classique` | Footing en endurance fondamentale | ✓ | aucune | all |
+| `footing_negative_split` | Footing progressif (négative split) | ✓ | aucune | all |
+| `footing_fractionne_marche` | Footing en blocs souples | ✓ | aucune | all |
+| `footing_lignes_droites` | Footing + lignes droites | — | hasMuscleTear, beginner | Route, Maintien |
+| `footing_educatifs` | Footing + gammes athlétiques | — | hasJointInjury, hasKneeInjury, hasAnkleInjury, hasMuscleTear, beginner | Trail, Route, Maintien |
+| `footing_fartlek_souple` | Footing au ressenti (fartlek doux) | — | beginner | Trail, Route, Maintien |
 
-## Détail des structures
+## Pool RELIEF (4 variantes)
 
-### 1. footing_classique (universal)
-- Warmup : 5 min marche active + montée progressive vers EF
-- MainSet : 25-40 min EF, allure régulière confortable, conversation possible
-- Cooldown : 5 min footing très lent puis marche
-- Advice : Construit le moteur aérobie (capillarisation, cœur, tendons). La régularité de l'allure est l'objectif.
+| Slug | Titre affiché | Contre-indications | goalFit |
+|---|---|---|---|
+| `footing_cotes_douces` | Footing vallonné | hasJointInjury, hasKneeInjury, isOverweight, isSenior60 | Trail, Route, Maintien |
+| `footing_cotes_courtes_marche` | Footing vallonné, côtes en marche | hasKneeInjury | Trail, Route, Maintien |
+| `footing_terrain_varie` | Footing nature, terrain varié | hasAnkleInjury, hasJointInjury, isSenior60, beginner | Trail, Maintien |
+| `footing_sentier_roulant` | Footing sur sentier roulant | hasAnkleInjury, beginner | Trail, Maintien |
 
-### 2. footing_negative_split (universal)
-- Warmup : 5 min marche + 5 min footing très lent
-- MainSet : 30 min en 2 moitiés — 1ère en bas de l'EF, 2ème en haut de l'EF (toujours conversationnel)
-- Cooldown : 5 min footing lent + marche
-- Advice : Apprendre à finir mieux qu'on a commencé — gestion d'effort. Reste en aérobie.
+## Pourquoi des contre-indications
 
-### 3. footing_fractionne_marche (universal)
-- Warmup : 5 min marche active
-- MainSet : 5-8 blocs de 5 min footing EF, entrecoupés de 1 min marche
-- Cooldown : 5 min marche
-- Advice : Découper l'effort accumule du volume aérobie en réduisant la charge mécanique. Idéal pour progresser sans casser.
+- **IMC élevé (`isOverweight`)** : exclut `footing_cotes_douces` — montée chargée + descente excentrique = facteur de risque articulaire. Les autres variantes relief restent accessibles (`cotes_courtes_marche` = montée en marche, `sentier_roulant` = D+ diffus sans pic excentrique). Filtre **silencieux** : aucune mention du poids dans les messages.
+- **Senior 60+** : exclut `cotes_douces` et `terrain_varie` — descente excentrique marquée + sol irrégulier. Garde `cotes_courtes_marche` et `sentier_roulant`.
+- **Blessure genou/articulaire** : exclut côtes et terrain technique (charge + travail excentrique).
+- **Blessure cheville** : exclut terrain varié et sentier (sollicitation proprioceptive, risque d'entorse).
+- **Déchirure musculaire** : exclut lignes droites et éducatifs (pics de tension).
+- **Débutant** : exclut tout ce qui demande un dosage d'allure au ressenti ou un bagage technique — mais de toute façon hors scope (Marche/Course).
 
-### 4. footing_lignes_droites (universal)
-- Warmup : 5 min marche + 10 min footing EF
-- MainSet : 20-30 min footing EF puis 4-6 lignes droites (~60-80m, accélération souple/progressive, récup complète)
-- Cooldown : 5 min footing lent + marche
-- Advice : Réveillent la coordination sans coût cardiovasculaire — trop courtes pour être du travail de vitesse.
+## Rotation / fréquence
 
-### 5. footing_educatifs (conditionnel)
-- Warmup : 5 min marche + 10 min footing EF
-- MainSet : 20-25 min footing EF puis circuit éducatifs (talons-fesses, montées genoux, pas chassés, foulées bondissantes légères, jambes tendues — 2x20-30m chacun)
-- Cooldown : 5 min footing lent + marche
-- Advice : Améliore l'économie de course et la qualité de foulée.
-- Exclu si : blessure articulaire/genou/cheville, déchirure musculaire, IMC élevé, débutant (impact des bondissements + besoin de bagage technique)
+Rotation déterministe `(weekNumber - 1) + sessionIndex + seedOffset` sur le pool éligible :
+- 2 footings d'une même semaine reçoivent des variantes différentes (`sessionIndex`) ;
+- 2 plans ne démarrent pas sur la même variante (`seedOffset` dérivé du planId) ;
+- interleave universelles / conditionnelles → pas 3 footings de base d'affilée.
 
-### 6. footing_cotes_douces (conditionnel)
-- Warmup : 10 min footing EF sur plat
-- MainSet : 25-35 min parcours légèrement vallonné — montée: foulée courte effort EF maintenu / descente: relâché contrôlé. Pas de côte raide.
-- Cooldown : 5-10 min footing plat + marche
-- Advice : Le relief renforce les chaînes musculaires naturellement. L'effort reste constant, pas la vitesse.
-- Exclu si : blessure articulaire/genou, IMC élevé, senior 60+ (descente = travail excentrique + contraintes genou)
+## Fallback (jamais de violation du terrain)
 
-### 7. footing_terrain_varie (conditionnel)
-- Warmup : 10 min footing EF sur chemin roulant
-- MainSet : 25-35 min terrain varié non technique (chemins, sentiers larges, herbe, sous-bois). Éviter racines/cailloux/dévers.
-- Cooldown : 5-10 min terrain roulant + marche
-- Advice : Sollicite les stabilisateurs et la proprioception en douceur. Renforcement "gratuit".
-- Exclu si : blessure cheville, blessure articulaire (irrégularités du sol). Note: le sol meuble RÉDUIT l'impact → pertinent perte de poids.
+- Séance plate sans variante éligible → `footing_classique` (passe toujours).
+- Séance relief sans variante éligible (profil très contraint) → on **garde le relief** et on pioche la variante relief la **moins contre-indiquée**. On ne flatten jamais.
 
-### 8. footing_fartlek_souple (conditionnel)
-- Warmup : 10 min footing EF
-- MainSet : 25-30 min alternance libre au ressenti entre bas et haut de l'EF (jamais d'essoufflement, conversationnel partout)
-- Cooldown : 5 min footing lent + marche
-- Advice : Écouter ses sensations plutôt que sa montre. Jeu d'allure 100% aérobie.
-- Exclu si : débutant (risque de transformer les portions toniques en allure trop élevée sans repère)
+## Cas limites validés (dry-run 10 derniers plans, 27/27 cohérents)
 
-## Cas limites validés
-
-- **Profil ultra-contraint** (PerteDePoids + isOverweight + hasKneeInjury + beginner) → conserve les 4 universelles. Jamais "footing classique" en boucle.
-- **Trail non blessé** → accède à terrain_varie, cotes_douces, fartlek_souple (spécificité).
-- **Senior 60+ sans blessure** → perd cotes_douces, garde 4 universelles + educatifs + terrain_varie + fartlek_souple.
-- **Règle poids** : isOverweight agit comme filtre SILENCIEUX — le coureur reçoit juste une autre variante, aucune mention.
+- **Trail + hasJointInjury + hasAnkleInjury** (adrien) → seul `cotes_courtes_marche` éligible en relief : les séances vallonnées le reçoivent (diversité réduite mais sécurité respectée, jamais de séance plate).
+- **Trail senior 62 ans** (albertpiro) → `cotes_courtes_marche` + `sentier_roulant`, variantes relief douces.
+- **Route, séance titrée "vallonné" mais D+0** → le regex titre la détecte comme relief → reçoit une variante relief cohérente (la structure D+0 décidée par le générateur reste intacte).

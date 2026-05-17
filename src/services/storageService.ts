@@ -14,23 +14,26 @@ import {
   sendPasswordResetEmail,
   deleteUser
 } from 'firebase/auth';
-import { 
-  doc, 
-  setDoc, 
-  getDoc, 
-  updateDoc, 
-  collection, 
-  query, 
-  where, 
+import {
+  doc,
+  setDoc,
+  getDoc,
+  updateDoc,
+  collection,
+  query,
+  where,
   getDocs,
   onSnapshot,
   orderBy,
   limit,
-  deleteDoc
+  deleteDoc,
+  addDoc,
+  serverTimestamp
 } from 'firebase/firestore';
 
 const PLANS_COLLECTION = 'plans';
 const USERS_COLLECTION = 'users';
+const PLAN_DELETIONS_COLLECTION = 'plan_deletions';
 
 const cleanObject = (obj: any): any => {
   if (obj === null || obj === undefined) return null;
@@ -234,6 +237,28 @@ export const deletePlan = async (planId: string, userId: string): Promise<void> 
   if (!planSnap.exists()) throw new Error('Plan introuvable');
   const plan = planSnap.data() as TrainingPlan;
   if (plan.userId !== userId) throw new Error('Non autorisé');
+
+  // Trace de suppression (avant le delete pour qu'on garde l'historique même si la
+  // suppression échoue). Permet de retracer qui a supprimé quoi et quand.
+  try {
+    await addDoc(collection(db, PLAN_DELETIONS_COLLECTION), {
+      planId,
+      userId,
+      userEmail: (plan as any).userEmail || null,
+      planName: (plan as any).name || null,
+      planGoal: (plan as any).goal || null,
+      targetTime: (plan as any).targetTime || null,
+      durationWeeks: (plan as any).durationWeeks || null,
+      isPreview: (plan as any).isPreview ?? null,
+      fullPlanGenerated: (plan as any).fullPlanGenerated ?? null,
+      planCreatedAt: (plan as any).createdAt || null,
+      deletedAt: serverTimestamp(),
+      deletedFrom: 'user_action', // distinguer plus tard d'un admin/cleanup
+    });
+  } catch (e) {
+    console.warn('[deletePlan] Trace de suppression échouée (on continue):', e);
+  }
+
   await deleteDoc(planRef);
   console.log('[deletePlan] Plan deleted:', planId);
 };

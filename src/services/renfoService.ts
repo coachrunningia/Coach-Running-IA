@@ -50,9 +50,9 @@ const ROUTE_EXERCISES: ExerciseFamily[] = [
     name: 'MOLLETS/PIEDS',
     exercises: [
       { name: 'Extensions mollets debout', sets: '3x20' },
-      { name: 'Mollets assis (soleaire)', sets: '3x15' },
+      { name: 'Mobilité cheville', sets: '2x15/pied' },
       { name: 'Marche sur talons', sets: '2x20m' },
-      { name: 'Marche sur pointes', sets: '2x20m' },
+      { name: 'Écriture alphabet avec le pied', sets: '1x/pied' },
     ],
   },
   {
@@ -131,7 +131,7 @@ const POSTERIOR_CHAIN_PREVENTION: Exercise[] = [
   { name: 'Nordic hamstring curl (ou variante assise)', sets: '3x6' },
   { name: 'Pont fessier unipodal (tenu 3s en haut)', sets: '3x10/jambe' },
   { name: 'Deadlift roumain unipodal poids de corps', sets: '3x8/jambe' },
-  { name: 'Étirement actif ischio (allongé, jambe tendue)', sets: '2x20s/jambe' },
+  { name: 'Étirement bandelette IT', sets: '2x30s/côté' },
   { name: 'Good morning poids de corps', sets: '3x12' },
   { name: 'Glissade talon au sol (hamstring slide)', sets: '3x8/jambe' },
 ];
@@ -146,7 +146,7 @@ const KNEE_PREVENTION: Exercise[] = [
 ];
 
 const BACK_PREVENTION: Exercise[] = [
-  { name: 'Cat-cow (mobilité dos)', sets: '2x10' },
+  { name: 'Chat-vache (mobilité dos)', sets: '2x10' },
   { name: 'Bird-dog (contrôle lombaire)', sets: '3x10/côté' },
   { name: 'Pont fessier (décharge lombaire)', sets: '3x15' },
   { name: 'Dead bug (gainage profond)', sets: '3x10/côté' },
@@ -157,7 +157,7 @@ const BACK_PREVENTION: Exercise[] = [
 const ANKLE_PREVENTION: Exercise[] = [
   { name: 'Mobilité cheville (genou au mur)', sets: '2x15/pied' },
   { name: 'Équilibre unipodal yeux fermés', sets: '3x20s/pied' },
-  { name: 'Mollets excentrique (descente lente 4s)', sets: '3x10' },
+  { name: 'Extensions mollets debout', sets: '3x15' },
   { name: 'Écriture alphabet avec le pied', sets: '1x/pied' },
   { name: 'Marche sur pointes + talons', sets: '2x20m chaque' },
 ];

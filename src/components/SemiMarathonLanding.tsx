@@ -4,6 +4,7 @@ import { CheckCircle, Clock, Target, Zap, Star, ArrowRight, X, ChevronDown, Chev
 import { User, UserGoal } from '../types';
 import Questionnaire from './Questionnaire';
 import { Helmet } from 'react-helmet-async';
+import { SectionLabel, StravaSection, ScreenshotsSlider, PricingPreview } from './landing/SharedSections';
 
 interface SemiMarathonLandingProps {
   user: User | null;
@@ -44,12 +45,12 @@ const SemiMarathonLanding: React.FC<SemiMarathonLandingProps> = ({ user, onPlanG
   return (
     <div className="bg-white">
       <Helmet>
-        <title>Plan Semi-Marathon Personnalisé par IA | Objectif 1h30 à 2h30 | Coach Running IA</title>
-        <meta name="description" content="Préparez votre semi-marathon avec un plan IA sur-mesure : 8 à 16 semaines, 3 à 4 séances/semaine. Objectifs sub 2h, 1h45 ou 1h30. Allures calculées sur votre VMA. 1ère semaine gratuite." />
+        <title>Plan Semi-Marathon Personnalisé | Coach Running IA</title>
+        <meta name="description" content="Plan semi-marathon personnalisé. 8-16 semaines, allures VMA, suivi Strava inclus. Sub 2h, 1h45 ou 1h30. Créez votre plan gratuit." />
         <meta name="keywords" content="plan semi marathon, plan entraînement semi marathon, programme semi marathon 12 semaines, plan semi marathon 1h45, plan semi marathon débutant, préparation 21km personnalisée" />
         <link rel="canonical" href="https://coachrunningia.fr/plan-semi-marathon" />
-        <meta property="og:title" content="Plan Semi-Marathon Personnalisé par IA | Coach Running IA" />
-        <meta property="og:description" content="Programme 21km sur-mesure : 8-16 semaines, allures VMA, objectifs de 1h30 à 2h30. Premier semi ou record perso. Gratuit pour tester." />
+        <meta property="og:title" content="Plan Semi-Marathon Personnalisé | Coach Running IA" />
+        <meta property="og:description" content="Plan semi-marathon personnalisé. 8-16 semaines, allures VMA, suivi Strava. Créez votre plan gratuit." />
         <meta property="og:url" content="https://coachrunningia.fr/plan-semi-marathon" />
         <meta property="og:image" content="https://coachrunningia.fr/og-image.png" />
         <script type="application/ld+json">{JSON.stringify({
@@ -62,8 +63,8 @@ const SemiMarathonLanding: React.FC<SemiMarathonLandingProps> = ({ user, onPlanG
           }))
         })}</script>
         <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content="Plan Semi-Marathon Personnalisé par IA | Coach Running IA" />
-        <meta name="twitter:description" content="Préparez votre semi-marathon avec un plan IA sur-mesure : 8 à 16 semaines, 3 à 4 séances/semaine. 1ère semaine gratuite." />
+        <meta name="twitter:title" content="Plan Semi-Marathon Personnalisé | Coach Running IA" />
+        <meta name="twitter:description" content="Plan semi-marathon personnalisé. 8-16 semaines, allures VMA, suivi Strava inclus. Créez votre plan gratuit." />
         <meta name="twitter:image" content="https://coachrunningia.fr/og-image.png" />
       </Helmet>
 
@@ -115,6 +116,9 @@ const SemiMarathonLanding: React.FC<SemiMarathonLandingProps> = ({ user, onPlanG
           />
         </div>
       </section>
+
+      {/* SCREENSHOTS SLIDER */}
+      <ScreenshotsSlider />
 
       {/* SECTION: PREMIER SEMI VS RECORD PERSO */}
       <section className="py-16 md:py-24 bg-white">
@@ -214,43 +218,51 @@ const SemiMarathonLanding: React.FC<SemiMarathonLandingProps> = ({ user, onPlanG
       {/* CONTENU SEO */}
       <section className="py-16 md:py-24 bg-slate-50">
         <div className="max-w-4xl mx-auto px-4">
-          <h2 className="text-3xl font-black text-slate-900 mb-8">
-            Comment préparer un semi-marathon ?
-          </h2>
-
-          <div className="prose prose-slate max-w-none">
-            <p className="text-lg text-slate-600 mb-6">
-              Le semi-marathon est souvent considéré comme la distance idéale : assez longue pour représenter un vrai défi, mais accessible avec une préparation de 8 à 16 semaines selon votre niveau. C'est aussi un excellent tremplin pour ceux qui envisagent un <Link to="/plan-marathon" className="text-accent hover:underline font-medium">marathon</Link>.
-            </p>
-
-            <h3 className="text-xl font-bold text-slate-900 mt-8 mb-4">Durée du plan entraînement semi-marathon</h3>
-            <p className="text-slate-600 mb-4">
-              Pour un <strong>débutant</strong>, comptez 12 à 16 semaines de préparation. Les coureurs <strong>intermédiaires</strong> peuvent se préparer en 10 à 12 semaines. Les <strong>confirmés</strong> visant un record personnel opteront pour 8 à 10 semaines de travail spécifique.
-            </p>
-
-            <h3 className="text-xl font-bold text-slate-900 mt-8 mb-4">Les séances clés d'un plan semi-marathon</h3>
-            <ul className="text-slate-600 space-y-2 mb-6">
-              <li><strong>La sortie longue</strong> : progressivement jusqu'à 16-18 km, à allure endurance</li>
-              <li><strong>Le travail d'allure spécifique</strong> : séances à allure semi pour habituer le corps au rythme cible</li>
-              <li><strong>Le fractionné</strong> : développer la VMA et l'économie de course (30/30, 200m, 400m)</li>
-              <li><strong>Le footing récupération</strong> : essentiel pour assimiler les séances difficiles</li>
-              <li><strong>Le renforcement musculaire</strong> : prévenir les blessures et améliorer l'économie de course</li>
-            </ul>
-
-            <h3 className="text-xl font-bold text-slate-900 mt-8 mb-4">Objectifs temps au semi-marathon</h3>
-            <p className="text-slate-600 mb-4">
-              Voici les allures moyennes selon les objectifs courants. Utilisez notre <Link to="/outils/convertisseur-allure" className="text-accent hover:underline font-medium">convertisseur d'allure</Link> pour calculer votre vitesse cible.
-            </p>
-            <ul className="text-slate-600 space-y-2 mb-6">
-              <li><strong>Sub 2h00</strong> : allure moyenne de 5'40"/km - objectif accessible aux débutants bien préparés</li>
-              <li><strong>Sub 1h45</strong> : allure moyenne de 4'58"/km - coureurs réguliers</li>
-              <li><strong>Sub 1h30</strong> : allure moyenne de 4'16"/km - coureurs confirmés</li>
-            </ul>
-
-            <h3 className="text-xl font-bold text-slate-900 mt-8 mb-4">Du semi-marathon au marathon</h3>
-            <p className="text-slate-600 mb-4">
-              Le semi-marathon est le meilleur indicateur de votre potentiel marathon. En règle générale, multipliez votre temps semi par 2,1 pour estimer votre temps marathon. Un coureur en 1h45 au semi peut viser 3h40-3h45 au marathon. Découvrez notre <Link to="/outils/predicteur-temps" className="text-accent hover:underline font-medium">prédicteur de temps</Link> pour une estimation précise.
-            </p>
+          <div className="text-center mb-10">
+            <SectionLabel variant="slate">Guide semi-marathon</SectionLabel>
+            <h2 className="text-3xl md:text-4xl font-black text-slate-900 mb-4">Comment préparer un semi-marathon ?</h2>
+            <p className="text-lg text-slate-500 max-w-2xl mx-auto">La distance idéale : un vrai défi accessible en 8 à 16 semaines. Excellent tremplin vers le <Link to="/plan-marathon" className="text-orange-500 hover:underline font-medium">marathon</Link>.</p>
+          </div>
+          <div className="grid gap-5">
+            <div className="bg-white border-l-4 border-orange-500 rounded-xl p-6 shadow-sm hover:shadow-md transition-shadow">
+              <div className="flex items-start gap-4">
+                <div className="flex items-center justify-center w-8 h-8 bg-orange-100 rounded-full text-orange-600 font-bold text-sm shrink-0">1</div>
+                <div><h3 className="text-lg font-bold text-slate-900 mb-2">Durée du plan semi-marathon</h3><p className="text-slate-600"><strong>Débutant</strong> : 12-16 semaines. <strong>Intermédiaire</strong> : 10-12 semaines. <strong>Confirmé</strong> visant un record : 8-10 semaines de travail spécifique.</p></div>
+              </div>
+            </div>
+            <div className="bg-white border-l-4 border-orange-500 rounded-xl p-6 shadow-sm hover:shadow-md transition-shadow">
+              <div className="flex items-start gap-4">
+                <div className="flex items-center justify-center w-8 h-8 bg-orange-100 rounded-full text-orange-600 font-bold text-sm shrink-0">2</div>
+                <div><h3 className="text-lg font-bold text-slate-900 mb-3">Les séances clés</h3>
+                  <ul className="space-y-2 text-slate-600">
+                    <li className="flex items-start gap-2"><span className="text-orange-500 font-bold mt-0.5">→</span><span><strong>Sortie longue</strong> : jusqu'à 16-18 km à allure endurance</span></li>
+                    <li className="flex items-start gap-2"><span className="text-orange-500 font-bold mt-0.5">→</span><span><strong>Allure spécifique</strong> : habituer le corps au rythme cible</span></li>
+                    <li className="flex items-start gap-2"><span className="text-orange-500 font-bold mt-0.5">→</span><span><strong>Fractionné</strong> : VMA et économie de course (30/30, 400m)</span></li>
+                    <li className="flex items-start gap-2"><span className="text-orange-500 font-bold mt-0.5">→</span><span><strong>Récupération</strong> : footings lents pour assimiler</span></li>
+                    <li className="flex items-start gap-2"><span className="text-orange-500 font-bold mt-0.5">→</span><span><strong>Renforcement musculaire</strong> : prévention et économie de course</span></li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+            <div className="bg-white border-l-4 border-orange-500 rounded-xl p-6 shadow-sm hover:shadow-md transition-shadow">
+              <div className="flex items-start gap-4">
+                <div className="flex items-center justify-center w-8 h-8 bg-orange-100 rounded-full text-orange-600 font-bold text-sm shrink-0">3</div>
+                <div><h3 className="text-lg font-bold text-slate-900 mb-2">Objectifs temps</h3>
+                  <p className="text-slate-600 mb-3">Utilisez notre <Link to="/outils/convertisseur-allure" className="text-orange-500 hover:underline font-medium">convertisseur d'allure</Link> pour votre vitesse cible.</p>
+                  <ul className="space-y-2 text-slate-600">
+                    <li className="flex items-start gap-2"><span className="text-orange-500 font-bold mt-0.5">→</span><span><strong>Sub 2h00</strong> : 5'40"/km — accessible aux débutants bien préparés</span></li>
+                    <li className="flex items-start gap-2"><span className="text-orange-500 font-bold mt-0.5">→</span><span><strong>Sub 1h45</strong> : 4'58"/km — coureurs réguliers</span></li>
+                    <li className="flex items-start gap-2"><span className="text-orange-500 font-bold mt-0.5">→</span><span><strong>Sub 1h30</strong> : 4'16"/km — coureurs confirmés</span></li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+            <div className="bg-white border-l-4 border-orange-500 rounded-xl p-6 shadow-sm hover:shadow-md transition-shadow">
+              <div className="flex items-start gap-4">
+                <div className="flex items-center justify-center w-8 h-8 bg-orange-100 rounded-full text-orange-600 font-bold text-sm shrink-0">4</div>
+                <div><h3 className="text-lg font-bold text-slate-900 mb-2">Du semi au marathon</h3><p className="text-slate-600">Multipliez votre temps semi par 2,1 pour estimer votre marathon. 1h45 au semi = 3h40-3h45 au marathon. Utilisez notre <Link to="/outils/predicteur-temps" className="text-orange-500 hover:underline font-medium">prédicteur de temps</Link>.</p></div>
+              </div>
+            </div>
           </div>
         </div>
       </section>
@@ -330,42 +342,11 @@ const SemiMarathonLanding: React.FC<SemiMarathonLandingProps> = ({ user, onPlanG
         </div>
       </section>
 
-      {/* SECTION: CONNECTE A STRAVA */}
-      <section className="py-16 md:py-24 bg-slate-50">
-        <div className="max-w-5xl mx-auto px-4">
-          <div className="text-center mb-12">
-            <div className="flex items-center justify-center gap-3 mb-4">
-              <h2 className="text-3xl md:text-4xl font-black tracking-tight text-slate-900">
-                Connecté à <span className="text-[#FC4C02]">Strava</span>
-              </h2>
-              <svg className="w-8 h-8 text-[#FC4C02]" viewBox="0 0 24 24" fill="currentColor" aria-label="Logo Strava"><path d="M15.387 17.944l-2.089-4.116h-3.065L15.387 24l5.15-10.172h-3.066m-7.008-5.599l2.836 5.598h4.172L10.463 0l-7 13.828h4.169"/></svg>
-            </div>
-            <p className="text-slate-500 max-w-2xl mx-auto text-lg">
-              Partenaire officiel — vos données au service de votre progression
-            </p>
-          </div>
+      {/* STRAVA */}
+      <StravaSection discipline="semi-marathon" />
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {[
-              { title: "Connexion en 1 clic", desc: "Reliez votre compte Strava depuis votre espace Coach Running IA" },
-              { title: "Vos données accessibles", desc: "Historique de courses, distances, allures, fréquence cardiaque importés automatiquement" },
-              { title: "Plans plus adaptés", desc: "L'IA analyse vos performances réelles pour ajuster votre programme semi-marathon" },
-              { title: "Analyse mensuelle", desc: "Bilan automatique de vos sorties Strava avec recommandations personnalisées" },
-            ].map(({ title, desc }) => (
-              <div key={title} className="rounded-2xl p-6 bg-orange-50/50 border border-orange-100 text-center hover:shadow-md hover:border-orange-200 transition-all duration-300">
-                <h3 className="font-bold text-slate-800 mb-2">{title}</h3>
-                <p className="text-slate-500 text-sm leading-relaxed">{desc}</p>
-              </div>
-            ))}
-          </div>
-
-          <div className="mt-10 flex items-center justify-center gap-3">
-            <span className="text-sm text-slate-400">Compatible with</span>
-            <svg className="w-6 h-6 text-[#FC4C02]" viewBox="0 0 24 24" fill="currentColor" aria-label="Logo Strava"><path d="M15.387 17.944l-2.089-4.116h-3.065L15.387 24l5.15-10.172h-3.066m-7.008-5.599l2.836 5.598h4.172L10.463 0l-7 13.828h4.169"/></svg>
-            <span className="text-sm font-bold text-[#FC4C02]">Strava</span>
-          </div>
-        </div>
-      </section>
+      {/* PRICING */}
+      <PricingPreview />
 
       {/* CTA FINAL */}
       <section className="py-16 md:py-24 bg-gradient-to-br from-slate-900 to-slate-800 text-white">

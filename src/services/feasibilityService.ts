@@ -364,7 +364,8 @@ export function calculateFeasibility(params: FeasibilityParams): FeasibilityResu
   if (vma < 12 && gapPercent > 5) {
     const lowVmaPenalty = Math.round((12 - vma) * (gapPercent - 5) * 0.5);
     score -= lowVmaPenalty;
-    reasons.push({ type: 'warn', text: `ta VMA actuelle (${vma.toFixed(1)} km/h) laisse peu de marge de progression — chaque minute gagnée demande un effort d'entraînement important` });
+    // Note: pas de reasons.push ici — cette fonction calculateFeasibility n'a pas la liste reasons[]
+    // (qui existe uniquement dans buildFinisherFeasibility). La pénalité de score suffit.
   }
 
   // Intermédiaire + sub-1h20 semi → très ambitieux
@@ -760,13 +761,13 @@ function buildFinisherFeasibility(
     const bmi = params.weight / ((params.height / 100) ** 2);
     if (bmi >= 35) {
       score -= 25;
-      reasons.push({ type: 'risk', text: `ton IMC (${bmi.toFixed(1)}) indique un risque articulaire élevé — consulte un médecin avant de démarrer, privilégie les surfaces souples et le cross-training (vélo, natation)` });
+      reasons.push({ type: 'risk', text: `ton profil actuel impose une vigilance articulaire renforcée — consulte un médecin avant de démarrer, privilégie surfaces souples (herbe, terre, chemin) et chaussures avec amorti maximal` });
     } else if (bmi >= 30) {
       score -= 15;
-      reasons.push({ type: 'warn', text: `ton IMC (${bmi.toFixed(1)}) augmente le risque articulaire — consulte un médecin, privilégie un bon amorti et des surfaces souples` });
+      reasons.push({ type: 'warn', text: `ton profil impose une vigilance articulaire — consulte un médecin, privilégie un bon amorti et des surfaces souples` });
     } else if (bmi >= 25 && (isMarathon || (isTrail && distanceKm !== null && distanceKm >= 30))) {
       score -= 5;
-      reasons.push({ type: 'warn', text: `avec un IMC de ${bmi.toFixed(1)}, investis dans de bonnes chaussures avec amorti pour cette distance` });
+      reasons.push({ type: 'warn', text: `pour cette distance, investis dans de bonnes chaussures avec un bon amorti` });
     }
   }
 
@@ -1093,14 +1094,14 @@ function buildSafetyWarning(
 
   // Priorité : cumul facteurs > blessure > senior+longue distance > IMC ≥ 35 > IMC ≥ 30 > senior > IMC ≥ 25 > débutant+distance > défaut
 
-  // Cumul IMC + blessure : avis médical OBLIGATOIRE
+  // Cumul facteurs articulaires + blessure : avis médical OBLIGATOIRE
   if (hasInjury && bmi >= 30) {
-    return 'AVIS MÉDICAL OBLIGATOIRE : tu cumules un IMC élevé et des antécédents de blessure. Consulte impérativement ton médecin et ton kiné avant de démarrer. Privilégie le cross-training, les surfaces souples et des chaussures à amorti maximal.';
+    return 'AVIS MÉDICAL OBLIGATOIRE : tu cumules des facteurs de prudence (profil + antécédent de blessure). Consulte impérativement ton médecin et ton kiné avant de démarrer. Privilégie surfaces souples et chaussures à amorti maximal.';
   }
 
-  // Cumul IMC + senior + débutant
+  // Cumul senior + débutant + profil à risque articulaire
   if (bmi >= 30 && isSenior && beginner) {
-    return `AVIS MÉDICAL OBLIGATOIRE : à ${age} ans, avec ton IMC et en tant que débutant, consulte impérativement ton médecin pour un test d'effort avant de commencer. Démarre très progressivement en alternant marche et course.`;
+    return `AVIS MÉDICAL OBLIGATOIRE : à ${age} ans, avec un démarrage débutant, consulte impérativement ton médecin pour un test d'effort avant de commencer. Démarre très progressivement en alternant marche et course.`;
   }
 
   if (hasInjury) {
@@ -1112,11 +1113,11 @@ function buildSafetyWarning(
   }
 
   if (bmi >= 35) {
-    return 'Consulte impérativement ton médecin avant de démarrer ce programme. Avec ton IMC, le risque articulaire est élevé : privilégie le cross-training (vélo, natation, elliptique), les surfaces souples, et investis dans des chaussures avec un amorti maximal. Alterne marche et course si nécessaire.';
+    return 'Consulte impérativement ton médecin avant de démarrer ce programme. Risque articulaire à surveiller : privilégie surfaces souples (herbe, terre, chemin), chaussures à amorti maximal, et alterne marche et course si nécessaire.';
   }
 
   if (bmi >= 30) {
-    return 'On te recommande de consulter ton médecin avant de démarrer. Investis dans de bonnes chaussures avec un amorti renforcé, privilégie les surfaces souples (herbe, terre, chemin), et intègre du cross-training (vélo, natation) pour réduire l\'impact sur les articulations.';
+    return 'On te recommande de consulter ton médecin avant de démarrer. Investis dans de bonnes chaussures avec amorti renforcé et privilégie surfaces souples (herbe, terre, chemin) pour réduire l\'impact sur les articulations.';
   }
 
   if (isSenior) {

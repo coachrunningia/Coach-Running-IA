@@ -81,8 +81,8 @@ const RacePredictorPage: React.FC = () => {
   return (
     <>
       <Helmet>
-        <title>Prédicteur de Temps Course à Pied : Estimez vos Chronos | Calculateur Gratuit</title>
-        <meta name="description" content="Prédisez vos temps de course sur 5km, 10km, semi-marathon et marathon à partir d'une performance récente. Formule de Riegel pour des estimations précises." />
+        <title>Prédicteur de Temps Course | Coach Running IA</title>
+        <meta name="description" content="Prédisez vos temps sur 5km, 10km, semi et marathon à partir d'une performance récente. Formule de Riegel pour des estimations précises." />
         <meta name="keywords" content="prédicteur temps course, calculateur marathon, estimation chrono 10km, prédiction semi-marathon, formule Riegel, objectif course à pied" />
         <link rel="canonical" href="https://coachrunningia.fr/outils/predicteur-temps" />
         <meta property="og:title" content="Prédicteur de Temps Course à Pied : Estimez vos Chronos" />

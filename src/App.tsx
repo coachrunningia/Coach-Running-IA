@@ -143,6 +143,24 @@ const AppContent = () => {
       console.error("[Gen Error] Détails :", error);
       setIsGenerating(false);
 
+      // Logger l'erreur dans Firestore pour debug serveur (best-effort, ne pas planter si fail)
+      try {
+        const { collection, addDoc, serverTimestamp } = await import('firebase/firestore');
+        const { db } = await import('./services/firebase');
+        await addDoc(collection(db, 'generation_errors'), {
+          userId: user?.id || null,
+          userEmail: user?.email || null,
+          errorMessage: String(error?.message || error || 'unknown'),
+          errorName: String(error?.name || ''),
+          errorStack: String(error?.stack || '').substring(0, 4000),
+          questionnaireSnapshot: JSON.parse(JSON.stringify(data)),
+          createdAt: serverTimestamp(),
+          userAgent: typeof navigator !== 'undefined' ? navigator.userAgent.substring(0, 300) : '',
+        });
+      } catch (logErr) {
+        console.warn('[Gen Error] Impossible de logger en Firestore:', logErr);
+      }
+
       let msg = "Une erreur est survenue lors de la génération de votre plan.";
       if (error.message?.includes("API_KEY")) msg = "Erreur de configuration : La clé API Gemini est manquante ou invalide.";
       else if (error.message?.includes("quota")) msg = "L'IA est actuellement saturée. Réessayez dans quelques minutes.";
@@ -1288,6 +1306,7 @@ const ADMIN_EMAILS = ["programme@coachrunningia.fr"];
 const PricingPage = ({ user }: { user: User | null }) => {
   const navigate = useNavigate();
   const [loadingPlan, setLoadingPlan] = useState<string | null>(null);
+  const [billingCycle, setBillingCycle] = useState<'yearly' | 'monthly'>('yearly');
 
   const handleSubscribe = async (priceId: string, mode: 'subscription' | 'payment' = 'subscription') => {
     if (!user) {
@@ -1351,7 +1370,7 @@ const PricingPage = ({ user }: { user: User | null }) => {
               }
             },
             {
-              "@type": "Offer", "name": "Premium Mensuel", "price": "5.90", "priceCurrency": "EUR",
+              "@type": "Offer", "name": "Premium Mensuel", "price": "4.90", "priceCurrency": "EUR",
               "availability": "https://schema.org/InStock",
               "url": "https://coachrunningia.fr/pricing",
               "hasMerchantReturnPolicy": {
@@ -1368,7 +1387,7 @@ const PricingPage = ({ user }: { user: User | null }) => {
               }
             },
             {
-              "@type": "Offer", "name": "Premium Annuel", "price": "44.90", "priceCurrency": "EUR",
+              "@type": "Offer", "name": "Premium Annuel", "price": "39.90", "priceCurrency": "EUR",
               "availability": "https://schema.org/InStock",
               "url": "https://coachrunningia.fr/pricing",
               "hasMerchantReturnPolicy": {
@@ -1392,8 +1411,148 @@ const PricingPage = ({ user }: { user: User | null }) => {
         <p className="text-slate-500 text-lg">Sans engagement, résiliable à tout moment en un clic.</p>
       </div>
 
-      {/* 3 Cards */}
-      <div className="grid md:grid-cols-3 gap-6 mb-16 items-start">
+      {/* ===== MOBILE — présentation refondue : toggle annuel/mensuel + plan unique ===== */}
+      <div className="md:hidden mb-16">
+        {/* Toggle facturation */}
+        <div className="flex items-center justify-center mb-3">
+          <div className="inline-flex bg-slate-100 rounded-full p-1">
+            <button
+              onClick={() => setBillingCycle('yearly')}
+              className={`px-6 py-2 rounded-full text-sm font-bold transition-all ${billingCycle === 'yearly' ? 'bg-white text-slate-900 shadow' : 'text-slate-500'}`}
+            >
+              Annuel
+            </button>
+            <button
+              onClick={() => setBillingCycle('monthly')}
+              className={`px-6 py-2 rounded-full text-sm font-bold transition-all ${billingCycle === 'monthly' ? 'bg-white text-slate-900 shadow' : 'text-slate-500'}`}
+            >
+              Mensuel
+            </button>
+          </div>
+        </div>
+
+        {/* Économie mise en avant (annuel) */}
+        {billingCycle === 'yearly' && (
+          <p className="text-center text-accent font-black text-lg mb-5">
+            &minus;32&nbsp;% d'économie vs mensuel
+          </p>
+        )}
+        {billingCycle === 'monthly' && (
+          <p className="text-center text-slate-500 font-medium text-sm mb-5">
+            Sans engagement, résiliable en un clic
+          </p>
+        )}
+
+        {/* Carte abonnement (dynamique selon le toggle) */}
+        <div className="bg-white rounded-2xl border-2 border-accent shadow-xl p-6 flex flex-col relative mb-5">
+          {billingCycle === 'yearly' && (
+            <div className="absolute -top-3 left-1/2 -translate-x-1/2 bg-accent text-white px-4 py-1 rounded-full text-xs font-black uppercase">
+              Le plus populaire
+            </div>
+          )}
+          <div className="text-center mb-6 mt-2">
+            <h3 className="text-lg font-bold text-slate-900 mb-3">
+              {billingCycle === 'yearly' ? 'Premium Annuel' : 'Premium Mensuel'}
+            </h3>
+            {billingCycle === 'yearly' ? (
+              <>
+                <div className="flex items-baseline justify-center gap-2">
+                  <span className="text-xl line-through text-slate-400">69,90&euro;</span>
+                  <span className="text-4xl font-black text-slate-900">39,90&euro;</span>
+                  <span className="text-slate-500 text-sm">/an</span>
+                </div>
+                <p className="text-sm mt-1">Soit <span className="text-accent font-black text-lg">3,33&euro;/mois</span></p>
+              </>
+            ) : (
+              <>
+                <div className="flex items-baseline justify-center gap-2">
+                  <span className="text-xl line-through text-slate-400">9,90&euro;</span>
+                  <span className="text-4xl font-black text-slate-900">4,90&euro;</span>
+                  <span className="text-slate-500 text-sm">/mois</span>
+                </div>
+                <p className="text-sm text-slate-500 mt-1">Sans engagement</p>
+              </>
+            )}
+          </div>
+
+          <div className="border-t border-slate-100 pt-4 mb-4 flex-grow">
+            <p className="text-xs font-bold text-slate-400 uppercase tracking-wider mb-3">Tout inclus</p>
+            <ul className="space-y-2.5 text-sm text-slate-700">
+              {includedFeatures.map((f, i) => (
+                <li key={i} className="flex gap-2 items-start"><CheckCircle size={15} className="text-green-500 mt-0.5 flex-shrink-0" />{f}</li>
+              ))}
+              {premiumOnlyFeatures.map((f, i) => (
+                <li key={i} className="flex gap-2 items-start"><CheckCircle size={15} className="text-green-500 mt-0.5 flex-shrink-0" /><span className="font-medium">{f}</span></li>
+              ))}
+              {billingCycle === 'yearly' ? (
+                <>
+                  <li className="flex gap-2 items-start"><CheckCircle size={15} className="text-green-500 mt-0.5 flex-shrink-0" /><span className="font-black">Plans illimités</span></li>
+                  <li className="flex gap-2 items-start"><CheckCircle size={15} className="text-green-500 mt-0.5 flex-shrink-0" /><span className="font-medium">Presque 4 mois offerts</span></li>
+                </>
+              ) : (
+                <li className="flex gap-2 items-start"><CheckCircle size={15} className="text-green-500 mt-0.5 flex-shrink-0" /><span className="font-medium">Sans engagement, annulation libre</span></li>
+              )}
+            </ul>
+            {billingCycle === 'monthly' && (
+              <>
+                <p className="text-xs font-bold text-slate-400 uppercase tracking-wider mb-3 mt-5">Non inclus</p>
+                <ul className="space-y-2.5 text-sm text-slate-400">
+                  <li className="flex gap-2 items-start"><XCircle size={15} className="text-slate-300 mt-0.5 flex-shrink-0" />Génération illimitée de plans</li>
+                  <li className="flex gap-2 items-start"><XCircle size={15} className="text-slate-300 mt-0.5 flex-shrink-0" />Réduction du forfait annuel</li>
+                </ul>
+              </>
+            )}
+          </div>
+
+          <button
+            onClick={() => handleSubscribe(billingCycle === 'yearly' ? STRIPE_PRICES.YEARLY : STRIPE_PRICES.MONTHLY)}
+            disabled={loadingPlan !== null}
+            className="w-full py-3.5 bg-accent text-white font-bold rounded-xl hover:bg-orange-600 transition-all disabled:opacity-50 flex items-center justify-center gap-2"
+          >
+            {loadingPlan === (billingCycle === 'yearly' ? STRIPE_PRICES.YEARLY : STRIPE_PRICES.MONTHLY) ? (
+              <Loader2 size={18} className="animate-spin" />
+            ) : (
+              <>
+                {billingCycle === 'yearly' ? <Crown size={16} /> : <Zap size={16} />}
+                {billingCycle === 'yearly' ? "S'abonner annuel" : "S'abonner"}
+              </>
+            )}
+          </button>
+        </div>
+
+        {/* Plan Unique — sans toggle, en dessous */}
+        <div className="bg-white rounded-2xl border border-slate-200 shadow-sm p-6 flex flex-col">
+          <div className="text-center mb-4">
+            <h3 className="text-lg font-bold text-slate-900 mb-2">Plan Unique</h3>
+            <div className="flex items-baseline justify-center gap-2">
+              <span className="text-4xl font-black text-slate-900">9,90&euro;</span>
+            </div>
+            <p className="text-sm text-slate-500 mt-1">Paiement unique, sans abonnement</p>
+          </div>
+          <div className="border-t border-slate-100 pt-4 mb-4">
+            <p className="text-xs font-bold text-slate-400 uppercase tracking-wider mb-3">Inclus</p>
+            <ul className="space-y-2.5 text-sm text-slate-700">
+              {includedFeatures.map((f, i) => (
+                <li key={i} className="flex gap-2 items-start"><CheckCircle size={15} className="text-green-500 mt-0.5 flex-shrink-0" />{f}</li>
+              ))}
+            </ul>
+          </div>
+          <button
+            onClick={() => handleSubscribe(STRIPE_PRICES.PLAN_UNIQUE, 'payment')}
+            disabled={loadingPlan !== null}
+            className="w-full py-3.5 bg-slate-900 text-white font-bold rounded-xl hover:bg-slate-800 transition-all disabled:opacity-50 flex items-center justify-center gap-2"
+          >
+            {loadingPlan === STRIPE_PRICES.PLAN_UNIQUE ? (
+              <Loader2 size={18} className="animate-spin" />
+            ) : (
+              <>Acheter mon plan</>
+            )}
+          </button>
+        </div>
+      </div>
+
+      {/* 3 Cards — desktop uniquement */}
+      <div className="hidden md:grid md:grid-cols-3 gap-6 mb-16 items-start">
 
         {/* Plan Unique */}
         <div className="bg-white rounded-2xl border border-slate-200 shadow-sm p-6 flex flex-col order-3 md:order-1">

@@ -4,6 +4,7 @@ import { Clock, Target, Zap, Star, ArrowRight, Mountain, X, CheckCircle, Chevron
 import { User, UserGoal } from '../types';
 import Questionnaire from './Questionnaire';
 import { Helmet } from 'react-helmet-async';
+import { SectionLabel, StravaSection, ScreenshotsSlider, PricingPreview } from './landing/SharedSections';
 
 interface TrailLandingProps {
   user: User | null;
@@ -44,12 +45,12 @@ const TrailLanding: React.FC<TrailLandingProps> = ({ user, onPlanGeneration, isG
   return (
     <div className="bg-white">
       <Helmet>
-        <title>Plan Entraînement Trail Personnalisé par IA | 20km à Ultra-Trail | Coach Running IA</title>
-        <meta name="description" content="Générez votre plan trail sur-mesure en 2 min : D+ progressif adapté à votre course, renforcement musculaire, rando-course. Trail court, long ou ultra. 1ère semaine gratuite." />
+        <title>Plan Trail Running Personnalisé | Coach Running IA</title>
+        <meta name="description" content="Plan trail running personnalisé. Du trail court à l'ultra : D+ progressif, renforcement, rando-course. Tous niveaux. Essai gratuit." />
         <meta name="keywords" content="plan entraînement trail, programme trail running personnalisé, plan trail 40km, plan ultra trail, entraînement trail dénivelé, plan trail débutant, préparation trail montagne" />
         <link rel="canonical" href="https://coachrunningia.fr/plan-trail" />
-        <meta property="og:title" content="Plan Entraînement Trail Personnalisé par IA | Coach Running IA" />
-        <meta property="og:description" content="Programme trail sur-mesure : D+ adapté à votre course, côtes, rando-course, renforcement. Du trail 20km à l'ultra 100km+. Gratuit pour tester." />
+        <meta property="og:title" content="Plan Trail Running Personnalisé | Coach Running IA" />
+        <meta property="og:description" content="Plan trail running personnalisé. Du trail court à l'ultra : D+ progressif, renforcement, rando-course. Essai gratuit." />
         <meta property="og:url" content="https://coachrunningia.fr/plan-trail" />
         <meta property="og:image" content="https://coachrunningia.fr/og-image.png" />
         <script type="application/ld+json">{JSON.stringify({
@@ -62,8 +63,8 @@ const TrailLanding: React.FC<TrailLandingProps> = ({ user, onPlanGeneration, isG
           }))
         })}</script>
         <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content="Plan Entraînement Trail Personnalisé par IA | Coach Running IA" />
-        <meta name="twitter:description" content="Générez votre plan trail sur-mesure en 2 min : D+ progressif, renforcement musculaire, rando-course. Trail court, long ou ultra." />
+        <meta name="twitter:title" content="Plan Trail Running Personnalisé | Coach Running IA" />
+        <meta name="twitter:description" content="Plan trail running personnalisé. Du trail court à l'ultra : D+ progressif, renforcement, rando-course. Essai gratuit." />
         <meta name="twitter:image" content="https://coachrunningia.fr/og-image.png" />
       </Helmet>
 
@@ -114,6 +115,9 @@ const TrailLanding: React.FC<TrailLandingProps> = ({ user, onPlanGeneration, isG
           />
         </div>
       </section>
+
+      {/* SCREENSHOTS SLIDER */}
+      <ScreenshotsSlider />
 
       {/* SECTION: PLAN ROUTE VS PLAN TRAIL */}
       <section className="py-16 md:py-24 bg-white">
@@ -213,50 +217,58 @@ const TrailLanding: React.FC<TrailLandingProps> = ({ user, onPlanGeneration, isG
       {/* CONTENU SEO */}
       <section className="py-16 md:py-24 bg-slate-50">
         <div className="max-w-4xl mx-auto px-4">
-          <h2 className="text-3xl font-black text-slate-900 mb-8">
-            Comment préparer un trail ?
-          </h2>
-
-          <div className="prose prose-slate max-w-none">
-            <p className="text-lg text-slate-600 mb-6">
-              Le trail running combine course à pied et randonnée en montagne. Que vous prépariez un trail court (20-30 km) ou un ultra (80 km+), la préparation doit être spécifique et progressive. Un bon plan entraînement trail doit intégrer du dénivelé, du renforcement musculaire et des séances de rando-course.
-            </p>
-
-            <h3 className="text-xl font-bold text-slate-900 mt-8 mb-4">Les formats de trail running</h3>
-            <ul className="text-slate-600 space-y-2 mb-6">
-              <li><strong>Trail court</strong> : moins de 42 km - idéal pour débuter en trail</li>
-              <li><strong>Trail long</strong> : 42 à 80 km - demande une préparation de 12-16 semaines minimum</li>
-              <li><strong>Ultra-trail</strong> : plus de 80 km - préparation de 16 à 24 semaines avec gestion de la nuit et de la fatigue</li>
-            </ul>
-
-            <h3 className="text-xl font-bold text-slate-900 mt-8 mb-4">Les séances clés d'un plan entraînement trail</h3>
-            <ul className="text-slate-600 space-y-2 mb-6">
-              <li><strong>Sortie longue en terrain varié</strong> : habituer le corps aux surfaces instables et au dénivelé</li>
-              <li><strong>Côtes et descentes</strong> : travail technique et musculaire spécifique au trail</li>
-              <li><strong>Renforcement musculaire</strong> : quadriceps, mollets, gainage — indispensable en trail</li>
-              <li><strong>Rando-course</strong> : alterner marche rapide et course comme en compétition</li>
-              <li><strong>Fractionné en côte</strong> : développer la puissance musculaire et la VO2max</li>
-            </ul>
-
-            <h3 className="text-xl font-bold text-slate-900 mt-8 mb-4">L'importance du dénivelé dans l'entraînement trail</h3>
-            <p className="text-slate-600 mb-4">
-              En trail, on parle en <strong>D+ (dénivelé positif)</strong> autant qu'en kilomètres. Un trail de 30 km avec 2000m D+ est bien plus exigeant qu'un <Link to="/plan-marathon" className="text-accent hover:underline font-medium">marathon</Link> sur route. Votre plan doit intégrer un volume de dénivelé progressif pour préparer muscles et articulations.
-            </p>
-
-            <h3 className="text-xl font-bold text-slate-900 mt-8 mb-4">L'équipement essentiel pour le trail</h3>
-            <p className="text-slate-600 mb-4">
-              Au-delà de l'entraînement, l'équipement joue un rôle crucial en trail :
-            </p>
-            <ul className="text-slate-600 space-y-2 mb-6">
-              <li><strong>Chaussures de trail</strong> : avec crampons adaptés au terrain (boue, rocaille, technique)</li>
-              <li><strong>Sac/gilet d'hydratation</strong> : indispensable dès que la sortie dépasse 1h30</li>
-              <li><strong>Bâtons</strong> : optionnels mais très utiles en montée sur les longues distances</li>
-              <li><strong>Nutrition</strong> : testez gels, barres et boissons à l'entraînement avant la course</li>
-            </ul>
-
-            <p className="text-slate-600 mb-4">
-              Calculez votre <Link to="/outils/calculateur-vma" className="text-accent hover:underline font-medium">VMA</Link> pour calibrer vos allures d'entraînement trail. Même si le trail se court rarement à allure régulière, connaître sa VMA permet de doser l'effort en montée et sur le plat.
-            </p>
+          <div className="text-center mb-10">
+            <SectionLabel variant="slate">Guide trail</SectionLabel>
+            <h2 className="text-3xl md:text-4xl font-black text-slate-900 mb-4">Comment préparer un trail ?</h2>
+            <p className="text-lg text-slate-500 max-w-2xl mx-auto">Course + montagne : dénivelé, renforcement et rando-course. Une préparation spécifique et progressive est indispensable.</p>
+          </div>
+          <div className="grid gap-5">
+            <div className="bg-white border-l-4 border-orange-500 rounded-xl p-6 shadow-sm hover:shadow-md transition-shadow">
+              <div className="flex items-start gap-4">
+                <div className="flex items-center justify-center w-8 h-8 bg-orange-100 rounded-full text-orange-600 font-bold text-sm shrink-0">1</div>
+                <div><h3 className="text-lg font-bold text-slate-900 mb-3">Les formats de trail</h3>
+                  <ul className="space-y-2 text-slate-600">
+                    <li className="flex items-start gap-2"><span className="text-orange-500 font-bold mt-0.5">→</span><span><strong>Trail court</strong> : moins de 42 km — idéal pour débuter</span></li>
+                    <li className="flex items-start gap-2"><span className="text-orange-500 font-bold mt-0.5">→</span><span><strong>Trail long</strong> : 42 à 80 km — 12-16 semaines minimum</span></li>
+                    <li className="flex items-start gap-2"><span className="text-orange-500 font-bold mt-0.5">→</span><span><strong>Ultra-trail</strong> : 80 km+ — 16-24 semaines, gestion nuit et fatigue</span></li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+            <div className="bg-white border-l-4 border-orange-500 rounded-xl p-6 shadow-sm hover:shadow-md transition-shadow">
+              <div className="flex items-start gap-4">
+                <div className="flex items-center justify-center w-8 h-8 bg-orange-100 rounded-full text-orange-600 font-bold text-sm shrink-0">2</div>
+                <div><h3 className="text-lg font-bold text-slate-900 mb-3">Les séances clés en trail</h3>
+                  <ul className="space-y-2 text-slate-600">
+                    <li className="flex items-start gap-2"><span className="text-orange-500 font-bold mt-0.5">→</span><span><strong>Sortie longue terrain varié</strong> : surfaces instables et dénivelé</span></li>
+                    <li className="flex items-start gap-2"><span className="text-orange-500 font-bold mt-0.5">→</span><span><strong>Côtes et descentes</strong> : travail technique et musculaire</span></li>
+                    <li className="flex items-start gap-2"><span className="text-orange-500 font-bold mt-0.5">→</span><span><strong>Renforcement</strong> : quadriceps, mollets, gainage</span></li>
+                    <li className="flex items-start gap-2"><span className="text-orange-500 font-bold mt-0.5">→</span><span><strong>Rando-course</strong> : alterner marche et course</span></li>
+                    <li className="flex items-start gap-2"><span className="text-orange-500 font-bold mt-0.5">→</span><span><strong>Fractionné en côte</strong> : puissance et VO2max</span></li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+            <div className="bg-white border-l-4 border-orange-500 rounded-xl p-6 shadow-sm hover:shadow-md transition-shadow">
+              <div className="flex items-start gap-4">
+                <div className="flex items-center justify-center w-8 h-8 bg-orange-100 rounded-full text-orange-600 font-bold text-sm shrink-0">3</div>
+                <div><h3 className="text-lg font-bold text-slate-900 mb-2">Le dénivelé, la clé du trail</h3><p className="text-slate-600">En trail, on parle en <strong>D+</strong> autant qu'en km. Un trail de 30 km avec 2000m D+ est plus exigeant qu'un <Link to="/plan-marathon" className="text-orange-500 hover:underline font-medium">marathon</Link> sur route. Le plan intègre un volume de dénivelé progressif.</p></div>
+              </div>
+            </div>
+            <div className="bg-white border-l-4 border-orange-500 rounded-xl p-6 shadow-sm hover:shadow-md transition-shadow">
+              <div className="flex items-start gap-4">
+                <div className="flex items-center justify-center w-8 h-8 bg-orange-100 rounded-full text-orange-600 font-bold text-sm shrink-0">4</div>
+                <div><h3 className="text-lg font-bold text-slate-900 mb-3">L'équipement essentiel</h3>
+                  <ul className="space-y-2 text-slate-600">
+                    <li className="flex items-start gap-2"><span className="text-orange-500 font-bold mt-0.5">→</span><span><strong>Chaussures trail</strong> : crampons adaptés (boue, rocaille)</span></li>
+                    <li className="flex items-start gap-2"><span className="text-orange-500 font-bold mt-0.5">→</span><span><strong>Gilet d'hydratation</strong> : indispensable dès 1h30</span></li>
+                    <li className="flex items-start gap-2"><span className="text-orange-500 font-bold mt-0.5">→</span><span><strong>Bâtons</strong> : utiles en montée sur longues distances</span></li>
+                    <li className="flex items-start gap-2"><span className="text-orange-500 font-bold mt-0.5">→</span><span><strong>Nutrition</strong> : testez tout à l'entraînement</span></li>
+                  </ul>
+                  <p className="text-slate-600 mt-3">Calculez votre <Link to="/outils/calculateur-vma" className="text-orange-500 hover:underline font-medium">VMA</Link> pour doser l'effort en montée et sur le plat.</p>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </section>
@@ -315,42 +327,11 @@ const TrailLanding: React.FC<TrailLandingProps> = ({ user, onPlanGeneration, isG
         </div>
       </section>
 
-      {/* SECTION: CONNECTE A STRAVA */}
-      <section className="py-16 md:py-24 bg-white">
-        <div className="max-w-5xl mx-auto px-4">
-          <div className="text-center mb-12">
-            <div className="flex items-center justify-center gap-3 mb-4">
-              <h2 className="text-3xl md:text-4xl font-black tracking-tight text-slate-900">
-                Connecté à <span className="text-[#FC4C02]">Strava</span>
-              </h2>
-              <svg className="w-8 h-8 text-[#FC4C02]" viewBox="0 0 24 24" fill="currentColor" aria-label="Logo Strava"><path d="M15.387 17.944l-2.089-4.116h-3.065L15.387 24l5.15-10.172h-3.066m-7.008-5.599l2.836 5.598h4.172L10.463 0l-7 13.828h4.169"/></svg>
-            </div>
-            <p className="text-slate-500 max-w-2xl mx-auto text-lg">
-              Partenaire officiel — vos données au service de votre progression trail
-            </p>
-          </div>
+      {/* STRAVA */}
+      <StravaSection discipline="trail" />
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {[
-              { title: "Connexion en 1 clic", desc: "Reliez votre compte Strava depuis votre espace Coach Running IA" },
-              { title: "Vos données accessibles", desc: "Historique de sorties trail, dénivelé, allures et fréquence cardiaque importés automatiquement" },
-              { title: "Plans plus adaptés", desc: "L'IA analyse vos performances réelles pour ajuster votre programme trail" },
-              { title: "Analyse mensuelle", desc: "Bilan automatique de vos sorties Strava avec recommandations personnalisées" },
-            ].map(({ title, desc }) => (
-              <div key={title} className="rounded-2xl p-6 bg-orange-50/50 border border-orange-100 text-center hover:shadow-md hover:border-orange-200 transition-all duration-300">
-                <h3 className="font-bold text-slate-800 mb-2">{title}</h3>
-                <p className="text-slate-500 text-sm leading-relaxed">{desc}</p>
-              </div>
-            ))}
-          </div>
-
-          <div className="mt-10 flex items-center justify-center gap-3">
-            <span className="text-sm text-slate-400">Compatible with</span>
-            <svg className="w-6 h-6 text-[#FC4C02]" viewBox="0 0 24 24" fill="currentColor" aria-label="Logo Strava"><path d="M15.387 17.944l-2.089-4.116h-3.065L15.387 24l5.15-10.172h-3.066m-7.008-5.599l2.836 5.598h4.172L10.463 0l-7 13.828h4.169"/></svg>
-            <span className="text-sm font-bold text-[#FC4C02]">Strava</span>
-          </div>
-        </div>
-      </section>
+      {/* PRICING */}
+      <PricingPreview />
 
       {/* CTA FINAL */}
       <section className="py-16 md:py-24 bg-gradient-to-br from-slate-900 to-slate-800 text-white">

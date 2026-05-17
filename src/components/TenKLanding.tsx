@@ -4,6 +4,7 @@ import { Clock, Target, Zap, Star, ArrowRight, X, CheckCircle, ChevronDown, Chev
 import { User, UserGoal } from '../types';
 import Questionnaire from './Questionnaire';
 import { Helmet } from 'react-helmet-async';
+import { SectionLabel, StravaSection, ScreenshotsSlider, PricingPreview } from './landing/SharedSections';
 
 interface TenKLandingProps {
   user: User | null;
@@ -44,11 +45,11 @@ const TenKLanding: React.FC<TenKLandingProps> = ({ user, onPlanGeneration, isGen
   return (
     <div className="bg-white">
       <Helmet>
-        <title>Plan Entraînement 10 km Personnalisé par IA — Programme 10km | Coach Running IA</title>
-        <meta name="description" content="Plan d'entraînement 10 km personnalisé par IA : 8 à 14 semaines, allures calculées sur votre VMA, fractionné progressif. Du premier 10km au record personnel. 1ère semaine gratuite." />
+        <title>Plan Entraînement 10km par IA | Coach Running IA</title>
+        <meta name="description" content="Plan entraînement 10km personnalisé. 6-14 semaines, fractionné VMA, allure spécifique. Du 1er 10km au record perso. 1ère semaine offerte." />
         <meta name="keywords" content="plan entraînement 10km, programme 10km personnalisé, plan 10 km débutant, plan 10km sub 45, plan 10km sub 40, préparation 10km IA, plan course 10 kilomètres" />
         <link rel="canonical" href="https://coachrunningia.fr/plan-10km" />
-        <meta property="og:title" content="Plan Entraînement 10 km Personnalisé par IA | Coach Running IA" />
+        <meta property="og:title" content="Plan Entraînement 10km par IA | Coach Running IA" />
         <meta property="og:description" content="Programme 10km sur-mesure : 8-14 semaines, allures VMA, fractionné progressif. Du premier 10km au sub 40. 1ère semaine gratuite." />
         <meta property="og:url" content="https://coachrunningia.fr/plan-10km" />
         <meta property="og:image" content="https://coachrunningia.fr/og-image.png" />
@@ -62,7 +63,7 @@ const TenKLanding: React.FC<TenKLandingProps> = ({ user, onPlanGeneration, isGen
           }))
         })}</script>
         <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content="Plan Entraînement 10 km Personnalisé par IA | Coach Running IA" />
+        <meta name="twitter:title" content="Plan Entraînement 10km par IA | Coach Running IA" />
         <meta name="twitter:description" content="Programme 10km sur-mesure : allures VMA, fractionné progressif. 1ère semaine gratuite." />
         <meta name="twitter:image" content="https://coachrunningia.fr/og-image.png" />
       </Helmet>
@@ -115,6 +116,9 @@ const TenKLanding: React.FC<TenKLandingProps> = ({ user, onPlanGeneration, isGen
           />
         </div>
       </section>
+
+      {/* SCREENSHOTS SLIDER */}
+      <ScreenshotsSlider />
 
       {/* COMPARISON */}
       <section className="py-16 md:py-24 bg-white">
@@ -207,47 +211,59 @@ const TenKLanding: React.FC<TenKLandingProps> = ({ user, onPlanGeneration, isGen
       {/* CONTENU SEO */}
       <section className="py-16 md:py-24 bg-slate-50">
         <div className="max-w-4xl mx-auto px-4">
-          <h2 className="text-3xl font-black text-slate-900 mb-8">
-            Comment préparer un 10 km ?
-          </h2>
-
-          <div className="prose prose-slate max-w-none">
-            <p className="text-lg text-slate-600 mb-6">
-              Le 10 km est souvent considéré comme la distance idéale pour progresser en course à pied. Assez longue pour travailler l'endurance, assez courte pour solliciter la vitesse — le 10 km demande un plan d'entraînement équilibré entre endurance fondamentale, travail au seuil et séances de VMA.
-            </p>
-
-            <h3 className="text-xl font-bold text-slate-900 mt-8 mb-4">Durée idéale du plan entraînement 10 km</h3>
-            <p className="text-slate-600 mb-4">
-              Pour un <strong>premier 10 km</strong>, prévoyez 10 à 14 semaines de préparation. Les coureurs <strong>réguliers</strong> peuvent se préparer en 8 à 10 semaines. Les <strong>compétiteurs</strong> visant un record personnel opteront pour 6 à 8 semaines de travail spécifique. Coach Running IA adapte la durée à votre expérience et votre VMA.
-            </p>
-
-            <h3 className="text-xl font-bold text-slate-900 mt-8 mb-4">Les piliers du plan entraînement 10 km</h3>
-            <ul className="text-slate-600 space-y-2 mb-6">
-              <li><strong>L'endurance fondamentale</strong> : 60-70% du volume total, à allure confortable (conversation facile)</li>
-              <li><strong>Le fractionné VMA</strong> : séances de 30/30, 200m, 400m pour développer la puissance aérobie</li>
-              <li><strong>Le travail au seuil</strong> : tempo runs et intervalles longs pour améliorer l'endurance à haute intensité</li>
-              <li><strong>L'allure spécifique 10km</strong> : courir à votre allure cible pour mémoriser le rythme</li>
-              <li><strong>Le renforcement musculaire</strong> : gainage, squats, fentes pour la prévention des blessures</li>
-            </ul>
-
-            <h3 className="text-xl font-bold text-slate-900 mt-8 mb-4">Temps de référence sur 10 km</h3>
-            <p className="text-slate-600 mb-4">
-              Utilisez notre <Link to="/outils/predicteur-temps" className="text-accent hover:underline font-medium">prédicteur de temps</Link> pour estimer votre chrono à partir d'une performance récente.
-            </p>
-            <ul className="text-slate-600 space-y-2 mb-6">
-              <li><strong>55-65 min</strong> : débutant — l'objectif est de terminer. Allure 5'30-6'30/km.</li>
-              <li><strong>45-55 min</strong> : intermédiaire — entraînement régulier 2-3×/semaine. Allure 4'30-5'30/km.</li>
-              <li><strong>38-45 min</strong> : confirmé — entraînement structuré 3-4×/semaine. Allure 3'48-4'30/km.</li>
-              <li><strong>Moins de 38 min</strong> : expert — volume élevé, fractionné spécifique, VMA supérieure à 16 km/h.</li>
-            </ul>
-
-            <h3 className="text-xl font-bold text-slate-900 mt-8 mb-4">Les erreurs à éviter sur 10 km</h3>
-            <ul className="text-slate-600 space-y-2 mb-6">
-              <li><strong>Trop de fractionné</strong> : 1-2 séances de qualité par semaine suffisent. Le reste en endurance.</li>
-              <li><strong>Négliger l'échauffement</strong> : 15-20 min de footing avant chaque séance de VMA/seuil.</li>
-              <li><strong>Partir trop vite le jour J</strong> : le premier kilomètre doit être couru en retenue.</li>
-              <li><strong>Pas assez de repos</strong> : les jours off sont essentiels pour progresser.</li>
-            </ul>
+          <div className="text-center mb-10">
+            <SectionLabel variant="slate">Guide 10km</SectionLabel>
+            <h2 className="text-3xl md:text-4xl font-black text-slate-900 mb-4">Comment préparer un 10 km ?</h2>
+            <p className="text-lg text-slate-500 max-w-2xl mx-auto">Endurance + vitesse : le 10 km demande un plan équilibré entre endurance fondamentale, seuil et VMA.</p>
+          </div>
+          <div className="grid gap-5">
+            <div className="bg-white border-l-4 border-orange-500 rounded-xl p-6 shadow-sm hover:shadow-md transition-shadow">
+              <div className="flex items-start gap-4">
+                <div className="flex items-center justify-center w-8 h-8 bg-orange-100 rounded-full text-orange-600 font-bold text-sm shrink-0">1</div>
+                <div><h3 className="text-lg font-bold text-slate-900 mb-2">Durée idéale du plan 10 km</h3><p className="text-slate-600"><strong>Premier 10 km</strong> : 10-14 semaines. <strong>Régulier</strong> : 8-10 semaines. <strong>Compétiteur</strong> : 6-8 semaines. Coach Running IA adapte la durée à votre VMA.</p></div>
+              </div>
+            </div>
+            <div className="bg-white border-l-4 border-orange-500 rounded-xl p-6 shadow-sm hover:shadow-md transition-shadow">
+              <div className="flex items-start gap-4">
+                <div className="flex items-center justify-center w-8 h-8 bg-orange-100 rounded-full text-orange-600 font-bold text-sm shrink-0">2</div>
+                <div><h3 className="text-lg font-bold text-slate-900 mb-3">Les piliers du plan 10 km</h3>
+                  <ul className="space-y-2 text-slate-600">
+                    <li className="flex items-start gap-2"><span className="text-orange-500 font-bold mt-0.5">→</span><span><strong>Endurance fondamentale</strong> : 60-70% du volume, allure confortable</span></li>
+                    <li className="flex items-start gap-2"><span className="text-orange-500 font-bold mt-0.5">→</span><span><strong>Fractionné VMA</strong> : 30/30, 200m, 400m</span></li>
+                    <li className="flex items-start gap-2"><span className="text-orange-500 font-bold mt-0.5">→</span><span><strong>Seuil</strong> : tempo runs et intervalles longs</span></li>
+                    <li className="flex items-start gap-2"><span className="text-orange-500 font-bold mt-0.5">→</span><span><strong>Allure spécifique 10km</strong> : mémoriser le rythme cible</span></li>
+                    <li className="flex items-start gap-2"><span className="text-orange-500 font-bold mt-0.5">→</span><span><strong>Renforcement</strong> : gainage, squats, fentes</span></li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+            <div className="bg-white border-l-4 border-orange-500 rounded-xl p-6 shadow-sm hover:shadow-md transition-shadow">
+              <div className="flex items-start gap-4">
+                <div className="flex items-center justify-center w-8 h-8 bg-orange-100 rounded-full text-orange-600 font-bold text-sm shrink-0">3</div>
+                <div><h3 className="text-lg font-bold text-slate-900 mb-2">Temps de référence sur 10 km</h3>
+                  <p className="text-slate-600 mb-3">Utilisez notre <Link to="/outils/predicteur-temps" className="text-orange-500 hover:underline font-medium">prédicteur de temps</Link> pour estimer votre chrono.</p>
+                  <ul className="space-y-2 text-slate-600">
+                    <li className="flex items-start gap-2"><span className="text-orange-500 font-bold mt-0.5">→</span><span><strong>55-65 min</strong> : débutant — 5'30-6'30/km</span></li>
+                    <li className="flex items-start gap-2"><span className="text-orange-500 font-bold mt-0.5">→</span><span><strong>45-55 min</strong> : intermédiaire — 4'30-5'30/km</span></li>
+                    <li className="flex items-start gap-2"><span className="text-orange-500 font-bold mt-0.5">→</span><span><strong>38-45 min</strong> : confirmé — 3'48-4'30/km</span></li>
+                    <li className="flex items-start gap-2"><span className="text-orange-500 font-bold mt-0.5">→</span><span><strong>Moins de 38 min</strong> : expert — VMA supérieure à 16 km/h</span></li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+            <div className="bg-white border-l-4 border-orange-500 rounded-xl p-6 shadow-sm hover:shadow-md transition-shadow">
+              <div className="flex items-start gap-4">
+                <div className="flex items-center justify-center w-8 h-8 bg-orange-100 rounded-full text-orange-600 font-bold text-sm shrink-0">4</div>
+                <div><h3 className="text-lg font-bold text-slate-900 mb-3">Les erreurs à éviter</h3>
+                  <ul className="space-y-2 text-slate-600">
+                    <li className="flex items-start gap-2"><span className="text-orange-500 font-bold mt-0.5">→</span><span><strong>Trop de fractionné</strong> : 1-2 séances/semaine max, le reste en endurance</span></li>
+                    <li className="flex items-start gap-2"><span className="text-orange-500 font-bold mt-0.5">→</span><span><strong>Négliger l'échauffement</strong> : 15-20 min de footing avant chaque VMA/seuil</span></li>
+                    <li className="flex items-start gap-2"><span className="text-orange-500 font-bold mt-0.5">→</span><span><strong>Partir trop vite</strong> : le 1er km doit être couru en retenue</span></li>
+                    <li className="flex items-start gap-2"><span className="text-orange-500 font-bold mt-0.5">→</span><span><strong>Pas assez de repos</strong> : les jours off sont essentiels</span></li>
+                  </ul>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </section>
@@ -305,6 +321,12 @@ const TenKLanding: React.FC<TenKLandingProps> = ({ user, onPlanGeneration, isGen
           </div>
         </div>
       </section>
+
+      {/* STRAVA */}
+      <StravaSection discipline="10km" />
+
+      {/* PRICING */}
+      <PricingPreview />
 
       {/* CTA FINAL */}
       <section className="py-16 md:py-24 bg-gradient-to-br from-slate-900 to-slate-800 text-white">

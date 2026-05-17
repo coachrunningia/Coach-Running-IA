@@ -4,6 +4,7 @@ import { Clock, Target, Zap, Star, ArrowRight, X, CheckCircle, ChevronDown, Chev
 import { User, UserGoal } from '../types';
 import Questionnaire from './Questionnaire';
 import { Helmet } from 'react-helmet-async';
+import { SectionLabel, StravaSection, ScreenshotsSlider, PricingPreview } from './landing/SharedSections';
 
 interface MarathonLandingProps {
   user: User | null;
@@ -44,12 +45,12 @@ const MarathonLanding: React.FC<MarathonLandingProps> = ({ user, onPlanGeneratio
   return (
     <div className="bg-white">
       <Helmet>
-        <title>Plan Entraînement Marathon Personnalisé par IA | Sub 3h30 à Finisher | Coach Running IA</title>
-        <meta name="description" content="Obtenez votre plan marathon sur-mesure en 2 min : 12 à 20 semaines, 3 à 5 séances/semaine, allures calculées sur votre VMA. Du premier marathon au sub 3h. 1ère semaine gratuite." />
+        <title>Plan Entraînement Marathon par IA | Coach Running IA</title>
+        <meta name="description" content="Plan entraînement marathon personnalisé. 12-20 semaines, allures VMA, suivi Strava, ajustements auto. Du 1er marathon au sub 3h. Essai gratuit." />
         <meta name="keywords" content="plan entraînement marathon, programme marathon personnalisé, plan marathon 16 semaines, plan marathon débutant, plan marathon sub 3h30, plan marathon sub 4h, préparation marathon IA" />
         <link rel="canonical" href="https://coachrunningia.fr/plan-marathon" />
-        <meta property="og:title" content="Plan Entraînement Marathon Personnalisé par IA | Coach Running IA" />
-        <meta property="og:description" content="Programme marathon sur-mesure : 12-20 semaines, allures VMA, sorties longues progressives. Du premier marathon au sub 3h. Gratuit pour tester." />
+        <meta property="og:title" content="Plan Entraînement Marathon par IA | Coach Running IA" />
+        <meta property="og:description" content="Plan entraînement marathon personnalisé. 12-20 semaines, allures VMA, suivi Strava. Essai gratuit." />
         <meta property="og:url" content="https://coachrunningia.fr/plan-marathon" />
         <meta property="og:image" content="https://coachrunningia.fr/og-image.png" />
         <script type="application/ld+json">{JSON.stringify({
@@ -62,8 +63,8 @@ const MarathonLanding: React.FC<MarathonLandingProps> = ({ user, onPlanGeneratio
           }))
         })}</script>
         <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content="Plan Entraînement Marathon Personnalisé par IA | Coach Running IA" />
-        <meta name="twitter:description" content="Obtenez votre plan marathon sur-mesure en 2 min : 12 à 20 semaines, allures calculées sur votre VMA. Du premier marathon au sub 3h. 1ère semaine gratuite." />
+        <meta name="twitter:title" content="Plan Entraînement Marathon par IA | Coach Running IA" />
+        <meta name="twitter:description" content="Plan entraînement marathon personnalisé. 12-20 semaines, allures VMA, suivi Strava, ajustements auto. Essai gratuit." />
         <meta name="twitter:image" content="https://coachrunningia.fr/og-image.png" />
       </Helmet>
 
@@ -115,6 +116,9 @@ const MarathonLanding: React.FC<MarathonLandingProps> = ({ user, onPlanGeneratio
           />
         </div>
       </section>
+
+      {/* SCREENSHOTS SLIDER */}
+      <ScreenshotsSlider />
 
       {/* SECTION: PLAN MARATHON GENERIQUE VS IA */}
       <section className="py-16 md:py-24 bg-white">
@@ -214,50 +218,73 @@ const MarathonLanding: React.FC<MarathonLandingProps> = ({ user, onPlanGeneratio
       {/* CONTENU SEO */}
       <section className="py-16 md:py-24 bg-slate-50">
         <div className="max-w-4xl mx-auto px-4">
-          <h2 className="text-3xl font-black text-slate-900 mb-8">
-            Comment préparer un marathon ?
-          </h2>
-
-          <div className="prose prose-slate max-w-none">
-            <p className="text-lg text-slate-600 mb-6">
-              Le marathon est l'épreuve reine de la course à pied. Que ce soit votre premier ou votre dixième, une préparation structurée de 12 à 20 semaines est indispensable. Un bon plan entraînement marathon doit combiner sorties longues, travail d'allure spécifique, séances de seuil et phases de récupération.
+          <div className="text-center mb-10">
+            <SectionLabel variant="slate">Guide marathon</SectionLabel>
+            <h2 className="text-3xl md:text-4xl font-black text-slate-900 mb-4">
+              Comment préparer un marathon ?
+            </h2>
+            <p className="text-lg text-slate-500 max-w-2xl mx-auto">
+              Le marathon est l'épreuve reine de la course à pied. Une préparation structurée de 12 à 20 semaines est indispensable : sorties longues, allure spécifique, seuil et récupération.
             </p>
+          </div>
 
-            <h3 className="text-xl font-bold text-slate-900 mt-8 mb-4">Durée idéale du plan marathon</h3>
-            <p className="text-slate-600 mb-4">
-              Pour un <strong>premier marathon</strong>, prévoyez 16 à 20 semaines. Les coureurs <strong>expérimentés</strong> peuvent opter pour 12 à 16 semaines de préparation spécifique. Coach Running IA adapte la durée de votre programme marathon en fonction de votre expérience, votre VMA et vos disponibilités.
-            </p>
+          <div className="grid gap-5">
+            <div className="bg-white border-l-4 border-orange-500 rounded-xl p-6 shadow-sm hover:shadow-md transition-shadow">
+              <div className="flex items-start gap-4">
+                <div className="flex items-center justify-center w-8 h-8 bg-orange-100 rounded-full text-orange-600 font-bold text-sm shrink-0">1</div>
+                <div>
+                  <h3 className="text-lg font-bold text-slate-900 mb-2">Durée idéale du plan marathon</h3>
+                  <p className="text-slate-600">Pour un <strong>premier marathon</strong>, prévoyez 16 à 20 semaines. Les coureurs <strong>expérimentés</strong> peuvent opter pour 12 à 16 semaines. Coach Running IA adapte la durée en fonction de votre expérience, VMA et disponibilités.</p>
+                </div>
+              </div>
+            </div>
 
-            <h3 className="text-xl font-bold text-slate-900 mt-8 mb-4">Les piliers d'un bon plan entraînement marathon</h3>
-            <ul className="text-slate-600 space-y-2 mb-6">
-              <li><strong>La sortie longue</strong> : jusqu'à 30-35 km, pierre angulaire de la préparation marathon</li>
-              <li><strong>L'allure marathon</strong> : séances à votre allure cible pour mémoriser le rythme</li>
-              <li><strong>Le seuil</strong> : améliorer votre capacité à tenir un effort prolongé</li>
-              <li><strong>La récupération</strong> : footings lents et jours off pour assimiler la charge</li>
-              <li><strong>Le renforcement musculaire</strong> : gainage, squats et exercices spécifiques pour prévenir les blessures</li>
-            </ul>
+            <div className="bg-white border-l-4 border-orange-500 rounded-xl p-6 shadow-sm hover:shadow-md transition-shadow">
+              <div className="flex items-start gap-4">
+                <div className="flex items-center justify-center w-8 h-8 bg-orange-100 rounded-full text-orange-600 font-bold text-sm shrink-0">2</div>
+                <div>
+                  <h3 className="text-lg font-bold text-slate-900 mb-3">Les piliers d'un bon plan marathon</h3>
+                  <ul className="space-y-2 text-slate-600">
+                    <li className="flex items-start gap-2"><span className="text-orange-500 font-bold mt-0.5">→</span><span><strong>La sortie longue</strong> : jusqu'à 30-35 km, pierre angulaire de la préparation</span></li>
+                    <li className="flex items-start gap-2"><span className="text-orange-500 font-bold mt-0.5">→</span><span><strong>L'allure marathon</strong> : séances à votre allure cible pour mémoriser le rythme</span></li>
+                    <li className="flex items-start gap-2"><span className="text-orange-500 font-bold mt-0.5">→</span><span><strong>Le seuil</strong> : améliorer votre capacité à tenir un effort prolongé</span></li>
+                    <li className="flex items-start gap-2"><span className="text-orange-500 font-bold mt-0.5">→</span><span><strong>La récupération</strong> : footings lents et jours off pour assimiler la charge</span></li>
+                    <li className="flex items-start gap-2"><span className="text-orange-500 font-bold mt-0.5">→</span><span><strong>Le renforcement musculaire</strong> : gainage, squats et exercices spécifiques</span></li>
+                  </ul>
+                </div>
+              </div>
+            </div>
 
-            <h3 className="text-xl font-bold text-slate-900 mt-8 mb-4">Temps de passage réalistes au marathon</h3>
-            <p className="text-slate-600 mb-4">
-              Les temps ci-dessous reflètent la réalité de la majorité des coureurs. Utilisez notre <Link to="/outils/allure-marathon" className="text-accent hover:underline font-medium">calculateur d'allure marathon</Link> pour estimer votre allure cible.
-            </p>
-            <ul className="text-slate-600 space-y-2 mb-6">
-              <li><strong>4h30 - 5h00</strong> : allure de 6'24" à 7'07"/km - la majorité des premiers marathoniens. Finir est déjà un exploit.</li>
-              <li><strong>4h00 - 4h30</strong> : allure de 5'41" à 6'24"/km - coureurs réguliers avec 1 à 2 ans de pratique et une préparation sérieuse de 16+ semaines.</li>
-              <li><strong>3h30 - 4h00</strong> : allure de 4'59" à 5'41"/km - coureurs expérimentés qui s'entraînent 4 à 5 fois par semaine depuis plusieurs années.</li>
-              <li><strong>Moins de 3h30</strong> : allure sous 4'59"/km - niveau compétiteur, nécessite plusieurs années d'entraînement structuré et un volume élevé (60-80+ km/semaine).</li>
-            </ul>
+            <div className="bg-white border-l-4 border-orange-500 rounded-xl p-6 shadow-sm hover:shadow-md transition-shadow">
+              <div className="flex items-start gap-4">
+                <div className="flex items-center justify-center w-8 h-8 bg-orange-100 rounded-full text-orange-600 font-bold text-sm shrink-0">3</div>
+                <div>
+                  <h3 className="text-lg font-bold text-slate-900 mb-2">Temps de passage réalistes au marathon</h3>
+                  <p className="text-slate-600 mb-3">Utilisez notre <Link to="/outils/allure-marathon" className="text-orange-500 hover:underline font-medium">calculateur d'allure marathon</Link> pour estimer votre pace.</p>
+                  <ul className="space-y-2 text-slate-600">
+                    <li className="flex items-start gap-2"><span className="text-orange-500 font-bold mt-0.5">→</span><span><strong>4h30 - 5h00</strong> : 6'24" à 7'07"/km — la majorité des premiers marathoniens</span></li>
+                    <li className="flex items-start gap-2"><span className="text-orange-500 font-bold mt-0.5">→</span><span><strong>4h00 - 4h30</strong> : 5'41" à 6'24"/km — coureurs réguliers, 1-2 ans de pratique</span></li>
+                    <li className="flex items-start gap-2"><span className="text-orange-500 font-bold mt-0.5">→</span><span><strong>3h30 - 4h00</strong> : 4'59" à 5'41"/km — coureurs expérimentés, 4-5x/semaine</span></li>
+                    <li className="flex items-start gap-2"><span className="text-orange-500 font-bold mt-0.5">→</span><span><strong>Moins de 3h30</strong> : sous 4'59"/km — niveau compétiteur, 60-80+ km/semaine</span></li>
+                  </ul>
+                </div>
+              </div>
+            </div>
 
-            <h3 className="text-xl font-bold text-slate-900 mt-8 mb-4">Les erreurs à éviter dans sa préparation marathon</h3>
-            <p className="text-slate-600 mb-4">
-              La plupart des abandons et contre-performances au marathon viennent d'erreurs de préparation :
-            </p>
-            <ul className="text-slate-600 space-y-2 mb-6">
-              <li><strong>Augmenter le volume trop vite</strong> : respectez la règle des 10% maximum par semaine</li>
-              <li><strong>Négliger la récupération</strong> : les jours de repos font partie de l'entraînement</li>
-              <li><strong>Partir trop vite le jour J</strong> : les premiers kilomètres doivent être courus en retenue</li>
-              <li><strong>Ignorer la nutrition</strong> : testez votre stratégie de ravitaillement à l'entraînement</li>
-            </ul>
+            <div className="bg-white border-l-4 border-orange-500 rounded-xl p-6 shadow-sm hover:shadow-md transition-shadow">
+              <div className="flex items-start gap-4">
+                <div className="flex items-center justify-center w-8 h-8 bg-orange-100 rounded-full text-orange-600 font-bold text-sm shrink-0">4</div>
+                <div>
+                  <h3 className="text-lg font-bold text-slate-900 mb-3">Les erreurs à éviter en préparation marathon</h3>
+                  <ul className="space-y-2 text-slate-600">
+                    <li className="flex items-start gap-2"><span className="text-orange-500 font-bold mt-0.5">→</span><span><strong>Augmenter le volume trop vite</strong> : respectez la règle des 10% max/semaine</span></li>
+                    <li className="flex items-start gap-2"><span className="text-orange-500 font-bold mt-0.5">→</span><span><strong>Négliger la récupération</strong> : les jours de repos font partie de l'entraînement</span></li>
+                    <li className="flex items-start gap-2"><span className="text-orange-500 font-bold mt-0.5">→</span><span><strong>Partir trop vite le jour J</strong> : les premiers kilomètres doivent être courus en retenue</span></li>
+                    <li className="flex items-start gap-2"><span className="text-orange-500 font-bold mt-0.5">→</span><span><strong>Ignorer la nutrition</strong> : testez votre stratégie de ravitaillement à l'entraînement</span></li>
+                  </ul>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </section>
@@ -337,42 +364,11 @@ const MarathonLanding: React.FC<MarathonLandingProps> = ({ user, onPlanGeneratio
         </div>
       </section>
 
-      {/* SECTION: CONNECTE A STRAVA */}
-      <section className="py-16 md:py-24 bg-slate-50">
-        <div className="max-w-5xl mx-auto px-4">
-          <div className="text-center mb-12">
-            <div className="flex items-center justify-center gap-3 mb-4">
-              <h2 className="text-3xl md:text-4xl font-black tracking-tight text-slate-900">
-                Connecté à <span className="text-[#FC4C02]">Strava</span>
-              </h2>
-              <svg className="w-8 h-8 text-[#FC4C02]" viewBox="0 0 24 24" fill="currentColor" aria-label="Logo Strava"><path d="M15.387 17.944l-2.089-4.116h-3.065L15.387 24l5.15-10.172h-3.066m-7.008-5.599l2.836 5.598h4.172L10.463 0l-7 13.828h4.169"/></svg>
-            </div>
-            <p className="text-slate-500 max-w-2xl mx-auto text-lg">
-              Partenaire officiel — vos données au service de votre progression
-            </p>
-          </div>
+      {/* STRAVA */}
+      <StravaSection discipline="marathon" />
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {[
-              { title: "Connexion en 1 clic", desc: "Reliez votre compte Strava depuis votre espace Coach Running IA" },
-              { title: "Vos données accessibles", desc: "Historique de courses, distances, allures, fréquence cardiaque importés automatiquement" },
-              { title: "Plans plus adaptés", desc: "L'IA analyse vos performances réelles pour ajuster votre programme marathon" },
-              { title: "Analyse mensuelle", desc: "Bilan automatique de vos sorties Strava avec recommandations personnalisées" },
-            ].map(({ title, desc }) => (
-              <div key={title} className="rounded-2xl p-6 bg-orange-50/50 border border-orange-100 text-center hover:shadow-md hover:border-orange-200 transition-all duration-300">
-                <h3 className="font-bold text-slate-800 mb-2">{title}</h3>
-                <p className="text-slate-500 text-sm leading-relaxed">{desc}</p>
-              </div>
-            ))}
-          </div>
-
-          <div className="mt-10 flex items-center justify-center gap-3">
-            <span className="text-sm text-slate-400">Compatible with</span>
-            <svg className="w-6 h-6 text-[#FC4C02]" viewBox="0 0 24 24" fill="currentColor" aria-label="Logo Strava"><path d="M15.387 17.944l-2.089-4.116h-3.065L15.387 24l5.15-10.172h-3.066m-7.008-5.599l2.836 5.598h4.172L10.463 0l-7 13.828h4.169"/></svg>
-            <span className="text-sm font-bold text-[#FC4C02]">Strava</span>
-          </div>
-        </div>
-      </section>
+      {/* PRICING */}
+      <PricingPreview />
 
       {/* CTA FINAL */}
       <section className="py-16 md:py-24 bg-gradient-to-br from-slate-900 to-slate-800 text-white">

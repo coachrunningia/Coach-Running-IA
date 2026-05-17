@@ -33,5 +33,17 @@ service cloud.firestore {
     match /admin/{document=**} {
       allow read, write: if request.auth != null && request.auth.token.email == "programme@coachrunningia.fr";
     }
+
+    // generation_errors — debug : tout user authentifié peut écrire son propre log d'erreur
+    match /generation_errors/{docId} {
+      allow read: if request.auth != null && request.auth.token.email == "programme@coachrunningia.fr";
+      allow create: if request.auth != null;
+    }
+
+    // plan_deletions — trace des suppressions de plan par l'utilisateur
+    match /plan_deletions/{docId} {
+      allow read: if request.auth != null && request.auth.token.email == "programme@coachrunningia.fr";
+      allow create: if request.auth != null;
+    }
   }
 }

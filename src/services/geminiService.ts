@@ -4,6 +4,7 @@ import { QuestionnaireData, TrainingPlan, GenerationContext, PeriodizationPhase 
 import { calculateFeasibility } from './feasibilityService';
 import { buildRenfoMainSet } from './renfoService';
 import { buildFootingVariant, detectFootingFlags } from './footingVariants';
+import { parseDurationMin, parseKm, calculateWeekTargetElevation } from './planUtils';
 
 // --- UTILITAIRES DE CALCUL DES ALLURES ---
 
@@ -20,7 +21,24 @@ const timeToSeconds = (time: string, contextDistance?: number): number => {
   if (hMatch) {
     const hours = parseInt(hMatch[1]);
     const mins = hMatch[2] ? parseInt(hMatch[2]) : 0;
-    return hours * 3600 + mins * 60;
+    const asHours = hours * 3600 + mins * 60;
+    // Garde-fou : si le résultat en heures est physiquement absurde vu la distance,
+    // l'utilisateur a probablement écrit "MMmSS" en utilisant "h" comme séparateur
+    // (ex: "50h54" pour un 10 km = 50 min 54 s, PAS 50 heures).
+    if (contextDistance) {
+      const maxPlausibleSec =
+        contextDistance <= 5 ? 90 * 60 :        // 5 km : max 1h30
+        contextDistance <= 10 ? 150 * 60 :      // 10 km : max 2h30
+        contextDistance <= 21.5 ? 4 * 3600 :    // semi : max 4h
+        contextDistance <= 43 ? 8 * 3600 :      // marathon : max 8h
+        Math.max(30, contextDistance * 0.5) * 3600; // ultras : ~30 min/km max
+      if (asHours > maxPlausibleSec) {
+        const asMinSec = hours * 60 + mins;
+        console.warn(`[timeToSeconds] "${time}" interprété "${hours}h${mins}min"=${asHours}s implausible pour ${contextDistance}km — réinterprété "${hours}min${mins}s" = ${asMinSec}s`);
+        return asMinSec;
+      }
+    }
+    return asHours;
   }
 
   // Format "XX min" ou "XXmin" (ex: 58 min, 58min)
@@ -604,7 +622,7 @@ const recalculateSessionDistance = (session: any): void => {
 
   // Calculer la distance correcte
   const calculatedKm = durationMinutes / paceMinPerKm;
-  const currentKm = parseFloat((session.distance || '0').toString().replace(/[^0-9.,]/g, '').replace(',', '.'));
+  const currentKm = parseKm(session.distance);
 
   // Patch D: tolérance abaissée 20% → 10% pour forcer la cohérence dist × pace = duration
   // (les écarts >10% étaient massifs sur les plans audités, jusqu'à +78%)
@@ -681,32 +699,10 @@ const postProcessWeekQuality = (
     });
   }
 
-  // Détection de séances monotones : si 2+ footings ont un titre quasi-identique, varier
-  const joggingSessions = week.sessions.filter((s: any) => s.type === 'Jogging' && s.title);
-  if (joggingSessions.length >= 2 && pacesObj) {
-    const normalize = (t: string) => t.toLowerCase().replace(/['']/g, "'").replace(/\s+/g, ' ').trim();
-    const seen = new Map<string, number>();
-    const isTrailPlan = planGoal === 'Trail';
-    const variants = [
-      { title: 'Footing Progressif', mainSet: (dur: number) => `${dur - 10} min en commençant à ${pacesObj.recoveryPace} min/km, accélérer progressivement pour finir les 10 dernières minutes à ${pacesObj.efPace} min/km.` },
-      isTrailPlan
-        ? { title: 'Footing Vallonné', mainSet: (dur: number) => `${dur} min sur terrain vallonné en aisance respiratoire (${pacesObj.efPace} min/km), en intégrant des côtes légères sans forcer.` }
-        : { title: 'Footing en Aisance', mainSet: (dur: number) => `${dur} min en endurance fondamentale (${pacesObj.efPace} min/km), en variant le rythme : 5 min légèrement plus lent, 5 min à allure EF. Focus sur le relâchement et la respiration.` },
-      { title: 'Footing Technique', mainSet: (dur: number) => `${dur} min en EF (${pacesObj.efPace} min/km) avec focus technique : cadence 170-180 pas/min, posture haute, foulée médio-pied.` },
-    ];
-    let variantIdx = 0;
-    joggingSessions.forEach((s: any) => {
-      const key = normalize(s.title);
-      seen.set(key, (seen.get(key) || 0) + 1);
-      if ((seen.get(key) || 0) > 1 && variantIdx < variants.length) {
-        const v = variants[variantIdx++];
-        const dur = Math.max(parseDurationMin(s.duration) - 15, 30);
-        console.log(`[PostProcess] Dedup footing: "${s.title}" → "${v.title}"`);
-        s.title = v.title;
-        s.mainSet = v.mainSet(dur);
-      }
-    });
-  }
+  // La diversification des footings est gérée par footingVariants.ts (injecté avant
+  // postProcess). Pas de dédup ici : l'ancien bloc réécrivait titre + mainSet sans
+  // toucher warmup/cooldown/advice, ce qui créait des séances incohérentes sur les
+  // profils contraints (une seule variante éligible → 2 titres identiques → dédup).
 
   week.sessions.forEach((session: any) => {
     // Tutoiement : appliquer à TOUTES les séances (y compris Renforcement)
@@ -900,6 +896,128 @@ const MAX_SESSION_KM: Record<string, Record<string, number>> = {
   'Maintien':  { deb: 10, inter: 15, conf: 17, expert: 18 },
 };
 
+
+/** True si l'utilisateur n'a pas saisi de chrono cible (mode Finisher) */
+export const isFinisherTarget = (t?: string): boolean => {
+  const trimmed = (t || '').trim();
+  if (!trimmed) return true;
+  if (/^finisher$/i.test(trimmed)) return true;
+  return !/\d/.test(trimmed);
+};
+
+/** Convertit un label niveau libre en clé canonique. Tolère casse, accents, espaces. */
+const labelToLevelKey = (label?: string): 'deb' | 'inter' | 'conf' | 'expert' => {
+  const l = (label || '').toLowerCase();
+  if (l.includes('débutant') || l.includes('debutant')) return 'deb';
+  if (l.includes('expert') || l.includes('performance')) return 'expert';
+  if (l.includes('confirmé') || l.includes('confirme') || l.includes('compétition')) return 'conf';
+  return 'inter';
+};
+
+/** Mapping inverse : clé → label canonique pour affichage / passage aux fonctions qui attendent un label complet */
+const LEVEL_LABEL: Record<'deb' | 'inter' | 'conf' | 'expert', string> = {
+  deb: 'Débutant (0-1 an)',
+  inter: 'Intermédiaire (Régulier)',
+  conf: 'Confirmé (Compétition)',
+  expert: 'Expert (Performance)',
+};
+
+/**
+ * Garantit que la Sortie Longue de la semaine est placée sur le jour préféré.
+ * Détection SL élargie (type, titre, durée) pour attraper les SL mistypées.
+ * Si la SL est sur le mauvais jour, swap avec la séance qui occupe le jour cible.
+ * Idempotent : safe à appeler plusieurs fois.
+ *
+ * PATCH 2026-05-16 : dédup si plusieurs séances étiquetées "Sortie Longue" dans la même semaine.
+ * Cas Clément : Mardi 12.2km SL + Dimanche 7.5km SL → garde la plus longue (12.2km) comme SL officielle,
+ * retype les autres en Jogging avec flag _dedupedFromSL.
+ */
+const enforceSLDay = (week: any, preferredLongRunDay: string, logPrefix = ''): boolean => {
+  if (!week?.sessions || !Array.isArray(week.sessions)) return false;
+
+  // 1. Trouve TOUTES les séances étiquetées Sortie Longue
+  const allSL = week.sessions.filter((s: any) =>
+    s.type === 'Sortie Longue' ||
+    /sortie\s*longue|long\s*run/i.test(s.title || '')
+  );
+
+  if (allSL.length === 0) return false;
+
+  // 2. Dédup si > 1 : garde la plus longue (distance, sinon durée)
+  let officialSL: any;
+  if (allSL.length > 1) {
+    officialSL = [...allSL].sort((a: any, b: any) => {
+      const da = parseKm(a.distance);
+      const db = parseKm(b.distance);
+      if (db !== da) return db - da;
+      return parseDurationMin(b.duration) - parseDurationMin(a.duration);
+    })[0];
+    for (const other of allSL) {
+      if (other === officialSL) continue;
+      console.log(`${logPrefix}S${week.weekNumber} Dédup SL: "${other.title || other.type}" (${other.distance || '?'}) retypé Jogging`);
+      other.type = 'Jogging';
+      other.title = (other.title || '').replace(/Sortie\s*Longue|Long\s*Run/gi, 'Footing').trim() || 'Footing';
+      other._dedupedFromSL = true;
+    }
+  } else {
+    officialSL = allSL[0];
+  }
+
+  // 3. Déjà sur le bon jour ? rien à faire
+  if (officialSL.day === preferredLongRunDay) return true;
+
+  // 4. Swap avec occupant
+  const occupant = week.sessions.find((s: any) => s.day === preferredLongRunDay && s !== officialSL);
+  if (occupant) {
+    console.log(`${logPrefix}S${week.weekNumber} Swap SL: "${officialSL.day}" ↔ "${occupant.day}" (${occupant.title || occupant.type})`);
+    occupant.day = officialSL.day;
+  }
+  console.log(`${logPrefix}S${week.weekNumber} SL forcée sur ${preferredLongRunDay}`);
+  officialSL.day = preferredLongRunDay;
+  return true;
+};
+
+/**
+ * Aligne l'allure spécifique de la course (5k/10k/semi/marathon) sur le CHRONO CIBLE saisi.
+ * DOCTRINE PRODUIT : le plan respecte la cible chrono user, même si ambitieuse.
+ * Signal d'irréalisme porté par score+welcome, pas par l'allure.
+ *
+ * SAFEGUARD : si cible > 98% VMA pure → physiologiquement infaisable → garde allure potentiel.
+ * (Évite des allures dégénérées pour des cibles impossibles ; warning porté ailleurs.)
+ *
+ * Remplace l'ancien `if (targetPaceSec > currentPaceSec)` asymétrique qui ne fonctionnait
+ * que pour les cibles plus LENTES que le potentiel VMA (bug Clément : cible 5:41 < potentiel 5:49
+ * → l'override ne se déclenchait pas → plan préparait 2h02 au lieu de 2h00).
+ */
+const applyTargetTimeOverride = (paces: TrainingPaces, data: QuestionnaireData, vma: number): void => {
+  if (!data.targetTime || !data.subGoal) return;
+  // Normalisation : couvre les formats legacy 'Semi-marathon' (m minuscule) potentiels
+  const normalizedSubGoal = data.subGoal.toLowerCase().replace(/\s+/g, ' ').trim();
+  const raceDistMap: Record<string, { dist: number; paceKey: keyof TrainingPaces }> = {
+    '5 km': { dist: 5, paceKey: 'allureSpecifique5k' },
+    '10 km': { dist: 10, paceKey: 'allureSpecifique10k' },
+    'semi-marathon': { dist: 21.1, paceKey: 'allureSpecifiqueSemi' },
+    'marathon': { dist: 42.195, paceKey: 'allureSpecifiqueMarathon' },
+  };
+  const info = raceDistMap[normalizedSubGoal];
+  if (!info) return;
+  const targetSec = timeToSeconds(data.targetTime, info.dist);
+  if (targetSec === 0) return;
+  const targetPaceSec = targetSec / info.dist;
+  // DOCTRINE PRODUIT : l'allure suit TOUJOURS la cible chrono du user, sans plafond.
+  // Le signal d'irréalisme est porté UNIQUEMENT par feasibility.score + welcome message.
+  // Pas de safeguard ici qui modifierait silencieusement l'allure — ce serait trahir l'input user.
+  const targetPaceStr = secondsToPace(targetPaceSec);
+  const previous = paces[info.paceKey] as string;
+  if (previous !== targetPaceStr) {
+    const vmaPaceSec = 3600 / vma;
+    const ratio = vmaPaceSec / targetPaceSec;
+    const ratioInfo = ratio > 1 ? ` (cible = ${(ratio * 100).toFixed(0)}% VMA, ambitieux)` : '';
+    console.log(`[Paces] Allure spé ${data.subGoal} : ${previous} → ${targetPaceStr} (cible ${data.targetTime})${ratioInfo}`);
+    (paces as any)[info.paceKey] = targetPaceStr;
+  }
+};
+
 /** Max durée SL en minutes selon objectif × niveau */
 const MAX_SL_DURATION: Record<string, Record<string, number>> = {
   '5K':        { deb: 50, inter: 60, conf: 70, expert: 75 },
@@ -997,14 +1115,45 @@ const detectObjectiveFromData = (data: any): string => {
   return '10K';
 };
 
-/** Détecte le niveau normalisé — avec override VMA si incohérence flagrante */
+/** Seuils minutes pour classification niveau par chrono — [deb_max, inter_max, conf_max] (expert si <=) */
+const CHRONO_LEVEL_THRESHOLDS = {
+  '10K': { M: [50, 42, 36], F: [60, 50, 42] },
+  '5K':  { M: [30, 25, 21], F: [35, 30, 25] },
+} as const;
+
+const LEVEL_RANK: Record<string, number> = { deb: 0, inter: 1, conf: 2, expert: 3 };
+const LEVEL_NAMES = ['deb', 'inter', 'conf', 'expert'] as const;
+
+function classifyByChrono(seconds: number, dist: '10K' | '5K', isFemale: boolean): string {
+  const min = seconds / 60;
+  const T = CHRONO_LEVEL_THRESHOLDS[dist][isFemale ? 'F' : 'M'];
+  if (min > T[0]) return 'deb';
+  if (min > T[1]) return 'inter';
+  if (min > T[2]) return 'conf';
+  return 'expert';
+}
+
+/** Détecte le niveau normalisé — chronos > VMA > déclaratif (avec override sécurité à la baisse) */
 export const detectLevelFromData = (data: any): string => {
-  const level = (data.level || '').toLowerCase();
-  let declared: string;
-  if (level.includes('débutant') || level.includes('debutant')) declared = 'deb';
-  else if (level.includes('expert') || level.includes('performance')) declared = 'expert';
-  else if (level.includes('confirmé') || level.includes('confirme') || level.includes('compétition')) declared = 'conf';
-  else declared = 'inter';
+  const declared = labelToLevelKey(data.level);
+
+  // === Override CHRONO : les chronos saisis priment sur déclaratif + VMA estimée ===
+  const isFemale = data.sex === 'Femme';
+  const c5kSec  = data.recentRaceTimes?.distance5km  ? timeToSeconds(data.recentRaceTimes.distance5km, 5)   : 0;
+  const c10kSec = data.recentRaceTimes?.distance10km ? timeToSeconds(data.recentRaceTimes.distance10km, 10) : 0;
+
+  const chronoLevels: string[] = [];
+  if (c5kSec > 0)  chronoLevels.push(classifyByChrono(c5kSec, '5K', isFemale));
+  if (c10kSec > 0) chronoLevels.push(classifyByChrono(c10kSec, '10K', isFemale));
+
+  if (chronoLevels.length > 0) {
+    const minRank = Math.min(...chronoLevels.map(l => LEVEL_RANK[l]));
+    const chronoLevel = LEVEL_NAMES[minRank];
+    if (LEVEL_RANK[chronoLevel] < LEVEL_RANK[declared]) {
+      console.log(`[Enforce] Chrono override: declared="${declared}" but chronos imply "${chronoLevel}" (5k=${data.recentRaceTimes?.distance5km||'-'}, 10k=${data.recentRaceTimes?.distance10km||'-'}, ${data.sex||'?'})`);
+      return chronoLevel;
+    }
+  }
 
   // Override par VMA si incohérence flagrante
   // Seuils DIFFÉRENCIÉS par sexe : les femmes ont ~10% de VMA en moins à niveau égal
@@ -1043,6 +1192,23 @@ export const detectLevelFromData = (data: any): string => {
   }
 
   return declared;
+};
+
+/**
+ * Niveau EFFECTIF sous forme de chaîne, prêt à l'emploi.
+ * Croise le niveau déclaré avec la VMA — elle-même issue des chronos passés
+ * quand ils existent (voir getBestVMAEstimate). Les chronos priment donc
+ * toujours sur le déclaratif. À utiliser partout où le contenu est calibré sur
+ * le niveau : renfo, prompt de génération, faisabilité.
+ */
+export const getEffectiveLevel = (data: any): string => {
+  const map: Record<string, string> = {
+    deb: 'Débutant (0-1 an)',
+    inter: 'Intermédiaire (Régulier)',
+    conf: 'Confirmé (Compétition)',
+    expert: 'Expert (Performance)',
+  };
+  return map[detectLevelFromData(data)] || data.level || 'Intermédiaire (Régulier)';
 };
 
 /** Format durée en string */
@@ -1098,7 +1264,7 @@ export const enforceWeekConstraints = (
       if (dur > maxSlDur) {
         const factor = maxSlDur / dur;
         s.duration = formatDurationStr(maxSlDur);
-        const km = parseFloat((s.distance || '0').toString().replace(/[^0-9.,]/g, '').replace(',', '.'));
+        const km = parseKm(s.distance);
         if (km > 0) s.distance = `${Math.round(km * factor * 10) / 10} km`;
         console.log(`[Enforce] SL capped: ${dur}min → ${maxSlDur}min [${objective} ${level}]`);
       }
@@ -1131,7 +1297,7 @@ export const enforceWeekConstraints = (
       s.type === 'Sortie Longue' || /sortie\s*longue/i.test(s.type || '') || /sortie\s*longue/i.test(s.title || '')
     );
     if (slInWeek) {
-      const slKm = parseFloat((slInWeek.distance || '0').toString().replace(/[^0-9.,]/g, '').replace(',', '.'));
+      const slKm = parseKm(slInWeek.distance);
       // Ne booste la SL que si on est en phase spécifique ou pic (pas en fondamental S1)
       const isLatePhase = ['specifique', 'spécifique', 'developpement', 'développement'].includes((week.phase || '').toLowerCase());
       if (slKm > 0 && slKm < minSLKm && isLatePhase) {
@@ -1162,7 +1328,7 @@ export const enforceWeekConstraints = (
       if (dur > maxNonSlDur) {
         const factor = maxNonSlDur / dur;
         s.duration = formatDurationStr(maxNonSlDur);
-        const km = parseFloat((s.distance || '0').toString().replace(/[^0-9.,]/g, '').replace(',', '.'));
+        const km = parseKm(s.distance);
         if (km > 0) s.distance = `${Math.round(km * factor * 10) / 10} km`;
         console.log(`[Enforce] Non-SL duration capped: ${dur}min → ${maxNonSlDur}min (${s.type}) [${objective} ${level}]`);
       }
@@ -1187,11 +1353,11 @@ export const enforceWeekConstraints = (
 
     if (slSession && runningSessions.length > 1) {
       const slDur = parseDurationMin(slSession.duration);
-      const slKm = parseFloat((slSession.distance || '0').toString().replace(/[^0-9.,]/g, '').replace(',', '.'));
+      const slKm = parseKm(slSession.distance);
 
       // Calculate total weekly running volume
       const totalKm = runningSessions.reduce((sum: number, s: any) => {
-        const km = parseFloat((s.distance || '0').toString().replace(/[^0-9.,]/g, '').replace(',', '.'));
+        const km = parseKm(s.distance);
         return sum + km;
       }, 0);
 
@@ -1203,7 +1369,7 @@ export const enforceWeekConstraints = (
         const deficit = targetSlKm - slKm;
         const otherRunningSessions = runningSessions.filter((s: any) => s !== slSession);
         const otherTotalKm = otherRunningSessions.reduce((sum: number, s: any) => {
-          const km = parseFloat((s.distance || '0').toString().replace(/[^0-9.,]/g, '').replace(',', '.'));
+          const km = parseKm(s.distance);
           return sum + km;
         }, 0);
 
@@ -1212,7 +1378,7 @@ export const enforceWeekConstraints = (
           const reductionFactor = (otherTotalKm - deficit) / otherTotalKm;
           if (reductionFactor >= 0.65) { // Don't reduce others by more than 35%
             otherRunningSessions.forEach((s: any) => {
-              const km = parseFloat((s.distance || '0').toString().replace(/[^0-9.,]/g, '').replace(',', '.'));
+              const km = parseKm(s.distance);
               if (km > 0) {
                 const newKm = Math.round(km * reductionFactor * 10) / 10;
                 const dur = parseDurationMin(s.duration);
@@ -1253,7 +1419,7 @@ export const enforceWeekConstraints = (
         if (finalDur > currentSlDur) {
           const factor = finalDur / currentSlDur;
           slSession.duration = formatDurationStr(finalDur);
-          const km = parseFloat((slSession.distance || '0').toString().replace(/[^0-9.,]/g, '').replace(',', '.'));
+          const km = parseKm(slSession.distance);
           if (km > 0) slSession.distance = `${Math.round(km * factor * 10) / 10} km`;
           console.log(`[Enforce] SL must be longest: ${currentSlDur}min → ${finalDur}min [${objective} ${level}]`);
         }
@@ -1267,7 +1433,7 @@ export const enforceWeekConstraints = (
     const maxKm = sessionRules[level] || sessionRules.inter;
     week.sessions.forEach((s: any) => {
       if (s.type === 'Renforcement' || s.type === 'Repos') return;
-      const km = parseFloat((s.distance || '0').toString().replace(/[^0-9.,]/g, '').replace(',', '.'));
+      const km = parseKm(s.distance);
       if (km > maxKm) {
         const factor = maxKm / km;
         s.distance = `${maxKm} km`;
@@ -1356,13 +1522,13 @@ export const enforceWeekConstraints = (
     const absMaxVolume = volumeRules[level] || volumeRules.inter;
     const runSess = week.sessions.filter((s: any) => s.type !== 'Renforcement' && s.type !== 'Repos');
     const currVol = runSess.reduce((sum: number, s: any) => {
-      const km = parseFloat((s.distance || '0').toString().replace(/[^0-9.,]/g, '').replace(',', '.'));
+      const km = parseKm(s.distance);
       return sum + (km > 0 ? km : 0);
     }, 0);
     if (currVol > absMaxVolume && currVol > 0) {
       const factor = absMaxVolume / currVol;
       runSess.forEach((s: any) => {
-        const km = parseFloat((s.distance || '0').toString().replace(/[^0-9.,]/g, '').replace(',', '.'));
+        const km = parseKm(s.distance);
         if (km > 0) {
           s.distance = `${Math.round(km * factor * 10) / 10} km`;
           const dur = parseDurationMin(s.duration);
@@ -1378,7 +1544,7 @@ export const enforceWeekConstraints = (
   const isWalkRun = (s: any) => /marche.*course|course.*marche|walk.*run/i.test(s.title || '');
   const runSessions = week.sessions.filter((s: any) => s.type !== 'Renforcement' && s.type !== 'Repos');
   const currentVolume = runSessions.reduce((sum: number, s: any) => {
-    const km = parseFloat((s.distance || '0').toString().replace(/[^0-9.,]/g, '').replace(',', '.'));
+    const km = parseKm(s.distance);
     return sum + (km > 0 ? km : 0);
   }, 0);
 
@@ -1388,7 +1554,7 @@ export const enforceWeekConstraints = (
   if (currentVolume > targetVolume * 1.10) {
     const factor = targetVolume / currentVolume;
     runSessions.forEach((s: any) => {
-      const km = parseFloat((s.distance || '0').toString().replace(/[^0-9.,]/g, '').replace(',', '.'));
+      const km = parseKm(s.distance);
       if (km > 0) {
         s.distance = `${Math.round(km * factor * 10) / 10} km`;
         const dur = parseDurationMin(s.duration);
@@ -1406,7 +1572,7 @@ export const enforceWeekConstraints = (
 
     const factor = targetVolume / currentVolume;
     runSessions.forEach((s: any) => {
-      const km = parseFloat((s.distance || '0').toString().replace(/[^0-9.,]/g, '').replace(',', '.'));
+      const km = parseKm(s.distance);
       if (km > 0) {
         // Marche/course : scale-up limité (×1.3 max, durée max 50min)
         const sessionFactor = isWalkRun(s) ? Math.min(factor, 1.3) : factor;
@@ -1441,7 +1607,7 @@ export const enforceWeekConstraints = (
   const finalRunSessions = week.sessions.filter((s: any) => s.type !== 'Renforcement' && s.type !== 'Repos');
   if (finalRunSessions.length >= 3) {
     const finalVol = finalRunSessions.reduce((sum: number, s: any) => {
-      const km = parseFloat((s.distance || '0').toString().replace(/[^0-9.,]/g, '').replace(',', '.'));
+      const km = parseKm(s.distance);
       return sum + (km > 0 ? km : 0);
     }, 0);
     const avgKm = finalVol / finalRunSessions.length;
@@ -1449,8 +1615,8 @@ export const enforceWeekConstraints = (
     if (avgKm < MIN_AVG_KM_PER_SESSION && finalRunSessions.length > 2) {
       // Trier par distance croissante pour convertir les plus courtes
       const sorted = [...finalRunSessions].sort((a: any, b: any) => {
-        const kmA = parseFloat((a.distance || '0').toString().replace(/[^0-9.,]/g, '').replace(',', '.'));
-        const kmB = parseFloat((b.distance || '0').toString().replace(/[^0-9.,]/g, '').replace(',', '.'));
+        const kmA = parseKm(a.distance);
+        const kmB = parseKm(b.distance);
         return kmA - kmB;
       });
 
@@ -1461,7 +1627,7 @@ export const enforceWeekConstraints = (
       let testVol = finalVol;
       for (const s of sorted) {
         if (testRunCount <= 2) break;
-        const km = parseFloat((s.distance || '0').toString().replace(/[^0-9.,]/g, '').replace(',', '.'));
+        const km = parseKm(s.distance);
         testVol -= km;
         testRunCount--;
         sessionsToConvert++;
@@ -1473,7 +1639,7 @@ export const enforceWeekConstraints = (
         let freedKm = 0;
         for (let i = 0; i < sessionsToConvert; i++) {
           const s = sorted[i];
-          const km = parseFloat((s.distance || '0').toString().replace(/[^0-9.,]/g, '').replace(',', '.'));
+          const km = parseKm(s.distance);
           freedKm += km;
           // Convertir en Repos actif
           s.type = 'Repos';
@@ -1496,12 +1662,12 @@ export const enforceWeekConstraints = (
             s.type !== 'Renforcement' && s.type !== 'Repos'
           );
           const keepVol = keepSessions.reduce((sum: number, s: any) => {
-            const km = parseFloat((s.distance || '0').toString().replace(/[^0-9.,]/g, '').replace(',', '.'));
+            const km = parseKm(s.distance);
             return sum + (km > 0 ? km : 0);
           }, 0);
           if (keepVol > 0 && keepSessions.length > 0) {
             keepSessions.forEach((s: any) => {
-              const km = parseFloat((s.distance || '0').toString().replace(/[^0-9.,]/g, '').replace(',', '.'));
+              const km = parseKm(s.distance);
               if (km > 0) {
                 const share = (km / keepVol) * freedKm;
                 const newKm = Math.round((km + share) * 10) / 10;
@@ -1604,9 +1770,8 @@ export const enforceWeekConstraints = (
     s.type === 'Jogging' && s.type !== 'Renforcement' && s.type !== 'Repos'
   );
   if (footings.length >= 2) {
-    const getKm = (s: any) => parseFloat((s.distance || '0').toString().replace(/[^0-9.,]/g, '').replace(',', '.'));
-    const km0 = getKm(footings[0]);
-    const km1 = getKm(footings[1]);
+    const km0 = parseKm(footings[0].distance);
+    const km1 = parseKm(footings[1].distance);
     if (km0 > 0 && km1 > 0 && Math.abs(km0 - km1) < 0.6) {
       const totalFootingKm = km0 + km1;
       const longer = Math.round(totalFootingKm * 0.57 * 10) / 10;
@@ -1633,7 +1798,7 @@ export const enforceWeekConstraints = (
 
       // Adjust durations proportionally
       footings.forEach((s: any) => {
-        const newKm = getKm(s);
+        const newKm = parseKm(s.distance);
         const oldKm = s === footings[0] ? km0 : km1;
         if (oldKm > 0) {
           const dur = parseDurationMin(s.duration);
@@ -1641,7 +1806,7 @@ export const enforceWeekConstraints = (
         }
       });
 
-      console.log(`[Enforce] S${week.weekNumber}: Footing variation ${km0}/${km1}km → ${getKm(footings[0])}/${getKm(footings[1])}km`);
+      console.log(`[Enforce] S${week.weekNumber}: Footing variation ${km0}/${km1}km → ${parseKm(footings[0].distance)}/${parseKm(footings[1].distance)}km`);
     }
   }
 };
@@ -1667,7 +1832,7 @@ const enforceFullPlanConstraints = (
   const getWeekKm = (week: any): number => {
     return (week.sessions || []).reduce((sum: number, s: any) => {
       if (s.type === 'Renforcement' || s.type === 'Repos') return sum;
-      const km = parseFloat((s.distance || '0').toString().replace(/[^0-9.,]/g, '').replace(',', '.'));
+      const km = parseKm(s.distance);
       return sum + (km > 0 ? km : 0);
     }, 0);
   };
@@ -1678,7 +1843,7 @@ const enforceFullPlanConstraints = (
     const factor = targetKm / currentKm;
     (week.sessions || []).forEach((s: any) => {
       if (s.type === 'Renforcement' || s.type === 'Repos') return;
-      const km = parseFloat((s.distance || '0').toString().replace(/[^0-9.,]/g, '').replace(',', '.'));
+      const km = parseKm(s.distance);
       if (km > 0) {
         const newKm = Math.min(Math.round(km * factor * 10) / 10, maxKm);
         s.distance = `${newKm} km`;
@@ -1743,7 +1908,7 @@ const enforceFullPlanConstraints = (
     weeks.forEach((w: any) => {
       (w.sessions || []).forEach((s: any) => {
         if (s.type === 'Renforcement' || s.type === 'Repos') return;
-        const km = parseFloat((s.distance || '0').toString().replace(/[^0-9.,]/g, '').replace(',', '.'));
+        const km = parseKm(s.distance);
         if (km > maxKm) {
           const factor = maxKm / km;
           s.distance = `${maxKm} km`;
@@ -1753,18 +1918,6 @@ const enforceFullPlanConstraints = (
       });
     });
   }
-};
-
-/** Parse une durée en minutes ("1h30" → 90, "45 min" → 45, "120 minutes" → 120) */
-const parseDurationMin = (d: any): number => {
-  if (!d) return 0;
-  const s = d.toString().toLowerCase();
-  const hMatch = s.match(/(\d+)\s*h\s*(\d*)/);
-  if (hMatch) return parseInt(hMatch[1]) * 60 + (hMatch[2] ? parseInt(hMatch[2]) : 0);
-  const minMatch = s.match(/(\d+)\s*min/);
-  if (minMatch) return parseInt(minMatch[1]);
-  const num = parseInt(s);
-  return num > 0 ? num : 0;
 };
 
 /**
@@ -1822,71 +1975,6 @@ const buildPlanName = (data: QuestionnaireData, planDurationWeeks: number): stri
  * - Plafond par niveau pour éviter les volumes irréalistes
  * - La SL porte ~65% du D+ hebdo
  */
-const calculateWeekTargetElevation = (
-  weekNumber: number,
-  totalWeeks: number,
-  raceElevation: number,
-  level: string,
-  currentWeeklyElevation?: number,
-  phase?: string,
-): number => {
-  // Garde-fou : si raceElevation est NaN ou 0, retourner 0 (pas de D+)
-  if (!raceElevation || isNaN(raceElevation)) return 0;
-
-  // Plafond D+ hebdo par niveau (garde-fou absolu)
-  // Aucune semaine d'entraînement ne devrait approcher le D+ total de la course
-  // Accepte les deux formats de level : court ('deb','inter','conf','expert') et long ('Débutant (0-1 an)', etc.)
-  const lvl = level.toLowerCase();
-  const isDeb = lvl === 'deb' || lvl.includes('débutant') || lvl.includes('debutant');
-  const isInter = lvl === 'inter' || lvl.includes('intermédiaire') || lvl.includes('intermediaire');
-  const isConf = lvl === 'conf' || lvl.includes('confirmé') || lvl.includes('confirme') || lvl.includes('compétition');
-  const maxWeeklyElevation =
-    isDeb ? Math.min(raceElevation, 800) :
-    isInter ? Math.min(raceElevation, 1500) :
-    isConf ? Math.min(raceElevation, 2500) :
-    Math.min(raceElevation, 3500); // Expert
-
-  // Point de départ : D+ actuel ou plancher par niveau
-  const defaultStart =
-    isDeb ? 150
-    : isInter ? 300
-    : isConf ? 500
-    : 800; // Expert
-
-  // Cap startElevation à 60% du max pour garantir une marge de progression
-  // + cap absolu à 1500m (aucune S1 ne devrait dépasser ça)
-  const maxStart = Math.min(1500, Math.round(maxWeeklyElevation * 0.60));
-  // Plancher minimum : au moins 15% du D+ course (un trail 1500m D+ ne peut pas démarrer à 50m/sem)
-  const minStartElevation = Math.round(raceElevation * 0.15);
-  const rawStart = currentWeeklyElevation && currentWeeklyElevation > 0
-    ? Math.min(currentWeeklyElevation, maxStart)
-    : Math.min(defaultStart, maxStart); // Fix: cap defaultStart par maxStart aussi
-  const startElevation = Math.max(rawStart, Math.min(minStartElevation, maxStart));
-
-  // Progression linéaire startElevation → maxWeeklyElevation
-  const progress = Math.min(1, (weekNumber - 1) / Math.max(1, totalWeeks - 1));
-  let target = Math.round(startElevation + (maxWeeklyElevation - startElevation) * progress);
-
-  // === Réduction D+ par phase (récup & affûtage) ===
-  // Le D+ doit baisser comme le volume dans les phases de récupération et d'affûtage
-  const p = (phase || '').toLowerCase();
-  if (p.includes('recup') || p.includes('récup')) {
-    // Récupération : 55% du D+ calculé (grosse réduction)
-    target = Math.round(target * 0.55);
-    console.log(`[Trail D+] Phase récup S${weekNumber}: D+ réduit à 55% → ${target}m`);
-  } else if (p.includes('affut') || p.includes('affût') || p.includes('taper')) {
-    // Affûtage : réduction progressive selon la position dans le plan
-    // Plus on est proche de la course, plus on réduit
-    const remainingWeeks = totalWeeks - weekNumber;
-    const affutageReduction = remainingWeeks <= 0 ? 0.40  // semaine de course : 40%
-      : remainingWeeks === 1 ? 0.50  // avant-dernière : 50%
-      : 0.70; // début affûtage : 70%
-    target = Math.round(target * affutageReduction);
-    console.log(`[Trail D+] Phase affûtage S${weekNumber}: D+ réduit à ${Math.round(affutageReduction*100)}% → ${target}m (${remainingWeeks} sem avant course)`);
-  }
-
-  return target;
-};
 
 /**
  * Distribue le D+ cible sur les séances d'une semaine trail.
@@ -2037,7 +2125,7 @@ const distributeElevationToSessions = (sessions: any[], weekTargetElevation: num
  * Pré-calcule le plan de périodisation complet.
  * Ce plan est FIGÉ et utilisé pour générer chaque semaine avec cohérence totale.
  */
-const calculatePeriodizationPlan = (
+export const calculatePeriodizationPlan = (
   totalWeeks: number,
   currentVolume: number,
   level: string,
@@ -2177,7 +2265,7 @@ const calculatePeriodizationPlan = (
   const baseMaxVolume = maxVolume; // Sauvegarder le cap de base avant réductions
   let totalReduction = 1.0;
 
-  const isFinisher = !targetTime || targetTime.trim() === '';
+  const isFinisher = isFinisherTarget(targetTime);
   if (isFinisher && !isPertePoids && !isMaintien) {
     totalReduction *= 0.75;
     console.log(`[Periodization] Finisher detected → factor ×0.75`);
@@ -2249,8 +2337,7 @@ const calculatePeriodizationPlan = (
       }
     }
 
-    const levelKey = level.includes('Débutant') || level.includes('debutant') ? 'deb' :
-      level.includes('Expert') ? 'expert' : level.includes('Confirmé') ? 'conf' : 'inter';
+    const levelKey = labelToLevelKey(level);
     const slMaxDur = MAX_SL_DURATION[objectiveKey]?.[levelKey] || MAX_SL_DURATION[objectiveKey]?.inter || 90;
     const nonSlMaxDur = Math.round(slMaxDur * 0.75);
 
@@ -2317,13 +2404,46 @@ const calculatePeriodizationPlan = (
     isMarathon ? 42.2 : isSemi ? 21.1 : is10k ? 10 : 5;
 
   // Plancher minimum par distance de course : le peak doit permettre de s'entraîner utilement
-  const minViableVolume = raceDistanceKm <= 5 ? 15 : raceDistanceKm <= 10 ? 20 :
-    raceDistanceKm <= 21.1 ? 30 : raceDistanceKm <= 42.2 ? 35 : 40;
+  const minViableVolume = raceDistanceKm <= 5 ? 15 : raceDistanceKm <= 10 ? 22 :
+    raceDistanceKm <= 21.1 ? 32 : raceDistanceKm <= 42.2 ? 38 : 40;
+
+  // Mode marche-course : pour un coureur avec base mais actuellement à très bas volume
+  // (ex: intermédiaire à 5 km/sem qui prépare un semi) qui a déclaré UN CHRONO PRÉCIS
+  // (pas Finisher / Maintien / Perte de poids). Sa volonté d'atteindre un temps précis +
+  // son attestation IRRÉALISTE = engagement explicite à un entraînement plus ambitieux.
+  // On élève le cap en assumant des SL plus longues avec marche-course (la cliente alterne
+  // course et marche, accumule plus de distance via une durée de séance plus longue).
+  // Hors objectif chrono : on reste sur le cap classique (course continue à 75 % VMA).
+  let effectiveVmaCap = vmaHardCap;
+  const hasSpecificTimeTarget = !!targetTime && !isFinisherTarget(targetTime);
+  const isLowVolForTimedLongRace = currentVolume > 0 &&
+    currentVolume < minViableVolume * 0.30 &&
+    raceDistanceKm >= 15 &&
+    hasSpecificTimeTarget;
+  if (isLowVolForTimedLongRace) {
+    // Mode marche-course "préparation à l'objectif" : pousse vraiment le coureur
+    // au-delà du cap classique. Le risque est porté par l'attestation IRRÉALISTE
+    // qu'il a explicitement cochée. L'app reste honnête (faisabilité, welcome,
+    // modal alertent sur l'objectif réaliste) mais le PLAN entraîne pour réussir.
+    const slMaxDurMC = 165;
+    const otherMaxDurMC = Math.round(slMaxDurMC * 0.75);
+    const efSpeedMC = 5.8;
+    const realisticFactorMC = 0.80;
+    const runningSessionsMC = Math.max(1, (sessionsPerWeek ?? 3) - 1);
+    const slMaxKmMC = (slMaxDurMC * realisticFactorMC / 60) * efSpeedMC;
+    const otherMaxKmMC = ((runningSessionsMC - 1) * otherMaxDurMC * realisticFactorMC / 60) * efSpeedMC;
+    const vmaCapMC = Math.round(slMaxKmMC + otherMaxKmMC);
+    if (vmaCapMC > effectiveVmaCap) {
+      console.log(`[Periodization] Mode marche-course activé (currentVol ${currentVolume}km, race ${raceDistanceKm}km) : cap ${effectiveVmaCap}km → ${vmaCapMC}km`);
+      effectiveVmaCap = vmaCapMC;
+    }
+  }
+
   if (maxVolume < minViableVolume) {
     // Ne pas remonter au-dessus du cap VMA-durée (sécurité physique prime)
-    const safeMin = Math.min(minViableVolume, vmaHardCap);
+    const safeMin = Math.min(minViableVolume, effectiveVmaCap);
     if (safeMin > maxVolume) {
-      console.log(`[Periodization] maxVolume ${maxVolume}km < plancher viable ${minViableVolume}km → raised to ${safeMin}km (VMA cap: ${vmaHardCap}km)`);
+      console.log(`[Periodization] maxVolume ${maxVolume}km < plancher viable ${minViableVolume}km → raised to ${safeMin}km (VMA cap: ${effectiveVmaCap}km)`);
       maxVolume = safeMin;
     }
   }
@@ -2337,7 +2457,7 @@ const calculatePeriodizationPlan = (
     isMarathon ? 'Marathon' : isSemi ? 'Semi' : is10k ? '10K' : isPertePoids ? 'PertePoids' :
     isMaintien ? 'Maintien' : '5K';
   const absoluteCap = MAX_WEEKLY_VOLUME[objectiveKey]?.expert || 100;
-  const minPeakVolume = Math.min(rawMinPeakVolume, absoluteCap, vmaHardCap);
+  const minPeakVolume = Math.min(rawMinPeakVolume, absoluteCap, effectiveVmaCap);
 
   if (maxVolume < minPeakVolume) {
     console.log(`[Periodization] maxVolume ${maxVolume}km < min peak (${minPeakVolume}km, raw=${rawMinPeakVolume}, cap=${absoluteCap}) → raised`);
@@ -2385,6 +2505,27 @@ const calculatePeriodizationPlan = (
       affutageWeeks = maxAffutageByDist;
       // Redistribuer vers spécifique (plus utile)
       specifiqueWeeks += excess;
+    }
+
+    // === PATCH Code 2 : Taper 3 sem min pour Semi/Marathon Conf/Expert avec vol significatif ===
+    // Justification coach (Pfitzinger, Daniels) : 2 sem insuffisant pour purger fatigue accumulée
+    // chez profils confirmés/experts avec gros volume. 3 sem = standard.
+    // Option 2 (mathématique) : Conf/Expert + Semi/Marathon + peak vol ≥ 50 km/sem
+    const lvlKeyForTaper = labelToLevelKey(level);
+    const isHighLevelTaper = lvlKeyForTaper === 'conf' || lvlKeyForTaper === 'expert';
+    const needLongTaper = (isSemi || isMarathon) && isHighLevelTaper && maxVolume >= 50;
+    if (needLongTaper && affutageWeeks < 3) {
+      const wanted = 3 - affutageWeeks;
+      // Garde-fou Dev : ne pas tomber sous 2 sem sur spécifique/développement
+      const fromSpec = Math.min(wanted, Math.max(0, specifiqueWeeks - 2));
+      const fromDev = Math.min(wanted - fromSpec, Math.max(0, developpementWeeks - 2));
+      const actualGain = fromSpec + fromDev;
+      if (actualGain > 0) {
+        affutageWeeks += actualGain;
+        specifiqueWeeks -= fromSpec;
+        developpementWeeks -= fromDev;
+        console.log(`[Periodization] Taper 3 sem forcé (${isSemi?'Semi':'Marathon'} ${lvlKeyForTaper} vol${maxVolume}): affutage ${affutageWeeks-actualGain}→${affutageWeeks} (de spec:${fromSpec} + dev:${fromDev})`);
+      }
     }
   }
 
@@ -2624,14 +2765,8 @@ const createGenerationContext = (
 
   // Niveau effectif (avec override VMA) — utilisé partout : defaultVolume + périodisation
   // → cohérence entre volumes planifiés (UI) et enforcement (génération)
-  const effectiveLevelKey = detectLevelFromData({ ...data, vma });
-  const effectiveLevelMap: Record<string, string> = {
-    deb: 'Débutant (0-1 an)',
-    inter: 'Intermédiaire (Régulier)',
-    conf: 'Confirmé (Compétition)',
-    expert: 'Expert (Performance)',
-  };
-  const effectiveLevel = effectiveLevelMap[effectiveLevelKey] || data.level || 'Intermédiaire (Régulier)';
+  const effectiveLevelKey = detectLevelFromData({ ...data, vma }) as 'deb' | 'inter' | 'conf' | 'expert';
+  const effectiveLevel = LEVEL_LABEL[effectiveLevelKey] || data.level || 'Intermédiaire (Régulier)';
 
   // Default volume par niveau — différencié par type d'objectif ET distance
   const isTrail = goal.includes('Trail');
@@ -2651,12 +2786,12 @@ const createGenerationContext = (
   if (effectiveLevelKey === 'deb') {
     defaultVolume = isPertePoids ? 10 : isMaintien ? 12 : isVKCtx ? 8 : isTrailSteepCtx ? 10 : isUltra ? 20 : isTrail30Plus ? 18 : isMarathon ? 20 : isSemi ? 18 : isTrail ? 15 : is10k ? 15 : 12;
   } else if (effectiveLevelKey === 'inter') {
-    defaultVolume = isPertePoids ? 15 : isMaintien ? 20 : isVKCtx ? 15 : isTrailSteepCtx ? 18 : isUltra ? 35 : isTrail30Plus ? 30 : isMarathon ? 35 : isSemi ? 28 : isTrail ? 22 : 25;
+    defaultVolume = isPertePoids ? 15 : isMaintien ? 22 : isVKCtx ? 15 : isTrailSteepCtx ? 18 : isUltra ? 35 : isTrail30Plus ? 30 : isMarathon ? 38 : isSemi ? 32 : isTrail ? 22 : 28;
   } else if (effectiveLevelKey === 'conf') {
-    defaultVolume = isPertePoids ? 20 : isMaintien ? 25 : isVKCtx ? 20 : isTrailSteepCtx ? 25 : isUltra ? 50 : isTrail30Plus ? 40 : isMarathon ? 45 : isSemi ? 35 : isTrail ? 30 : 35;
+    defaultVolume = isPertePoids ? 20 : isMaintien ? 25 : isVKCtx ? 20 : isTrailSteepCtx ? 25 : isUltra ? 50 : isTrail30Plus ? 40 : isMarathon ? 48 : isSemi ? 38 : isTrail ? 30 : 38;
   } else {
     // Expert
-    defaultVolume = isPertePoids ? 25 : isMaintien ? 30 : isVKCtx ? 25 : isTrailSteepCtx ? 30 : isUltra ? 60 : isTrail30Plus ? 50 : isMarathon ? 55 : isSemi ? 40 : isTrail ? 40 : 45;
+    defaultVolume = isPertePoids ? 25 : isMaintien ? 30 : isVKCtx ? 25 : isTrailSteepCtx ? 30 : isUltra ? 60 : isTrail30Plus ? 50 : isMarathon ? 58 : isSemi ? 42 : isTrail ? 40 : 48;
   }
 
   // FIX: Pour PdP/Maintien avec expérience course, rehausser le defaultVolume
@@ -2771,7 +2906,7 @@ Dans le message de bienvenue (welcomeMessage), tu DOIS inclure :
     parts.push(`🚨 IMC ≥ 35 — PRÉCAUTIONS ARTICULAIRES MAXIMALES :
 - Objectif temps recommandé : applique un malus de -10% sur le temps cible (ex: si objectif 2h, planifier pour 2h12)
 - Priorité ABSOLUE : marche/course alternée systématique les 4 premières semaines minimum
-- Cross-training OBLIGATOIRE : intégrer vélo, natation ou elliptique comme alternatives à au moins 1 séance de course/semaine
+- 2 jours de repos complet/sem + marche active 30-45 min 1-2×/sem en jours OFF (allure dynamique, non comptée comme séance course) + renforcement bas du corps 2×/sem (excentrique mollets, gainage, fessiers, équilibre unipodal)
 - Pas de sauts, pas de pliométrie, pas de descentes rapides dans le renforcement
 - Durées courtes (20-25 min max au début), augmenter très progressivement (+5 min max/semaine)
 - Surfaces souples UNIQUEMENT (herbe, terre, chemin) — jamais d'asphalte
@@ -2779,7 +2914,8 @@ Dans le message de bienvenue (welcomeMessage), tu DOIS inclure :
 - Le warmup DOIT inclure 10 min de marche progressive
 - Privilégier la RÉGULARITÉ à l'intensité : mieux vaut 3 séances douces que 2 intenses
 - Chaussures avec amorti MAXIMAL obligatoire — le mentionner dans le welcomeMessage
-🚫 NE JAMAIS mentionner le poids, l'IMC, la corpulence ou la morphologie du coureur dans AUCUN message. Rester positif et encourageant.`);
+🚫 NE JAMAIS mentionner le poids, l'IMC, la corpulence ou la morphologie du coureur dans AUCUN message. Rester positif et encourageant.
+🚫 NE JAMAIS proposer ni mentionner de cross-training, vélo, natation, elliptique ou autre sport. Ce coach est EXCLUSIVEMENT course à pied. Repos, marche active et renforcement sont les seules alternatives autorisées.`);
   } else if (imcTier >= 2) {
     parts.push(`⚠️ IMC 30-35 — PRÉCAUTIONS ARTICULAIRES RENFORCÉES :
 - Priorité : séances à faible impact (marche rapide, marche/course alternée en début de plan)
@@ -2789,9 +2925,10 @@ Dans le message de bienvenue (welcomeMessage), tu DOIS inclure :
 - Volume max semaine 1 : 10-15 km (ou moins si débutant)
 - Le warmup DOIT inclure 5-10 min de marche progressive
 - Privilégier la RÉGULARITÉ à l'intensité : mieux vaut 3 séances douces que 2 intenses
-- Cross-training recommandé (vélo, natation) pour réduire l'impact articulaire
+- Renforcement bas du corps 1-2×/sem pour réduire l'impact articulaire
 - Chaussures avec amorti renforcé — le mentionner dans le welcomeMessage
-🚫 NE JAMAIS mentionner le poids, l'IMC, la corpulence ou la morphologie du coureur dans AUCUN message. Rester positif et encourageant.`);
+🚫 NE JAMAIS mentionner le poids, l'IMC, la corpulence ou la morphologie du coureur dans AUCUN message. Rester positif et encourageant.
+🚫 NE JAMAIS proposer ni mentionner de cross-training, vélo, natation, elliptique ou autre sport. Ce coach est EXCLUSIVEMENT course à pied. Repos, marche active et renforcement sont les seules alternatives autorisées.`);
   } else if (imcTier >= 1) {
     const isLongDistance = data.distance === 'Marathon' || data.distance === 'Semi-marathon' || (data.distance === 'Trail' && data.trailDistance && parseInt(data.trailDistance) >= 30);
     if (isLongDistance) {
@@ -2800,7 +2937,8 @@ Dans le message de bienvenue (welcomeMessage), tu DOIS inclure :
 - Surfaces souples quand possible, surtout pour les sorties longues
 - Bien s'hydrater pendant et après chaque séance
 - Le warmup DOIT inclure 5 min de marche progressive avant les sorties longues
-🚫 NE JAMAIS mentionner le poids, l'IMC, la corpulence ou la morphologie du coureur dans AUCUN message. Rester positif et encourageant.`);
+🚫 NE JAMAIS mentionner le poids, l'IMC, la corpulence ou la morphologie du coureur dans AUCUN message. Rester positif et encourageant.
+🚫 NE JAMAIS proposer ni mentionner de cross-training, vélo, natation, elliptique ou autre sport. Ce coach est EXCLUSIVEMENT course à pied. Repos, marche active et renforcement sont les seules alternatives autorisées.`);
     }
   }
 
@@ -2852,9 +2990,24 @@ Dans le message de bienvenue (welcomeMessage), tu DOIS inclure :
 - Cadrer : "70% des séances réalisées = bon résultat", la régularité prime sur la perfection`);
   }
 
-  // Prévention RED-S — Perte de poids avec profil léger (sans mentionner poids/IMC)
+  // Perte de poids — mention santé/reprise systématique
+  // Les utilisateurs avec objectif "Perte de poids" sont souvent en reprise d'activité
+  // après une période d'inactivité. La mention médicale générique ne suffit pas :
+  // on ajoute une note dédiée reprise + signaux d'alerte, applicable à TOUS les
+  // profils perte de poids (la branche RED-S BMI<20 ci-dessous reste en plus).
   const goalLow = (data.goal || '').toLowerCase();
   const isWeightLossGoal = goalLow.includes('perte') && goalLow.includes('poids');
+  if (isWeightLossGoal) {
+    parts.push(`🏃‍♀️ OBJECTIF PERTE DE POIDS — MENTION REPRISE/SANTÉ OBLIGATOIRE dans le welcomeMessage :
+- En complément de la mention médicale générique, ajouter une note dédiée aux personnes qui REPRENNENT le sport après une période d'inactivité (très fréquent pour cet objectif) :
+  "Si tu reprends après une longue pause sans activité régulière, un avis médical avec test d'effort est particulièrement recommandé (surtout si tu as des antécédents cardio, des facteurs de risque, ou plus de 35 ans). Écoute ton corps dès les premières séances : essoufflement anormal, douleur thoracique, vertiges → arrête immédiatement et consulte."
+- Insister sur un démarrage TRÈS PROGRESSIF et la régularité : mieux vaut 3 séances faciles tenues que 4 ambitieuses abandonnées.
+- Mentionner l'importance d'un échauffement long (10 min minimum) et de chaussures adaptées avec bon amorti — les articulations sont souvent peu sollicitées chez les sédentaires en reprise.
+- Rappeler qu'une douleur articulaire persistante (genou, cheville, hanche) doit conduire à un avis kiné/médical avant de continuer.
+🚫 NE JAMAIS mentionner le poids, l'IMC, la corpulence ou la morphologie du coureur. Rester positif et encourageant.`);
+  }
+
+  // Prévention RED-S — Perte de poids avec profil léger (sans mentionner poids/IMC)
   if (isWeightLossGoal && bmi !== null && bmi < 20) {
     parts.push(`🩺 OBJECTIF PERTE DE POIDS — PRÉVENTION RED-S à inclure dans le welcomeMessage :
 - Insister sur l'importance de **manger suffisamment** pour soutenir l'entraînement (pas de déficit calorique strict)
@@ -2943,37 +3096,8 @@ export const generatePreviewPlan = async (data: QuestionnaireData): Promise<Trai
       }
     }
 
-    // ══════════════════════════════════════════════════════════════
-    // ALLURE SPÉ COURSE = MAX(allure VMA, allure objectif)
-    // Si le coureur vise un temps plus lent que son potentiel VMA,
-    // l'allure spé doit être celle de l'OBJECTIF, pas du potentiel.
-    // Ex: VMA 14.4 → allure spé marathon théorique = 5:13 (3h40)
-    //     mais objectif = 4h00 → allure spé = 5:41. On prend 5:41.
-    // ══════════════════════════════════════════════════════════════
-    if (data.targetTime && data.subGoal) {
-      const raceDistMap: Record<string, { dist: number; paceKey: keyof TrainingPaces }> = {
-        '5 km': { dist: 5, paceKey: 'allureSpecifique5k' },
-        '10 km': { dist: 10, paceKey: 'allureSpecifique10k' },
-        'Semi-Marathon': { dist: 21.1, paceKey: 'allureSpecifiqueSemi' },
-        'Marathon': { dist: 42.195, paceKey: 'allureSpecifiqueMarathon' },
-      };
-      const raceInfo = raceDistMap[data.subGoal];
-      if (raceInfo) {
-        const targetSec = timeToSeconds(data.targetTime, raceInfo.dist);
-        if (targetSec > 0) {
-          const targetPaceSec = targetSec / raceInfo.dist; // secondes par km
-          const currentPace = paces[raceInfo.paceKey] as string;
-          const currentPaceParts = currentPace.split(':');
-          const currentPaceSec = parseInt(currentPaceParts[0]) * 60 + parseInt(currentPaceParts[1] || '0');
-          // Si l'objectif est plus lent que le potentiel → utiliser l'allure objectif
-          if (targetPaceSec > currentPaceSec) {
-            const targetPaceStr = secondsToPace(targetPaceSec);
-            console.log(`[Paces] Allure spé ${data.subGoal} : ${currentPace} (potentiel VMA) → ${targetPaceStr} (objectif ${data.targetTime}). On prend l'objectif.`);
-            (paces as any)[raceInfo.paceKey] = targetPaceStr;
-          }
-        }
-      }
-    }
+    // Allure spé alignée sur cible chrono (doctrine produit, voir applyTargetTimeOverride)
+    applyTargetTimeOverride(paces, data, vmaEstimate.vma);
 
     // ══════════════════════════════════════════════════════════════
     // GARDE-FOU FRÉQUENCE MINIMUM (indépendant du UI)
@@ -3055,7 +3179,7 @@ VMA : ${paces.vmaKmh} km/h (${vmaSource})
       : '';
 
     // Section marche/course pour les débutants ou VMA très faible (perte de poids/maintien)
-    const isBeginnerLevel = data.level === 'Débutant (0-1 an)';
+    const isBeginnerLevel = labelToLevelKey(data.level) === 'deb';
     const isPertePoidsPrev = goal.includes('Perte');
     const isMaintienPrev = goal.includes('Maintien') || goal.includes('Remise');
     const needsMarcheCourse = isBeginnerLevel || (vmaEstimate.vma < 10.5 && (isPertePoidsPrev || isMaintienPrev));
@@ -3097,7 +3221,7 @@ VMA : ${paces.vmaKmh} km/h (${vmaSource})
 - La SORTIE LONGUE est la séance CLÉ. Elle doit progresser vers 50-65km ou 6-8h au pic d'entraînement.
 - BACK-TO-BACK OBLIGATOIRE en phase spécifique : SL samedi (longue) + sortie dimanche (modérée en fatigue). Le back-to-back simule la fatigue cumulée de l'ultra.
 - MARCHE EN CÔTE (power hiking) : intégrer des sections de marche rapide en montée dans les SL. Sur un ultra, on marche 30-50% du temps.
-- RAVITAILLEMENT : les SL ≥3h doivent mentionner la stratégie nutrition (manger toutes les 30-45min, boire régulièrement).
+- NUTRITION SUR SL LONGUES (≥2h) : DOIT inclure une mention coach dans la description, SANS chiffres ni timing précis. Formats à explorer : gel, pâte de fruit, banane, boisson glucidique. Hydratation régulière sans attendre la soif. Pour course cible ≥40km : ajouter "consulter un diététicien-sportif est fortement recommandé pour ta stratégie nutrition".
 - MATÉRIEL : s'entraîner avec le sac, les bâtons, le matériel obligatoire dès la phase développement.
 - GESTION D'ALLURE : l'allure ultra est PLUS LENTE que l'EF. Prévoir des sections à 7:00-8:00 min/km.
 - Chaque séance trail DOIT mentionner le D+ cible
@@ -3113,7 +3237,7 @@ VMA : ${paces.vmaKmh} km/h (${vmaSource})
   • Après chaque back-to-back : lundi repos ou récupération très légère
 - SL pic doit atteindre 4h30-6h au pic d'entraînement
 - MARCHE EN CÔTE (power hiking) : sections de marche rapide en montée dans les SL ≥ 2h30
-- RAVITAILLEMENT : les SL ≥ 3h doivent mentionner la stratégie nutrition (manger toutes les 30-45min)
+- NUTRITION SUR SL LONGUES (≥2h) : DOIT inclure une mention coach dans la description, SANS chiffres ni timing précis. Formats à explorer : gel, pâte de fruit, banane, boisson glucidique. Hydratation régulière sans attendre la soif. Pour course cible ≥40km : ajouter "consulter un diététicien-sportif est fortement recommandé pour ta stratégie nutrition".
 - MATÉRIEL : s'entraîner avec sac et bâtons dès la phase développement
 - Chaque séance trail DOIT mentionner le D+ cible
 - Renforcement : excentrique quadriceps (descente), gainage, proprioception
@@ -3130,7 +3254,7 @@ VMA : ${paces.vmaKmh} km/h (${vmaSource})
       targetTime: data.targetTime,
       distance: (data.goal === 'Trail' && data.trailDetails?.distance) ? `${data.trailDetails.distance} km` : (data.subGoal || data.distance || ''),
       goal: data.goal || '',
-      level: data.level || '',
+      level: getEffectiveLevel(data),
       planWeeks: planDurationWeeks,
       currentVolume: data.currentWeeklyVolume,
       currentWeeklyElevation: data.currentWeeklyElevation,
@@ -3161,7 +3285,7 @@ Tu es un Coach Running Expert. Génère UNIQUEMENT la SEMAINE 1 d'un plan d'entr
 ═══════════════════════════════════════════════════════════════
                     PROFIL DU COUREUR
 ═══════════════════════════════════════════════════════════════
-- Niveau : ${data.level}
+- Niveau : ${getEffectiveLevel(data)}
 - Objectif : ${data.goal} ${data.subGoal ? `(${data.subGoal})` : ''}
 - Temps visé : ${data.targetTime || 'Finisher'}
 - Date de course : ${data.raceDate || 'Non définie'}
@@ -3436,7 +3560,7 @@ PHASES :
 
 VOLUME RUNNING HYROX (le running est 8km, pas 42km — adapter les volumes) :
 - Les SL ne dépassent PAS 1h15 (12-15km max).
-- Le volume hebdo doit rester MODÉRÉ car l'athlète fait du cross-training intense à côté.
+- Le volume hebdo doit rester MODÉRÉ — les stations Hyrox (sled, wall balls, burpees) sont travaillées hors de ce plan.
 - Prévoir au moins 1 jour OFF complet sans running NI fonctionnel par semaine.
 
 NOMMAGE TITRES (Hyrox-flavored sur les séances de course — le titre du renfo est généré séparément par le code, NE PAS le réécrire) :
@@ -3470,7 +3594,7 @@ WELCOMEMESSAGE HYROX (obligatoirement) :
 3. Une phrase de motivation orientée Hyrox spécifiquement (pas un message running générique).`;
 })() : ''}
 
-${(!data.targetTime || data.targetTime.trim() === '') && !goal.includes('Perte') && !goal.includes('Maintien') && !goal.includes('Remise') && !goal.includes('Hyrox') ? `🔴 PLAN FINISHER — RÈGLES SPÉCIFIQUES :
+${isFinisherTarget(data.targetTime) && !goal.includes('Perte') && !goal.includes('Maintien') && !goal.includes('Remise') && !goal.includes('Hyrox') ? `🔴 PLAN FINISHER — RÈGLES SPÉCIFIQUES :
 L'objectif est de TERMINER la course, pas de performer. Adapte la philosophie du plan :
 - Priorité ABSOLUE : endurance fondamentale (EF), régularité, résistance à la fatigue
 - MOINS d'intensité que pour un plan chrono : pas de fractionné VMA avant la phase développement, seuil limité
@@ -3572,6 +3696,12 @@ RAPPEL : Génère UNIQUEMENT la semaine 1 !
 
     const plan = JSON.parse(text);
 
+    // === ÉCRASEMENT DÉTERMINISTE : distance trail (anti-hallucination LLM) ===
+    // Le LLM peut altérer les chiffres D+ dans le template. On force la valeur saisie.
+    if (data.goal === 'Trail' && data.trailDetails?.distance && data.trailDetails?.elevation) {
+      plan.distance = `${data.trailDetails.distance}km D+${data.trailDetails.elevation}m`;
+    }
+
     // === ENRICHISSEMENT DU PLAN ===
     plan.id = Date.now().toString();
     plan.createdAt = new Date().toISOString();
@@ -3646,19 +3776,8 @@ RAPPEL : Génère UNIQUEMENT la semaine 1 !
         });
       }
 
-      // Forcer la Sortie Longue sur le jour préféré
-      const slDay = data.preferredLongRunDay || 'Dimanche';
-      const slSession = plan.weeks[0].sessions.find((s: any) => s.type === 'Sortie Longue');
-      if (slSession && slSession.day !== slDay) {
-        // Swap avec la séance qui occupe déjà ce jour
-        const occupant = plan.weeks[0].sessions.find((s: any) => s.day === slDay && s !== slSession);
-        if (occupant) {
-          console.log(`[Gemini Preview] Swap SL: "${slSession.day}" ↔ "${occupant.day}" (${occupant.title})`);
-          occupant.day = slSession.day;
-        }
-        console.log(`[Gemini Preview] SL forcée sur ${slDay} (était ${slSession.day})`);
-        slSession.day = slDay;
-      }
+      // Forcer la Sortie Longue sur le jour préféré (détection élargie : type | titre)
+      enforceSLDay(plan.weeks[0], data.preferredLongRunDay || 'Dimanche', '[Gemini Preview] ');
 
       // Dédupliquer — fallback sur DAYS_ORDER complet si prefDays épuisé
       const usedDays = new Set<string>();
@@ -3720,7 +3839,7 @@ RAPPEL : Génère UNIQUEMENT la semaine 1 !
             goal: data.goal || '',
             subGoal: data.subGoal,
             trailDistance: data.goal === 'Trail' ? data.trailDetails?.distance : undefined,
-            level: data.level || '',
+            level: getEffectiveLevel(data),
             phase: plan.weeks[0].phase || 'fondamental',
             weight: data.weight,
             height: data.height,
@@ -3744,7 +3863,7 @@ RAPPEL : Génère UNIQUEMENT la semaine 1 !
       if (phaseLc === 'fondamental' || phaseLc === 'recuperation') {
         const footingFlags = detectFootingFlags({
           weight: data.weight, height: data.height, age: data.age,
-          level: data.level, injuries: data.injuries,
+          level: getEffectiveLevel(data), injuries: data.injuries,
         });
         w1.sessions.forEach((session: any, idx: number) => {
           if (session.type === 'Jogging' && (session.intensity === 'Facile' || !session.intensity)) {
@@ -3755,6 +3874,8 @@ RAPPEL : Génère UNIQUEMENT la semaine 1 !
               durationStr: session.duration || '45 min',
               efPace: paces.efPace || session.targetPace || '',
               flags: footingFlags,
+              sessionElevation: session.elevationGain,
+              sessionTitle: session.title,
               seed: plan.id || '',
             });
             session.title = variant.title;
@@ -3762,10 +3883,6 @@ RAPPEL : Génère UNIQUEMENT la semaine 1 !
             session.mainSet = variant.mainSet;
             session.cooldown = variant.cooldown;
             session.advice = variant.advice;
-            if (variant.addsElevation && (!session.elevationGain || session.elevationGain === 0)) {
-              const km = parseFloat(String(session.distance || '0').replace(',', '.').replace(/[^0-9.]/g, ''));
-              if (km > 0) session.elevationGain = Math.round(km * 15);
-            }
           }
         });
       }
@@ -3876,6 +3993,9 @@ export const generateRemainingWeeks = async (
   const ctx = plan.generationContext;
   const data = ctx.questionnaireSnapshot;
   const paces = ctx.paces;
+  // VMA figée du contexte → detectLevelFromData / getEffectiveLevel la croisent
+  // avec le niveau déclaré dans toute la suite de cette fonction.
+  (data as any).vma = ctx.vma;
   const totalWeeks = ctx.periodizationPlan.totalWeeks;
   // Adapter la taille des lots au nombre de séances (plus de séances = JSON plus gros)
   const frequency = data.frequency || 3;
@@ -3903,7 +4023,7 @@ export const generateRemainingWeeks = async (
   const longRunDayRemaining = data.preferredLongRunDay || 'Dimanche';
 
   // Instructions spécifiques pour les débutants ou VMA très faible (progression marche/course)
-  const isBeginnerLevel = data.level === 'Débutant (0-1 an)';
+  const isBeginnerLevel = labelToLevelKey(data.level) === 'deb';
   const isPertePoidsProg = (data.goal || '').includes('Perte');
   const isMaintienProg = (data.goal || '').includes('Maintien') || (data.goal || '').includes('Remise');
   const ctxVma = ctx.vma;
@@ -3958,7 +4078,7 @@ ${hyroxIsBeginnerishRemaining ? `🚶 ADAPTATION DÉBUTANT (VMA ${ctxVma.toFixed
 - Semaines 4+ : introduction fartlek doux (accélérations 20-30s au feeling).
 - Simulation Hyrox : commencer par 4×1km en phase spécifique seulement.
 ` : ''}
-VOLUME : SL max 1h15 (12-15km). Volume hebdo modéré (cross-training à côté).
+VOLUME : SL max 1h15 (12-15km). Volume hebdo modéré (les stations Hyrox sont travaillées hors de ce plan).
 ` : '';
 
   // === SECTION TRAIL pour les lots remaining ===
@@ -4014,7 +4134,7 @@ ${data.trailDetails!.distance >= 100 ? `- 🔴 ULTRA 100km+ : BACK-TO-BACK OBLIG
 - Marche en côte (power hiking) intégrée dans les SL — sur un ultra on marche 30-50% du temps
 - SL pic doit atteindre 50-65km ou 6-8h minimum
 - Allure ultra PLUS LENTE que EF (7:00-8:00 min/km)
-- Stratégie ravitaillement dans les SL ≥ 3h` : data.trailDetails!.distance >= 70 ? `- 🔴 ULTRA-TRAIL 70km+ : BACK-TO-BACK OBLIGATOIRE en phase spécifique et développement :
+- NUTRITION SUR SL LONGUES (≥2h) : DOIT inclure une mention coach dans la description, SANS chiffres ni timing précis. Formats à explorer : gel, pâte de fruit, banane, boisson glucidique. Hydratation régulière sans attendre la soif. Pour course cible ≥40km : ajouter "consulter un diététicien-sportif est fortement recommandé pour ta stratégie nutrition".` : data.trailDetails!.distance >= 70 ? `- 🔴 ULTRA-TRAIL 70km+ : BACK-TO-BACK OBLIGATOIRE en phase spécifique et développement :
   • Samedi = Sortie Longue principale (la plus longue de la semaine, avec D+ important)
   • Dimanche = 2e Sortie Longue sur jambes fatiguées (50-60% de la durée du samedi, en EF strict, avec D+ modéré)
   • Objectif : simuler la fatigue cumulée de l'ultra, apprendre à courir/marcher fatigué, travailler l'alimentation en effort
@@ -4022,7 +4142,7 @@ ${data.trailDetails!.distance >= 100 ? `- 🔴 ULTRA 100km+ : BACK-TO-BACK OBLIG
   • Après chaque week-end back-to-back : lundi repos ou récupération très légère
 - SL pic doit atteindre 4h30-6h au pic d'entraînement (semaine de volume max)
 - MARCHE EN CÔTE (power hiking) : intégrer des sections de marche rapide en montée dans les SL ≥ 2h30
-- RAVITAILLEMENT : les SL ≥ 3h doivent mentionner la stratégie nutrition (manger toutes les 30-45min, boire régulièrement)
+- NUTRITION SUR SL LONGUES (≥2h) : DOIT inclure une mention coach dans la description, SANS chiffres ni timing précis. Formats à explorer : gel, pâte de fruit, banane, boisson glucidique. Hydratation régulière sans attendre la soif. Pour course cible ≥40km : ajouter "consulter un diététicien-sportif est fortement recommandé pour ta stratégie nutrition".
 - MATÉRIEL : s'entraîner avec le sac et les bâtons dès la phase développement
 - Gestion effort sur très longue durée : alterner course et marche en montée` : ''}
 `) : '';
@@ -4130,7 +4250,7 @@ ${batch.map(weekNum => {
 ═══════════════════════════════════════════════════════════════
               PROFIL DU COUREUR
 ═══════════════════════════════════════════════════════════════
-- Niveau : ${data.level}
+- Niveau : ${getEffectiveLevel(data)}
 - Objectif : ${data.goal} ${data.subGoal ? `(${data.subGoal})` : ''}
 - Temps visé : ${data.targetTime || 'Finisher'}
 - Fréquence : ${data.frequency} séances/semaine
@@ -4230,7 +4350,7 @@ DIVERSITÉ OBLIGATOIRE :
 PRIORITÉ : sécurité > régularité > progression > plaisir > dépense calorique.`;
 })() : ''}
 
-${(!data.targetTime || data.targetTime.trim() === '') && !data.goal?.includes('Perte') && !data.goal?.includes('Maintien') && !data.goal?.includes('Remise') ? `🔴 PLAN FINISHER — RÈGLES SPÉCIFIQUES :
+${isFinisherTarget(data.targetTime) && !data.goal?.includes('Perte') && !data.goal?.includes('Maintien') && !data.goal?.includes('Remise') ? `🔴 PLAN FINISHER — RÈGLES SPÉCIFIQUES :
 L'objectif est de TERMINER la course, pas de performer. Adapte la philosophie du plan :
 - Priorité ABSOLUE : endurance fondamentale (EF), régularité, résistance à la fatigue
 - MOINS d'intensité que pour un plan chrono : pas de fractionné VMA avant la phase développement, seuil limité
@@ -4357,18 +4477,8 @@ Retourne UNIQUEMENT un tableau JSON des semaines ${startWeek} à ${endWeek} :
             });
           }
 
-          // Forcer la Sortie Longue sur le jour préféré
-          const slDayR = data.preferredLongRunDay || 'Dimanche';
-          const slSessionR = week.sessions.find((s: any) => s.type === 'Sortie Longue');
-          if (slSessionR && slSessionR.day !== slDayR) {
-            const occupantR = week.sessions.find((s: any) => s.day === slDayR && s !== slSessionR);
-            if (occupantR) {
-              console.log(`[Gemini Remaining] S${week.weekNumber} Swap SL: "${slSessionR.day}" ↔ "${occupantR.day}" (${occupantR.title})`);
-              occupantR.day = slSessionR.day;
-            }
-            console.log(`[Gemini Remaining] S${week.weekNumber} SL forcée sur ${slDayR}`);
-            slSessionR.day = slDayR;
-          }
+          // Forcer la Sortie Longue sur le jour préféré (détection élargie : type | titre)
+          enforceSLDay(week, data.preferredLongRunDay || 'Dimanche', '[Gemini Remaining] ');
 
           // Dédupliquer les jours — fallback sur DAYS_ORDER complet si pool épuisé
           const usedDays = new Set<string>();
@@ -4407,7 +4517,7 @@ Retourne UNIQUEMENT un tableau JSON des semaines ${startWeek} à ${endWeek} :
               goal: data.goal || '',
               subGoal: data.subGoal,
               trailDistance: data.goal === 'Trail' ? data.trailDetails?.distance : undefined,
-              level: data.level || '',
+              level: getEffectiveLevel(data),
               phase: week.phase || 'fondamental',
               weight: data.weight,
               height: data.height,
@@ -4426,7 +4536,7 @@ Retourne UNIQUEMENT un tableau JSON des semaines ${startWeek} à ${endWeek} :
       // Injection des variantes de footing sur ce lot — phases fondamentale/récupération
       const remainingFootingFlags = detectFootingFlags({
         weight: data.weight, height: data.height, age: data.age,
-        level: data.level, injuries: data.injuries,
+        level: getEffectiveLevel(data), injuries: data.injuries,
       });
       batchWeeks.forEach((week: any) => {
         if (!week.sessions || !Array.isArray(week.sessions)) return;
@@ -4441,6 +4551,8 @@ Retourne UNIQUEMENT un tableau JSON des semaines ${startWeek} à ${endWeek} :
               durationStr: session.duration || '45 min',
               efPace: (plan as any).paces?.efPace || session.targetPace || '',
               flags: remainingFootingFlags,
+              sessionElevation: session.elevationGain,
+              sessionTitle: session.title,
               seed: plan.id || '',
             });
             session.title = variant.title;
@@ -4448,10 +4560,6 @@ Retourne UNIQUEMENT un tableau JSON des semaines ${startWeek} à ${endWeek} :
             session.mainSet = variant.mainSet;
             session.cooldown = variant.cooldown;
             session.advice = variant.advice;
-            if (variant.addsElevation && (!session.elevationGain || session.elevationGain === 0)) {
-              const km = parseFloat(String(session.distance || '0').replace(',', '.').replace(/[^0-9.]/g, ''));
-              if (km > 0) session.elevationGain = Math.round(km * 15);
-            }
           }
         });
       });
@@ -4528,7 +4636,7 @@ Retourne UNIQUEMENT un tableau JSON des semaines ${startWeek} à ${endWeek} :
     const _weekKm = (week: any): number =>
       (week.sessions || []).reduce((sum: number, s: any) => {
         if (s.type === 'Renforcement' || s.type === 'Repos') return sum;
-        const km = parseFloat((s.distance || '0').toString().replace(/[^0-9.,]/g, '').replace(',', '.'));
+        const km = parseKm(s.distance);
         return sum + (km > 0 ? km : 0);
       }, 0);
 
@@ -4571,9 +4679,12 @@ Retourne UNIQUEMENT un tableau JSON des semaines ${startWeek} à ${endWeek} :
       // Car Layer 3 re-génère des semaines via Gemini qui peuvent ignorer les caps
       if (fullPlan.weeks && Array.isArray(fullPlan.weeks)) {
         const preL3Volumes = fullPlan.weeks.map(_weekKm);
+        const slDayFinal = data.preferredLongRunDay || 'Dimanche';
         fullPlan.weeks.forEach((week: any, idx: number) => {
           const targetVol = ctx.periodizationPlan.weeklyVolumes[idx] || 0;
           enforceWeekConstraints(week, targetVol, data);
+          // Re-forcer jour SL APRÈS enforce (Layer 3 peut avoir régénéré la semaine avec mauvais jour)
+          enforceSLDay(week, slDayFinal, '[Post-Layer3] ');
         });
         enforceFullPlanConstraints(fullPlan.weeks, ctx.periodizationPlan.weeklyVolumes, data);
         const postL3Volumes = fullPlan.weeks.map(_weekKm);
@@ -4671,9 +4782,10 @@ Les allures sont calculées mathématiquement depuis la VMA ({VMA_VALUE} km/h).
    - Blessure/douleur : "genou", "tendon", "cheville", "douleur", "mal à", "blessé", "pied", "hanche", "tibia", "périoste"
      → PRIORITÉ ABSOLUE. Distinguer :
        a) Douleur PENDANT la séance (coureur a continué avec douleur) :
-          Remplacer les 2-3 prochaines séances running par cross-training (vélo, natation, elliptique).
-          Proposer un test de reprise : "Marche 10min, trot léger 5min, arrête si douleur."
-          Conseiller FORTEMENT de consulter un médecin/kiné si douleur articulaire ou tendineuse.
+          Mettre en repos complet (PAS de course) sur 2-3 séances. Maintenir la condition aérobie par de la marche 30 min/jour si totalement indolore (cadence libre, terrain plat).
+          Renforcement excentrique + mobilité ciblée jusqu'à reprise sans douleur.
+          Test de reprise : "10 min marche + 5 min trot léger, arrêt immédiat si réapparition de la douleur."
+          Conseiller FORTEMENT de consulter un médecin/kiné si la douleur persiste >48h ou si elle est articulaire/tendineuse.
        b) Douleur APRÈS la séance (courbatures, raideur) :
           Alléger de 20-30% la prochaine séance similaire. Rappeler étirements et auto-massage.
        c) Douleur récurrente (mentionnée dans plusieurs feedbacks) :
@@ -5015,30 +5127,8 @@ export const adaptPlanFromFeedback = async (
       }
     }
 
-    // Allure spé course = objectif si plus lent que potentiel VMA
-    if (questionnaireData.targetTime && questionnaireData.subGoal) {
-      const raceDistMapBatch: Record<string, { dist: number; paceKey: keyof TrainingPaces }> = {
-        '5 km': { dist: 5, paceKey: 'allureSpecifique5k' },
-        '10 km': { dist: 10, paceKey: 'allureSpecifique10k' },
-        'Semi-Marathon': { dist: 21.1, paceKey: 'allureSpecifiqueSemi' },
-        'Marathon': { dist: 42.195, paceKey: 'allureSpecifiqueMarathon' },
-      };
-      const raceInfoBatch = raceDistMapBatch[questionnaireData.subGoal];
-      if (raceInfoBatch) {
-        const targetSecBatch = timeToSeconds(questionnaireData.targetTime, raceInfoBatch.dist);
-        if (targetSecBatch > 0) {
-          const targetPaceSecBatch = targetSecBatch / raceInfoBatch.dist;
-          const curPace = paces[raceInfoBatch.paceKey] as string;
-          const curParts = curPace.split(':');
-          const curPaceSec = parseInt(curParts[0]) * 60 + parseInt(curParts[1] || '0');
-          if (targetPaceSecBatch > curPaceSec) {
-            const targetPaceStrBatch = secondsToPace(targetPaceSecBatch);
-            console.log(`[Paces Batch] Allure spé ${questionnaireData.subGoal} : ${curPace} → ${targetPaceStrBatch} (objectif ${questionnaireData.targetTime})`);
-            (paces as any)[raceInfoBatch.paceKey] = targetPaceStrBatch;
-          }
-        }
-      }
-    }
+    // Allure spé alignée sur cible chrono (doctrine produit, voir applyTargetTimeOverride)
+    applyTargetTimeOverride(paces, questionnaireData, vmaEstimate.vma);
 
     console.log(`[Gemini Adaptation] VMA: ${vmaEstimate.vma.toFixed(1)} km/h (${vmaSource})`);
 

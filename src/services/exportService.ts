@@ -1,6 +1,7 @@
 
 import { TrainingPlan, Session } from '../types';
 import { resolveSessionDate } from '../utils/dateUtils';
+import { Encoder } from '@garmin/fitsdk';
 
 // Helper pour ajouter des jours à une date
 const addDays = (date: Date, days: number): Date => {

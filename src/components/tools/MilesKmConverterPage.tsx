@@ -59,12 +59,12 @@ const MilesKmConverterPage: React.FC = () => {
   return (
     <>
       <Helmet>
-        <title>Convertisseur Miles en Km : Conversion Distance et Allure | Outil Gratuit</title>
-        <meta name="description" content="Convertissez miles en kilom\u00e8tres et km en miles instantan\u00e9ment. Tableau des distances de course (5K, 10K, semi, marathon) + conversion d'allure min/mile en min/km. Outil gratuit." />
+        <title>Convertisseur Miles Km Gratuit et Instantané | Coach Running IA</title>
+        <meta name="description" content="Convertisseur miles km gratuit et instantané. Distances et allures running : 5K, 10K, semi, marathon. 1 mile = 1.609 km. Sans inscription." />
         <meta name="keywords" content="convertisseur miles km, miles en kilom\u00e8tres, conversion miles km, 1 mile en km, marathon miles, allure min/mile en min/km, calculateur distance course" />
         <link rel="canonical" href="https://coachrunningia.fr/outils/convertisseur-miles-km" />
-        <meta property="og:title" content="Convertisseur Miles en Km : Conversion Distance et Allure Running" />
-        <meta property="og:description" content="Convertissez miles en km et allures min/mile en min/km. Tableau complet des distances de course." />
+        <meta property="og:title" content="Convertisseur Miles Km Gratuit et Instantané" />
+        <meta property="og:description" content="Convertisseur miles km gratuit et instantané. Distances et allures running. 1 mile = 1.609 km." />
         <meta property="og:type" content="website" />
         <script type="application/ld+json">{JSON.stringify({
           "@context": "https://schema.org",
@@ -105,8 +105,8 @@ const MilesKmConverterPage: React.FC = () => {
           ]
         })}</script>
         <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content="Convertisseur Miles en Km | Outil Gratuit" />
-        <meta name="twitter:description" content="Convertissez miles en kilomètres et km en miles instantanément. Distances de course + conversion d'allure min/mile en min/km." />
+        <meta name="twitter:title" content="Convertisseur Miles Km Gratuit et Instantané" />
+        <meta name="twitter:description" content="Convertisseur miles km gratuit et instantané. Distances et allures running. 1 mile = 1.609 km. Sans inscription." />
         <meta name="twitter:image" content="https://coachrunningia.fr/og-image.png" />
       </Helmet>
 

@@ -38,14 +38,14 @@ const BlogList: React.FC = () => {
   return (
     <div className="min-h-screen bg-gradient-to-b from-slate-50 to-white">
       <Helmet>
-        <title>Blog Running : Conseils Entraînement et Nutrition | Coach Running IA</title>
+        <title>Blog Running : Conseils Course | Coach Running IA</title>
         <meta name="description" content="Conseils running, entraînement et nutrition : articles rédigés par des experts pour progresser en course à pied. Blog Coach Running IA." />
         <link rel="canonical" href="https://coachrunningia.fr/blog" />
         <meta property="og:title" content="Blog Running : Conseils Entraînement et Nutrition" />
         <meta property="og:description" content="Conseils running, entraînement et nutrition pour progresser en course à pied." />
         <meta property="og:url" content="https://coachrunningia.fr/blog" />
         <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content="Blog Running : Conseils Entraînement et Nutrition | Coach Running IA" />
+        <meta name="twitter:title" content="Blog Running : Conseils Course | Coach Running IA" />
         <meta name="twitter:description" content="Conseils running, entraînement et nutrition : articles rédigés par des experts pour progresser en course à pied." />
         <meta name="twitter:image" content="https://coachrunningia.fr/og-image.png" />
       </Helmet>

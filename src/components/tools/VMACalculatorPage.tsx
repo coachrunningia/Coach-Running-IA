@@ -65,15 +65,15 @@ const VMACalculatorPage: React.FC = () => {
   return (
     <>
       <Helmet>
-        <title>Calculateur VMA : Estimez Votre Vitesse Maximale Aérobie | Test Gratuit</title>
-        <meta name="description" content="Calculez votre VMA (Vitesse Maximale Aérobie) gratuitement. Tests Cooper, Demi-Cooper, VAMEVAL ou estimation par temps de course. Obtenez vos zones d'entraînement personnalisées." />
+        <title>Calculateur VMA Gratuit | Coach Running IA</title>
+        <meta name="description" content="Calculez votre VMA gratuitement : tests Cooper, VAMEVAL ou estimation par temps de course. Zones d'entraînement personnalisées." />
         <meta name="keywords" content="calculateur VMA, vitesse maximale aérobie, test Cooper, test VAMEVAL, zones entraînement running, calcul VMA gratuit, estimer VMA, allures entraînement" />
         <link rel="canonical" href="https://coachrunningia.fr/outils/calculateur-vma" />
         <meta property="og:title" content="Calculateur VMA : Estimez Votre Vitesse Maximale Aérobie" />
         <meta property="og:description" content="Calculez votre VMA gratuitement avec les tests Cooper, Demi-Cooper, VAMEVAL ou par temps de course. Zones d'entraînement personnalisées." />
         <meta property="og:type" content="website" />
         <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content="Calculateur VMA : Estimez Votre Vitesse Maximale Aérobie | Test Gratuit" />
+        <meta name="twitter:title" content="Calculateur VMA Gratuit | Coach Running IA" />
         <meta name="twitter:description" content="Calculez votre VMA gratuitement. Tests Cooper, VAMEVAL ou estimation par temps de course. Zones d'entraînement personnalisées." />
         <meta name="twitter:image" content="https://coachrunningia.fr/og-image.png" />
       </Helmet>

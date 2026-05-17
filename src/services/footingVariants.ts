@@ -2,24 +2,26 @@
  * Bibliothèque de variantes de séances de footing aérobie / endurance fondamentale.
  *
  * Objectif : casser la monotonie de la phase fondamentale (et de récupération)
- * en variant la FORME des séances sans jamais sortir de la zone aérobie.
- * Toutes les variantes restent en EF — la variété vient du terrain, du rythme
- * interne et de l'intention pédagogique, jamais de l'intensité.
+ * en variant la FORME des séances. C'est purement DÉCORATIF — on ne change que
+ * l'habillage (titre, warmup, mainSet, cooldown, advice). La structure de la
+ * séance (durée, distance, intensité, dénivelé) reste TOUJOURS intacte.
  *
- * Filtrage à 2 dimensions :
- *   - Sécurité : contre-indications selon le profil (IMC, blessures, âge, débutant)
- *   - Pertinence : adéquation selon l'objectif (Trail / Route / PerteDePoids / Maintien)
+ * Règle musclée — le terrain de la séance est sacré :
+ *   - une séance avec D+ voulu (elevationGain > 0 ou titre vallonné) ne reçoit
+ *     QUE des variantes `relief` ;
+ *   - une séance plate ne reçoit QUE des variantes `flat`.
+ * On ne mélange jamais les terrains : pas d'ajout ni de retrait de dénivelé.
  *
- * Un socle de 4 variantes `universal` garantit qu'un profil très contraint
- * conserve toujours de la variété.
+ * Filtrage : sécurité (contre-indications profil) + pertinence (goalFit, doux).
  *
- * Validé par agent coach expert. Voir BIBLIOTHEQUE-VARIANTES-EF.md.
+ * Validé par agent coach expert.
  */
 
-export type FootingGoal = 'Trail' | 'Route' | 'PerteDePoids' | 'Maintien';
+export type FootingGoal = 'Trail' | 'Route' | 'Maintien';
+export type FootingTerrain = 'flat' | 'relief';
 
 export interface FootingProfileFlags {
-  isOverweight?: boolean;   // IMC >= 28
+  isOverweight?: boolean;   // IMC >= 28 — exclut montée agressive / excentrique marqué
   hasJointInjury?: boolean; // genou / hanche / cheville (générique articulaire)
   hasKneeInjury?: boolean;
   hasAnkleInjury?: boolean;
@@ -31,14 +33,14 @@ export interface FootingProfileFlags {
 export interface FootingVariant {
   slug: string;
   title: string;
-  /** true = passe tous les filtres, fait partie du socle universel */
+  /** terrain de la variante — doit correspondre au terrain de la séance */
+  terrain: FootingTerrain;
+  /** true = aucune contre-indication, tous goals — socle de diversité garanti */
   universal: boolean;
   /** flags du profil qui EXCLUENT cette variante */
   contraindications: (keyof FootingProfileFlags)[];
-  /** objectifs pour lesquels la variante est pertinente */
+  /** objectifs pour lesquels la variante est pertinente (filtre doux) */
   goalFit: FootingGoal[] | 'all';
-  /** true si la variante implique du relief → ajuste le D+ si la séance est à plat */
-  addsElevation: boolean;
   warmup: string;
   cooldown: string;
   advice: string;
@@ -47,14 +49,14 @@ export interface FootingVariant {
 }
 
 export const FOOTING_VARIANTS: FootingVariant[] = [
-  // ─── SOCLE UNIVERSEL (4) ───
+  // ─────────────── TERRAIN PLAT ───────────────
   {
     slug: 'footing_classique',
     title: 'Footing en endurance fondamentale',
+    terrain: 'flat',
     universal: true,
     contraindications: [],
     goalFit: 'all',
-    addsElevation: false,
     warmup: '5 min de marche active puis montée progressive vers l\'allure d\'endurance fondamentale.',
     cooldown: '5 min de footing très lent puis marche.',
     advice: 'C\'est la séance qui construit ton moteur aérobie : cœur, capillaires, tendons. La régularité de l\'allure est l\'objectif, pas la vitesse.',
@@ -63,10 +65,10 @@ export const FOOTING_VARIANTS: FootingVariant[] = [
   {
     slug: 'footing_negative_split',
     title: 'Footing progressif (négative split)',
+    terrain: 'flat',
     universal: true,
     contraindications: [],
     goalFit: 'all',
-    addsElevation: false,
     warmup: '5 min de marche puis 5 min de footing très lent (bas de l\'endurance fondamentale).',
     cooldown: '5 min de footing lent puis marche.',
     advice: 'Apprendre à finir mieux qu\'on a commencé : gestion de l\'effort et discipline mentale. La 2e partie reste en aérobie — si tu es essoufflé, tu es allé trop loin.',
@@ -75,79 +77,104 @@ export const FOOTING_VARIANTS: FootingVariant[] = [
   {
     slug: 'footing_fractionne_marche',
     title: 'Footing en blocs souples',
+    terrain: 'flat',
     universal: true,
     contraindications: [],
     goalFit: 'all',
-    addsElevation: false,
     warmup: '5 min de marche active.',
     cooldown: '5 min de marche.',
     advice: 'Découper l\'effort permet d\'accumuler du volume aérobie en réduisant la charge mécanique globale. Idéal pour progresser sans casser.',
     buildMainSet: (m, p) => {
-      const blocs = Math.max(4, Math.round(m / 6));
-      return `${blocs} blocs de 5 min de footing en endurance fondamentale (${p}), entrecoupés de 1 min de marche. Le footing reste lent et confortable ; la marche est une récupération active, pas une punition.`;
+      // blocs*5 + (blocs-1)*1 <= m → blocs <= (m+1)/6, plancher 3 pour rester "en blocs"
+      const blocs = Math.max(3, Math.floor((m + 1) / 6));
+      return `${blocs} blocs de 5 min de footing en endurance fondamentale (${p}), entrecoupés de 1 min de marche. Le footing reste lent et confortable ; la marche est une respiration de confort, pas une récupération d'effort dur.`;
     },
   },
   {
     slug: 'footing_lignes_droites',
     title: 'Footing + lignes droites',
-    universal: true,
-    contraindications: [],
-    goalFit: 'all',
-    addsElevation: false,
+    terrain: 'flat',
+    universal: false,
+    contraindications: ['hasMuscleTear', 'beginner'],
+    goalFit: ['Route', 'Maintien'],
     warmup: '5 min de marche puis 10 min de footing en endurance fondamentale.',
     cooldown: '5 min de footing lent puis marche.',
     advice: 'Les lignes droites réveillent la coordination et la qualité de foulée sans coût cardiovasculaire — elles sont trop courtes pour être un travail de vitesse.',
-    buildMainSet: (m, p) => `${Math.max(15, m - 8)} min de footing en endurance fondamentale (${p}), puis 4 à 6 lignes droites : ~60-80 m en accélération souple et progressive sur terrain plat (on monte en fréquence de jambes sans forcer), avec retour à allure de footing et récupération complète entre chaque.`,
+    buildMainSet: (m, p) => `${Math.max(15, m - 8)} min de footing en endurance fondamentale (${p}), puis 4 à 6 lignes droites : ~60-80 m en accélération souple et progressive sur terrain plat (on monte en fréquence de jambes sans forcer), avec retour à allure de footing et récupération complète entre chaque. C'est trop court pour solliciter le cardio — c'est un travail de coordination, pas de vitesse.`,
   },
-
-  // ─── CONDITIONNELLES (4) ───
   {
     slug: 'footing_educatifs',
     title: 'Footing + gammes athlétiques',
+    terrain: 'flat',
     universal: false,
-    contraindications: ['hasJointInjury', 'hasKneeInjury', 'hasAnkleInjury', 'hasMuscleTear', 'isOverweight', 'beginner'],
+    contraindications: ['hasJointInjury', 'hasKneeInjury', 'hasAnkleInjury', 'hasMuscleTear', 'beginner'],
     goalFit: ['Trail', 'Route', 'Maintien'],
-    addsElevation: false,
     warmup: '5 min de marche puis 10 min de footing en endurance fondamentale.',
     cooldown: '5 min de footing lent puis marche.',
     advice: 'Les gammes améliorent l\'économie de course et la qualité de foulée. C\'est un investissement technique qui rend chaque footing futur plus efficace.',
-    buildMainSet: (m, p) => `${Math.max(15, m - 10)} min de footing en endurance fondamentale (${p}), puis un circuit d'éducatifs : talons-fesses, montées de genoux, pas chassés, foulées bondissantes légères, jambes tendues — 2 séries de 20-30 m par exercice, retour en marche.`,
+    buildMainSet: (m, p) => `${Math.max(15, m - 10)} min de footing en endurance fondamentale (${p}), puis un circuit d'éducatifs réalisé en souplesse, sans recherche d'intensité : talons-fesses, montées de genoux, pas chassés, foulées bondissantes légères, jambes tendues — 2 séries de 20-30 m par exercice, retour en marche.`,
   },
+  {
+    slug: 'footing_fartlek_souple',
+    title: 'Footing au ressenti (fartlek doux)',
+    terrain: 'flat',
+    universal: false,
+    contraindications: ['beginner'],
+    goalFit: ['Trail', 'Route', 'Maintien'],
+    warmup: '10 min de footing en endurance fondamentale.',
+    cooldown: '5 min de footing lent puis marche.',
+    advice: 'Le fartlek souple t\'apprend à écouter tes sensations plutôt que ta montre. Le jeu d\'allure casse la routine tout en restant 100 % aérobie.',
+    buildMainSet: (m, p) => `${m} min de footing en alternant librement, au ressenti, des portions "bas de l'EF" et des portions "haut de l'EF" (${p} en référence). Aucune portion ne doit faire monter l'essoufflement : tu restes conversationnel partout.`,
+  },
+
+  // ─────────────── TERRAIN RELIEF ───────────────
   {
     slug: 'footing_cotes_douces',
     title: 'Footing vallonné',
+    terrain: 'relief',
     universal: false,
     contraindications: ['hasJointInjury', 'hasKneeInjury', 'isOverweight', 'isSenior60'],
     goalFit: ['Trail', 'Route', 'Maintien'],
-    addsElevation: true,
     warmup: '10 min de footing en endurance fondamentale sur terrain plat.',
     cooldown: '5 à 10 min de footing plat puis marche.',
     advice: 'Le relief renforce les chaînes musculaires de façon naturelle et progressive. La règle d\'or : c\'est l\'effort qui reste constant, pas la vitesse.',
     buildMainSet: (m, p) => `${m} min sur parcours légèrement vallonné. En montée : foulée courte, effort d'endurance fondamentale maintenu (${p} en référence sur le plat, la vitesse baisse en côte c'est normal). En descente : relâché, foulée courte et contrôlée. Pas de côte raide, du vallon doux.`,
   },
   {
+    slug: 'footing_cotes_courtes_marche',
+    title: 'Footing vallonné, côtes en marche',
+    terrain: 'relief',
+    universal: false,
+    contraindications: ['hasKneeInjury'],
+    goalFit: ['Trail', 'Route', 'Maintien'],
+    warmup: '10 min de footing en endurance fondamentale sur terrain plat ou faux-plat.',
+    cooldown: '5 à 10 min de footing plat puis marche.',
+    advice: 'Franchir les montées raides en marche active limite le travail excentrique tout en construisant les chaînes musculaires. Une approche accessible du relief, peu traumatisante.',
+    buildMainSet: (m, p) => `${m} min sur parcours vallonné. Les montées les plus raides se franchissent en marche active et dynamique (poussée des bras, gainage). Le plat et les descentes douces se courent en endurance fondamentale (${p} en référence). On gère l'effort, pas le chrono.`,
+  },
+  {
     slug: 'footing_terrain_varie',
     title: 'Footing nature, terrain varié',
+    terrain: 'relief',
     universal: false,
-    contraindications: ['hasAnkleInjury', 'hasJointInjury'],
-    goalFit: ['Trail', 'Route', 'Maintien', 'PerteDePoids'],
-    addsElevation: false,
+    contraindications: ['hasAnkleInjury', 'hasJointInjury', 'isSenior60', 'beginner', 'isOverweight'],
+    goalFit: ['Trail', 'Maintien'],
     warmup: '10 min de footing en endurance fondamentale sur chemin roulant.',
     cooldown: '5 à 10 min sur terrain roulant puis marche.',
     advice: 'Le terrain varié sollicite les muscles stabilisateurs et la proprioception, en douceur. C\'est un renforcement "gratuit" intégré au footing.',
     buildMainSet: (m, p) => `${m} min sur terrain varié non technique — chemins, sentiers larges, herbe, sous-bois. Adapte l'allure au sol pour garder un effort d'endurance fondamentale constant (${p} en référence). Évite le terrain piégeux (racines, cailloux, dévers).`,
   },
   {
-    slug: 'footing_fartlek_souple',
-    title: 'Footing au ressenti (fartlek doux)',
+    slug: 'footing_sentier_roulant',
+    title: 'Footing sur sentier roulant',
+    terrain: 'relief',
     universal: false,
-    contraindications: ['beginner'],
-    goalFit: ['Trail', 'Route', 'Maintien', 'PerteDePoids'],
-    addsElevation: false,
-    warmup: '10 min de footing en endurance fondamentale.',
-    cooldown: '5 min de footing lent puis marche.',
-    advice: 'Le fartlek souple t\'apprend à écouter tes sensations plutôt que ta montre. Le jeu d\'allure casse la routine tout en restant 100 % aérobie.',
-    buildMainSet: (m, p) => `${m} min de footing en alternant librement, au ressenti, des portions "bas de l'EF" et des portions "haut de l'EF" (${p} en référence). Aucune portion ne doit faire monter l'essoufflement : tu restes conversationnel partout.`,
+    contraindications: ['hasAnkleInjury', 'beginner'],
+    goalFit: ['Trail', 'Maintien'],
+    warmup: '10 min de footing en endurance fondamentale sur chemin roulant.',
+    cooldown: '5 à 10 min sur terrain roulant puis marche.',
+    advice: 'Le sentier roulant fait travailler le dénivelé "de fond", diffus et régulier, sans pic d\'effort excentrique. La meilleure école pour habituer les jambes au D+.',
+    buildMainSet: (m, p) => `${m} min sur sentier roulant non technique avec du dénivelé régulier et diffus (pas de côte marquée). Garde un effort d'endurance fondamentale constant (${p} en référence) : tu laisses la vitesse fluctuer avec le terrain.`,
   },
 ];
 
@@ -185,13 +212,23 @@ export function detectFootingFlags(params: {
   };
 }
 
-/** Mappe un goal métier (questionnaire) vers une catégorie FootingGoal. */
+/** Mappe un goal métier (questionnaire) vers une catégorie FootingGoal.
+ *  "Perte de poids" est traité comme "Maintien" — aucune catégorie dédiée. */
 export function mapToFootingGoal(goal: string): FootingGoal {
   const g = (goal || '').toLowerCase();
   if (g.includes('trail') || g.includes('vk')) return 'Trail';
-  if (g.includes('perte')) return 'PerteDePoids';
-  if (g.includes('maintien') || g.includes('remise') || g.includes('forme')) return 'Maintien';
+  if (g.includes('perte') || g.includes('maintien') || g.includes('remise') || g.includes('forme')) return 'Maintien';
   return 'Route'; // Course sur route, 10k, semi, marathon, Hyrox...
+}
+
+/** Détecte si un titre de séance indique du dénivelé voulu. */
+export const HILL_TITLE_RE = /vallonn|colline|c[ôo]te|d\+|denivel|d[ée]nivel|mont[ée]e/i;
+
+/** Détermine le terrain d'une séance : relief si D+ voulu (elevationGain ou titre), sinon plat. */
+export function detectSessionTerrain(elevationGain?: number, title?: string): FootingTerrain {
+  if (elevationGain && elevationGain > 0) return 'relief';
+  if (title && HILL_TITLE_RE.test(title)) return 'relief';
+  return 'flat';
 }
 
 /**
@@ -227,50 +264,66 @@ function hashSeed(seed: string): number {
 }
 
 /**
- * Sélectionne une variante de footing adaptée au profil + objectif et compose
- * le contenu de la séance. Pioche en rotation selon weekNumber pour garantir
- * la diversité d'une semaine à l'autre.
+ * Sélectionne une variante de footing adaptée au terrain de la séance, au profil
+ * et à l'objectif, puis compose le contenu DÉCORATIF de la séance.
  *
- * Trois mécanismes garantissent la diversité :
- *   - le pool éligible est INTERLEAVÉ (universelle / conditionnelle alternées)
- *     pour qu'on ne pioche pas 4 footings "classiques" d'affilée ;
- *   - un seedOffset dérivé du `seed` (planId / userId) décale le point de départ
- *     de la rotation → deux plans ne commencent pas par la même variante ;
- *   - `sessionIndex` distingue les footings AU SEIN d'une même semaine → deux
- *     footings de la même semaine reçoivent des variantes différentes.
+ * Règle musclée : le pool est d'abord filtré sur le `terrain` de la séance —
+ * une séance vallonnée ne peut tomber QUE sur une variante relief, une séance
+ * plate QUE sur une variante plate. Aucune modification de structure.
  *
- * Retourne uniquement les champs de CONTENU (title, warmup, mainSet, cooldown,
- * advice) + addsElevation. La durée / distance / allure / jour de la séance
- * restent ceux calculés en amont par le générateur.
+ * Diversité garantie par :
+ *   - rotation déterministe (weekNumber + sessionIndex + seedOffset) → 2 footings
+ *     d'une même semaine diffèrent, 2 plans ne démarrent pas pareil ;
+ *   - interleave universelles / conditionnelles → pas 3 footings de base d'affilée.
+ *
+ * Retourne uniquement les champs de CONTENU. Durée / distance / allure / jour /
+ * dénivelé de la séance restent ceux calculés en amont par le générateur.
  */
 export function buildFootingVariant(params: {
   weekNumber: number;
-  sessionIndex?: number; // index du footing dans la semaine (0, 1, 2...) — évite 2 footings identiques/semaine
+  sessionIndex?: number;
   goal: string;
   durationStr: string;
   efPace: string;
   flags: FootingProfileFlags;
+  /** dénivelé voulu de la séance (m) — détermine le terrain */
+  sessionElevation?: number;
+  /** titre original de la séance — détecte "vallonné/côte/D+" */
+  sessionTitle?: string;
   seed?: string;
-}): { slug: string; title: string; warmup: string; mainSet: string; cooldown: string; advice: string; addsElevation: boolean } {
-  const { weekNumber, sessionIndex = 0, goal, durationStr, efPace, flags, seed } = params;
+}): { slug: string; title: string; warmup: string; mainSet: string; cooldown: string; advice: string } {
+  const { weekNumber, sessionIndex = 0, goal, durationStr, efPace, flags, sessionElevation, sessionTitle, seed } = params;
   const footingGoal = mapToFootingGoal(goal);
+  const terrain = detectSessionTerrain(sessionElevation, sessionTitle);
 
-  // 1. Filtrer les variantes éligibles : sécurité + pertinence
+  // 1. Filtrer : terrain de la séance (sacré) + sécurité + pertinence goalFit.
   const eligible = FOOTING_VARIANTS.filter((v) => {
-    // Sécurité : aucune contre-indication déclenchée
-    const blocked = v.contraindications.some((flag) => flags[flag] === true);
-    if (blocked) return false;
-    // Pertinence : goalFit
+    if (v.terrain !== terrain) return false;
+    if (v.contraindications.some((flag) => flags[flag] === true)) return false;
     if (v.goalFit !== 'all' && !v.goalFit.includes(footingGoal)) return false;
     return true;
   });
 
-  // Garde-fou : si jamais aucune variante éligible (ne devrait pas arriver vu
-  // les 4 universelles sans contre-indication), fallback sur le classique.
-  const filtered = eligible.length > 0 ? eligible : [FOOTING_VARIANTS[0]];
+  let filtered = eligible;
+  if (filtered.length === 0) {
+    // Aucune variante éligible pour ce terrain. On ne change JAMAIS le terrain.
+    if (terrain === 'relief') {
+      // Profil contraint sur séance vallonnée : on garde le relief, on relâche
+      // les contre-indications en piochant la variante relief la moins risquée.
+      const reliefAll = FOOTING_VARIANTS.filter((v) => v.terrain === 'relief');
+      const leastRisky = reliefAll.reduce((best, v) => {
+        const score = v.contraindications.filter((f) => flags[f] === true).length;
+        const bestScore = best.contraindications.filter((f) => flags[f] === true).length;
+        return score < bestScore ? v : best;
+      });
+      filtered = [leastRisky];
+    } else {
+      // Terrain plat : le classique passe toujours.
+      filtered = [FOOTING_VARIANTS[0]];
+    }
+  }
 
-  // 2. Interleaver universelles / conditionnelles pour éviter de servir
-  //    les 4 footings de base d'affilée en début de plan.
+  // 2. Interleave universelles / conditionnelles pour éviter les répétitions.
   const universals = filtered.filter((v) => v.universal);
   const conditionals = filtered.filter((v) => !v.universal);
   const pool: FootingVariant[] = [];
@@ -281,12 +334,11 @@ export function buildFootingVariant(params: {
   }
 
   // 3. Rotation déterministe : weekNumber + sessionIndex + offset seed du plan.
-  //    Le sessionIndex garantit que 2 footings d'une même semaine diffèrent.
   const seedOffset = seed ? hashSeed(seed) : 0;
   const rotationIndex = (Math.max(1, weekNumber) - 1) + sessionIndex + seedOffset;
   const variant = pool[rotationIndex % pool.length];
 
-  // 3. Composer le mainSet (corps de séance = durée totale - warmup/cooldown estimés)
+  // 4. Composer le mainSet (corps = durée totale - warmup/cooldown estimés).
   const totalMin = parseDurationToMin(durationStr);
   const bodyMin = Math.max(20, totalMin - 18);
   const pace = efPace || 'allure EF';
@@ -298,6 +350,5 @@ export function buildFootingVariant(params: {
     mainSet: variant.buildMainSet(bodyMin, pace),
     cooldown: variant.cooldown,
     advice: variant.advice,
-    addsElevation: variant.addsElevation,
   };
 }

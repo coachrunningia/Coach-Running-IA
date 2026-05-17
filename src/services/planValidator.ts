@@ -8,6 +8,7 @@
 import { GoogleGenerativeAI } from '@google/generative-ai';
 import { TrainingPlan, Week, Session, QuestionnaireData } from '../types';
 import { buildRenfoMainSet } from './renfoService';
+import { parseDurationMin, parseKm } from './planUtils';
 
 const GEMINI_API_KEY = import.meta.env.VITE_GEMINI_API_KEY || '';
 const genAI = new GoogleGenerativeAI(GEMINI_API_KEY);
@@ -46,16 +47,11 @@ export interface AIReviewResult {
 // Helpers
 // ---------------------------------------------------------------------------
 
-const parseDistance = (dist?: string): number => {
-  if (!dist) return 0;
-  const n = parseFloat(dist.replace(/[^0-9.,]/g, '').replace(',', '.'));
-  return isNaN(n) ? 0 : n;
-};
 
 const getWeekVolume = (week: Week): number => {
   let total = 0;
   for (const s of week.sessions) {
-    total += parseDistance(s.distance);
+    total += parseKm(s.distance);
   }
   return total;
 };
@@ -71,17 +67,6 @@ const isConsecutiveDay = (day1: string, day2: string): boolean => {
   const i2 = DAYS.indexOf(day2);
   if (i1 < 0 || i2 < 0) return false;
   return Math.abs(i1 - i2) === 1 || (i1 === 0 && i2 === 6) || (i1 === 6 && i2 === 0);
-};
-
-const parseDurationMinValidator = (d: any): number => {
-  if (!d) return 0;
-  const s = d.toString().toLowerCase();
-  const hMatch = s.match(/(\d+)\s*h\s*(\d*)/);
-  if (hMatch) return parseInt(hMatch[1]) * 60 + (hMatch[2] ? parseInt(hMatch[2]) : 0);
-  const minMatch = s.match(/(\d+)\s*min/);
-  if (minMatch) return parseInt(minMatch[1]);
-  const num = parseInt(s);
-  return num > 0 ? num : 0;
 };
 
 // ---------------------------------------------------------------------------
@@ -185,7 +170,7 @@ export const validatePlanRules = (
   // SL + SL ou SL + Trail ou toute séance >= 90min sur jours consécutifs
   for (const week of weeks) {
     const longSessions = week.sessions.filter(
-      (s) => s.type === 'Sortie Longue' || (s.duration && parseDurationMinValidator(s.duration) >= 90),
+      (s) => s.type === 'Sortie Longue' || (s.duration && parseDurationMin(s.duration) >= 90),
     );
     for (let i = 0; i < longSessions.length; i++) {
       for (let j = i + 1; j < longSessions.length; j++) {
@@ -216,7 +201,7 @@ export const validatePlanRules = (
     if (weekVol <= 0) continue;
     const longRun = week.sessions.find((s) => s.type === 'Sortie Longue');
     if (longRun) {
-      const longRunDist = parseDistance(longRun.distance);
+      const longRunDist = parseKm(longRun.distance);
       if (longRunDist > 0 && longRunDist / weekVol > longRunMaxRatio) {
         issues.push({
           weekNumber: week.weekNumber,
@@ -446,7 +431,7 @@ export const validatePlanRules = (
     // Cap par séance dur
     for (const week of weeks) {
       for (const session of week.sessions) {
-        const dist = parseDistance(session.distance);
+        const dist = parseKm(session.distance);
         if (dist > maxSessionKm) {
           issues.push({
             weekNumber: week.weekNumber,
@@ -637,7 +622,7 @@ export const validatePlanRules = (
       const specificWeeks = weeks.filter(w => w.phase === 'specifique' || (w.phase as string) === 'spécifique');
       const hasBackToBack = specificWeeks.some(w => {
         const longSessions = w.sessions.filter(s =>
-          s.type === 'Sortie Longue' || (parseDistance(s.distance) >= 20),
+          s.type === 'Sortie Longue' || (parseKm(s.distance) >= 20),
         );
         if (longSessions.length < 2) return false;
         for (let i = 0; i < longSessions.length; i++) {
@@ -696,7 +681,7 @@ export const validatePlanRules = (
     const wn = week.weekNumber || 1;
     for (const s of week.sessions) {
       if (s.type === 'Renforcement' || s.type === 'Repos') continue;
-      const dur = parseDurationMinValidator(s.duration);
+      const dur = parseDurationMin(s.duration);
       const dplus = (s as any).elevationGain || 0;
       if (dplus > 400 && dur < 60) {
         issues.push({
@@ -716,7 +701,7 @@ export const validatePlanRules = (
     if (isInterOrBeginner) {
       for (const s of w1.sessions) {
         if (s.type === 'Renforcement' || s.type === 'Repos') continue;
-        const dur = parseDurationMinValidator(s.duration);
+        const dur = parseDurationMin(s.duration);
         if (dur > 100 && s.type !== 'Sortie Longue' && !/sortie longue/i.test(s.title || '')) {
           issues.push({
             weekNumber: 1,

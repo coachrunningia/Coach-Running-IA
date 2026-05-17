@@ -3,6 +3,13 @@
  * Extraites pour être testables unitairement.
  */
 
+/** Parse "12.5 km" / "12,5 km" / "12.5" / "12.5km" → 12.5 (0 si invalide ou ≤ 0) */
+export const parseKm = (d: unknown): number => {
+  if (!d) return 0;
+  const n = parseFloat(d.toString().replace(/[^0-9.,]/g, '').replace(',', '.'));
+  return isFinite(n) && n > 0 ? n : 0;
+};
+
 /** Parse une durée textuelle en minutes */
 export const parseDurationMin = (d: any): number => {
   if (!d) return 0;
@@ -90,13 +97,19 @@ export const calculateVMAFromTime = (distanceKm: number, timeSeconds: number): n
   return avgSpeed / vmaFactor;
 };
 
-/** Calcule le D+ cible hebdo pour un trail */
+/**
+ * Calcule le D+ cible hebdo pour un trail.
+ * - Plafond par niveau pour éviter les volumes irréalistes
+ * - Plancher minimum 15% du D+ course (un trail 1500m D+ ne peut pas démarrer à 50m/sem)
+ * - Réduction par phase (récup: 55%, affûtage progressif: 40/50/70%)
+ */
 export const calculateWeekTargetElevation = (
   weekNumber: number,
   totalWeeks: number,
   raceElevation: number,
   level: string,
   currentWeeklyElevation?: number,
+  phase?: string,
 ): number => {
   if (!raceElevation || isNaN(raceElevation)) return 0;
 
@@ -117,15 +130,30 @@ export const calculateWeekTargetElevation = (
     : isConf ? 500
     : 800;
 
-  // Cap startElevation à 60% du max pour garantir une marge de progression
-  // + cap absolu à 1500m (aucune S1 ne devrait dépasser ça)
+  // Cap startElevation à 60% du max + plancher minimum 15% D+ course
   const maxStart = Math.min(1500, Math.round(maxWeeklyElevation * 0.60));
-  const startElevation = currentWeeklyElevation && currentWeeklyElevation > 0
+  const minStartElevation = Math.round(raceElevation * 0.15);
+  const rawStart = currentWeeklyElevation && currentWeeklyElevation > 0
     ? Math.min(currentWeeklyElevation, maxStart)
-    : defaultStart;
+    : Math.min(defaultStart, maxStart);
+  const startElevation = Math.max(rawStart, Math.min(minStartElevation, maxStart));
 
   const progress = Math.min(1, (weekNumber - 1) / Math.max(1, totalWeeks - 1));
-  return Math.round(startElevation + (maxWeeklyElevation - startElevation) * progress);
+  let target = Math.round(startElevation + (maxWeeklyElevation - startElevation) * progress);
+
+  // Réduction par phase (récup & affûtage)
+  const p = (phase || '').toLowerCase();
+  if (p.includes('recup') || p.includes('récup')) {
+    target = Math.round(target * 0.55);
+  } else if (p.includes('affut') || p.includes('affût') || p.includes('taper')) {
+    const remainingWeeks = totalWeeks - weekNumber;
+    const affutageReduction = remainingWeeks <= 0 ? 0.40
+      : remainingWeeks === 1 ? 0.50
+      : 0.70;
+    target = Math.round(target * affutageReduction);
+  }
+
+  return target;
 };
 
 /** Classifie une séance pour la distribution D+ */

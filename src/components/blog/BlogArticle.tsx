@@ -88,6 +88,25 @@ const BlogArticle: React.FC = () => {
 
   const category = BLOG_CATEGORIES.find(c => c.value === post.category);
 
+  // Extract FAQ from article content (patterns: "## FAQ" or "## Questions" followed by "### Question?" + answer)
+  const extractFAQ = (content: string): { question: string; answer: string }[] => {
+    const faqSection = content.split(/^##\s+(?:FAQ|Questions?\s+fr[eé]quentes?|Foire\s+aux\s+questions?)/im)[1];
+    if (!faqSection) return [];
+    const items: { question: string; answer: string }[] = [];
+    const blocks = faqSection.split(/^###\s+/m).filter(Boolean);
+    for (const block of blocks) {
+      const lines = block.trim().split('\n');
+      const question = lines[0]?.replace(/[?]*$/, '').trim();
+      const answer = lines.slice(1).join(' ').replace(/^[\s\n]+/, '').replace(/##.*/s, '').trim();
+      if (question && answer && answer.length > 20) {
+        items.push({ question: question + ' ?', answer: answer.substring(0, 300) });
+      }
+    }
+    return items;
+  };
+
+  const faqItems = extractFAQ(post.content || '');
+
   return (
     <div className="min-h-screen bg-white">
 <Helmet>
@@ -102,7 +121,7 @@ const BlogArticle: React.FC = () => {
         <meta property="og:url" content={`https://coachrunningia.fr/blog/${post.slug}`} />
         <meta property="og:site_name" content="Coach Running IA" />
         <meta property="og:locale" content="fr_FR" />
-        <meta property="article:published_time" content={post.createdAt?.toDate?.()?.toISOString?.() || ''} />
+        <meta property="article:published_time" content={post.createdAt?.toDate?.()?.toISOString?.() || post.publishedAt || ''} />
         {category && <meta property="article:section" content={category.label} />}
         {post.tags?.map((tag: string, i: number) => <meta key={i} property="article:tag" content={tag} />)}
         {/* Twitter Card */}
@@ -123,8 +142,8 @@ const BlogArticle: React.FC = () => {
             "name": "Coach Running IA",
             "logo": { "@type": "ImageObject", "url": "https://coachrunningia.fr/favicon-32x32.png" }
           },
-          "datePublished": post.createdAt?.toDate?.()?.toISOString?.() || new Date().toISOString(),
-          "dateModified": (post as any).updatedAt?.toDate?.()?.toISOString?.() || post.createdAt?.toDate?.()?.toISOString?.() || new Date().toISOString(),
+          "datePublished": post.createdAt?.toDate?.()?.toISOString?.() || post.publishedAt || new Date().toISOString(),
+          "dateModified": (post as any).updatedAt?.toDate?.()?.toISOString?.() || post.createdAt?.toDate?.()?.toISOString?.() || post.publishedAt || new Date().toISOString(),
           "mainEntityOfPage": {
             "@type": "WebPage",
             "@id": `https://coachrunningia.fr/blog/${post.slug}`
@@ -134,6 +153,26 @@ const BlogArticle: React.FC = () => {
           "wordCount": post.content?.split(/\s+/).length || 0,
           "inLanguage": "fr-FR"
         })}</script>
+        <script type="application/ld+json">{JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "BreadcrumbList",
+          "itemListElement": [
+            { "@type": "ListItem", "position": 1, "name": "Accueil", "item": "https://coachrunningia.fr" },
+            { "@type": "ListItem", "position": 2, "name": "Blog", "item": "https://coachrunningia.fr/blog" },
+            { "@type": "ListItem", "position": 3, "name": post.seoTitle || post.title, "item": `https://coachrunningia.fr/blog/${post.slug}` }
+          ]
+        })}</script>
+        {faqItems.length > 0 && (
+          <script type="application/ld+json">{JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "FAQPage",
+            "mainEntity": faqItems.map(faq => ({
+              "@type": "Question",
+              "name": faq.question,
+              "acceptedAnswer": { "@type": "Answer", "text": faq.answer }
+            }))
+          })}</script>
+        )}
       </Helmet>
       {/* Hero Image */}
       {post.coverImage && (
@@ -179,11 +218,12 @@ const BlogArticle: React.FC = () => {
             </span>
             <span className="flex items-center gap-2">
               <Calendar size={18} />
-              {new Date(post.publishedAt).toLocaleDateString('fr-FR', {
-                day: 'numeric',
-                month: 'long',
-                year: 'numeric'
-              })}
+              {(() => {
+                const d = post.publishedAt ? new Date(post.publishedAt) : null;
+                const fallback = post.createdAt?.toDate?.() || null;
+                const date = (d && !isNaN(d.getTime())) ? d : fallback;
+                return date ? date.toLocaleDateString('fr-FR', { day: 'numeric', month: 'long', year: 'numeric' }) : '';
+              })()}
             </span>
             {post.readingTime && (
               <span className="flex items-center gap-2">

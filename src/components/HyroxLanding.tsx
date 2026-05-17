@@ -4,6 +4,7 @@ import { Clock, Target, Zap, Star, ArrowRight, X, CheckCircle, ChevronDown, Chev
 import { User, UserGoal } from '../types';
 import Questionnaire from './Questionnaire';
 import { Helmet } from 'react-helmet-async';
+import { SectionLabel, StravaSection, ScreenshotsSlider, PricingPreview } from './landing/SharedSections';
 
 interface HyroxLandingProps {
   user: User | null;
@@ -44,12 +45,12 @@ const HyroxLanding: React.FC<HyroxLandingProps> = ({ user, onPlanGeneration, isG
   return (
     <div className="bg-white">
       <Helmet>
-        <title>Programme Course à Pied Hyrox — Plan d'Entraînement Running Hyrox Personnalisé | Coach Running IA</title>
-        <meta name="description" content="Programme course à pied Hyrox personnalisé par IA : plan d'entraînement running spécifique avec simulations 8×1km au seuil, relances sous fatigue et tempo. À combiner avec votre préparation fonctionnelle. 1ère semaine gratuite." />
+        <title>Programme Course à Pied Hyrox Personnalisé | Coach Running IA</title>
+        <meta name="description" content="Programme course à pied Hyrox personnalisé. Simulations 8×1km, relances sous fatigue, tempo seuil. Plan 8-12 semaines. 1ère semaine gratuite." />
         <meta name="keywords" content="programme course à pied hyrox, plan running hyrox, entraînement course hyrox, préparation running hyrox, plan hyrox course à pied, améliorer running hyrox, 8x1km hyrox, allure hyrox, entraînement hyrox running" />
         <link rel="canonical" href="https://coachrunningia.fr/plan-hyrox" />
-        <meta property="og:title" content="Programme Course à Pied Hyrox — Plan d'Entraînement Personnalisé | Coach Running IA" />
-        <meta property="og:description" content="Programme course à pied Hyrox : plan d'entraînement running avec simulations 8×1km, relances sous fatigue. 1ère semaine gratuite." />
+        <meta property="og:title" content="Programme Course à Pied Hyrox Personnalisé | Coach Running IA" />
+        <meta property="og:description" content="Programme course à pied Hyrox personnalisé. Simulations 8×1km, relances sous fatigue, tempo seuil. Plan 8-12 semaines. 1ère semaine gratuite." />
         <meta property="og:url" content="https://coachrunningia.fr/plan-hyrox" />
         <meta property="og:image" content="https://coachrunningia.fr/og-image.png" />
         <script type="application/ld+json">{JSON.stringify({
@@ -62,8 +63,8 @@ const HyroxLanding: React.FC<HyroxLandingProps> = ({ user, onPlanGeneration, isG
           }))
         })}</script>
         <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content="Programme Course à Pied Hyrox — Plan d'Entraînement Personnalisé | Coach Running IA" />
-        <meta name="twitter:description" content="Programme course à pied Hyrox : plan d'entraînement running avec simulations 8×1km, relances sous fatigue. 1ère semaine gratuite." />
+        <meta name="twitter:title" content="Programme Course à Pied Hyrox Personnalisé | Coach Running IA" />
+        <meta name="twitter:description" content="Programme course à pied Hyrox personnalisé. Simulations 8×1km, relances sous fatigue, tempo seuil. Plan 8-12 semaines. 1ère semaine gratuite." />
         <meta name="twitter:image" content="https://coachrunningia.fr/og-image.png" />
       </Helmet>
 
@@ -115,6 +116,9 @@ const HyroxLanding: React.FC<HyroxLandingProps> = ({ user, onPlanGeneration, isG
           />
         </div>
       </section>
+
+      {/* SCREENSHOTS SLIDER */}
+      <ScreenshotsSlider />
 
       {/* SECTION: PLAN GENERIQUE vs PLAN HYROX IA */}
       <section className="py-16 md:py-24 bg-white">
@@ -210,41 +214,51 @@ const HyroxLanding: React.FC<HyroxLandingProps> = ({ user, onPlanGeneration, isG
       {/* CONTENU SEO */}
       <section className="py-16 md:py-24 bg-slate-50">
         <div className="max-w-4xl mx-auto px-4">
-          <h2 className="text-3xl font-black text-slate-900 mb-8">
-            Comment préparer la partie course à pied de l'Hyrox ?
-          </h2>
-
-          <div className="prose prose-slate max-w-none">
-            <p className="text-lg text-slate-600 mb-6">
-              Le Hyrox est une compétition de fitness racing qui combine 8 stations fonctionnelles avec 8 × 1 km de course à pied. Au total, vous courez 8 km, mais pas en continu : chaque kilomètre est entrecoupé d'un exercice intense (sled push, rameur, wall balls, etc.). Cette spécificité rend la préparation running du Hyrox unique.
-            </p>
-
-            <h3 className="text-xl font-bold text-slate-900 mt-8 mb-4">L'effort running en Hyrox : un format unique</h3>
-            <p className="text-slate-600 mb-4">
-              Contrairement à un 10 km classique, le running Hyrox est un effort fractionné par nature. Vos 8 km sont courus en 8 segments de 1 km, chacun précédé et suivi d'une station fonctionnelle. Cela signifie que vous devez être capable de <strong>relancer à allure seuil après un effort non-running</strong> — c'est la compétence clé que notre programme course à pied Hyrox développe.
-            </p>
-
-            <h3 className="text-xl font-bold text-slate-900 mt-8 mb-4">Les séances clés du programme course à pied Hyrox</h3>
-            <ul className="text-slate-600 space-y-2 mb-6">
-              <li><strong>Simulation Hyrox (8×1km)</strong> : la séance reine. 8 répétitions de 1 km à allure seuil avec 2 min de récupération entre chaque. Reproduit fidèlement l'effort de course en compétition.</li>
-              <li><strong>Relances sous fatigue</strong> : footing facile puis accélérations intenses. Simule la capacité à repartir fort après une station fonctionnelle.</li>
-              <li><strong>Tempo Run</strong> : 20-30 min à allure seuil continu. Développe l'endurance spécifique nécessaire pour maintenir le rythme sur les 8 km cumulés.</li>
-              <li><strong>Footing en endurance fondamentale</strong> : base aérobique indispensable. Plus votre base est solide, plus vous récupérez vite entre les stations.</li>
-              <li><strong>Renforcement prévention</strong> : gainage, quadriceps, mollets — protège contre les blessures liées à la charge combinée running + fonctionnel.</li>
-            </ul>
-
-            <h3 className="text-xl font-bold text-slate-900 mt-8 mb-4">Combiner entraînement running et fonctionnel</h3>
-            <p className="text-slate-600 mb-4">
-              Ce programme couvre <strong>uniquement la partie course à pied</strong> de votre préparation Hyrox. Il est conçu pour se combiner avec 2 à 3 séances fonctionnelles par semaine (CrossFit, box Hyrox, salle de sport). Placez vos séances fonctionnelles intensives sur les jours de footing facile ou les jours off du plan running.
-            </p>
-
-            <h3 className="text-xl font-bold text-slate-900 mt-8 mb-4">Objectifs de temps running en Hyrox par niveau</h3>
-            <ul className="text-slate-600 space-y-2 mb-6">
-              <li><strong>Débutant (VMA 12-13)</strong> : 1km en 4'30-5'00 — objectif running total ~36-40 min</li>
-              <li><strong>Intermédiaire (VMA 14-15)</strong> : 1km en 4'00-4'20 — objectif running total ~32-35 min</li>
-              <li><strong>Confirmé (VMA 16+)</strong> : 1km en 3'30-3'50 — objectif running total ~28-31 min</li>
-              <li><strong>Élite (VMA 18+)</strong> : 1km sous 3'20 — objectif running total sous 27 min</li>
-            </ul>
+          <div className="text-center mb-10">
+            <SectionLabel variant="slate">Guide Hyrox</SectionLabel>
+            <h2 className="text-3xl md:text-4xl font-black text-slate-900 mb-4">Comment préparer la course à pied Hyrox ?</h2>
+            <p className="text-lg text-slate-500 max-w-2xl mx-auto">8 stations fonctionnelles + 8 × 1 km : la préparation running Hyrox est unique et demande un programme spécifique.</p>
+          </div>
+          <div className="grid gap-5">
+            <div className="bg-white border-l-4 border-orange-500 rounded-xl p-6 shadow-sm hover:shadow-md transition-shadow">
+              <div className="flex items-start gap-4">
+                <div className="flex items-center justify-center w-8 h-8 bg-orange-100 rounded-full text-orange-600 font-bold text-sm shrink-0">1</div>
+                <div><h3 className="text-lg font-bold text-slate-900 mb-2">Un format unique</h3><p className="text-slate-600">Vos 8 km sont courus en 8 segments de 1 km entrecoupés de stations fonctionnelles. La clé : <strong>relancer à allure seuil après un effort non-running</strong>.</p></div>
+              </div>
+            </div>
+            <div className="bg-white border-l-4 border-orange-500 rounded-xl p-6 shadow-sm hover:shadow-md transition-shadow">
+              <div className="flex items-start gap-4">
+                <div className="flex items-center justify-center w-8 h-8 bg-orange-100 rounded-full text-orange-600 font-bold text-sm shrink-0">2</div>
+                <div><h3 className="text-lg font-bold text-slate-900 mb-3">Les séances clés</h3>
+                  <ul className="space-y-2 text-slate-600">
+                    <li className="flex items-start gap-2"><span className="text-orange-500 font-bold mt-0.5">→</span><span><strong>Simulation 8×1km</strong> : allure seuil, 2 min récup — reproduit la compétition</span></li>
+                    <li className="flex items-start gap-2"><span className="text-orange-500 font-bold mt-0.5">→</span><span><strong>Relances sous fatigue</strong> : footing puis accélérations intenses</span></li>
+                    <li className="flex items-start gap-2"><span className="text-orange-500 font-bold mt-0.5">→</span><span><strong>Tempo Run</strong> : 20-30 min au seuil continu</span></li>
+                    <li className="flex items-start gap-2"><span className="text-orange-500 font-bold mt-0.5">→</span><span><strong>Endurance fondamentale</strong> : base aérobique pour récupérer vite</span></li>
+                    <li className="flex items-start gap-2"><span className="text-orange-500 font-bold mt-0.5">→</span><span><strong>Renforcement prévention</strong> : gainage, quadriceps, mollets</span></li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+            <div className="bg-white border-l-4 border-orange-500 rounded-xl p-6 shadow-sm hover:shadow-md transition-shadow">
+              <div className="flex items-start gap-4">
+                <div className="flex items-center justify-center w-8 h-8 bg-orange-100 rounded-full text-orange-600 font-bold text-sm shrink-0">3</div>
+                <div><h3 className="text-lg font-bold text-slate-900 mb-2">Running + fonctionnel</h3><p className="text-slate-600">Ce programme couvre <strong>uniquement la course à pied</strong>. Combinez-le avec 2-3 séances fonctionnelles/semaine (CrossFit, box Hyrox). Placez le fonctionnel intense sur les jours de footing ou les jours off.</p></div>
+              </div>
+            </div>
+            <div className="bg-white border-l-4 border-orange-500 rounded-xl p-6 shadow-sm hover:shadow-md transition-shadow">
+              <div className="flex items-start gap-4">
+                <div className="flex items-center justify-center w-8 h-8 bg-orange-100 rounded-full text-orange-600 font-bold text-sm shrink-0">4</div>
+                <div><h3 className="text-lg font-bold text-slate-900 mb-3">Objectifs temps running Hyrox</h3>
+                  <ul className="space-y-2 text-slate-600">
+                    <li className="flex items-start gap-2"><span className="text-orange-500 font-bold mt-0.5">→</span><span><strong>Débutant (VMA 12-13)</strong> : 1km en 4'30-5'00 — total ~36-40 min</span></li>
+                    <li className="flex items-start gap-2"><span className="text-orange-500 font-bold mt-0.5">→</span><span><strong>Intermédiaire (VMA 14-15)</strong> : 1km en 4'00-4'20 — total ~32-35 min</span></li>
+                    <li className="flex items-start gap-2"><span className="text-orange-500 font-bold mt-0.5">→</span><span><strong>Confirmé (VMA 16+)</strong> : 1km en 3'30-3'50 — total ~28-31 min</span></li>
+                    <li className="flex items-start gap-2"><span className="text-orange-500 font-bold mt-0.5">→</span><span><strong>Élite (VMA 18+)</strong> : 1km sous 3'20 — total sous 27 min</span></li>
+                  </ul>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </section>
@@ -302,6 +316,12 @@ const HyroxLanding: React.FC<HyroxLandingProps> = ({ user, onPlanGeneration, isG
           </div>
         </div>
       </section>
+
+      {/* STRAVA */}
+      <StravaSection discipline="Hyrox" />
+
+      {/* PRICING */}
+      <PricingPreview />
 
       {/* CTA FINAL */}
       <section className="py-16 md:py-24 bg-gradient-to-br from-slate-900 to-slate-800 text-white">

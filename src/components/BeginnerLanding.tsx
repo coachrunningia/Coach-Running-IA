@@ -4,6 +4,7 @@ import { Clock, Target, Zap, Star, ArrowRight, X, CheckCircle, ChevronDown, Chev
 import { User, UserGoal, RunningLevel } from '../types';
 import Questionnaire from './Questionnaire';
 import { Helmet } from 'react-helmet-async';
+import { SectionLabel, StravaSection, ScreenshotsSlider, PricingPreview } from './landing/SharedSections';
 
 interface BeginnerLandingProps {
   user: User | null;
@@ -44,12 +45,12 @@ const BeginnerLanding: React.FC<BeginnerLandingProps> = ({ user, onPlanGeneratio
   return (
     <div className="bg-white">
       <Helmet>
-        <title>Programme Running Débutant — Plan Course à Pied pour Commencer | Coach Running IA</title>
-        <meta name="description" content="Programme running pour débutant personnalisé par IA : commencez la course à pied en douceur avec un plan adapté. De la marche/course à 30 min de course continue. Plan gratuit pour tester." />
+        <title>Programme Course à Pied Débutant | Coach Running IA</title>
+        <meta name="description" content="Programme course à pied débutant. De 0 à 30 min de course en 8 semaines. Marche/course progressive, sans blessure. Plan gratuit." />
         <meta name="keywords" content="programme running débutant, plan course à pied débutant, commencer à courir, débuter la course à pied, programme course débutant, plan running pour commencer, courir pour la première fois" />
         <link rel="canonical" href="https://coachrunningia.fr/programme-running-debutant" />
-        <meta property="og:title" content="Programme Running Débutant — Plan Course à Pied pour Commencer | Coach Running IA" />
-        <meta property="og:description" content="Programme running pour débutant personnalisé : commencez la course à pied en douceur. 1ère semaine gratuite." />
+        <meta property="og:title" content="Programme Course à Pied Débutant | Coach Running IA" />
+        <meta property="og:description" content="Programme course à pied débutant. De 0 à 30 min de course en 8 semaines. Progression sans blessure. Plan gratuit." />
         <meta property="og:url" content="https://coachrunningia.fr/programme-running-debutant" />
         <meta property="og:image" content="https://coachrunningia.fr/og-image.png" />
         <script type="application/ld+json">{JSON.stringify({
@@ -62,8 +63,8 @@ const BeginnerLanding: React.FC<BeginnerLandingProps> = ({ user, onPlanGeneratio
           }))
         })}</script>
         <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content="Programme Running Débutant — Plan Course à Pied pour Commencer | Coach Running IA" />
-        <meta name="twitter:description" content="Programme running pour débutant personnalisé : commencez la course à pied en douceur. 1ère semaine gratuite." />
+        <meta name="twitter:title" content="Programme Course à Pied Débutant | Coach Running IA" />
+        <meta name="twitter:description" content="Programme course à pied débutant. De 0 à 30 min de course en 8 semaines. Progression sans blessure. Plan gratuit." />
         <meta name="twitter:image" content="https://coachrunningia.fr/og-image.png" />
       </Helmet>
 
@@ -117,6 +118,9 @@ const BeginnerLanding: React.FC<BeginnerLandingProps> = ({ user, onPlanGeneratio
           />
         </div>
       </section>
+
+      {/* SCREENSHOTS SLIDER */}
+      <ScreenshotsSlider />
 
       {/* COMPARISON */}
       <section className="py-16 md:py-24 bg-white">
@@ -209,43 +213,50 @@ const BeginnerLanding: React.FC<BeginnerLandingProps> = ({ user, onPlanGeneratio
       {/* CONTENU SEO */}
       <section className="py-16 md:py-24 bg-slate-50">
         <div className="max-w-4xl mx-auto px-4">
-          <h2 className="text-3xl font-black text-slate-900 mb-8">
-            Comment débuter la course à pied ?
-          </h2>
-
-          <div className="prose prose-slate max-w-none">
-            <p className="text-lg text-slate-600 mb-6">
-              Débuter la course à pied est l'une des meilleures décisions pour votre santé. Mais sans programme running débutant adapté, beaucoup abandonnent après quelques semaines par découragement ou blessure. Un plan structuré fait toute la différence.
-            </p>
-
-            <h3 className="text-xl font-bold text-slate-900 mt-8 mb-4">La méthode marche/course : la clé pour commencer sans se blesser</h3>
-            <p className="text-slate-600 mb-4">
-              La règle d'or du programme running débutant : <strong>ne jamais courir plus longtemps que ce que votre corps peut encaisser</strong>. La méthode marche/course alterne des phases de course légère (2-3 minutes) avec des phases de marche rapide (1-2 minutes). Cette alternance permet à votre cœur, vos muscles et vos tendons de s'adapter progressivement à l'effort.
-            </p>
-
-            <h3 className="text-xl font-bold text-slate-900 mt-8 mb-4">De 0 à 30 minutes de course continue</h3>
-            <p className="text-slate-600 mb-4">
-              Un bon plan course à pied pour débutant vous amène de 0 à 30 minutes de course continue en 6 à 8 semaines. La progression type :
-            </p>
-            <ul className="text-slate-600 space-y-2 mb-6">
-              <li><strong>Semaine 1-2</strong> : alternance 2 min course / 2 min marche × 6-8 cycles</li>
-              <li><strong>Semaine 3-4</strong> : alternance 3-4 min course / 1-2 min marche</li>
-              <li><strong>Semaine 5-6</strong> : blocs de 8-12 min de course continue</li>
-              <li><strong>Semaine 7-8</strong> : 20-30 min de course continue à allure confortable</li>
-            </ul>
-
-            <h3 className="text-xl font-bold text-slate-900 mt-8 mb-4">Le renforcement musculaire pour les débutants</h3>
-            <p className="text-slate-600 mb-4">
-              Le programme running débutant inclut du renforcement musculaire adapté : gainage, squats au poids du corps, fentes douces et travail de proprioception. Ces exercices protègent vos articulations et préviennent les blessures les plus courantes chez les débutants (périostite, tendinite, douleurs aux genoux).
-            </p>
-
-            <h3 className="text-xl font-bold text-slate-900 mt-8 mb-4">Les erreurs à éviter quand on commence à courir</h3>
-            <ul className="text-slate-600 space-y-2 mb-6">
-              <li><strong>Courir trop vite</strong> : vous devez pouvoir parler en courant. Si vous êtes essoufflé, ralentissez.</li>
-              <li><strong>Courir tous les jours</strong> : 2-3 fois par semaine suffisent. Le repos est essentiel.</li>
-              <li><strong>Ignorer les douleurs</strong> : une gêne persistante au genou, au tibia ou au pied doit vous faire consulter.</li>
-              <li><strong>Se comparer aux autres</strong> : votre rythme est le bon rythme. La progression viendra.</li>
-            </ul>
+          <div className="text-center mb-10">
+            <SectionLabel variant="slate">Guide débutant</SectionLabel>
+            <h2 className="text-3xl md:text-4xl font-black text-slate-900 mb-4">Comment débuter la course à pied ?</h2>
+            <p className="text-lg text-slate-500 max-w-2xl mx-auto">Sans programme adapté, beaucoup abandonnent. Un plan structuré fait toute la différence.</p>
+          </div>
+          <div className="grid gap-5">
+            <div className="bg-white border-l-4 border-orange-500 rounded-xl p-6 shadow-sm hover:shadow-md transition-shadow">
+              <div className="flex items-start gap-4">
+                <div className="flex items-center justify-center w-8 h-8 bg-orange-100 rounded-full text-orange-600 font-bold text-sm shrink-0">1</div>
+                <div><h3 className="text-lg font-bold text-slate-900 mb-2">La méthode marche/course</h3><p className="text-slate-600">Règle d'or : <strong>ne jamais courir plus que ce que votre corps peut encaisser</strong>. Alternez course légère (2-3 min) et marche rapide (1-2 min). Votre cœur, muscles et tendons s'adaptent progressivement.</p></div>
+              </div>
+            </div>
+            <div className="bg-white border-l-4 border-orange-500 rounded-xl p-6 shadow-sm hover:shadow-md transition-shadow">
+              <div className="flex items-start gap-4">
+                <div className="flex items-center justify-center w-8 h-8 bg-orange-100 rounded-full text-orange-600 font-bold text-sm shrink-0">2</div>
+                <div><h3 className="text-lg font-bold text-slate-900 mb-3">De 0 à 30 minutes en 8 semaines</h3>
+                  <ul className="space-y-2 text-slate-600">
+                    <li className="flex items-start gap-2"><span className="text-orange-500 font-bold mt-0.5">→</span><span><strong>Semaine 1-2</strong> : 2 min course / 2 min marche × 6-8 cycles</span></li>
+                    <li className="flex items-start gap-2"><span className="text-orange-500 font-bold mt-0.5">→</span><span><strong>Semaine 3-4</strong> : 3-4 min course / 1-2 min marche</span></li>
+                    <li className="flex items-start gap-2"><span className="text-orange-500 font-bold mt-0.5">→</span><span><strong>Semaine 5-6</strong> : blocs de 8-12 min de course continue</span></li>
+                    <li className="flex items-start gap-2"><span className="text-orange-500 font-bold mt-0.5">→</span><span><strong>Semaine 7-8</strong> : 20-30 min de course continue</span></li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+            <div className="bg-white border-l-4 border-orange-500 rounded-xl p-6 shadow-sm hover:shadow-md transition-shadow">
+              <div className="flex items-start gap-4">
+                <div className="flex items-center justify-center w-8 h-8 bg-orange-100 rounded-full text-orange-600 font-bold text-sm shrink-0">3</div>
+                <div><h3 className="text-lg font-bold text-slate-900 mb-2">Renforcement musculaire débutant</h3><p className="text-slate-600">Gainage, squats au poids du corps, fentes douces et proprioception. Ces exercices protègent vos articulations et préviennent périostite, tendinite et douleurs aux genoux.</p></div>
+              </div>
+            </div>
+            <div className="bg-white border-l-4 border-orange-500 rounded-xl p-6 shadow-sm hover:shadow-md transition-shadow">
+              <div className="flex items-start gap-4">
+                <div className="flex items-center justify-center w-8 h-8 bg-orange-100 rounded-full text-orange-600 font-bold text-sm shrink-0">4</div>
+                <div><h3 className="text-lg font-bold text-slate-900 mb-3">Les erreurs à éviter</h3>
+                  <ul className="space-y-2 text-slate-600">
+                    <li className="flex items-start gap-2"><span className="text-orange-500 font-bold mt-0.5">→</span><span><strong>Courir trop vite</strong> : vous devez pouvoir parler en courant</span></li>
+                    <li className="flex items-start gap-2"><span className="text-orange-500 font-bold mt-0.5">→</span><span><strong>Courir tous les jours</strong> : 2-3 fois/semaine suffisent</span></li>
+                    <li className="flex items-start gap-2"><span className="text-orange-500 font-bold mt-0.5">→</span><span><strong>Ignorer les douleurs</strong> : gêne persistante = consulter</span></li>
+                    <li className="flex items-start gap-2"><span className="text-orange-500 font-bold mt-0.5">→</span><span><strong>Se comparer</strong> : votre rythme est le bon rythme</span></li>
+                  </ul>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </section>
@@ -303,6 +314,12 @@ const BeginnerLanding: React.FC<BeginnerLandingProps> = ({ user, onPlanGeneratio
           </div>
         </div>
       </section>
+
+      {/* STRAVA */}
+      <StravaSection discipline="débutant" />
+
+      {/* PRICING */}
+      <PricingPreview />
 
       {/* CTA FINAL */}
       <section className="py-16 md:py-24 bg-gradient-to-br from-slate-900 to-slate-800 text-white">

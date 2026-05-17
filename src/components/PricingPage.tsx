@@ -137,7 +137,7 @@ const PricingPage: React.FC<PricingPageProps> = ({ userId, userEmail, onBack }) 
             <div className="text-center mb-6">
               <h3 className="text-xl font-bold text-slate-900 mb-2">Mensuel</h3>
               <div className="flex items-baseline justify-center gap-1">
-                <span className="text-4xl font-black text-slate-900">9,99</span>
+                <span className="text-4xl font-black text-slate-900">4,90</span>
                 <span className="text-slate-500">/mois</span>
               </div>
               <p className="text-sm text-slate-500 mt-2">Sans engagement</p>

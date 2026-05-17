@@ -32,6 +32,24 @@ interface PlanViewProps {
   onRecalculateVMA?: (newVMA: number) => Promise<void>;
 }
 
+// Renvoie l'allure spécifique de la course-objectif si applicable (route uniquement).
+// Trail = exclu (entraînement générique, pas d'allure cible).
+// Perte de poids / Maintien en forme = pas de course.
+// Pour Finisher (sans targetTime), on affiche quand même l'allure théorique du niveau
+// pour cette distance — pratique pour visualiser la cible naturelle.
+const getRaceSpecificPace = (plan: TrainingPlan): { label: string; pace: string } | null => {
+  const goal = (plan.goal || '').toLowerCase();
+  if (goal.includes('trail') || goal.includes('perte') || goal.includes('maintien') || goal.includes('forme')) return null;
+  const dist = (plan.distance || '').toLowerCase();
+  const paces = plan.paces;
+  if (!paces) return null;
+  if (/marathon/.test(dist) && !/semi/.test(dist)) return paces.allureSpecifiqueMarathon ? { label: 'Allure Marathon', pace: paces.allureSpecifiqueMarathon } : null;
+  if (/semi/.test(dist)) return paces.allureSpecifiqueSemi ? { label: 'Allure Semi', pace: paces.allureSpecifiqueSemi } : null;
+  if (/\b10\s*km\b|\b10k\b/.test(dist)) return paces.allureSpecifique10k ? { label: 'Allure 10 km', pace: paces.allureSpecifique10k } : null;
+  if (/\b5\s*km\b|\b5k\b/.test(dist)) return paces.allureSpecifique5k ? { label: 'Allure 5 km', pace: paces.allureSpecifique5k } : null;
+  return null;
+};
+
 // Helper function to fix duplicate days in existing plans
 const normalizePlanDays = (planToNormalize: TrainingPlan): TrainingPlan => {
   const DAYS_ORDER = ['Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi', 'Dimanche'];
@@ -977,24 +995,35 @@ ${recentRPEs.length > 0 ? recentRPEs.slice(-8).join('\n') : 'Premier feedback �
                   </div>
                 </div>
                 <p className="text-xs text-orange-700/70 mb-4">Ces allures s'affineront au fil de tes entraînements et retours.</p>
-                <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
-                  <div className="bg-white/80 p-3 rounded-xl border border-orange-100 text-center">
-                    <p className="text-xs text-slate-500 mb-1">Endurance (EF)</p>
-                    <p className="font-bold text-slate-800">{convertPace(plan.paces?.efPace)}</p>
-                  </div>
-                  <div className="bg-white/80 p-3 rounded-xl border border-orange-100 text-center">
-                    <p className="text-xs text-slate-500 mb-1">Seuil</p>
-                    <p className="font-bold text-slate-800">{convertPace(plan.paces?.seuilPace)}</p>
-                  </div>
-                  <div className="bg-white/80 p-3 rounded-xl border border-orange-100 text-center">
-                    <p className="text-xs text-slate-500 mb-1">VMA</p>
-                    <p className="font-bold text-slate-800">{convertPace(plan.paces?.vmaPace)}</p>
-                  </div>
-                  <div className="bg-white/80 p-3 rounded-xl border border-orange-100 text-center">
-                    <p className="text-xs text-slate-500 mb-1">VMA (km/h)</p>
-                    <p className="font-bold text-slate-800">{plan.vma ? plan.vma.toFixed(1) : "-"}</p>
-                  </div>
-                </div>
+                {(() => {
+                  const raceAllure = getRaceSpecificPace(plan);
+                  return (
+                    <div className={`grid grid-cols-2 ${raceAllure ? 'md:grid-cols-5' : 'md:grid-cols-4'} gap-3`}>
+                      <div className="bg-white/80 p-3 rounded-xl border border-orange-100 text-center">
+                        <p className="text-xs text-slate-500 mb-1">Endurance (EF)</p>
+                        <p className="font-bold text-slate-800">{convertPace(plan.paces?.efPace)}</p>
+                      </div>
+                      <div className="bg-white/80 p-3 rounded-xl border border-orange-100 text-center">
+                        <p className="text-xs text-slate-500 mb-1">Seuil</p>
+                        <p className="font-bold text-slate-800">{convertPace(plan.paces?.seuilPace)}</p>
+                      </div>
+                      <div className="bg-white/80 p-3 rounded-xl border border-orange-100 text-center">
+                        <p className="text-xs text-slate-500 mb-1">VMA</p>
+                        <p className="font-bold text-slate-800">{convertPace(plan.paces?.vmaPace)}</p>
+                      </div>
+                      {raceAllure && (
+                        <div className="bg-amber-100/80 p-3 rounded-xl border border-amber-300 text-center ring-1 ring-amber-200">
+                          <p className="text-xs text-amber-800 font-semibold mb-1">{raceAllure.label}</p>
+                          <p className="font-bold text-amber-900">{convertPace(raceAllure.pace)}</p>
+                        </div>
+                      )}
+                      <div className="bg-white/80 p-3 rounded-xl border border-orange-100 text-center">
+                        <p className="text-xs text-slate-500 mb-1">VMA (km/h)</p>
+                        <p className="font-bold text-slate-800">{plan.vma ? plan.vma.toFixed(1) : "-"}</p>
+                      </div>
+                    </div>
+                  );
+                })()}
                 {plan.vmaSource && <p className="text-xs text-orange-600 mt-3">📊 Source : {plan.vmaSource}</p>}
                 {onRecalculateVMA && (
                   <button
@@ -2072,6 +2101,8 @@ ${recentRPEs.length > 0 ? recentRPEs.slice(-8).join('\n') : 'Premier feedback �
           feasibilityMessage={activeFeasibility.message}
           recommendation={liveFeasibility?.recommendation ?? activeFeasibility?.recommendation}
           confidenceScore={activeConfidenceScore}
+          declaredTarget={plan.targetTime}
+          declaredDistance={plan.distance}
           onAcceptAndGenerate={() => {
             setShowFeasibilityWarning(false);
             onGenerateRemainingWeeks();
