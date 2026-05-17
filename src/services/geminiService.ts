@@ -3048,6 +3048,89 @@ Dans le message de bienvenue (welcomeMessage), tu DOIS inclure :
   return parts.join('\n\n');
 };
 
+// ═══════════════════════════════════════════════════════════════════════════
+// R3 — Injection cible D+ par séance dans prompt Gemini (plans Trail)
+// ═══════════════════════════════════════════════════════════════════════════
+// Validé par PM + dev senior + coach UTMB Academy avec ajustements bloquants.
+// Gated isTrailFamily, feature flag VITE_R3_PROMPT_DPLUS_ENABLED.
+// Assouplissement trail très plat (<300m/sem → Gemini libre).
+// Bloc ultra enrichi (back-to-back + marche montée + descente technique).
+// Champ JSON `elevationGain` rappelé explicitement (Flash met sinon en texte
+// libre dans mainSet sans remplir le champ structuré).
+// Pas de mention "tolérance ±X%" dans le prompt (Flash interpréterait comme
+// permission de dériver — clamp côté validateur post-génération si besoin).
+
+const R3_PROMPT_DPLUS_ENABLED = import.meta.env.VITE_R3_PROMPT_DPLUS_ENABLED !== 'false';
+
+interface DplusBlockOpts {
+  weekIdx: number;                          // 0-indexed (S1=0)
+  weeklyElevationTarget?: number[];
+  recoveryWeeks: number[];
+  totalWeeks: number;
+  raceDplus: number;
+  raceDistanceKm: number;
+  context: 'preview' | 'remaining';
+}
+
+function buildDplusPromptBlock(opts: DplusBlockOpts): string {
+  if (!R3_PROMPT_DPLUS_ENABLED) return '';
+  if (!opts.weeklyElevationTarget || opts.weeklyElevationTarget.length === 0) return '';
+
+  const dplusPerKm = opts.raceDistanceKm > 0 ? Math.round(opts.raceDplus / opts.raceDistanceKm) : 0;
+
+  // Assouplissement coach : trail PLAT (race D+ < 500m) → laisser Gemini libre.
+  // Avant : skip basé sur S1 calculée → faux positif pour trails D+ progressifs
+  // (ex: 30/1500 Inter vol 200 → S1=225m skipped à tort, alors que la cible
+  // monte à 1500m). Maintenant : skip basé sur D+ course (vraie nature plat
+  // ou vallonné). Si race D+ ≥ 500m, R3 actif quel que soit S1.
+  if (opts.raceDplus < 500) return '';
+
+  let block = '';
+
+  if (opts.context === 'preview') {
+    const t = opts.weeklyElevationTarget[opts.weekIdx];
+    const slDplus = Math.round(t * 0.58);
+    const vallOrCotesDplus = Math.round(t * 0.37);  // fusion vallonnée + fractionné côte (déjà mentionné dans prompt existant)
+    const footingsDplus = t - slDplus - vallOrCotesDplus;
+    block += `\n🏔️ D+ CIBLE SEMAINE 1 : ${t}m (course = ${dplusPerKm} m/km)\n`;
+    block += `Répartition (renseigner \`elevationGain\` chiffré par séance) :\n`;
+    block += `- Sortie Longue : ${slDplus}m\n`;
+    block += `- Séance vallonnée ou fractionné en côte : ${vallOrCotesDplus}m\n`;
+    block += `- Footings : ${footingsDplus}m\n`;
+    block += `- Piste / seuil / VMA : 0m (séances plates)\n`;
+  } else {
+    block += `\n🏔️ D+ CIBLE PAR SEMAINE (renseigner \`elevationGain\` chiffré par séance) :\n`;
+    const labels = opts.weeklyElevationTarget.map((d, i) => {
+      const isRecov = opts.recoveryWeeks.includes(i + 1);
+      const isAffut = i >= opts.totalWeeks - 2;
+      const label = isRecov ? ' (récup)' : isAffut ? ' (affût)' : '';
+      return `S${i + 1}:${d}m${label}`;
+    });
+    block += labels.join(' | ') + '\n';
+    block += `Répartition par semaine : SL ~58% | vallonnée/côte ~37% | footings ~5% | piste/seuil/VMA 0m.\n`;
+  }
+
+  // Note : back-to-back / marche montée / descente technique sont déjà dans
+  // le prompt trail existant (lignes 3258, 4254+). Ne pas dupliquer ici.
+
+  return block;
+}
+
+// Log post-génération : compare D+ réel des séances vs cible.
+// Aide à monitorer la fidélité de Gemini aux instructions R3.
+function logDplusActualVsTarget(plan: any, weeklyElevationTarget?: number[]) {
+  if (!weeklyElevationTarget || !plan?.weeks) return;
+  const lines: string[] = [];
+  for (let i = 0; i < plan.weeks.length; i++) {
+    const target = weeklyElevationTarget[i] ?? 0;
+    if (target === 0) continue;
+    const actual = (plan.weeks[i].sessions || []).reduce((s: number, x: any) => s + (x.elevationGain || 0), 0);
+    const ecart = target > 0 ? Math.round(((actual - target) / target) * 100) : 0;
+    lines.push(`S${i+1}: cible ${target}m, réel ${actual}m (${ecart>=0?'+':''}${ecart}%)`);
+  }
+  if (lines.length) console.debug(`[R3 D+ Actual vs Target] ${lines.join(' | ')}`);
+}
+
 // ============================================
 // GÉNÉRATION PREVIEW (SEMAINE 1 UNIQUEMENT)
 // ============================================
@@ -3249,7 +3332,7 @@ VMA : ${paces.vmaKmh} km/h (${vmaSource})
 - NUTRITION SUR SL LONGUES (≥2h) : DOIT inclure une mention coach dans la description, SANS chiffres ni timing précis. Formats à explorer : gel, pâte de fruit, banane, boisson glucidique. Hydratation régulière sans attendre la soif. Pour course cible ≥40km : ajouter "consulter un diététicien-sportif est fortement recommandé pour ta stratégie nutrition".
 - MATÉRIEL : s'entraîner avec le sac, les bâtons, le matériel obligatoire dès la phase développement.
 - GESTION D'ALLURE : l'allure ultra est PLUS LENTE que l'EF. Prévoir des sections à 7:00-8:00 min/km.
-- Chaque séance trail DOIT mentionner le D+ cible
+${buildDplusPromptBlock({ weekIdx: 0, weeklyElevationTarget: generationContext.periodizationPlan.weeklyElevationTarget, recoveryWeeks: generationContext.periodizationPlan.recoveryWeeks, totalWeeks: generationContext.periodizationPlan.totalWeeks, raceDplus: data.trailDetails.elevation, raceDistanceKm: data.trailDetails.distance, context: 'preview' })}
 - Renforcement : excentrique quadriceps (descente), gainage, proprioception
 ` : data.trailDetails.distance >= 70 ? `
 🏔️ ULTRA-TRAIL 70km+ : ${data.trailDetails.distance} km, D+ ${data.trailDetails.elevation} m
@@ -3264,12 +3347,14 @@ VMA : ${paces.vmaKmh} km/h (${vmaSource})
 - MARCHE EN CÔTE (power hiking) : sections de marche rapide en montée dans les SL ≥ 2h30
 - NUTRITION SUR SL LONGUES (≥2h) : DOIT inclure une mention coach dans la description, SANS chiffres ni timing précis. Formats à explorer : gel, pâte de fruit, banane, boisson glucidique. Hydratation régulière sans attendre la soif. Pour course cible ≥40km : ajouter "consulter un diététicien-sportif est fortement recommandé pour ta stratégie nutrition".
 - MATÉRIEL : s'entraîner avec sac et bâtons dès la phase développement
-- Chaque séance trail DOIT mentionner le D+ cible
+
+${buildDplusPromptBlock({ weekIdx: 0, weeklyElevationTarget: generationContext.periodizationPlan.weeklyElevationTarget, recoveryWeeks: generationContext.periodizationPlan.recoveryWeeks, totalWeeks: generationContext.periodizationPlan.totalWeeks, raceDplus: data.trailDetails.elevation, raceDistanceKm: data.trailDetails.distance, context: 'preview' })}
 - Renforcement : excentrique quadriceps (descente), gainage, proprioception
 ` : `
 🏔️ TRAIL : ${data.trailDetails.distance} km, D+ ${data.trailDetails.elevation} m
 - Sortie longue avec D+ progressif, fractionné en côte
-- Chaque séance trail DOIT mentionner le D+ cible
+
+${buildDplusPromptBlock({ weekIdx: 0, weeklyElevationTarget: generationContext.periodizationPlan.weeklyElevationTarget, recoveryWeeks: generationContext.periodizationPlan.recoveryWeeks, totalWeeks: generationContext.periodizationPlan.totalWeeks, raceDplus: data.trailDetails.elevation, raceDistanceKm: data.trailDetails.distance, context: 'preview' })}
 `) : '';
 
     // === CALCUL DE FAISABILITÉ (Preview) ===
@@ -3941,6 +4026,8 @@ RAPPEL : Génère UNIQUEMENT la semaine 1 !
       );
       console.log(`[Trail D+ Preview] S1: raceElev=${data.trailDetails.elevation}m, level=${detectedLevel}, weekTarget=${weekTarget}m, sessions=${plan.weeks[0].sessions.length}`);
       distributeElevationToSessions(plan.weeks[0].sessions, weekTarget, detectedLevel);
+      // R3 — log post-génération : compare D+ réel séances vs cible (monitoring)
+      logDplusActualVsTarget(plan, generationContext.periodizationPlan.weeklyElevationTarget);
     } else if (data.goal === 'Trail') {
       console.warn(`[Trail D+ Preview] SKIPPED: trailDetails=${!!data.trailDetails}, weeks=${!!plan.weeks?.[0]?.sessions}`);
     }
@@ -4152,8 +4239,8 @@ Séances spécifiques trail :
 - Sortie longue avec D+ progressif (50% → 100% du D+ course au fil des semaines)
 - Fractionné en côte : côtes courtes (30-45") et longues (2-5 min)
 - Travail technique descente : foulée courte, fréquence élevée
-- Chaque séance trail DOIT mentionner le D+ cible dans mainSet
-- elevationGain OBLIGATOIRE sur chaque séance trail (sauf Renforcement)
+
+
 ${data.trailDetails!.distance >= 42 ? '- Sorties longues avec ravitaillement simulé\n- Entraînement avec le matériel de course (sac, bâtons)' : ''}
 ${data.trailDetails!.distance >= 100 ? `- 🔴 ULTRA 100km+ : BACK-TO-BACK OBLIGATOIRE en phase spécifique (SL samedi + sortie dimanche en fatigue)
 - Marche en côte (power hiking) intégrée dans les SL — sur un ultra on marche 30-50% du temps
@@ -4170,6 +4257,7 @@ ${data.trailDetails!.distance >= 100 ? `- 🔴 ULTRA 100km+ : BACK-TO-BACK OBLIG
 - NUTRITION SUR SL LONGUES (≥2h) : DOIT inclure une mention coach dans la description, SANS chiffres ni timing précis. Formats à explorer : gel, pâte de fruit, banane, boisson glucidique. Hydratation régulière sans attendre la soif. Pour course cible ≥40km : ajouter "consulter un diététicien-sportif est fortement recommandé pour ta stratégie nutrition".
 - MATÉRIEL : s'entraîner avec le sac et les bâtons dès la phase développement
 - Gestion effort sur très longue durée : alterner course et marche en montée` : ''}
+${buildDplusPromptBlock({ weekIdx: 0, weeklyElevationTarget: ctx.periodizationPlan.weeklyElevationTarget, recoveryWeeks: ctx.periodizationPlan.recoveryWeeks, totalWeeks: ctx.periodizationPlan.totalWeeks, raceDplus: data.trailDetails!.elevation, raceDistanceKm: data.trailDetails!.distance, context: 'remaining' })}
 `) : '';
 
   const DAYS_ORDER = ['Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi', 'Dimanche'];
@@ -4620,6 +4708,8 @@ Retourne UNIQUEMENT un tableau JSON des semaines ${startWeek} à ${endWeek} :
         distributeElevationToSessions(week.sessions, weekTarget, detectedLvl);
         console.log(`[Trail D+] S${week.weekNumber} [${week.phase || '?'}]: D+ cible = ${weekTarget}m [${detectedLvl}]`);
       });
+      // R3 — log post-génération : compare D+ réel séances vs cible (monitoring)
+      logDplusActualVsTarget({ weeks: allGeneratedWeeks }, ctx.periodizationPlan.weeklyElevationTarget);
     }
 
     // === Strip D+ des plans NON-trail (Gemini en génère parfois spontanément) ===
