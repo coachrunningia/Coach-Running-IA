@@ -215,9 +215,10 @@ function requiredVmaForTarget(targetMinutes: number, distanceKm: number): number
 //   - scorePenalty : pénalité additive cumulée
 //   - reasons : liste des raisons (pour message si besoin)
 // ─── Feature flag : R2_GATES_ENABLED ───
-// Mettre à false pour désactiver les gates en cas de bug détecté en prod.
+// Pilotable via env var VITE_R2_GATES_ENABLED. Default ON.
+// Kill switch en prod : set VITE_R2_GATES_ENABLED=false + redeploy (~30s).
 
-const R2_GATES_ENABLED = true;
+const R2_GATES_ENABLED = import.meta.env.VITE_R2_GATES_ENABLED !== 'false';
 
 interface R2Context {
   isTrail: boolean;
