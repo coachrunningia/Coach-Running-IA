@@ -283,6 +283,12 @@ export interface GenerationContext {
     weeklyVolumes: number[];        // Volume cible par semaine [40, 42, 45, 38, 48...]
     weeklyPhases: PeriodizationPhase[]; // Phase par semaine
     recoveryWeeks: number[];         // Indices des semaines de récup [4, 8, 12]
+    // ── Trail uniquement (Release 1) ──
+    // Projection du D+ cible par semaine pour les plans trail. Permet de gater
+    // la feasibility sur D+ cycle insuffisant et d'injecter la cible D+ dans le
+    // prompt Gemini séance par séance. Optional : anciens plans n'ont pas ce
+    // champ, UI/services doivent gérer fallback via calculateWeeklyTrailElevationTarget().
+    weeklyElevationTarget?: number[]; // D+ cible par semaine en m, length = totalWeeks
   };
 
   // Données questionnaire FIGÉES

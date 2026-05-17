@@ -2138,8 +2138,8 @@ export const calculatePeriodizationPlan = (
   weight?: number,
   vma?: number,
   sessionsPerWeek?: number,
-  params?: { height?: number; vmaSource?: string },
-): { weeklyVolumes: number[]; weeklyPhases: PeriodizationPhase[]; recoveryWeeks: number[] } => {
+  params?: { height?: number; vmaSource?: string; currentWeeklyElevation?: number },
+): { weeklyVolumes: number[]; weeklyPhases: PeriodizationPhase[]; recoveryWeeks: number[]; weeklyElevationTarget?: number[] } => {
 
   // Taux de progression selon niveau
   // Débutant à 0.08 (comme inter) pour pouvoir atteindre la distance de course
@@ -2743,7 +2743,32 @@ export const calculatePeriodizationPlan = (
     }
   }
 
-  return { weeklyVolumes, weeklyPhases: phases, recoveryWeeks };
+  // ──────────────────────────────────────────────────────────────────────────
+  // R1 — Projection D+ par semaine pour les plans trail
+  // Utilise calculateWeekTargetElevation() (planUtils) phase par phase pour
+  // produire un tableau aligné sur weeklyVolumes. Permet d'auditer/contrôler
+  // la prépa trail (gate IRRÉALISTE D+ insuffisant en R2) et d'injecter la
+  // cible D+ dans le prompt Gemini (R3).
+  // ──────────────────────────────────────────────────────────────────────────
+  let weeklyElevationTarget: number[] | undefined;
+  if (isTrail && trailElevation && trailElevation > 0) {
+    // Assert défensif : si phases est désaligné avec totalWeeks (ne devrait pas
+    // arriver, mais protection contre régression silencieuse côté code amont).
+    if (phases.length !== totalWeeks) {
+      console.warn(`[Periodization Trail] phases/totalWeeks mismatch: ${phases.length} vs ${totalWeeks}`);
+    }
+    weeklyElevationTarget = [];
+    for (let i = 0; i < totalWeeks; i++) {
+      const wn = i + 1;
+      const phase = phases[i]; // undefined toléré par calculateWeekTargetElevation (fallback '')
+      const t = calculateWeekTargetElevation(wn, totalWeeks, trailElevation, level, params?.currentWeeklyElevation, phase);
+      weeklyElevationTarget.push(t);
+    }
+    // console.debug : log technique utile en dev, silencieux en prod (vs console.log)
+    console.debug(`[Periodization Trail] weeklyElevationTarget calculé: [${weeklyElevationTarget.join(', ')}] (race D+ ${trailElevation}m, current ${params?.currentWeeklyElevation || 0}m/sem)`);
+  }
+
+  return { weeklyVolumes, weeklyPhases: phases, recoveryWeeks, weeklyElevationTarget };
 };
 
 /**
@@ -2834,7 +2859,7 @@ const createGenerationContext = (
     data.weight,
     vma,
     data.frequency || 3,
-    { height: data.height, vmaSource },
+    { height: data.height, vmaSource, currentWeeklyElevation: data.currentWeeklyElevation },
   );
 
   return {
