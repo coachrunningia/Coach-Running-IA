@@ -3062,6 +3062,20 @@ Dans le message de bienvenue (welcomeMessage), tu DOIS inclure :
 
 const R3_PROMPT_DPLUS_ENABLED = import.meta.env.VITE_R3_PROMPT_DPLUS_ENABLED !== 'false';
 
+// R-F cleanup : constante extraite (dupliquée 4× à l'identique dans le prompt
+// ultra100 + ultra70 × preview + remaining). Mention coach courte = OK
+// doctrine "petits conseils nutrition courts dans SL/welcome OK, pas +".
+// R-F cleanup : constante extraite (4× dupliquée ultra100+70 preview+remaining).
+const NUTRITION_SL_BLOCK = `- NUTRITION SUR SL LONGUES (≥2h) : DOIT inclure une mention coach dans la description, SANS chiffres ni timing précis. Formats à explorer : gel, pâte de fruit, banane, boisson glucidique. Hydratation régulière sans attendre la soif. Pour course cible ≥40km : ajouter "consulter un diététicien-sportif est fortement recommandé pour ta stratégie nutrition".`;
+
+// R-G cleanup : 6 bullets back-to-back ultra70, quasi-identiques preview/remaining.
+const ULTRA70_BACK_TO_BACK_BULLETS = `- BACK-TO-BACK OBLIGATOIRE en phase spécifique et développement :
+  • Samedi = Sortie Longue principale (la plus longue de la semaine, avec D+ important)
+  • Dimanche = 2e Sortie Longue sur jambes fatiguées (50-60% de la durée du samedi, en EF strict, avec D+ modéré)
+  • Simuler la fatigue cumulée de l'ultra, apprendre à courir/marcher fatigué, travailler l'alimentation en effort
+  • Placer 2 à 3 week-ends back-to-back en phase spécifique (PAS en semaine de récupération)
+  • Après chaque back-to-back : lundi repos ou récupération très légère`;
+
 interface DplusBlockOpts {
   weekIdx: number;                          // 0-indexed (S1=0)
   weeklyElevationTarget?: number[];
@@ -3108,6 +3122,9 @@ function buildDplusPromptBlock(opts: DplusBlockOpts): string {
     });
     block += labels.join(' | ') + '\n';
     block += `Répartition par semaine : SL ~58% | vallonnée/côte ~37% | footings ~5% | piste/seuil/VMA 0m.\n`;
+    // R-A cleanup : réinjection de l'instruction `elevationGain` (anciennement
+    // au bloc legacy L4377-4385 supprimé car contradiction avec R3).
+    block += `⚠️ elevationGain OBLIGATOIRE sur chaque séance (sauf Renforcement).\n`;
   }
 
   // Note : back-to-back / marche montée / descente technique sont déjà dans
@@ -3313,7 +3330,7 @@ VMA : ${paces.vmaKmh} km/h (${vmaSource})
 - Renforcement SPÉCIFIQUE : gainage, squats, mollets, fentes, proprioception — 2 séances si possible
 - Séances courtes et intenses > séances longues. Pas de footing > 10km.
 - Le fractionné en côte peut commencer dès la phase fondamentale (c'est le geste spécifique)
-- Chaque séance DOIT mentionner le D+ cible
+
 ` : isTrailSteepPreview ? `
 🏔️ TRAIL RAIDE : ${data.trailDetails.distance} km, D+ ${data.trailDetails.elevation} m (${Math.round(data.trailDetails.elevation / data.trailDetails.distance)} m D+/km)
 ⚠️ FORMAT TRAIL RAIDE — Ratio D+/km élevé. Plan spécifique :
@@ -3322,14 +3339,14 @@ VMA : ${paces.vmaKmh} km/h (${vmaSource})
 - Sortie longue avec D+ progressif important — le D+ prime sur la distance
 - Renforcement : quadriceps (excentrique), mollets, proprioception
 - Le fractionné en côte peut commencer dès la phase fondamentale
-- Chaque séance DOIT mentionner le D+ cible
+
 ` : data.trailDetails.distance >= 100 ? `
 🏔️ ULTRA-TRAIL 100km+ : ${data.trailDetails.distance} km, D+ ${data.trailDetails.elevation} m
 ⚠️ FORMAT ULTRA LONG — Règles spécifiques :
 - La SORTIE LONGUE est la séance CLÉ. Elle doit progresser vers 50-65km ou 6-8h au pic d'entraînement.
 - BACK-TO-BACK OBLIGATOIRE en phase spécifique : SL samedi (longue) + sortie dimanche (modérée en fatigue). Le back-to-back simule la fatigue cumulée de l'ultra.
 - MARCHE EN CÔTE (power hiking) : intégrer des sections de marche rapide en montée dans les SL. Sur un ultra, on marche 30-50% du temps.
-- NUTRITION SUR SL LONGUES (≥2h) : DOIT inclure une mention coach dans la description, SANS chiffres ni timing précis. Formats à explorer : gel, pâte de fruit, banane, boisson glucidique. Hydratation régulière sans attendre la soif. Pour course cible ≥40km : ajouter "consulter un diététicien-sportif est fortement recommandé pour ta stratégie nutrition".
+${NUTRITION_SL_BLOCK}
 - MATÉRIEL : s'entraîner avec le sac, les bâtons, le matériel obligatoire dès la phase développement.
 - GESTION D'ALLURE : l'allure ultra est PLUS LENTE que l'EF. Prévoir des sections à 7:00-8:00 min/km.
 ${buildDplusPromptBlock({ weekIdx: 0, weeklyElevationTarget: generationContext.periodizationPlan.weeklyElevationTarget, recoveryWeeks: generationContext.periodizationPlan.recoveryWeeks, totalWeeks: generationContext.periodizationPlan.totalWeeks, raceDplus: data.trailDetails.elevation, raceDistanceKm: data.trailDetails.distance, context: 'preview' })}
@@ -3337,15 +3354,10 @@ ${buildDplusPromptBlock({ weekIdx: 0, weeklyElevationTarget: generationContext.p
 ` : data.trailDetails.distance >= 70 ? `
 🏔️ ULTRA-TRAIL 70km+ : ${data.trailDetails.distance} km, D+ ${data.trailDetails.elevation} m
 ⚠️ FORMAT ULTRA — Règles spécifiques :
-- BACK-TO-BACK OBLIGATOIRE en phase spécifique et développement :
-  • Samedi = Sortie Longue principale (longue, avec D+ important)
-  • Dimanche = 2e Sortie Longue sur jambes fatiguées (50-60% de la durée du samedi, en EF strict, D+ modéré)
-  • Simuler la fatigue cumulée de l'ultra, apprendre à courir/marcher fatigué, travailler l'alimentation
-  • Placer 2 à 3 week-ends back-to-back en phase spécifique (PAS en semaine de récupération)
-  • Après chaque back-to-back : lundi repos ou récupération très légère
+${ULTRA70_BACK_TO_BACK_BULLETS}
 - SL pic doit atteindre 4h30-6h au pic d'entraînement
 - MARCHE EN CÔTE (power hiking) : sections de marche rapide en montée dans les SL ≥ 2h30
-- NUTRITION SUR SL LONGUES (≥2h) : DOIT inclure une mention coach dans la description, SANS chiffres ni timing précis. Formats à explorer : gel, pâte de fruit, banane, boisson glucidique. Hydratation régulière sans attendre la soif. Pour course cible ≥40km : ajouter "consulter un diététicien-sportif est fortement recommandé pour ta stratégie nutrition".
+${NUTRITION_SL_BLOCK}
 - MATÉRIEL : s'entraîner avec sac et bâtons dès la phase développement
 
 ${buildDplusPromptBlock({ weekIdx: 0, weeklyElevationTarget: generationContext.periodizationPlan.weeklyElevationTarget, recoveryWeeks: generationContext.periodizationPlan.recoveryWeeks, totalWeeks: generationContext.periodizationPlan.totalWeeks, raceDplus: data.trailDetails.elevation, raceDistanceKm: data.trailDetails.distance, context: 'preview' })}
@@ -3717,26 +3729,24 @@ L'objectif est de TERMINER la course, pas de performer. Adapte la philosophie du
                     INSTRUCTIONS
 ═══════════════════════════════════════════════════════════════
 1. Génère SEULEMENT la semaine 1 (pas les autres !)
-2. ${data.frequency} séances sur ${data.frequency} jours DIFFÉRENTS
-3. Allures EXACTES dans chaque mainSet
-4. Message de bienvenue orienté OBJECTIF et STRUCTURE (PAS de VMA ni allures)
-5. Évaluation de faisabilité HONNÊTE avec chiffres
-6. OBLIGATOIRE : 1 séance de type "Renforcement" par semaine (comptée dans les ${data.frequency} séances)
+2. Allures EXACTES dans chaque mainSet
+3. Message de bienvenue orienté OBJECTIF et STRUCTURE (PAS de VMA ni allures)
+4. Évaluation de faisabilité HONNÊTE avec chiffres
+5. OBLIGATOIRE : 1 séance de type "Renforcement" par semaine (comptée dans les ${data.frequency} séances)
    - Répartition : ${data.frequency} séances = ${data.frequency - 1} running + 1 renfo
    - Durée : 30-45 min
    - Type dans le JSON : "Renforcement"
    - NE PAS mettre de séance "Repos" dans le plan
-7. COHÉRENCE DURÉE/DISTANCE/MAINSET (CRITIQUE) :
+   - NE PAS générer le contenu du mainSet renfo — le code le fera
+6. COHÉRENCE DURÉE/DISTANCE/MAINSET (CRITIQUE) :
    Le champ "duration", le champ "distance" et le contenu du "mainSet" doivent être COHÉRENTS entre eux.
    Si duration = "45 min" et allure EF = ${data.vma ? Math.floor(3600 / (data.vma * 0.67) / 60) + ':' + String(Math.round(3600 / (data.vma * 0.67) % 60)).padStart(2, '0') : '8:00'}/km, alors distance ≈ ${data.vma ? (45 / (3600 / (data.vma * 0.67) / 60)).toFixed(1) : '5.6'} km.
    Le mainSet ne doit JAMAIS décrire une durée différente de "duration". Ex: si duration="45 min", ne PAS écrire "1h20 de course" dans le mainSet.
-8. NOMMAGE : types autorisés = "Jogging", "Fractionné", "Sortie Longue", "Récupération", "Renforcement", "Marche/Course". PAS de variantes ("Footing Léger", "Endurance Fondamentale", "VMA", "Seuil" comme type).
+${!(data.goal || '').toLowerCase().includes('perte') && !(data.goal || '').toLowerCase().includes('hyrox') ? `7. NOMMAGE : types autorisés = "Jogging", "Fractionné", "Sortie Longue", "Récupération", "Renforcement", "Marche/Course". PAS de variantes ("Footing Léger", "Endurance Fondamentale", "VMA", "Seuil" comme type).` : ''}
 
 ═══════════════════════════════════════════════════════════════
-              RENFORCEMENT & TRAIL & FAISABILITÉ
+              TRAIL & FAISABILITÉ
 ═══════════════════════════════════════════════════════════════
-💪 1 séance "Renforcement" obligatoire par semaine (comptée dans les ${data.frequency}).
-NE PAS générer le contenu du mainSet renfo — le code le fera. Place simplement la séance.
 ${trailSectionPreview}
 📊 FAISABILITÉ PRÉ-CALCULÉE :
 ${feasibilityTextPreview}
@@ -4211,7 +4221,7 @@ Ratio D+/km : ${Math.round(data.trailDetails!.elevation / data.trailDetails!.dis
 - Sortie longue orientée DÉNIVELÉ (pas distance) — 1h-1h30 max avec D+ maximum
 - Le fractionné en côte EST AUTORISÉ dès la phase fondamentale (geste spécifique VK)
 - Renforcement spécifique : squats, fentes, mollets, gainage, proprioception
-- Chaque séance DOIT mentionner le D+ cible
+
 - elevationGain OBLIGATOIRE sur chaque séance (sauf Renforcement)
 ` : isTrailSteepRemaining ? `
 ═══════════════════════════════════════
@@ -4226,7 +4236,7 @@ Ratio D+/km : ${Math.round(data.trailDetails!.elevation / data.trailDetails!.dis
 - Sortie longue avec D+ progressif important — le D+ prime sur la distance
 - Le fractionné en côte EST AUTORISÉ dès la phase fondamentale
 - Renforcement : quadriceps excentrique, mollets, proprioception
-- Chaque séance DOIT mentionner le D+ cible
+
 - elevationGain OBLIGATOIRE sur chaque séance (sauf Renforcement)
 ` : `
 ═══════════════════════════════════════
@@ -4246,15 +4256,11 @@ ${data.trailDetails!.distance >= 100 ? `- 🔴 ULTRA 100km+ : BACK-TO-BACK OBLIG
 - Marche en côte (power hiking) intégrée dans les SL — sur un ultra on marche 30-50% du temps
 - SL pic doit atteindre 50-65km ou 6-8h minimum
 - Allure ultra PLUS LENTE que EF (7:00-8:00 min/km)
-- NUTRITION SUR SL LONGUES (≥2h) : DOIT inclure une mention coach dans la description, SANS chiffres ni timing précis. Formats à explorer : gel, pâte de fruit, banane, boisson glucidique. Hydratation régulière sans attendre la soif. Pour course cible ≥40km : ajouter "consulter un diététicien-sportif est fortement recommandé pour ta stratégie nutrition".` : data.trailDetails!.distance >= 70 ? `- 🔴 ULTRA-TRAIL 70km+ : BACK-TO-BACK OBLIGATOIRE en phase spécifique et développement :
-  • Samedi = Sortie Longue principale (la plus longue de la semaine, avec D+ important)
-  • Dimanche = 2e Sortie Longue sur jambes fatiguées (50-60% de la durée du samedi, en EF strict, avec D+ modéré)
-  • Objectif : simuler la fatigue cumulée de l'ultra, apprendre à courir/marcher fatigué, travailler l'alimentation en effort
-  • Placer 2 à 3 week-ends back-to-back en phase spécifique (PAS en semaine de récupération)
-  • Après chaque week-end back-to-back : lundi repos ou récupération très légère
+${NUTRITION_SL_BLOCK}` : data.trailDetails!.distance >= 70 ? `- 🔴 ULTRA-TRAIL 70km+ :
+${ULTRA70_BACK_TO_BACK_BULLETS}
 - SL pic doit atteindre 4h30-6h au pic d'entraînement (semaine de volume max)
 - MARCHE EN CÔTE (power hiking) : intégrer des sections de marche rapide en montée dans les SL ≥ 2h30
-- NUTRITION SUR SL LONGUES (≥2h) : DOIT inclure une mention coach dans la description, SANS chiffres ni timing précis. Formats à explorer : gel, pâte de fruit, banane, boisson glucidique. Hydratation régulière sans attendre la soif. Pour course cible ≥40km : ajouter "consulter un diététicien-sportif est fortement recommandé pour ta stratégie nutrition".
+${NUTRITION_SL_BLOCK}
 - MATÉRIEL : s'entraîner avec le sac et les bâtons dès la phase développement
 - Gestion effort sur très longue durée : alterner course et marche en montée` : ''}
 ${buildDplusPromptBlock({ weekIdx: 0, weeklyElevationTarget: ctx.periodizationPlan.weeklyElevationTarget, recoveryWeeks: ctx.periodizationPlan.recoveryWeeks, totalWeeks: ctx.periodizationPlan.totalWeeks, raceDplus: data.trailDetails!.elevation, raceDistanceKm: data.trailDetails!.distance, context: 'remaining' })}
@@ -4374,15 +4380,6 @@ ${data.comments?.trim() ? `📝 PRÉCISIONS DU COUREUR : "${data.comments.trim()
 ${beginnerProgressionInstruction}
 ${trailSectionRemaining}
 ${hyroxSectionRemaining}
-${isTrailRemaining ? `
-📊 D+ CIBLE PAR SEMAINE (progression 50% → 100%) :
-${batch.map(weekNum => {
-  const progress = Math.min(1, 0.5 + (0.5 * (weekNum - 1) / (totalWeeks - 1)));
-  const targetElevation = Math.round(data.trailDetails!.elevation * progress);
-  return `Semaine ${weekNum}: D+ total cible ≈ ${targetElevation}m (${Math.round(progress * 100)}% du D+ course)`;
-}).join('\n')}
-⚠️ elevationGain OBLIGATOIRE sur chaque séance (sauf Renforcement). La SL porte 60-70% du D+ hebdo.
-` : ''}
 💪 RENFORCEMENT : 1 séance "Renforcement" par semaine OBLIGATOIRE.
 NE PAS générer le contenu du mainSet renfo — le code le fera. Place simplement la séance au bon jour.
 
