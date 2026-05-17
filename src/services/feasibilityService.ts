@@ -3,6 +3,7 @@
  * Remplace les ~64 lignes de règles de faisabilité qui étaient dans le prompt Gemini.
  * Produit une évaluation concrète, honnête, avec des chiffres, sans appel IA.
  */
+import { calculateWeekTargetElevation } from './planUtils';
 
 // ---------------------------------------------------------------------------
 // Types
@@ -202,6 +203,112 @@ function requiredVmaForTarget(targetMinutes: number, distanceKm: number): number
   const factor = getVmaFactor(distanceKm);
   const requiredSpeed = distanceKm / (targetMinutes / 60); // km/h
   return requiredSpeed / factor;
+}
+
+// ═══════════════════════════════════════════════════════════════════════════
+// R2 — Gates feasibility trail + saut volume + Expert non validé
+// ═══════════════════════════════════════════════════════════════════════════
+// Validé par PM 30 ans + dev senior + expert trail (UTMB Academy).
+// Helper unique appelé à la fin des 2 fonctions feasibility (calculate +
+// buildFinisher) juste avant le clamp final. Retourne :
+//   - irrealisticCap : si défini, force score ≤ ce cap + status IRRÉALISTE
+//   - scorePenalty : pénalité additive cumulée
+//   - reasons : liste des raisons (pour message si besoin)
+// ─── Feature flag : R2_GATES_ENABLED ───
+// Mettre à false pour désactiver les gates en cas de bug détecté en prod.
+
+const R2_GATES_ENABLED = true;
+
+interface R2Context {
+  isTrail: boolean;
+  distanceKm: number | null;
+  raceDplus: number;          // D+ course trail (0 si pas trail)
+  planWeeks: number;
+  currentVolume: number;      // km/sem actuel (0 si non déclaré)
+  currentElev: number;        // D+/sem actuel (0 si non déclaré)
+  s1Volume: number;           // Volume cible S1 (premier élément weeklyVolumes)
+  totalDplusCycle: number;    // Somme D+ cible cycle (calculée via calculateWeekTargetElevation)
+  level: string;
+  hasChrono: boolean;
+}
+
+function applyR2Gates(ctx: R2Context): { irrealisticCap?: number; scorePenalty: number; reasons: string[] } {
+  if (!R2_GATES_ENABLED) return { scorePenalty: 0, reasons: [] };
+  const reasons: string[] = [];
+  let scorePenalty = 0;
+  let irrealisticCap: number | undefined;
+
+  // ─── Trail gates (règles 1, 2, 3) ───
+  if (ctx.isTrail && ctx.raceDplus > 0 && ctx.distanceKm !== null) {
+    // Modulation par distance trail (validé expert trail)
+    const isCourt = ctx.distanceKm < 30;
+    const isMoyen = ctx.distanceKm >= 30 && ctx.distanceKm < 60;
+    const isUltra = ctx.distanceKm >= 60;
+
+    // Règle 1 — Total D+ cycle insuffisant
+    // Seuil expert : <30km=0.45, 30-60=0.55, >60=0.65 × race × weeks
+    const r1Coef = isCourt ? 0.45 : isMoyen ? 0.55 : 0.65;
+    const r1Min = r1Coef * ctx.raceDplus * ctx.planWeeks;
+    if (ctx.totalDplusCycle > 0 && ctx.totalDplusCycle < r1Min) {
+      irrealisticCap = 10;
+      reasons.push(`D+ cycle projeté ${ctx.totalDplusCycle}m < min ${Math.round(r1Min)}m (${Math.round(r1Coef*100)}% race × N sem)`);
+    }
+
+    // Règle 2 — Ratio D+ actuel/race trop élevé
+    // Seuils expert : >15 vigilance, >25 AMBITIEUX, >40 IRRÉALISTE
+    if (ctx.currentElev > 0) {
+      const ratioDplus = ctx.raceDplus / ctx.currentElev;
+      if (ratioDplus > 40) {
+        irrealisticCap = Math.min(irrealisticCap ?? 100, 10);
+        reasons.push(`Ratio D+ race/actuel ${ratioDplus.toFixed(0)}× > 40 (hors fenêtre prép)`);
+      } else if (ratioDplus > 25) {
+        scorePenalty += 25; // AMBITIEUX
+        reasons.push(`Ratio D+ race/actuel ${ratioDplus.toFixed(0)}× > 25 (ambitieux)`);
+      } else if (ratioDplus > 15) {
+        scorePenalty += 10;
+        reasons.push(`Ratio D+ race/actuel ${ratioDplus.toFixed(0)}× > 15 (vigilance)`);
+      }
+    }
+    // Cas particulier : pas de D+ déclaré + race avec D+ → traiter comme "très loin"
+    else if (ctx.raceDplus >= 500) {
+      scorePenalty += 15;
+      reasons.push(`D+ hebdo actuel non déclaré pour course ${ctx.raceDplus}m D+`);
+    }
+
+    // Règle 3 — Ratio vol actuel/race trop bas (modulé par distance)
+    if (ctx.currentVolume > 0) {
+      const ratioVol = ctx.currentVolume / ctx.distanceKm;
+      const seuils = isCourt ? { irr: 0.50, amb: 0.65 } : isMoyen ? { irr: 0.40, amb: 0.50 } : { irr: 0.30, amb: 0.40 };
+      if (ratioVol < seuils.irr) {
+        irrealisticCap = Math.min(irrealisticCap ?? 100, 10);
+        reasons.push(`Vol actuel ${ctx.currentVolume}km/sem trop faible vs race ${ctx.distanceKm}km (ratio ${ratioVol.toFixed(2)} < ${seuils.irr})`);
+      } else if (ratioVol < seuils.amb) {
+        scorePenalty += 20;
+        reasons.push(`Vol actuel ${ctx.currentVolume}km/sem juste vs race ${ctx.distanceKm}km (ratio ${ratioVol.toFixed(2)} < ${seuils.amb})`);
+      }
+    }
+  }
+
+  // ─── Règle 4 — Cap saut volume S0→S1 (toutes distances) ───
+  if (ctx.currentVolume > 0 && ctx.s1Volume > 0) {
+    const sautAbs = ctx.s1Volume - ctx.currentVolume;
+    const sautPct = (ctx.s1Volume / ctx.currentVolume) - 1;
+    if (sautPct > 0.50 || sautAbs > 15) {
+      irrealisticCap = Math.min(irrealisticCap ?? 100, 10);
+      reasons.push(`Saut S0→S1 trop violent : ${ctx.currentVolume}km → ${ctx.s1Volume}km (${(sautPct*100).toFixed(0)}%, +${sautAbs}km)`);
+    } else if (sautPct > 0.30) {
+      scorePenalty += 10;
+      reasons.push(`Saut S0→S1 limite : ${ctx.currentVolume}km → ${ctx.s1Volume}km (+${(sautPct*100).toFixed(0)}%)`);
+    }
+  }
+
+  // ─── Règle 6 — "Expert" non validé (doctrine : pénaliser + warning, PAS écraser) ───
+  if (ctx.level === 'Expert (Performance)' && !ctx.hasChrono && ctx.currentVolume > 0 && ctx.currentVolume < 40) {
+    scorePenalty += 20;
+    reasons.push(`Niveau "Expert" déclaré mais aucun chrono validé + volume ${ctx.currentVolume}km/sem (< 40 attendu pour Expert)`);
+  }
+
+  return { irrealisticCap, scorePenalty, reasons };
 }
 
 // ---------------------------------------------------------------------------
@@ -541,6 +648,42 @@ export function calculateFeasibility(params: FeasibilityParams): FeasibilityResu
     }
   }
 
+  // -----------------------------------------------------------------------
+  // R2 — Gates feasibility trail + saut volume + Expert non validé
+  // Helper applyR2Gates (cf. début fichier). Cas Peterson/Valentine.
+  // Recalcule totalDplusCycle à la volée (sum sur N semaines via
+  // calculateWeekTargetElevation, sans phase = pic max).
+  // -----------------------------------------------------------------------
+  let totalDplusCycleR2 = 0;
+  if (isTrail && params.trailElevation) {
+    for (let i = 1; i <= planWeeks; i++) {
+      // Phase=undefined → pas de réduction (estimation conservative haute)
+      totalDplusCycleR2 += calculateWeekTargetElevation(i, planWeeks, params.trailElevation, params.level, params.currentWeeklyElevation, undefined);
+    }
+  }
+  // Volume S1 = première semaine projetée. Approximation : courbe progressive
+  // à partir du currentVolume. Si pas connu, on estime ~85% du vol pic.
+  const s1VolEstimate = currentVolume && currentVolume > 0 ? currentVolume : 0;
+  const r2 = applyR2Gates({
+    isTrail,
+    distanceKm,
+    raceDplus: params.trailElevation ?? 0,
+    planWeeks,
+    currentVolume: currentVolume ?? 0,
+    currentElev: params.currentWeeklyElevation ?? 0,
+    s1Volume: s1VolEstimate,
+    totalDplusCycle: totalDplusCycleR2,
+    level: params.level || '',
+    hasChrono: params.hasChrono,
+  });
+  if (r2.reasons.length > 0) {
+    console.debug(`[R2 Gates] reasons:`, r2.reasons);
+  }
+  score -= r2.scorePenalty;
+  if (r2.irrealisticCap !== undefined) {
+    score = Math.min(score, r2.irrealisticCap);
+  }
+
   // Clamp final
   score = clamp(score, 10, 100);
   status = resolveStatus(score);
@@ -871,9 +1014,7 @@ function buildFinisherFeasibility(
 
   // -----------------------------------------------------------------------
   // GARDE-FOU DÉBUTANT + VOL 0 : durée minimum saine par distance
-  // Cf. getMinimumWeeksForBeginnerVolZero(). Cas Aureline 1778575564571 :
-  // trail 6km/150D+ en 7 sem avec IMC 31.6 → min requis = 16 sem (12 trail
-  // court + 4 IMC) → IRRÉALISTE. Sans ce garde-fou elle serait classée RISQUÉ.
+  // Cf. getMinimumWeeksForBeginnerVolZero(). Cas Aureline 1778575564571.
   // -----------------------------------------------------------------------
   if (beginner && (currentVolume ?? 0) === 0) {
     const bmiBeg = params.weight && params.height && params.height > 0
@@ -886,6 +1027,39 @@ function buildFinisherFeasibility(
       score = Math.min(score, 30);
       reasons.push({ type: 'warn', text: `${planWeeks} semaines pour démarrer la course (volume actuel 0) est juste pour ton profil — minimum confortable : ${Math.round(minRequired * 1.2)} semaines` });
     }
+  }
+
+  // -----------------------------------------------------------------------
+  // R2 — Gates feasibility trail + saut volume + Expert non validé
+  // Cf. applyR2Gates en haut de fichier. Cas Peterson 1779027192953 (trail
+  // 50km/3500D+ en 11 sem, vol 31 + D+ 15) → IRRÉALISTE auto via gate 2.
+  // Cas Valentine 1779029895523 (trail 20km/1000D+ en 7 sem, vol 25 + D+ 600)
+  // → tous gates passent, statut conservé → bon comportement.
+  // -----------------------------------------------------------------------
+  let totalDplusCycleR2 = 0;
+  if (isTrail && params.trailElevation) {
+    for (let i = 1; i <= planWeeks; i++) {
+      totalDplusCycleR2 += calculateWeekTargetElevation(i, planWeeks, params.trailElevation, params.level, params.currentWeeklyElevation, undefined);
+    }
+  }
+  const r2 = applyR2Gates({
+    isTrail,
+    distanceKm,
+    raceDplus: params.trailElevation ?? 0,
+    planWeeks,
+    currentVolume: currentVolume ?? 0,
+    currentElev: params.currentWeeklyElevation ?? 0,
+    s1Volume: currentVolume ?? 0,  // approx pour Finisher : départ au niveau actuel
+    totalDplusCycle: totalDplusCycleR2,
+    level: params.level || '',
+    hasChrono: params.hasChrono,
+  });
+  for (const r of r2.reasons) {
+    reasons.push({ type: r2.irrealisticCap !== undefined ? 'risk' : 'warn', text: r });
+  }
+  score -= r2.scorePenalty;
+  if (r2.irrealisticCap !== undefined) {
+    score = Math.min(score, r2.irrealisticCap);
   }
 
   score = clamp(score, 10, 100);
