@@ -190,6 +190,10 @@ const caffeineDose = (
 // `kcal/h = poids × (5 + (m_grimpés/h × 0.012) + (m_descendus/h × 0.0035))`
 // 5 kcal/kg/h ≈ base course/marche douce ; coeff montée 0.012 (Minetti),
 // coeff descente 0.0035 (descente coûte ~3-4× moins qu'un plat mais reste consommatrice).
+// Cap pédagogique 1000 kcal/h : la formule Minetti diverge linéairement sur
+// D+ très raide (VK : >1000 m/h ascensionnels), au-delà la combustion n'est plus
+// physiologiquement soutenable en effort continu (Vernillo 2017).
+const KCAL_PER_HOUR_TRAIL_CAP = 1000;
 const kcalPerHourTrail = (
   poidsKg: number,
   dPlus: number,
@@ -201,7 +205,7 @@ const kcalPerHourTrail = (
   const mGrimpesParH = dPlus / h;
   const mDescendusParH = dMinus / h;
   const kcal = poidsKg * (5 + mGrimpesParH * 0.012 + mDescendusParH * 0.0035);
-  return Math.max(0, Math.round(kcal));
+  return Math.min(KCAL_PER_HOUR_TRAIL_CAP, Math.max(0, Math.round(kcal)));
 };
 
 // Calcul principal
@@ -223,7 +227,7 @@ const computeNutrition = (params: {
   cafeineHabit: Cafeine;
 }): CalcResult => {
   const {
-    poidsKg, premierMode, distanceKm, dPlus, dMinus, durationSec,
+    sexe, poidsKg, premierMode, distanceKm, dPlus, dMinus, durationSec,
     tempC, hygrometrie, altitude, basesDeVie,
     expNutrition, sudation, cafeineHabit,
   } = params;
@@ -231,6 +235,14 @@ const computeNutrition = (params: {
   const warnings: string[] = [];
   const durationHours = durationSec / 3600;
   const dEq = distanceEquivalenteITRA(distanceKm, dPlus, dMinus);
+
+  // ─── B12 : effort exceptionnel >30 h ───
+  // La validation autorise jusqu'à 50 h (Hardrock, Tor des Géants en marge) mais
+  // au-delà de 30 h, l'outil ne couvre pas correctement sommeil/MAM/dépression
+  // nutritionnelle → on oriente explicitement vers un diététicien spécialisé.
+  if (durationHours > 30) {
+    warnings.push("Effort exceptionnel (>30 h) : cet outil donne des estimations indicatives mais ne couvre pas le sommeil, la dépression nutritionnelle et la gestion temporelle (jour/nuit). Pour ce type de course, considère une approche personnalisée avec un diététicien-nutritionniste du sport spécialisé ultra.");
+  }
 
   // ─── Glucides ───
   const carbsBase = carbsByTrailDuration(durationSec);
@@ -245,12 +257,24 @@ const computeNutrition = (params: {
     warnings.push("Cible glucides réduite de 20% car aucune expérience nutrition en course. Sur trail long, un abandon GI est plus probable qu'une perte de chrono — progresse graduellement (Costa 2017).");
   }
 
-  // Mode Premier ultra : cap à 60 g/h max (peu importe la durée)
+  // ─── B11 : différenciation H/F glucides (Devries 2016, Sims 2018) ───
+  // Femmes oxydent ~10 % moins de glucides exogènes en moyenne. On applique -10%
+  // uniquement si la cible est >0 (pas sur les mouth rinse <1h).
+  if (sexe === 'F' && target > 0) {
+    target = Math.max(15, Math.round(target * 0.9));
+    carbsMin = Math.max(10, Math.round(carbsMin * 0.9));
+    carbsMax = Math.max(carbsMin + 5, Math.round(carbsMax * 0.9));
+    warnings.push("Cible glucides ajustée pour profil femme (-10 %) — capacité d'oxydation glucidique exogène en moyenne plus basse que chez l'homme (Devries 2016, Sims 2018). Adapte selon ton ressenti et ton gut training.");
+  }
+
+  // ─── B3 : Mode Premier ultra — cap à 60 g/h max (peu importe la durée) ───
+  // On garde une plage utile 50-60 g/h (au lieu de min=max=60 qui faisait perdre
+  // toute fourchette au user) pour rester informatif tout en plafonnant la cible.
   if (premierMode && target > 60) {
     target = 60;
-    carbsMax = Math.min(carbsMax, 60);
-    carbsMin = Math.min(carbsMin, target);
-    warnings.push("Mode Premier trail/ultra : cible glucides plafonnée à 60 g/h pour limiter le risque GI distress. Première priorité : finir, pas optimiser.");
+    carbsMax = 60;
+    carbsMin = 50;
+    warnings.push("Mode Premier trail/ultra : cible glucides plafonnée à 60 g/h (plage 50-60) pour limiter le risque GI distress. Première priorité : finir, pas optimiser.");
   }
 
   if (target >= 60) {
@@ -271,6 +295,8 @@ const computeNutrition = (params: {
   if (altitude === '>2500m') {
     hydrationPerHour = Math.round(hydrationPerHour * 1.15);
     warnings.push("Altitude >2500 m : besoins hydratation +15%, oxydation glucidique majorée. Si tu n'es pas acclimaté ≥2 semaines, l'effort sera nettement plus dur.");
+    // ─── B10 : warning MAM si altitude >2500m (Lipman 2013) ───
+    warnings.push("⚠️ Altitude >2500 m : risque de Mal Aigu des Montagnes (MAM). Symptômes : maux de tête, nausées, insomnie, perte d'appétit. Acclimatation 2 semaines préalable recommandée. Si symptômes pendant la course : redescendre immédiatement. Source : Lipman 2013.");
   }
   if (hydrationPerHour > 1000) hydrationPerHour = 1000;
   if (hydrationPerHour > 800) {
@@ -288,7 +314,17 @@ const computeNutrition = (params: {
   if (durationHours >= 4) {
     warnings.push("Effort >4 h : risque hyponatrémie d'effort (EAH) plus élevé, surtout pour les femmes et coureurs lents. Ne dépasse JAMAIS 1 L/h. Urine claire abondante = signe de SUR-hydratation.");
   }
-  const totalHydration = Math.round((hydrationPerHour * durationSec) / 3600);
+
+  // ─── B5 : Total hydratation — pondération pauses sur ultra >12 h ───
+  // Le cap horaire 1000 mL/h × durée brute donnait des totaux anxiogènes (28 L sur
+  // 28 h, profil Diagonale) qui sont pro-EAH. Réalité Hoffman 2014 : moyenne réelle
+  // 400-600 mL/h sur ultra car bases de vie + cap horaire jamais maintenu 100 % du
+  // temps. On pondère par 0.85 au-delà de 12 h pour refléter ce comportement réel.
+  const hydrationPauseFactor = durationHours > 12 ? 0.85 : 1;
+  const totalHydration = Math.round((hydrationPerHour * durationSec / 3600) * hydrationPauseFactor);
+  if (durationHours > 12) {
+    warnings.push("Total hydratation estimé sur la base d'un débit moyen réel (cap horaire pondéré -15 % pour bases de vie + variations d'effort) — c'est une estimation pédagogique, pas un objectif strict. La règle d'or reste : bois à la soif.");
+  }
 
   // ─── Sodium ───
   let sodiumPerLiter = sodiumByProfil(sudation);
@@ -296,10 +332,32 @@ const computeNutrition = (params: {
   const totalSodium = Math.round((sodiumPerLiter * totalHydration) / 1000);
 
   // ─── Caféine ───
-  const { preRaceMg: caffeinePreRace, inRaceMgPerDose: caffeineInRaceMgPerDose, mgPerKgTotal } =
+  // ─── B1 : cap dur 6 mg/kg/24 h (Grgic 2020) ───
+  // Avant : on calculait la dose totale puis on affichait juste un warning si dépassement
+  // → un coureur novice pouvait suivre 16 mg/kg. Maintenant on cape RÉELLEMENT le nombre
+  // de prises en course pour ne jamais dépasser 6 mg/kg/24 h, et on signale le cap.
+  let { preRaceMg: caffeinePreRace, inRaceMgPerDose: caffeineInRaceMgPerDose, mgPerKgTotal } =
     caffeineDose(poidsKg, cafeineHabit, premierMode, durationSec);
-  if (mgPerKgTotal > 6) {
-    warnings.push("Caféine totale calculée >6 mg/kg sur 24 h : réduis tes prises en course. Au-delà, les effets secondaires (palpitations, GI distress) dépassent les bénéfices ergogéniques.");
+  const CAFFEINE_HARD_CAP_MG_PER_KG = 6;
+  const maxTotalMg = poidsKg * CAFFEINE_HARD_CAP_MG_PER_KG;
+  if (caffeineInRaceMgPerDose > 0 && durationHours >= 3) {
+    const nbInRaceRaw = Math.floor((durationHours - 3) / 2.5) + 1;
+    const naturalTotal = caffeinePreRace + caffeineInRaceMgPerDose * nbInRaceRaw;
+    if (naturalTotal > maxTotalMg) {
+      const allowedInRace = Math.max(0, maxTotalMg - caffeinePreRace);
+      const allowedDoses = Math.max(0, Math.floor(allowedInRace / caffeineInRaceMgPerDose));
+      const cappedTotal = caffeinePreRace + caffeineInRaceMgPerDose * allowedDoses;
+      mgPerKgTotal = Math.round((cappedTotal / poidsKg) * 10) / 10;
+      if (allowedDoses < nbInRaceRaw) {
+        warnings.push(`Caféine plafonnée à 6 mg/kg/24 h (Grgic 2020) — soit ~${allowedDoses} prise${allowedDoses > 1 ? 's' : ''} en course max après la dose pré-course. Au-delà, les effets secondaires (palpitations, GI distress, troubles du sommeil post-course) dépassent les bénéfices ergogéniques.`);
+      }
+    }
+  } else if (mgPerKgTotal > CAFFEINE_HARD_CAP_MG_PER_KG) {
+    // Effort court : on cape la dose pré-course
+    const cappedPre = Math.round((maxTotalMg) / 5) * 5;
+    caffeinePreRace = Math.min(caffeinePreRace, cappedPre);
+    mgPerKgTotal = Math.round((caffeinePreRace / poidsKg) * 10) / 10;
+    warnings.push("Dose caféine plafonnée à 6 mg/kg/24 h (Grgic 2020).");
   }
 
   // ─── Protéines (>4 h) ───
@@ -309,6 +367,13 @@ const computeNutrition = (params: {
 
   // ─── Énergie (Minetti) ───
   const kcalPerHour = kcalPerHourTrail(poidsKg, dPlus, dMinus, durationSec);
+  // ─── B2 : warning si cap kcal/h appliqué (formule Minetti diverge VK / D+ raides) ───
+  if (kcalPerHour >= KCAL_PER_HOUR_TRAIL_CAP) {
+    const mGrimpesParH = dPlus / Math.max(0.01, durationHours);
+    if (mGrimpesParH > 800) {
+      warnings.push("Cap pédagogique 1000 kcal/h appliqué — la formule de Minetti sur-estime à très haute intensité ascensionnelle (VK, montagne très raide). La dépense énergétique réelle reste élevée mais inférieure au calcul brut.");
+    }
+  }
   const totalKcal = Math.round((kcalPerHour * durationSec) / 3600);
 
   // ─── Pack ───
@@ -520,9 +585,11 @@ const NutritionTrailPage: React.FC = () => {
       alert("Renseigne un nombre de bases de vie entre 0 et 10.");
       return;
     }
-    // Durée : 0h30 minimum (trail court) → 30h max (ultra long)
-    if (chronoSec < 1800 || chronoSec > 30 * 3600) {
-      alert("Renseigne une durée valide (entre 0h30 et 30h).");
+    // Durée : 0h30 minimum (trail court) → 50h max (Hardrock 100 ≈ 35 h, marge).
+    // Au-delà de 30h, on continue à calculer mais warning visuel "effort exceptionnel"
+    // est ajouté par computeNutrition pour orienter vers un suivi personnalisé.
+    if (chronoSec < 1800 || chronoSec > 50 * 3600) {
+      alert("Renseigne une durée valide (entre 0h30 et 50h).");
       return;
     }
     if (isNaN(tempNum) || tempNum < -20 || tempNum > 45) {
@@ -929,7 +996,7 @@ const NutritionTrailPage: React.FC = () => {
                         onChange={(e) => setChronoH(e.target.value)}
                         placeholder="h"
                         min="0"
-                        max="30"
+                        max="50"
                         className="w-full p-4 border border-slate-300 rounded-xl text-center focus:ring-2 focus:ring-accent focus:border-accent"
                       />
                       <span className="text-slate-500 font-bold">:</span>
@@ -953,7 +1020,7 @@ const NutritionTrailPage: React.FC = () => {
                         className="w-full p-4 border border-slate-300 rounded-xl text-center focus:ring-2 focus:ring-accent focus:border-accent"
                       />
                     </div>
-                    <p className="text-xs text-slate-500 mt-1">Ex : 8h30 → 8 / 30 / 00 — entre 0h30 et 30h</p>
+                    <p className="text-xs text-slate-500 mt-1">Ex : 8h30 → 8 / 30 / 00 — entre 0h30 et 50h</p>
                   </div>
 
                   <div>
@@ -1136,8 +1203,16 @@ const NutritionTrailPage: React.FC = () => {
                     <div className="text-xs text-slate-500 mt-1">glucides</div>
                   </div>
                   <div className="text-center p-3 bg-blue-50 rounded-lg">
-                    <div className="text-2xl font-bold text-blue-700">{result.totalHydration}</div>
-                    <div className="text-xs text-slate-500 mt-1">mL eau</div>
+                    <div className="text-2xl font-bold text-blue-700">
+                      {result.totalHydration >= 2000
+                        ? `~${(result.totalHydration / 1000).toFixed(1)} L`
+                        : `${result.totalHydration} mL`}
+                    </div>
+                    <div className="text-xs text-slate-500 mt-1">
+                      {result.durationHours > 12
+                        ? <>estimation à boire<span className="block text-[10px] text-slate-400 mt-0.5">dont 25-30 % aux bases de vie</span></>
+                        : 'mL eau'}
+                    </div>
                   </div>
                   <div className="text-center p-3 bg-emerald-50 rounded-lg">
                     <div className="text-2xl font-bold text-emerald-700">{result.sodiumPerLiter}</div>
@@ -2002,6 +2077,7 @@ export {
   caffeineDose,
   distanceEquivalenteITRA,
   kcalPerHourTrail,
+  KCAL_PER_HOUR_TRAIL_CAP,
   computeNutrition,
 };
 

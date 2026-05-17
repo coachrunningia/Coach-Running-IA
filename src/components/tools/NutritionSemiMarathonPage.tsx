@@ -61,9 +61,19 @@ interface CalcResult {
   nbGels: number;
   nbBidons: number;
   // Spécifique semi : recommandation principale "faut-il manger ?"
-  strategy: 'mouth_rinse' | 'gel_optional' | 'gels_recommended' | 'marathon_approach';
+  // Strategy distincte par label pour aligner nbGels (B1 fix) et permettre
+  // override pour Premier (B2 fix).
+  strategy:
+    | 'mouth_rinse'
+    | 'gel_optional'
+    | 'recommended_1_2'
+    | 'recommended_2'
+    | 'recommended_2_3'
+    | 'marathon_approach';
   strategyLabel: string;
   strategyDetail: string;
+  // Estimation théorique des glucides totaux (≠ nbGels obligatoires) — affichage info
+  totalCarbsEstimate: number;
   // Timeline
   timeline: { window: string; instruction: string; tone: 'normal' | 'warning' | 'highlight' }[];
 }
@@ -143,7 +153,13 @@ const caffeineDose = (
 };
 
 // Stratégie principale "faut-il manger ?" selon chrono — réponse honnête.
-const strategyForChrono = (chronoSec: number): { strategy: CalcResult['strategy']; label: string; detail: string } => {
+// ─── B2 : override texte si premierMode (anti-doctrine : on retire "caféine si
+// habitué" puisque Premier = 0 mg caféine forcés, et on aligne la cible glucides
+// avec le cap Premier 30 g/h utilisé ailleurs dans le calcul).
+const strategyForChrono = (
+  chronoSec: number,
+  premierMode: boolean = false,
+): { strategy: CalcResult['strategy']; label: string; detail: string } => {
   if (chronoSec < 75 * 60) {
     return {
       strategy: 'mouth_rinse',
@@ -160,29 +176,37 @@ const strategyForChrono = (chronoSec: number): { strategy: CalcResult['strategy'
   }
   if (chronoSec < 105 * 60) {
     return {
-      strategy: 'gels_recommended',
+      strategy: 'recommended_1_2',
       label: '1-2 gels recommandés',
-      detail: "Pour un semi 1h30-1h45, 1-2 gels apportent un vrai gain. 1 gel vers le km 10, un 2e vers le km 16 si tu sens la fatigue glucidique. Hydratation 400-700 mL/h selon météo.",
+      detail: premierMode
+        ? "Premier semi : 1 gel maximum vers le km 10, à condition qu'il ait été testé en sortie longue. Ton objectif est de finir confortablement, pas d'optimiser. Hydratation 400-600 mL/h, zéro caféine."
+        : "Pour un semi 1h30-1h45, 1-2 gels apportent un vrai gain. 1 gel vers le km 10, un 2e vers le km 16 si tu sens la fatigue glucidique. Hydratation 400-700 mL/h selon météo.",
     };
   }
   if (chronoSec < 120 * 60) {
     return {
-      strategy: 'gels_recommended',
+      strategy: 'recommended_2',
       label: '2 gels recommandés',
-      detail: "Pour un semi 1h45-2h, 2 gels sont vraiment utiles. 1 vers le km 8, 1 vers le km 14-16. Hydratation 400-700 mL/h. Sodium 400-900 mg/L de boisson selon ta sudation.",
+      detail: premierMode
+        ? "Premier semi : vise 1-2 gels maximum (km 8 puis km 14 si tu te sens bien), à condition qu'ils aient été testés en sortie longue. Hydratation 400-600 mL/h, zéro caféine."
+        : "Pour un semi 1h45-2h, 2 gels sont vraiment utiles. 1 vers le km 8, 1 vers le km 14-16. Hydratation 400-700 mL/h. Sodium 400-900 mg/L de boisson selon ta sudation.",
     };
   }
   if (chronoSec < 150 * 60) {
     return {
-      strategy: 'gels_recommended',
+      strategy: 'recommended_2_3',
       label: '2-3 gels recommandés',
-      detail: "Pour un semi 2h-2h30, traite-le comme un mini-marathon. 2-3 gels (km 6, km 12, km 17). Hydratation 500-800 mL/h. Sodium 600-900 mg/L. Caféine pré-course (3 mg/kg) si habitué.",
+      detail: premierMode
+        ? "Premier semi sur format long : 2 à 3 gels TESTÉS en sortie longue (km 7, km 12, km 17). Cible 30 g/h max, hydratation 400-600 mL/h, sodium 400-900 mg/L. Zéro caféine. Objectif = finir, pas chronométrer."
+        : "Pour un semi 2h-2h30, traite-le comme un mini-marathon. 2-3 gels (km 6, km 12, km 17). Hydratation 500-800 mL/h. Sodium 600-900 mg/L. Caféine pré-course (3 mg/kg) si habitué.",
     };
   }
   return {
     strategy: 'marathon_approach',
     label: 'Approche marathon court',
-    detail: "Pour un semi >2h30, applique une vraie stratégie marathon. 3+ gels, alterne eau/isotonique, sodium adapté, caféine si habitué. Le risque de fatigue glucidique est réel — ne sous-estime pas l'apport.",
+    detail: premierMode
+      ? "Premier semi sur format très long (>2h30) : ton objectif est de finir. 2 à 3 gels TESTÉS en sortie longue, espacés de 30-40 min. Hydratation régulière 400-600 mL/h (cap Premier). Sodium adapté à ta sudation. Aucune caféine. Aucune nouveauté le jour J."
+      : "Pour un semi >2h30, applique une vraie stratégie marathon. 3+ gels, alterne eau/isotonique, sodium adapté, caféine si habitué. Le risque de fatigue glucidique est réel — ne sous-estime pas l'apport.",
   };
 };
 
@@ -205,7 +229,8 @@ const computeNutrition = (params: {
   } = params;
 
   const warnings: string[] = [];
-  const strat = strategyForChrono(chronoSec);
+  // ─── B2 : la stratégie texte tient compte du mode Premier ───
+  const strat = strategyForChrono(chronoSec, premierMode);
 
   // ─── Glucides ───
   const carbsBase = carbsBySemiTime(chronoSec);
@@ -227,6 +252,17 @@ const computeNutrition = (params: {
     carbsMax = Math.min(carbsMax, 30);
     carbsMin = Math.min(carbsMin, target);
     warnings.push("Mode Premier semi-marathon : cible glucides plafonnée à 30 g/h pour limiter tout risque digestif. L'objectif est de finir, pas d'optimiser.");
+  }
+
+  // ─── B3 : Premier + Jamais testé → cap RENFORCÉ à 20 g/h (Burke 2014) ───
+  // Gut training inexistant : pas de tolérance documentée. On préserve un apport
+  // minimal de sécurité (un demi-gel ou un peu d'isotonique) mais on évite
+  // d'imposer 30 g/h à un estomac qui n'a jamais ingéré rien en course.
+  if (premierMode && expNutrition === 'Jamais' && target > 20) {
+    target = 20;
+    carbsMax = Math.min(carbsMax, 20);
+    carbsMin = Math.min(carbsMin, target);
+    warnings.push("Cible plafonnée à 20 g/h car premier semi + jamais testé en course (gut training inexistant — Burke 2014). 1 demi-gel ou un peu d'isotonique tous les 25-30 min suffit. Aucune nouveauté le jour J.");
   }
 
   if (target >= 60) {
@@ -268,7 +304,15 @@ const computeNutrition = (params: {
     : Math.round((sodiumPerLiter * totalHydration) / 1000);
 
   // ─── Caféine ───
-  const { preRaceMg: caffeinePreRace, mgPerKgTotal } = caffeineDose(poidsKg, cafeineHabit, premierMode);
+  let { preRaceMg: caffeinePreRace, mgPerKgTotal } = caffeineDose(poidsKg, cafeineHabit, premierMode);
+  // ─── B4 : ajustement AUTO -30 % si chaleur ≥25 °C + caféine ───
+  // Avant : juste un warning textuel "réduis de 30 %", mais la valeur affichée
+  // restait identique → l'utilisateur prenait la dose pleine. Maintenant on
+  // applique réellement la réduction et on garde le warning pour la transparence.
+  if (tempC >= 25 && cafeineHabit !== 'Aucune' && caffeinePreRace > 0) {
+    caffeinePreRace = Math.round((caffeinePreRace * 0.7) / 5) * 5;
+    mgPerKgTotal = Math.round((caffeinePreRace / poidsKg) * 10) / 10;
+  }
 
   // ─── Énergie ───
   const distanceKm = 21.0975;
@@ -278,7 +322,20 @@ const computeNutrition = (params: {
 
   // ─── Pack ───
   const carbsPerGel = 25;
-  const nbGels = totalCarbs > 0 ? Math.max(0, Math.ceil(totalCarbs / carbsPerGel)) : 0;
+  // ─── B1 : nbGels aligné sur strategyLabel (anti sur-prescription) ───
+  // Avant : Math.ceil(totalCarbs/25) produisait 3/4/5/7 gels alors que la stratégie
+  // disait "1-2 gels". On utilise une table fixe par stratégie et on expose la
+  // valeur théorique `totalCarbsEstimate` séparément (info, pas obligation).
+  const nbGelsByStrategy: Record<CalcResult['strategy'], number> = {
+    mouth_rinse: 0,
+    gel_optional: 1,
+    recommended_1_2: 2,
+    recommended_2: 2,
+    recommended_2_3: 3,
+    marathon_approach: Math.max(3, Math.ceil(totalCarbs / carbsPerGel)),
+  };
+  const nbGels = totalCarbs > 0 ? nbGelsByStrategy[strat.strategy] : 0;
+  const totalCarbsEstimate = totalCarbs;
   const bidonMl = 500;
   const nbBidons = Math.max(1, Math.ceil(totalHydration / bidonMl));
 
@@ -314,7 +371,11 @@ const computeNutrition = (params: {
       instruction: "Si tu as pris le gel : maintien hydratation. Sinon, eau seule jusqu'à l'arrivée.",
       tone: 'normal',
     });
-  } else if (strat.strategy === 'gels_recommended') {
+  } else if (
+    strat.strategy === 'recommended_1_2' ||
+    strat.strategy === 'recommended_2' ||
+    strat.strategy === 'recommended_2_3'
+  ) {
     timeline.push({
       window: 'km 0-8',
       instruction: "Hydratation gorgées toutes 10-15 min (~150-200 mL). Pas de gel avant 45-60 min de course.",
@@ -325,11 +386,24 @@ const computeNutrition = (params: {
       instruction: `1er gel (${carbsPerGel}g glucides) + 150-200 mL eau. Démarre sodium si disponible (${sodiumPerLiter} mg/L).`,
       tone: 'highlight',
     });
-    timeline.push({
-      window: 'km 14-16',
-      instruction: chronoSec >= 105 * 60 ? "2e gel + 150-200 mL liquide. Alterne eau/isotonique selon ravitos." : "Si fatigue glucidique : 2e gel optionnel + eau.",
-      tone: 'normal',
-    });
+    if (strat.strategy === 'recommended_2_3') {
+      timeline.push({
+        window: 'km 12-14',
+        instruction: `2e gel + 150-200 mL liquide. Alterne eau/isotonique selon ravitos.`,
+        tone: 'normal',
+      });
+      timeline.push({
+        window: 'km 17',
+        instruction: "3e gel optionnel selon ressenti (si fatigue glucidique nette).",
+        tone: 'normal',
+      });
+    } else {
+      timeline.push({
+        window: 'km 14-16',
+        instruction: chronoSec >= 105 * 60 ? "2e gel + 150-200 mL liquide. Alterne eau/isotonique selon ravitos." : "Si fatigue glucidique : 2e gel optionnel + eau.",
+        tone: 'normal',
+      });
+    }
   } else {
     // marathon_approach
     timeline.push({
@@ -364,6 +438,7 @@ const computeNutrition = (params: {
     strategy: strat.strategy,
     strategyLabel: strat.label,
     strategyDetail: strat.detail,
+    totalCarbsEstimate,
     timeline,
   };
 };
@@ -994,6 +1069,11 @@ const NutritionSemiMarathonPage: React.FC = () => {
                   </div>
                   <div className="text-sm text-slate-600 p-3 bg-slate-50 rounded-lg">
                     <strong>Nombre de gels :</strong> {result.nbGels}
+                    {result.totalCarbsEstimate > 0 && (
+                      <span className="block text-xs text-slate-400 mt-0.5">
+                        (apport théorique cible ~{result.totalCarbsEstimate} g — info, pas obligation)
+                      </span>
+                    )}
                   </div>
                   <div className="text-sm text-slate-600 p-3 bg-slate-50 rounded-lg">
                     <strong>Durée estimée :</strong> {result.durationLabel}
@@ -1047,7 +1127,12 @@ const NutritionSemiMarathonPage: React.FC = () => {
                     <li className="flex items-center gap-3 p-3 bg-orange-50 rounded-lg">
                       <CheckCircle2 className="w-5 h-5 text-orange-600 flex-shrink-0" />
                       <span className="text-sm text-slate-700">
-                        <strong>{result.nbGels} gel{result.nbGels > 1 ? 's' : ''}</strong> de 25 g glucides (type maltodextrine + fructose, ratio 2:1 ou 1:0.8)
+                        <strong>{result.nbGels} gel{result.nbGels > 1 ? 's' : ''}</strong> de 25 g glucides (type maltodextrine + fructose, ratio 2:1 ou 1:0.8) — cohérent avec ta stratégie « {result.strategyLabel} ».
+                        {result.totalCarbsEstimate > result.nbGels * 25 && (
+                          <span className="block text-xs text-slate-500 mt-1 italic">
+                            Estimation théorique : ~{result.totalCarbsEstimate} g sur la course (info, pas obligation — la doctrine honnêteté privilégie le pack annoncé).
+                          </span>
+                        )}
                       </span>
                     </li>
                   ) : (
