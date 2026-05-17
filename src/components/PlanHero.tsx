@@ -14,14 +14,40 @@ const getPaces = (plan: TrainingPlan): any => (plan as any).paces || (plan as an
 const getVMA = (plan: TrainingPlan): number | undefined => (plan as any).vma || (plan as any).generationContext?.vma;
 const getVMASource = (plan: TrainingPlan): string | undefined => (plan as any).vmaSource || (plan as any).generationContext?.vmaSource;
 
-// Renvoie l'allure spécifique de la course-objectif si applicable (route uniquement).
-// Trail = volontairement exclu : entraînement générique, pas d'allure cible
-// (cf. doctrine). Perte de poids / Maintien en forme = pas de course.
-// Pour les coureurs Finisher (sans targetTime), c'est l'allure théorique du niveau
-// pour cette distance — utile à visualiser quand même.
+// Parse un chrono cible (format "2h00", "1H30", "2:00:00", "1h45") en secondes
+const parseTargetTime = (tt: string): number => {
+    const s = String(tt).trim().toLowerCase();
+    const hm = s.match(/(\d+)\s*h\s*(\d{0,2})/i);
+    if (hm) return parseInt(hm[1]) * 3600 + (hm[2] ? parseInt(hm[2]) * 60 : 0);
+    const hms = s.match(/(\d+):(\d{1,2}):(\d{1,2})/);
+    if (hms) return parseInt(hms[1]) * 3600 + parseInt(hms[2]) * 60 + parseInt(hms[3]);
+    return 0;
+};
+
+// Renvoie l'allure spécifique de la course-objectif si applicable.
+//   - Route (5/10/semi/marathon) : utilise paces.allureSpecifique[X]
+//   - Trail avec chrono cible : calcule allure moyenne = distance / temps (label distinct
+//     "Allure moyenne cible" car la vraie allure variera selon le terrain en course)
+//   - Perte de poids / Maintien en forme : pas de course donc pas d'allure cible
+//   - Trail Finisher (sans chrono) : pas d'allure (entraînement générique)
 const getRaceSpecificPace = (plan: TrainingPlan): { label: string; pace: string } | null => {
     const goal = (plan.goal || '').toLowerCase();
-    if (goal.includes('trail') || goal.includes('perte') || goal.includes('maintien') || goal.includes('forme')) return null;
+    if (goal.includes('perte') || goal.includes('maintien') || goal.includes('forme')) return null;
+
+    // Trail : si chrono cible saisi + distance trail connue, calculer allure moyenne
+    if (goal.includes('trail')) {
+        const tt = (plan as any).targetTime;
+        const trailDist = (plan as any).generationContext?.questionnaireSnapshot?.trailDetails?.distance;
+        if (!tt || !trailDist) return null;
+        const chronoSec = parseTargetTime(tt);
+        if (chronoSec === 0) return null;
+        const paceSec = chronoSec / trailDist;
+        const m = Math.floor(paceSec / 60);
+        const s = Math.round(paceSec % 60);
+        return { label: 'Allure moyenne cible', pace: `${m}:${String(s).padStart(2, '0')}` };
+    }
+
+    // Route : utilise paces.allureSpecifique[X]
     const dist = (plan.distance || '').toLowerCase();
     const paces = getPaces(plan);
     if (!paces) return null;
