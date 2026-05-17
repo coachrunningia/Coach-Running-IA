@@ -32,6 +32,12 @@ interface PlanViewProps {
   onRecalculateVMA?: (newVMA: number) => Promise<void>;
 }
 
+// Fallback paces : anciens plans (avant dénormalisation top-level) n'ont
+// `paces` que dans generationContext. Bug 1770581696719 (créé 2026-02-08).
+const getPaces = (plan: TrainingPlan): any => (plan as any).paces || (plan as any).generationContext?.paces;
+const getVMA = (plan: TrainingPlan): number | undefined => (plan as any).vma || (plan as any).generationContext?.vma;
+const getVMASource = (plan: TrainingPlan): string | undefined => (plan as any).vmaSource || (plan as any).generationContext?.vmaSource;
+
 // Renvoie l'allure spécifique de la course-objectif si applicable (route uniquement).
 // Trail = exclu (entraînement générique, pas d'allure cible).
 // Perte de poids / Maintien en forme = pas de course.
@@ -41,7 +47,7 @@ const getRaceSpecificPace = (plan: TrainingPlan): { label: string; pace: string 
   const goal = (plan.goal || '').toLowerCase();
   if (goal.includes('trail') || goal.includes('perte') || goal.includes('maintien') || goal.includes('forme')) return null;
   const dist = (plan.distance || '').toLowerCase();
-  const paces = plan.paces;
+  const paces = getPaces(plan);
   if (!paces) return null;
   if (/marathon/.test(dist) && !/semi/.test(dist)) return paces.allureSpecifiqueMarathon ? { label: 'Allure Marathon', pace: paces.allureSpecifiqueMarathon } : null;
   if (/semi/.test(dist)) return paces.allureSpecifiqueSemi ? { label: 'Allure Semi', pace: paces.allureSpecifiqueSemi } : null;
@@ -997,19 +1003,21 @@ ${recentRPEs.length > 0 ? recentRPEs.slice(-8).join('\n') : 'Premier feedback �
                 <p className="text-xs text-orange-700/70 mb-4">Ces allures s'affineront au fil de tes entraînements et retours.</p>
                 {(() => {
                   const raceAllure = getRaceSpecificPace(plan);
+                  const paces = getPaces(plan);
+                  const vma = getVMA(plan);
                   return (
                     <div className={`grid grid-cols-2 ${raceAllure ? 'md:grid-cols-5' : 'md:grid-cols-4'} gap-3`}>
                       <div className="bg-white/80 p-3 rounded-xl border border-orange-100 text-center">
                         <p className="text-xs text-slate-500 mb-1">Endurance (EF)</p>
-                        <p className="font-bold text-slate-800">{convertPace(plan.paces?.efPace)}</p>
+                        <p className="font-bold text-slate-800">{convertPace(paces?.efPace)}</p>
                       </div>
                       <div className="bg-white/80 p-3 rounded-xl border border-orange-100 text-center">
                         <p className="text-xs text-slate-500 mb-1">Seuil</p>
-                        <p className="font-bold text-slate-800">{convertPace(plan.paces?.seuilPace)}</p>
+                        <p className="font-bold text-slate-800">{convertPace(paces?.seuilPace)}</p>
                       </div>
                       <div className="bg-white/80 p-3 rounded-xl border border-orange-100 text-center">
                         <p className="text-xs text-slate-500 mb-1">VMA</p>
-                        <p className="font-bold text-slate-800">{convertPace(plan.paces?.vmaPace)}</p>
+                        <p className="font-bold text-slate-800">{convertPace(paces?.vmaPace)}</p>
                       </div>
                       {raceAllure && (
                         <div className="bg-amber-100/80 p-3 rounded-xl border border-amber-300 text-center ring-1 ring-amber-200">
@@ -1019,12 +1027,12 @@ ${recentRPEs.length > 0 ? recentRPEs.slice(-8).join('\n') : 'Premier feedback �
                       )}
                       <div className="bg-white/80 p-3 rounded-xl border border-orange-100 text-center">
                         <p className="text-xs text-slate-500 mb-1">VMA (km/h)</p>
-                        <p className="font-bold text-slate-800">{plan.vma ? plan.vma.toFixed(1) : "-"}</p>
+                        <p className="font-bold text-slate-800">{vma ? vma.toFixed(1) : "-"}</p>
                       </div>
                     </div>
                   );
                 })()}
-                {plan.vmaSource && <p className="text-xs text-orange-600 mt-3">📊 Source : {plan.vmaSource}</p>}
+                {getVMASource(plan) && <p className="text-xs text-orange-600 mt-3">📊 Source : {getVMASource(plan)}</p>}
                 {onRecalculateVMA && (
                   <button
                     onClick={() => setShowVMAModal(true)}

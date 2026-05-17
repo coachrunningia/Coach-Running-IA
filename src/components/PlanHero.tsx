@@ -7,6 +7,13 @@ interface PlanHeroProps {
     plan: TrainingPlan;
 }
 
+// Fallback paces : les anciens plans (avant dénormalisation top-level) n'ont
+// `paces` que dans generationContext. Les nouveaux plans l'ont aux 2 endroits.
+// Bug constaté plan 1770581696719 créé 2026-02-08 : paces absent top-level.
+const getPaces = (plan: TrainingPlan): any => (plan as any).paces || (plan as any).generationContext?.paces;
+const getVMA = (plan: TrainingPlan): number | undefined => (plan as any).vma || (plan as any).generationContext?.vma;
+const getVMASource = (plan: TrainingPlan): string | undefined => (plan as any).vmaSource || (plan as any).generationContext?.vmaSource;
+
 // Renvoie l'allure spécifique de la course-objectif si applicable (route uniquement).
 // Trail = volontairement exclu : entraînement générique, pas d'allure cible
 // (cf. doctrine). Perte de poids / Maintien en forme = pas de course.
@@ -16,7 +23,7 @@ const getRaceSpecificPace = (plan: TrainingPlan): { label: string; pace: string 
     const goal = (plan.goal || '').toLowerCase();
     if (goal.includes('trail') || goal.includes('perte') || goal.includes('maintien') || goal.includes('forme')) return null;
     const dist = (plan.distance || '').toLowerCase();
-    const paces = plan.paces;
+    const paces = getPaces(plan);
     if (!paces) return null;
     if (/marathon/.test(dist) && !/semi/.test(dist)) return paces.allureSpecifiqueMarathon ? { label: 'Allure Marathon', pace: paces.allureSpecifiqueMarathon } : null;
     if (/semi/.test(dist)) return paces.allureSpecifiqueSemi ? { label: 'Allure Semi', pace: paces.allureSpecifiqueSemi } : null;
@@ -186,19 +193,21 @@ const PlanHero: React.FC<PlanHeroProps> = ({ plan }) => {
                     
                     {(() => {
                         const raceAllure = getRaceSpecificPace(plan);
+                        const paces = getPaces(plan);
+                        const vma = getVMA(plan);
                         return (
                             <div className={`grid grid-cols-2 ${raceAllure ? 'md:grid-cols-5' : 'md:grid-cols-4'} gap-3 relative z-10`}>
                                 <div className="bg-white/80 p-3 rounded-xl border border-orange-100 text-center">
                                     <p className="text-xs text-slate-500 mb-1">Endurance Fondamentale</p>
-                                    <p className="font-bold text-slate-800">{plan.paces?.efPace || "-"}</p>
+                                    <p className="font-bold text-slate-800">{paces?.efPace || "-"}</p>
                                 </div>
                                 <div className="bg-white/80 p-3 rounded-xl border border-orange-100 text-center">
                                     <p className="text-xs text-slate-500 mb-1">Allure Seuil</p>
-                                    <p className="font-bold text-slate-800">{plan.paces?.seuilPace || "-"}</p>
+                                    <p className="font-bold text-slate-800">{paces?.seuilPace || "-"}</p>
                                 </div>
                                 <div className="bg-white/80 p-3 rounded-xl border border-orange-100 text-center">
                                     <p className="text-xs text-slate-500 mb-1">VMA</p>
-                                    <p className="font-bold text-slate-800">{plan.paces?.vmaPace || "-"}</p>
+                                    <p className="font-bold text-slate-800">{paces?.vmaPace || "-"}</p>
                                 </div>
                                 {raceAllure && (
                                     <div className="bg-amber-100/80 p-3 rounded-xl border border-amber-300 text-center ring-1 ring-amber-200">
@@ -208,14 +217,14 @@ const PlanHero: React.FC<PlanHeroProps> = ({ plan }) => {
                                 )}
                                 <div className="bg-white/80 p-3 rounded-xl border border-orange-100 text-center">
                                     <p className="text-xs text-slate-500 mb-1">VMA (km/h)</p>
-                                    <p className="font-bold text-slate-800">{plan.vma ? plan.vma.toFixed(1) + " km/h" : "-"}</p>
+                                    <p className="font-bold text-slate-800">{vma ? vma.toFixed(1) + " km/h" : "-"}</p>
                                 </div>
                             </div>
                         );
                     })()}
-                    
-                    {plan.vmaSource && (
-                        <p className="text-xs text-orange-600 mt-3 relative z-10">📊 Source : {plan.vmaSource}</p>
+
+                    {getVMASource(plan) && (
+                        <p className="text-xs text-orange-600 mt-3 relative z-10">📊 Source : {getVMASource(plan)}</p>
                     )}
                 </div>
                 </div>
