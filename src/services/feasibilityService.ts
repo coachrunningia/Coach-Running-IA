@@ -205,6 +205,44 @@ function requiredVmaForTarget(targetMinutes: number, distanceKm: number): number
 }
 
 // ---------------------------------------------------------------------------
+// Garde-fou : durée minimum saine pour un Débutant complètement sédentaire
+// (volume actuel 0 km/sem). Cf. validation expert coach (Pfitzinger/Daniels/
+// Hudson, 40 ans XP) — adaptations ostéo-tendineuses requièrent 8-16 sem
+// minimum, règle Tim Noakes +10%/sem borne mathématiquement les minimums.
+// Ces minimums sont des PLANCHERS DE SÉCURITÉ, pas des recommandations idéales.
+// ---------------------------------------------------------------------------
+function getMinimumWeeksForBeginnerVolZero(
+  distanceKm: number | null,
+  isTrail: boolean,
+  bmi: number | null,
+  age: number | undefined,
+  hasInjury: boolean
+): number {
+  // Base par distance
+  let minWeeks: number;
+  if (distanceKm === null) {
+    minWeeks = 12; // défaut prudent si distance non standard
+  } else if (isTrail) {
+    if (distanceKm >= 60) minWeeks = 52;       // ultra : 12 mois mini
+    else if (distanceKm >= 30) minWeeks = 36;  // trail long : 9 mois
+    else if (distanceKm >= 15) minWeeks = 22;  // trail moyen
+    else minWeeks = 12;                         // trail court (< 15 km)
+  } else {
+    if (distanceKm >= 42) minWeeks = 30;       // marathon : 7 mois
+    else if (distanceKm >= 21) minWeeks = 20;  // semi
+    else if (distanceKm >= 10) minWeeks = 14;  // 10 km
+    else minWeeks = 10;                         // 5 km
+  }
+  // Modulations cumulables, plafonnées à +8 sem
+  let modulations = 0;
+  if (bmi !== null && bmi >= 30) modulations += 4;    // obésité classe 1+
+  if (age !== undefined && age >= 50) modulations += 2; // senior
+  if (hasInjury) modulations += 4;                    // blessure déclarée
+  modulations = Math.min(modulations, 8);
+  return minWeeks + modulations;
+}
+
+// ---------------------------------------------------------------------------
 // Calcul principal
 // ---------------------------------------------------------------------------
 
@@ -483,6 +521,23 @@ export function calculateFeasibility(params: FeasibilityParams): FeasibilityResu
     }
     if (!hasChrono) {
       score -= 10;
+    }
+  }
+
+  // -----------------------------------------------------------------------
+  // GARDE-FOU DÉBUTANT + VOL 0 : durée minimum saine par distance
+  // Cf. getMinimumWeeksForBeginnerVolZero(). Surclasse les autres calculs
+  // si l'utilisateur est dans la zone dangereuse (adaptation tendineuse
+  // insuffisante quel que soit le score). Cas Aureline 1778575564571.
+  // -----------------------------------------------------------------------
+  if (beginner && (currentVolume ?? 0) === 0) {
+    const bmiBeg = params.weight && params.height && params.height > 0
+      ? params.weight / ((params.height / 100) ** 2) : null;
+    const minRequired = getMinimumWeeksForBeginnerVolZero(distanceKm, isTrail, bmiBeg, params.age, hasInjury);
+    if (planWeeks < minRequired) {
+      score = Math.min(score, 15);
+    } else if (planWeeks < minRequired * 1.2) {
+      score = Math.min(score, 30);
     }
   }
 
@@ -811,6 +866,25 @@ function buildFinisherFeasibility(
     const minStart = Object.entries(minStartByLevel).find(([k]) => (level || '').includes(k))?.[1] || 15;
     if (currentVolume < minStart) {
       reasons.push({ type: 'warn', text: `ton volume actuel (${currentVolume} km/sem) est en dessous du minimum pour ton niveau (${minStart} km/sem) — le plan démarrera légèrement au-dessus` });
+    }
+  }
+
+  // -----------------------------------------------------------------------
+  // GARDE-FOU DÉBUTANT + VOL 0 : durée minimum saine par distance
+  // Cf. getMinimumWeeksForBeginnerVolZero(). Cas Aureline 1778575564571 :
+  // trail 6km/150D+ en 7 sem avec IMC 31.6 → min requis = 16 sem (12 trail
+  // court + 4 IMC) → IRRÉALISTE. Sans ce garde-fou elle serait classée RISQUÉ.
+  // -----------------------------------------------------------------------
+  if (beginner && (currentVolume ?? 0) === 0) {
+    const bmiBeg = params.weight && params.height && params.height > 0
+      ? params.weight / ((params.height / 100) ** 2) : null;
+    const minRequired = getMinimumWeeksForBeginnerVolZero(distanceKm, isTrail, bmiBeg, params.age, hasInjury);
+    if (planWeeks < minRequired) {
+      score = Math.min(score, 15);
+      reasons.push({ type: 'risk', text: `${planWeeks} semaines pour démarrer la course à pied (volume actuel 0) est insuffisant pour ton profil — minimum recommandé : ${minRequired} semaines. Allonge la préparation ou choisis un objectif plus modeste (marcher la majorité du parcours)` });
+    } else if (planWeeks < minRequired * 1.2) {
+      score = Math.min(score, 30);
+      reasons.push({ type: 'warn', text: `${planWeeks} semaines pour démarrer la course (volume actuel 0) est juste pour ton profil — minimum confortable : ${Math.round(minRequired * 1.2)} semaines` });
     }
   }
 
