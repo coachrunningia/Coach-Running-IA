@@ -246,8 +246,11 @@ function applyR2Gates(ctx: R2Context): { irrealisticCap?: number; scorePenalty: 
     const isUltra = ctx.distanceKm >= 60;
 
     // Règle 1 — Total D+ cycle insuffisant
-    // Seuil expert : <30km=0.45, 30-60=0.55, >60=0.65 × race × weeks
-    const r1Coef = isCourt ? 0.45 : isMoyen ? 0.55 : 0.65;
+    // BUG 2 FIX : coef ultra abaissé 0.65→0.50 car cap calculateWeekTargetElevation
+    // pour Expert = min(raceElev, 3500). Pour ultra D+ massif (>5000m race),
+    // mathématiquement impossible d'atteindre 0.65 × race × N_weeks même pour
+    // Expert avec gros volume. 0.50 reste exigeant mais réaliste.
+    const r1Coef = isCourt ? 0.45 : isMoyen ? 0.55 : 0.50;
     const r1Min = r1Coef * ctx.raceDplus * ctx.planWeeks;
     if (ctx.totalDplusCycle > 0 && ctx.totalDplusCycle < r1Min) {
       irrealisticCap = 10;
@@ -303,7 +306,9 @@ function applyR2Gates(ctx: R2Context): { irrealisticCap?: number; scorePenalty: 
   }
 
   // ─── Règle 6 — "Expert" non validé (doctrine : pénaliser + warning, PAS écraser) ───
-  if (ctx.level === 'Expert (Performance)' && !ctx.hasChrono && ctx.currentVolume > 0 && ctx.currentVolume < 40) {
+  // BUG 3 FIX : .includes('Expert') au lieu de === strict (cohérence avec
+  // renfoService.ts:223, planValidator.ts:85 du codebase)
+  if (ctx.level.includes('Expert') && !ctx.hasChrono && ctx.currentVolume > 0 && ctx.currentVolume < 40) {
     scorePenalty += 20;
     reasons.push(`Niveau "Expert" déclaré mais aucun chrono validé + volume ${ctx.currentVolume}km/sem (< 40 attendu pour Expert)`);
   }
@@ -661,9 +666,17 @@ export function calculateFeasibility(params: FeasibilityParams): FeasibilityResu
       totalDplusCycleR2 += calculateWeekTargetElevation(i, planWeeks, params.trailElevation, params.level, params.currentWeeklyElevation, undefined);
     }
   }
-  // Volume S1 = première semaine projetée. Approximation : courbe progressive
-  // à partir du currentVolume. Si pas connu, on estime ~85% du vol pic.
-  const s1VolEstimate = currentVolume && currentVolume > 0 ? currentVolume : 0;
+  // Estimation S1 = première semaine projetée (recommandation testeur QA).
+  // BUG 1 FIX : avant on prenait currentVolume → saut S0→S1 toujours 0 → règle 4 morte.
+  // Maintenant : si vol actuel déclaré → S1 ≈ vol actuel × 1.10 (rampe douce typique)
+  // Si vol actuel = 0 → S1 ≈ 30% du vol pic théorique selon distance/objectif.
+  const peakVolEstimate = distanceKm
+    ? (isMarathon ? 60 : isSemi ? 45 : isTrail && distanceKm >= 60 ? 70
+      : isTrail && distanceKm >= 30 ? 55 : 35)
+    : 35;
+  const s1VolEstimate = currentVolume && currentVolume > 0
+    ? Math.round(currentVolume * 1.10)
+    : Math.round(peakVolEstimate * 0.30);
   const r2 = applyR2Gates({
     isTrail,
     distanceKm,
@@ -1042,6 +1055,16 @@ function buildFinisherFeasibility(
       totalDplusCycleR2 += calculateWeekTargetElevation(i, planWeeks, params.trailElevation, params.level, params.currentWeeklyElevation, undefined);
     }
   }
+  // BUG 1 FIX : estimer s1Volume comme dans calculateFeasibility (cohérence)
+  const isMarathonFin = (distanceKm ?? 0) >= 42;
+  const isSemiFin = (distanceKm ?? 0) >= 21 && (distanceKm ?? 0) < 42;
+  const peakVolEstimateFin = distanceKm
+    ? (isMarathonFin ? 60 : isSemiFin ? 45 : isTrail && distanceKm >= 60 ? 70
+      : isTrail && distanceKm >= 30 ? 55 : 35)
+    : 35;
+  const s1VolEstimateFin = currentVolume && currentVolume > 0
+    ? Math.round(currentVolume * 1.10)
+    : Math.round(peakVolEstimateFin * 0.30);
   const r2 = applyR2Gates({
     isTrail,
     distanceKm,
@@ -1049,13 +1072,16 @@ function buildFinisherFeasibility(
     planWeeks,
     currentVolume: currentVolume ?? 0,
     currentElev: params.currentWeeklyElevation ?? 0,
-    s1Volume: currentVolume ?? 0,  // approx pour Finisher : départ au niveau actuel
+    s1Volume: s1VolEstimateFin,
     totalDplusCycle: totalDplusCycleR2,
     level: params.level || '',
     hasChrono: params.hasChrono,
   });
   for (const r of r2.reasons) {
     reasons.push({ type: r2.irrealisticCap !== undefined ? 'risk' : 'warn', text: r });
+  }
+  if (r2.reasons.length > 0) {
+    console.debug(`[R2 Gates Finisher] reasons:`, r2.reasons);
   }
   score -= r2.scorePenalty;
   if (r2.irrealisticCap !== undefined) {
