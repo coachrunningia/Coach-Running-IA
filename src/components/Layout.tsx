@@ -7,13 +7,25 @@ import { logoutUser } from '../services/storageService';
 import { APP_NAME } from '../constants';
 import Logo from './Logo';
 
-const toolsLinks = [
+// Sous-menu Outils. `isHeader: true` = label de section non cliquable (cascade niveau 2 visuelle).
+// Pattern recommandé V5 (R3 Layout) : pas de cascade ARIA, header visuel + items indentés.
+type ToolLink = {
+  name: string;
+  path?: string;
+  desc?: string;
+  isHeader?: boolean;
+  icon?: string;
+};
+const toolsLinks: ToolLink[] = [
   { name: "Convertisseur Allure", path: "/outils/convertisseur-allure", desc: "min/km ↔ km/h" },
   { name: "Calculateur VMA", path: "/outils/calculateur-vma", desc: "Estimez votre VMA" },
   { name: "Prédicteur Temps", path: "/outils/predicteur-temps", desc: "5km → Marathon" },
   { name: "Allure Marathon", path: "/outils/allure-marathon", desc: "Objectif → Pace" },
   { name: "Convertisseur Miles/Km", path: "/outils/convertisseur-miles-km", desc: "Miles ↔ Kilomètres" },
-  { name: "Nutrition Marathon", path: "/outils/nutrition-marathon", desc: "Glucides, hydratation, sodium" },
+  { name: "Nutrition Course", isHeader: true },
+  { name: "Nutrition Trail", path: "/outils/nutrition-trail", desc: "Trail / ultra (D+, altitude)", icon: "🏔️" },
+  { name: "Nutrition Marathon", path: "/outils/nutrition-marathon", desc: "Glucides, hydratation, sodium", icon: "🍯" },
+  { name: "Nutrition Semi-Marathon", path: "/outils/nutrition-semi-marathon", desc: "Faut-il manger ?", icon: "🍃" },
 ];
 
 const plansLinks = [
@@ -135,16 +147,28 @@ const Layout: React.FC<LayoutProps> = ({ children, user, setUser }) => {
                       <div className="font-bold text-accent text-sm">Tous les outils →</div>
                       <div className="text-xs text-slate-500">Voir tous nos calculateurs gratuits</div>
                     </Link>
-                    {toolsLinks.map((tool) => (
-                      <Link
-                        key={tool.path}
-                        to={tool.path}
-                        className="block px-4 py-2.5 hover:bg-slate-50 transition-colors"
-                        onClick={() => setIsToolsOpen(false)}
-                      >
-                        <div className="font-medium text-slate-900 text-sm">{tool.name}</div>
-                        <div className="text-xs text-slate-500">{tool.desc}</div>
-                      </Link>
+                    {toolsLinks.map((tool, idx) => (
+                      tool.isHeader ? (
+                        <div
+                          key={`hdr-${idx}`}
+                          className="px-4 pt-3 pb-1 text-[10px] font-bold uppercase tracking-wider text-slate-400 border-t border-slate-100 mt-1"
+                        >
+                          ── {tool.name} ──
+                        </div>
+                      ) : (
+                        <Link
+                          key={tool.path}
+                          to={tool.path!}
+                          className="block px-4 py-2.5 hover:bg-slate-50 transition-colors"
+                          onClick={() => setIsToolsOpen(false)}
+                        >
+                          <div className="font-medium text-slate-900 text-sm">
+                            {tool.icon && <span className="mr-1">{tool.icon}</span>}
+                            {tool.name}
+                          </div>
+                          <div className="text-xs text-slate-500">{tool.desc}</div>
+                        </Link>
+                      )
                     ))}
                   </div>
                 )}
@@ -252,15 +276,25 @@ const Layout: React.FC<LayoutProps> = ({ children, user, setUser }) => {
                 >
                   Tous les outils →
                 </Link>
-                {toolsLinks.map((tool) => (
-                  <Link
-                    key={tool.path}
-                    to={tool.path}
-                    className="block px-3 py-2 rounded-md text-sm text-slate-600 hover:text-primary hover:bg-slate-50"
-                    onClick={() => setIsMenuOpen(false)}
-                  >
-                    {tool.name}
-                  </Link>
+                {toolsLinks.map((tool, idx) => (
+                  tool.isHeader ? (
+                    <div
+                      key={`mhdr-${idx}`}
+                      className="px-3 pt-2 pb-0.5 text-[10px] font-bold uppercase tracking-wider text-slate-400 border-t border-slate-100 mt-2"
+                    >
+                      ── {tool.name} ──
+                    </div>
+                  ) : (
+                    <Link
+                      key={tool.path}
+                      to={tool.path!}
+                      className="block px-3 py-2 rounded-md text-sm text-slate-600 hover:text-primary hover:bg-slate-50"
+                      onClick={() => setIsMenuOpen(false)}
+                    >
+                      {tool.icon && <span className="mr-1">{tool.icon}</span>}
+                      {tool.name}
+                    </Link>
+                  )
                 ))}
                 </>}
               </div>
