@@ -1001,6 +1001,43 @@ const applyTargetTimeOverride = (paces: TrainingPaces, data: QuestionnaireData, 
   };
   const info = raceDistMap[normalizedSubGoal];
   if (!info) return;
+
+  // ─── Règle "Finisher + PB existant" (Option C, expert FFA 2026-05-18) ───
+  // Quand user coche "Finisher" (= pas de chrono visé) ET a déclaré un PB sur la
+  // même distance → allure cible = max(allurePB + 5% cushion, allure VMA-based).
+  // Logique : Finisher = absence d'allure cible saisie, donc on calibre sur la
+  // performance réelle (PB) au lieu d'une allure VMA-based déconnectée. Le
+  // cushion +5% évite de faire courir le user à son record en entraînement.
+  // Le max() protège aussi le coureur qui a régressé depuis son PB.
+  // Cf. [[feedback_finisher_plus_pb_allure]] + [[feedback_input_client_obligatoire]]
+  if (data.targetTime === 'Finisher' && data.recentRaceTimes) {
+    const pbMap: Record<string, keyof NonNullable<QuestionnaireData['recentRaceTimes']>> = {
+      '5 km': 'distance5km',
+      '10 km': 'distance10km',
+      'semi-marathon': 'distanceSemi',
+      'marathon': 'distanceMarathon',
+    };
+    const pbKey = pbMap[normalizedSubGoal];
+    const pbValue = pbKey ? data.recentRaceTimes[pbKey] : undefined;
+    if (pbValue) {
+      const pbSec = timeToSeconds(pbValue, info.dist);
+      if (pbSec > 0) {
+        const pbPaceSec = pbSec / info.dist;
+        const cushionedPaceSec = pbPaceSec * 1.05; // +5% finisher cushion
+        const currentPaceStr = paces[info.paceKey] as string;
+        const [vmaMin, vmaSec] = currentPaceStr.split(':').map(Number);
+        const vmaBasedPaceSec = (vmaMin || 0) * 60 + (vmaSec || 0);
+        const finalPaceSec = Math.max(cushionedPaceSec, vmaBasedPaceSec);
+        const finalPaceStr = secondsToPace(finalPaceSec);
+        if (currentPaceStr !== finalPaceStr) {
+          console.log(`[Paces] Finisher+PB ${data.subGoal} : PB ${pbValue} (${secondsToPace(pbPaceSec)}/km) + 5% cushion → ${secondsToPace(cushionedPaceSec)}, vs VMA-based ${currentPaceStr} → retenu ${finalPaceStr}`);
+          (paces as any)[info.paceKey] = finalPaceStr;
+        }
+      }
+      return; // skip suite (mode Finisher : logique chrono ne s'applique pas)
+    }
+  }
+
   const targetSec = timeToSeconds(data.targetTime, info.dist);
   if (targetSec === 0) return;
   const targetPaceSec = targetSec / info.dist;
@@ -2613,17 +2650,23 @@ export const calculatePeriodizationPlan = (
   let startVolume = Math.max(idealStartVolume, minStartVolume);
   // Si le coureur a déclaré un volume actuel > 0, l'utiliser comme référence
   if (currentVolume > 0) {
-    // Hard floor S1 : au moins 85% du volume courant (respecter la condition physique actuelle)
-    // Un coureur à 30km/sem ne doit JAMAIS démarrer en dessous de 26km
-    const currentVolumeFloor = Math.round(currentVolume * 0.85);
+    // ─── Hard floor S1 = 100% du volume courant (audit 2026-05-18) ───
+    // RÈGLE STRICTE : on ne baisse JAMAIS sous le volume actuel du user.
+    // L'ancien floor 85% (currentVolume × 0.85) produisait systématiquement
+    // une S1 à -15% du current sur les 5 plans audités (Alan/Sébastien/Antoine/
+    // Annabelle/Armando) → ressenti "plan mou" pour confirmé/expert (cause
+    // probable du désabonnement georgeslor1), illusion "je suis prêt" pour
+    // débutant. Cf. [[feedback_input_client_obligatoire]] + audit
+    // AUDIT-5-PLANS-TEMPLATE-V2.md pattern #1.
+    const currentVolumeFloor = currentVolume; // 100% (au lieu de × 0.85)
     startVolume = Math.max(startVolume, currentVolumeFloor);
     // Plafond S1 : on ne dépasse pas le volume courant NI 65% du pic...
     // ...SAUF si le volume courant est inférieur au minimum viable par niveau
     const volumeCap = Math.max(currentVolume, minStartVolume);
     startVolume = Math.min(startVolume, volumeCap, maxVolume * 0.65);
-    // Re-appliquer le hard floor 85% — il prime sur la règle des 65% du peak
-    // La règle des 65% est là pour garantir de la progression, mais on ne peut pas
-    // faire régresser un coureur de 15%+ sous son volume actuel pour ça
+    // Re-appliquer le hard floor — il prime sur la règle des 65% du peak
+    // La règle des 65% garantit de la progression, mais on ne peut pas
+    // faire régresser un coureur sous son volume actuel pour ça.
     // Plafonné à 90% du peak pour garder un minimum de marge de progression
     startVolume = Math.max(startVolume, Math.min(currentVolumeFloor, maxVolume * 0.90));
   } else {
@@ -4032,13 +4075,18 @@ ${buildSafetyInstructions(data, (data.level || '').includes('Débutant'))}
     }
 
     // === Injection de la faisabilité calculée (TOUJOURS le message pré-calculé, jamais celui de Gemini) ===
+    // Fix 2026-05-18 : score persisté DANS feasibility (avant, seul confidenceScore l'avait au
+    // niveau plan racine). Sébastien était le seul plan en base avec feasibility.score persisté
+    // — patché manuellement. Audit AUDIT-5-PLANS-TEMPLATE-V2.md a révélé que 4/5 plans n'avaient
+    // pas le score → schéma incomplet, blocage évolutions UI/API qui lirait feasibility.score.
     plan.feasibility = {
       status: feasibilityResultPreview.status,
+      score: feasibilityResultPreview.score,
       message: feasibilityResultPreview.message,
       safetyWarning: feasibilityResultPreview.safetyWarning,
       recommendation: feasibilityResultPreview.recommendation,
     };
-    plan.confidenceScore = feasibilityResultPreview.score;
+    plan.confidenceScore = feasibilityResultPreview.score; // rétro-compat frontend (à supprimer V2)
 
     // ─── Validation Layer 1 (rules only for preview) ───
     const { validatePlanRules } = await import('./planValidator');
