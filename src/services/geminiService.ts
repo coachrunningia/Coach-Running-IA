@@ -3089,6 +3089,71 @@ Dans le message de bienvenue (welcomeMessage), tu DOIS inclure :
 🚫 RÈGLE ABSOLUE : NE JAMAIS mentionner le poids, l'IMC, la corpulence, la minceur ou la morphologie de l'utilisateur dans le welcomeMessage ni dans aucun autre champ. Garder un ton positif et bienveillant.`);
   }
 
+  // === A3 — Welcome cite PB si Finisher+PB ===
+  // Cf. mémoires : feedback_finisher_plus_pb_allure (règle 2026-05-18, validation Coach FFA)
+  // + feedback_securite_avant_conversion (transparence : on doit expliquer pourquoi l'allure
+  // d'entraînement n'égale pas l'allure PB).
+  // La logique TS (applyTargetTimeOverride L992) a déjà recalculé l'allure spé du subGoal
+  // (allureSpecifique5k/10k/Semi/Marathon) en max(PB+5% cushion, VMA-based). Ici on instruit
+  // Gemini à expliciter cette transparence dans le welcomeMessage.
+  const subGoalToPbField: Record<string, string> = {
+    '5 km': 'distance5km',
+    '10 km': 'distance10km',
+    'Semi-marathon': 'distanceHalfMarathon',
+    'Marathon': 'distanceMarathon',
+  };
+  const pbField = data.subGoal ? subGoalToPbField[data.subGoal] : undefined;
+  const pbValue = pbField && data.recentRaceTimes ? (data.recentRaceTimes as any)[pbField] : undefined;
+  if (data.targetTime === 'Finisher' && pbValue && data.subGoal) {
+    // Wording finalisé après validation PM senior + Coach FFA 25 ans (2026-05-18) :
+    // - "Sur ton dernier" → "Ton meilleur temps connu sur" (universel, non-stigmatisant régression)
+    // - "pour t'entraîner sans risque" → "pour te laisser de la marge et progresser durablement"
+    //   (positif, pédagogique, évite engagement marketing implicite incompatible décharge produit)
+    // - Ajout variante "PB plus rapide que cible" = palier de reprise (cas régression sensible)
+    // - Ajout garde-fou "JAMAIS écrire allure sans risque/sans danger" (verrouille Flash)
+    // - Ajout fallback si allure non calculée (protection contre hallucination Gemini)
+    parts.push(`🎯 RÈGLE PB EXPLICITE — Finisher + PB déclaré (${data.subGoal} en ${pbValue})
+Le welcomeMessage DOIT contenir une phrase qui cite explicitement le PB du coureur ET l'allure d'entraînement calculée sur ce subGoal (voir "ALLURES OBLIGATOIRES" plus haut dans ce prompt, champ "Allure spé ${data.subGoal}").
+Si l'allure n'a pas été calculée dans cette section, mentionner uniquement le PB — ne JAMAIS inventer une allure.
+
+Format suggéré (à adapter, ne pas copier littéralement) :
+"Ton meilleur temps connu sur ${data.subGoal} est ${pbValue} — ton plan vise une allure d'entraînement à {allure spé calculée}/km pour te laisser de la marge et progresser durablement."
+
+Variantes selon contexte :
+- PB récent (< 12 mois) : ton normal "ton dernier" / "ta meilleure performance"
+- PB ancien (> 12 mois) ou non précisé : ton encourageant "ton meilleur temps connu"
+- PB plus rapide que l'allure cible calculée (potentielle régression) : présenter l'allure comme un palier de reprise ("on repart sur une base saine pour reconstruire", "allure de relance, sans pression sur ton ancien chrono")
+- Ne JAMAIS culpabiliser le user qui aurait régressé. Toujours présenter l'allure d'entraînement comme une marge ("plus douce pour garder une réserve"), pas comme une révision à la baisse.
+- Ne JAMAIS écrire "allure sans risque" ou "sans danger" — utiliser "allure de travail", "allure d'entraînement", "marge de progression".`);
+  }
+
+  // === A4 — Welcome cite blessure significative ===
+  // Cf. mémoires : feedback_securite_avant_conversion (transparence + sécurité avant tout)
+  // + feedback_compromis_messages_preventifs (proportionnalité reco médicale)
+  // + feedback_mode_marche_course_scope (marche-course = débutants only).
+  // Wording finalisé après validation PM senior + Coach FFA 25 ans (2026-05-18) :
+  // - 3 piliers = checklist contenu (pas format imposé en liste numérotée)
+  // - RECOMMANDER conditionné à la sévérité (FORTE si active/significative, soft si ancienne)
+  // - Retrait "marche autorisée" des exemples (conflit feedback_mode_marche_course_scope)
+  // - Retrait "intensité progressive" (banal, tout plan est progressif) → exemples discriminants
+  // - Ajout syndrome rotulien (#1 blessure du coureur loisir), périostite, lombalgie
+  // - Reformulation garde-fou : limitante centrée user (KO) vs factuelle centrée plan (OK)
+  if (data.injuries?.hasInjury && data.injuries.description && data.injuries.description.trim()) {
+    parts.push(`🩹 RÈGLE BLESSURE EXPLICITE — blessure déclarée : "${data.injuries.description.trim()}"
+Le welcomeMessage DOIT contenir une mention structurée autour de 3 piliers (checklist de contenu, PAS format imposé — intégrer naturellement en 2-3 phrases fluides, jamais en liste numérotée visible) :
+
+1. RECONNAÎTRE : citer la blessure avec les mots du user (ex : "Compte tenu de ton ${data.injuries.description.trim()}...")
+2. ADAPTER : expliquer brièvement comment le plan en tient compte. Exemples discriminants à adapter selon la blessure : progression douce du volume, renfo ciblé selon la zone, surface souple privilégiée, pas de descente technique, pas de côtes explosives sur tendinopathie. NE PAS promettre "marche autorisée" (réservé aux profils débutants où la logique plan le déclenche déjà automatiquement).
+3. RECOMMANDER (selon sévérité) :
+   - Blessure ACTIVE / RÉCENTE / SIGNIFICATIVE (tendinite en cours, fasciite, ITBS, fracture stress, post-op, syndrome rotulien actif, douleur actuelle, ou termes "en cours" / "actuellement") → recommandation médicale FORTE et explicite avant reprise ("Avant de te lancer, valide avec ton kiné/médecin que tu peux reprendre une activité de course progressive.")
+   - Blessure ANCIENNE / SOIGNÉE / MINEURE (mention type "léger" / "ancien" / "j'ai eu" / "résolu") → suggestion souple ("Écoute ton corps : si la gêne revient, lève le pied et consulte.") — PAS de validation kiné systématique qui dramatise.
+
+Liste blessures significatives fréquentes (par fréquence stat coureur loisir) : syndrome rotulien (genou coureur), tendinite, périostite, fasciite plantaire, ITBS, lombalgie, fracture de fatigue.
+
+JAMAIS de formulation limitante centrée sur le user : "ta blessure t'empêche de...", "tu ne devrais pas...", "à cause de ta blessure tu ne peux plus...".
+TOUJOURS formulation factuelle centrée sur le plan : "le plan tient compte de...", "on adapte la progression pour...", "on protège ce point en...".`);
+  }
+
   // Cible irréaliste — préventif sur faisabilité haute
   // (Note : le blocage IRRÉALISTE est géré ailleurs avec décharge explicite)
 
