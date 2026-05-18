@@ -11,6 +11,7 @@
 //   sinon on duplique la logique minimale pour les tests critiques.
 
 import { describe, it, expect } from 'vitest';
+import { calculatePeriodizationPlan } from '../geminiService';
 
 // ─── Reproduction locale de detectLevelFromData pour test ───
 function detectLevelFromData(data: any): string {
@@ -146,5 +147,33 @@ describe('Profils types — volumes progressifs', () => {
     const defaultVolume = 10; // PdP deb
     // Pas de vmaSource → pas d'uplift
     expect(defaultVolume).toBe(10);
+  });
+});
+
+// ─── Non-régression : Expert dégradé en Débutant (chrono lent) ───
+// Profil "georgeslor1" type : Expert déclaré 57 ans 90kg VMA 10.7, marathon 5h15
+// → override → Débutant. Avec senior×0.85 et surpoids×0.90, le pic plafonnait à 48.
+// Après patch (1.18× currentVol et baseMaxVolume×1.10), le pic doit atteindre ≥50.
+
+describe('calculatePeriodizationPlan — progression minimale (cas Marathon Expert dégradé)', () => {
+  it('Profil Expert dégradé Débutant + senior + surpoids + vol45 → peakVolume ≥ 50', () => {
+    // effectiveLevel = 'Débutant (0-1 an)' (le caller fait l'override via detectLevelFromData)
+    const result = calculatePeriodizationPlan(
+      22,                          // totalWeeks
+      45,                          // currentVolume
+      'Débutant (0-1 an)',         // level (après override chrono 10k=1h00 → deb)
+      'Course sur route',          // goal
+      'Marathon',                  // subGoal
+      undefined,                   // trailDistance
+      undefined,                   // trailElevation
+      '4h45',                      // targetTime
+      57,                          // age
+      90,                          // weight
+      10.685,                      // vma
+      5,                           // sessionsPerWeek
+      { height: 180 },
+    );
+    const peak = Math.max(...result.weeklyVolumes);
+    expect(peak).toBeGreaterThanOrEqual(50);
   });
 });

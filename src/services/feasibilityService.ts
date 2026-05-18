@@ -117,13 +117,18 @@ export function parseTargetTime(target: string): number | null {
  *  - < 60 min → "XX:XX"      (ex. "22:30")
  */
 export function formatTime(minutes: number): string {
+  // Bug fix 2026-05-18 : arrondir le total AVANT split (ex 179.7 min → 180 → "3h00"
+  // au lieu de "2h60min" qui apparaissait avant car floor(2.995)=2 + round(59.7)=60).
   if (minutes >= 60) {
-    const h = Math.floor(minutes / 60);
-    const m = Math.round(minutes % 60);
+    const totalMin = Math.round(minutes);
+    const h = Math.floor(totalMin / 60);
+    const m = totalMin % 60;
     return `${h}h${m.toString().padStart(2, '0')}min`;
   }
-  const mins = Math.floor(minutes);
-  const secs = Math.round((minutes - mins) * 60);
+  // Idem pour mm:ss : convertir en secondes total, arrondir, puis split (évite "22:60")
+  const totalSec = Math.round(minutes * 60);
+  const mins = Math.floor(totalSec / 60);
+  const secs = totalSec % 60;
   return `${mins}:${secs.toString().padStart(2, '0')}`;
 }
 

@@ -2382,14 +2382,18 @@ export const calculatePeriodizationPlan = (
     console.log(`[Periodization] maxVolume ${maxVolume}km < currentVolume ${currentVolume}km → raised to currentVolume`);
     maxVolume = currentVolume;
   }
-  // Garantir une progression minimale de 15% au-dessus du volume actuel
+  // Garantir une progression minimale de 18% au-dessus du volume actuel
   // Un coureur à 45km/sem ne doit pas avoir un plan plat à 45km — il doit progresser
+  // Le pic visé est ~+18% car le lissage post-calcul (cap +15%/sem entre récup et charge)
+  // rabote 2-3km. Cibler 1.18× donne un pic réel ~+15% après lissage (la "vraie" progression).
+  // Et on autorise la cible à dépasser baseMaxVolume de 10% MAX pour absorber ce lissage —
+  // sans jamais dépasser le cap VMA-durée (vmaHardCap déjà appliqué plus haut).
   if (currentVolume > 0 && maxVolume <= currentVolume * 1.05) {
-    const progressionTarget = Math.round(currentVolume * 1.15);
-    // Plafonné par le cap absolu de sécurité (VMA-dur ou table)
-    const safeTarget = Math.min(progressionTarget, baseMaxVolume);
+    const progressionTarget = Math.round(currentVolume * 1.18);
+    // Plafonné par le cap absolu de sécurité (VMA-dur ou table) + 10% pour absorber le lissage
+    const safeTarget = Math.min(progressionTarget, Math.round(baseMaxVolume * 1.10));
     if (safeTarget > maxVolume) {
-      console.log(`[Periodization] Progression minimale: maxVolume ${maxVolume}km → ${safeTarget}km (currentVol ${currentVolume} × 1.15, cap ${baseMaxVolume})`);
+      console.log(`[Periodization] Progression minimale: maxVolume ${maxVolume}km → ${safeTarget}km (currentVol ${currentVolume} × 1.18, cap base ${baseMaxVolume} × 1.10)`);
       maxVolume = safeTarget;
     }
   }
