@@ -106,15 +106,33 @@ const timeToSeconds = (time: string, contextDistance?: number): number => {
 };
 
 /**
- * Convertit des secondes en format "m:ss min/km"
+ * Normalise une paire (min, sec) en format m:ss en gérant le débordement
+ * sec >= 60 (et au-delà, multiples de 60). Cf. bug abalandreau Trail
+ * 2026-05-19 où seuilPace = "5:60" (invalide) atteignait l'UI.
+ */
+export const normalizePace = (minIn: number, secIn: number): string => {
+  let m = Math.floor(minIn);
+  let s = Math.floor(secIn);
+  if (s >= 60) {
+    m += Math.floor(s / 60);
+    s = s % 60;
+  } else if (s < 0) {
+    // Cas dégénéré (saisie invalide LLM) : on remonte
+    while (s < 0 && m > 0) { m -= 1; s += 60; }
+    if (s < 0) s = 0;
+  }
+  return `${m}:${s.toString().padStart(2, '0')}`;
+};
+
+/**
+ * Convertit des secondes en format "m:ss min/km".
+ * Utilise normalizePace pour garantir 0 <= sec < 60 en toutes circonstances.
  */
 const secondsToPace = (seconds: number): string => {
-  const total = Math.round(seconds);
+  const total = Math.max(0, Math.round(seconds));
   const mins = Math.floor(total / 60);
   const secs = total % 60;
-  // Garde-fou : si secs === 60 (ne devrait pas arriver avec Math.floor, mais sécurité)
-  if (secs >= 60) return `${mins + 1}:00`;
-  return `${mins}:${secs.toString().padStart(2, '0')}`;
+  return normalizePace(mins, secs);
 };
 
 /**
@@ -174,6 +192,9 @@ export const calculateAllPaces = (vma: number): TrainingPaces => {
   const specificSemiSpeed = vma * 0.85;
   const specificMarathonSpeed = vma * 0.80;
 
+  // Sprint Marathon 2026-05-20 — normalisation finale anti-"5:60" :
+  // toutes les paces sortent via secondsToPace (qui utilise normalizePace)
+  // donc la garantie 0 ≤ sec < 60 est respectée à la source.
   return {
     vma,
     vmaKmh: vma.toFixed(1),
@@ -3288,6 +3309,26 @@ const ULTRA_NIGHT_RUN_BULLETS = `- SORTIE NUIT obligatoire en phase développeme
   • Objectif : habituer le cerveau à l'effort de nuit (perception altérée, fatigue ressentie x1.5)
   • Idéalement intégrer 1 sortie nuit dans un week-end back-to-back (Sam jour + Sam nuit = simulation cumul fatigue)`;
 
+// Sprint Marathon 2026-05-20 — règles anti-hallucination mainSet.
+// Bug audit Thomas S13 + audit batch 30 plans : LLM écrit
+//   "2 blocs de 35 km à allure marathon"
+// alors que session.distance = 30 km. Et il invente parfois des allures
+// (5:30/km) qui ne correspondent à aucune entrée paces.
+const MAINSET_COHERENCE_RULES = `⚠️ RÈGLE CRITIQUE MAINSET — Cohérence distance :
+Ne JAMAIS écrire "N blocs de X km" ni "Y répétitions de X km" si N × X dépasse
+la distance affichée de la séance. Ne JAMAIS écrire "tu vas faire Z km" différent
+de la distance de la séance. Exemple OK : séance 30 km avec 2 blocs spé →
+"30 km total avec 2 × 6 km à AS Marathon, encadrés par 9 km EF échauffement
++ 9 km EF retour". Exemple INTERDIT : séance 30 km → "2 blocs de 35 km".
+
+⚠️ RÈGLE ALLURES MAINSET — Cohérence paces :
+Toute allure mentionnée dans mainSet (ex : "à 5:30 min/km") DOIT correspondre
+EXACTEMENT à une entrée des allures listées plus haut dans ce prompt (efPace,
+seuilPace, vmaPace, allureSpecifiqueXXX, recoveryPace). Ne JAMAIS inventer une
+allure qui ne figure pas dans cette liste. Si tu n'es pas sûr, utilise les
+LABELS (EF, Seuil, VMA, AS Marathon, AS Semi, AS 10K, AS 5K, Récup) plutôt
+qu'une valeur numérique.`;
+
 // Sprint Marathon 2026-05-19 — race-day injection.
 // Constante factorisée injectée dans previewPrompt + batchPrompt pour que le LLM
 // SACHE que la dernière séance du raceDate sera REMPLACÉE par la course officielle
@@ -3826,6 +3867,8 @@ ${(isVKPreview || isTrailSteepPreview) ? `   - fondamental : Jogging (footing EF
    - recuperation : Jogging (footing EF) uniquement + Renforcement léger. PAS d'intensité.`}
 
 ${data.raceDate ? RACE_DAY_INSTRUCTION : ''}
+
+${MAINSET_COHERENCE_RULES}
 
 ${buildDisciplineBlock(data.subGoal, data, paces)}
 
@@ -4718,6 +4761,8 @@ ${(isVKRemaining || isTrailSteepRemaining) ? `   - fondamental : Jogging (footin
    - recuperation : Jogging (footing EF) uniquement + Renforcement léger. PAS d'intensité.`}
 
 ${data.raceDate ? RACE_DAY_INSTRUCTION : ''}
+
+${MAINSET_COHERENCE_RULES}
 
 ${buildDisciplineBlock(data.subGoal, data, paces)}
 
