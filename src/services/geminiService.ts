@@ -2415,7 +2415,13 @@ export const calculatePeriodizationPlan = (
   // Hors objectif chrono : on reste sur le cap classique (course continue à 75 % VMA).
   let effectiveVmaCap = vmaHardCap;
   const hasSpecificTimeTarget = !!targetTime && !isFinisherTarget(targetTime);
-  const isLowVolForTimedLongRace = currentVolume > 0 &&
+  // Garde-fou doctrine feedback_mode_marche_course_scope :
+  // Mode marche-course UNIQUEMENT pour Débutant (jamais Intermédiaire/Confirmé/Expert).
+  // Un Intermédiaire+ à très bas volume momentané doit reprendre par course continue,
+  // pas par walk-run qui est réservé aux profils n'ayant pas la base aérobie pour courir.
+  const isLevelEligibleForWalkRun = level === 'Débutant (0-1 an)';
+  const isLowVolForTimedLongRace = isLevelEligibleForWalkRun &&
+    currentVolume > 0 &&
     currentVolume < minViableVolume * 0.30 &&
     raceDistanceKm >= 15 &&
     hasSpecificTimeTarget;

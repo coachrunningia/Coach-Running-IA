@@ -48,13 +48,18 @@ const getRaceSpecificPace = (plan: TrainingPlan): { label: string; pace: string 
     }
 
     // Route : utilise paces.allureSpecifique[X]
+    // Détection prioritaire via subGoal (toujours présent et explicite : "Semi-Marathon",
+    // "Marathon", "10 km", "5 km") car plan.distance est numérique ("21.1 km", "42.2 km"...)
+    // et ne contient JAMAIS les mots "semi"/"marathon" — d'où la régression du commit db7f765
+    // qui masquait la 5e carte chrono sur TOUS les plans Semi/Marathon depuis le 17 mai 2026.
+    const subGoal = ((plan as any).generationContext?.questionnaireSnapshot?.subGoal || '').toLowerCase();
     const dist = (plan.distance || '').toLowerCase();
     const paces = getPaces(plan);
     if (!paces) return null;
-    if (/marathon/.test(dist) && !/semi/.test(dist)) return paces.allureSpecifiqueMarathon ? { label: 'Allure Marathon', pace: paces.allureSpecifiqueMarathon } : null;
-    if (/semi/.test(dist)) return paces.allureSpecifiqueSemi ? { label: 'Allure Semi', pace: paces.allureSpecifiqueSemi } : null;
-    if (/\b10\s*km\b|\b10k\b/.test(dist)) return paces.allureSpecifique10k ? { label: 'Allure 10 km', pace: paces.allureSpecifique10k } : null;
-    if (/\b5\s*km\b|\b5k\b/.test(dist)) return paces.allureSpecifique5k ? { label: 'Allure 5 km', pace: paces.allureSpecifique5k } : null;
+    if (/marathon/.test(subGoal) && !/semi/.test(subGoal)) return paces.allureSpecifiqueMarathon ? { label: 'Allure Marathon', pace: paces.allureSpecifiqueMarathon } : null;
+    if (/semi/.test(subGoal)) return paces.allureSpecifiqueSemi ? { label: 'Allure Semi', pace: paces.allureSpecifiqueSemi } : null;
+    if (/10/.test(subGoal) || /\b10\s*km\b|\b10k\b/.test(dist)) return paces.allureSpecifique10k ? { label: 'Allure 10 km', pace: paces.allureSpecifique10k } : null;
+    if (/\b5\b/.test(subGoal) || /\b5\s*km\b|\b5k\b/.test(dist)) return paces.allureSpecifique5k ? { label: 'Allure 5 km', pace: paces.allureSpecifique5k } : null;
     return null;
 };
 
