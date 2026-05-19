@@ -1,0 +1,595 @@
+{
+  "name": "projects/coach-running-ia/databases/(default)/documents/plans/1779124016788",
+  "fields": {
+    "isPreview": {
+      "booleanValue": true
+    },
+    "targetTime": {
+      "stringValue": "Finisher"
+    },
+    "name": {
+      "stringValue": "Programme Remise en Forme — 12 semaines"
+    },
+    "id": {
+      "stringValue": "1779124016788"
+    },
+    "createdAt": {
+      "stringValue": "2026-05-18T17:06:56.788Z"
+    },
+    "distance": {
+      "stringValue": "11 km"
+    },
+    "welcomeMessage": {
+      "stringValue": "Bienvenue dans ton programme de remise en forme de 12 semaines ! L'objectif est de t'accompagner vers une meilleure condition physique et de maintenir le plaisir de courir, en toute sécurité. Ce plan est structuré pour s'adapter à ton niveau débutant, en se concentrant sur la régularité et une progression douce.\n\nNous te recommandons vivement de consulter un médecin avant de débuter ce programme, notamment pour obtenir un certificat médical d'aptitude au sport."
+    },
+    "feasibility": {
+      "mapValue": {
+        "fields": {
+          "message": {
+            "stringValue": "Ton programme de remise en forme sur 12 semaines est bien calibré pour ton profil. Avec ta VMA de 6.8 km/h, concentre-toi sur la régularité et le plaisir. Blessure déclarée : adapte les séances et consulte un professionnel de santé."
+          },
+          "status": {
+            "stringValue": "BON"
+          },
+          "safetyWarning": {
+            "stringValue": "Fais valider la reprise avec ton kiné/médecin avant de démarrer ce plan. Adapte les séances si nécessaire."
+          }
+        }
+      }
+    },
+    "startDate": {
+      "stringValue": "2026-05-18"
+    },
+    "endDate": {
+      "stringValue": "2026-08-10"
+    },
+    "sessionsPerWeek": {
+      "integerValue": "3"
+    },
+    "fullPlanGenerated": {
+      "booleanValue": false
+    },
+    "vma": {
+      "doubleValue": 6.8
+    },
+    "durationWeeks": {
+      "integerValue": "12"
+    },
+    "paces": {
+      "mapValue": {
+        "fields": {
+          "allureSpecifique5k": {
+            "stringValue": "9:17"
+          },
+          "efPace": {
+            "stringValue": "13:10"
+          },
+          "allureSpecifique10k": {
+            "stringValue": "9:48"
+          },
+          "vmaPace": {
+            "stringValue": "8:49"
+          },
+          "eaPace": {
+            "stringValue": "11:28"
+          },
+          "recoveryPace": {
+            "stringValue": "14:42"
+          },
+          "seuilPace": {
+            "stringValue": "10:09"
+          },
+          "allureSpecifiqueMarathon": {
+            "stringValue": "11:02"
+          },
+          "allureSpecifiqueSemi": {
+            "stringValue": "10:23"
+          }
+        }
+      }
+    },
+    "confidenceScore": {
+      "integerValue": "70"
+    },
+    "adaptationLog": {
+      "mapValue": {
+        "fields": {
+          "adaptationHistory": {
+            "arrayValue": {}
+          },
+          "weekNumber": {
+            "integerValue": "0"
+          },
+          "adaptationsThisWeek": {
+            "integerValue": "0"
+          }
+        }
+      }
+    },
+    "goal": {
+      "stringValue": "Maintien en forme"
+    },
+    "calculatedVMA": {
+      "doubleValue": 6.8
+    },
+    "suggestedLocations": {
+      "arrayValue": {
+        "values": [
+          {
+            "mapValue": {
+              "fields": {
+                "type": {
+                  "stringValue": "PARK"
+                },
+                "name": {
+                  "stringValue": "Parc Grammont"
+                },
+                "description": {
+                  "stringValue": "Idéal pour les footings en aisance respiratoire et les séances de marche/course sur terrain plat."
+                }
+              }
+            }
+          },
+          {
+            "mapValue": {
+              "fields": {
+                "type": {
+                  "stringValue": "NATURE"
+                },
+                "description": {
+                  "stringValue": "Parfait pour les sorties longues et les séances de marche/course, offrant des kilomètres sans dénivelé et une vue agréable."
+                },
+                "name": {
+                  "stringValue": "Berges de Seine (rive droite)"
+                }
+              }
+            }
+          },
+          {
+            "mapValue": {
+              "fields": {
+                "description": {
+                  "stringValue": "Pour des séances de footing nature avec un léger dénivelé et un sol plus souple, adapté à la récupération active."
+                },
+                "name": {
+                  "stringValue": "Forêt Verte (Mont-Saint-Aignan)"
+                },
+                "type": {
+                  "stringValue": "NATURE"
+                }
+              }
+            }
+          }
+        ]
+      }
+    },
+    "vmaSource": {
+      "stringValue": "5km en 40min (corrigé) (ajustée -15% remise en forme)"
+    },
+    "userId": {
+      "stringValue": "oGi1YkRbNCSQfTucLkd9yxs6sfb2"
+    },
+    "generationContext": {
+      "mapValue": {
+        "fields": {
+          "vma": {
+            "doubleValue": 6.8
+          },
+          "vmaSource": {
+            "stringValue": "5km en 40min (corrigé) (ajustée -15% remise en forme)"
+          },
+          "paces": {
+            "mapValue": {
+              "fields": {
+                "allureSpecifiqueSemi": {
+                  "stringValue": "10:23"
+                },
+                "seuilPace": {
+                  "stringValue": "10:09"
+                },
+                "allureSpecifiqueMarathon": {
+                  "stringValue": "11:02"
+                },
+                "recoveryPace": {
+                  "stringValue": "14:42"
+                },
+                "eaPace": {
+                  "stringValue": "11:28"
+                },
+                "vmaPace": {
+                  "stringValue": "8:49"
+                },
+                "allureSpecifique10k": {
+                  "stringValue": "9:48"
+                },
+                "efPace": {
+                  "stringValue": "13:10"
+                },
+                "allureSpecifique5k": {
+                  "stringValue": "9:17"
+                }
+              }
+            }
+          },
+          "periodizationPlan": {
+            "mapValue": {
+              "fields": {
+                "weeklyPhases": {
+                  "arrayValue": {
+                    "values": [
+                      {
+                        "stringValue": "fondamental"
+                      },
+                      {
+                        "stringValue": "fondamental"
+                      },
+                      {
+                        "stringValue": "fondamental"
+                      },
+                      {
+                        "stringValue": "recuperation"
+                      },
+                      {
+                        "stringValue": "fondamental"
+                      },
+                      {
+                        "stringValue": "developpement"
+                      },
+                      {
+                        "stringValue": "recuperation"
+                      },
+                      {
+                        "stringValue": "developpement"
+                      },
+                      {
+                        "stringValue": "developpement"
+                      },
+                      {
+                        "stringValue": "recuperation"
+                      },
+                      {
+                        "stringValue": "developpement"
+                      },
+                      {
+                        "stringValue": "developpement"
+                      }
+                    ]
+                  }
+                },
+                "totalWeeks": {
+                  "integerValue": "12"
+                },
+                "weeklyVolumes": {
+                  "arrayValue": {
+                    "values": [
+                      {
+                        "integerValue": "11"
+                      },
+                      {
+                        "integerValue": "12"
+                      },
+                      {
+                        "integerValue": "12"
+                      },
+                      {
+                        "integerValue": "10"
+                      },
+                      {
+                        "integerValue": "12"
+                      },
+                      {
+                        "integerValue": "14"
+                      },
+                      {
+                        "integerValue": "11"
+                      },
+                      {
+                        "integerValue": "13"
+                      },
+                      {
+                        "integerValue": "14"
+                      },
+                      {
+                        "integerValue": "11"
+                      },
+                      {
+                        "integerValue": "13"
+                      },
+                      {
+                        "integerValue": "14"
+                      }
+                    ]
+                  }
+                },
+                "recoveryWeeks": {
+                  "arrayValue": {
+                    "values": [
+                      {
+                        "integerValue": "4"
+                      },
+                      {
+                        "integerValue": "7"
+                      },
+                      {
+                        "integerValue": "10"
+                      }
+                    ]
+                  }
+                }
+              }
+            }
+          },
+          "questionnaireSnapshot": {
+            "mapValue": {
+              "fields": {
+                "goal": {
+                  "stringValue": "Maintien en forme"
+                },
+                "preferredDays": {
+                  "arrayValue": {
+                    "values": [
+                      {
+                        "stringValue": "Mardi"
+                      },
+                      {
+                        "stringValue": "Jeudi"
+                      },
+                      {
+                        "stringValue": "Samedi"
+                      }
+                    ]
+                  }
+                },
+                "height": {
+                  "integerValue": "169"
+                },
+                "injuries": {
+                  "mapValue": {
+                    "fields": {
+                      "hasInjury": {
+                        "booleanValue": true
+                      },
+                      "description": {
+                        "stringValue": "Algodystrophie cheville droite "
+                      }
+                    }
+                  }
+                },
+                "sex": {
+                  "stringValue": "Femme"
+                },
+                "lastActivity": {
+                  "stringValue": "<3months"
+                },
+                "email": {
+                  "stringValue": "justine.clt29@icloud.com"
+                },
+                "city": {
+                  "stringValue": "Rouen "
+                },
+                "level": {
+                  "stringValue": "Confirmé (Compétition)"
+                },
+                "vma": {
+                  "doubleValue": 6.8
+                },
+                "age": {
+                  "integerValue": "32"
+                },
+                "recentRaceTimes": {
+                  "mapValue": {
+                    "fields": {
+                      "distance5km": {
+                        "stringValue": "40min"
+                      }
+                    }
+                  }
+                },
+                "frequency": {
+                  "integerValue": "3"
+                },
+                "fitnessSubGoal": {
+                  "stringValue": "general"
+                },
+                "currentWeeklyVolume": {
+                  "integerValue": "13"
+                },
+                "startDate": {
+                  "stringValue": "2026-05-18"
+                },
+                "weight": {
+                  "integerValue": "77"
+                }
+              }
+            }
+          },
+          "modelUsed": {
+            "stringValue": "gemini-2.5-flash"
+          },
+          "generatedAt": {
+            "stringValue": "2026-05-18T17:06:03.565Z"
+          }
+        }
+      }
+    },
+    "weeks": {
+      "arrayValue": {
+        "values": [
+          {
+            "mapValue": {
+              "fields": {
+                "weekNumber": {
+                  "integerValue": "1"
+                },
+                "sessions": {
+                  "arrayValue": {
+                    "values": [
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "cooldown": {
+                              "stringValue": "10 min de marche très lente et étirements légers (non forcés) (à 14:42 min/km)"
+                            },
+                            "day": {
+                              "stringValue": "Mardi"
+                            },
+                            "type": {
+                              "stringValue": "Sortie Longue"
+                            },
+                            "distance": {
+                              "stringValue": "3.5 km"
+                            },
+                            "mainSet": {
+                              "stringValue": "15 x (1 min course légère à 13:10 min/km + 2 min marche active à 14:42 min/km)"
+                            },
+                            "duration": {
+                              "stringValue": "50 min"
+                            },
+                            "targetPace": {
+                              "stringValue": "13:10 min/km (course)"
+                            },
+                            "elevationGain": {
+                              "integerValue": "0"
+                            },
+                            "intensity": {
+                              "stringValue": "Facile"
+                            },
+                            "id": {
+                              "stringValue": "w1-s1-1779124016789-qcaq5w9"
+                            },
+                            "warmup": {
+                              "stringValue": "10 min de marche active (14:42 min/km)"
+                            },
+                            "title": {
+                              "stringValue": "Marche/Course en aisance respiratoire"
+                            },
+                            "advice": {
+                              "stringValue": "Écoute attentivement les signaux de ton corps, surtout au niveau de la cheville. La douleur est un signal d'arrêt. Concentre-toi sur une respiration régulière et profonde."
+                            },
+                            "locationSuggestion": {
+                              "stringValue": "Parc Grammont"
+                            }
+                          }
+                        }
+                      },
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "type": {
+                              "stringValue": "Renforcement"
+                            },
+                            "distance": {
+                              "stringValue": "0 km"
+                            },
+                            "cooldown": {
+                              "stringValue": "8 min : mobilité cheville (genou au mur 15×2), étirements mollets + soléaires, automassage voûte plantaire (balle)."
+                            },
+                            "day": {
+                              "stringValue": "Jeudi"
+                            },
+                            "mainSet": {
+                              "stringValue": "Circuit 2 tours : Squats poids de corps (3x9), Gainage ventral (3x19-60s), Dead bug (3x6/côté), Extensions mollets debout (3x13), Étirements dynamiques (2x5/côté). Repos 2 min entre tours."
+                            },
+                            "duration": {
+                              "stringValue": "30 min"
+                            },
+                            "intensity": {
+                              "stringValue": "Modéré"
+                            },
+                            "elevationGain": {
+                              "integerValue": "0"
+                            },
+                            "title": {
+                              "stringValue": "Renfo Equilibre - Renfo & Stabilite (S1)"
+                            },
+                            "warmup": {
+                              "stringValue": "10 min de mobilité articulaire douce et échauffement progressif (marche rapide, rotations, pas chassés)"
+                            },
+                            "advice": {
+                              "stringValue": "Le renforcement est essentiel pour la prévention des blessures. Adapte ou remplace tout exercice qui provoque une gêne à la cheville. La qualité prime sur la quantité."
+                            },
+                            "locationSuggestion": {
+                              "stringValue": "À la maison"
+                            },
+                            "id": {
+                              "stringValue": "w1-s2-1779124016789-hmi0iim"
+                            }
+                          }
+                        }
+                      },
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "type": {
+                              "stringValue": "Sortie Longue"
+                            },
+                            "distance": {
+                              "stringValue": "3.5 km"
+                            },
+                            "cooldown": {
+                              "stringValue": "10 min de marche très lente et étirements légers (non forcés) (à 14:42 min/km)"
+                            },
+                            "day": {
+                              "stringValue": "Dimanche"
+                            },
+                            "duration": {
+                              "stringValue": "50 min"
+                            },
+                            "mainSet": {
+                              "stringValue": "24 x (1 min course légère à 13:10 min/km + 2 min marche active à 14:42 min/km)"
+                            },
+                            "targetPace": {
+                              "stringValue": "13:10 min/km (course)"
+                            },
+                            "intensity": {
+                              "stringValue": "Facile"
+                            },
+                            "elevationGain": {
+                              "integerValue": "0"
+                            },
+                            "advice": {
+                              "stringValue": "Cette sortie est plus longue, sois attentif à ta posture et à la réaction de ta cheville. Hydrate-toi régulièrement et n'hésite pas à raccourcir la séance ou à marcher plus si la fatigue se fait sentir."
+                            },
+                            "warmup": {
+                              "stringValue": "10 min de marche active (14:42 min/km)"
+                            },
+                            "title": {
+                              "stringValue": "Sortie Longue en Marche/Course découverte"
+                            },
+                            "locationSuggestion": {
+                              "stringValue": "Berges de Seine (rive droite)"
+                            },
+                            "id": {
+                              "stringValue": "w1-s3-1779124016789-t5lvnea"
+                            }
+                          }
+                        }
+                      }
+                    ]
+                  }
+                },
+                "theme": {
+                  "stringValue": "Introduction à la marche/course et renforcement doux"
+                },
+                "weekGoal": {
+                  "stringValue": "Introduction à la marche/course et renforcement doux"
+                },
+                "phase": {
+                  "stringValue": "fondamental"
+                }
+              }
+            }
+          }
+        ]
+      }
+    },
+    "userEmail": {
+      "stringValue": "justine.clt29@icloud.com"
+    },
+    "location": {
+      "stringValue": "Rouen"
+    }
+  },
+  "createTime": "2026-05-18T17:07:07.696270Z",
+  "updateTime": "2026-05-18T17:07:07.696270Z"
+}

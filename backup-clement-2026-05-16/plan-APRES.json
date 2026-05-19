@@ -1,0 +1,730 @@
+{
+  "name": "projects/coach-running-ia/databases/(default)/documents/plans/1778935838729",
+  "fields": {
+    "vmaSource": {
+      "stringValue": "10km en 55h00"
+    },
+    "calculatedVMA": {
+      "doubleValue": 12.12121212121212
+    },
+    "targetTime": {
+      "stringValue": "2h00"
+    },
+    "_patchedReason": {
+      "stringValue": "Coach expert audit — allure spé respectée, score honnête, welcome transparent, S1 sécurisée, volumes ajustés"
+    },
+    "welcomeBlock": {
+      "mapValue": {
+        "fields": {
+          "message": {
+            "stringValue": "Bienvenue Clément ! Ton plan de 19 semaines vise les 2h00 sur semi-marathon, comme tu l'as demandé.\n\nÀ te dire honnêtement : c'est une cible ambitieuse vu ta VMA actuelle (12,1 km/h estimée depuis ton 10 km en 55 min). Tenir 5:41/km pendant 21 km demande de courir à environ 94% de ta VMA pendant 2h — un confirmé tient en général 85-88% sur cette distance. Une fourchette réaliste basée sur ton profil actuel serait plutôt 2h05-2h10.\n\nOn vise 2h00 et le plan est construit pour. Si tu progresses bien (VMA qui monte de 1 km/h sur la prépa = clairement atteignable), 2h00 devient jouable. Sinon, finir solide entre 2h05 et 2h10 sera déjà un excellent résultat.\n\nAvec 3 séances/sem (2 sortie course + 1 renforcement), on est à la limite du volume nécessaire pour viser 2h00. Si tu peux passer à 4 séances course, ça augmenterait significativement tes chances — n'hésite pas à le modifier dans ton profil.\n\nConsulte un médecin avant de débuter pour ton certificat médical d'aptitude. Écoute tes signaux : courbatures normales OK, douleur articulaire ou tendinite = STOP et adapte."
+          }
+        }
+      }
+    },
+    "id": {
+      "stringValue": "1778935838729"
+    },
+    "confidenceScore": {
+      "integerValue": "50"
+    },
+    "startDate": {
+      "stringValue": "2026-05-11"
+    },
+    "distance": {
+      "stringValue": "Semi-Marathon"
+    },
+    "raceDate": {
+      "stringValue": "2026-09-20"
+    },
+    "_patchedManuallyAt": {
+      "stringValue": "2026-05-16T13:50:12.884Z"
+    },
+    "suggestedLocations": {
+      "arrayValue": {
+        "values": [
+          {
+            "mapValue": {
+              "fields": {
+                "name": {
+                  "stringValue": "Lac de Nesmy (Plan d'eau de Nesmy)"
+                },
+                "description": {
+                  "stringValue": "Idéal pour les footings en endurance fondamentale et les sorties longues sur terrain plat et agréable."
+                },
+                "type": {
+                  "stringValue": "NATURE"
+                }
+              }
+            }
+          },
+          {
+            "mapValue": {
+              "fields": {
+                "type": {
+                  "stringValue": "NATURE"
+                },
+                "description": {
+                  "stringValue": "Parfait pour les footings en nature avec de légères ondulations, offrant une belle variété de paysages."
+                },
+                "name": {
+                  "stringValue": "Chemins de campagne autour de Nesmy"
+                }
+              }
+            }
+          },
+          {
+            "mapValue": {
+              "fields": {
+                "description": {
+                  "stringValue": "Pour les séances de VMA et de fractionné sur piste (nécessite un court trajet)."
+                },
+                "name": {
+                  "stringValue": "Piste d'athlétisme de La Roche-sur-Yon (Stade Henri Desgrange)"
+                },
+                "type": {
+                  "stringValue": "TRACK"
+                }
+              }
+            }
+          }
+        ]
+      }
+    },
+    "paces": {
+      "mapValue": {
+        "fields": {
+          "recoveryPace": {
+            "stringValue": "8:15"
+          },
+          "eaPace": {
+            "stringValue": "6:26"
+          },
+          "vmaPace": {
+            "stringValue": "4:57"
+          },
+          "allureSpecifique10k": {
+            "stringValue": "5:30"
+          },
+          "allureSpecifiqueMarathon": {
+            "stringValue": "6:11"
+          },
+          "allureSpecifiqueSemi": {
+            "stringValue": "5:49"
+          },
+          "allureSpecifique5k": {
+            "stringValue": "5:13"
+          },
+          "efPace": {
+            "stringValue": "7:23"
+          },
+          "seuilPace": {
+            "stringValue": "5:41"
+          }
+        }
+      }
+    },
+    "userId": {
+      "stringValue": "e4iFMJFc3ycDnqf4YO6MmQVMBTA2"
+    },
+    "feasibility": {
+      "mapValue": {
+        "fields": {
+          "reasons": {
+            "arrayValue": {
+              "values": [
+                {
+                  "mapValue": {
+                    "fields": {
+                      "type": {
+                        "stringValue": "risk"
+                      },
+                      "text": {
+                        "stringValue": "cible 2h00 demande de courir à ~94% de ta VMA pendant 2h, ce qui est très exigeant — un confirmé tient typiquement 85-88% sur semi"
+                      }
+                    }
+                  }
+                },
+                {
+                  "mapValue": {
+                    "fields": {
+                      "type": {
+                        "stringValue": "risk"
+                      },
+                      "text": {
+                        "stringValue": "ta VMA actuelle (12,1 km/h) correspond plutôt à un niveau intermédiaire — la cible 2h00 suppose une VMA d'au moins 14 km/h pour être tenue confortablement"
+                      }
+                    }
+                  }
+                },
+                {
+                  "mapValue": {
+                    "fields": {
+                      "type": {
+                        "stringValue": "warn"
+                      },
+                      "text": {
+                        "stringValue": "volume peak de 36 km/sem reste à la limite pour un semi 2h00 — un volume de 45-55 km/sem (4 séances) serait plus adapté"
+                      }
+                    }
+                  }
+                },
+                {
+                  "mapValue": {
+                    "fields": {
+                      "type": {
+                        "stringValue": "warn"
+                      },
+                      "text": {
+                        "stringValue": "niveau auto-déclaré \"Confirmé\" semble surévalué par rapport à ta VMA — pas un problème, on s'adapte sur tes données réelles"
+                      }
+                    }
+                  }
+                },
+                {
+                  "mapValue": {
+                    "fields": {
+                      "type": {
+                        "stringValue": "good"
+                      },
+                      "text": {
+                        "stringValue": "19 semaines de préparation : durée idéale pour faire monter la VMA et construire la résistance spécifique semi"
+                      }
+                    }
+                  }
+                }
+              ]
+            }
+          },
+          "status": {
+            "stringValue": "RISQUÉ"
+          },
+          "score": {
+            "integerValue": "50"
+          }
+        }
+      }
+    },
+    "adaptationLog": {
+      "mapValue": {
+        "fields": {
+          "weekNumber": {
+            "integerValue": "0"
+          },
+          "adaptationsThisWeek": {
+            "integerValue": "0"
+          },
+          "adaptationHistory": {
+            "arrayValue": {}
+          }
+        }
+      }
+    },
+    "durationWeeks": {
+      "integerValue": "19"
+    },
+    "goal": {
+      "stringValue": "Course sur route"
+    },
+    "name": {
+      "stringValue": "Préparation Semi-Marathon en 2h00 — 19 sem."
+    },
+    "feasibilityStatus": {
+      "stringValue": "RISQUÉ"
+    },
+    "createdAt": {
+      "stringValue": "2026-05-16T12:50:38.729Z"
+    },
+    "sessionsPerWeek": {
+      "integerValue": "3"
+    },
+    "weeks": {
+      "arrayValue": {
+        "values": [
+          {
+            "mapValue": {
+              "fields": {
+                "theme": {
+                  "stringValue": "Initiation à l'Endurance Fondamentale et renforcement"
+                },
+                "weekNumber": {
+                  "integerValue": "1"
+                },
+                "weekGoal": {
+                  "stringValue": "Initiation à l'Endurance Fondamentale et renforcement"
+                },
+                "phase": {
+                  "stringValue": "fondamental"
+                },
+                "weekVolumeTarget": {
+                  "doubleValue": 17.5
+                },
+                "sessions": {
+                  "arrayValue": {
+                    "values": [
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "title": {
+                              "stringValue": "Footing EF de reprise"
+                            },
+                            "description": {
+                              "stringValue": "Footing en endurance fondamentale, allure facile (7:23/km), tu dois pouvoir tenir une conversation. Surface souple si possible."
+                            },
+                            "distance": {
+                              "stringValue": "7.5 km"
+                            },
+                            "type": {
+                              "stringValue": "Jogging"
+                            },
+                            "pace": {
+                              "stringValue": "7:23"
+                            },
+                            "duration": {
+                              "stringValue": "55 min"
+                            },
+                            "day": {
+                              "stringValue": "Mardi"
+                            }
+                          }
+                        }
+                      },
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "description": {
+                              "stringValue": "Renforcement musculaire général. Quadriceps, fessiers, gainage. Échauffement 5min mobilité + 25min circuit (squats, fentes, gainage planche, pont fessier)."
+                            },
+                            "title": {
+                              "stringValue": "Renfo Focus A - Quadriceps & Gainage (S1)"
+                            },
+                            "type": {
+                              "stringValue": "Renforcement"
+                            },
+                            "distance": {
+                              "stringValue": "0 km"
+                            },
+                            "day": {
+                              "stringValue": "Jeudi"
+                            },
+                            "duration": {
+                              "stringValue": "30 min"
+                            }
+                          }
+                        }
+                      },
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "description": {
+                              "stringValue": "Sortie longue en endurance fondamentale, allure facile (7:23/km). Très important : reste en conversation, on construit la durée pas l'intensité. Hydrate-toi avant et pendant si > 1h."
+                            },
+                            "title": {
+                              "stringValue": "Première Sortie Longue en EF"
+                            },
+                            "type": {
+                              "stringValue": "Sortie Longue"
+                            },
+                            "distance": {
+                              "stringValue": "10 km"
+                            },
+                            "day": {
+                              "stringValue": "Dimanche"
+                            },
+                            "duration": {
+                              "stringValue": "1h10"
+                            },
+                            "pace": {
+                              "stringValue": "7:23"
+                            }
+                          }
+                        }
+                      }
+                    ]
+                  }
+                }
+              }
+            }
+          }
+        ]
+      }
+    },
+    "location": {
+      "stringValue": "Nesmy"
+    },
+    "userEmail": {
+      "stringValue": "bouche.clement.bc@gmail.com"
+    },
+    "fullPlanGenerated": {
+      "booleanValue": false
+    },
+    "endDate": {
+      "stringValue": "2026-09-21"
+    },
+    "vma": {
+      "doubleValue": 12.12121212121212
+    },
+    "isPreview": {
+      "booleanValue": true
+    },
+    "generationContext": {
+      "mapValue": {
+        "fields": {
+          "generatedAt": {
+            "stringValue": "2026-05-16T12:49:53.615Z"
+          },
+          "questionnaireSnapshot": {
+            "mapValue": {
+              "fields": {
+                "goal": {
+                  "stringValue": "Course sur route"
+                },
+                "city": {
+                  "stringValue": "Nesmy"
+                },
+                "preferredDays": {
+                  "arrayValue": {
+                    "values": [
+                      {
+                        "stringValue": "Mardi"
+                      },
+                      {
+                        "stringValue": "Jeudi"
+                      },
+                      {
+                        "stringValue": "Dimanche"
+                      }
+                    ]
+                  }
+                },
+                "recentRaceTimes": {
+                  "mapValue": {
+                    "fields": {
+                      "distance10km": {
+                        "stringValue": "55h00"
+                      }
+                    }
+                  }
+                },
+                "startDate": {
+                  "stringValue": "2026-05-16"
+                },
+                "subGoal": {
+                  "stringValue": "Semi-Marathon"
+                },
+                "age": {
+                  "integerValue": "39"
+                },
+                "currentWeeklyVolume": {
+                  "integerValue": "24"
+                },
+                "targetTime": {
+                  "stringValue": "2h00"
+                },
+                "frequency": {
+                  "integerValue": "3"
+                },
+                "email": {
+                  "stringValue": "bouche.clement.bc@gmail.com"
+                },
+                "height": {
+                  "integerValue": "185"
+                },
+                "weight": {
+                  "integerValue": "88"
+                },
+                "raceDate": {
+                  "stringValue": "2026-09-20"
+                },
+                "sex": {
+                  "stringValue": "Homme"
+                },
+                "injuries": {
+                  "mapValue": {
+                    "fields": {
+                      "hasInjury": {
+                        "booleanValue": false
+                      }
+                    }
+                  }
+                },
+                "vma": {
+                  "doubleValue": 12.12121212121212
+                },
+                "level": {
+                  "stringValue": "Confirmé (Compétition)"
+                }
+              }
+            }
+          },
+          "vma": {
+            "doubleValue": 12.12121212121212
+          },
+          "vmaSource": {
+            "stringValue": "10km en 55h00"
+          },
+          "modelUsed": {
+            "stringValue": "gemini-2.5-flash"
+          },
+          "paces": {
+            "mapValue": {
+              "fields": {
+                "recoveryPace": {
+                  "stringValue": "8:15"
+                },
+                "eaPace": {
+                  "stringValue": "6:26"
+                },
+                "vmaPace": {
+                  "stringValue": "4:57"
+                },
+                "allureSpecifique10k": {
+                  "stringValue": "5:30"
+                },
+                "allureSpecifiqueMarathon": {
+                  "stringValue": "6:11"
+                },
+                "allureSpecifiqueSemi": {
+                  "stringValue": "5:41"
+                },
+                "allureSpecifique5k": {
+                  "stringValue": "5:13"
+                },
+                "efPace": {
+                  "stringValue": "7:23"
+                },
+                "seuilPace": {
+                  "stringValue": "5:41"
+                }
+              }
+            }
+          },
+          "periodizationPlan": {
+            "mapValue": {
+              "fields": {
+                "weeklyPhases": {
+                  "arrayValue": {
+                    "values": [
+                      {
+                        "stringValue": "fondamental"
+                      },
+                      {
+                        "stringValue": "fondamental"
+                      },
+                      {
+                        "stringValue": "fondamental"
+                      },
+                      {
+                        "stringValue": "recuperation"
+                      },
+                      {
+                        "stringValue": "fondamental"
+                      },
+                      {
+                        "stringValue": "developpement"
+                      },
+                      {
+                        "stringValue": "recuperation"
+                      },
+                      {
+                        "stringValue": "developpement"
+                      },
+                      {
+                        "stringValue": "developpement"
+                      },
+                      {
+                        "stringValue": "recuperation"
+                      },
+                      {
+                        "stringValue": "developpement"
+                      },
+                      {
+                        "stringValue": "specifique"
+                      },
+                      {
+                        "stringValue": "recuperation"
+                      },
+                      {
+                        "stringValue": "specifique"
+                      },
+                      {
+                        "stringValue": "specifique"
+                      },
+                      {
+                        "stringValue": "recuperation"
+                      },
+                      {
+                        "stringValue": "specifique"
+                      },
+                      {
+                        "stringValue": "affutage"
+                      },
+                      {
+                        "stringValue": "affutage"
+                      }
+                    ]
+                  }
+                },
+                "slDistances": {
+                  "arrayValue": {
+                    "values": [
+                      {
+                        "integerValue": "10"
+                      },
+                      {
+                        "integerValue": "11"
+                      },
+                      {
+                        "integerValue": "13"
+                      },
+                      {
+                        "integerValue": "10"
+                      },
+                      {
+                        "integerValue": "12"
+                      },
+                      {
+                        "integerValue": "14"
+                      },
+                      {
+                        "integerValue": "11"
+                      },
+                      {
+                        "integerValue": "15"
+                      },
+                      {
+                        "integerValue": "17"
+                      },
+                      {
+                        "integerValue": "13"
+                      },
+                      {
+                        "integerValue": "16"
+                      },
+                      {
+                        "integerValue": "18"
+                      },
+                      {
+                        "integerValue": "14"
+                      },
+                      {
+                        "integerValue": "16"
+                      },
+                      {
+                        "integerValue": "19"
+                      },
+                      {
+                        "integerValue": "14"
+                      },
+                      {
+                        "integerValue": "17"
+                      },
+                      {
+                        "integerValue": "12"
+                      },
+                      {
+                        "integerValue": "10"
+                      }
+                    ]
+                  }
+                },
+                "recoveryWeeks": {
+                  "arrayValue": {
+                    "values": [
+                      {
+                        "integerValue": "4"
+                      },
+                      {
+                        "integerValue": "7"
+                      },
+                      {
+                        "integerValue": "10"
+                      },
+                      {
+                        "integerValue": "13"
+                      },
+                      {
+                        "integerValue": "16"
+                      }
+                    ]
+                  }
+                },
+                "weeklyVolumes": {
+                  "arrayValue": {
+                    "values": [
+                      {
+                        "integerValue": "20"
+                      },
+                      {
+                        "integerValue": "22"
+                      },
+                      {
+                        "integerValue": "25"
+                      },
+                      {
+                        "integerValue": "20"
+                      },
+                      {
+                        "integerValue": "24"
+                      },
+                      {
+                        "integerValue": "28"
+                      },
+                      {
+                        "integerValue": "24"
+                      },
+                      {
+                        "integerValue": "30"
+                      },
+                      {
+                        "integerValue": "34"
+                      },
+                      {
+                        "integerValue": "28"
+                      },
+                      {
+                        "integerValue": "32"
+                      },
+                      {
+                        "integerValue": "36"
+                      },
+                      {
+                        "integerValue": "28"
+                      },
+                      {
+                        "integerValue": "32"
+                      },
+                      {
+                        "integerValue": "36"
+                      },
+                      {
+                        "integerValue": "28"
+                      },
+                      {
+                        "integerValue": "32"
+                      },
+                      {
+                        "integerValue": "24"
+                      },
+                      {
+                        "integerValue": "16"
+                      }
+                    ]
+                  }
+                },
+                "totalWeeks": {
+                  "integerValue": "19"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "welcomeMessage": {
+      "stringValue": "Bienvenue Clément ! Ton plan de 19 semaines vise les 2h00 sur semi-marathon, comme tu l'as demandé.\n\nÀ te dire honnêtement : c'est une cible ambitieuse vu ta VMA actuelle (12,1 km/h estimée depuis ton 10 km en 55 min). Tenir 5:41/km pendant 21 km demande de courir à environ 94% de ta VMA pendant 2h — un confirmé tient en général 85-88% sur cette distance. Une fourchette réaliste basée sur ton profil actuel serait plutôt 2h05-2h10.\n\nOn vise 2h00 et le plan est construit pour. Si tu progresses bien (VMA qui monte de 1 km/h sur la prépa = clairement atteignable), 2h00 devient jouable. Sinon, finir solide entre 2h05 et 2h10 sera déjà un excellent résultat.\n\nAvec 3 séances/sem (2 sortie course + 1 renforcement), on est à la limite du volume nécessaire pour viser 2h00. Si tu peux passer à 4 séances course, ça augmenterait significativement tes chances — n'hésite pas à le modifier dans ton profil.\n\nConsulte un médecin avant de débuter pour ton certificat médical d'aptitude. Écoute tes signaux : courbatures normales OK, douleur articulaire ou tendinite = STOP et adapte."
+    }
+  },
+  "createTime": "2026-05-16T12:50:49.592931Z",
+  "updateTime": "2026-05-16T13:50:13.005290Z"
+}

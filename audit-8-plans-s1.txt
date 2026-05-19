@@ -1,0 +1,919 @@
+═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════
+  AUDIT 8 PLANS — TEMPLATE V2 ENRICHI  •  18/05/2026 19:34:12
+  6 dimensions : Allure / Volume (S1 vs declared 🚨) / SL S1+pic / Faisabilité / Welcome / Cohérence globale
+═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════
+
+
+█████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████
+📧 Aurore — auroregervot@yahoo.fr  (fresh — inscription 18/05)
+█████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████
+  UID: ym0Uw0z1VveJGAWwmarvQRRzT6G2  •  Email: auroregervot@yahoo.fr  •  Créé: 2026-05-18T17:19:03.497Z  •  Last login: 2026-05-18T17:21:04.993Z
+  Plans total: 1  •  Plan analysé: 1779124806518
+    createdAt=2026-05-18T17:20:06.518Z  •  full=false  •  premium=undefined  •  preview=true
+
+  ━━━ IDENTITÉ & INPUTS ━━━
+  Prénom: Aurore  •  Plan: "Programme Remise en Forme — 12 semaines"
+  Sexe: Femme  •  Âge: 30  •  Poids: 68 kg  •  Taille: 170 cm  •  IMC: 23.5
+  Niveau: Débutant (0-1 an)  •  VMA: 9.40 km/h (Estimation niveau Débutant (0-1 an) (ajustée -15% remise en forme))
+  Objectif: Maintien en forme 
+  Cible chrono: Finisher  •  Race date: (N/A)
+  Durée: 12 sem  •  Fréquence: 3 séances/sem
+  Vol DÉCLARÉ: 12 km/sem  •  Blessures: aucune
+
+  ━━━ 1. ALLURE CIBLE — cohérence chrono / PB / Finisher ━━━
+    Allures théoriques (paces[]) :
+      efPace                           9:32/km
+      eaPace                           8:17/km
+      seuilPace                        7:20/km
+      vmaPace                          6:23/km
+      recoveryPace                     10:38/km
+      allureSpecifique5k               6:43/km
+      allureSpecifique10k              7:06/km
+      allureSpecifiqueSemi             7:31/km
+      allureSpecifiqueMarathon         7:59/km
+
+    📍 Cohérence chrono cible : Finisher / pas de cible chrono → allure VMA-based
+
+    Séances S1 — cohérence allure vs type :
+      ✅ Lundi      Sortie Longue      pace=9:32/km vs efPace=9:32 (Δ 0s)
+      ✅ Samedi     Sortie Longue      pace=9:32/km vs efPace=9:32 (Δ 0s)
+
+  ━━━ 2. VOLUME HEBDO COMPLET + PROJECTION + S1 vs DECLARED ━━━
+
+    📊 Vol DÉCLARÉ user (currentWeeklyVolume) : 12 km/sem
+    📊 Vol S1 plan : 10 km
+    🚨 BAISSE S1 vs DÉCLARÉ : 10 km plan vs 12 km user (Δ -2 km, ratio 83%) — FLAG CRITIQUE
+    📊 Pic : S9 = 13 km
+    📊 Affûtage final : S12 = 13 km (100% du pic) • S11 = 12 km (92% du pic)
+
+    📋 TABLEAU weeklyVolumes COMPLET :
+    Sem | Phase            | km   | bar                                          | Δ%      | Flags
+    ────┼──────────────────┼──────┼──────────────────────────────────────────────┼─────────┼─────────
+    S 1 | fondamental      |   10 | ███████████████████████████████········· |    --  | 
+    S 2 | fondamental      |   11 | ██████████████████████████████████······ |    10%  | 
+    S 3 | fondamental      |   11 | ██████████████████████████████████······ |     0%  | 
+    S 4 | recuperation     |    9 | ████████████████████████████············ |   -18%  | ↓DELOAD 
+    S 5 | fondamental      |   10 | ███████████████████████████████········· |    11%  | 
+    S 6 | developpement    |   12 | █████████████████████████████████████··· |    20%  | 
+    S 7 | recuperation     |   10 | ███████████████████████████████········· |   -17%  | ↓DELOAD 
+    S 8 | developpement    |   12 | █████████████████████████████████████··· |    20%  | 
+    S 9 | developpement    |   13 | ████████████████████████████████████████ |     8%  | ★PIC 
+    S10 | recuperation     |   10 | ███████████████████████████████········· |   -23%  | ↓DELOAD 
+    S11 | developpement    |   12 | █████████████████████████████████████··· |    20%  | 
+    S12 | developpement    |   13 | ████████████████████████████████████████ |     8%  | 🏁RACE
+
+    📈 Max augmentation : S5→S6 10→12km = +20%  🟡
+    📉 Max décharge : S9→S10 13→10km = -23%
+    🔄 Semaines de décharge projetées : 4, 7, 10
+
+  ━━━ 3. SL S1 + PROJECTION SL PIC ━━━
+    Total km course S1 (réel sessions) : 9.6 km
+    SL S1 max : 4.84 km
+      Lundi : 4.8km • 50 min • D+0m • pace EF (9:32 min/km) / Récupération (10:38 min/km) • "Marche/Course en aisance respiratoire"
+      Samedi : 4.84km • 50 min • D+0m • pace EF (9:32 min/km) / Récupération (10:38 min/km) • "Marche/Course progressive pour l'endurance"
+    Ratio SL/Volume hebdo S1 plan : 48% 🔴 (cible 25-40%)
+    Ratio SL/Volume DÉCLARÉ user : 40% 🟡
+    SL S1 plan vs estim. SL user (~35% vol declared) ≈ 4.2 km
+
+    📍 Projection SL pic : weeklyVolumes[S9]=13 km × 0.4-0.5 ≈ 5.2 - 6.5 km
+    📍 Référentiel par objectif : ? → 0 - 99 km
+    ✅ SL pic projetée cohérente avec référentiel
+
+  ━━━ 4. SCORE FAISABILITÉ ━━━
+    feasibility.status : BON
+    feasibility.score : ?
+    confidenceScore : 70
+    message (238 chars) :
+      │ Ton programme de remise en forme sur 12 semaines est bien calibré pour ton profil. Avec ta VMA de 9.4 km/h, concentre-toi sur la régularité et le plaisir. VMA estimée (pas de chrono validé) : l'évaluation comporte une marge d'incertitude.
+    safetyWarning :
+      │ Pense à consulter un médecin pour un certificat d'aptitude avant de commencer ta préparation.
+
+  ━━━ 5. WELCOMEMESSAGE ━━━
+    welcomeMessage (618 chars) :
+    ────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+    │ Bonjour ! Bienvenue dans ton programme de remise en forme de 12 semaines, conçu pour t'aider à atteindre ton objectif de maintien en forme. Ce plan est structuré pour une progression douce et durable, en mettant l'accent sur l'endurance fondamentale et le plaisir de courir, sans pression sur la performance pure ou des allures complexes dès le début. La première semaine sera dédiée à établir une base solide avec des séances de marche/course adaptées à ton niveau débutant.
+    │ 
+    │ Nous te recommandons de consulter un médecin avant de débuter ce programme, notamment pour obtenir un certificat médical d'aptitude au sport.
+    ────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+
+    🔍 Doctrine checks :
+      Mots interdits poids/IMC dans corps : ✅ aucun
+      Titre du plan : "Programme Remise en Forme — 12 semaines"
+      Allures mentionnées dans welcome : (aucune textuelle)
+      Mention médecin/cardio/certif : ✅ oui (obligatoire si âge>50 ou BMI>30)
+      Cross-training mentionné : ✅ aucun
+      Nutrition / chiffres : ✅ aucune
+
+  ━━━ 6. COHÉRENCE GLOBALE ━━━
+    Bugs/incohérences détectés : 1 → 🚨 Vol S1 < declared (10<12)
+
+
+█████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████
+📧 Justine — justine.clt29@icloud.com  (fresh — inscription 18/05)
+█████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████
+  UID: oGi1YkRbNCSQfTucLkd9yxs6sfb2  •  Email: justine.clt29@icloud.com  •  Créé: 2026-05-18T17:06:02.297Z  •  Last login: 2026-05-18T17:15:24.200Z
+  Plans total: 1  •  Plan analysé: 1779124016788
+    createdAt=2026-05-18T17:06:56.788Z  •  full=false  •  premium=undefined  •  preview=true
+
+  ━━━ IDENTITÉ & INPUTS ━━━
+  Prénom: Justine  •  Plan: "Programme Remise en Forme — 12 semaines"
+  Sexe: Femme  •  Âge: 32  •  Poids: 77 kg  •  Taille: 169 cm  •  IMC: 27.0
+  Niveau: Confirmé (Compétition)  •  VMA: 6.80 km/h (5km en 40min (corrigé) (ajustée -15% remise en forme))
+  Objectif: Maintien en forme 
+  Cible chrono: Finisher  •  Race date: (N/A)
+  Durée: 12 sem  •  Fréquence: 3 séances/sem
+  Vol DÉCLARÉ: 13 km/sem  •  Blessures: Algodystrophie cheville droite 
+  Chronos récents: distance5km=40min
+
+  ━━━ 1. ALLURE CIBLE — cohérence chrono / PB / Finisher ━━━
+    Allures théoriques (paces[]) :
+      efPace                           13:10/km
+      eaPace                           11:28/km
+      seuilPace                        10:09/km
+      vmaPace                          8:49/km
+      recoveryPace                     14:42/km
+      allureSpecifique5k               9:17/km
+      allureSpecifique10k              9:48/km
+      allureSpecifiqueSemi             10:23/km
+      allureSpecifiqueMarathon         11:02/km
+
+    📍 Finisher + PB déclaré : vérifier allure = max(allurePB + 5% cushion, allure VMA-based)
+       PB distance5km = 40min
+
+    Séances S1 — cohérence allure vs type :
+      ✅ Mardi      Sortie Longue      pace=13:10/km vs efPace=13:10 (Δ 0s)
+      ⚪ Jeudi      Renforcement       (pas de targetPace) — "Renfo Equilibre - Renfo & Stabilite (S1)"
+      ✅ Dimanche   Sortie Longue      pace=13:10/km vs efPace=13:10 (Δ 0s)
+
+  ━━━ 2. VOLUME HEBDO COMPLET + PROJECTION + S1 vs DECLARED ━━━
+
+    📊 Vol DÉCLARÉ user (currentWeeklyVolume) : 13 km/sem
+    📊 Vol S1 plan : 11 km
+    🚨 BAISSE S1 vs DÉCLARÉ : 11 km plan vs 13 km user (Δ -2 km, ratio 85%) — FLAG CRITIQUE
+    📊 Pic : S6 = 14 km
+    📊 Affûtage final : S12 = 14 km (100% du pic) • S11 = 13 km (93% du pic)
+
+    📋 TABLEAU weeklyVolumes COMPLET :
+    Sem | Phase            | km   | bar                                          | Δ%      | Flags
+    ────┼──────────────────┼──────┼──────────────────────────────────────────────┼─────────┼─────────
+    S 1 | fondamental      |   11 | ███████████████████████████████········· |    --  | 
+    S 2 | fondamental      |   12 | ██████████████████████████████████······ |     9%  | 
+    S 3 | fondamental      |   12 | ██████████████████████████████████······ |     0%  | 
+    S 4 | recuperation     |   10 | █████████████████████████████··········· |   -17%  | ↓DELOAD 
+    S 5 | fondamental      |   12 | ██████████████████████████████████······ |    20%  | 
+    S 6 | developpement    |   14 | ████████████████████████████████████████ |    17%  | ★PIC 
+    S 7 | recuperation     |   11 | ███████████████████████████████········· |   -21%  | ↓DELOAD 
+    S 8 | developpement    |   13 | █████████████████████████████████████··· |    18%  | 
+    S 9 | developpement    |   14 | ████████████████████████████████████████ |     8%  | 
+    S10 | recuperation     |   11 | ███████████████████████████████········· |   -21%  | ↓DELOAD 
+    S11 | developpement    |   13 | █████████████████████████████████████··· |    18%  | 
+    S12 | developpement    |   14 | ████████████████████████████████████████ |     8%  | 🏁RACE
+
+    📈 Max augmentation : S4→S5 10→12km = +20%  🟡
+    📉 Max décharge : S6→S7 14→11km = -21%
+    🔄 Semaines de décharge projetées : 4, 7, 10
+
+  ━━━ 3. SL S1 + PROJECTION SL PIC ━━━
+    Total km course S1 (réel sessions) : 7.0 km
+    SL S1 max : 3.5 km
+      Mardi : 3.5km • 50 min • D+0m • pace 13:10 min/km (course) • "Marche/Course en aisance respiratoire"
+      Dimanche : 3.5km • 50 min • D+0m • pace 13:10 min/km (course) • "Sortie Longue en Marche/Course découverte"
+    Ratio SL/Volume hebdo S1 plan : 32% 🟡 (cible 25-40%)
+    Ratio SL/Volume DÉCLARÉ user : 27% ✅
+    SL S1 plan vs estim. SL user (~35% vol declared) ≈ 4.5 km
+
+    📍 Projection SL pic : weeklyVolumes[S6]=14 km × 0.4-0.5 ≈ 5.6 - 7.0 km
+    📍 Référentiel par objectif : ? → 0 - 99 km
+    ✅ SL pic projetée cohérente avec référentiel
+
+  ━━━ 4. SCORE FAISABILITÉ ━━━
+    feasibility.status : BON
+    feasibility.score : ?
+    confidenceScore : 70
+    message (232 chars) :
+      │ Ton programme de remise en forme sur 12 semaines est bien calibré pour ton profil. Avec ta VMA de 6.8 km/h, concentre-toi sur la régularité et le plaisir. Blessure déclarée : adapte les séances et consulte un professionnel de santé.
+    safetyWarning :
+      │ Fais valider la reprise avec ton kiné/médecin avant de démarrer ce plan. Adapte les séances si nécessaire.
+
+  ━━━ 5. WELCOMEMESSAGE ━━━
+    welcomeMessage (465 chars) :
+    ────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+    │ Bienvenue dans ton programme de remise en forme de 12 semaines ! L'objectif est de t'accompagner vers une meilleure condition physique et de maintenir le plaisir de courir, en toute sécurité. Ce plan est structuré pour s'adapter à ton niveau débutant, en se concentrant sur la régularité et une progression douce.
+    │ 
+    │ Nous te recommandons vivement de consulter un médecin avant de débuter ce programme, notamment pour obtenir un certificat médical d'aptitude au sport.
+    ────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+
+    🔍 Doctrine checks :
+      Mots interdits poids/IMC dans corps : ✅ aucun
+      Titre du plan : "Programme Remise en Forme — 12 semaines"
+      Allures mentionnées dans welcome : (aucune textuelle)
+      Mention médecin/cardio/certif : ✅ oui (obligatoire si âge>50 ou BMI>30)
+      Cross-training mentionné : ✅ aucun
+      Nutrition / chiffres : ✅ aucune
+      Mention PB (Finisher+PB) : ⚠ non (recommandé)
+
+  ━━━ 6. COHÉRENCE GLOBALE ━━━
+    Bugs/incohérences détectés : 1 → 🚨 Vol S1 < declared (11<13)
+
+
+█████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████
+📧 Alan — alanwentzel74@gmail.com  (re-check post re-patch welcome mix)
+█████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████
+  UID: yzvy4Csd7OMYT7x5Xx6YPnFpML12  •  Email: alanwentzel74@gmail.com  •  Créé: 2026-05-18T14:24:12.930Z  •  Last login: 2026-05-18T14:26:18.368Z
+  Plans total: 1  •  Plan analysé: 1779114282783
+    createdAt=2026-05-18T14:24:42.783Z  •  full=false  •  premium=undefined  •  preview=true
+
+  ━━━ IDENTITÉ & INPUTS ━━━
+  Prénom: Alan  •  Plan: "Préparation Trail 35km / 1200m D+ — Finisher — 11 sem."
+  Sexe: Homme  •  Âge: 21  •  Poids: 83 kg  •  Taille: 186 cm  •  IMC: 24.0
+  Niveau: Confirmé (Compétition)  •  VMA: 12.18 km/h (Moyenne 5km en 25min et 10km en 58min)
+  Objectif: Trail  — 35km / 1200m D+
+  Cible chrono: Finisher  •  Race date: 2026-07-30
+  Durée: 11 sem  •  Fréquence: 4 séances/sem
+  Vol DÉCLARÉ: 30 km/sem / D+ 400 m  •  Blessures: aucune
+  Chronos récents: distance5km=25min • distance10km=58min • distanceHalfMarathon=3h30
+
+  ━━━ 1. ALLURE CIBLE — cohérence chrono / PB / Finisher ━━━
+    Allures théoriques (paces[]) :
+      efPace                           7:21/km
+      eaPace                           6:24/km
+      seuilPace                        5:40/km
+      vmaPace                          4:56/km
+      recoveryPace                     8:13/km
+      allureSpecifique5k               5:11/km
+      allureSpecifique10k              5:28/km
+      allureSpecifiqueSemi             5:48/km
+      allureSpecifiqueMarathon         6:10/km
+
+    📍 Finisher + PB déclaré : vérifier allure = max(allurePB + 5% cushion, allure VMA-based)
+       PB distance5km = 25min
+       PB distance10km = 58min
+       PB distanceHalfMarathon = 3h30
+
+    Séances S1 — cohérence allure vs type :
+      ⚪ Mardi      Renforcement       (pas de targetPace) — "Renfo Trail Focus A - Quadriceps & Excentrique (S1)"
+      ✅ Jeudi      Sortie Longue      pace=7:21/km vs efPace=7:21 (Δ 0s)
+      ✅ Samedi     Jogging            pace=7:21/km vs efPace=7:21 (Δ 0s)
+      ✅ Dimanche   Jogging            pace=7:21/km vs efPace=7:21 (Δ 0s)
+
+  ━━━ 2. VOLUME HEBDO COMPLET + PROJECTION + S1 vs DECLARED ━━━
+
+    📊 Vol DÉCLARÉ user (currentWeeklyVolume) : 30 km/sem / D+ 400 m
+    📊 Vol S1 plan : 26 km
+    🚨 BAISSE S1 vs DÉCLARÉ : 26 km plan vs 30 km user (Δ -4 km, ratio 87%) — FLAG CRITIQUE
+    📊 Pic : S9 = 32 km
+    📊 Affûtage final : S11 = 17 km (53% du pic) • S10 = 21 km (66% du pic)
+
+    📋 TABLEAU weeklyVolumes COMPLET :
+    Sem | Phase            | km   | bar                                          | Δ%      | Flags
+    ────┼──────────────────┼──────┼──────────────────────────────────────────────┼─────────┼─────────
+    S 1 | fondamental      |   26 | █████████████████████████████████······· |    --  | 
+    S 2 | fondamental      |   28 | ███████████████████████████████████····· |     8%  | 
+    S 3 | fondamental      |   30 | ██████████████████████████████████████·· |     7%  | 
+    S 4 | recuperation     |   23 | █████████████████████████████··········· |   -23%  | ↓DELOAD 
+    S 5 | developpement    |   26 | █████████████████████████████████······· |    13%  | 
+    S 6 | developpement    |   30 | ██████████████████████████████████████·· |    15%  | 
+    S 7 | recuperation     |   27 | ██████████████████████████████████······ |   -10%  | ↓DELOAD 
+    S 8 | specifique       |   30 | ██████████████████████████████████████·· |    11%  | 
+    S 9 | specifique       |   32 | ████████████████████████████████████████ |     7%  | ★PIC 
+    S10 | affutage         |   21 | ██████████████████████████·············· |   -34%  | 
+    S11 | affutage         |   17 | █████████████████████··················· |   -19%  | 🏁RACE
+
+    📋 TABLEAU weeklyElevationTarget (D+) :
+    Sem | D+ (m) | bar
+    ────┼────────┼──────────────────────────────
+    S 1 |    400 | █████████████████
+    S 2 |    440 | ██████████████████
+    S 3 |    480 | ████████████████████
+    S 4 |    286 | ████████████
+    S 5 |    560 | ███████████████████████
+    S 6 |    600 | █████████████████████████
+    S 7 |    352 | ███████████████
+    S 8 |    680 | ████████████████████████████
+    S 9 |    720 | ██████████████████████████████
+    S10 |    380 | ████████████████
+    S11 |    320 | █████████████
+
+    D+ S1 plan = 400 m vs DÉCLARÉ 400 m
+    D+ pic = S9 = 720 m vs race D+ = 1200 m (ratio 60%)
+
+    📈 Max augmentation : S5→S6 26→30km = +15%  🟡
+    📉 Max décharge : S9→S10 32→21km = -34%
+    🔄 Semaines de décharge projetées : 4, 7
+
+    ⚠ GARDE-FOU DÉLAI COURT : plan 11 sem (<12) sur objectif ambitieux
+    🚨 CRITIQUE : volume S1 < volume current → catastrophe préparatoire potentielle
+
+  ━━━ 3. SL S1 + PROJECTION SL PIC ━━━
+    Total km course S1 (réel sessions) : 26.0 km
+    SL S1 max : 10.2 km / 260m D+
+      Jeudi : 10.2km • 1h15 • D+260m • pace 7:21 min/km • "Sortie Longue sur sentiers de montagne"
+    Ratio SL/Volume hebdo S1 plan : 39% 🟡 (cible 25-40%)
+    Ratio SL/Volume DÉCLARÉ user : 34% ✅
+    SL S1 plan vs estim. SL user (~35% vol declared) ≈ 10.5 km
+
+    📍 Projection SL pic : weeklyVolumes[S9]=32 km × 0.4-0.5 ≈ 12.8 - 16.0 km
+    📍 Référentiel par objectif : trail 35km (60-80%) → 21 - 28 km
+    🚨 SL pic projetée TROP COURTE vs référentiel — pic insuffisant pour trail 35km (60-80%)
+    D+ SL S1 plan = 260m  •  D+ hebdo S1 plan = 400m  •  D+ course = 1200m
+
+  ━━━ 4. SCORE FAISABILITÉ ━━━
+    feasibility.status : RISQUÉ
+    feasibility.score : ?
+    confidenceScore : 35
+    message (616 chars) :
+      │ Ce trail de 35km / 1200m D+ présente des risques sérieux dans ta configuration actuelle. Le D+ de la course (1200m) est 3.0x ton D+ hebdomadaire actuel (400m/sem) — risque musculaire très élevé en descente, impossible de construire la résistance excentrique nécessaire en 11 semaines. Trail de 35km pour un débutant : la distance combinée au D+ demande une solide base. 11 semaines pour un trail de 35km : 12 à 16 semaines recommandées. Point positif : ton volume actuel de 30km/sem est une excellente base pour cette distance. Écoute ton corps, sois très progressif, et n'hésite pas à adapter le plan si nécessaire.
+    safetyWarning :
+      │ On te recommande de valider ce programme avec ton médecin, surtout pour un premier effort de cette distance. Un certificat médical d'aptitude est vivement conseillé.
+
+  ━━━ 5. WELCOMEMESSAGE ━━━
+    welcomeMessage (1182 chars) :
+    ────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+    │ Bienvenue Alan ! Ton plan Trail 35 km / 1200 m D+ est conçu pour bâtir progressivement ton endurance et ta résilience spécifique au trail en 11 semaines.
+    │ 
+    │ ⚠️ Petite note de transparence : 11 semaines, c'est court pour un trail 35 km / 1200 D+ — la fenêtre idéale serait 12-16 semaines. Ton volume actuel (30 km/sem) est solide, mais ton dénivelé hebdo (400 m) est en-dessous de ce que demande la course. On va donc pousser progressivement le dénivelé.
+    │ 
+    │ La première semaine, en phase fondamentale, met l'accent sur le développement de la base aérobie et l'adaptation à des volumes croissants sur des terrains variés. Sur les semaines suivantes, le plan augmente la fréquence de séances vallonnées et la durée des sorties longues pour préparer ton corps aux exigences du jour J.
+    │ 
+    │ Quelques règles d'or sur ces 11 semaines :
+    │ - L'objectif 35 km reste l'objectif — on ne baisse rien, on optimise le temps disponible
+    │ - Marche les montées raides à l'entraînement comme en course : stratégie trail normale
+    │ - Écoute ton corps : à la moindre douleur articulaire ou tendineuse, on adapte plutôt que forcer
+    │ 
+    │ Avant de débuter, un certificat médical d'aptitude au sport reste fortement recommandé.
+    ────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+
+    🔍 Doctrine checks :
+      Mots interdits poids/IMC dans corps : ✅ aucun
+      Titre du plan : "Préparation Trail 35km / 1200m D+ — Finisher — 11 sem."
+      Allures mentionnées dans welcome : (aucune textuelle)
+      Mention médecin/cardio/certif : ✅ oui (obligatoire si âge>50 ou BMI>30)
+      Cross-training mentionné : 🔴 velo
+      Nutrition / chiffres : ✅ aucune
+      Mention PB (Finisher+PB) : ⚠ non (recommandé)
+
+  ━━━ 6. COHÉRENCE GLOBALE ━━━
+    Bugs/incohérences détectés : 2 → 🚨 Vol S1 < declared (26<30) | 🔴 Cross-training: velo
+
+
+█████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████
+📧 Sébastien — sebastien.sailly@outlook.fr  (re-check post tous patches)
+█████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████
+  UID: jZ8E7E1beJeO9GdDAYM6gYwMdVN2  •  Email: sebastien.sailly@outlook.fr  •  Créé: 2026-05-18T10:18:34.925Z  •  Last login: 2026-05-18T10:20:51.598Z
+  Plans total: 1  •  Plan analysé: 1779099564353
+    createdAt=2026-05-18T10:19:24.353Z  •  full=false  •  premium=undefined  •  preview=true
+
+  ━━━ IDENTITÉ & INPUTS ━━━
+  Prénom: sebastien  •  Plan: "Préparation 10 km — Finisher — 7 sem."
+  Sexe: Homme  •  Âge: 45  •  Poids: 130 kg  •  Taille: 180 cm  •  IMC: 40.1
+  Niveau: Débutant (0-1 an)  •  VMA: 8.00 km/h (10km en 1h30 (corrigé))
+  Objectif: Course sur route (10 km)
+  Cible chrono: Finisher  •  Race date: 2026-06-30
+  Durée: 7 sem  •  Fréquence: 2 séances/sem
+  Vol DÉCLARÉ: 5 km/sem  •  Blessures: aucune
+  Chronos récents: distance10km=1h30
+
+  ━━━ 1. ALLURE CIBLE — cohérence chrono / PB / Finisher ━━━
+    Allures théoriques (paces[]) :
+      allureSpecifiqueSemi             8:49/km
+      allureSpecifique5k               7:54/km
+      allureSpecifiqueMarathon         9:23/km
+      seuilPace                        8:37/km
+      efPace                           11:12/km
+      recoveryPace                     12:30/km
+      eaPace                           9:44/km
+      vmaPace                          7:30/km
+      allureSpecifique10k              9:30/km
+
+    📍 Finisher + PB déclaré : vérifier allure = max(allurePB + 5% cushion, allure VMA-based)
+       PB distance10km = 1h30
+
+    Séances S1 — cohérence allure vs type :
+      ✅ Dimanche   Sortie Longue      pace=11:12/km vs efPace=11:12 (Δ 0s)
+
+  ━━━ 2. VOLUME HEBDO COMPLET + PROJECTION + S1 vs DECLARED ━━━
+
+    📊 Vol DÉCLARÉ user (currentWeeklyVolume) : 5 km/sem
+    📊 Vol S1 plan : 4 km
+    🚨 BAISSE S1 vs DÉCLARÉ : 4 km plan vs 5 km user (Δ -1 km, ratio 80%) — FLAG CRITIQUE
+    📊 Pic : S6 = 9 km
+    📊 Affûtage final : S7 = 5 km (56% du pic) • S6 = 9 km (100% du pic)
+
+    📋 TABLEAU weeklyVolumes COMPLET :
+    Sem | Phase            | km   | bar                                          | Δ%      | Flags
+    ────┼──────────────────┼──────┼──────────────────────────────────────────────┼─────────┼─────────
+    S 1 | fondamental      |    4 | ██████████████████······················ |    --  | 
+    S 2 | fondamental      |    5 | ██████████████████████·················· |    25%  | 
+    S 3 | developpement    |    6 | ███████████████████████████············· |    20%  | 
+    S 4 | recuperation     |    7 | ███████████████████████████████········· |    17%  | ↓DELOAD 
+    S 5 | specifique       |    8 | ████████████████████████████████████···· |    14%  | 
+    S 6 | specifique       |    9 | ████████████████████████████████████████ |    13%  | ★PIC 
+    S 7 | affutage         |    5 | ██████████████████████·················· |   -44%  | 🏁RACE
+
+    📈 Max augmentation : S1→S2 4→5km = +25%  🔴
+    📉 Max décharge : S6→S7 9→5km = -44%
+    🔄 Semaines de décharge projetées : 4
+
+  ━━━ 3. SL S1 + PROJECTION SL PIC ━━━
+    Total km course S1 (réel sessions) : 3.0 km
+    SL S1 max : 3 km
+      Dimanche : 3km • 30 min • D+0m • pace EF : 11:12 min/km (course) / Récupération : 12:30 min/km (marche) • "Marche/Course découverte — 30 min en alternance"
+    Ratio SL/Volume hebdo S1 plan : 75% 🔴 (cible 25-40%)
+    Ratio SL/Volume DÉCLARÉ user : 60% 🔴
+    SL S1 plan vs estim. SL user (~35% vol declared) ≈ 1.8 km
+
+    📍 Projection SL pic : weeklyVolumes[S6]=9 km × 0.4-0.5 ≈ 3.6 - 4.5 km
+    📍 Référentiel par objectif : 10k (7-8 km) → 7 - 8 km
+    🚨 SL pic projetée TROP COURTE vs référentiel — pic insuffisant pour 10k (7-8 km)
+
+  ━━━ 4. SCORE FAISABILITÉ ━━━
+    feasibility.status : AMBITIEUX
+    feasibility.score : 60
+    confidenceScore : 60
+    message (446 chars) :
+      │ Tu te lances dans un 10 km en 7 semaines, c'est un beau projet pour démarrer la course à pied. Ton volume actuel est faible — c'est normal quand on débute — et le plan est construit pour t'accompagner en douceur, avec une progression très progressive. Aucune pression sur le chrono : l'objectif est de finir confortablement ton 10 km en ayant pris du plaisir. Marche dès que tu en ressens le besoin, écoute ton corps, respecte les jours de repos.
+    safetyWarning :
+      │ Avant de débuter ce plan, un bilan médical complet (cardio + articulations) est fortement recommandé. Adapte les séances à tes sensations, marche dès que nécessaire, et arrête immédiatement en cas de douleur articulaire ou de gêne thoracique. Une montre cardio ou une bonne paire de chaussures running adaptée à ta foulée sont des investissements précieux pour limiter les risques.
+
+  ━━━ 5. WELCOMEMESSAGE ━━━
+    welcomeMessage (975 chars) :
+    ────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+    │ Bienvenue Sébastien ! Tu te lances dans un 10 km en 7 semaines, c'est un beau projet de démarrage. Ton objectif est tendu pour ce délai court — on construit une progression très progressive pour que ton corps s'adapte sans risque. La marche est autorisée et même recommandée dès que tu en ressens le besoin, que ce soit à l'entraînement ou le jour de la course : un 10 km finisher avec une partie en marche est un succès, pas un échec. Le plan combine 1 séance de course + 1 séance de renforcement par semaine pour protéger tes articulations. Sur ton dernier 10 km tu as couru en 1h30 (allure 9:00/km) — ton plan vise une allure d'entraînement légèrement plus douce à 9:30/km, pour t'entraîner sans risque et garder de la marge pour le jour J. Avant de débuter, un bilan médical complet (cardio + articulations) est fortement recommandé. Écoute ton corps, respecte tes jours de repos, et profite du parcours — le chrono n'a aucune importance, seule la ligne d'arrivée compte.
+    ────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+
+    🔍 Doctrine checks :
+      Mots interdits poids/IMC dans corps : ✅ aucun
+      Titre du plan : "Préparation 10 km — Finisher — 7 sem."
+      Allures mentionnées dans welcome : allureSpecifique10k=9:30
+      Mention médecin/cardio/certif : ✅ oui (obligatoire si âge>50 ou BMI>30)
+      Cross-training mentionné : ✅ aucun
+      Nutrition / chiffres : ✅ aucune
+      Mention PB (Finisher+PB) : ✅ oui
+
+  ━━━ 6. COHÉRENCE GLOBALE ━━━
+    Bugs/incohérences détectés : 1 → 🚨 Vol S1 < declared (4<5)
+
+
+█████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████
+📧 Antoine — antoineg.gde@outlook.fr  (re-check post patch 2h60→3h00)
+█████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████
+  UID: G1QYJ1KzqqWXoB5BbcjKQFmORC02  •  Email: antoineg.gde@outlook.fr  •  Créé: 2026-05-18T06:38:36.134Z  •  Last login: 2026-05-18T06:38:36.134Z
+  Plans total: 1  •  Plan analysé: 1779086346189
+    createdAt=2026-05-18T06:39:06.189Z  •  full=false  •  premium=undefined  •  preview=true
+
+  ━━━ IDENTITÉ & INPUTS ━━━
+  Prénom: Antoine  •  Plan: "Préparation Marathon en 3h00 — 22 sem."
+  Sexe: Homme  •  Âge: 32  •  Poids: 72 kg  •  Taille: 180 cm  •  IMC: 22.2
+  Niveau: Expert (Performance)  •  VMA: 17.59 km/h (Moyenne 10km en 38:06 et Semi en 1h24)
+  Objectif: Course sur route (Marathon)
+  Cible chrono: 3h00  •  Race date: 2026-10-18
+  Durée: 22 sem  •  Fréquence: 6 séances/sem
+  Vol DÉCLARÉ: 80 km/sem  •  Blessures: aucune
+  Chronos récents: distance10km=38:06 • distanceHalfMarathon=1h24 • distanceMarathon=3h12
+
+  ━━━ 1. ALLURE CIBLE — cohérence chrono / PB / Finisher ━━━
+    Allures théoriques (paces[]) :
+      efPace                           5:05/km
+      eaPace                           4:26/km
+      seuilPace                        3:55/km
+      vmaPace                          3:25/km
+      recoveryPace                     5:41/km
+      allureSpecifique5k               3:35/km
+      allureSpecifique10k              3:47/km
+      allureSpecifiqueSemi             4:01/km
+      allureSpecifiqueMarathon         4:16/km
+
+    Séances S1 — cohérence allure vs type :
+      ✅ Lundi      Jogging            pace=5:05/km vs efPace=5:05 (Δ 0s)
+      ✅ Mercredi   Jogging            pace=5:05/km vs efPace=5:05 (Δ 0s)
+      ✅ Jeudi      Jogging            pace=5:05/km vs efPace=5:05 (Δ 0s)
+      ✅ Samedi     Jogging            pace=5:05/km vs efPace=5:05 (Δ 0s)
+      ✅ Dimanche   Sortie Longue      pace=5:05/km vs efPace=5:05 (Δ 0s)
+
+  ━━━ 2. VOLUME HEBDO COMPLET + PROJECTION + S1 vs DECLARED ━━━
+
+    📊 Vol DÉCLARÉ user (currentWeeklyVolume) : 80 km/sem
+    📊 Vol S1 plan : 68 km
+    🚨 BAISSE S1 vs DÉCLARÉ : 68 km plan vs 80 km user (Δ -12 km, ratio 85%) — FLAG CRITIQUE
+    📊 Pic : S7 = 90 km
+    📊 Affûtage final : S22 = 45 km (50% du pic) • S21 = 53 km (59% du pic)
+
+    📋 TABLEAU weeklyVolumes COMPLET :
+    Sem | Phase            | km   | bar                                          | Δ%      | Flags
+    ────┼──────────────────┼──────┼──────────────────────────────────────────────┼─────────┼─────────
+    S 1 | fondamental      |   68 | ██████████████████████████████·········· |    --  | 
+    S 2 | fondamental      |   75 | █████████████████████████████████······· |    10%  | 
+    S 3 | fondamental      |   82 | ████████████████████████████████████···· |     9%  | 
+    S 4 | recuperation     |   66 | █████████████████████████████··········· |   -20%  | ↓DELOAD 
+    S 5 | fondamental      |   76 | ██████████████████████████████████······ |    15%  | 
+    S 6 | fondamental      |   86 | ██████████████████████████████████████·· |    13%  | 
+    S 7 | developpement    |   90 | ████████████████████████████████████████ |     5%  | ★PIC 
+    S 8 | recuperation     |   72 | ████████████████████████████████········ |   -20%  | ↓DELOAD 
+    S 9 | developpement    |   83 | █████████████████████████████████████··· |    15%  | 
+    S10 | developpement    |   86 | ██████████████████████████████████████·· |     4%  | 
+    S11 | developpement    |   90 | ████████████████████████████████████████ |     5%  | 
+    S12 | recuperation     |   72 | ████████████████████████████████········ |   -20%  | ↓DELOAD 
+    S13 | developpement    |   83 | █████████████████████████████████████··· |    15%  | 
+    S14 | specifique       |   86 | ██████████████████████████████████████·· |     4%  | 
+    S15 | specifique       |   90 | ████████████████████████████████████████ |     5%  | 
+    S16 | recuperation     |   72 | ████████████████████████████████········ |   -20%  | ↓DELOAD 
+    S17 | specifique       |   83 | █████████████████████████████████████··· |    15%  | 
+    S18 | specifique       |   86 | ██████████████████████████████████████·· |     4%  | 
+    S19 | specifique       |   90 | ████████████████████████████████████████ |     5%  | 
+    S20 | affutage         |   60 | ███████████████████████████············· |   -33%  | 
+    S21 | affutage         |   53 | ████████████████████████················ |   -12%  | 
+    S22 | affutage         |   45 | ████████████████████···················· |   -15%  | 🏁RACE
+
+    📈 Max augmentation : S8→S9 72→83km = +15%  🟡
+    📉 Max décharge : S19→S20 90→60km = -33%
+    🔄 Semaines de décharge projetées : 4, 8, 12, 16
+
+  ━━━ 3. SL S1 + PROJECTION SL PIC ━━━
+    Total km course S1 (réel sessions) : 68.0 km
+    SL S1 max : 24 km
+      Dimanche : 24km • 2h01 min • D+0m • pace 5:05 min/km • "Sortie Longue en endurance fondamentale"
+    Ratio SL/Volume hebdo S1 plan : 35% 🟡 (cible 25-40%)
+    Ratio SL/Volume DÉCLARÉ user : 30% ✅
+    SL S1 plan vs estim. SL user (~35% vol declared) ≈ 28.0 km
+
+    📍 Projection SL pic : weeklyVolumes[S7]=90 km × 0.4-0.5 ≈ 36.0 - 45.0 km
+    📍 Référentiel par objectif : ? → 0 - 99 km
+    ✅ SL pic projetée cohérente avec référentiel
+
+  ━━━ 4. SCORE FAISABILITÉ ━━━
+    feasibility.status : EXCELLENT
+    feasibility.score : ?
+    confidenceScore : 100
+    message (175 chars) :
+      │ Avec ta VMA de 17.6 km/h, ton temps théorique sur marathon est d'environ 3h00min. Ton objectif de 3h00min est cohérent avec ton niveau. C'est un plan réaliste et bien calibré.
+    safetyWarning :
+      │ Hydrate-toi bien, échauffe-toi avant chaque séance et accorde-toi un vrai temps de récupération.
+      │ 
+      │ ⚠️ DURÉE DU PLAN : 22 semaines, c'est long pour ton profil. La plupart des coureurs de ton niveau préparent cette distance en 20 semaines maximum. Un plan trop long peut entraîner de la lassitude et une stagnation. Si tu te sens prêt, tu peux envisager de rapprocher ta date de début.
+
+  ━━━ 5. WELCOMEMESSAGE ━━━
+    welcomeMessage (593 chars) :
+    ────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+    │ Bienvenue dans ton plan d'entraînement de 22 semaines pour le Marathon ! Ton objectif de terminer en 3h00 est ambitieux et réaliste, parfaitement aligné avec ton niveau de coureur confirmé. Ce programme est structuré pour te faire progresser progressivement, en construisant une base solide d'endurance, puis en développant tes qualités de vitesse et de résistance spécifiques au marathon. Chaque semaine sera un pas de plus vers ton succès le jour J. Nous te recommandons de consulter un médecin avant de débuter ce programme, notamment pour obtenir un certificat médical d'aptitude au sport.
+    ────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+
+    🔍 Doctrine checks :
+      Mots interdits poids/IMC dans corps : ✅ aucun
+      Titre du plan : "Préparation Marathon en 3h00 — 22 sem."
+      Allures mentionnées dans welcome : (aucune textuelle)
+      Mention médecin/cardio/certif : ✅ oui (obligatoire si âge>50 ou BMI>30)
+      Cross-training mentionné : 🔴 velo
+      Nutrition / chiffres : ✅ aucune
+
+  ━━━ 6. COHÉRENCE GLOBALE ━━━
+    Bugs/incohérences détectés : 2 → 🚨 Vol S1 < declared (68<80) | 🔴 Cross-training: velo
+
+
+█████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████
+📧 Annabelle — nabou57@hotmail.fr  (re-check)
+█████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████
+  UID: Zdxq3nSp88WYjhQ7ghVM4Z51aQA2  •  Email: nabou57@hotmail.fr  •  Créé: 2026-05-18T06:28:25.575Z  •  Last login: 2026-05-18T06:31:05.934Z
+  Plans total: 1  •  Plan analysé: 1779085742508
+    createdAt=2026-05-18T06:29:02.508Z  •  full=false  •  premium=undefined  •  preview=true
+
+  ━━━ IDENTITÉ & INPUTS ━━━
+  Prénom: Annabelle  •  Plan: "Préparation Semi-Marathon en 1h45 — 7 sem."
+  Sexe: Femme  •  Âge: 45  •  Poids: 51 kg  •  Taille: 160 cm  •  IMC: 19.9
+  Niveau: Expert (Performance)  •  VMA: 13.86 km/h (Moyenne 5km en 23:10 et 10km en 46:54)
+  Objectif: Course sur route (Semi-Marathon)
+  Cible chrono: 1h45  •  Race date: 2026-07-05
+  Durée: 7 sem  •  Fréquence: 4 séances/sem
+  Vol DÉCLARÉ: 40 km/sem  •  Blessures: aucune
+  Chronos récents: distanceHalfMarathon=1h45 • distance10km=46:54 • distance5km=23:10
+
+  ━━━ 1. ALLURE CIBLE — cohérence chrono / PB / Finisher ━━━
+    Allures théoriques (paces[]) :
+      efPace                           6:28/km
+      eaPace                           5:37/km
+      seuilPace                        4:58/km
+      vmaPace                          4:20/km
+      recoveryPace                     7:13/km
+      allureSpecifique5k               4:33/km
+      allureSpecifique10k              4:49/km
+      allureSpecifiqueSemi             4:59/km
+      allureSpecifiqueMarathon         5:25/km
+
+    📍 Cohérence chrono cible :
+       semi 21.097km en 1h45 → pace cible théorique = 4:59/km
+       Allure spec affichée plan (allureSpecifiqueSemi) = 4:59
+       % VMA = 87%  →  ✅ cohérent  (attendu 82-90%VMA)
+       Δ allure plan vs cible théo = 0s ✅
+
+    Séances S1 — cohérence allure vs type :
+      ✅ Lundi      Jogging            pace=6:28/km vs efPace=6:28 (Δ 0s)
+      ✅ Vendredi   Jogging            pace=6:28/km vs efPace=6:28 (Δ 0s)
+      ✅ Dimanche   Sortie Longue      pace=6:28/km vs efPace=6:28 (Δ 0s)
+
+  ━━━ 2. VOLUME HEBDO COMPLET + PROJECTION + S1 vs DECLARED ━━━
+
+    📊 Vol DÉCLARÉ user (currentWeeklyVolume) : 40 km/sem
+    📊 Vol S1 plan : 34 km
+    🚨 BAISSE S1 vs DÉCLARÉ : 34 km plan vs 40 km user (Δ -6 km, ratio 85%) — FLAG CRITIQUE
+    📊 Pic : S6 = 43 km
+    📊 Affûtage final : S7 = 23 km (53% du pic) • S6 = 43 km (100% du pic)
+
+    📋 TABLEAU weeklyVolumes COMPLET :
+    Sem | Phase            | km   | bar                                          | Δ%      | Flags
+    ────┼──────────────────┼──────┼──────────────────────────────────────────────┼─────────┼─────────
+    S 1 | fondamental      |   34 | ████████████████████████████████········ |    --  | 
+    S 2 | fondamental      |   37 | ██████████████████████████████████······ |     9%  | 
+    S 3 | developpement    |   41 | ██████████████████████████████████████·· |    11%  | 
+    S 4 | recuperation     |   32 | ██████████████████████████████·········· |   -22%  | ↓DELOAD 
+    S 5 | specifique       |   37 | ██████████████████████████████████······ |    16%  | 
+    S 6 | specifique       |   43 | ████████████████████████████████████████ |    16%  | ★PIC 
+    S 7 | affutage         |   23 | █████████████████████··················· |   -47%  | 🏁RACE
+
+    📈 Max augmentation : S5→S6 37→43km = +16%  🟡
+    📉 Max décharge : S6→S7 43→23km = -47%
+    🔄 Semaines de décharge projetées : 4
+
+  ━━━ 3. SL S1 + PROJECTION SL PIC ━━━
+    Total km course S1 (réel sessions) : 34.0 km
+    SL S1 max : 13 km
+      Dimanche : 13km • 1h24 min • D+0m • pace 6:28 min/km • "Sortie Longue en Endurance Fondamentale"
+    Ratio SL/Volume hebdo S1 plan : 38% 🟡 (cible 25-40%)
+    Ratio SL/Volume DÉCLARÉ user : 33% ✅
+    SL S1 plan vs estim. SL user (~35% vol declared) ≈ 14.0 km
+
+    📍 Projection SL pic : weeklyVolumes[S6]=43 km × 0.4-0.5 ≈ 17.2 - 21.5 km
+    📍 Référentiel par objectif : semi (16-22 km) → 16 - 22 km
+    ✅ SL pic projetée cohérente avec référentiel
+
+  ━━━ 4. SCORE FAISABILITÉ ━━━
+    feasibility.status : BON
+    feasibility.score : ?
+    confidenceScore : 73
+    message (278 chars) :
+      │ Avec ta VMA de 13.9 km/h, ton temps théorique sur semi-marathon est d'environ 1h47min. Viser 1h45min est un bel objectif. Avec un entraînement régulier, c'est tout à fait atteignable. Attention : 7 semaines, c'est court pour une préparation semi-marathon. Le plan sera condensé.
+    safetyWarning :
+      │ À 45 ans, on te recommande vivement de consulter ton médecin et de réaliser un test d'effort avant de démarrer cette préparation. Un certificat médical d'aptitude est indispensable pour cette distance. Privilégie la récupération (48-72h entre séances intenses), hydrate-toi bien et écoute ton corps.
+
+  ━━━ 5. WELCOMEMESSAGE ━━━
+    welcomeMessage (709 chars) :
+    ────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+    │ Bonjour ! Ce plan d'entraînement de 7 semaines te guidera vers ton objectif ambitieux de terminer un semi-marathon en 1h45. Avec un score de faisabilité de 73/100, ton profil est très bon pour atteindre cet objectif avec un entraînement structuré et rigoureux. La première semaine est dédiée à la construction de tes fondations aérobies. Le programme est conçu pour être progressif, en respectant ta capacité et en te préparant étape par étape à la distance et à l'allure ciblée. Nous te recommandons vivement de consulter un médecin avant de débuter ce programme, notamment pour obtenir un certificat médical d'aptitude au sport. À partir de 45 ans, un bilan cardio-vasculaire est particulièrement conseillé.
+    ────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+
+    🔍 Doctrine checks :
+      Mots interdits poids/IMC dans corps : ✅ aucun
+      Titre du plan : "Préparation Semi-Marathon en 1h45 — 7 sem."
+      Allures mentionnées dans welcome : (aucune textuelle)
+      Mention médecin/cardio/certif : ✅ oui (obligatoire si âge>50 ou BMI>30)
+      Cross-training mentionné : ✅ aucun
+      Nutrition / chiffres : ✅ aucune
+
+  ━━━ 6. COHÉRENCE GLOBALE ━━━
+    Bugs/incohérences détectés : 1 → 🚨 Vol S1 < declared (34<40)
+
+
+█████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████
+📧 Armando — arenaarmando@hotmail.com  (re-check)
+█████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████
+  UID: rZwYWXDBJbMDbaRmZ2yAVcSLVED2  •  Email: arenaarmando@hotmail.com  •  Créé: 2026-05-18T02:37:49.494Z  •  Last login: 2026-05-18T03:21:14.184Z
+  Plans total: 1  •  Plan analysé: 1779071910169
+    createdAt=2026-05-18T02:38:30.169Z  •  full=false  •  premium=undefined  •  preview=true
+
+  ━━━ IDENTITÉ & INPUTS ━━━
+  Prénom: Armando  •  Plan: "Préparation Semi-Marathon en 1h20 — 13 sem."
+  Sexe: Homme  •  Âge: 48  •  Poids: 74 kg  •  Taille: 182 cm  •  IMC: 22.3
+  Niveau: Expert (Performance)  •  VMA: 18.26 km/h (Moyenne 10km en 37min et Semi en 1h20)
+  Objectif: Course sur route (Semi-Marathon)
+  Cible chrono: 1h20  •  Race date: 2026-08-15
+  Durée: 13 sem  •  Fréquence: 6 séances/sem
+  Vol DÉCLARÉ: 80 km/sem  •  Blessures: aucune
+  Chronos récents: distanceHalfMarathon=1h20 • distance10km=37min
+
+  ━━━ 1. ALLURE CIBLE — cohérence chrono / PB / Finisher ━━━
+    Allures théoriques (paces[]) :
+      efPace                           4:54/km
+      eaPace                           4:16/km
+      seuilPace                        3:47/km
+      vmaPace                          3:17/km
+      recoveryPace                     5:29/km
+      allureSpecifique5k               3:28/km
+      allureSpecifique10k              3:39/km
+      allureSpecifiqueSemi             3:47/km
+      allureSpecifiqueMarathon         4:06/km
+
+    📍 Cohérence chrono cible :
+       semi 21.097km en 1h20 → pace cible théorique = 3:48/km
+       Allure spec affichée plan (allureSpecifiqueSemi) = 3:47
+       % VMA = 87%  →  ✅ cohérent  (attendu 82-90%VMA)
+       Δ allure plan vs cible théo = 1s ✅
+
+    Séances S1 — cohérence allure vs type :
+      ✅ Lundi      Jogging            pace=4:54/km vs efPace=4:54 (Δ 0s)
+      ✅ Mardi      Jogging            pace=4:54/km vs efPace=4:54 (Δ 0s)
+      ⚪ Mercredi   Renforcement       (pas de targetPace) — "Renfo Focus A - Quadriceps & Gainage (S1)"
+      ✅ Jeudi      Jogging            pace=4:54/km vs efPace=4:54 (Δ 0s)
+      ✅ Vendredi   Jogging            pace=4:54/km vs efPace=4:54 (Δ 0s)
+      ✅ Dimanche   Sortie Longue      pace=4:54/km vs efPace=4:54 (Δ 0s)
+
+  ━━━ 2. VOLUME HEBDO COMPLET + PROJECTION + S1 vs DECLARED ━━━
+
+    📊 Vol DÉCLARÉ user (currentWeeklyVolume) : 80 km/sem
+    📊 Vol S1 plan : 68 km
+    🚨 BAISSE S1 vs DÉCLARÉ : 68 km plan vs 80 km user (Δ -12 km, ratio 85%) — FLAG CRITIQUE
+    📊 Pic : S3 = 80 km
+    📊 Affûtage final : S13 = 40 km (50% du pic) • S12 = 47 km (59% du pic)
+
+    📋 TABLEAU weeklyVolumes COMPLET :
+    Sem | Phase            | km   | bar                                          | Δ%      | Flags
+    ────┼──────────────────┼──────┼──────────────────────────────────────────────┼─────────┼─────────
+    S 1 | fondamental      |   68 | ██████████████████████████████████······ |    --  | 
+    S 2 | fondamental      |   75 | ██████████████████████████████████████·· |    10%  | 
+    S 3 | fondamental      |   80 | ████████████████████████████████████████ |     7%  | ★PIC 
+    S 4 | recuperation     |   64 | ████████████████████████████████········ |   -20%  | ↓DELOAD 
+    S 5 | developpement    |   74 | █████████████████████████████████████··· |    16%  | 
+    S 6 | developpement    |   76 | ██████████████████████████████████████·· |     3%  | 
+    S 7 | developpement    |   80 | ████████████████████████████████████████ |     5%  | 
+    S 8 | recuperation     |   64 | ████████████████████████████████········ |   -20%  | ↓DELOAD 
+    S 9 | specifique       |   74 | █████████████████████████████████████··· |    16%  | 
+    S10 | specifique       |   76 | ██████████████████████████████████████·· |     3%  | 
+    S11 | affutage         |   53 | ███████████████████████████············· |   -30%  | 
+    S12 | affutage         |   47 | ████████████████████████················ |   -11%  | 
+    S13 | affutage         |   40 | ████████████████████···················· |   -15%  | 🏁RACE
+
+    📈 Max augmentation : S4→S5 64→74km = +16%  🟡
+    📉 Max décharge : S10→S11 76→53km = -30%
+    🔄 Semaines de décharge projetées : 4, 8
+
+  ━━━ 3. SL S1 + PROJECTION SL PIC ━━━
+    Total km course S1 (réel sessions) : 60.1 km
+    SL S1 max : 21 km
+      Dimanche : 21km • 1h 43 min • D+0m • pace 4:54 min/km • "Sortie Longue en endurance fondamentale"
+    Ratio SL/Volume hebdo S1 plan : 31% 🟡 (cible 25-40%)
+    Ratio SL/Volume DÉCLARÉ user : 26% ✅
+    SL S1 plan vs estim. SL user (~35% vol declared) ≈ 28.0 km
+
+    📍 Projection SL pic : weeklyVolumes[S3]=80 km × 0.4-0.5 ≈ 32.0 - 40.0 km
+    📍 Référentiel par objectif : semi (16-22 km) → 16 - 22 km
+    🟡 SL pic projetée TROP LONGUE vs référentiel
+
+  ━━━ 4. SCORE FAISABILITÉ ━━━
+    feasibility.status : EXCELLENT
+    feasibility.score : ?
+    confidenceScore : 94
+    message (180 chars) :
+      │ Avec ta VMA de 18.3 km/h, ton temps théorique sur semi-marathon est d'environ 1h22min. Ton objectif de 1h20min est cohérent avec ton niveau. C'est un plan réaliste et bien calibré.
+    safetyWarning :
+      │ À 48 ans, on te recommande vivement de consulter ton médecin et de réaliser un test d'effort avant de démarrer cette préparation. Un certificat médical d'aptitude est indispensable pour cette distance. Privilégie la récupération (48-72h entre séances intenses), hydrate-toi bien et écoute ton corps.
+
+  ━━━ 5. WELCOMEMESSAGE ━━━
+    welcomeMessage (845 chars) :
+    ────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+    │ Félicitations pour ton engagement dans la préparation de ce Semi-Marathon avec un objectif ambitieux de 1h20 ! Ce programme de 13 semaines est conçu pour t'aider à atteindre cet objectif en construisant une base solide et en développant progressivement tes qualités spécifiques.
+    │ 
+    │ La première phase, dite 'fondamentale', se concentrera sur le développement de ton endurance aérobie, la consolidation de ton volume hebdomadaire et le renforcement musculaire, sans travail intense de vitesse en début de programme. Nous privilégierons la régularité et l'écoute de tes sensations pour une progression saine et durable.
+    │ 
+    │ Nous te recommandons vivement de consulter un médecin avant de débuter ce programme, notamment pour obtenir un certificat médical d'aptitude au sport. À partir de 48 ans, un bilan cardio-vasculaire est particulièrement conseillé.
+    ────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+
+    🔍 Doctrine checks :
+      Mots interdits poids/IMC dans corps : ✅ aucun
+      Titre du plan : "Préparation Semi-Marathon en 1h20 — 13 sem."
+      Allures mentionnées dans welcome : (aucune textuelle)
+      Mention médecin/cardio/certif : ✅ oui (obligatoire si âge>50 ou BMI>30)
+      Cross-training mentionné : 🔴 velo
+      Nutrition / chiffres : ✅ aucune
+
+  ━━━ 6. COHÉRENCE GLOBALE ━━━
+    Bugs/incohérences détectés : 2 → 🚨 Vol S1 < declared (68<80) | 🔴 Cross-training: velo
+
+
+█████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████
+📧 Valentine — valentinemery2004@gmail.com  (fresh — chercher si nouveau plan 18/05)
+█████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████
+  UID: 2D1Puvf4oLVeTBjCKHzvb8ZansL2  •  Email: valentinemery2004@gmail.com  •  Créé: 2026-05-17T14:57:53.786Z  •  Last login: 2026-05-17T14:59:56.136Z
+  Plans total: 1  •  Plan analysé: 1779029895523
+    createdAt=2026-05-17T14:58:15.523Z  •  full=false  •  premium=undefined  •  preview=true
+
+  ━━━ IDENTITÉ & INPUTS ━━━
+  Prénom: Valentine  •  Plan: "Préparation Trail 20km / 1000m D+ — Finisher — 7 sem."
+  Sexe: Femme  •  Âge: 21  •  Poids: 68 kg  •  Taille: 158 cm  •  IMC: 27.2
+  Niveau: Intermédiaire (Régulier)  •  VMA: 11.11 km/h (10km en 1h00)
+  Objectif: Trail  — 20km / 1000m D+
+  Cible chrono: Finisher  •  Race date: 2026-07-04
+  Durée: 7 sem  •  Fréquence: 4 séances/sem
+  Vol DÉCLARÉ: 25 km/sem / D+ 600 m  •  Blessures: aucune
+  Chronos récents: distance10km=1h00
+
+  ━━━ 1. ALLURE CIBLE — cohérence chrono / PB / Finisher ━━━
+    Allures théoriques (paces[]) :
+      efPace                           8:04/km
+      eaPace                           7:01/km
+      seuilPace                        6:12/km
+      vmaPace                          5:24/km
+      recoveryPace                     9:00/km
+      allureSpecifique5k               5:41/km
+      allureSpecifique10k              6:00/km
+      allureSpecifiqueSemi             6:21/km
+      allureSpecifiqueMarathon         6:45/km
+
+    📍 Finisher + PB déclaré : vérifier allure = max(allurePB + 5% cushion, allure VMA-based)
+       PB distance10km = 1h00
+
+    Séances S1 — cohérence allure vs type :
+      ✅ Mardi      Jogging            pace=8:04/km vs efPace=8:04 (Δ 0s)
+      ✅ Samedi     Jogging            pace=8:04/km vs efPace=8:04 (Δ 0s)
+      ✅ Dimanche   Sortie Longue      pace=8:04/km vs efPace=8:04 (Δ 0s)
+
+  ━━━ 2. VOLUME HEBDO COMPLET + PROJECTION + S1 vs DECLARED ━━━
+
+    📊 Vol DÉCLARÉ user (currentWeeklyVolume) : 25 km/sem / D+ 600 m
+    📊 Vol S1 plan : 21 km
+    🚨 BAISSE S1 vs DÉCLARÉ : 21 km plan vs 25 km user (Δ -4 km, ratio 84%) — FLAG CRITIQUE
+    📊 Pic : S6 = 25 km
+    📊 Affûtage final : S7 = 15 km (60% du pic) • S6 = 25 km (100% du pic)
+
+    📋 TABLEAU weeklyVolumes COMPLET :
+    Sem | Phase            | km   | bar                                          | Δ%      | Flags
+    ────┼──────────────────┼──────┼──────────────────────────────────────────────┼─────────┼─────────
+    S 1 | fondamental      |   21 | ██████████████████████████████████······ |    --  | 
+    S 2 | fondamental      |   23 | █████████████████████████████████████··· |    10%  | 
+    S 3 | developpement    |   24 | ██████████████████████████████████████·· |     4%  | 
+    S 4 | recuperation     |   19 | ██████████████████████████████·········· |   -21%  | ↓DELOAD 
+    S 5 | specifique       |   22 | ███████████████████████████████████····· |    16%  | 
+    S 6 | specifique       |   25 | ████████████████████████████████████████ |    14%  | ★PIC 
+    S 7 | affutage         |   15 | ████████████████████████················ |   -40%  | 🏁RACE
+
+    📈 Max augmentation : S4→S5 19→22km = +16%  🟡
+    📉 Max décharge : S6→S7 25→15km = -40%
+    🔄 Semaines de décharge projetées : 4
+
+  ━━━ 3. SL S1 + PROJECTION SL PIC ━━━
+    Total km course S1 (réel sessions) : 22.3 km
+    SL S1 max : 8.8 km / 390m D+
+      Dimanche : 8.8km • 1h 10 min • D+390m • pace 8:04 min/km • "Sortie longue nature en endurance"
+    Ratio SL/Volume hebdo S1 plan : 42% 🔴 (cible 25-40%)
+    Ratio SL/Volume DÉCLARÉ user : 35% ✅
+    SL S1 plan vs estim. SL user (~35% vol declared) ≈ 8.8 km
+
+    📍 Projection SL pic : weeklyVolumes[S6]=25 km × 0.4-0.5 ≈ 10.0 - 12.5 km
+    📍 Référentiel par objectif : trail 20km (60-80%) → 12 - 16 km
+    ✅ SL pic projetée cohérente avec référentiel
+
+  ━━━ 4. SCORE FAISABILITÉ ━━━
+    feasibility.status : AMBITIEUX
+    feasibility.score : 55
+    confidenceScore : 55
+    message (168 chars) :
+      │ Ton profil est très bien adapté à ce trail de 20km / 1000m D+. Avec ta VMA de 11.1 km/h et 7 semaines de préparation, les conditions sont réunies pour une belle course.
+    safetyWarning :
+      │ Plan court (7 sem) pour ton profil mais bien calibré côté volume et D+. Privilégie chaussures avec bon amorti, surfaces souples à l'entraînement. Marche les descentes raides (protège quadriceps et genoux). Hydrate-toi bien, échauffe-toi 10 min avant chaque séance. Consulte ton médecin avant de démarrer. Douleur articulaire persistante → arrête.
+
+  ━━━ 5. WELCOMEMESSAGE ━━━
+    welcomeMessage (1669 chars) :
+    ────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+    │ Bonjour Valentine,
+    │ 
+    │ Bienvenue dans ton plan d'entraînement pour ton trail 20 km / 1000 m D+ début juillet.
+    │ 
+    │ Bonne nouvelle : ton volume actuel (25 km/sem) et ton D+ hebdomadaire (600 m/sem) couvrent largement les exigences de la course. Ton corps connaît déjà le terrain vallonné, c'est ton meilleur atout. Le plan est calibré pour t'amener au pic à environ 25 km/sem et 930 m de D+ hebdo, ce qui correspond aux standards pour ce type de trail.
+    │ 
+    │ ⚠️ Le point d'attention : 7 semaines de préparation, c'est court. Il y a peu de marge en cas d'imprévu (rhume, petite blessure, semaine ratée). La consolidation des tendons sur les sorties longues vallonnées prend habituellement 8-12 semaines, on est à la limite. Soyons donc particulièrement vigilante sur les sensations dès les premières séances.
+    │ 
+    │ 🎯 Quelques conseils pour mettre toutes les chances de ton côté :
+    │ - Sois rigoureuse sur les semaines d'endurance fondamentale (S1-S3) : c'est là que se construisent les bases.
+    │ - Marche les descentes raides à l'entraînement comme en course — c'est ce qui protège tes quadriceps et tes genoux.
+    │ - Écoute ton corps : douleur articulaire persistante (genou, cheville) ou tendineuse → arrête immédiatement, repos ou avis kiné.
+    │ - Si une semaine ne se passe pas comme prévu, n'essaie pas de "rattraper" — reprends à l'étape précédente, la régularité prime.
+    │ 
+    │ 🩺 Avant de démarrer : un certificat médical d'aptitude à la course à pied est indispensable. Investis dans de bonnes chaussures de trail avec un bon amorti, privilégie les surfaces souples à l'entraînement.
+    │ 
+    │ Tu peux y arriver — ton profil le permet. Reste à l'écoute de ton corps et fais-toi confiance.
+    │ 
+    │ Bonne préparation.
+    ────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+
+    🔍 Doctrine checks :
+      Mots interdits poids/IMC dans corps : ✅ aucun
+      Titre du plan : "Préparation Trail 20km / 1000m D+ — Finisher — 7 sem."
+      Allures mentionnées dans welcome : (aucune textuelle)
+      Mention médecin/cardio/certif : ✅ oui (obligatoire si âge>50 ou BMI>30)
+      Cross-training mentionné : ✅ aucun
+      Nutrition / chiffres : ✅ aucune
+      Mention PB (Finisher+PB) : ⚠ non (recommandé)
+
+  ━━━ 6. COHÉRENCE GLOBALE ━━━
+    Bugs/incohérences détectés : 1 → 🚨 Vol S1 < declared (21<25)
+
+
+════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════
+  📋 TABLEAU SYNTHÈSE — 8 CLIENTS
+════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════
+  Prénom       Goal                     Cible      Niv      Vol   S1    Baisse   Pic        MaxJ   Aff   SLs1  SLpic       Chrono               Fiab       Iss
+  ──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+  Aurore       Maintien en forme        Finisher   Débutant 12    10    🚨 OUI   13/S9      +20%   100%  4.84km 5.2-6.5     (finisher)           BON/70     1
+  Justine      Maintien en forme        Finisher   Confirmé 13    11    🚨 OUI   14/S6      +20%   100%  3.5km 5.6-7.0     (finisher)           BON/70     1
+  Alan         Trail  35k               Finisher   Confirmé 30    26    🚨 OUI   32/S9      +15%   53%   10.2km 12.8-16.0   (finisher)           RISQUÉ/35  2
+  sebastien    Course sur route (10 km) Finisher   Débutant 5     4     🚨 OUI   9/S6       +25%   56%   3km   3.6-4.5     (finisher)           AMBITIEUX/60 1
+  Antoine      Course sur route (Marath 3h00       Expert ( 80    68    🚨 OUI   90/S7      +15%   50%   24km  36.0-45.0   (finisher)           EXCELLENT/100 2
+  Annabelle    Course sur route (Semi-M 1h45       Expert ( 40    34    🚨 OUI   43/S6      +16%   53%   13km  17.2-21.5   ✅ cohérent           BON/73     1
+  Armando      Course sur route (Semi-M 1h20       Expert ( 80    68    🚨 OUI   80/S3      +16%   50%   21km  32.0-40.0   ✅ cohérent           EXCELLENT/94 2
+  Valentine    Trail  20k               Finisher   Interméd 25    21    🚨 OUI   25/S6      +16%   60%   8.8km 10.0-12.5   (finisher)           AMBITIEUX/55 1

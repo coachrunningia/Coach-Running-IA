@@ -1,0 +1,673 @@
+{
+  "name": "projects/coach-running-ia/databases/(default)/documents/plans/1773088159751",
+  "fields": {
+    "distance": {
+      "stringValue": "Marathon"
+    },
+    "fullPlanGenerated": {
+      "booleanValue": false
+    },
+    "targetTime": {
+      "stringValue": "4h45"
+    },
+    "vma": {
+      "doubleValue": 10.71519255184088
+    },
+    "vmaSource": {
+      "stringValue": "Semi en 2h19"
+    },
+    "calculatedVMA": {
+      "doubleValue": 10.71519255184088
+    },
+    "suggestedLocations": {
+      "arrayValue": {
+        "values": [
+          {
+            "mapValue": {
+              "fields": {
+                "type": {
+                  "stringValue": "PARK"
+                },
+                "name": {
+                  "stringValue": "Parc Grammont"
+                },
+                "description": {
+                  "stringValue": "Footing de récupération, endurance fondamentale, sortie longue"
+                }
+              }
+            }
+          },
+          {
+            "mapValue": {
+              "fields": {
+                "type": {
+                  "stringValue": "TRACK"
+                },
+                "description": {
+                  "stringValue": "Séances de fractionné VMA"
+                },
+                "name": {
+                  "stringValue": "Stade Saint-Exupéry"
+                }
+              }
+            }
+          },
+          {
+            "mapValue": {
+              "fields": {
+                "type": {
+                  "stringValue": "NATURE"
+                },
+                "description": {
+                  "stringValue": "Sorties longues trail, séances avec dénivelé"
+                },
+                "name": {
+                  "stringValue": "Forêt de Roumare"
+                }
+              }
+            }
+          }
+        ]
+      }
+    },
+    "durationWeeks": {
+      "integerValue": "20"
+    },
+    "feasibility": {
+      "mapValue": {
+        "fields": {
+          "message": {
+            "stringValue": "Avec une VMA de 10.7 km/h, ton temps théorique sur marathon est de 4h20. L'objectif de 4h45 est donc réaliste avec un entraînement régulier."
+          },
+          "status": {
+            "stringValue": "BON"
+          },
+          "safetyWarning": {
+            "stringValue": "Adapte toujours l'intensité des séances à ton état de forme. Hydrate-toi et alimente-toi correctement."
+          }
+        }
+      }
+    },
+    "confidenceScore": {
+      "integerValue": "75"
+    },
+    "location": {
+      "stringValue": "Rouen"
+    },
+    "welcomeMessage": {
+      "stringValue": "Bienvenue dans ce plan d'entraînement marathon de 20 semaines. La première phase est axée sur le développement de ton endurance fondamentale. Suivez bien les allures indiquées pour progresser en toute sécurité !"
+    },
+    "startDate": {
+      "stringValue": "2026-03-09"
+    },
+    "name": {
+      "stringValue": "Plan Marathon 4h45 - Préparation 20 Semaines"
+    },
+    "weeks": {
+      "arrayValue": {
+        "values": [
+          {
+            "mapValue": {
+              "fields": {
+                "phase": {
+                  "stringValue": "fondamental"
+                },
+                "theme": {
+                  "stringValue": "Mise en place de l'endurance fondamentale"
+                },
+                "sessions": {
+                  "arrayValue": {
+                    "values": [
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "advice": {
+                              "stringValue": "Concentre-toi sur ton respiration et ton posture."
+                            },
+                            "title": {
+                              "stringValue": "Footing Léger en Parc"
+                            },
+                            "duration": {
+                              "stringValue": "40 minutes"
+                            },
+                            "warmup": {
+                              "stringValue": "10 minutes à 8:30 min/km"
+                            },
+                            "distance": {
+                              "stringValue": "5 km"
+                            },
+                            "cooldown": {
+                              "stringValue": "10 minutes à 8:45 min/km"
+                            },
+                            "id": {
+                              "stringValue": "w1-s1-1773088159752-ecgwlmc"
+                            },
+                            "locationSuggestion": {
+                              "stringValue": "Parc Grammont"
+                            },
+                            "intensity": {
+                              "stringValue": "Facile"
+                            },
+                            "mainSet": {
+                              "stringValue": "20 minutes à 8:21 min/km"
+                            },
+                            "elevationGain": {
+                              "integerValue": "0"
+                            },
+                            "targetPace": {
+                              "stringValue": "8:21 min/km"
+                            },
+                            "type": {
+                              "stringValue": "Endurance Fondamentale"
+                            },
+                            "day": {
+                              "stringValue": "Mardi"
+                            }
+                          }
+                        }
+                      },
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "type": {
+                              "stringValue": "Renforcement"
+                            },
+                            "day": {
+                              "stringValue": "Mercredi"
+                            },
+                            "id": {
+                              "stringValue": "w1-s2-1773088159752-vlgdztz"
+                            },
+                            "cooldown": {
+                              "stringValue": "5 minutes d'étirements doux"
+                            },
+                            "elevationGain": {
+                              "integerValue": "0"
+                            },
+                            "warmup": {
+                              "stringValue": "5 minutes d'échauffement articulaire"
+                            },
+                            "advice": {
+                              "stringValue": "Effectue les exercices lentement et en contrôlant tes mouvements. Contractez bien les muscles pendant l'effort."
+                            },
+                            "title": {
+                              "stringValue": "Renforcement musculaire spécial running"
+                            },
+                            "mainSet": {
+                              "stringValue": "3 séries de 15 squats, 3 séries de 15 fentes par jambe, 3 séries de 30 secondes de gainage ventral, 3 séries de 30 secondes de gainage latéral par côté, 3 séries de 20 montées sur pointes de pieds"
+                            },
+                            "duration": {
+                              "stringValue": "40 minutes"
+                            },
+                            "locationSuggestion": {
+                              "stringValue": "À la maison"
+                            },
+                            "intensity": {
+                              "stringValue": "Modéré"
+                            }
+                          }
+                        }
+                      },
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "warmup": {
+                              "stringValue": "10 minutes à 8:30 min/km"
+                            },
+                            "title": {
+                              "stringValue": "Sortie en Nature"
+                            },
+                            "advice": {
+                              "stringValue": "Profite du paysage et relâchez tes épaules."
+                            },
+                            "duration": {
+                              "stringValue": "35 minutes"
+                            },
+                            "cooldown": {
+                              "stringValue": "10 minutes à 8:45 min/km"
+                            },
+                            "distance": {
+                              "stringValue": "4 km"
+                            },
+                            "id": {
+                              "stringValue": "w1-s3-1773088159752-xprkash"
+                            },
+                            "elevationGain": {
+                              "integerValue": "20"
+                            },
+                            "locationSuggestion": {
+                              "stringValue": "Berges de Seine"
+                            },
+                            "intensity": {
+                              "stringValue": "Facile"
+                            },
+                            "mainSet": {
+                              "stringValue": "15 minutes à 8:21 min/km"
+                            },
+                            "day": {
+                              "stringValue": "Jeudi"
+                            },
+                            "type": {
+                              "stringValue": "Endurance Fondamentale"
+                            },
+                            "targetPace": {
+                              "stringValue": "8:21 min/km"
+                            }
+                          }
+                        }
+                      },
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "day": {
+                              "stringValue": "Dimanche"
+                            },
+                            "type": {
+                              "stringValue": "Endurance Fondamentale"
+                            },
+                            "targetPace": {
+                              "stringValue": "8:21 min/km"
+                            },
+                            "elevationGain": {
+                              "integerValue": "0"
+                            },
+                            "locationSuggestion": {
+                              "stringValue": "Parc Grammont"
+                            },
+                            "intensity": {
+                              "stringValue": "Facile"
+                            },
+                            "mainSet": {
+                              "stringValue": "10 minutes à 8:21 min/km"
+                            },
+                            "cooldown": {
+                              "stringValue": "10 minutes à 8:45 min/km"
+                            },
+                            "distance": {
+                              "stringValue": "3 km"
+                            },
+                            "id": {
+                              "stringValue": "w1-s4-1773088159752-pnvmxg2"
+                            },
+                            "warmup": {
+                              "stringValue": "10 minutes à 8:30 min/km"
+                            },
+                            "advice": {
+                              "stringValue": "Fais attention à ton hydratation et à ton alimentation."
+                            },
+                            "duration": {
+                              "stringValue": "30 minutes"
+                            },
+                            "title": {
+                              "stringValue": "Sortie Longue Cool"
+                            }
+                          }
+                        }
+                      }
+                    ]
+                  }
+                },
+                "weekNumber": {
+                  "integerValue": "1"
+                }
+              }
+            }
+          }
+        ]
+      }
+    },
+    "createdAt": {
+      "stringValue": "2026-03-09T20:29:19.751Z"
+    },
+    "id": {
+      "stringValue": "1773088159751"
+    },
+    "goal": {
+      "stringValue": "Course sur route"
+    },
+    "paces": {
+      "mapValue": {
+        "fields": {
+          "recoveryPace": {
+            "stringValue": "9:20"
+          },
+          "efPace": {
+            "stringValue": "8:21"
+          },
+          "allureSpecifique10k": {
+            "stringValue": "6:13"
+          },
+          "eaPace": {
+            "stringValue": "7:16"
+          },
+          "allureSpecifiqueSemi": {
+            "stringValue": "6:35"
+          },
+          "allureSpecifiqueMarathon": {
+            "stringValue": "7:00"
+          },
+          "allureSpecifique5k": {
+            "stringValue": "5:54"
+          },
+          "vmaPace": {
+            "stringValue": "5:36"
+          },
+          "seuilPace": {
+            "stringValue": "6:26"
+          }
+        }
+      }
+    },
+    "adaptationLog": {
+      "mapValue": {
+        "fields": {
+          "adaptationsThisWeek": {
+            "integerValue": "0"
+          },
+          "weekNumber": {
+            "integerValue": "0"
+          },
+          "adaptationHistory": {
+            "arrayValue": {}
+          }
+        }
+      }
+    },
+    "generationContext": {
+      "mapValue": {
+        "fields": {
+          "paces": {
+            "mapValue": {
+              "fields": {
+                "allureSpecifique10k": {
+                  "stringValue": "6:13"
+                },
+                "efPace": {
+                  "stringValue": "8:21"
+                },
+                "recoveryPace": {
+                  "stringValue": "9:20"
+                },
+                "allureSpecifiqueSemi": {
+                  "stringValue": "6:35"
+                },
+                "eaPace": {
+                  "stringValue": "7:16"
+                },
+                "allureSpecifique5k": {
+                  "stringValue": "5:54"
+                },
+                "vmaPace": {
+                  "stringValue": "5:36"
+                },
+                "allureSpecifiqueMarathon": {
+                  "stringValue": "7:00"
+                },
+                "seuilPace": {
+                  "stringValue": "6:26"
+                }
+              }
+            }
+          },
+          "vmaSource": {
+            "stringValue": "Semi en 2h19"
+          },
+          "generatedAt": {
+            "stringValue": "2026-03-09T20:29:09.954Z"
+          },
+          "periodizationPlan": {
+            "mapValue": {
+              "fields": {
+                "weeklyVolumes": {
+                  "arrayValue": {
+                    "values": [
+                      {
+                        "integerValue": "10"
+                      },
+                      {
+                        "integerValue": "11"
+                      },
+                      {
+                        "integerValue": "12"
+                      },
+                      {
+                        "integerValue": "9"
+                      },
+                      {
+                        "integerValue": "13"
+                      },
+                      {
+                        "integerValue": "14"
+                      },
+                      {
+                        "integerValue": "15"
+                      },
+                      {
+                        "integerValue": "11"
+                      },
+                      {
+                        "integerValue": "16"
+                      },
+                      {
+                        "integerValue": "17"
+                      },
+                      {
+                        "integerValue": "19"
+                      },
+                      {
+                        "integerValue": "14"
+                      },
+                      {
+                        "integerValue": "20"
+                      },
+                      {
+                        "integerValue": "22"
+                      },
+                      {
+                        "integerValue": "23"
+                      },
+                      {
+                        "integerValue": "18"
+                      },
+                      {
+                        "integerValue": "25"
+                      },
+                      {
+                        "integerValue": "27"
+                      },
+                      {
+                        "integerValue": "18"
+                      },
+                      {
+                        "integerValue": "15"
+                      }
+                    ]
+                  }
+                },
+                "totalWeeks": {
+                  "integerValue": "20"
+                },
+                "weeklyPhases": {
+                  "arrayValue": {
+                    "values": [
+                      {
+                        "stringValue": "fondamental"
+                      },
+                      {
+                        "stringValue": "fondamental"
+                      },
+                      {
+                        "stringValue": "fondamental"
+                      },
+                      {
+                        "stringValue": "recuperation"
+                      },
+                      {
+                        "stringValue": "fondamental"
+                      },
+                      {
+                        "stringValue": "fondamental"
+                      },
+                      {
+                        "stringValue": "developpement"
+                      },
+                      {
+                        "stringValue": "recuperation"
+                      },
+                      {
+                        "stringValue": "developpement"
+                      },
+                      {
+                        "stringValue": "developpement"
+                      },
+                      {
+                        "stringValue": "developpement"
+                      },
+                      {
+                        "stringValue": "recuperation"
+                      },
+                      {
+                        "stringValue": "developpement"
+                      },
+                      {
+                        "stringValue": "specifique"
+                      },
+                      {
+                        "stringValue": "specifique"
+                      },
+                      {
+                        "stringValue": "recuperation"
+                      },
+                      {
+                        "stringValue": "specifique"
+                      },
+                      {
+                        "stringValue": "specifique"
+                      },
+                      {
+                        "stringValue": "affutage"
+                      },
+                      {
+                        "stringValue": "affutage"
+                      }
+                    ]
+                  }
+                },
+                "recoveryWeeks": {
+                  "arrayValue": {
+                    "values": [
+                      {
+                        "integerValue": "4"
+                      },
+                      {
+                        "integerValue": "8"
+                      },
+                      {
+                        "integerValue": "12"
+                      },
+                      {
+                        "integerValue": "16"
+                      }
+                    ]
+                  }
+                }
+              }
+            }
+          },
+          "vma": {
+            "doubleValue": 10.71519255184088
+          },
+          "modelUsed": {
+            "stringValue": "gemini-2.0-flash"
+          },
+          "questionnaireSnapshot": {
+            "mapValue": {
+              "fields": {
+                "recentRaceTimes": {
+                  "mapValue": {
+                    "fields": {
+                      "distanceHalfMarathon": {
+                        "stringValue": "2h19"
+                      }
+                    }
+                  }
+                },
+                "injuries": {
+                  "mapValue": {
+                    "fields": {
+                      "hasInjury": {
+                        "booleanValue": false
+                      }
+                    }
+                  }
+                },
+                "preferredDays": {
+                  "arrayValue": {}
+                },
+                "targetTime": {
+                  "stringValue": "4h45"
+                },
+                "goal": {
+                  "stringValue": "Course sur route"
+                },
+                "frequency": {
+                  "integerValue": "4"
+                },
+                "email": {
+                  "stringValue": "fabiennemainnemarre@orange.fr"
+                },
+                "currentWeeklyVolume": {
+                  "integerValue": "10"
+                },
+                "city": {
+                  "stringValue": "Rouen"
+                },
+                "level": {
+                  "stringValue": "Intermédiaire (Régulier)"
+                },
+                "startDate": {
+                  "stringValue": "2026-03-09"
+                },
+                "subGoal": {
+                  "stringValue": "Marathon"
+                },
+                "raceDate": {
+                  "stringValue": "2026-09-27"
+                },
+                "trailDetails": {
+                  "mapValue": {
+                    "fields": {
+                      "elevation": {
+                        "integerValue": "500"
+                      },
+                      "distance": {
+                        "integerValue": "20"
+                      }
+                    }
+                  }
+                },
+                "sex": {
+                  "stringValue": "Homme"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "isPreview": {
+      "booleanValue": true
+    },
+    "userEmail": {
+      "stringValue": "fabiennemainnemarre@orange.fr"
+    },
+    "userId": {
+      "stringValue": "o6EMJVKJb1XmOskJC7Xt2yw37Ce2"
+    },
+    "sessionsPerWeek": {
+      "integerValue": "4"
+    }
+  },
+  "createTime": "2026-03-09T20:29:20.517661Z",
+  "updateTime": "2026-03-22T07:32:25.238841Z"
+}

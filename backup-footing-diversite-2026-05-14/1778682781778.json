@@ -1,0 +1,662 @@
+{
+  "name": {
+    "stringValue": "Préparation 10 km — Finisher — 7 sem."
+  },
+  "goal": {
+    "stringValue": "Course sur route"
+  },
+  "startDate": {
+    "stringValue": "2026-05-11"
+  },
+  "durationWeeks": {
+    "integerValue": "7"
+  },
+  "sessionsPerWeek": {
+    "integerValue": "5"
+  },
+  "targetTime": {
+    "stringValue": "Finisher"
+  },
+  "distance": {
+    "stringValue": "10 km"
+  },
+  "location": {
+    "stringValue": "Ath"
+  },
+  "suggestedLocations": {
+    "arrayValue": {
+      "values": [
+        {
+          "mapValue": {
+            "fields": {
+              "name": {
+                "stringValue": "Stade des Géants (Piste d'Athlétisme d'Ath)"
+              },
+              "type": {
+                "stringValue": "TRACK"
+              },
+              "description": {
+                "stringValue": "Idéal pour les séances de fractionné et de vitesse grâce à sa surface plane et ses distances balisées."
+              }
+            }
+          }
+        },
+        {
+          "mapValue": {
+            "fields": {
+              "name": {
+                "stringValue": "Bois d'Ath"
+              },
+              "type": {
+                "stringValue": "NATURE"
+              },
+              "description": {
+                "stringValue": "Parfait pour les footings en nature, les parcours vallonnés doux ou les sorties de récupération sur chemins variés."
+              }
+            }
+          }
+        },
+        {
+          "mapValue": {
+            "fields": {
+              "name": {
+                "stringValue": "RAVeL Ligne 94 (Tronçon Ath)"
+              },
+              "type": {
+                "stringValue": "PARK"
+              },
+              "description": {
+                "stringValue": "Un parcours plat et linéaire, excellent pour les sorties longues en endurance fondamentale ou les footings progressifs."
+              }
+            }
+          }
+        }
+      ]
+    }
+  },
+  "welcomeMessage": {
+    "stringValue": "Bienvenue dans ton plan d'entraînement pour le 10 km Finisher à Ath ! Ce programme de 7 semaines est conçu spécifiquement pour t'aider à franchir la ligne d'arrivée en pleine forme, en mettant l'accent sur le développement de ton endurance fondamentale, ta régularité et ta résistance à la fatigue. L'objectif n'est pas la performance chronométrique, mais de te préparer à terminer la course avec confiance et plaisir. Nous te recommandons de consulter un médecin avant de débuter ce programme, notamment pour obtenir un certificat médical d'aptitude au sport."
+  },
+  "confidenceScore": {
+    "integerValue": "95"
+  },
+  "feasibility": {
+    "mapValue": {
+      "fields": {
+        "status": {
+          "stringValue": "EXCELLENT"
+        },
+        "message": {
+          "stringValue": "Ton profil est très bien adapté à ce 10km. Avec ta VMA de 17.9 km/h et 7 semaines de préparation, les conditions sont réunies pour une belle course."
+        },
+        "safetyWarning": {
+          "stringValue": "Hydrate-toi bien, échauffe-toi avant chaque séance et accorde-toi un vrai temps de récupération."
+        }
+      }
+    }
+  },
+  "weeks": {
+    "arrayValue": {
+      "values": [
+        {
+          "mapValue": {
+            "fields": {
+              "weekNumber": {
+                "integerValue": "1"
+              },
+              "theme": {
+                "stringValue": "Développement de l'Endurance Fondamentale"
+              },
+              "phase": {
+                "stringValue": "fondamental"
+              },
+              "sessions": {
+                "arrayValue": {
+                  "values": [
+                    {
+                      "mapValue": {
+                        "fields": {
+                          "day": {
+                            "stringValue": "Lundi"
+                          },
+                          "type": {
+                            "stringValue": "Jogging"
+                          },
+                          "title": {
+                            "stringValue": "Footing en aisance respiratoire (Matin)"
+                          },
+                          "duration": {
+                            "stringValue": "45 min"
+                          },
+                          "distance": {
+                            "stringValue": "9.0 km"
+                          },
+                          "intensity": {
+                            "stringValue": "Facile"
+                          },
+                          "targetPace": {
+                            "stringValue": "5:00 min/km"
+                          },
+                          "elevationGain": {
+                            "integerValue": "0"
+                          },
+                          "locationSuggestion": {
+                            "stringValue": "RAVeL Ligne 94 (Tronçon Ath)"
+                          },
+                          "warmup": {
+                            "stringValue": "10 min en endurance fondamentale (5:00 min/km)"
+                          },
+                          "mainSet": {
+                            "stringValue": "30 min en endurance fondamentale (5:00 min/km). Concentre-toi sur une respiration calme et régulière, tu dois pouvoir parler sans être essoufflé(e)."
+                          },
+                          "cooldown": {
+                            "stringValue": "5 min de retour au calme en marchant ou trottinant très lentement (5:35 min/km)"
+                          },
+                          "advice": {
+                            "stringValue": "Hydrate-toi bien avant et après la séance. C'est une séance clé pour construire ta base d'endurance."
+                          },
+                          "id": {
+                            "stringValue": "w1-s1-1778682781778-1mnt2e4"
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "mapValue": {
+                        "fields": {
+                          "day": {
+                            "stringValue": "Mardi"
+                          },
+                          "type": {
+                            "stringValue": "Renforcement"
+                          },
+                          "title": {
+                            "stringValue": "Renfo Focus A - Quadriceps & Gainage (S1)"
+                          },
+                          "duration": {
+                            "stringValue": "40-45 min"
+                          },
+                          "distance": {
+                            "stringValue": "0.0 km"
+                          },
+                          "intensity": {
+                            "stringValue": "Modéré"
+                          },
+                          "elevationGain": {
+                            "integerValue": "0"
+                          },
+                          "locationSuggestion": {
+                            "stringValue": "À la maison"
+                          },
+                          "warmup": {
+                            "stringValue": "10 min de mobilité articulaire et échauffement dynamique"
+                          },
+                          "mainSet": {
+                            "stringValue": "Circuit 4 tours : Squats poids de corps (3x18), Squat bulgare (3x12/jambe), Fentes avant (3x12/jambe), Gainage ventral (3x35-60s), Dead bug (3x12/côté), Extensions mollets debout (3x23), Squats sautés (3x12). Repos 1 min entre tours."
+                          },
+                          "cooldown": {
+                            "stringValue": "5 min d'étirements : quadriceps, ischio-jambiers, mollets, hanches"
+                          },
+                          "advice": {
+                            "stringValue": "Le renforcement est essentiel pour prévenir les blessures et améliorer ton économie de course. Ne néglige pas cette séance."
+                          },
+                          "id": {
+                            "stringValue": "w1-s2-1778682781778-yb20y3q"
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "mapValue": {
+                        "fields": {
+                          "day": {
+                            "stringValue": "Jeudi"
+                          },
+                          "type": {
+                            "stringValue": "Jogging"
+                          },
+                          "title": {
+                            "stringValue": "Footing vallonné"
+                          },
+                          "duration": {
+                            "stringValue": "50 min"
+                          },
+                          "distance": {
+                            "stringValue": "10.0 km"
+                          },
+                          "intensity": {
+                            "stringValue": "Facile"
+                          },
+                          "targetPace": {
+                            "stringValue": "5:00 min/km"
+                          },
+                          "elevationGain": {
+                            "integerValue": "0"
+                          },
+                          "locationSuggestion": {
+                            "stringValue": "Bois d'Ath"
+                          },
+                          "warmup": {
+                            "stringValue": "10 min en endurance fondamentale (5:00 min/km) sur terrain plat"
+                          },
+                          "mainSet": {
+                            "stringValue": "35 min en endurance fondamentale (5:00 min/km) sur un parcours avec de légères montées et descentes. Garde la même aisance respiratoire, même dans les courtes montées."
+                          },
+                          "cooldown": {
+                            "stringValue": "5 min de retour au calme en marchant ou trottinant très lentement (5:35 min/km)"
+                          },
+                          "advice": {
+                            "stringValue": "Courir sur un terrain légèrement vallonné sollicite davantage de muscles stabilisateurs et renforce tes chevilles, sans pour autant augmenter l'intensité cardiaque de manière significative si l'allure reste douce."
+                          },
+                          "id": {
+                            "stringValue": "w1-s3-1778682781778-u4py77m"
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "mapValue": {
+                        "fields": {
+                          "day": {
+                            "stringValue": "Vendredi"
+                          },
+                          "type": {
+                            "stringValue": "Jogging"
+                          },
+                          "title": {
+                            "stringValue": "Footing progressif"
+                          },
+                          "duration": {
+                            "stringValue": "1h00"
+                          },
+                          "distance": {
+                            "stringValue": "12.0 km"
+                          },
+                          "intensity": {
+                            "stringValue": "Facile"
+                          },
+                          "targetPace": {
+                            "stringValue": "Progressif"
+                          },
+                          "elevationGain": {
+                            "integerValue": "0"
+                          },
+                          "locationSuggestion": {
+                            "stringValue": "RAVeL Ligne 94 (Tronçon Ath)"
+                          },
+                          "warmup": {
+                            "stringValue": "10 min en endurance fondamentale (5:00 min/km)"
+                          },
+                          "mainSet": {
+                            "stringValue": "45 min de course progressive : commence à 5:00 min/km pendant 15 min, puis accélère légèrement à 4:55 min/km pendant 15 min, et termine les 15 dernières minutes à 4:50 min/km. Reste dans la zone de confort de l'endurance fondamentale."
+                          },
+                          "cooldown": {
+                            "stringValue": "5 min de retour au calme en marchant ou trottinant très lentement (5:35 min/km)"
+                          },
+                          "advice": {
+                            "stringValue": "Cette séance t'aide à développer ta capacité à maintenir un effort sur la durée tout en apprenant à gérer l'accélération progressive sans 'casser' ton endurance. Écoute tes sensations."
+                          },
+                          "id": {
+                            "stringValue": "w1-s4-1778682781778-xr5du2y"
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "mapValue": {
+                        "fields": {
+                          "day": {
+                            "stringValue": "Dimanche"
+                          },
+                          "type": {
+                            "stringValue": "Sortie Longue"
+                          },
+                          "title": {
+                            "stringValue": "Sortie Longue en endurance fondamentale"
+                          },
+                          "duration": {
+                            "stringValue": "1h20"
+                          },
+                          "distance": {
+                            "stringValue": "16.0 km"
+                          },
+                          "intensity": {
+                            "stringValue": "Facile"
+                          },
+                          "targetPace": {
+                            "stringValue": "5:00 min/km"
+                          },
+                          "elevationGain": {
+                            "integerValue": "0"
+                          },
+                          "locationSuggestion": {
+                            "stringValue": "RAVeL Ligne 94 (Tronçon Ath)"
+                          },
+                          "warmup": {
+                            "stringValue": "10 min en endurance fondamentale (5:00 min/km)"
+                          },
+                          "mainSet": {
+                            "stringValue": "65 min de course continue en endurance fondamentale (5:00 min/km). C'est ta sortie la plus importante de la semaine, elle vise à habituer ton corps à l'effort prolongé. Maintiens une allure où la conversation est facile."
+                          },
+                          "cooldown": {
+                            "stringValue": "5 min de retour au calme en marchant ou trottinant très lentement (5:35 min/km)"
+                          },
+                          "advice": {
+                            "stringValue": "Pense à ton hydratation et éventuellement à une petite collation (barre de céréales, gel) si tu en ressens le besoin pendant la sortie, afin de tester ce qui te convient pour le jour de la course."
+                          },
+                          "id": {
+                            "stringValue": "w1-s5-1778682781778-x5sy10m"
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              },
+              "weekGoal": {
+                "stringValue": "Développement de l'Endurance Fondamentale"
+              }
+            }
+          }
+        }
+      ]
+    }
+  },
+  "id": {
+    "stringValue": "1778682781778"
+  },
+  "createdAt": {
+    "stringValue": "2026-05-13T14:33:01.778Z"
+  },
+  "calculatedVMA": {
+    "doubleValue": 17.894249172770795
+  },
+  "vma": {
+    "doubleValue": 17.894249172770795
+  },
+  "vmaSource": {
+    "stringValue": "Moyenne 5km en 17:48 et 10km en 36:47"
+  },
+  "paces": {
+    "mapValue": {
+      "fields": {
+        "efPace": {
+          "stringValue": "5:00"
+        },
+        "eaPace": {
+          "stringValue": "4:21"
+        },
+        "seuilPace": {
+          "stringValue": "3:51"
+        },
+        "vmaPace": {
+          "stringValue": "3:21"
+        },
+        "recoveryPace": {
+          "stringValue": "5:35"
+        },
+        "allureSpecifique5k": {
+          "stringValue": "3:32"
+        },
+        "allureSpecifique10k": {
+          "stringValue": "3:44"
+        },
+        "allureSpecifiqueSemi": {
+          "stringValue": "3:57"
+        },
+        "allureSpecifiqueMarathon": {
+          "stringValue": "4:11"
+        }
+      }
+    }
+  },
+  "isPreview": {
+    "booleanValue": true
+  },
+  "fullPlanGenerated": {
+    "booleanValue": false
+  },
+  "generationContext": {
+    "mapValue": {
+      "fields": {
+        "vma": {
+          "doubleValue": 17.894249172770795
+        },
+        "vmaSource": {
+          "stringValue": "Moyenne 5km en 17:48 et 10km en 36:47"
+        },
+        "paces": {
+          "mapValue": {
+            "fields": {
+              "efPace": {
+                "stringValue": "5:00"
+              },
+              "eaPace": {
+                "stringValue": "4:21"
+              },
+              "seuilPace": {
+                "stringValue": "3:51"
+              },
+              "vmaPace": {
+                "stringValue": "3:21"
+              },
+              "recoveryPace": {
+                "stringValue": "5:35"
+              },
+              "allureSpecifique5k": {
+                "stringValue": "3:32"
+              },
+              "allureSpecifique10k": {
+                "stringValue": "3:44"
+              },
+              "allureSpecifiqueSemi": {
+                "stringValue": "3:57"
+              },
+              "allureSpecifiqueMarathon": {
+                "stringValue": "4:11"
+              }
+            }
+          }
+        },
+        "periodizationPlan": {
+          "mapValue": {
+            "fields": {
+              "totalWeeks": {
+                "integerValue": "7"
+              },
+              "weeklyVolumes": {
+                "arrayValue": {
+                  "values": [
+                    {
+                      "integerValue": "47"
+                    },
+                    {
+                      "integerValue": "52"
+                    },
+                    {
+                      "integerValue": "57"
+                    },
+                    {
+                      "integerValue": "44"
+                    },
+                    {
+                      "integerValue": "51"
+                    },
+                    {
+                      "integerValue": "59"
+                    },
+                    {
+                      "integerValue": "32"
+                    }
+                  ]
+                }
+              },
+              "weeklyPhases": {
+                "arrayValue": {
+                  "values": [
+                    {
+                      "stringValue": "fondamental"
+                    },
+                    {
+                      "stringValue": "fondamental"
+                    },
+                    {
+                      "stringValue": "developpement"
+                    },
+                    {
+                      "stringValue": "recuperation"
+                    },
+                    {
+                      "stringValue": "specifique"
+                    },
+                    {
+                      "stringValue": "specifique"
+                    },
+                    {
+                      "stringValue": "affutage"
+                    }
+                  ]
+                }
+              },
+              "recoveryWeeks": {
+                "arrayValue": {
+                  "values": [
+                    {
+                      "integerValue": "4"
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        },
+        "questionnaireSnapshot": {
+          "mapValue": {
+            "fields": {
+              "goal": {
+                "stringValue": "Course sur route"
+              },
+              "subGoal": {
+                "stringValue": "10 km"
+              },
+              "level": {
+                "stringValue": "Expert (Performance)"
+              },
+              "frequency": {
+                "integerValue": "5"
+              },
+              "preferredDays": {
+                "arrayValue": {
+                  "values": [
+                    {
+                      "stringValue": "Mardi"
+                    },
+                    {
+                      "stringValue": "Jeudi"
+                    },
+                    {
+                      "stringValue": "Vendredi"
+                    },
+                    {
+                      "stringValue": "Dimanche"
+                    }
+                  ]
+                }
+              },
+              "startDate": {
+                "stringValue": "2026-05-13"
+              },
+              "sex": {
+                "stringValue": "Homme"
+              },
+              "recentRaceTimes": {
+                "mapValue": {
+                  "fields": {
+                    "distance5km": {
+                      "stringValue": "17:48"
+                    },
+                    "distance10km": {
+                      "stringValue": "36:47"
+                    },
+                    "distanceHalfMarathon": {
+                      "stringValue": "1h22"
+                    }
+                  }
+                }
+              },
+              "city": {
+                "stringValue": "Ath"
+              },
+              "injuries": {
+                "mapValue": {
+                  "fields": {
+                    "hasInjury": {
+                      "booleanValue": false
+                    }
+                  }
+                }
+              },
+              "comments": {
+                "stringValue": "1 ou 2 séance au matin / fractio le mardi / 1 séance de vélo à caler un même jour 'entraineemnt"
+              },
+              "email": {
+                "stringValue": "nicolasdts99@gmail.com"
+              },
+              "raceDate": {
+                "stringValue": "2026-06-26"
+              },
+              "currentWeeklyVolume": {
+                "integerValue": "55"
+              },
+              "weight": {
+                "integerValue": "71"
+              },
+              "height": {
+                "integerValue": "181"
+              },
+              "age": {
+                "integerValue": "26"
+              },
+              "vma": {
+                "doubleValue": 17.894249172770795
+              }
+            }
+          }
+        },
+        "generatedAt": {
+          "stringValue": "2026-05-13T14:32:34.202Z"
+        },
+        "modelUsed": {
+          "stringValue": "gemini-2.5-flash"
+        }
+      }
+    }
+  },
+  "raceDate": {
+    "stringValue": "2026-06-26"
+  },
+  "adaptationLog": {
+    "mapValue": {
+      "fields": {
+        "weekNumber": {
+          "integerValue": "0"
+        },
+        "adaptationsThisWeek": {
+          "integerValue": "0"
+        },
+        "adaptationHistory": {
+          "arrayValue": {}
+        }
+      }
+    }
+  },
+  "endDate": {
+    "stringValue": "2026-06-29"
+  },
+  "userId": {
+    "stringValue": "i4mCm9vrEPWr0NJgbFxG6IyWMFB2"
+  },
+  "userEmail": {
+    "stringValue": "nicolasdts99@gmail.com"
+  }
+}

@@ -1,0 +1,769 @@
+{
+  "name": "projects/coach-running-ia/databases/(default)/documents/plans/1778527986793",
+  "fields": {
+    "confidenceScore": {
+      "integerValue": "10"
+    },
+    "startDate": {
+      "stringValue": "2026-05-11"
+    },
+    "fullPlanGenerated": {
+      "booleanValue": false
+    },
+    "location": {
+      "stringValue": "Montagny "
+    },
+    "goal": {
+      "stringValue": "Trail"
+    },
+    "distance": {
+      "stringValue": "69km D+1200m"
+    },
+    "sessionsPerWeek": {
+      "integerValue": "4"
+    },
+    "paces": {
+      "mapValue": {
+        "fields": {
+          "efPace": {
+            "stringValue": "10:47"
+          },
+          "allureSpecifique5k": {
+            "stringValue": "7:36"
+          },
+          "seuilPace": {
+            "stringValue": "8:18"
+          },
+          "vmaPace": {
+            "stringValue": "7:13"
+          },
+          "allureSpecifiqueMarathon": {
+            "stringValue": "9:02"
+          },
+          "recoveryPace": {
+            "stringValue": "12:02"
+          },
+          "allureSpecifique10k": {
+            "stringValue": "8:01"
+          },
+          "allureSpecifiqueSemi": {
+            "stringValue": "8:30"
+          },
+          "eaPace": {
+            "stringValue": "9:23"
+          }
+        }
+      }
+    },
+    "createdAt": {
+      "stringValue": "2026-05-11T19:33:06.793Z"
+    },
+    "adaptationLog": {
+      "mapValue": {
+        "fields": {
+          "adaptationHistory": {
+            "arrayValue": {}
+          },
+          "weekNumber": {
+            "integerValue": "0"
+          },
+          "adaptationsThisWeek": {
+            "integerValue": "0"
+          }
+        }
+      }
+    },
+    "feasibility": {
+      "mapValue": {
+        "fields": {
+          "safetyWarning": {
+            "stringValue": "AVIS MÉDICAL OBLIGATOIRE : tu cumules un IMC élevé et des antécédents de blessure. Consulte impérativement ton médecin et ton kiné avant de démarrer. Privilégie le cross-training, les surfaces souples et des chaussures à amorti maximal.\n\n⚠️ DURÉE DU PLAN : 28 semaines, c'est long pour ton profil. La plupart des coureurs de ton niveau préparent cette distance en 22 semaines maximum. Un plan trop long peut entraîner de la lassitude et une stagnation. Si tu te sens prêt, tu peux envisager de rapprocher ta date de début.\n\n⚠ DÉCHARGE OBLIGATOIRE — Ce plan a été identifié comme NON ADAPTÉ à ton profil actuel (VMA 8.3 km/h vs un trail 69km / 1200 D+ qui demande habituellement VMA ≥ 12-14 km/h). Les risques de blessure, d'abandon en course et d'épuisement sont significatifs.\n\nEn générant et en suivant ce plan, **tu reconnais avoir lu ces informations et tu témoignes de ta volonté de poursuivre cet objectif sous ta propre responsabilité**. Nous te recommandons fortement de :\n- Consulter un médecin du sport AVANT de démarrer\n- Envisager d'abord un trail intermédiaire (20-30 km) comme palier de progression\n- Suivre rigoureusement les semaines de décharge et écouter ton corps"
+          },
+          "recommendation": {
+            "stringValue": "un objectif adapté à ton profil actuel"
+          },
+          "status": {
+            "stringValue": "IRRÉALISTE"
+          },
+          "message": {
+            "stringValue": "Ce trail de 69km / 1200m D+ n'est pas réaliste dans les conditions actuelles. Le D+ de la course (1200m) est 4.8x ton D+ hebdomadaire actuel (250m/sem) — risque musculaire très élevé en descente, impossible de construire la résistance excentrique nécessaire en 28 semaines. Volume actuel de 25km/sem insuffisant pour un trail de 69km (40km/sem recommandés). Un ultra de 69km en intermédiaire : la gestion de l'effort sera clé. Ton D+ hebdo actuel (250m) est bas par rapport aux 1200m de la course. Blessure déclarée : adapte les séances et consulte un professionnel de santé. Ton IMC (32.3) augmente le risque articulaire — consulte un médecin, privilégie un bon amorti et des surfaces souples. Écoute ton corps, sois très progressif, et n'hésite pas à adapter le plan si nécessaire."
+          }
+        }
+      }
+    },
+    "id": {
+      "stringValue": "1778527986793"
+    },
+    "vma": {
+      "doubleValue": 8.310249307479225
+    },
+    "userId": {
+      "stringValue": "aryO2FHQ5xSZGFt8WepTiH2c3CG3"
+    },
+    "durationWeeks": {
+      "integerValue": "28"
+    },
+    "isPreview": {
+      "booleanValue": true
+    },
+    "name": {
+      "stringValue": "Préparation Trail 69km / 1200m D+ — Finisher — 28 sem."
+    },
+    "generationContext": {
+      "mapValue": {
+        "fields": {
+          "periodizationPlan": {
+            "mapValue": {
+              "fields": {
+                "recoveryWeeks": {
+                  "arrayValue": {
+                    "values": [
+                      {
+                        "integerValue": "4"
+                      },
+                      {
+                        "integerValue": "7"
+                      },
+                      {
+                        "integerValue": "10"
+                      },
+                      {
+                        "integerValue": "13"
+                      },
+                      {
+                        "integerValue": "16"
+                      },
+                      {
+                        "integerValue": "19"
+                      },
+                      {
+                        "integerValue": "22"
+                      }
+                    ]
+                  }
+                },
+                "weeklyPhases": {
+                  "arrayValue": {
+                    "values": [
+                      {
+                        "stringValue": "fondamental"
+                      },
+                      {
+                        "stringValue": "fondamental"
+                      },
+                      {
+                        "stringValue": "fondamental"
+                      },
+                      {
+                        "stringValue": "recuperation"
+                      },
+                      {
+                        "stringValue": "fondamental"
+                      },
+                      {
+                        "stringValue": "fondamental"
+                      },
+                      {
+                        "stringValue": "recuperation"
+                      },
+                      {
+                        "stringValue": "fondamental"
+                      },
+                      {
+                        "stringValue": "developpement"
+                      },
+                      {
+                        "stringValue": "recuperation"
+                      },
+                      {
+                        "stringValue": "developpement"
+                      },
+                      {
+                        "stringValue": "developpement"
+                      },
+                      {
+                        "stringValue": "recuperation"
+                      },
+                      {
+                        "stringValue": "developpement"
+                      },
+                      {
+                        "stringValue": "developpement"
+                      },
+                      {
+                        "stringValue": "recuperation"
+                      },
+                      {
+                        "stringValue": "developpement"
+                      },
+                      {
+                        "stringValue": "specifique"
+                      },
+                      {
+                        "stringValue": "recuperation"
+                      },
+                      {
+                        "stringValue": "specifique"
+                      },
+                      {
+                        "stringValue": "specifique"
+                      },
+                      {
+                        "stringValue": "recuperation"
+                      },
+                      {
+                        "stringValue": "specifique"
+                      },
+                      {
+                        "stringValue": "specifique"
+                      },
+                      {
+                        "stringValue": "affutage"
+                      },
+                      {
+                        "stringValue": "affutage"
+                      },
+                      {
+                        "stringValue": "affutage"
+                      },
+                      {
+                        "stringValue": "affutage"
+                      }
+                    ]
+                  }
+                },
+                "weeklyVolumes": {
+                  "arrayValue": {
+                    "values": [
+                      {
+                        "integerValue": "21"
+                      },
+                      {
+                        "integerValue": "22"
+                      },
+                      {
+                        "integerValue": "24"
+                      },
+                      {
+                        "integerValue": "19"
+                      },
+                      {
+                        "integerValue": "22"
+                      },
+                      {
+                        "integerValue": "25"
+                      },
+                      {
+                        "integerValue": "22"
+                      },
+                      {
+                        "integerValue": "25"
+                      },
+                      {
+                        "integerValue": "26"
+                      },
+                      {
+                        "integerValue": "21"
+                      },
+                      {
+                        "integerValue": "24"
+                      },
+                      {
+                        "integerValue": "26"
+                      },
+                      {
+                        "integerValue": "21"
+                      },
+                      {
+                        "integerValue": "24"
+                      },
+                      {
+                        "integerValue": "26"
+                      },
+                      {
+                        "integerValue": "21"
+                      },
+                      {
+                        "integerValue": "24"
+                      },
+                      {
+                        "integerValue": "26"
+                      },
+                      {
+                        "integerValue": "21"
+                      },
+                      {
+                        "integerValue": "24"
+                      },
+                      {
+                        "integerValue": "26"
+                      },
+                      {
+                        "integerValue": "21"
+                      },
+                      {
+                        "integerValue": "24"
+                      },
+                      {
+                        "integerValue": "26"
+                      },
+                      {
+                        "integerValue": "19"
+                      },
+                      {
+                        "integerValue": "17"
+                      },
+                      {
+                        "integerValue": "15"
+                      },
+                      {
+                        "integerValue": "14"
+                      }
+                    ]
+                  }
+                },
+                "totalWeeks": {
+                  "integerValue": "28"
+                }
+              }
+            }
+          },
+          "vmaSource": {
+            "stringValue": "5km en 38min"
+          },
+          "generatedAt": {
+            "stringValue": "2026-05-11T19:32:23.491Z"
+          },
+          "questionnaireSnapshot": {
+            "mapValue": {
+              "fields": {
+                "weight": {
+                  "integerValue": "88"
+                },
+                "height": {
+                  "integerValue": "165"
+                },
+                "age": {
+                  "integerValue": "46"
+                },
+                "email": {
+                  "stringValue": "chevauxpie@gmail.com"
+                },
+                "frequency": {
+                  "integerValue": "4"
+                },
+                "startDate": {
+                  "stringValue": "2026-05-11"
+                },
+                "sex": {
+                  "stringValue": "Femme"
+                },
+                "trailDetails": {
+                  "mapValue": {
+                    "fields": {
+                      "distance": {
+                        "integerValue": "69"
+                      },
+                      "elevation": {
+                        "integerValue": "1200"
+                      }
+                    }
+                  }
+                },
+                "goal": {
+                  "stringValue": "Trail"
+                },
+                "city": {
+                  "stringValue": "Montagny "
+                },
+                "recentRaceTimes": {
+                  "mapValue": {
+                    "fields": {
+                      "distance5km": {
+                        "stringValue": "38min"
+                      }
+                    }
+                  }
+                },
+                "currentWeeklyElevation": {
+                  "integerValue": "250"
+                },
+                "raceDate": {
+                  "stringValue": "2026-11-21"
+                },
+                "preferredDays": {
+                  "arrayValue": {
+                    "values": [
+                      {
+                        "stringValue": "Mardi"
+                      },
+                      {
+                        "stringValue": "Jeudi"
+                      },
+                      {
+                        "stringValue": "Samedi"
+                      },
+                      {
+                        "stringValue": "Dimanche"
+                      }
+                    ]
+                  }
+                },
+                "injuries": {
+                  "mapValue": {
+                    "fields": {
+                      "hasInjury": {
+                        "booleanValue": true
+                      },
+                      "description": {
+                        "stringValue": "Entorse cheville fréquentes \nDouleurs hanche gauche et lombaires "
+                      }
+                    }
+                  }
+                },
+                "currentWeeklyVolume": {
+                  "integerValue": "25"
+                },
+                "vma": {
+                  "doubleValue": 8.310249307479225
+                },
+                "level": {
+                  "stringValue": "Intermédiaire (Régulier)"
+                }
+              }
+            }
+          },
+          "vma": {
+            "doubleValue": 8.310249307479225
+          },
+          "paces": {
+            "mapValue": {
+              "fields": {
+                "allureSpecifique5k": {
+                  "stringValue": "7:36"
+                },
+                "efPace": {
+                  "stringValue": "10:47"
+                },
+                "allureSpecifique10k": {
+                  "stringValue": "8:01"
+                },
+                "allureSpecifiqueSemi": {
+                  "stringValue": "8:30"
+                },
+                "eaPace": {
+                  "stringValue": "9:23"
+                },
+                "allureSpecifiqueMarathon": {
+                  "stringValue": "9:02"
+                },
+                "recoveryPace": {
+                  "stringValue": "12:02"
+                },
+                "seuilPace": {
+                  "stringValue": "8:18"
+                },
+                "vmaPace": {
+                  "stringValue": "7:13"
+                }
+              }
+            }
+          },
+          "modelUsed": {
+            "stringValue": "gemini-2.5-flash"
+          }
+        }
+      }
+    },
+    "endDate": {
+      "stringValue": "2026-11-23"
+    },
+    "vmaSource": {
+      "stringValue": "5km en 38min"
+    },
+    "raceDate": {
+      "stringValue": "2026-11-21"
+    },
+    "welcomeMessage": {
+      "stringValue": "⚠️ Avant de commencer ce programme, il est INDISPENSABLE de consulter ton médecin pour obtenir un certificat médical d'aptitude à la pratique de la course à pied. À partir de 46 ans et avec ton profil, un bilan cardio-vasculaire (test d'effort) est fortement recommandé. Ton santé est notre priorité absolue — ce plan est conçu pour t'accompagner en toute sécurité, mais seul un médecin peut confirmer que tu es apte à démarrer.\n\nBienvenue dans ton plan d'entraînement pour atteindre ton objectif de finisher sur ce trail de 69km avec 1200m de D+ ! Ce programme de 28 semaines est conçu pour te permettre de construire une endurance solide et une résistance progressive, en respectant ton corps et en tenant compte de ton profil. La première phase, \"fondamental\", met l'accent sur l'endurance fondamentale et la régularité, les piliers de la réussite en ultra-trail. Nous privilégierons des surfaces souples et un amorti adapté, notamment avec des chaussures offrant un bon amorti pour protéger tes articulations. Écoute attentivement les signaux de ton corps et sois fier de chaque pas franchi."
+    },
+    "weeks": {
+      "arrayValue": {
+        "values": [
+          {
+            "mapValue": {
+              "fields": {
+                "weekGoal": {
+                  "stringValue": "Installation des fondamentaux en aisance"
+                },
+                "theme": {
+                  "stringValue": "Installation des fondamentaux en aisance"
+                },
+                "phase": {
+                  "stringValue": "fondamental"
+                },
+                "sessions": {
+                  "arrayValue": {
+                    "values": [
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "elevationGain": {
+                              "integerValue": "0"
+                            },
+                            "locationSuggestion": {
+                              "stringValue": "Voie Verte d'Albertville (le long de l'Isère) — autour de Montagny"
+                            },
+                            "intensity": {
+                              "stringValue": "Facile"
+                            },
+                            "id": {
+                              "stringValue": "w1-s1-1778527986794-ebtf0rw"
+                            },
+                            "duration": {
+                              "stringValue": "1h 03 min"
+                            },
+                            "title": {
+                              "stringValue": "Footing en aisance respiratoire"
+                            },
+                            "cooldown": {
+                              "stringValue": "5 min de marche lente suivies de 10 min d'étirements doux et de mobilité articulaire (chevilles, hanches, lombaires). (à 12:02 min/km)"
+                            },
+                            "targetPace": {
+                              "stringValue": "10:47 min/km"
+                            },
+                            "warmup": {
+                              "stringValue": "10 min de marche, à 12:02 min/km active puis 5 min de trottinement très léger pour préparer le corps en douceur."
+                            },
+                            "distance": {
+                              "stringValue": "5.9 km"
+                            },
+                            "advice": {
+                              "stringValue": "Rappel : assure-toi d'avoir consulté ton médecin avant de démarrer. Écoute attentivement ton corps, surtout tes hanches et lombaires. En cas de douleur thoracique, essoufflement anormal ou malaise, arrête-toi immédiatement."
+                            },
+                            "mainSet": {
+                              "stringValue": "45 min de course en endurance fondamentale à une allure confortable (environ 10:47 min/km), où tu peux discuter sans essoufflement. Concentre-toi sur une respiration régulière et une foulée fluide et relâchée."
+                            },
+                            "day": {
+                              "stringValue": "Mardi"
+                            },
+                            "type": {
+                              "stringValue": "Jogging"
+                            }
+                          }
+                        }
+                      },
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "type": {
+                              "stringValue": "Renforcement"
+                            },
+                            "day": {
+                              "stringValue": "Jeudi"
+                            },
+                            "mainSet": {
+                              "stringValue": "Circuit 3 tours : Squats poids de corps (3x14), Fentes avant (3x9/jambe), Gainage ventral (3x27-60s), Dead bug (3x9/cote), Extensions mollets debout (3x18), Squat excentrique (descente 4s) (3x9), Step-down excentrique (3x7/jambe), Mollets debout unipodal (3x11/jambe), Pompes (3x14), Dips sur banc (3x11), Cat-cow (mobilité dos) (2x9), Bird-dog (contrôle lombaire) (3x9/côté). Repos 1 min 30 entre tours. ⚠️ Exercices de prévention inclus pour ta blessure — si douleur, arrête immédiatement."
+                            },
+                            "advice": {
+                              "stringValue": "Ce renforcement est crucial pour prévenir les blessures (chevilles, hanches, lombaires) et renforcer ta posture. Effectue les mouvements lentement et avec contrôle, sans forcer. Écoute ton corps et ne pousse pas en cas de douleur. En cas de douleur thoracique, essoufflement anormal ou malaise, arrête-toi immédiatement."
+                            },
+                            "distance": {
+                              "stringValue": "0 km"
+                            },
+                            "warmup": {
+                              "stringValue": "10 min de mobilité articulaire douce et échauffement progressif (marche rapide, rotations, pas chassés)"
+                            },
+                            "cooldown": {
+                              "stringValue": "8 min d'étirements : psoas (fente basse 30s×2), piriforme, cat-cow (10 reps), étirement dos allongé."
+                            },
+                            "title": {
+                              "stringValue": "Renfo Trail Focus A - Quadriceps & Excentrique (S1)"
+                            },
+                            "duration": {
+                              "stringValue": "45-50 min"
+                            },
+                            "id": {
+                              "stringValue": "w1-s2-1778527986794-i96bz28"
+                            },
+                            "locationSuggestion": {
+                              "stringValue": "À la maison"
+                            },
+                            "intensity": {
+                              "stringValue": "Modéré"
+                            },
+                            "elevationGain": {
+                              "integerValue": "0"
+                            }
+                          }
+                        }
+                      },
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "advice": {
+                              "stringValue": "Surveille les appuis pour prévenir les entorses. La surface naturelle est bonne pour les articulations, mais nécessite plus d'attention. Écoute ton corps et adapte l'allure au terrain. En cas de douleur thoracique, essoufflement anormal ou malaise, arrête-toi immédiatement."
+                            },
+                            "targetPace": {
+                              "stringValue": "10:47 min/km"
+                            },
+                            "warmup": {
+                              "stringValue": "10 min de marche, à 12:02 min/km active progressive sur terrain plat ou très légèrement montant, suivies de 5 min de trottinement."
+                            },
+                            "distance": {
+                              "stringValue": "7 km"
+                            },
+                            "day": {
+                              "stringValue": "Samedi"
+                            },
+                            "type": {
+                              "stringValue": "Jogging"
+                            },
+                            "mainSet": {
+                              "stringValue": "55 min de course en endurance fondamentale (environ 10:47 min/km) sur un parcours légèrement vallonné avec 50m de D+. Concentre-toi sur une foulée souple et légère, en adaptant ton cadence aux montées/descites pour maintenir l'effort en aisance respiratoire. Sois attentif à ton équilibre et à tes chevilles sur les sentiers."
+                            },
+                            "elevationGain": {
+                              "integerValue": "50"
+                            },
+                            "locationSuggestion": {
+                              "stringValue": "Sentiers des Balcons de la Chartreuse (autour de Montagny)"
+                            },
+                            "intensity": {
+                              "stringValue": "Facile"
+                            },
+                            "duration": {
+                              "stringValue": "1h 16 min"
+                            },
+                            "id": {
+                              "stringValue": "w1-s3-1778527986794-u99c23a"
+                            },
+                            "cooldown": {
+                              "stringValue": "5 min de marche lente sur terrain plat, suivies de 10 min d'étirements post-course et de mobilisations pour les chevilles et les hanches. (à 12:02 min/km)"
+                            },
+                            "title": {
+                              "stringValue": "Footing vallonné en nature douce"
+                            }
+                          }
+                        }
+                      },
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "type": {
+                              "stringValue": "Sortie Longue"
+                            },
+                            "day": {
+                              "stringValue": "Dimanche"
+                            },
+                            "mainSet": {
+                              "stringValue": "1h00 de course en endurance fondamentale (environ 10:47 min/km) sur sentiers variés avec environ 100m de D+. L'objectif est de s'habituer à l'effort sur la durée et sur terrain légèrement technique. Garde une allure aisée et fluide, en gérant tes montées et descentes pour ne pas surmener tes hanches ou chevilles. Inclue des portions de marche rapide si le dénivelé est trop prononcé pour maintenir l'EF."
+                            },
+                            "advice": {
+                              "stringValue": "Hydrate-toi bien avant, pendant et après la sortie. C'est une séance clé pour ton objectif finisher. N'hésite pas à marcher dans les montées si nécessaire pour maintenir l'EF. Écoute ton corps attentivement, en particulier les hanches, les lombaires et les chevilles. En cas de douleur thoracique, essoufflement anormal ou malaise, arrête-toi immédiatement."
+                            },
+                            "distance": {
+                              "stringValue": "8 km"
+                            },
+                            "targetPace": {
+                              "stringValue": "10:47 min/km"
+                            },
+                            "warmup": {
+                              "stringValue": "15 min de marche, à 12:02 min/km dynamique avec quelques montées/descentes douces pour bien préparer les muscles et les articulations à l'effort prolongé."
+                            },
+                            "title": {
+                              "stringValue": "Sortie longue en forêt et nature"
+                            },
+                            "cooldown": {
+                              "stringValue": "15 min de marche active puis lente pour faire redescendre le rythme cardiaque progressivement. Termine par 10-15 min d'étirements doux et de mobilisations pour tout le corps, en insistant sur le bas du corps et le dos. (à 12:02 min/km)"
+                            },
+                            "duration": {
+                              "stringValue": "1h 26 min"
+                            },
+                            "id": {
+                              "stringValue": "w1-s4-1778527986794-spsuubv"
+                            },
+                            "locationSuggestion": {
+                              "stringValue": "Forêt de Saint-Alban-de-Montbel (proche Lac d'Aiguebelette) — autour de Montagny"
+                            },
+                            "elevationGain": {
+                              "integerValue": "200"
+                            },
+                            "intensity": {
+                              "stringValue": "Facile"
+                            }
+                          }
+                        }
+                      }
+                    ]
+                  }
+                },
+                "weekNumber": {
+                  "integerValue": "1"
+                }
+              }
+            }
+          }
+        ]
+      }
+    },
+    "userEmail": {
+      "stringValue": "chevauxpie@gmail.com"
+    },
+    "suggestedLocations": {
+      "arrayValue": {
+        "values": [
+          {
+            "mapValue": {
+              "fields": {
+                "name": {
+                  "stringValue": "Voie Verte d'Albertville (le long de l'Isère)"
+                },
+                "description": {
+                  "stringValue": "Pour les footings plats et l'endurance fondamentale, offrant une surface stable et agréable."
+                },
+                "type": {
+                  "stringValue": "PARK"
+                }
+              }
+            }
+          },
+          {
+            "mapValue": {
+              "fields": {
+                "type": {
+                  "stringValue": "NATURE"
+                },
+                "description": {
+                  "stringValue": "Idéal pour les sorties avec du dénivelé léger à modéré, les footings vallonnés et la préparation au trail."
+                },
+                "name": {
+                  "stringValue": "Sentiers des Balcons de la Chartreuse (autour de Montagny)"
+                }
+              }
+            }
+          },
+          {
+            "mapValue": {
+              "fields": {
+                "name": {
+                  "stringValue": "Forêt de Saint-Alban-de-Montbel (proche Lac d'Aiguebelette)"
+                },
+                "description": {
+                  "stringValue": "Parfait pour les sorties longues en nature avec un terrain varié et un dénivelé progressif, simulant les conditions de trail."
+                },
+                "type": {
+                  "stringValue": "NATURE"
+                }
+              }
+            }
+          }
+        ]
+      }
+    },
+    "calculatedVMA": {
+      "doubleValue": 8.310249307479225
+    }
+  },
+  "createTime": "2026-05-11T19:33:26.525809Z",
+  "updateTime": "2026-05-12T14:13:15.063967Z"
+}

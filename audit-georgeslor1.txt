@@ -1,0 +1,250 @@
+═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════
+  AUDIT COMPLET — georgeslor1@gmail.com  •  18/05/2026 10:40:32
+═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════
+
+▶ Firebase Auth
+  UID: oWrcHj2F1CQsL34K3KS0ZMc7Olg1
+  Email vérifié: ✅
+  Créé: 2026-05-18T07:29:04.040Z
+  Dernière connexion: 2026-05-18T07:44:44.024Z
+  Display name: Georges Lor1
+
+▶ Firestore users/oWrcHj2F1CQsL34K3KS0ZMc7Olg1
+  firstName: Georges
+  isPremium: true
+  hasPurchasedPlan: ?
+  plansCount: ?
+  emailVerified: ?
+  stravaConnected: ?
+
+▶ Plans Firestore : 1
+  - planId=1779089493075 | createdAt=2026-05-18T07:31:33 | isPreview=true | fullPlanGenerated=false | weeks=1 | name="Préparation Marathon en 4h45 — 22 sem."
+
+█████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████
+  PLAN ANALYSÉ : 1779089493075  •  "Préparation Marathon en 4h45 — 22 sem."
+█████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████
+  Objectif: Course sur route (Marathon)
+  Cible: 4h45  •  Race: 2026-10-18  •  Durée: 22 sem  •  Fréquence: 5 séances/sem
+  Profil: 57 ans • IMC 27.8 • Niveau Expert (Performance) • VMA 10.69 km/h (Moyenne 10km en 1h00 et Marathon en 5h15) • Vol actuel: 45 km/sem
+  Blessures: aucune
+  Chronos récents: distance10km=1h00 • distanceMarathon=5h15
+
+
+  ━━━━━━━━━━ 1. ALLURE COHÉRENCE ━━━━━━━━━━
+
+  Allures théoriques (paces[]) :
+    efPace                       8:23/km
+    eaPace                       7:18/km
+    seuilPace                    6:27/km
+    vmaPace                      5:37/km
+    recoveryPace                 9:22/km
+    allureSpecifique5k           5:55/km
+    allureSpecifique10k          6:14/km
+    allureSpecifiqueSemi         6:36/km
+    allureSpecifiqueMarathon     6:45/km
+
+  VMA déclarée: 10.69 km/h • VMA dérivée de vmaPace (5:37): 10.68 km/h
+    Écart: 0.00 km/h ✅ cohérent
+
+  Cohérence chrono cible:
+    marathon 42.195km en 4h45 (17100s) → 6:45/km = 83% VMA
+    Fourchette attendue : 78-86% VMA  →  ✅ cohérent
+    Pace cible théorique: 6:45/km • Pace stockée (allureSpecifiqueMarathon): 6:45/km • Δ +0s/km ✅
+    PB marathon déclaré: 5h15 (18900s) → cible -30 min 🟡 cible très ambitieuse
+
+  Cohérence allures séances S1 vs type:
+  4/4 séances avec pace conforme (tolérance ±20s/km)
+    ✅ Lundi      Sortie Longue      pace=8:23/km vs efPace=8:23 (Δ 0s) — "Sortie Longue en aisance"
+    ✅ Mardi      Jogging            pace=8:23/km vs efPace=8:23 (Δ 0s) — "Footing en endurance fondamentale"
+    ✅ Jeudi      Jogging            pace=8:23/km vs efPace=8:23 (Δ 0s) — "Footing vallonné"
+    ✅ Vendredi   Jogging            pace=8:23/km vs efPace=8:23 (Δ 0s) — "Footing en endurance fondamentale"
+
+
+  ━━━━━━━━━━ 2. DISTANCE / DURÉE SORTIE LONGUE (SL) ━━━━━━━━━━
+
+  Détection SL semaine par semaine (champ 'type' contient 'longue') :
+
+    Sem | km     | min   | D+    | progression vs sem précédente
+    ────┼────────┼───────┼───────┼──────────────────────────────
+    S 1 |  13.2km |  111min |    0m  |    -- ★PIC
+
+  SL pic: Sem 1 = 13.2km / 111min
+  Attendu marathon: 28-35km / 140-210min  → km ⚠️  / min ⚠️
+
+
+  ━━━━━━━━━━ 3. VOLUME HEBDO + VOLUME PIC ━━━━━━━━━━
+
+  Volume actuel user déclaré: 45 km/sem
+  S1 plan: 37.7 km
+  Saut S1: -16% (45→37.7 km) ✅
+
+  Volume pic: Sem 1 = 37.7 km
+  Affûtage final (dernière sem): 37.7 km = 100% du pic ⚠️ affûtage insuffisant
+
+  Comparaison weeklyVolumes (théorique pp) vs sommes réelles weeks[].sessions:
+    Sem | Phase           | théo | réel | Δ      | bar                              | Δ% réel
+    ────┼─────────────────┼──────┼──────┼────────┼──────────────────────────────────┼─────────
+    S 1 | fondamental     |   38 | 37.7 | -0.3 | █████████████████████████······· |    -- ★PIC
+
+  📊 Max augmentation: ?  ✅
+  📉 Max décharge: ?
+  🔄 Semaines de décharge déclarées (pp.recoveryWeeks): 4, 7, 10, 13, 16, 19
+
+
+  ━━━━━━━━━━ 4. WELCOMEMESSAGE — CONFORMITÉ DOCTRINE ━━━━━━━━━━
+
+  Longueur: 726 caractères
+
+  ─── Texte intégral ───
+Félicitations pour ton engagement dans la préparation de ce Marathon avec un objectif de 4h45 ! Ce plan de 22 semaines est conçu pour t'accompagner pas à pas, en construisant une base solide d'endurance fondamentale. La première semaine est dédiée à l'établissement de tes bases. Nous allons progresser de manière douce et régulière pour préparer ton corps à l'effort marathonien, en intégrant des séances d'endurance et du renforcement musculaire. Chaque session est une étape vers ton objectif. Nous te recommandons vivement de consulter un médecin avant de débuter ce programme, notamment pour obtenir un certificat médical d'aptitude au sport. À partir de 57 ans, un bilan cardio-vasculaire est particulièrement conseillé.
+  ──────────────────────
+
+  Doctrine — checks automatiques:
+    Mots interdits (corps message): ✅ aucun
+    Nom plan "Préparation Marathon en 4h45 — 22 sem." : ✅ neutre
+    targetTime user "4h45" cité dans welcomeMessage: ✅
+    raceDate "2026-10-18" cité: ⚠️ pas cité
+    Mentions sécurité/écoute: 0 ()
+    Mots commerciaux/embellissants: ✅ aucun
+
+
+  ━━━━━━━━━━ 5. FAISABILITÉ R2 ━━━━━━━━━━
+
+  feasibility.status: BON
+  feasibility.score / confidenceScore: 79 / 79
+  feasibility.message:
+    "Avec ta VMA de 10.7 km/h, ton temps théorique sur marathon est d'environ 4h56min. Viser 4h45min est un bel objectif. Avec un entraînement régulier, c'est tout à fait atteignable."
+  feasibility.safetyWarning:
+    "À 57 ans, on te recommande vivement de consulter ton médecin et de réaliser un test d'effort avant de démarrer cette préparation. Un certificat médical d'aptitude est indispensable pour cette distance. Privilégie la récupération (48-72h entre séances intenses), hydrate-toi bien et écoute ton corps."
+
+  Détection gates implicites:
+    ✅ Gate "saut S1": non déclenchée
+    ✅ Gate "Expert sans chrono": OK (2 chrono(s))
+    ✅ Gate "chrono cible": cohérent
+
+  Vérification calibrage:
+    Statut attendu (estimation): BON
+    Statut affiché: BON
+
+
+  ━━━━━━━━━━ SYNTHÈSE GLOBALE ━━━━━━━━━━
+
+  ✅ Points positifs (3):
+     + Allures S1 toutes conformes (4/4)
+     + Chrono cible cohérent (83% VMA)
+     + Welcome doctrine OK (pas de poids/IMC)
+
+  ⚠️  Points d'attention (2):
+     ~ Saut volume S1 -16% (15-30%)
+     ~ Affûtage insuffisant (100% du pic)
+
+  ❌ Points critiques (0):
+
+  Recommandation action: 🟡 Surveillance + ajustements éventuels
+
+
+  ━━━━━━━━━━ DONNÉES BRUTES (extraits) ━━━━━━━━━━
+
+  questionnaireSnapshot (extrait):
+{
+  "age": 57,
+  "weight": 90,
+  "height": 180,
+  "bmi": "27.78",
+  "level": "Expert (Performance)",
+  "goal": "Course sur route",
+  "subGoal": "Marathon",
+  "targetTime": "4h45",
+  "raceDate": "2026-10-18",
+  "frequency": 5,
+  "currentWeeklyVolume": 45,
+  "injuries": {
+    "hasInjury": false
+  },
+  "recentRaceTimes": {
+    "distance10km": "1h00",
+    "distanceMarathon": "5h15"
+  },
+  "vmaInput": 10.685238095238095,
+  "vmaSource": "Moyenne 10km en 1h00 et Marathon en 5h15"
+}
+
+  paces:
+{
+  "efPace": "8:23",
+  "eaPace": "7:18",
+  "seuilPace": "6:27",
+  "vmaPace": "5:37",
+  "recoveryPace": "9:22",
+  "allureSpecifique5k": "5:55",
+  "allureSpecifique10k": "6:14",
+  "allureSpecifiqueSemi": "6:36",
+  "allureSpecifiqueMarathon": "6:45"
+}
+
+  periodizationPlan (extrait):
+{
+  "weeklyVolumes": [
+    38,
+    41,
+    44,
+    34,
+    39,
+    45,
+    39,
+    45,
+    48,
+    37,
+    43,
+    48,
+    37,
+    43,
+    48,
+    37,
+    43,
+    48,
+    37,
+    33,
+    29,
+    25
+  ],
+  "weeklyPhases": [
+    "fondamental",
+    "fondamental",
+    "fondamental",
+    "recuperation",
+    "fondamental",
+    "fondamental",
+    "recuperation",
+    "developpement",
+    "developpement",
+    "recuperation",
+    "developpement",
+    "developpement",
+    "recuperation",
+    "specifique",
+    "specifique",
+    "recuperation",
+    "specifique",
+    "specifique",
+    "recuperation",
+    "affutage",
+    "affutage",
+    "affutage"
+  ],
+  "recoveryWeeks": [
+    4,
+    7,
+    10,
+    13,
+    16,
+    19
+  ]
+}
+
+  feasibility:
+{
+  "status": "BON",
+  "message": "Avec ta VMA de 10.7 km/h, ton temps théorique sur marathon est d'environ 4h56min. Viser 4h45min est un bel objectif. Avec un entraînement régulier, c'est tout à fait atteignable.",
+  "safetyWarning": "À 57 ans, on te recommande vivement de consulter ton médecin et de réaliser un test d'effort avant de démarrer cette préparation. Un certificat médical d'aptitude est indispensable pour cette distance. Privilégie la récupération (48-72h entre séances intenses), hydrate-toi bien et écoute ton corps."
+}

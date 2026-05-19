@@ -1,0 +1,551 @@
+{
+  "feasibility": {
+    "mapValue": {
+      "fields": {
+        "status": {
+          "stringValue": "BON"
+        },
+        "message": {
+          "stringValue": "Ton programme de remise en forme sur 12 semaines est bien calibré pour ton profil. Avec ta VMA de 6.8 km/h, concentre-toi sur la régularité et le plaisir."
+        },
+        "safetyWarning": {
+          "stringValue": "Pense à consulter un médecin pour un certificat d'aptitude avant de commencer ta préparation."
+        }
+      }
+    }
+  },
+  "location": {
+    "stringValue": "Cholet"
+  },
+  "suggestedLocations": {
+    "arrayValue": {
+      "values": [
+        {
+          "mapValue": {
+            "fields": {
+              "name": {
+                "stringValue": "Parc de Moine"
+              },
+              "description": {
+                "stringValue": "Idéal pour les footings en endurance fondamentale et les séances de marche/course sur allées plates et agréables."
+              },
+              "type": {
+                "stringValue": "PARK"
+              }
+            }
+          }
+        },
+        {
+          "mapValue": {
+            "fields": {
+              "name": {
+                "stringValue": "Lac de Ribou"
+              },
+              "description": {
+                "stringValue": "Parfait pour les sorties plus longues ou les footings nature avec des sentiers variés et un environnement calme."
+              },
+              "type": {
+                "stringValue": "NATURE"
+              }
+            }
+          }
+        }
+      ]
+    }
+  },
+  "userEmail": {
+    "stringValue": "cabralos@hotmail.fr"
+  },
+  "createdAt": {
+    "stringValue": "2026-05-15T07:08:26.924Z"
+  },
+  "vma": {
+    "doubleValue": 6.8
+  },
+  "startDate": {
+    "stringValue": "2026-05-11"
+  },
+  "paces": {
+    "mapValue": {
+      "fields": {
+        "allureSpecifiqueSemi": {
+          "stringValue": "10:23"
+        },
+        "vmaPace": {
+          "stringValue": "8:49"
+        },
+        "recoveryPace": {
+          "stringValue": "14:42"
+        },
+        "allureSpecifique10k": {
+          "stringValue": "9:48"
+        },
+        "allureSpecifiqueMarathon": {
+          "stringValue": "11:02"
+        },
+        "eaPace": {
+          "stringValue": "11:28"
+        },
+        "seuilPace": {
+          "stringValue": "10:09"
+        },
+        "efPace": {
+          "stringValue": "13:10"
+        },
+        "allureSpecifique5k": {
+          "stringValue": "9:17"
+        }
+      }
+    }
+  },
+  "adaptationLog": {
+    "mapValue": {
+      "fields": {
+        "adaptationsThisWeek": {
+          "integerValue": "0"
+        },
+        "weekNumber": {
+          "integerValue": "0"
+        },
+        "adaptationHistory": {
+          "arrayValue": {}
+        }
+      }
+    }
+  },
+  "confidenceScore": {
+    "integerValue": "80"
+  },
+  "vmaSource": {
+    "stringValue": "10km en 50h54 (corrigé) (ajustée -15% remise en forme)"
+  },
+  "goal": {
+    "stringValue": "Maintien en forme"
+  },
+  "durationWeeks": {
+    "integerValue": "12"
+  },
+  "weeks": {
+    "arrayValue": {
+      "values": [
+        {
+          "mapValue": {
+            "fields": {
+              "weekGoal": {
+                "stringValue": "Initiation à la Marche/Course et Renforcement"
+              },
+              "weekNumber": {
+                "integerValue": "1"
+              },
+              "theme": {
+                "stringValue": "Initiation à la Marche/Course et Renforcement"
+              },
+              "phase": {
+                "stringValue": "fondamental"
+              },
+              "sessions": {
+                "arrayValue": {
+                  "values": [
+                    {
+                      "mapValue": {
+                        "fields": {
+                          "duration": {
+                            "stringValue": "50 min"
+                          },
+                          "mainSet": {
+                            "stringValue": "Continue sur 1h30 en alternant 1 min de course légère (allure 13:10 min/km) et 2 min de marche active (environ 14:42 min/km). Cela représente environ 30 cycles. Le but est de trouver un rythme confortable et de tenir la durée."
+                          },
+                          "locationSuggestion": {
+                            "stringValue": "Parc de Moine"
+                          },
+                          "day": {
+                            "stringValue": "Mardi"
+                          },
+                          "advice": {
+                            "stringValue": "Écoute attentivement ton corps pendant cette première séance longue. Il est primordial de ne pas forcer et de privilégier le confort. Si besoin, allonge les phases de marche. L'objectif est de terminer la séance en forme et d'acquérir de l'endurance."
+                          },
+                          "title": {
+                            "stringValue": "Marche/Course : Rythme découverte"
+                          },
+                          "distance": {
+                            "stringValue": "3.6 km"
+                          },
+                          "id": {
+                            "stringValue": "w1-s1-1778828906924-8123upe"
+                          },
+                          "elevationGain": {
+                            "integerValue": "0"
+                          },
+                          "intensity": {
+                            "stringValue": "Facile"
+                          },
+                          "cooldown": {
+                            "stringValue": "12 min de marche lente pour faire redescendre le rythme cardiaque, suivies d'étirements doux. (à 14:42 min/km)"
+                          },
+                          "warmup": {
+                            "stringValue": "10 min de marche, à 14:42 min/km active, puis quelques étirements dynamiques."
+                          },
+                          "targetPace": {
+                            "stringValue": "13:10 min/km (course)"
+                          },
+                          "type": {
+                            "stringValue": "Sortie Longue"
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "mapValue": {
+                        "fields": {
+                          "id": {
+                            "stringValue": "w1-s2-1778828906924-zocr5wk"
+                          },
+                          "day": {
+                            "stringValue": "Jeudi"
+                          },
+                          "title": {
+                            "stringValue": "Renfo Equilibre - Renfo & Stabilite (S1)"
+                          },
+                          "locationSuggestion": {
+                            "stringValue": "À la maison"
+                          },
+                          "duration": {
+                            "stringValue": "30 min"
+                          },
+                          "mainSet": {
+                            "stringValue": "Circuit 2 tours : Squats poids de corps (3x9), Squat bulgare (3x6/jambe), Gainage ventral (3x19-60s), Dead bug (3x6/côté), Extensions mollets debout (3x13), Étirements dynamiques (2x5/côté). Repos 2 min entre tours."
+                          },
+                          "type": {
+                            "stringValue": "Renforcement"
+                          },
+                          "advice": {
+                            "stringValue": "Concentre-toi sur la qualité d'exécution des mouvements plutôt que la quantité. Une bonne technique est essentielle pour prévenir les blessures et renforcer efficacement ton corps. Si un exercice est trop difficile, adapte-le ou remplace-le par une version plus facile."
+                          },
+                          "warmup": {
+                            "stringValue": "10 min de mobilité articulaire et échauffement dynamique"
+                          },
+                          "intensity": {
+                            "stringValue": "Modéré"
+                          },
+                          "cooldown": {
+                            "stringValue": "5 min d'étirements : quadriceps, ischio-jambiers, mollets, hanches"
+                          },
+                          "elevationGain": {
+                            "integerValue": "0"
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "mapValue": {
+                        "fields": {
+                          "id": {
+                            "stringValue": "w1-s3-1778828906924-4l8eb0n"
+                          },
+                          "distance": {
+                            "stringValue": "3.6 km"
+                          },
+                          "title": {
+                            "stringValue": "Sortie Longue Marche/Course : Exploration douce"
+                          },
+                          "type": {
+                            "stringValue": "Sortie Longue"
+                          },
+                          "targetPace": {
+                            "stringValue": "13:10 min/km (course)"
+                          },
+                          "warmup": {
+                            "stringValue": "10 min de marche, à 14:42 min/km très douce autour du lac pour préparer tes muscles et articulations."
+                          },
+                          "intensity": {
+                            "stringValue": "Facile"
+                          },
+                          "cooldown": {
+                            "stringValue": "10 min de marche calme, puis quelques étirements légers et relaxants. (à 14:42 min/km)"
+                          },
+                          "elevationGain": {
+                            "integerValue": "0"
+                          },
+                          "day": {
+                            "stringValue": "Dimanche"
+                          },
+                          "locationSuggestion": {
+                            "stringValue": "Lac de Ribou"
+                          },
+                          "duration": {
+                            "stringValue": "50 min"
+                          },
+                          "mainSet": {
+                            "stringValue": "Continue sur 50 min en alternant 1 min de course légère (allure 13:10 min/km) et 2 min de marche active (environ 14:42 min/km). Cela représente environ 16 cycles. Profite du paysage et maintiens une allure où tu peux parler facilement."
+                          },
+                          "advice": {
+                            "stringValue": "C'est ta sortie longue de la semaine. L'objectif n'est pas la vitesse, mais de passer du temps en mouvement et de construire ton endurance. Prends le temps d'apprécier l'environnement. Hydrate-toi bien avant et après la séance et écoute ton corps pour éviter toute fatigue excessive."
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        }
+      ]
+    }
+  },
+  "isPreview": {
+    "booleanValue": true
+  },
+  "generationContext": {
+    "mapValue": {
+      "fields": {
+        "questionnaireSnapshot": {
+          "mapValue": {
+            "fields": {
+              "sex": {
+                "stringValue": "Homme"
+              },
+              "age": {
+                "integerValue": "35"
+              },
+              "injuries": {
+                "mapValue": {
+                  "fields": {
+                    "hasInjury": {
+                      "booleanValue": false
+                    }
+                  }
+                }
+              },
+              "height": {
+                "integerValue": "179"
+              },
+              "goal": {
+                "stringValue": "Maintien en forme"
+              },
+              "weight": {
+                "integerValue": "72"
+              },
+              "preferredDays": {
+                "arrayValue": {}
+              },
+              "comments": {
+                "stringValue": "Maximum 2 séances par semaine "
+              },
+              "email": {
+                "stringValue": "cabralos@hotmail.fr"
+              },
+              "vma": {
+                "doubleValue": 6.8
+              },
+              "frequency": {
+                "integerValue": "3"
+              },
+              "city": {
+                "stringValue": "Cholet "
+              },
+              "fitnessSubGoal": {
+                "stringValue": "general"
+              },
+              "lastActivity": {
+                "stringValue": "<3months"
+              },
+              "level": {
+                "stringValue": "Confirmé (Compétition)"
+              },
+              "startDate": {
+                "stringValue": "2026-05-15"
+              },
+              "recentRaceTimes": {
+                "mapValue": {
+                  "fields": {
+                    "distance10km": {
+                      "stringValue": "50h54"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "vmaSource": {
+          "stringValue": "10km en 50h54 (corrigé) (ajustée -15% remise en forme)"
+        },
+        "paces": {
+          "mapValue": {
+            "fields": {
+              "recoveryPace": {
+                "stringValue": "14:42"
+              },
+              "vmaPace": {
+                "stringValue": "8:49"
+              },
+              "allureSpecifiqueSemi": {
+                "stringValue": "10:23"
+              },
+              "seuilPace": {
+                "stringValue": "10:09"
+              },
+              "allureSpecifique5k": {
+                "stringValue": "9:17"
+              },
+              "efPace": {
+                "stringValue": "13:10"
+              },
+              "allureSpecifique10k": {
+                "stringValue": "9:48"
+              },
+              "eaPace": {
+                "stringValue": "11:28"
+              },
+              "allureSpecifiqueMarathon": {
+                "stringValue": "11:02"
+              }
+            }
+          }
+        },
+        "modelUsed": {
+          "stringValue": "gemini-2.5-flash"
+        },
+        "periodizationPlan": {
+          "mapValue": {
+            "fields": {
+              "recoveryWeeks": {
+                "arrayValue": {
+                  "values": [
+                    {
+                      "integerValue": "4"
+                    },
+                    {
+                      "integerValue": "7"
+                    },
+                    {
+                      "integerValue": "10"
+                    }
+                  ]
+                }
+              },
+              "weeklyPhases": {
+                "arrayValue": {
+                  "values": [
+                    {
+                      "stringValue": "fondamental"
+                    },
+                    {
+                      "stringValue": "fondamental"
+                    },
+                    {
+                      "stringValue": "fondamental"
+                    },
+                    {
+                      "stringValue": "recuperation"
+                    },
+                    {
+                      "stringValue": "fondamental"
+                    },
+                    {
+                      "stringValue": "developpement"
+                    },
+                    {
+                      "stringValue": "recuperation"
+                    },
+                    {
+                      "stringValue": "developpement"
+                    },
+                    {
+                      "stringValue": "developpement"
+                    },
+                    {
+                      "stringValue": "recuperation"
+                    },
+                    {
+                      "stringValue": "developpement"
+                    },
+                    {
+                      "stringValue": "developpement"
+                    }
+                  ]
+                }
+              },
+              "weeklyVolumes": {
+                "arrayValue": {
+                  "values": [
+                    {
+                      "integerValue": "13"
+                    },
+                    {
+                      "integerValue": "14"
+                    },
+                    {
+                      "integerValue": "14"
+                    },
+                    {
+                      "integerValue": "11"
+                    },
+                    {
+                      "integerValue": "13"
+                    },
+                    {
+                      "integerValue": "15"
+                    },
+                    {
+                      "integerValue": "13"
+                    },
+                    {
+                      "integerValue": "15"
+                    },
+                    {
+                      "integerValue": "16"
+                    },
+                    {
+                      "integerValue": "13"
+                    },
+                    {
+                      "integerValue": "15"
+                    },
+                    {
+                      "integerValue": "16"
+                    }
+                  ]
+                }
+              },
+              "totalWeeks": {
+                "integerValue": "12"
+              }
+            }
+          }
+        },
+        "vma": {
+          "doubleValue": 6.8
+        },
+        "generatedAt": {
+          "stringValue": "2026-05-15T07:07:39.250Z"
+        }
+      }
+    }
+  },
+  "id": {
+    "stringValue": "1778828906924"
+  },
+  "userId": {
+    "stringValue": "BSXosMZ7EOWjYPlsSJXiU185XZx2"
+  },
+  "calculatedVMA": {
+    "doubleValue": 6.8
+  },
+  "endDate": {
+    "stringValue": "2026-08-03"
+  },
+  "sessionsPerWeek": {
+    "integerValue": "3"
+  },
+  "fullPlanGenerated": {
+    "booleanValue": false
+  },
+  "welcomeMessage": {
+    "stringValue": "Bienvenue dans ton plan d'entraînement de 12 semaines pour le maintien en forme ! Ce programme est spécialement conçu pour les débutants, en mettant l'accent sur la progression douce et l'écoute de ton corps. Pour cette première semaine, l'objectif est de te familiariser avec le rythme de la marche/course et de poser les bases de ton endurance. La régularité sera ta meilleure alliée pour atteindre tes objectifs. Nous te recommandons de consulter un médecin avant de débuter ce programme, notamment pour obtenir un certificat médical d'aptitude au sport."
+  },
+  "name": {
+    "stringValue": "Programme Remise en Forme — 12 semaines"
+  }
+}

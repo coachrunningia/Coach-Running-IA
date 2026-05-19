@@ -1,0 +1,511 @@
+{
+  "name": "projects/coach-running-ia/databases/(default)/documents/plans/1772294481640",
+  "fields": {
+    "name": {
+      "stringValue": "Préparation Semi-Marathon - Objectif 2h18"
+    },
+    "sessionsPerWeek": {
+      "integerValue": "3"
+    },
+    "location": {
+      "stringValue": "Lyon"
+    },
+    "startDate": {
+      "stringValue": "2026-02-28"
+    },
+    "confidenceScore": {
+      "integerValue": "75"
+    },
+    "targetTime": {
+      "stringValue": "2h18"
+    },
+    "adaptationLog": {
+      "mapValue": {
+        "fields": {
+          "adaptationHistory": {
+            "arrayValue": {}
+          },
+          "adaptationsThisWeek": {
+            "integerValue": "0"
+          },
+          "weekNumber": {
+            "integerValue": "0"
+          }
+        }
+      }
+    },
+    "id": {
+      "stringValue": "1772294481640"
+    },
+    "suggestedLocations": {
+      "arrayValue": {
+        "values": [
+          {
+            "mapValue": {
+              "fields": {
+                "description": {
+                  "stringValue": "Idéal pour les séances d'endurance et les fractionnés courts."
+                },
+                "type": {
+                  "stringValue": "PARK"
+                },
+                "name": {
+                  "stringValue": "Parc de la Tête d'Or"
+                }
+              }
+            }
+          },
+          {
+            "mapValue": {
+              "fields": {
+                "type": {
+                  "stringValue": "NATURE"
+                },
+                "name": {
+                  "stringValue": "Berges du Rhône"
+                },
+                "description": {
+                  "stringValue": "Parfait pour les sorties longues et les séances de récupération."
+                }
+              }
+            }
+          },
+          {
+            "mapValue": {
+              "fields": {
+                "description": {
+                  "stringValue": "Adapté aux séances de VMA et de seuil."
+                },
+                "name": {
+                  "stringValue": "Stade de Parilly"
+                },
+                "type": {
+                  "stringValue": "TRACK"
+                }
+              }
+            }
+          }
+        ]
+      }
+    },
+    "fullPlanGenerated": {
+      "booleanValue": false
+    },
+    "paces": {
+      "mapValue": {
+        "fields": {
+          "seuilPace": {
+            "stringValue": "6:42"
+          },
+          "eaPace": {
+            "stringValue": "7:34"
+          },
+          "allureSpecifique10k": {
+            "stringValue": "6:28"
+          },
+          "allureSpecifiqueMarathon": {
+            "stringValue": "7:17"
+          },
+          "allureSpecifiqueSemi": {
+            "stringValue": "6:51"
+          },
+          "vmaPace": {
+            "stringValue": "5:49"
+          },
+          "efPace": {
+            "stringValue": "8:42"
+          },
+          "recoveryPace": {
+            "stringValue": "9:42"
+          },
+          "allureSpecifique5k": {
+            "stringValue": "6:08"
+          }
+        }
+      }
+    },
+    "generationContext": {
+      "mapValue": {
+        "fields": {
+          "modelUsed": {
+            "stringValue": "gemini-2.0-flash"
+          },
+          "paces": {
+            "mapValue": {
+              "fields": {
+                "vmaPace": {
+                  "stringValue": "5:49"
+                },
+                "allureSpecifique5k": {
+                  "stringValue": "6:08"
+                },
+                "recoveryPace": {
+                  "stringValue": "9:42"
+                },
+                "efPace": {
+                  "stringValue": "8:42"
+                },
+                "eaPace": {
+                  "stringValue": "7:34"
+                },
+                "seuilPace": {
+                  "stringValue": "6:42"
+                },
+                "allureSpecifiqueSemi": {
+                  "stringValue": "6:51"
+                },
+                "allureSpecifiqueMarathon": {
+                  "stringValue": "7:17"
+                },
+                "allureSpecifique10k": {
+                  "stringValue": "6:28"
+                }
+              }
+            }
+          },
+          "vmaSource": {
+            "stringValue": "Moyenne 5km en 30:34 et 10km en 1h05"
+          },
+          "questionnaireSnapshot": {
+            "mapValue": {
+              "fields": {
+                "subGoal": {
+                  "stringValue": "Semi-Marathon"
+                },
+                "preferredDays": {
+                  "arrayValue": {}
+                },
+                "raceDate": {
+                  "stringValue": "2026-03-29"
+                },
+                "startDate": {
+                  "stringValue": "2026-02-28"
+                },
+                "frequency": {
+                  "integerValue": "3"
+                },
+                "weight": {
+                  "integerValue": "61"
+                },
+                "targetTime": {
+                  "stringValue": "2h18"
+                },
+                "currentWeeklyVolume": {
+                  "integerValue": "35"
+                },
+                "height": {
+                  "integerValue": "160"
+                },
+                "email": {
+                  "stringValue": "lisa.gollot@icloud.com"
+                },
+                "goal": {
+                  "stringValue": "Course sur route"
+                },
+                "level": {
+                  "stringValue": "Intermédiaire (Régulier)"
+                },
+                "injuries": {
+                  "mapValue": {
+                    "fields": {
+                      "hasInjury": {
+                        "booleanValue": false
+                      }
+                    }
+                  }
+                },
+                "city": {
+                  "stringValue": "Lyon"
+                },
+                "sex": {
+                  "stringValue": "Homme"
+                },
+                "trailDetails": {
+                  "mapValue": {
+                    "fields": {
+                      "distance": {
+                        "integerValue": "20"
+                      },
+                      "elevation": {
+                        "integerValue": "500"
+                      }
+                    }
+                  }
+                },
+                "recentRaceTimes": {
+                  "mapValue": {
+                    "fields": {
+                      "distance5km": {
+                        "stringValue": "30:34"
+                      },
+                      "distance10km": {
+                        "stringValue": "1h05"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "generatedAt": {
+            "stringValue": "2026-02-28T16:01:13.862Z"
+          },
+          "periodizationPlan": {
+            "mapValue": {
+              "fields": {
+                "weeklyVolumes": {
+                  "arrayValue": {
+                    "values": [
+                      {
+                        "integerValue": "35"
+                      },
+                      {
+                        "integerValue": "38"
+                      },
+                      {
+                        "integerValue": "41"
+                      },
+                      {
+                        "integerValue": "44"
+                      }
+                    ]
+                  }
+                },
+                "recoveryWeeks": {
+                  "arrayValue": {}
+                },
+                "weeklyPhases": {
+                  "arrayValue": {
+                    "values": [
+                      {
+                        "stringValue": "fondamental"
+                      },
+                      {
+                        "stringValue": "fondamental"
+                      },
+                      {
+                        "stringValue": "developpement"
+                      },
+                      {
+                        "stringValue": "developpement"
+                      }
+                    ]
+                  }
+                },
+                "totalWeeks": {
+                  "integerValue": "4"
+                }
+              }
+            }
+          },
+          "vma": {
+            "doubleValue": 10.301266966594406
+          }
+        }
+      }
+    },
+    "goal": {
+      "stringValue": "Course sur route"
+    },
+    "welcomeMessage": {
+      "stringValue": "Bienvenue dans ce plan de 4 semaines conçu pour te préparer au semi-marathon. Cette première semaine sera axée sur la construction d'une base solide avec des séances d'endurance, de renforcement musculaire et un travail de seuil. Suivez bien les indications pour progresser en toute sécurité."
+    },
+    "userId": {
+      "stringValue": "8MefMr54AsZXLyAwQevevBNnsek2"
+    },
+    "createdAt": {
+      "stringValue": "2026-02-28T16:01:21.640Z"
+    },
+    "durationWeeks": {
+      "integerValue": "4"
+    },
+    "distance": {
+      "stringValue": "Semi-Marathon"
+    },
+    "isPreview": {
+      "booleanValue": true
+    },
+    "vma": {
+      "doubleValue": 10.301266966594406
+    },
+    "feasibility": {
+      "mapValue": {
+        "fields": {
+          "safetyWarning": {
+            "stringValue": "Adapte l'intensité en fonction de ton fatigue et des conditions météorologiques. N'oublie pas de t'hydrater correctement."
+          },
+          "message": {
+            "stringValue": "Avec une VMA de 10.3 km/h, un temps de 2h18 est atteignable en respectant les allures. Temps théorique basé sur la VMA : 2h15-2h20."
+          },
+          "status": {
+            "stringValue": "BON"
+          }
+        }
+      }
+    },
+    "userEmail": {
+      "stringValue": "lisa.gollot@icloud.com"
+    },
+    "calculatedVMA": {
+      "doubleValue": 10.301266966594406
+    },
+    "vmaSource": {
+      "stringValue": "Moyenne 5km en 30:34 et 10km en 1h05"
+    },
+    "weeks": {
+      "arrayValue": {
+        "values": [
+          {
+            "mapValue": {
+              "fields": {
+                "phase": {
+                  "stringValue": "fondamental"
+                },
+                "weekNumber": {
+                  "integerValue": "1"
+                },
+                "sessions": {
+                  "arrayValue": {
+                    "values": [
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "cooldown": {
+                              "stringValue": "10 minutes en Récupération à 9:42 min/km"
+                            },
+                            "duration": {
+                              "stringValue": "48 min"
+                            },
+                            "intensity": {
+                              "stringValue": "Facile"
+                            },
+                            "advice": {
+                              "stringValue": "Privilégie le confort et la régularité de l'allure. Concentre-toi sur ton respiration."
+                            },
+                            "warmup": {
+                              "stringValue": "15 minutes en Endurance Fondamentale à 8:42 min/km"
+                            },
+                            "id": {
+                              "stringValue": "w1-s1-1772294481641-zyfhuo3"
+                            },
+                            "day": {
+                              "stringValue": "Mardi"
+                            },
+                            "distance": {
+                              "stringValue": "7.9 km"
+                            },
+                            "title": {
+                              "stringValue": "Endurance Fondamentale"
+                            },
+                            "mainSet": {
+                              "stringValue": "30 minutes en Endurance Fondamentale à 8:42 min/km, puis 15 minutes en Endurance Fondamentale à 8:42 min/km"
+                            },
+                            "targetPace": {
+                              "stringValue": "8:42 min/km"
+                            },
+                            "type": {
+                              "stringValue": "Running"
+                            }
+                          }
+                        }
+                      },
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "cooldown": {
+                              "stringValue": "5 minutes d'étirements statiques"
+                            },
+                            "intensity": {
+                              "stringValue": "Modéré"
+                            },
+                            "duration": {
+                              "stringValue": "40 min"
+                            },
+                            "day": {
+                              "stringValue": "Jeudi"
+                            },
+                            "distance": {
+                              "stringValue": "0 km"
+                            },
+                            "id": {
+                              "stringValue": "w1-s2-1772294481641-vbrqssj"
+                            },
+                            "warmup": {
+                              "stringValue": "5 minutes de marche rapide et quelques étirements dynamiques"
+                            },
+                            "advice": {
+                              "stringValue": "Concentre-toi sur la qualité de l'exécution des mouvements. Augmente progressivement la difficulté."
+                            },
+                            "type": {
+                              "stringValue": "Renforcement"
+                            },
+                            "targetPace": {
+                              "stringValue": "0:00 min/km"
+                            },
+                            "mainSet": {
+                              "stringValue": "3 séries de 15 squats, 3 séries de 12 fentes avant par jambe, 3 séries de 30 secondes de gainage ventral, 3 séries de 15 montées sur pointes de pieds"
+                            },
+                            "title": {
+                              "stringValue": "Renforcement Musculaire Spécifique"
+                            }
+                          }
+                        }
+                      },
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "duration": {
+                              "stringValue": "1h23"
+                            },
+                            "intensity": {
+                              "stringValue": "Modéré"
+                            },
+                            "cooldown": {
+                              "stringValue": "10 minutes en Récupération à 9:42 min/km"
+                            },
+                            "title": {
+                              "stringValue": "Sortie Longue et Seuil"
+                            },
+                            "mainSet": {
+                              "stringValue": "40 minutes en Endurance Fondamentale à 8:42 min/km, puis 20 minutes au Seuil à 6:42 min/km, puis 25 minutes en Endurance Fondamentale à 8:42 min/km"
+                            },
+                            "targetPace": {
+                              "stringValue": "Variable"
+                            },
+                            "type": {
+                              "stringValue": "Running"
+                            },
+                            "advice": {
+                              "stringValue": "Gère bien ton effort pendant la portion au seuil. Écoute ton corps."
+                            },
+                            "warmup": {
+                              "stringValue": "20 minutes en Endurance Fondamentale à 8:42 min/km"
+                            },
+                            "id": {
+                              "stringValue": "w1-s3-1772294481641-dub1h0d"
+                            },
+                            "distance": {
+                              "stringValue": "11.1 km"
+                            },
+                            "day": {
+                              "stringValue": "Dimanche"
+                            }
+                          }
+                        }
+                      }
+                    ]
+                  }
+                },
+                "theme": {
+                  "stringValue": "Fondamental"
+                }
+              }
+            }
+          }
+        ]
+      }
+    }
+  },
+  "createTime": "2026-02-28T16:01:21.697497Z",
+  "updateTime": "2026-03-18T17:02:38.935545Z"
+}

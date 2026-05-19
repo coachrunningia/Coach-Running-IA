@@ -1,0 +1,547 @@
+{
+  "name": "projects/coach-running-ia/databases/(default)/documents/plans/1773943464315",
+  "fields": {
+    "sessionsPerWeek": {
+      "integerValue": "3"
+    },
+    "userId": {
+      "stringValue": "pvlVVNBK0ldzUlFrmCXRJOk4seH3"
+    },
+    "userEmail": {
+      "stringValue": "helenedehanne@gmail.com"
+    },
+    "generationContext": {
+      "mapValue": {
+        "fields": {
+          "questionnaireSnapshot": {
+            "mapValue": {
+              "fields": {
+                "subGoal": {
+                  "stringValue": "Semi-Marathon"
+                },
+                "raceDate": {
+                  "stringValue": "2026-05-01"
+                },
+                "trailDetails": {
+                  "mapValue": {
+                    "fields": {
+                      "distance": {
+                        "integerValue": "20"
+                      },
+                      "elevation": {
+                        "integerValue": "500"
+                      }
+                    }
+                  }
+                },
+                "sex": {
+                  "stringValue": "Homme"
+                },
+                "currentWeeklyVolume": {
+                  "integerValue": "40"
+                },
+                "city": {
+                  "stringValue": "Maroilles"
+                },
+                "level": {
+                  "stringValue": "Expert (Performance)"
+                },
+                "startDate": {
+                  "stringValue": "2026-03-19"
+                },
+                "frequency": {
+                  "integerValue": "3"
+                },
+                "email": {
+                  "stringValue": "helenedehanne@gmail.com"
+                },
+                "recentRaceTimes": {
+                  "mapValue": {
+                    "fields": {
+                      "distance10km": {
+                        "stringValue": "55:50"
+                      }
+                    }
+                  }
+                },
+                "injuries": {
+                  "mapValue": {
+                    "fields": {
+                      "hasInjury": {
+                        "booleanValue": false
+                      }
+                    }
+                  }
+                },
+                "preferredDays": {
+                  "arrayValue": {}
+                },
+                "goal": {
+                  "stringValue": "Course sur route"
+                },
+                "targetTime": {
+                  "stringValue": "1h52"
+                }
+              }
+            }
+          },
+          "periodizationPlan": {
+            "mapValue": {
+              "fields": {
+                "weeklyVolumes": {
+                  "arrayValue": {
+                    "values": [
+                      {
+                        "integerValue": "40"
+                      },
+                      {
+                        "integerValue": "45"
+                      },
+                      {
+                        "integerValue": "50"
+                      },
+                      {
+                        "integerValue": "39"
+                      },
+                      {
+                        "integerValue": "51"
+                      },
+                      {
+                        "integerValue": "59"
+                      },
+                      {
+                        "integerValue": "35"
+                      }
+                    ]
+                  }
+                },
+                "totalWeeks": {
+                  "integerValue": "7"
+                },
+                "weeklyPhases": {
+                  "arrayValue": {
+                    "values": [
+                      {
+                        "stringValue": "fondamental"
+                      },
+                      {
+                        "stringValue": "fondamental"
+                      },
+                      {
+                        "stringValue": "developpement"
+                      },
+                      {
+                        "stringValue": "recuperation"
+                      },
+                      {
+                        "stringValue": "specifique"
+                      },
+                      {
+                        "stringValue": "specifique"
+                      },
+                      {
+                        "stringValue": "affutage"
+                      }
+                    ]
+                  }
+                },
+                "recoveryWeeks": {
+                  "arrayValue": {
+                    "values": [
+                      {
+                        "integerValue": "4"
+                      }
+                    ]
+                  }
+                }
+              }
+            }
+          },
+          "vma": {
+            "doubleValue": 11.940298507462687
+          },
+          "modelUsed": {
+            "stringValue": "gemini-2.5-flash"
+          },
+          "paces": {
+            "mapValue": {
+              "fields": {
+                "allureSpecifiqueMarathon": {
+                  "stringValue": "6:17"
+                },
+                "vmaPace": {
+                  "stringValue": "5:02"
+                },
+                "allureSpecifique5k": {
+                  "stringValue": "5:17"
+                },
+                "seuilPace": {
+                  "stringValue": "5:47"
+                },
+                "allureSpecifique10k": {
+                  "stringValue": "5:35"
+                },
+                "recoveryPace": {
+                  "stringValue": "8:23"
+                },
+                "efPace": {
+                  "stringValue": "7:30"
+                },
+                "eaPace": {
+                  "stringValue": "6:32"
+                },
+                "allureSpecifiqueSemi": {
+                  "stringValue": "5:55"
+                }
+              }
+            }
+          },
+          "vmaSource": {
+            "stringValue": "10km en 55:50"
+          },
+          "generatedAt": {
+            "stringValue": "2026-03-19T18:03:54.955Z"
+          }
+        }
+      }
+    },
+    "isPreview": {
+      "booleanValue": true
+    },
+    "adaptationLog": {
+      "mapValue": {
+        "fields": {
+          "adaptationsThisWeek": {
+            "integerValue": "0"
+          },
+          "weekNumber": {
+            "integerValue": "0"
+          },
+          "adaptationHistory": {
+            "arrayValue": {}
+          }
+        }
+      }
+    },
+    "paces": {
+      "mapValue": {
+        "fields": {
+          "vmaPace": {
+            "stringValue": "5:02"
+          },
+          "allureSpecifique5k": {
+            "stringValue": "5:17"
+          },
+          "allureSpecifiqueMarathon": {
+            "stringValue": "6:17"
+          },
+          "seuilPace": {
+            "stringValue": "5:47"
+          },
+          "allureSpecifique10k": {
+            "stringValue": "5:35"
+          },
+          "efPace": {
+            "stringValue": "7:30"
+          },
+          "recoveryPace": {
+            "stringValue": "8:23"
+          },
+          "allureSpecifiqueSemi": {
+            "stringValue": "5:55"
+          },
+          "eaPace": {
+            "stringValue": "6:32"
+          }
+        }
+      }
+    },
+    "goal": {
+      "stringValue": "Course sur route"
+    },
+    "id": {
+      "stringValue": "1773943464315"
+    },
+    "createdAt": {
+      "stringValue": "2026-03-19T18:04:24.315Z"
+    },
+    "weeks": {
+      "arrayValue": {
+        "values": [
+          {
+            "mapValue": {
+              "fields": {
+                "theme": {
+                  "stringValue": "Reprise des bases et installation du volume"
+                },
+                "sessions": {
+                  "arrayValue": {
+                    "values": [
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "type": {
+                              "stringValue": "Jogging"
+                            },
+                            "day": {
+                              "stringValue": "Mardi"
+                            },
+                            "targetPace": {
+                              "stringValue": "7:30 min/km"
+                            },
+                            "elevationGain": {
+                              "integerValue": "0"
+                            },
+                            "mainSet": {
+                              "stringValue": "35 min de course en endurance fondamentale à 7:30 min/km (70-75% FCM). L'objectif est de courir à une allure confortable où tu peux parler sans essoufflement."
+                            },
+                            "intensity": {
+                              "stringValue": "Facile"
+                            },
+                            "locationSuggestion": {
+                              "stringValue": "Bords de l'Helpe Mineure"
+                            },
+                            "id": {
+                              "stringValue": "w1-s1-1773943464315-wf57pw8"
+                            },
+                            "distance": {
+                              "stringValue": "6.7 km"
+                            },
+                            "cooldown": {
+                              "stringValue": "5 min de marche et étirements légers (à 8:23 min/km)"
+                            },
+                            "warmup": {
+                              "stringValue": "10 min de marche active puis 5 min de footing léger à 8:23 min/km"
+                            },
+                            "duration": {
+                              "stringValue": "50 min"
+                            },
+                            "advice": {
+                              "stringValue": "Maintiens une allure où tu peux parler sans essoufflement. N'hésite pas à ralentir si besoin. Écoute ton corps et ne force jamais en cas de douleur."
+                            },
+                            "title": {
+                              "stringValue": "Footing d'Endurance Fondamentale"
+                            }
+                          }
+                        }
+                      },
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "targetPace": {
+                              "stringValue": "N/A"
+                            },
+                            "day": {
+                              "stringValue": "Jeudi"
+                            },
+                            "type": {
+                              "stringValue": "Renforcement"
+                            },
+                            "intensity": {
+                              "stringValue": "Modéré"
+                            },
+                            "locationSuggestion": {
+                              "stringValue": "À la maison"
+                            },
+                            "mainSet": {
+                              "stringValue": "Circuit 4 tours : Squats poids de corps (3x18), Squat bulgare (3x12/jambe), Fentes avant (3x12/jambe), Gainage ventral (3x35-60s), Dead bug (3x12/côté), Extensions mollets debout (3x23). Repos 1 min entre tours."
+                            },
+                            "elevationGain": {
+                              "integerValue": "0"
+                            },
+                            "cooldown": {
+                              "stringValue": "5 min d'étirements : quadriceps, ischio-jambiers, mollets, hanches"
+                            },
+                            "distance": {
+                              "stringValue": "0 km"
+                            },
+                            "id": {
+                              "stringValue": "w1-s2-1773943464315-j94o8ea"
+                            },
+                            "duration": {
+                              "stringValue": "40-45 min"
+                            },
+                            "title": {
+                              "stringValue": "Renfo Focus A - Quadriceps & Gainage (S1)"
+                            },
+                            "advice": {
+                              "stringValue": "Concentre-toi sur la qualité du mouvement plutôt que sur la quantité. Engage bien tes abdominaux. Écoute ton corps et ne force jamais en cas de douleur."
+                            },
+                            "warmup": {
+                              "stringValue": "10 min de mobilité articulaire et échauffement dynamique"
+                            }
+                          }
+                        }
+                      },
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "mainSet": {
+                              "stringValue": "1h de course en endurance fondamentale à 7:30 min/km. Maintiens une allure confortable, sans accélérer. Cette sortie construit ta base aérobie."
+                            },
+                            "locationSuggestion": {
+                              "stringValue": "Chemins de campagne autour de Maroilles"
+                            },
+                            "intensity": {
+                              "stringValue": "Facile"
+                            },
+                            "elevationGain": {
+                              "integerValue": "0"
+                            },
+                            "targetPace": {
+                              "stringValue": "5:47 min/km (Seuil)"
+                            },
+                            "type": {
+                              "stringValue": "Sortie Longue"
+                            },
+                            "day": {
+                              "stringValue": "Dimanche"
+                            },
+                            "title": {
+                              "stringValue": "Sortie Longue en Endurance Fondamentale"
+                            },
+                            "advice": {
+                              "stringValue": "L'objectif est de tenir la durée, pas d'aller vite. Hydrate-toi régulièrement. Si tu sens de la fatigue, ralentis plutôt que de t'arrêter. Écoute ton corps."
+                            },
+                            "duration": {
+                              "stringValue": "1h 30 min"
+                            },
+                            "warmup": {
+                              "stringValue": "15 min de footing léger à 8:23 min/km + gammes éducatives"
+                            },
+                            "id": {
+                              "stringValue": "w1-s3-1773943464315-npkdohv"
+                            },
+                            "cooldown": {
+                              "stringValue": "15 min de retour au calme à 8:23 min/km + étirements complets"
+                            },
+                            "distance": {
+                              "stringValue": "12.0 km"
+                            }
+                          }
+                        }
+                      }
+                    ]
+                  }
+                },
+                "weekNumber": {
+                  "integerValue": "1"
+                },
+                "weekGoal": {
+                  "stringValue": "Reprise des bases et installation du volume"
+                },
+                "phase": {
+                  "stringValue": "fondamental"
+                }
+              }
+            }
+          }
+        ]
+      }
+    },
+    "name": {
+      "stringValue": "Préparation Semi-Marathon en 1h52 — 7 sem."
+    },
+    "startDate": {
+      "stringValue": "2026-03-19"
+    },
+    "welcomeMessage": {
+      "stringValue": "Bienvenue dans ce programme d'entraînement de 7 semaines, conçu pour te mener à ton objectif de Semi-Marathon. Cette première semaine est dédiée à la phase fondamentale, visant à renforcer ton endurance de base et à préparer ton corps aux efforts futurs. Tu alterneras deux séances de course à pied et une séance de renforcement musculaire pour une progression équilibrée. Nous te recommandons de consulter un médecin avant de débuter ce programme, notamment pour obtenir un certificat médical d'aptitude au sport."
+    },
+    "location": {
+      "stringValue": "Maroilles"
+    },
+    "confidenceScore": {
+      "integerValue": "5"
+    },
+    "feasibility": {
+      "mapValue": {
+        "fields": {
+          "safetyWarning": {
+            "stringValue": "Hydrate-toi bien, échauffe-toi avant chaque séance et accorde-toi un vrai temps de récupération."
+          },
+          "message": {
+            "stringValue": "Ton objectif de 1h52min sur Semi-Marathon est très ambitieux compte tenu de ta VMA actuelle de 11.9 km/h. Pour atteindre 1h52, il faudrait une VMA d'environ 13.3 km/h, ce qui représente une amélioration de 111% par rapport à ton niveau actuel, un gain rarement atteignable en seulement 7 semaines. Ton temps théorique actuel sur Semi-Marathon est plutôt de 2h05min, et un objectif réaliste avec un entraînement rigoureux pourrait se situer autour de 2h11min. Nous devrons ajuster les allures en fonction de cette réalité pour un plan durable et efficace."
+          },
+          "status": {
+            "stringValue": "IRRÉALISTE"
+          }
+        }
+      }
+    },
+    "durationWeeks": {
+      "integerValue": "7"
+    },
+    "calculatedVMA": {
+      "doubleValue": 11.940298507462687
+    },
+    "suggestedLocations": {
+      "arrayValue": {
+        "values": [
+          {
+            "mapValue": {
+              "fields": {
+                "type": {
+                  "stringValue": "NATURE"
+                },
+                "name": {
+                  "stringValue": "Chemins de campagne autour de Maroilles"
+                },
+                "description": {
+                  "stringValue": "Idéal pour les sorties longues et les séances au seuil, avec des portions légèrement vallonnées et un environnement calme."
+                }
+              }
+            }
+          },
+          {
+            "mapValue": {
+              "fields": {
+                "description": {
+                  "stringValue": "Parfait pour les footings de récupération et les allures stables sur terrain plat, le long de la rivière."
+                },
+                "name": {
+                  "stringValue": "Bords de l'Helpe Mineure"
+                },
+                "type": {
+                  "stringValue": "NATURE"
+                }
+              }
+            }
+          },
+          {
+            "mapValue": {
+              "fields": {
+                "type": {
+                  "stringValue": "TRACK"
+                },
+                "name": {
+                  "stringValue": "Stade André Darrigol, Aulnoye-Aymeries"
+                },
+                "description": {
+                  "stringValue": "Indispensable pour les séances de VMA et de vitesse, offrant une surface plane et des distances balisées (environ 20-25 km de Maroilles)."
+                }
+              }
+            }
+          }
+        ]
+      }
+    },
+    "vmaSource": {
+      "stringValue": "10km en 55:50"
+    },
+    "vma": {
+      "doubleValue": 11.940298507462687
+    },
+    "targetTime": {
+      "stringValue": "1h52"
+    },
+    "fullPlanGenerated": {
+      "booleanValue": false
+    },
+    "distance": {
+      "stringValue": "Semi-Marathon"
+    }
+  },
+  "createTime": "2026-03-19T18:04:31.513833Z",
+  "updateTime": "2026-03-20T02:52:22.361799Z"
+}

@@ -1,0 +1,60 @@
+--- /Users/romanemarino/Coach-Running-IA/tests-v1/prompts-AVANT/profil-10-DEBUTANT_LOWVMA_5K-preview.txt	2026-05-17 20:59:44
++++ /Users/romanemarino/Coach-Running-IA/tests-v1/prompts-APRES/profil-10-DEBUTANT_LOWVMA_5K-preview.txt	2026-05-17 21:02:10
+@@ -8,15 +8,13 @@
+ - Objectif : Course sur route (5 km)
+ - Temps visé : Finisher
+ - Date de course : 2026-07-12
+-- Fréquence : 3 séances/semaine
+ - Jours : Séances UNIQUEMENT sur : Mardi, Jeudi, Samedi
+-- Jour sortie longue : Samedi
+ - Localisation : Rennes
+ 
+ 📝 PRÉCISIONS DU COUREUR : "Première course 5km"
+ 
+ 
+-🚶‍♂️🏃 IMPORTANT - NIVEAU DÉBUTANT DÉTECTÉ :
++🚶 IMPORTANT - NIVEAU DÉBUTANT DÉTECTÉ :
+ - Type de séance : "Marche/Course" (OBLIGATOIRE pour au moins 2 séances sur 3)
+ - Format semaine 1 : 8-10 x (1 min course légère + 2 min marche active)
+ - Pas de VMA, pas de fractionné intense
+@@ -51,8 +49,6 @@
+ - Récupération : 9:05 min/km
+ 
+ 
+-⚠️ UTILISE CES ALLURES EXACTES dans chaque séance !
+-
+ ═══════════════════════════════════════════════════════════════
+               PLAN DE PÉRIODISATION PRÉ-CALCULÉ
+ ═══════════════════════════════════════════════════════════════
+@@ -117,7 +113,6 @@
+ 4. Évaluation de faisabilité HONNÊTE avec chiffres
+ 5. OBLIGATOIRE : 1 séance de type "Renforcement" par semaine (comptée dans les 3 séances)
+    - Répartition : 3 séances = 2 running + 1 renfo
+-   - Durée : 30-45 min
+    - Type dans le JSON : "Renforcement"
+    - NE PAS mettre de séance "Repos" dans le plan
+    - NE PAS générer le contenu du mainSet renfo — le code le fera
+@@ -159,7 +154,7 @@
+                     FORMAT JSON
+ ═══════════════════════════════════════════════════════════════
+ {
+-  "name": "Nom du plan incluant objectif",
++  "name": "Préparation 5 km — Finisher — 8 sem.",
+   "goal": "Course sur route",
+   "startDate": "2026-05-17",
+   "durationWeeks": 8,
+@@ -171,12 +166,8 @@
+     { "name": "Nom réel du lieu", "type": "PARK|TRACK|NATURE|HILL", "description": "Pour quel type de séance" }
+   ],
+   "welcomeMessage": "Message personnalisé orienté OBJECTIF et STRUCTURE du plan (NE PAS mentionner VMA ni allures)",
+-  "confidenceScore": 75,
+-  "feasibility": {
+-    "status": "BON",
+-    "message": "Analyse avec chiffres VMA/temps théorique",
+-    "safetyWarning": "Conseil sécurité"
+-  },
++  "confidenceScore": 0,
++  "feasibility": { "status": "rempli code", "message": "rempli code", "safetyWarning": "rempli code" },
+   "weeks": [
+     {
+       "weekNumber": 1,

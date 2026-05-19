@@ -1,0 +1,643 @@
+{
+  "name": "projects/coach-running-ia/databases/(default)/documents/plans/1774080004450",
+  "fields": {
+    "vma": {
+      "doubleValue": 8.414755732801597
+    },
+    "createdAt": {
+      "stringValue": "2026-03-21T08:00:04.450Z"
+    },
+    "userEmail": {
+      "stringValue": "lolivia01@hotmail.com"
+    },
+    "feasibility": {
+      "mapValue": {
+        "fields": {
+          "status": {
+            "stringValue": "IRRÉALISTE"
+          },
+          "message": {
+            "stringValue": "Ton objectif de 2h30min sur Semi-Marathon est très ambitieux par rapport à ta VMA actuelle de 8.4 km/h. Pour atteindre 2h30, il faudrait une VMA d'environ 9.9 km/h, soit une amélioration de 18% par rapport à ton niveau actuel, ce qui est très difficile à réaliser. Ton temps théorique sur Semi-Marathon, basé sur ta VMA, se situerait plutôt autour de 2h57min. Un objectif plus réaliste et atteignable pour ce plan serait de viser un temps aux alentours de 3h06min, ce qui laisserait une marge de progression plus saine."
+          },
+          "safetyWarning": {
+            "stringValue": "Hydrate-toi bien, échauffe-toi avant chaque séance et accorde-toi un vrai temps de récupération."
+          }
+        }
+      }
+    },
+    "location": {
+      "stringValue": "Rome"
+    },
+    "paces": {
+      "mapValue": {
+        "fields": {
+          "allureSpecifiqueMarathon": {
+            "stringValue": "8:55"
+          },
+          "eaPace": {
+            "stringValue": "9:16"
+          },
+          "allureSpecifique10k": {
+            "stringValue": "7:55"
+          },
+          "efPace": {
+            "stringValue": "10:39"
+          },
+          "allureSpecifique5k": {
+            "stringValue": "7:30"
+          },
+          "seuilPace": {
+            "stringValue": "8:12"
+          },
+          "allureSpecifiqueSemi": {
+            "stringValue": "8:23"
+          },
+          "vmaPace": {
+            "stringValue": "7:08"
+          },
+          "recoveryPace": {
+            "stringValue": "11:53"
+          }
+        }
+      }
+    },
+    "startDate": {
+      "stringValue": "2026-03-21"
+    },
+    "distance": {
+      "stringValue": "Semi-Marathon"
+    },
+    "goal": {
+      "stringValue": "Course sur route"
+    },
+    "isPreview": {
+      "booleanValue": true
+    },
+    "calculatedVMA": {
+      "doubleValue": 8.414755732801597
+    },
+    "sessionsPerWeek": {
+      "integerValue": "3"
+    },
+    "suggestedLocations": {
+      "arrayValue": {
+        "values": [
+          {
+            "mapValue": {
+              "fields": {
+                "name": {
+                  "stringValue": "Villa Borghese"
+                },
+                "description": {
+                  "stringValue": "Idéal pour les footings en endurance fondamentale, avec des chemins plats et quelques montées douces."
+                },
+                "type": {
+                  "stringValue": "PARK"
+                }
+              }
+            }
+          },
+          {
+            "mapValue": {
+              "fields": {
+                "description": {
+                  "stringValue": "Parfait pour les sorties longues et les footings, offrant des sentiers variés et un cadre naturel."
+                },
+                "name": {
+                  "stringValue": "Parco della Caffarella"
+                },
+                "type": {
+                  "stringValue": "NATURE"
+                }
+              }
+            }
+          },
+          {
+            "mapValue": {
+              "fields": {
+                "description": {
+                  "stringValue": "Excellent pour les sorties longues et les allures spécifiques, avec de longues lignes droites planes."
+                },
+                "name": {
+                  "stringValue": "Parco degli Acquedotti"
+                },
+                "type": {
+                  "stringValue": "PARK"
+                }
+              }
+            }
+          }
+        ]
+      }
+    },
+    "adaptationLog": {
+      "mapValue": {
+        "fields": {
+          "adaptationsThisWeek": {
+            "integerValue": "0"
+          },
+          "weekNumber": {
+            "integerValue": "0"
+          },
+          "adaptationHistory": {
+            "arrayValue": {}
+          }
+        }
+      }
+    },
+    "vmaSource": {
+      "stringValue": "Semi en 2h57"
+    },
+    "confidenceScore": {
+      "integerValue": "5"
+    },
+    "userId": {
+      "stringValue": "jQEDPOJgyuVutOjhwhQsAhci1Df1"
+    },
+    "generationContext": {
+      "mapValue": {
+        "fields": {
+          "paces": {
+            "mapValue": {
+              "fields": {
+                "allureSpecifiqueSemi": {
+                  "stringValue": "8:23"
+                },
+                "recoveryPace": {
+                  "stringValue": "11:53"
+                },
+                "vmaPace": {
+                  "stringValue": "7:08"
+                },
+                "eaPace": {
+                  "stringValue": "9:16"
+                },
+                "allureSpecifiqueMarathon": {
+                  "stringValue": "8:55"
+                },
+                "allureSpecifique10k": {
+                  "stringValue": "7:55"
+                },
+                "allureSpecifique5k": {
+                  "stringValue": "7:30"
+                },
+                "efPace": {
+                  "stringValue": "10:39"
+                },
+                "seuilPace": {
+                  "stringValue": "8:12"
+                }
+              }
+            }
+          },
+          "vmaSource": {
+            "stringValue": "Semi en 2h57"
+          },
+          "questionnaireSnapshot": {
+            "mapValue": {
+              "fields": {
+                "weight": {
+                  "integerValue": "69"
+                },
+                "preferredDays": {
+                  "arrayValue": {}
+                },
+                "height": {
+                  "integerValue": "162"
+                },
+                "goal": {
+                  "stringValue": "Course sur route"
+                },
+                "sex": {
+                  "stringValue": "Femme"
+                },
+                "age": {
+                  "integerValue": "49"
+                },
+                "subGoal": {
+                  "stringValue": "Semi-Marathon"
+                },
+                "injuries": {
+                  "mapValue": {
+                    "fields": {
+                      "hasInjury": {
+                        "booleanValue": false
+                      }
+                    }
+                  }
+                },
+                "targetTime": {
+                  "stringValue": "2h30"
+                },
+                "raceDate": {
+                  "stringValue": "2026-10-18"
+                },
+                "level": {
+                  "stringValue": "Intermédiaire (Régulier)"
+                },
+                "trailDetails": {
+                  "mapValue": {
+                    "fields": {
+                      "distance": {
+                        "integerValue": "20"
+                      },
+                      "elevation": {
+                        "integerValue": "500"
+                      }
+                    }
+                  }
+                },
+                "city": {
+                  "stringValue": "Rome"
+                },
+                "email": {
+                  "stringValue": "lolivia01@hotmail.com"
+                },
+                "vma": {
+                  "doubleValue": 8.414755732801597
+                },
+                "frequency": {
+                  "integerValue": "3"
+                },
+                "startDate": {
+                  "stringValue": "2026-03-21"
+                },
+                "recentRaceTimes": {
+                  "mapValue": {
+                    "fields": {
+                      "distanceHalfMarathon": {
+                        "stringValue": "2h57"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "vma": {
+            "doubleValue": 8.414755732801597
+          },
+          "generatedAt": {
+            "stringValue": "2026-03-21T07:59:50.252Z"
+          },
+          "modelUsed": {
+            "stringValue": "gemini-2.5-flash"
+          },
+          "periodizationPlan": {
+            "mapValue": {
+              "fields": {
+                "recoveryWeeks": {
+                  "arrayValue": {
+                    "values": [
+                      {
+                        "integerValue": "4"
+                      },
+                      {
+                        "integerValue": "8"
+                      },
+                      {
+                        "integerValue": "12"
+                      },
+                      {
+                        "integerValue": "16"
+                      }
+                    ]
+                  }
+                },
+                "weeklyPhases": {
+                  "arrayValue": {
+                    "values": [
+                      {
+                        "stringValue": "fondamental"
+                      },
+                      {
+                        "stringValue": "fondamental"
+                      },
+                      {
+                        "stringValue": "fondamental"
+                      },
+                      {
+                        "stringValue": "recuperation"
+                      },
+                      {
+                        "stringValue": "fondamental"
+                      },
+                      {
+                        "stringValue": "fondamental"
+                      },
+                      {
+                        "stringValue": "developpement"
+                      },
+                      {
+                        "stringValue": "recuperation"
+                      },
+                      {
+                        "stringValue": "developpement"
+                      },
+                      {
+                        "stringValue": "developpement"
+                      },
+                      {
+                        "stringValue": "developpement"
+                      },
+                      {
+                        "stringValue": "recuperation"
+                      },
+                      {
+                        "stringValue": "developpement"
+                      },
+                      {
+                        "stringValue": "specifique"
+                      },
+                      {
+                        "stringValue": "specifique"
+                      },
+                      {
+                        "stringValue": "recuperation"
+                      },
+                      {
+                        "stringValue": "specifique"
+                      },
+                      {
+                        "stringValue": "specifique"
+                      },
+                      {
+                        "stringValue": "affutage"
+                      },
+                      {
+                        "stringValue": "affutage"
+                      }
+                    ]
+                  }
+                },
+                "totalWeeks": {
+                  "integerValue": "20"
+                },
+                "weeklyVolumes": {
+                  "arrayValue": {
+                    "values": [
+                      {
+                        "integerValue": "20"
+                      },
+                      {
+                        "integerValue": "22"
+                      },
+                      {
+                        "integerValue": "24"
+                      },
+                      {
+                        "integerValue": "18"
+                      },
+                      {
+                        "integerValue": "23"
+                      },
+                      {
+                        "integerValue": "26"
+                      },
+                      {
+                        "integerValue": "30"
+                      },
+                      {
+                        "integerValue": "22"
+                      },
+                      {
+                        "integerValue": "29"
+                      },
+                      {
+                        "integerValue": "33"
+                      },
+                      {
+                        "integerValue": "37"
+                      },
+                      {
+                        "integerValue": "28"
+                      },
+                      {
+                        "integerValue": "36"
+                      },
+                      {
+                        "integerValue": "41"
+                      },
+                      {
+                        "integerValue": "47"
+                      },
+                      {
+                        "integerValue": "36"
+                      },
+                      {
+                        "integerValue": "47"
+                      },
+                      {
+                        "integerValue": "54"
+                      },
+                      {
+                        "integerValue": "34"
+                      },
+                      {
+                        "integerValue": "28"
+                      }
+                    ]
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "id": {
+      "stringValue": "1774080004450"
+    },
+    "durationWeeks": {
+      "integerValue": "20"
+    },
+    "weeks": {
+      "arrayValue": {
+        "values": [
+          {
+            "mapValue": {
+              "fields": {
+                "theme": {
+                  "stringValue": "Reprise en douceur et renforcement des bases"
+                },
+                "weekNumber": {
+                  "integerValue": "1"
+                },
+                "weekGoal": {
+                  "stringValue": "Reprise en douceur et renforcement des bases"
+                },
+                "sessions": {
+                  "arrayValue": {
+                    "values": [
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "title": {
+                              "stringValue": "Footing de reprise en endurance fondamentale"
+                            },
+                            "distance": {
+                              "stringValue": "3.8 km"
+                            },
+                            "id": {
+                              "stringValue": "w1-s1-1774080004451-admwal4"
+                            },
+                            "elevationGain": {
+                              "integerValue": "0"
+                            },
+                            "cooldown": {
+                              "stringValue": "10 min de marche et étirements doux (à 11:53 min/km)"
+                            },
+                            "intensity": {
+                              "stringValue": "Facile"
+                            },
+                            "warmup": {
+                              "stringValue": "10 min de marche active, puis 5 min de footing très léger à 11:53 min/km"
+                            },
+                            "targetPace": {
+                              "stringValue": "10:39 min/km"
+                            },
+                            "type": {
+                              "stringValue": "Running"
+                            },
+                            "mainSet": {
+                              "stringValue": "25 min de course en endurance fondamentale à 10:39 min/km (environ 2.3 km)"
+                            },
+                            "duration": {
+                              "stringValue": "40 min"
+                            },
+                            "locationSuggestion": {
+                              "stringValue": "Villa Borghese"
+                            },
+                            "day": {
+                              "stringValue": "Mardi"
+                            },
+                            "advice": {
+                              "stringValue": "Concentre-toi sur des sensations d'aisance respiratoire. Tu devrais pouvoir tenir une conversation sans difficulté. Si une douleur apparaît, ralentis ou marche."
+                            }
+                          }
+                        }
+                      },
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "advice": {
+                              "stringValue": "Le renforcement est la clé pour prévenir les blessures. Exécute chaque mouvement avec une bonne technique, quitte à réduire le nombre de répétitions. N'hésite pas à adapter la difficulté à ton niveau."
+                            },
+                            "duration": {
+                              "stringValue": "35-40 min"
+                            },
+                            "mainSet": {
+                              "stringValue": "Circuit 3 tours : Squats poids de corps (3x14), Squat bulgare (3x9/jambe), Fentes avant (3x9/jambe), Gainage ventral (3x27-60s), Dead bug (3x9/côté), Extensions mollets debout (3x18). Repos 1 min 30 entre tours."
+                            },
+                            "locationSuggestion": {
+                              "stringValue": "À la maison"
+                            },
+                            "day": {
+                              "stringValue": "Jeudi"
+                            },
+                            "elevationGain": {
+                              "integerValue": "0"
+                            },
+                            "intensity": {
+                              "stringValue": "Modéré"
+                            },
+                            "cooldown": {
+                              "stringValue": "5 min d'étirements : quadriceps, ischio-jambiers, mollets, hanches"
+                            },
+                            "targetPace": {
+                              "stringValue": "N/A"
+                            },
+                            "warmup": {
+                              "stringValue": "10 min de mobilité articulaire et échauffement dynamique"
+                            },
+                            "type": {
+                              "stringValue": "Renforcement"
+                            },
+                            "title": {
+                              "stringValue": "Renfo Focus A - Quadriceps & Gainage (S1)"
+                            },
+                            "distance": {
+                              "stringValue": "0 km"
+                            },
+                            "id": {
+                              "stringValue": "w1-s2-1774080004451-c2scl2e"
+                            }
+                          }
+                        }
+                      },
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "title": {
+                              "stringValue": "Sortie longue en endurance fondamentale"
+                            },
+                            "distance": {
+                              "stringValue": "6.6 km"
+                            },
+                            "id": {
+                              "stringValue": "w1-s3-1774080004451-ru11923"
+                            },
+                            "elevationGain": {
+                              "integerValue": "50"
+                            },
+                            "intensity": {
+                              "stringValue": "Facile"
+                            },
+                            "cooldown": {
+                              "stringValue": "10 min de marche et étirements doux (à 11:53 min/km)"
+                            },
+                            "warmup": {
+                              "stringValue": "10 min de marche active, puis 5 min de footing très léger à 11:53 min/km"
+                            },
+                            "targetPace": {
+                              "stringValue": "10:39 min/km"
+                            },
+                            "type": {
+                              "stringValue": "Sortie Longue"
+                            },
+                            "duration": {
+                              "stringValue": "1h 10 min"
+                            },
+                            "mainSet": {
+                              "stringValue": "55 min de course en endurance fondamentale à 10:39 min/km (environ 5.2 km)"
+                            },
+                            "locationSuggestion": {
+                              "stringValue": "Parco della Caffarella"
+                            },
+                            "day": {
+                              "stringValue": "Dimanche"
+                            },
+                            "advice": {
+                              "stringValue": "Cette sortie longue est un pilier de ton endurance. Ne cherche pas la vitesse, mais la durée et le confort. Hydrate-toi régulièrement pendant l'effort et n'oublie pas d'emporter de quoi te ravitailler si besoin. Écoute ton corps et ajuste l'allure si tu te sens fatigué(e)."
+                            }
+                          }
+                        }
+                      }
+                    ]
+                  }
+                },
+                "phase": {
+                  "stringValue": "fondamental"
+                }
+              }
+            }
+          }
+        ]
+      }
+    },
+    "fullPlanGenerated": {
+      "booleanValue": false
+    },
+    "welcomeMessage": {
+      "stringValue": "Bienvenue dans ton plan d'entraînement pour le Semi-Marathon ! Ce programme de 20 semaines est structuré pour développer progressivement ton endurance et ta force. Les premières semaines seront axées sur l'endurance fondamentale et le renforcement musculaire, des piliers essentiels pour la suite. Nous te recommandons de consulter un médecin avant de débuter ce programme, notamment pour obtenir un certificat médical d'aptitude au sport."
+    },
+    "name": {
+      "stringValue": "Préparation Semi-Marathon en 2h30 — 20 sem."
+    },
+    "targetTime": {
+      "stringValue": "2h30"
+    }
+  },
+  "createTime": "2026-03-21T08:00:19.865361Z",
+  "updateTime": "2026-03-21T11:13:57.816383Z"
+}

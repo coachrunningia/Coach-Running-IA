@@ -1,0 +1,830 @@
+{
+  "durationWeeks": {
+    "integerValue": "21"
+  },
+  "confidenceScore": {
+    "integerValue": "40"
+  },
+  "feasibility": {
+    "mapValue": {
+      "fields": {
+        "status": {
+          "stringValue": "RISQUÉ"
+        },
+        "message": {
+          "stringValue": "Ce trail de 105km / 4000m D+ présente des risques sérieux dans ta configuration actuelle. Le D+ de la course (4000m) est 4.0x ton D+ hebdomadaire actuel (1000m/sem) — risque musculaire très élevé en descente, impossible de construire la résistance excentrique nécessaire en 21 semaines. Tu n'as pas indiqué ton volume actuel — on part de l'estimation 40 km/sem (basée sur ton niveau Expert et fréquence 5sé/sem) : c'est bas pour un ultra de 105 km (50 km/sem+ recommandés). Si tu cours réellement plus, régénère ton plan en saisissant ton volume pour des recommandations adaptées. AVANT de démarrer la S1, vérifie que ta fréquence cardiaque de repos, ton sommeil et ta perception de fatigue sont revenus à la normale post-62km. Si non, repousse le début du plan de 7 à 14 jours. Blessure déclarée : adapte les séances et consulte un professionnel de santé. Point positif : 21 semaines de préparation avec un bon volume : conditions favorables. Écoute ton corps, sois très progressif, et n'hésite pas à adapter le plan si nécessaire."
+        },
+        "safetyWarning": {
+          "stringValue": "Fais valider la reprise avec ton kiné/médecin avant de démarrer ce plan. Adapte les séances si nécessaire."
+        },
+        "recommendation": {
+          "stringValue": "un objectif adapté à ton profil actuel"
+        }
+      }
+    }
+  },
+  "welcomeMessage": {
+    "stringValue": "Bienvenue dans ton plan d'entraînement dédié à l'Ultra-Trail de 105km avec 4000m de dénivelé positif ! Ce programme de 21 semaines est conçu spécifiquement pour t'aider à atteindre ton objectif de Finisher, en mettant l'accent sur le développement de ton endurance fondamentale, la gestion de l'effort sur le long terme, et une progression prudente suite à ton fracture de fatigue tibiale. Nous allons construire une base solide pour que tu puissie affronter les défis du trail en toute confiance. Nous te recommandons de consulter un médecin avant de débuter ce programme, notamment pour obtenir un certificat médical d'aptitude au sport."
+  },
+  "location": {
+    "stringValue": "Saint-vit"
+  },
+  "startDate": {
+    "stringValue": "2026-05-11"
+  },
+  "weeks": {
+    "arrayValue": {
+      "values": [
+        {
+          "mapValue": {
+            "fields": {
+              "phase": {
+                "stringValue": "récupération"
+              },
+              "weekGoal": {
+                "stringValue": "Réactivation en douceur et pose des bases d'endurance fondamentale"
+              },
+              "theme": {
+                "stringValue": "récupération post-course longue"
+              },
+              "sessions": {
+                "arrayValue": {
+                  "values": [
+                    {
+                      "mapValue": {
+                        "fields": {
+                          "targetPace": {
+                            "stringValue": "N/A"
+                          },
+                          "day": {
+                            "stringValue": "Lundi"
+                          },
+                          "type": {
+                            "stringValue": "Repos"
+                          },
+                          "mainSet": {
+                            "stringValue": "Repos total. Marche libre <30 min si envie, sans intention sportive."
+                          },
+                          "intensity": {
+                            "stringValue": "Repos"
+                          },
+                          "elevationGain": {
+                            "integerValue": "0"
+                          },
+                          "id": {
+                            "stringValue": "w1-s1-fix-1778689042236-mumax8p"
+                          },
+                          "distance": {
+                            "stringValue": "0 km"
+                          },
+                          "cooldown": {
+                            "stringValue": ""
+                          },
+                          "title": {
+                            "stringValue": "Repos complet"
+                          },
+                          "advice": {
+                            "stringValue": "Sommeil >8h. Hydratation + protéines (~1,6 g/kg) pour finaliser la réparation tissulaire post-ultra."
+                          },
+                          "duration": {
+                            "stringValue": "0 min"
+                          },
+                          "warmup": {
+                            "stringValue": ""
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "mapValue": {
+                        "fields": {
+                          "warmup": {
+                            "stringValue": "5 min marche puis 5 min en aisance progressive."
+                          },
+                          "advice": {
+                            "stringValue": "Si douleur tibiale >2/10 ou raideur asymétrique : on stoppe et on rallonge le repos. Surface souple obligatoire."
+                          },
+                          "title": {
+                            "stringValue": "Reprise EF prudente sur surface souple"
+                          },
+                          "duration": {
+                            "stringValue": "35 min"
+                          },
+                          "cooldown": {
+                            "stringValue": "5 min de marche + étirements doux mollets/quadriceps (sans forcer)."
+                          },
+                          "distance": {
+                            "stringValue": "5.5 km"
+                          },
+                          "id": {
+                            "stringValue": "w1-s2-fix-1778689042236-0peti1a"
+                          },
+                          "elevationGain": {
+                            "integerValue": "30"
+                          },
+                          "intensity": {
+                            "stringValue": "Facile"
+                          },
+                          "mainSet": {
+                            "stringValue": "35 min EF continu sur chemin plat ou piste cendrée (allure 6:45/km, 60-65% VMA). Aucune accélération, foulée relâchée."
+                          },
+                          "day": {
+                            "stringValue": "Mardi"
+                          },
+                          "type": {
+                            "stringValue": "Jogging"
+                          },
+                          "targetPace": {
+                            "stringValue": "6:45 min/km (EF)"
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "mapValue": {
+                        "fields": {
+                          "duration": {
+                            "stringValue": "30 min"
+                          },
+                          "title": {
+                            "stringValue": "Renfo iso bas du corps + gainage (S1)"
+                          },
+                          "advice": {
+                            "stringValue": "Isométrie = stimulation tendineuse et osseuse sécurisée. Sécurise le tibia sans pic de contrainte."
+                          },
+                          "warmup": {
+                            "stringValue": "8 min de mobilité articulaire (hanches, chevilles, dos) + activations fessiers."
+                          },
+                          "id": {
+                            "stringValue": "w1-s3-fix-1778689042236-9ww6noo"
+                          },
+                          "distance": {
+                            "stringValue": "0 km"
+                          },
+                          "cooldown": {
+                            "stringValue": "5 min étirements doux : mollets, ischio-jambiers, quadriceps, hanches."
+                          },
+                          "mainSet": {
+                            "stringValue": "Circuit 3 tours : Chaise au mur (3x45s), Pont fessier isométrique (3x40s), Gainage ventral (3x40s), Gainage latéral (2x30s/côté), Mollets soleus isométrique assis (3x45s). PAS de pliométrie, PAS d'excentrique profond, PAS de saut."
+                          },
+                          "intensity": {
+                            "stringValue": "Modéré"
+                          },
+                          "elevationGain": {
+                            "integerValue": "0"
+                          },
+                          "targetPace": {
+                            "stringValue": "N/A"
+                          },
+                          "type": {
+                            "stringValue": "Renforcement"
+                          },
+                          "day": {
+                            "stringValue": "Mercredi"
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "mapValue": {
+                        "fields": {
+                          "elevationGain": {
+                            "integerValue": "40"
+                          },
+                          "intensity": {
+                            "stringValue": "Facile"
+                          },
+                          "mainSet": {
+                            "stringValue": "40 min continu en EF (6:35/km, 62-67% VMA) sur terrain souple. Si frais en fin de séance, 4x20s d'accélérations de fréquence (cadence haute, pas de vitesse)."
+                          },
+                          "day": {
+                            "stringValue": "Jeudi"
+                          },
+                          "type": {
+                            "stringValue": "Jogging"
+                          },
+                          "targetPace": {
+                            "stringValue": "6:35 min/km (EF)"
+                          },
+                          "warmup": {
+                            "stringValue": "10 min marche + EF progressive."
+                          },
+                          "duration": {
+                            "stringValue": "40 min"
+                          },
+                          "advice": {
+                            "stringValue": "Surveille la cadence (≥170 ppm) pour limiter l'impact tibial."
+                          },
+                          "title": {
+                            "stringValue": "EF plat - sensations"
+                          },
+                          "distance": {
+                            "stringValue": "6.5 km"
+                          },
+                          "cooldown": {
+                            "stringValue": "5 min étirements + mobilité chevilles."
+                          },
+                          "id": {
+                            "stringValue": "w1-s4-fix-1778689042236-by1dm8c"
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "mapValue": {
+                        "fields": {
+                          "intensity": {
+                            "stringValue": "Repos"
+                          },
+                          "mainSet": {
+                            "stringValue": "Mobilité douce hanches/chevilles 10-15 min, auto-massages mollets/quadriceps."
+                          },
+                          "elevationGain": {
+                            "integerValue": "0"
+                          },
+                          "targetPace": {
+                            "stringValue": "N/A"
+                          },
+                          "day": {
+                            "stringValue": "Vendredi"
+                          },
+                          "type": {
+                            "stringValue": "Repos"
+                          },
+                          "advice": {
+                            "stringValue": "Pas de course aujourd'hui. La fenêtre osseuse a besoin de jours sans charge d'impact pour récupérer."
+                          },
+                          "duration": {
+                            "stringValue": "0 min"
+                          },
+                          "title": {
+                            "stringValue": "Repos"
+                          },
+                          "warmup": {
+                            "stringValue": ""
+                          },
+                          "cooldown": {
+                            "stringValue": ""
+                          },
+                          "distance": {
+                            "stringValue": "0 km"
+                          },
+                          "id": {
+                            "stringValue": "w1-s5-fix-1778689042236-raymzit"
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "mapValue": {
+                        "fields": {
+                          "elevationGain": {
+                            "integerValue": "180"
+                          },
+                          "intensity": {
+                            "stringValue": "Facile"
+                          },
+                          "mainSet": {
+                            "stringValue": "55 min EF sur sentier roulant (62-68% VMA, allure 6:30/km). Côtes ≤5% pente. Marche les descentes >5% si terrain l'impose. Pas de relance ni fractionné."
+                          },
+                          "type": {
+                            "stringValue": "Jogging"
+                          },
+                          "day": {
+                            "stringValue": "Samedi"
+                          },
+                          "targetPace": {
+                            "stringValue": "6:30 min/km (EF)"
+                          },
+                          "warmup": {
+                            "stringValue": "10 min marche + EF souple."
+                          },
+                          "advice": {
+                            "stringValue": "Descentes à pied lent = protocole anti-impact tibial, non négociable avec ton historique."
+                          },
+                          "duration": {
+                            "stringValue": "55 min"
+                          },
+                          "title": {
+                            "stringValue": "EF vallonné doux"
+                          },
+                          "distance": {
+                            "stringValue": "8.5 km"
+                          },
+                          "cooldown": {
+                            "stringValue": "5 min marche + étirements mollets/ischios."
+                          },
+                          "id": {
+                            "stringValue": "w1-s6-fix-1778689042236-ktqsbod"
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "mapValue": {
+                        "fields": {
+                          "duration": {
+                            "stringValue": "1h 30 min"
+                          },
+                          "title": {
+                            "stringValue": "SL courte de reprise"
+                          },
+                          "advice": {
+                            "stringValue": "Sortie d'entretien, PAS de qualité. Si fatigue résiduelle de l'ultra au km 8, coupe à 1h15. À 21 sem de l'objectif, on a le temps."
+                          },
+                          "warmup": {
+                            "stringValue": "10 min marche + EF très souple."
+                          },
+                          "id": {
+                            "stringValue": "w1-s7-fix-1778689042236-6o95a44"
+                          },
+                          "distance": {
+                            "stringValue": "13 km"
+                          },
+                          "cooldown": {
+                            "stringValue": "10 min marche + étirements doux globaux."
+                          },
+                          "mainSet": {
+                            "stringValue": "1h30 continu sur sentier souple, dénivelé modéré progressif (≤5% pente). Allure 6:50/km (60-65% VMA). Test ravitaillement comme en course (nutrition/hydratation)."
+                          },
+                          "intensity": {
+                            "stringValue": "Facile"
+                          },
+                          "elevationGain": {
+                            "integerValue": "250"
+                          },
+                          "targetPace": {
+                            "stringValue": "6:50 min/km (EF)"
+                          },
+                          "type": {
+                            "stringValue": "Sortie Longue"
+                          },
+                          "day": {
+                            "stringValue": "Dimanche"
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              },
+              "weekNumber": {
+                "integerValue": "1"
+              }
+            }
+          }
+        }
+      ]
+    }
+  },
+  "raceDate": {
+    "stringValue": "2026-10-03"
+  },
+  "name": {
+    "stringValue": "Préparation Trail 105km / 4000m D+ — Finisher — 21 sem."
+  },
+  "distance": {
+    "stringValue": "105km D+4000m"
+  },
+  "fullPlanGenerated": {
+    "booleanValue": false
+  },
+  "endDate": {
+    "stringValue": "2026-10-05"
+  },
+  "vma": {
+    "doubleValue": 14.492753623188404
+  },
+  "targetTime": {
+    "stringValue": "Finisher"
+  },
+  "vmaSource": {
+    "stringValue": "10km en 46min"
+  },
+  "calculatedVMA": {
+    "doubleValue": 14.492753623188404
+  },
+  "suggestedLocations": {
+    "arrayValue": {
+      "values": [
+        {
+          "mapValue": {
+            "fields": {
+              "name": {
+                "stringValue": "Forêt de Chaux"
+              },
+              "description": {
+                "stringValue": "Idéal pour les sorties longues et les footings vallonnés en nature, avec des sentiers variés et du dénivelé."
+              },
+              "type": {
+                "stringValue": "NATURE"
+              }
+            }
+          }
+        },
+        {
+          "mapValue": {
+            "fields": {
+              "type": {
+                "stringValue": "NATURE"
+              },
+              "name": {
+                "stringValue": "Berges de la Loue (Saint-Vit)"
+              },
+              "description": {
+                "stringValue": "Parfait pour les footings en aisance respiratoire et les séances plus plates, offrant un cadre agréable au bord de l'eau."
+              }
+            }
+          }
+        },
+        {
+          "mapValue": {
+            "fields": {
+              "description": {
+                "stringValue": "Offre des sentiers variés pour des footings techniques et de la proprioception, avec des terrains parfois inégaux."
+              },
+              "name": {
+                "stringValue": "Chemins de randonnée du Val de Loue"
+              },
+              "type": {
+                "stringValue": "NATURE"
+              }
+            }
+          }
+        }
+      ]
+    }
+  },
+  "userId": {
+    "stringValue": "WlQ8m3MegiVhw9Az1lmBh9lUzc73"
+  },
+  "sessionsPerWeek": {
+    "integerValue": "5"
+  },
+  "createdAt": {
+    "stringValue": "2026-05-13T10:51:43.908Z"
+  },
+  "id": {
+    "stringValue": "1778669503908"
+  },
+  "goal": {
+    "stringValue": "Trail"
+  },
+  "paces": {
+    "mapValue": {
+      "fields": {
+        "seuilPace": {
+          "stringValue": "4:46"
+        },
+        "allureSpecifiqueMarathon": {
+          "stringValue": "5:11"
+        },
+        "vmaPace": {
+          "stringValue": "4:08"
+        },
+        "allureSpecifique5k": {
+          "stringValue": "4:21"
+        },
+        "eaPace": {
+          "stringValue": "5:23"
+        },
+        "allureSpecifiqueSemi": {
+          "stringValue": "4:52"
+        },
+        "allureSpecifique10k": {
+          "stringValue": "4:36"
+        },
+        "recoveryPace": {
+          "stringValue": "6:54"
+        },
+        "efPace": {
+          "stringValue": "6:11"
+        }
+      }
+    }
+  },
+  "adaptationLog": {
+    "mapValue": {
+      "fields": {
+        "adaptationsThisWeek": {
+          "integerValue": "0"
+        },
+        "weekNumber": {
+          "integerValue": "0"
+        },
+        "adaptationHistory": {
+          "arrayValue": {}
+        }
+      }
+    }
+  },
+  "userEmail": {
+    "stringValue": "lamey.michel@gmail.com"
+  },
+  "isPreview": {
+    "booleanValue": true
+  },
+  "generationContext": {
+    "mapValue": {
+      "fields": {
+        "modelUsed": {
+          "stringValue": "gemini-2.5-flash"
+        },
+        "vma": {
+          "doubleValue": 14.492753623188404
+        },
+        "periodizationPlan": {
+          "mapValue": {
+            "fields": {
+              "weeklyVolumes": {
+                "arrayValue": {
+                  "values": [
+                    {
+                      "integerValue": "34"
+                    },
+                    {
+                      "integerValue": "37"
+                    },
+                    {
+                      "integerValue": "41"
+                    },
+                    {
+                      "integerValue": "32"
+                    },
+                    {
+                      "integerValue": "37"
+                    },
+                    {
+                      "integerValue": "43"
+                    },
+                    {
+                      "integerValue": "49"
+                    },
+                    {
+                      "integerValue": "42"
+                    },
+                    {
+                      "integerValue": "48"
+                    },
+                    {
+                      "integerValue": "55"
+                    },
+                    {
+                      "integerValue": "63"
+                    },
+                    {
+                      "integerValue": "58"
+                    },
+                    {
+                      "integerValue": "63"
+                    },
+                    {
+                      "integerValue": "72"
+                    },
+                    {
+                      "integerValue": "79"
+                    },
+                    {
+                      "integerValue": "63"
+                    },
+                    {
+                      "integerValue": "72"
+                    },
+                    {
+                      "integerValue": "75"
+                    },
+                    {
+                      "integerValue": "53"
+                    },
+                    {
+                      "integerValue": "46"
+                    },
+                    {
+                      "integerValue": "40"
+                    }
+                  ]
+                }
+              },
+              "weeklyPhases": {
+                "arrayValue": {
+                  "values": [
+                    {
+                      "stringValue": "fondamental"
+                    },
+                    {
+                      "stringValue": "fondamental"
+                    },
+                    {
+                      "stringValue": "fondamental"
+                    },
+                    {
+                      "stringValue": "recuperation"
+                    },
+                    {
+                      "stringValue": "fondamental"
+                    },
+                    {
+                      "stringValue": "fondamental"
+                    },
+                    {
+                      "stringValue": "developpement"
+                    },
+                    {
+                      "stringValue": "recuperation"
+                    },
+                    {
+                      "stringValue": "developpement"
+                    },
+                    {
+                      "stringValue": "developpement"
+                    },
+                    {
+                      "stringValue": "developpement"
+                    },
+                    {
+                      "stringValue": "recuperation"
+                    },
+                    {
+                      "stringValue": "developpement"
+                    },
+                    {
+                      "stringValue": "specifique"
+                    },
+                    {
+                      "stringValue": "specifique"
+                    },
+                    {
+                      "stringValue": "recuperation"
+                    },
+                    {
+                      "stringValue": "specifique"
+                    },
+                    {
+                      "stringValue": "specifique"
+                    },
+                    {
+                      "stringValue": "affutage"
+                    },
+                    {
+                      "stringValue": "affutage"
+                    },
+                    {
+                      "stringValue": "affutage"
+                    }
+                  ]
+                }
+              },
+              "totalWeeks": {
+                "integerValue": "21"
+              },
+              "recoveryWeeks": {
+                "arrayValue": {
+                  "values": [
+                    {
+                      "integerValue": "4"
+                    },
+                    {
+                      "integerValue": "8"
+                    },
+                    {
+                      "integerValue": "12"
+                    },
+                    {
+                      "integerValue": "16"
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        },
+        "questionnaireSnapshot": {
+          "mapValue": {
+            "fields": {
+              "height": {
+                "integerValue": "175"
+              },
+              "email": {
+                "stringValue": "lamey.michel@gmail.com"
+              },
+              "weight": {
+                "integerValue": "71"
+              },
+              "currentWeeklyElevation": {
+                "integerValue": "1000"
+              },
+              "frequency": {
+                "integerValue": "5"
+              },
+              "goal": {
+                "stringValue": "Trail"
+              },
+              "vma": {
+                "doubleValue": 14.492753623188404
+              },
+              "preferredDays": {
+                "arrayValue": {}
+              },
+              "injuries": {
+                "mapValue": {
+                  "fields": {
+                    "description": {
+                      "stringValue": "J'ai eu l'an dernier une fracture fatigue tibiale. Ça va mieux désormais je suis suivi par un kiné. J'ai d'ailleurs terminé le weekend dernier le trail des forts 62km 2600d+"
+                    },
+                    "hasInjury": {
+                      "booleanValue": true
+                    }
+                  }
+                }
+              },
+              "age": {
+                "integerValue": "42"
+              },
+              "recentRaceTimes": {
+                "mapValue": {
+                  "fields": {
+                    "distance10km": {
+                      "stringValue": "46min"
+                    }
+                  }
+                }
+              },
+              "sex": {
+                "stringValue": "Homme"
+              },
+              "trailDetails": {
+                "mapValue": {
+                  "fields": {
+                    "distance": {
+                      "integerValue": "105"
+                    },
+                    "elevation": {
+                      "integerValue": "4000"
+                    }
+                  }
+                }
+              },
+              "raceDate": {
+                "stringValue": "2026-10-03"
+              },
+              "comments": {
+                "stringValue": "Je courre généralement entre midi et deux. Les sorties longues de préférence le dimanche. J'aimerai aussi pour limiter les blessures inclure du vélo dans ma prépa (home trainer pourquoi pas). Je suis habitué au trail. J'ai fait le trail des forts 62km 2600d+ semaine dernière. Et y a deux ans j'ai fait un 80km avec 3300d+. Néanmoins j'ai besoin de progresser en endurance fondamentale car celle ci ne me semble pas optimisé "
+              },
+              "startDate": {
+                "stringValue": "2026-05-13"
+              },
+              "level": {
+                "stringValue": "Expert (Performance)"
+              },
+              "city": {
+                "stringValue": "Saint-vit"
+              },
+              "currentWeeklyVolume": {
+                "integerValue": "40"
+              }
+            }
+          }
+        },
+        "vmaSource": {
+          "stringValue": "10km en 46min"
+        },
+        "generatedAt": {
+          "stringValue": "2026-05-13T10:51:13.571Z"
+        },
+        "paces": {
+          "mapValue": {
+            "fields": {
+              "allureSpecifique10k": {
+                "stringValue": "4:36"
+              },
+              "recoveryPace": {
+                "stringValue": "6:54"
+              },
+              "efPace": {
+                "stringValue": "6:11"
+              },
+              "eaPace": {
+                "stringValue": "5:23"
+              },
+              "allureSpecifiqueSemi": {
+                "stringValue": "4:52"
+              },
+              "allureSpecifiqueMarathon": {
+                "stringValue": "5:11"
+              },
+              "allureSpecifique5k": {
+                "stringValue": "4:21"
+              },
+              "vmaPace": {
+                "stringValue": "4:08"
+              },
+              "seuilPace": {
+                "stringValue": "4:46"
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

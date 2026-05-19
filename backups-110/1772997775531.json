@@ -1,0 +1,604 @@
+{
+  "name": "projects/coach-running-ia/databases/(default)/documents/plans/1772997775531",
+  "fields": {
+    "isPreview": {
+      "booleanValue": true
+    },
+    "distance": {
+      "stringValue": "Semi-Marathon"
+    },
+    "userEmail": {
+      "stringValue": "q.gasnier45@icloud.com"
+    },
+    "feasibility": {
+      "mapValue": {
+        "fields": {
+          "status": {
+            "stringValue": "BON"
+          },
+          "message": {
+            "stringValue": "Ton VMA de 15.5 km/h indique un temps théorique possible autour de 1h25-1h30 au semi-marathon, ce qui rend ton objectif réaliste avec un entraînement adéquat."
+          },
+          "safetyWarning": {
+            "stringValue": "Échauffe-toi correctement avant chaque séance et hydrate-toi régulièrement, surtout lors des sorties longues. Adapte l'allure en fonction des conditions météorologiques."
+          }
+        }
+      }
+    },
+    "vma": {
+      "doubleValue": 15.497020472261706
+    },
+    "welcomeMessage": {
+      "stringValue": "Bienvenue dans ce plan de 7 semaines conçu pour t'aider à atteindre ton objectif de 1h30 au semi-marathon. Cette première semaine est axée sur le développement fondamental de ton endurance. Nous allons progressivement augmenter le volume et l'intensité des séances."
+    },
+    "userId": {
+      "stringValue": "h4Kgqr4wqVV1FFBCKcxh7yUQPC02"
+    },
+    "durationWeeks": {
+      "integerValue": "7"
+    },
+    "createdAt": {
+      "stringValue": "2026-03-08T19:22:55.531Z"
+    },
+    "vmaSource": {
+      "stringValue": "Moyenne 5km en 20:38 et 10km en 42:14"
+    },
+    "weeks": {
+      "arrayValue": {
+        "values": [
+          {
+            "mapValue": {
+              "fields": {
+                "sessions": {
+                  "arrayValue": {
+                    "values": [
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "mainSet": {
+                              "stringValue": "35 minutes en endurance fondamentale à 5:47 min/km."
+                            },
+                            "day": {
+                              "stringValue": "Mardi"
+                            },
+                            "distance": {
+                              "stringValue": "7.8 km"
+                            },
+                            "warmup": {
+                              "stringValue": "10 minutes de marche rapide et quelques étirements dynamiques."
+                            },
+                            "locationSuggestion": {
+                              "stringValue": "Parc de la Choisille"
+                            },
+                            "id": {
+                              "stringValue": "w1-s1-1772997775531-9unqvbg"
+                            },
+                            "cooldown": {
+                              "stringValue": "5 minutes de marche lente et étirements doux."
+                            },
+                            "elevationGain": {
+                              "integerValue": "0"
+                            },
+                            "targetPace": {
+                              "stringValue": "5:47 min/km"
+                            },
+                            "type": {
+                              "stringValue": "Endurance Fondamentale"
+                            },
+                            "title": {
+                              "stringValue": "Footing Léger"
+                            },
+                            "advice": {
+                              "stringValue": "Concentre-toi sur ton posture et ton respiration. Garde une allure confortable qui te permet de tenir une conversation."
+                            },
+                            "intensity": {
+                              "stringValue": "Facile"
+                            },
+                            "duration": {
+                              "stringValue": "45 minutes"
+                            }
+                          }
+                        }
+                      },
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "intensity": {
+                              "stringValue": "Difficile"
+                            },
+                            "duration": {
+                              "stringValue": "45 minutes"
+                            },
+                            "advice": {
+                              "stringValue": "Adoptez une foulée dynamique et relâchée pendant les efforts. La récupération est cruciale pour assimiler le travail de vitesse."
+                            },
+                            "type": {
+                              "stringValue": "Fractionné Court"
+                            },
+                            "targetPace": {
+                              "stringValue": "3:52 min/km"
+                            },
+                            "title": {
+                              "stringValue": "Séance de VMA Courte"
+                            },
+                            "cooldown": {
+                              "stringValue": "10 minutes de footing de récupération à 6:27 min/km."
+                            },
+                            "elevationGain": {
+                              "integerValue": "0"
+                            },
+                            "distance": {
+                              "stringValue": "2.5 km"
+                            },
+                            "day": {
+                              "stringValue": "Jeudi"
+                            },
+                            "id": {
+                              "stringValue": "w1-s2-1772997775531-p1laoiy"
+                            },
+                            "locationSuggestion": {
+                              "stringValue": "Stade Municipal de Notre Dame D'oé"
+                            },
+                            "warmup": {
+                              "stringValue": "15 minutes de footing léger à 5:47 min/km et quelques accélérations progressives."
+                            },
+                            "mainSet": {
+                              "stringValue": "6 x 200m à VMA (3:52 min/km) avec récupération de 200m en footing lent (6:27 min/km)."
+                            }
+                          }
+                        }
+                      },
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "intensity": {
+                              "stringValue": "Modéré"
+                            },
+                            "duration": {
+                              "stringValue": "40 minutes"
+                            },
+                            "cooldown": {
+                              "stringValue": "5 minutes d'étirements doux"
+                            },
+                            "elevationGain": {
+                              "integerValue": "0"
+                            },
+                            "type": {
+                              "stringValue": "Renforcement"
+                            },
+                            "mainSet": {
+                              "stringValue": "3 séries de 15 répétitions de squats, fentes avant, mollets. 3 séries de 30 secondes de gainage ventral, latéral. 10 minutes de proprioception (équilibre sur une jambe)."
+                            },
+                            "title": {
+                              "stringValue": "Préparation Musculaire"
+                            },
+                            "day": {
+                              "stringValue": "Samedi"
+                            },
+                            "id": {
+                              "stringValue": "w1-s3-1772997775531-vwg4fc8"
+                            },
+                            "warmup": {
+                              "stringValue": "5 minutes de marche et mouvements de bras/jambes"
+                            },
+                            "advice": {
+                              "stringValue": "Concentre-toi sur la qualité de l'exécution des exercices. Contractez bien les muscles sollicités et contrôle les mouvements."
+                            },
+                            "locationSuggestion": {
+                              "stringValue": "À la maison"
+                            }
+                          }
+                        }
+                      },
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "title": {
+                              "stringValue": "Endurance Progressive"
+                            },
+                            "targetPace": {
+                              "stringValue": "5:00 min/km"
+                            },
+                            "type": {
+                              "stringValue": "Sortie Longue"
+                            },
+                            "advice": {
+                              "stringValue": "Pars à une allure confortable et augmente progressivement l'allure si tu tu sens bien. Hydrate-toi bien avant, pendant et après la sortie."
+                            },
+                            "duration": {
+                              "stringValue": "1 heure"
+                            },
+                            "intensity": {
+                              "stringValue": "Modéré"
+                            },
+                            "mainSet": {
+                              "stringValue": "50 minutes à 5:00 min/km"
+                            },
+                            "warmup": {
+                              "stringValue": "10 minutes de marche rapide et footing très lent à 6:27 min/km."
+                            },
+                            "locationSuggestion": {
+                              "stringValue": "Parc de la Choisille"
+                            },
+                            "id": {
+                              "stringValue": "w1-s4-1772997775531-ui1xtpq"
+                            },
+                            "day": {
+                              "stringValue": "Dimanche"
+                            },
+                            "distance": {
+                              "stringValue": "12 km"
+                            },
+                            "elevationGain": {
+                              "integerValue": "50"
+                            },
+                            "cooldown": {
+                              "stringValue": "10 minutes de marche lente et étirements doux."
+                            }
+                          }
+                        }
+                      }
+                    ]
+                  }
+                },
+                "theme": {
+                  "stringValue": "Mise en place de l'endurance fondamentale"
+                },
+                "weekNumber": {
+                  "integerValue": "1"
+                },
+                "phase": {
+                  "stringValue": "fondamental"
+                }
+              }
+            }
+          }
+        ]
+      }
+    },
+    "calculatedVMA": {
+      "doubleValue": 15.497020472261706
+    },
+    "adaptationLog": {
+      "mapValue": {
+        "fields": {
+          "adaptationHistory": {
+            "arrayValue": {}
+          },
+          "adaptationsThisWeek": {
+            "integerValue": "0"
+          },
+          "weekNumber": {
+            "integerValue": "0"
+          }
+        }
+      }
+    },
+    "id": {
+      "stringValue": "1772997775531"
+    },
+    "confidenceScore": {
+      "integerValue": "75"
+    },
+    "targetTime": {
+      "stringValue": "1h30"
+    },
+    "fullPlanGenerated": {
+      "booleanValue": false
+    },
+    "suggestedLocations": {
+      "arrayValue": {
+        "values": [
+          {
+            "mapValue": {
+              "fields": {
+                "type": {
+                  "stringValue": "PARK"
+                },
+                "name": {
+                  "stringValue": "Parc de la Choisille"
+                },
+                "description": {
+                  "stringValue": "Idéal pour footing de récupération et endurance fondamentale."
+                }
+              }
+            }
+          },
+          {
+            "mapValue": {
+              "fields": {
+                "description": {
+                  "stringValue": "Parfait pour les séances de VMA et fractionné court."
+                },
+                "name": {
+                  "stringValue": "Stade Municipal de Notre Dame D'oé"
+                },
+                "type": {
+                  "stringValue": "TRACK"
+                }
+              }
+            }
+          },
+          {
+            "mapValue": {
+              "fields": {
+                "name": {
+                  "stringValue": "Forêt de Beaumont-la-Ronce"
+                },
+                "type": {
+                  "stringValue": "NATURE"
+                },
+                "description": {
+                  "stringValue": "Adaptée aux sorties longues en nature et séances avec dénivelé."
+                }
+              }
+            }
+          }
+        ]
+      }
+    },
+    "name": {
+      "stringValue": "Plan Semi-Marathon 1h30"
+    },
+    "location": {
+      "stringValue": "Notre Dame D'oé"
+    },
+    "startDate": {
+      "stringValue": "2026-03-09"
+    },
+    "sessionsPerWeek": {
+      "integerValue": "4"
+    },
+    "paces": {
+      "mapValue": {
+        "fields": {
+          "allureSpecifique10k": {
+            "stringValue": "4:18"
+          },
+          "allureSpecifiqueMarathon": {
+            "stringValue": "4:50"
+          },
+          "allureSpecifiqueSemi": {
+            "stringValue": "4:33"
+          },
+          "seuilPace": {
+            "stringValue": "4:27"
+          },
+          "eaPace": {
+            "stringValue": "5:02"
+          },
+          "efPace": {
+            "stringValue": "5:47"
+          },
+          "recoveryPace": {
+            "stringValue": "6:27"
+          },
+          "allureSpecifique5k": {
+            "stringValue": "4:05"
+          },
+          "vmaPace": {
+            "stringValue": "3:52"
+          }
+        }
+      }
+    },
+    "goal": {
+      "stringValue": "Course sur route"
+    },
+    "generationContext": {
+      "mapValue": {
+        "fields": {
+          "paces": {
+            "mapValue": {
+              "fields": {
+                "seuilPace": {
+                  "stringValue": "4:27"
+                },
+                "eaPace": {
+                  "stringValue": "5:02"
+                },
+                "allureSpecifiqueSemi": {
+                  "stringValue": "4:33"
+                },
+                "allureSpecifique10k": {
+                  "stringValue": "4:18"
+                },
+                "allureSpecifiqueMarathon": {
+                  "stringValue": "4:50"
+                },
+                "vmaPace": {
+                  "stringValue": "3:52"
+                },
+                "allureSpecifique5k": {
+                  "stringValue": "4:05"
+                },
+                "efPace": {
+                  "stringValue": "5:47"
+                },
+                "recoveryPace": {
+                  "stringValue": "6:27"
+                }
+              }
+            }
+          },
+          "vmaSource": {
+            "stringValue": "Moyenne 5km en 20:38 et 10km en 42:14"
+          },
+          "modelUsed": {
+            "stringValue": "gemini-2.0-flash"
+          },
+          "questionnaireSnapshot": {
+            "mapValue": {
+              "fields": {
+                "preferredDays": {
+                  "arrayValue": {}
+                },
+                "subGoal": {
+                  "stringValue": "Semi-Marathon"
+                },
+                "startDate": {
+                  "stringValue": "2026-03-09"
+                },
+                "frequency": {
+                  "integerValue": "4"
+                },
+                "raceDate": {
+                  "stringValue": "2026-05-01"
+                },
+                "targetTime": {
+                  "stringValue": "1h30"
+                },
+                "weight": {
+                  "integerValue": "72"
+                },
+                "height": {
+                  "integerValue": "175"
+                },
+                "currentWeeklyVolume": {
+                  "integerValue": "10"
+                },
+                "email": {
+                  "stringValue": "q.gasnier45@icloud.com"
+                },
+                "goal": {
+                  "stringValue": "Course sur route"
+                },
+                "level": {
+                  "stringValue": "Confirmé (Compétition)"
+                },
+                "city": {
+                  "stringValue": "Notre Dame D'oé"
+                },
+                "injuries": {
+                  "mapValue": {
+                    "fields": {
+                      "hasInjury": {
+                        "booleanValue": false
+                      }
+                    }
+                  }
+                },
+                "sex": {
+                  "stringValue": "Homme"
+                },
+                "recentRaceTimes": {
+                  "mapValue": {
+                    "fields": {
+                      "distanceHalfMarathon": {
+                        "stringValue": "1:33:22"
+                      },
+                      "distance5km": {
+                        "stringValue": "20:38"
+                      },
+                      "distanceMarathon": {
+                        "stringValue": "3:13:33"
+                      },
+                      "distance10km": {
+                        "stringValue": "42:14"
+                      }
+                    }
+                  }
+                },
+                "comments": {
+                  "stringValue": "Je préfère courir le midi. Entrainement de football 2 fois par semaine et un match de 1h30 le week-end. "
+                },
+                "trailDetails": {
+                  "mapValue": {
+                    "fields": {
+                      "distance": {
+                        "integerValue": "20"
+                      },
+                      "elevation": {
+                        "integerValue": "500"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "generatedAt": {
+            "stringValue": "2026-03-08T19:22:46.204Z"
+          },
+          "periodizationPlan": {
+            "mapValue": {
+              "fields": {
+                "totalWeeks": {
+                  "integerValue": "7"
+                },
+                "weeklyPhases": {
+                  "arrayValue": {
+                    "values": [
+                      {
+                        "stringValue": "fondamental"
+                      },
+                      {
+                        "stringValue": "fondamental"
+                      },
+                      {
+                        "stringValue": "developpement"
+                      },
+                      {
+                        "stringValue": "recuperation"
+                      },
+                      {
+                        "stringValue": "specifique"
+                      },
+                      {
+                        "stringValue": "specifique"
+                      },
+                      {
+                        "stringValue": "affutage"
+                      }
+                    ]
+                  }
+                },
+                "recoveryWeeks": {
+                  "arrayValue": {
+                    "values": [
+                      {
+                        "integerValue": "4"
+                      }
+                    ]
+                  }
+                },
+                "weeklyVolumes": {
+                  "arrayValue": {
+                    "values": [
+                      {
+                        "integerValue": "10"
+                      },
+                      {
+                        "integerValue": "11"
+                      },
+                      {
+                        "integerValue": "12"
+                      },
+                      {
+                        "integerValue": "9"
+                      },
+                      {
+                        "integerValue": "13"
+                      },
+                      {
+                        "integerValue": "15"
+                      },
+                      {
+                        "integerValue": "8"
+                      }
+                    ]
+                  }
+                }
+              }
+            }
+          },
+          "vma": {
+            "doubleValue": 15.497020472261706
+          }
+        }
+      }
+    }
+  },
+  "createTime": "2026-03-08T19:22:55.751302Z",
+  "updateTime": "2026-03-18T16:39:51.672359Z"
+}

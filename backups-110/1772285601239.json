@@ -1,0 +1,577 @@
+{
+  "name": "projects/coach-running-ia/databases/(default)/documents/plans/1772285601239",
+  "fields": {
+    "feasibility": {
+      "mapValue": {
+        "fields": {
+          "message": {
+            "stringValue": "Ton VMA de 10.3 km/h tu permet théoriquement de viser un semi-marathon en 2h15. L'objectif de 2h20 est donc réaliste avec un entraînement adapté. Il faudra être régulier sur les 14 prochaines semaines et bien respecter les allures cibles."
+          },
+          "safetyWarning": {
+            "stringValue": "Adapte toujours l'intensité de tes séances en fonction de ton fatigue et des conditions météorologiques. N'oublie pas de t'hydrater correctement, surtout lors des sorties longues."
+          },
+          "status": {
+            "stringValue": "BON"
+          }
+        }
+      }
+    },
+    "location": {
+      "stringValue": "Caen"
+    },
+    "userEmail": {
+      "stringValue": "isathevenin@me.com"
+    },
+    "vma": {
+      "doubleValue": 10.342696078431374
+    },
+    "createdAt": {
+      "stringValue": "2026-02-28T13:33:21.239Z"
+    },
+    "paces": {
+      "mapValue": {
+        "fields": {
+          "allureSpecifiqueSemi": {
+            "stringValue": "6:49"
+          },
+          "recoveryPace": {
+            "stringValue": "9:40"
+          },
+          "vmaPace": {
+            "stringValue": "5:48"
+          },
+          "allureSpecifique10k": {
+            "stringValue": "6:27"
+          },
+          "eaPace": {
+            "stringValue": "7:32"
+          },
+          "allureSpecifiqueMarathon": {
+            "stringValue": "7:15"
+          },
+          "seuilPace": {
+            "stringValue": "6:40"
+          },
+          "allureSpecifique5k": {
+            "stringValue": "6:06"
+          },
+          "efPace": {
+            "stringValue": "8:40"
+          }
+        }
+      }
+    },
+    "startDate": {
+      "stringValue": "2026-02-28"
+    },
+    "goal": {
+      "stringValue": "Course sur route"
+    },
+    "isPreview": {
+      "booleanValue": true
+    },
+    "distance": {
+      "stringValue": "Semi-Marathon"
+    },
+    "calculatedVMA": {
+      "doubleValue": 10.342696078431374
+    },
+    "sessionsPerWeek": {
+      "integerValue": "3"
+    },
+    "suggestedLocations": {
+      "arrayValue": {
+        "values": [
+          {
+            "mapValue": {
+              "fields": {
+                "description": {
+                  "stringValue": "Idéal pour les séances d'endurance et de récupération."
+                },
+                "name": {
+                  "stringValue": "Parc Michel d'Ornano"
+                },
+                "type": {
+                  "stringValue": "PARK"
+                }
+              }
+            }
+          },
+          {
+            "mapValue": {
+              "fields": {
+                "type": {
+                  "stringValue": "TRACK"
+                },
+                "name": {
+                  "stringValue": "Piste d'athlétisme du Stade Hélitas"
+                },
+                "description": {
+                  "stringValue": "Parfait pour les séances de VMA et les intervalles."
+                }
+              }
+            }
+          },
+          {
+            "mapValue": {
+              "fields": {
+                "name": {
+                  "stringValue": "Colline aux Oiseaux"
+                },
+                "description": {
+                  "stringValue": "Adapté pour les séances de côtes et le renforcement musculaire."
+                },
+                "type": {
+                  "stringValue": "HILL"
+                }
+              }
+            }
+          }
+        ]
+      }
+    },
+    "adaptationLog": {
+      "mapValue": {
+        "fields": {
+          "adaptationHistory": {
+            "arrayValue": {}
+          },
+          "weekNumber": {
+            "integerValue": "0"
+          },
+          "adaptationsThisWeek": {
+            "integerValue": "0"
+          }
+        }
+      }
+    },
+    "confidenceScore": {
+      "integerValue": "75"
+    },
+    "vmaSource": {
+      "stringValue": "Moyenne Semi en 2h15 et Marathon en 5h40"
+    },
+    "durationWeeks": {
+      "integerValue": "14"
+    },
+    "weeks": {
+      "arrayValue": {
+        "values": [
+          {
+            "mapValue": {
+              "fields": {
+                "weekNumber": {
+                  "integerValue": "1"
+                },
+                "theme": {
+                  "stringValue": "Développement Fondamental"
+                },
+                "sessions": {
+                  "arrayValue": {
+                    "values": [
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "cooldown": {
+                              "stringValue": "15 minutes en Récupération (9:40 min/km)"
+                            },
+                            "intensity": {
+                              "stringValue": "Facile"
+                            },
+                            "targetPace": {
+                              "stringValue": "8:40 min/km"
+                            },
+                            "warmup": {
+                              "stringValue": "15 minutes en Endurance Fondamentale (8:40 min/km)"
+                            },
+                            "type": {
+                              "stringValue": "Endurance Fondamentale"
+                            },
+                            "advice": {
+                              "stringValue": "Profite de cette sortie pour te familiariser avec ton allure d'endurance. Concentre-toi sur ton posture et ton respiration."
+                            },
+                            "mainSet": {
+                              "stringValue": "60 minutes en Endurance Fondamentale (8:40 min/km)"
+                            },
+                            "duration": {
+                              "stringValue": "1h17"
+                            },
+                            "title": {
+                              "stringValue": "Sortie longue EF"
+                            },
+                            "distance": {
+                              "stringValue": "8.8 km"
+                            },
+                            "day": {
+                              "stringValue": "Mardi"
+                            },
+                            "id": {
+                              "stringValue": "w1-s1-1772285601239-p7tvzga"
+                            }
+                          }
+                        }
+                      },
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "day": {
+                              "stringValue": "Jeudi"
+                            },
+                            "id": {
+                              "stringValue": "w1-s2-1772285601239-mdwrxv2"
+                            },
+                            "mainSet": {
+                              "stringValue": "3 séries de 15 répétitions de squats, fentes avant, mollets. 3 séries de 30 secondes de gainage (planche, latéral). Terminer par des exercices de proprioception (équilibre sur une jambe)"
+                            },
+                            "duration": {
+                              "stringValue": "40 min"
+                            },
+                            "title": {
+                              "stringValue": "Séance de Renforcement musculaire"
+                            },
+                            "warmup": {
+                              "stringValue": "5 minutes de marche et quelques étirements dynamiques"
+                            },
+                            "type": {
+                              "stringValue": "Renforcement"
+                            },
+                            "advice": {
+                              "stringValue": "Concentre-toi sur la qualité de l'exécution des mouvements. N'hésite pas à utiliser le poids de corps ou des charges légères."
+                            },
+                            "cooldown": {
+                              "stringValue": "5 minutes d'étirements statiques"
+                            },
+                            "intensity": {
+                              "stringValue": "Modéré"
+                            }
+                          }
+                        }
+                      },
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "cooldown": {
+                              "stringValue": "15 minutes en Récupération (9:40 min/km)"
+                            },
+                            "intensity": {
+                              "stringValue": "Modéré"
+                            },
+                            "advice": {
+                              "stringValue": "Cette séance permet de varier les allures et de travailler ton capacité à maintenir un rythme plus soutenu. Sois attentif à tes sensations et ne force pas si tu ressens de la fatigue."
+                            },
+                            "type": {
+                              "stringValue": "Endurance Fondamentale"
+                            },
+                            "warmup": {
+                              "stringValue": "15 minutes en Endurance Fondamentale (8:40 min/km)"
+                            },
+                            "targetPace": {
+                              "stringValue": "8:40 min/km"
+                            },
+                            "title": {
+                              "stringValue": "Sortie en endurance avec variations d'allure"
+                            },
+                            "mainSet": {
+                              "stringValue": "60 minutes en Endurance Fondamentale (8:40 min/km). Alterner ensuite 4 séries de 5 minutes à allure Seuil (6:40 min/km) avec 3 minutes de Récupération (9:40 min/km) entre chaque."
+                            },
+                            "duration": {
+                              "stringValue": "1h29"
+                            },
+                            "day": {
+                              "stringValue": "Dimanche"
+                            },
+                            "id": {
+                              "stringValue": "w1-s3-1772285601239-rcjz1d3"
+                            },
+                            "distance": {
+                              "stringValue": "10.2 km"
+                            }
+                          }
+                        }
+                      }
+                    ]
+                  }
+                },
+                "phase": {
+                  "stringValue": "fondamental"
+                }
+              }
+            }
+          }
+        ]
+      }
+    },
+    "generationContext": {
+      "mapValue": {
+        "fields": {
+          "vmaSource": {
+            "stringValue": "Moyenne Semi en 2h15 et Marathon en 5h40"
+          },
+          "questionnaireSnapshot": {
+            "mapValue": {
+              "fields": {
+                "targetTime": {
+                  "stringValue": "2h20"
+                },
+                "raceDate": {
+                  "stringValue": "2026-06-07"
+                },
+                "preferredDays": {
+                  "arrayValue": {}
+                },
+                "goal": {
+                  "stringValue": "Course sur route"
+                },
+                "injuries": {
+                  "mapValue": {
+                    "fields": {
+                      "hasInjury": {
+                        "booleanValue": false
+                      }
+                    }
+                  }
+                },
+                "subGoal": {
+                  "stringValue": "Semi-Marathon"
+                },
+                "sex": {
+                  "stringValue": "Homme"
+                },
+                "recentRaceTimes": {
+                  "mapValue": {
+                    "fields": {
+                      "distance10km": {
+                        "stringValue": "57"
+                      },
+                      "distanceMarathon": {
+                        "stringValue": "5h40"
+                      },
+                      "distanceHalfMarathon": {
+                        "stringValue": "2h15"
+                      },
+                      "distance5km": {
+                        "stringValue": "27"
+                      }
+                    }
+                  }
+                },
+                "startDate": {
+                  "stringValue": "2026-02-28"
+                },
+                "currentWeeklyVolume": {
+                  "integerValue": "45"
+                },
+                "level": {
+                  "stringValue": "Confirmé (Compétition)"
+                },
+                "city": {
+                  "stringValue": "Caen"
+                },
+                "trailDetails": {
+                  "mapValue": {
+                    "fields": {
+                      "distance": {
+                        "integerValue": "20"
+                      },
+                      "elevation": {
+                        "integerValue": "500"
+                      }
+                    }
+                  }
+                },
+                "frequency": {
+                  "integerValue": "3"
+                },
+                "email": {
+                  "stringValue": "isathevenin@me.com"
+                }
+              }
+            }
+          },
+          "paces": {
+            "mapValue": {
+              "fields": {
+                "allureSpecifiqueSemi": {
+                  "stringValue": "6:49"
+                },
+                "vmaPace": {
+                  "stringValue": "5:48"
+                },
+                "recoveryPace": {
+                  "stringValue": "9:40"
+                },
+                "allureSpecifiqueMarathon": {
+                  "stringValue": "7:15"
+                },
+                "eaPace": {
+                  "stringValue": "7:32"
+                },
+                "allureSpecifique10k": {
+                  "stringValue": "6:27"
+                },
+                "efPace": {
+                  "stringValue": "8:40"
+                },
+                "allureSpecifique5k": {
+                  "stringValue": "6:06"
+                },
+                "seuilPace": {
+                  "stringValue": "6:40"
+                }
+              }
+            }
+          },
+          "periodizationPlan": {
+            "mapValue": {
+              "fields": {
+                "totalWeeks": {
+                  "integerValue": "14"
+                },
+                "weeklyVolumes": {
+                  "arrayValue": {
+                    "values": [
+                      {
+                        "integerValue": "45"
+                      },
+                      {
+                        "integerValue": "50"
+                      },
+                      {
+                        "integerValue": "54"
+                      },
+                      {
+                        "integerValue": "42"
+                      },
+                      {
+                        "integerValue": "60"
+                      },
+                      {
+                        "integerValue": "66"
+                      },
+                      {
+                        "integerValue": "72"
+                      },
+                      {
+                        "integerValue": "56"
+                      },
+                      {
+                        "integerValue": "80"
+                      },
+                      {
+                        "integerValue": "88"
+                      },
+                      {
+                        "integerValue": "96"
+                      },
+                      {
+                        "integerValue": "74"
+                      },
+                      {
+                        "integerValue": "62"
+                      },
+                      {
+                        "integerValue": "53"
+                      }
+                    ]
+                  }
+                },
+                "weeklyPhases": {
+                  "arrayValue": {
+                    "values": [
+                      {
+                        "stringValue": "fondamental"
+                      },
+                      {
+                        "stringValue": "fondamental"
+                      },
+                      {
+                        "stringValue": "fondamental"
+                      },
+                      {
+                        "stringValue": "recuperation"
+                      },
+                      {
+                        "stringValue": "developpement"
+                      },
+                      {
+                        "stringValue": "developpement"
+                      },
+                      {
+                        "stringValue": "developpement"
+                      },
+                      {
+                        "stringValue": "recuperation"
+                      },
+                      {
+                        "stringValue": "specifique"
+                      },
+                      {
+                        "stringValue": "specifique"
+                      },
+                      {
+                        "stringValue": "specifique"
+                      },
+                      {
+                        "stringValue": "recuperation"
+                      },
+                      {
+                        "stringValue": "affutage"
+                      },
+                      {
+                        "stringValue": "affutage"
+                      }
+                    ]
+                  }
+                },
+                "recoveryWeeks": {
+                  "arrayValue": {
+                    "values": [
+                      {
+                        "integerValue": "4"
+                      },
+                      {
+                        "integerValue": "8"
+                      },
+                      {
+                        "integerValue": "12"
+                      }
+                    ]
+                  }
+                }
+              }
+            }
+          },
+          "modelUsed": {
+            "stringValue": "gemini-2.0-flash"
+          },
+          "vma": {
+            "doubleValue": 10.342696078431374
+          },
+          "generatedAt": {
+            "stringValue": "2026-02-28T13:33:13.010Z"
+          }
+        }
+      }
+    },
+    "id": {
+      "stringValue": "1772285601239"
+    },
+    "userId": {
+      "stringValue": "MQoEzQFdh8RJUPs2QeiSgkeq4o93"
+    },
+    "targetTime": {
+      "stringValue": "2h20"
+    },
+    "welcomeMessage": {
+      "stringValue": "Bienvenue dans ce plan de 14 semaines visant à préparer ton semi-marathon en 2h20 ! Cette première semaine sera axée sur le développement foncier, avec 3 séances réparties sur la semaine. Nous allons intégrer une séance de renforcement musculaire spécifique pour améliorer ton efficacité et prévenir les blessures."
+    },
+    "fullPlanGenerated": {
+      "booleanValue": false
+    },
+    "name": {
+      "stringValue": "Plan Semi-Marathon 2h20 - Caen"
+    }
+  },
+  "createTime": "2026-02-28T13:33:21.312237Z",
+  "updateTime": "2026-03-18T17:02:38.514956Z"
+}

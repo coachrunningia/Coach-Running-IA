@@ -1,0 +1,580 @@
+{
+  "name": "projects/coach-running-ia/databases/(default)/documents/plans/1779006774503",
+  "fields": {
+    "name": {
+      "stringValue": "Programme Perte de Poids — 12 semaines"
+    },
+    "welcomeMessage": {
+      "stringValue": "Bienvenue dans ton plan d'entraînement de 12 semaines, conçu spécifiquement pour la perte de poids. Cet objectif sera atteint par la régularité et une progression douce de ton volume d'entraînement, en te concentrant sur l'endurance fondamentale. Ce programme est structuré en phases 'fondamental' pour construire tes bases, 'développement' pour augmenter légèrement l'intensité, et 'récupération' pour assimiler la charge. Nous te recommandons de consulter un médecin avant de débuter ce programme, notamment pour obtenir un certificat médical d'aptitude au sport."
+    },
+    "userId": {
+      "stringValue": "XrIupIiUjSbjL73CR1jqpe9Qn373"
+    },
+    "createdAt": {
+      "stringValue": "2026-05-17T08:32:54.503Z"
+    },
+    "durationWeeks": {
+      "integerValue": "12"
+    },
+    "sessionsPerWeek": {
+      "integerValue": "3"
+    },
+    "startDate": {
+      "stringValue": "2026-05-18"
+    },
+    "location": {
+      "stringValue": "Brest "
+    },
+    "confidenceScore": {
+      "integerValue": "80"
+    },
+    "id": {
+      "stringValue": "1779006774503"
+    },
+    "isPreview": {
+      "booleanValue": true
+    },
+    "adaptationLog": {
+      "mapValue": {
+        "fields": {
+          "adaptationHistory": {
+            "arrayValue": {}
+          },
+          "adaptationsThisWeek": {
+            "integerValue": "0"
+          },
+          "weekNumber": {
+            "integerValue": "0"
+          }
+        }
+      }
+    },
+    "suggestedLocations": {
+      "arrayValue": {
+        "values": [
+          {
+            "mapValue": {
+              "fields": {
+                "name": {
+                  "stringValue": "Parc de la Penfeld"
+                },
+                "type": {
+                  "stringValue": "PARK"
+                },
+                "description": {
+                  "stringValue": "Idéal pour les footings en endurance fondamentale, offrant des parcours variés et agréables."
+                }
+              }
+            }
+          },
+          {
+            "mapValue": {
+              "fields": {
+                "description": {
+                  "stringValue": "Parfait pour les sorties longues et les footings doux sur sentiers, avec un environnement naturel."
+                },
+                "name": {
+                  "stringValue": "Les Rives de Penfeld"
+                },
+                "type": {
+                  "stringValue": "NATURE"
+                }
+              }
+            }
+          },
+          {
+            "mapValue": {
+              "fields": {
+                "description": {
+                  "stringValue": "Excellente pour les futures séances de vitesse et de fractionné (non utilisées cette semaine)."
+                },
+                "name": {
+                  "stringValue": "Piste d'athlétisme du Petit Kerzu"
+                },
+                "type": {
+                  "stringValue": "TRACK"
+                }
+              }
+            }
+          }
+        ]
+      }
+    },
+    "vma": {
+      "doubleValue": 11.483253588516746
+    },
+    "fullPlanGenerated": {
+      "booleanValue": false
+    },
+    "feasibility": {
+      "mapValue": {
+        "fields": {
+          "safetyWarning": {
+            "stringValue": "Hydrate-toi bien, échauffe-toi avant chaque séance et accorde-toi un vrai temps de récupération."
+          },
+          "message": {
+            "stringValue": "Ton programme perte de poids sur 12 semaines est bien calibré pour ton profil. Avec ta VMA de 11.5 km/h, concentre-toi sur la régularité et le plaisir."
+          },
+          "status": {
+            "stringValue": "BON"
+          }
+        }
+      }
+    },
+    "userEmail": {
+      "stringValue": "kikoune.df@outlook.com"
+    },
+    "calculatedVMA": {
+      "doubleValue": 11.483253588516746
+    },
+    "paces": {
+      "mapValue": {
+        "fields": {
+          "allureSpecifique5k": {
+            "stringValue": "5:30"
+          },
+          "recoveryPace": {
+            "stringValue": "8:43"
+          },
+          "efPace": {
+            "stringValue": "7:48"
+          },
+          "vmaPace": {
+            "stringValue": "5:14"
+          },
+          "allureSpecifiqueSemi": {
+            "stringValue": "6:09"
+          },
+          "allureSpecifiqueMarathon": {
+            "stringValue": "6:32"
+          },
+          "allureSpecifique10k": {
+            "stringValue": "5:48"
+          },
+          "eaPace": {
+            "stringValue": "6:47"
+          },
+          "seuilPace": {
+            "stringValue": "6:00"
+          }
+        }
+      }
+    },
+    "endDate": {
+      "stringValue": "2026-08-10"
+    },
+    "generationContext": {
+      "mapValue": {
+        "fields": {
+          "questionnaireSnapshot": {
+            "mapValue": {
+              "fields": {
+                "vma": {
+                  "doubleValue": 11.483253588516746
+                },
+                "weight": {
+                  "integerValue": "62"
+                },
+                "startDate": {
+                  "stringValue": "2026-05-18"
+                },
+                "frequency": {
+                  "integerValue": "3"
+                },
+                "preferredDays": {
+                  "arrayValue": {
+                    "values": [
+                      {
+                        "stringValue": "Mardi"
+                      },
+                      {
+                        "stringValue": "Samedi"
+                      },
+                      {
+                        "stringValue": "Jeudi"
+                      }
+                    ]
+                  }
+                },
+                "recentRaceTimes": {
+                  "mapValue": {
+                    "fields": {
+                      "distance5km": {
+                        "stringValue": "27:30"
+                      }
+                    }
+                  }
+                },
+                "injuries": {
+                  "mapValue": {
+                    "fields": {
+                      "hasInjury": {
+                        "booleanValue": false
+                      }
+                    }
+                  }
+                },
+                "level": {
+                  "stringValue": "Intermédiaire (Régulier)"
+                },
+                "city": {
+                  "stringValue": "Brest "
+                },
+                "weeklyTimeAvailable": {
+                  "stringValue": "1h-1h30"
+                },
+                "sex": {
+                  "stringValue": "Homme"
+                },
+                "age": {
+                  "integerValue": "28"
+                },
+                "goal": {
+                  "stringValue": "Perte de poids"
+                },
+                "email": {
+                  "stringValue": "kikoune.df@outlook.com"
+                },
+                "height": {
+                  "integerValue": "167"
+                }
+              }
+            }
+          },
+          "paces": {
+            "mapValue": {
+              "fields": {
+                "allureSpecifiqueSemi": {
+                  "stringValue": "6:09"
+                },
+                "allureSpecifiqueMarathon": {
+                  "stringValue": "6:32"
+                },
+                "allureSpecifique10k": {
+                  "stringValue": "5:48"
+                },
+                "eaPace": {
+                  "stringValue": "6:47"
+                },
+                "seuilPace": {
+                  "stringValue": "6:00"
+                },
+                "allureSpecifique5k": {
+                  "stringValue": "5:30"
+                },
+                "recoveryPace": {
+                  "stringValue": "8:43"
+                },
+                "efPace": {
+                  "stringValue": "7:48"
+                },
+                "vmaPace": {
+                  "stringValue": "5:14"
+                }
+              }
+            }
+          },
+          "modelUsed": {
+            "stringValue": "gemini-2.5-flash"
+          },
+          "vmaSource": {
+            "stringValue": "5km en 27:30"
+          },
+          "periodizationPlan": {
+            "mapValue": {
+              "fields": {
+                "totalWeeks": {
+                  "integerValue": "12"
+                },
+                "weeklyPhases": {
+                  "arrayValue": {
+                    "values": [
+                      {
+                        "stringValue": "fondamental"
+                      },
+                      {
+                        "stringValue": "fondamental"
+                      },
+                      {
+                        "stringValue": "fondamental"
+                      },
+                      {
+                        "stringValue": "recuperation"
+                      },
+                      {
+                        "stringValue": "fondamental"
+                      },
+                      {
+                        "stringValue": "developpement"
+                      },
+                      {
+                        "stringValue": "developpement"
+                      },
+                      {
+                        "stringValue": "recuperation"
+                      },
+                      {
+                        "stringValue": "developpement"
+                      },
+                      {
+                        "stringValue": "developpement"
+                      },
+                      {
+                        "stringValue": "developpement"
+                      },
+                      {
+                        "stringValue": "developpement"
+                      }
+                    ]
+                  }
+                },
+                "recoveryWeeks": {
+                  "arrayValue": {
+                    "values": [
+                      {
+                        "integerValue": "4"
+                      },
+                      {
+                        "integerValue": "8"
+                      }
+                    ]
+                  }
+                },
+                "weeklyVolumes": {
+                  "arrayValue": {
+                    "values": [
+                      {
+                        "integerValue": "13"
+                      },
+                      {
+                        "integerValue": "14"
+                      },
+                      {
+                        "integerValue": "15"
+                      },
+                      {
+                        "integerValue": "12"
+                      },
+                      {
+                        "integerValue": "14"
+                      },
+                      {
+                        "integerValue": "16"
+                      },
+                      {
+                        "integerValue": "16"
+                      },
+                      {
+                        "integerValue": "13"
+                      },
+                      {
+                        "integerValue": "15"
+                      },
+                      {
+                        "integerValue": "16"
+                      },
+                      {
+                        "integerValue": "17"
+                      },
+                      {
+                        "integerValue": "16"
+                      }
+                    ]
+                  }
+                }
+              }
+            }
+          },
+          "generatedAt": {
+            "stringValue": "2026-05-17T08:26:11.602Z"
+          },
+          "vma": {
+            "doubleValue": 11.483253588516746
+          }
+        }
+      }
+    },
+    "goal": {
+      "stringValue": "Perte de poids"
+    },
+    "vmaSource": {
+      "stringValue": "5km en 27:30"
+    },
+    "weeks": {
+      "arrayValue": {
+        "values": [
+          {
+            "mapValue": {
+              "fields": {
+                "theme": {
+                  "stringValue": "Introduction à l'endurance fondamentale et renforcement"
+                },
+                "weekNumber": {
+                  "integerValue": "1"
+                },
+                "weekGoal": {
+                  "stringValue": "Introduction à l'endurance fondamentale et renforcement"
+                },
+                "sessions": {
+                  "arrayValue": {
+                    "values": [
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "advice": {
+                              "stringValue": "Le renforcement est clé pour prévenir les blessures et améliorer ta posture de course. Concentre-toi sur la qualité du mouvement plutôt que sur la quantité."
+                            },
+                            "title": {
+                              "stringValue": "Circuit Métabolique Haute Intensité - Bas du corps"
+                            },
+                            "targetPace": {
+                              "stringValue": "N/A"
+                            },
+                            "type": {
+                              "stringValue": "Renforcement"
+                            },
+                            "duration": {
+                              "stringValue": "30-35 min"
+                            },
+                            "intensity": {
+                              "stringValue": "Facile"
+                            },
+                            "id": {
+                              "stringValue": "w1-s1-1779006774510-t2micqb"
+                            },
+                            "warmup": {
+                              "stringValue": "10 min de mobilité articulaire et échauffement dynamique"
+                            },
+                            "locationSuggestion": {
+                              "stringValue": "À la maison"
+                            },
+                            "distance": {
+                              "stringValue": "0 km"
+                            },
+                            "day": {
+                              "stringValue": "Mardi"
+                            },
+                            "mainSet": {
+                              "stringValue": "Circuit 4 tours, repos 30s entre exercices, 1 min entre tours : Montées de genoux (3x18), Mountain climbers (3x18), Squats sautés (3x11), Fentes sautées alternées (3x9/jambe), Fentes marchées (3x11/jambe)."
+                            },
+                            "elevationGain": {
+                              "integerValue": "0"
+                            },
+                            "cooldown": {
+                              "stringValue": "5 min d'étirements : quadriceps, ischio-jambiers, mollets, hanches"
+                            }
+                          }
+                        }
+                      },
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "mainSet": {
+                              "stringValue": "60 min d'alternance 3 min de course à 7:48 min/km et 2 min de marche à 8:43 min/km. Effort perçu 4/10 — conversation facile, respiration aisée. Si tu ressens une douleur au genou, à la cheville ou au tibia pendant la course, arrête-toi et marche. Ne force jamais sur une douleur articulaire. Les courbatures musculaires sont normales, les douleurs articulaires ne le sont pas."
+                            },
+                            "locationSuggestion": {
+                              "stringValue": "Parc de la Penfeld"
+                            },
+                            "warmup": {
+                              "stringValue": "5 min de marche rapide, à 8:43 min/km"
+                            },
+                            "id": {
+                              "stringValue": "w1-s2-1779006774511-8ekyrpq"
+                            },
+                            "distance": {
+                              "stringValue": "8.5 km"
+                            },
+                            "day": {
+                              "stringValue": "Samedi"
+                            },
+                            "elevationGain": {
+                              "integerValue": "0"
+                            },
+                            "cooldown": {
+                              "stringValue": "5 min de marche très lente et étirements légers (à 8:43 min/km)"
+                            },
+                            "title": {
+                              "stringValue": "Footing en endurance fondamentale (alternance marche/course)"
+                            },
+                            "targetPace": {
+                              "stringValue": "7:48 min/km"
+                            },
+                            "type": {
+                              "stringValue": "Sortie Longue"
+                            },
+                            "advice": {
+                              "stringValue": "Écoute attentivement ton corps. L'objectif est de courir à une intensité très faible où la conversation est aisée. L'alternance marche/course aide à construire ton endurance progressivement sans surcharger ton corps."
+                            },
+                            "duration": {
+                              "stringValue": "66 min"
+                            },
+                            "intensity": {
+                              "stringValue": "Facile"
+                            }
+                          }
+                        }
+                      },
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "duration": {
+                              "stringValue": "35 min"
+                            },
+                            "intensity": {
+                              "stringValue": "Facile"
+                            },
+                            "title": {
+                              "stringValue": "Première Sortie Longue (alternance marche/course)"
+                            },
+                            "type": {
+                              "stringValue": "Sortie Longue"
+                            },
+                            "targetPace": {
+                              "stringValue": "7:48 min/km"
+                            },
+                            "advice": {
+                              "stringValue": "La sortie longue est cruciale pour l'adaptation de ton corps à l'effort prolongé et pour stimuler ton métabolisme. Profite de ce moment pour explorer et te détendre. N'oublie pas de bien t'hydrater."
+                            },
+                            "elevationGain": {
+                              "integerValue": "0"
+                            },
+                            "cooldown": {
+                              "stringValue": "5 min de marche très lente et étirements légers (à 8:43 min/km)"
+                            },
+                            "mainSet": {
+                              "stringValue": "30 min d'alternance 3 min de course à 7:48 min/km et 2 min de marche à 8:43 min/km. Effort perçu 4/10 — conversation facile, respiration aisée."
+                            },
+                            "locationSuggestion": {
+                              "stringValue": "Les Rives de Penfeld"
+                            },
+                            "warmup": {
+                              "stringValue": "5 min de marche douce, à 8:43 min/km"
+                            },
+                            "id": {
+                              "stringValue": "w1-s3-1779006774511-gh527ci"
+                            },
+                            "day": {
+                              "stringValue": "Dimanche"
+                            },
+                            "distance": {
+                              "stringValue": "4.5 km"
+                            }
+                          }
+                        }
+                      }
+                    ]
+                  }
+                },
+                "phase": {
+                  "stringValue": "fondamental"
+                }
+              }
+            }
+          }
+        ]
+      }
+    }
+  },
+  "createTime": "2026-05-17T08:33:05.489293Z",
+  "updateTime": "2026-05-17T08:33:05.489293Z"
+}

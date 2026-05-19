@@ -1,5 +1,5 @@
 
-import { GoogleGenerativeAI } from "@google/generative-ai";
+import { GoogleGenerativeAI, SchemaType } from "@google/generative-ai";
 import { QuestionnaireData, TrainingPlan, GenerationContext, PeriodizationPhase } from "../types";
 import { calculateFeasibility } from './feasibilityService';
 import { buildRenfoMainSet } from './renfoService';
@@ -2887,13 +2887,21 @@ const createGenerationContext = (
     },
     questionnaireSnapshot: { ...data, vma },
     generatedAt: new Date().toISOString(),
-    modelUsed: 'gemini-3-flash',
+    modelUsed: 'gemini-3-flash-preview',
   };
 };
 
 // ---------------------------------------------------------------------------
 // Instructions de sécurité santé selon le profil
 // ---------------------------------------------------------------------------
+
+// === Sprint 5 — constantes consolidées pour éviter répétitions x4/x3 dans le prompt ===
+// Avant Sprint 5 : "ne pas mentionner poids/IMC" répété 4× (L2947, L2960, L2970, L3037, L3047)
+// et "cross-training interdit" répété 3× (L2948, L2961, L2971). 3-flash n'a pas besoin de la
+// redite — on garde une mention unique en fin de prompt safety (la priorité doctrinale
+// "jamais poids" et "que course à pied" reste cf. mémoires utilisateur).
+const NO_WEIGHT_MENTION_RULE = `🚫 NE JAMAIS mentionner le poids, l'IMC, la corpulence, la minceur ou la morphologie du coureur dans AUCUN champ (welcomeMessage, advice, mainSet, warmup, cooldown). Rester positif et encourageant.`;
+const NO_CROSS_TRAINING_RULE = `🚫 NE JAMAIS proposer ni mentionner de cross-training, vélo, natation, elliptique ou autre sport. Ce coach est EXCLUSIVEMENT course à pied. Repos, marche active et renforcement sont les seules alternatives autorisées.`;
 
 const buildSafetyInstructions = (data: QuestionnaireData, isBeginnerLevel: boolean): string => {
   const parts: string[] = [];
@@ -2902,6 +2910,9 @@ const buildSafetyInstructions = (data: QuestionnaireData, isBeginnerLevel: boole
   const weight = data.weight || 0;
   const isSenior = age >= 45;
   const isRestart = data.fitnessSubGoal === 'Reprendre après une pause' || data.lastActivity === 'Plus de 6 mois';
+  // Sprint 5 — flags pour injecter les règles globales 1×
+  let needsNoWeightMention = false;
+  let needsNoCrossTraining = false;
 
   // 3-tier BMI system: 25 (surpoids), 30 (obésité modérée), 35 (obésité sévère)
   const imcTier: 0 | 1 | 2 | 3 = bmi !== null
@@ -2943,9 +2954,9 @@ Dans le message de bienvenue (welcomeMessage), tu DOIS inclure :
 - Volume max semaine 1 : 8-12 km (ou moins si débutant)
 - Le warmup DOIT inclure 10 min de marche progressive
 - Privilégier la RÉGULARITÉ à l'intensité : mieux vaut 3 séances douces que 2 intenses
-- Chaussures avec amorti MAXIMAL obligatoire — le mentionner dans le welcomeMessage
-🚫 NE JAMAIS mentionner le poids, l'IMC, la corpulence ou la morphologie du coureur dans AUCUN message. Rester positif et encourageant.
-🚫 NE JAMAIS proposer ni mentionner de cross-training, vélo, natation, elliptique ou autre sport. Ce coach est EXCLUSIVEMENT course à pied. Repos, marche active et renforcement sont les seules alternatives autorisées.`);
+- Chaussures avec amorti MAXIMAL obligatoire — le mentionner dans le welcomeMessage`);
+    needsNoWeightMention = true;
+    needsNoCrossTraining = true;
   } else if (imcTier >= 2) {
     parts.push(`⚠️ IMC 30-35 — PRÉCAUTIONS ARTICULAIRES RENFORCÉES :
 - Priorité : séances à faible impact (marche rapide, marche/course alternée en début de plan)
@@ -2956,9 +2967,9 @@ Dans le message de bienvenue (welcomeMessage), tu DOIS inclure :
 - Le warmup DOIT inclure 5-10 min de marche progressive
 - Privilégier la RÉGULARITÉ à l'intensité : mieux vaut 3 séances douces que 2 intenses
 - Renforcement bas du corps 1-2×/sem pour réduire l'impact articulaire
-- Chaussures avec amorti renforcé — le mentionner dans le welcomeMessage
-🚫 NE JAMAIS mentionner le poids, l'IMC, la corpulence ou la morphologie du coureur dans AUCUN message. Rester positif et encourageant.
-🚫 NE JAMAIS proposer ni mentionner de cross-training, vélo, natation, elliptique ou autre sport. Ce coach est EXCLUSIVEMENT course à pied. Repos, marche active et renforcement sont les seules alternatives autorisées.`);
+- Chaussures avec amorti renforcé — le mentionner dans le welcomeMessage`);
+    needsNoWeightMention = true;
+    needsNoCrossTraining = true;
   } else if (imcTier >= 1) {
     const isLongDistance = data.distance === 'Marathon' || data.distance === 'Semi-marathon' || (data.distance === 'Trail' && data.trailDistance && parseInt(data.trailDistance) >= 30);
     if (isLongDistance) {
@@ -2966,9 +2977,9 @@ Dans le message de bienvenue (welcomeMessage), tu DOIS inclure :
 - Chaussures avec bon amorti recommandées — le mentionner dans le welcomeMessage
 - Surfaces souples quand possible, surtout pour les sorties longues
 - Bien s'hydrater pendant et après chaque séance
-- Le warmup DOIT inclure 5 min de marche progressive avant les sorties longues
-🚫 NE JAMAIS mentionner le poids, l'IMC, la corpulence ou la morphologie du coureur dans AUCUN message. Rester positif et encourageant.
-🚫 NE JAMAIS proposer ni mentionner de cross-training, vélo, natation, elliptique ou autre sport. Ce coach est EXCLUSIVEMENT course à pied. Repos, marche active et renforcement sont les seules alternatives autorisées.`);
+- Le warmup DOIT inclure 5 min de marche progressive avant les sorties longues`);
+      needsNoWeightMention = true;
+      needsNoCrossTraining = true;
     }
   }
 
@@ -3033,8 +3044,8 @@ Dans le message de bienvenue (welcomeMessage), tu DOIS inclure :
   "Si tu reprends après une longue pause sans activité régulière, un avis médical avec test d'effort est particulièrement recommandé (surtout si tu as des antécédents cardio, des facteurs de risque, ou plus de 35 ans). Écoute ton corps dès les premières séances : essoufflement anormal, douleur thoracique, vertiges → arrête immédiatement et consulte."
 - Insister sur un démarrage TRÈS PROGRESSIF et la régularité : mieux vaut 3 séances faciles tenues que 4 ambitieuses abandonnées.
 - Mentionner l'importance d'un échauffement long (10 min minimum) et de chaussures adaptées avec bon amorti — les articulations sont souvent peu sollicitées chez les sédentaires en reprise.
-- Rappeler qu'une douleur articulaire persistante (genou, cheville, hanche) doit conduire à un avis kiné/médical avant de continuer.
-🚫 NE JAMAIS mentionner le poids, l'IMC, la corpulence ou la morphologie du coureur. Rester positif et encourageant.`);
+- Rappeler qu'une douleur articulaire persistante (genou, cheville, hanche) doit conduire à un avis kiné/médical avant de continuer.`);
+    needsNoWeightMention = true;
   }
 
   // Prévention RED-S — Perte de poids avec profil léger (sans mentionner poids/IMC)
@@ -3043,8 +3054,8 @@ Dans le message de bienvenue (welcomeMessage), tu DOIS inclure :
 - Insister sur l'importance de **manger suffisamment** pour soutenir l'entraînement (pas de déficit calorique strict)
 - Avertir du syndrome RED-S (Relative Energy Deficiency in Sport) : un déficit énergétique cause perte de masse maigre, fatigue chronique, troubles hormonaux, blessures
 - Recommander : surveiller énergie/fatigue/sommeil/règles (si femme), consulter un nutritionniste sportif si besoin
-- Suggérer une alternative : viser performance / endurance / plaisir plutôt qu'une fixation sur la perte de poids
-🚫 RÈGLE ABSOLUE : NE JAMAIS mentionner le poids, l'IMC, la corpulence, la minceur ou la morphologie de l'utilisateur dans le welcomeMessage ni dans aucun autre champ. Garder un ton positif et bienveillant.`);
+- Suggérer une alternative : viser performance / endurance / plaisir plutôt qu'une fixation sur la perte de poids`);
+    needsNoWeightMention = true;
   }
 
   // === A3 — Welcome cite PB si Finisher+PB ===
@@ -3115,6 +3126,17 @@ TOUJOURS formulation factuelle centrée sur le plan : "le plan tient compte de..
   // Cible irréaliste — préventif sur faisabilité haute
   // (Note : le blocage IRRÉALISTE est géré ailleurs avec décharge explicite)
 
+  // === Sprint 5 — règles globales consolidées (injectées 1× max, doctrine inchangée) ===
+  // Avant Sprint 5 : ces 2 règles étaient répétées 3-4× au sein des blocs IMC/Perte/RED-S.
+  // Après Sprint 5 : on les flag puis on les injecte 1× en fin → gain ~250 tokens cumulés
+  // sur profils multi-flags (ex: Perte + IMC 32).
+  if (needsNoWeightMention) {
+    parts.push(NO_WEIGHT_MENTION_RULE);
+  }
+  if (needsNoCrossTraining) {
+    parts.push(NO_CROSS_TRAINING_RULE);
+  }
+
   return parts.join('\n\n');
 };
 
@@ -3156,6 +3178,88 @@ const ULTRA_NIGHT_RUN_BULLETS = `- SORTIE NUIT obligatoire en phase développeme
   • Préférer terrain connu pour la 1ère sortie nuit (sécurité)
   • Objectif : habituer le cerveau à l'effort de nuit (perception altérée, fatigue ressentie x1.5)
   • Idéalement intégrer 1 sortie nuit dans un week-end back-to-back (Sam jour + Sam nuit = simulation cumul fatigue)`;
+
+// ═══════════════════════════════════════════════════════════════════════════
+// Sprint 5 — responseSchema natif Gemini (remplace le bloc FORMAT JSON texte)
+// ═══════════════════════════════════════════════════════════════════════════
+// Avant Sprint 5 : le previewPrompt incluait un bloc FORMAT JSON texte de ~43 lignes
+// (~600 tokens) duplicant manuellement la structure JSON attendue.
+// Après Sprint 5 : on passe le schéma directement via generationConfig.responseSchema —
+// Gemini garantit le format au niveau API, on supprime le bloc texte du prompt.
+// SDK : @google/generative-ai 0.24.1 supporte responseSchema avec SchemaType (vérifié
+// dans dist/generative-ai.d.ts L697 + L1252).
+// PLAN B si rejet : retomber sur responseMimeType seul (déjà en place avant Sprint 5).
+const PREVIEW_RESPONSE_SCHEMA: any = {
+  type: SchemaType.OBJECT,
+  properties: {
+    name: { type: SchemaType.STRING },
+    goal: { type: SchemaType.STRING },
+    startDate: { type: SchemaType.STRING },
+    durationWeeks: { type: SchemaType.INTEGER },
+    sessionsPerWeek: { type: SchemaType.INTEGER },
+    targetTime: { type: SchemaType.STRING },
+    distance: { type: SchemaType.STRING },
+    location: { type: SchemaType.STRING },
+    suggestedLocations: {
+      type: SchemaType.ARRAY,
+      items: {
+        type: SchemaType.OBJECT,
+        properties: {
+          name: { type: SchemaType.STRING },
+          type: { type: SchemaType.STRING },
+          description: { type: SchemaType.STRING },
+        },
+        required: ['name', 'type', 'description'],
+      },
+    },
+    welcomeMessage: { type: SchemaType.STRING },
+    confidenceScore: { type: SchemaType.NUMBER },
+    feasibility: {
+      type: SchemaType.OBJECT,
+      properties: {
+        status: { type: SchemaType.STRING },
+        message: { type: SchemaType.STRING },
+        safetyWarning: { type: SchemaType.STRING },
+      },
+      required: ['status', 'message'],
+    },
+    weeks: {
+      type: SchemaType.ARRAY,
+      items: {
+        type: SchemaType.OBJECT,
+        properties: {
+          weekNumber: { type: SchemaType.INTEGER },
+          theme: { type: SchemaType.STRING },
+          phase: { type: SchemaType.STRING },
+          sessions: {
+            type: SchemaType.ARRAY,
+            items: {
+              type: SchemaType.OBJECT,
+              properties: {
+                day: { type: SchemaType.STRING },
+                type: { type: SchemaType.STRING },
+                title: { type: SchemaType.STRING },
+                duration: { type: SchemaType.STRING },
+                distance: { type: SchemaType.STRING },
+                intensity: { type: SchemaType.STRING },
+                targetPace: { type: SchemaType.STRING },
+                elevationGain: { type: SchemaType.NUMBER },
+                locationSuggestion: { type: SchemaType.STRING },
+                warmup: { type: SchemaType.STRING },
+                mainSet: { type: SchemaType.STRING },
+                cooldown: { type: SchemaType.STRING },
+                advice: { type: SchemaType.STRING },
+              },
+              required: ['day', 'type', 'title', 'duration', 'intensity', 'mainSet'],
+            },
+          },
+        },
+        required: ['weekNumber', 'phase', 'sessions'],
+      },
+    },
+  },
+  required: ['name', 'goal', 'durationWeeks', 'sessionsPerWeek', 'welcomeMessage', 'weeks'],
+};
 
 interface DplusBlockOpts {
   weekIdx: number;                          // 0-indexed (S1=0)
@@ -3245,7 +3349,7 @@ export const generatePreviewPlan = async (data: QuestionnaireData): Promise<Trai
   try {
     const apiKey = getApiKey();
     const genAI = new GoogleGenerativeAI(apiKey);
-    const MODEL_ID = "gemini-3-flash";
+    const MODEL_ID = "gemini-3-flash-preview";
     const model = genAI.getGenerativeModel({ model: MODEL_ID });
     console.log(`[Gemini Preview] model=${MODEL_ID}`);
 
@@ -3358,13 +3462,30 @@ export const generatePreviewPlan = async (data: QuestionnaireData): Promise<Trai
     );
 
     // Section des allures
+    // Sprint 5 — fix bug latent : buildSafetyInstructions (L3074 règle PB Finisher)
+    // demande à Gemini de citer "Allure spé ${data.subGoal}" mais avant Sprint 5 le
+    // pacesSection ne fournissait que EF/Seuil/VMA/Récup, jamais les allures spécifiques
+    // 5k/10k/Semi/Marathon → risque hallucination welcomeMessage. On injecte l'allure spé
+    // correspondant au subGoal pour fermer ce trou (les paces sont déjà recalculées avec
+    // override Finisher+PB par applyTargetTimeOverride L992).
+    const subGoalKey = (data.subGoal || '').toLowerCase();
+    const subGoalToPace: Record<string, { label: string; value: string }> = {
+      '5 km': { label: '5 km', value: paces.allureSpecifique5k },
+      '10 km': { label: '10 km', value: paces.allureSpecifique10k },
+      'semi-marathon': { label: 'Semi-marathon', value: paces.allureSpecifiqueSemi },
+      'marathon': { label: 'Marathon', value: paces.allureSpecifiqueMarathon },
+    };
+    const specificPace = subGoalToPace[subGoalKey];
+    const specificPaceLine = specificPace
+      ? `- Allure spé ${specificPace.label} : ${specificPace.value} min/km\n`
+      : '';
     const pacesSection = `
 VMA : ${paces.vmaKmh} km/h (${vmaSource})
 - EF (Endurance) : ${paces.efPace} min/km
 - Seuil : ${paces.seuilPace} min/km
 - VMA : ${paces.vmaPace} min/km
 - Récupération : ${paces.recoveryPace} min/km
-`;
+${specificPaceLine}`;
 
     // Instruction pour les jours préférés
     const preferredDaysInstruction = data.preferredDays && data.preferredDays.length > 0
@@ -3646,11 +3767,6 @@ Transition vers course continue à partir de S4-S5 selon le ressenti.
 SIGNAUX D'ALERTE À MENTIONNER :
 Dans l'advice de la première séance, inclure : "Si tu ressens une douleur au genou, à la cheville ou au tibia pendant la course, arrête-toi et marche. Ne force jamais sur une douleur articulaire. Les courbatures musculaires sont normales, les douleurs articulaires ne le sont pas."
 
-COHÉRENCE DURÉE/DISTANCE/MAINSET (CRITIQUE) :
-Le champ "duration" et le contenu du "mainSet" doivent être IDENTIQUES.
-Si duration = "45 min", le mainSet ne doit PAS décrire 1h20 de course.
-Calcul : distance = durée ÷ allure EF. Ex: 45 min à ${pdpEfPace}/km ≈ ${(45 / (parseInt(pdpEfPace.split(':')[0]) + parseInt(pdpEfPace.split(':')[1] || '0') / 60)).toFixed(1)} km.
-
 NOMMAGE : types autorisés = "Jogging", "Sortie Longue", "Renforcement"${!pdpIsOverweight ? ', "Fractionné"' : ''}${pdpNeedsMarcheCourse ? ', "Marche/Course"' : ''}. ${!pdpIsOverweight ? 'Le type "Fractionné" inclut fartlek doux, côtes douces, circuit cardio-renfo (uniquement en phase développement).' : ''}
 
 PRIORITÉ ABSOLUE : sécurité > régularité > progression > plaisir > dépense calorique.`;
@@ -3818,55 +3934,45 @@ ${feasibilityTextPreview}
 ${buildSafetyInstructions(data, (data.level || '').includes('Débutant'))}
 
 ═══════════════════════════════════════════════════════════════
-                    FORMAT JSON
+                    FORMAT DE SORTIE
 ═══════════════════════════════════════════════════════════════
-{
-  "name": "${buildPlanName(data, planDurationWeeks)}",
-  "goal": "${data.goal}",
-  "startDate": "${data.startDate || new Date().toISOString().split('T')[0]}",
-  "durationWeeks": ${planDurationWeeks},
-  "sessionsPerWeek": ${data.frequency},
-  "targetTime": "${data.targetTime || ''}",
-  "distance": "${data.subGoal || ''}",
-  "location": "${data.city || ''}",
-  "suggestedLocations": [
-    { "name": "Nom réel du lieu", "type": "PARK|TRACK|NATURE|HILL", "description": "Pour quel type de séance" }
-  ],
-  "welcomeMessage": "Message personnalisé orienté OBJECTIF et STRUCTURE du plan (NE PAS mentionner VMA ni allures)",
-  "confidenceScore": 0,
-  "feasibility": { "status": "rempli code", "message": "rempli code", "safetyWarning": "rempli code" },
-  "weeks": [
-    {
-      "weekNumber": 1,
-      "theme": "Thème de la semaine",
-      "phase": "${generationContext.periodizationPlan.weeklyPhases[0]}",
-      "sessions": [
-        {
-          "day": "Jour",
-          "type": "Type",
-          "title": "Titre unique",
-          "duration": "durée",
-          "distance": "distance",
-          "intensity": "Facile|Modéré|Difficile",
-          "targetPace": "allure",
-          "elevationGain": 600,
-          "locationSuggestion": "Lieu réel adapté à cette séance",
-          "warmup": "échauffement avec allure",
-          "mainSet": "corps détaillé avec allures EXACTES",
-          "cooldown": "retour au calme",
-          "advice": "conseil personnalisé"
-        }
-      ]
-    }
-  ]
-}
+Sortie : JSON conforme au schéma fourni via responseSchema.
+Valeurs à remplir :
+- name = "${buildPlanName(data, planDurationWeeks)}"
+- goal = "${data.goal}"
+- startDate = "${data.startDate || new Date().toISOString().split('T')[0]}"
+- durationWeeks = ${planDurationWeeks}
+- sessionsPerWeek = ${data.frequency}
+- weeks[0].weekNumber = 1, weeks[0].phase = "${generationContext.periodizationPlan.weeklyPhases[0]}"
+- sessions[].type ∈ ${'{"Jogging","Fractionné","Sortie Longue","Récupération","Renforcement","Marche/Course"}'}
+- sessions[].intensity ∈ ${'{"Facile","Modéré","Difficile"}'}
+- suggestedLocations[].type ∈ ${'{"PARK","TRACK","NATURE","HILL"}'}
+- welcomeMessage : orienté OBJECTIF et STRUCTURE (NE PAS mentionner VMA ni allures)
+- feasibility : sera rempli côté code (status/message/safetyWarning) — laisser strings vides ou placeholder
 `;
 
     console.log('[Gemini Preview] Envoi prompt optimisé...');
-    const result = await model.generateContent({
-      contents: [{ role: "user", parts: [{ text: previewPrompt }] }],
-      generationConfig: { responseMimeType: "application/json", maxOutputTokens: 8192 }
-    });
+    // Sprint 5 — responseSchema natif (remplace bloc FORMAT JSON texte ~600 tokens).
+    // Si Gemini rejette le schéma (rare mais possible sur ResponseSchema complexe),
+    // catch retry avec responseMimeType seul (plan B). cf. SchemaType import L2.
+    let result;
+    try {
+      result = await model.generateContent({
+        contents: [{ role: "user", parts: [{ text: previewPrompt }] }],
+        generationConfig: {
+          responseMimeType: "application/json",
+          responseSchema: PREVIEW_RESPONSE_SCHEMA,
+          maxOutputTokens: 8192,
+        },
+      });
+    } catch (schemaErr) {
+      // Plan B : retomber sur mode JSON sans schema strict, conserve la robustesse.
+      console.warn('[Gemini Preview] responseSchema rejeté, fallback responseMimeType seul:', schemaErr);
+      result = await model.generateContent({
+        contents: [{ role: "user", parts: [{ text: previewPrompt }] }],
+        generationConfig: { responseMimeType: "application/json", maxOutputTokens: 8192 }
+      });
+    }
 
     const response = await result.response;
     const text = response.text();
@@ -4373,7 +4479,7 @@ ${buildDplusPromptBlock({ weekIdx: 0, weeklyElevationTarget: ctx.periodizationPl
   try {
     const apiKey = getApiKey();
     const genAI = new GoogleGenerativeAI(apiKey);
-    const MODEL_ID = "gemini-3-flash";
+    const MODEL_ID = "gemini-3-flash-preview";
     const model = genAI.getGenerativeModel({ model: MODEL_ID });
     console.log(`[Gemini RemainingWeeks] model=${MODEL_ID}`);
 
@@ -5243,7 +5349,7 @@ export const adaptPlanFromFeedback = async (
   try {
     const apiKey = getApiKey();
     const genAI = new GoogleGenerativeAI(apiKey);
-    const MODEL_ID = "gemini-3-flash";
+    const MODEL_ID = "gemini-3-flash-preview";
     const model = genAI.getGenerativeModel({ model: MODEL_ID });
     console.log(`[Gemini Adapt] model=${MODEL_ID}`);
 

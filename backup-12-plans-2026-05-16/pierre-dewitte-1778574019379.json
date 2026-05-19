@@ -1,0 +1,715 @@
+{
+  "name": "projects/coach-running-ia/databases/(default)/documents/plans/1778574019379",
+  "fields": {
+    "durationWeeks": {
+      "integerValue": "29"
+    },
+    "confidenceScore": {
+      "integerValue": "65"
+    },
+    "feasibility": {
+      "mapValue": {
+        "fields": {
+          "safetyWarning": {
+            "stringValue": "À 63 ans, on te recommande vivement de consulter ton médecin et de réaliser un test d'effort avant de démarrer cette préparation. Un certificat médical d'aptitude est indispensable pour cette distance. Privilégie la récupération (48-72h entre séances intenses), hydrate-toi bien et écoute ton corps."
+          },
+          "message": {
+            "stringValue": "Ce semi-marathon est un beau défi. Avec ta VMA de 8.0 km/h, c'est faisable mais attention : Volume actuel de 8km/sem un peu faible pour un semi (20km/sem minimum). Avec 3 séances/semaine sur 29 semaines, chaque séance sera très chargée en volume — passer à 4 séances rendrait le plan plus équilibré. Suis le plan avec rigueur et régularité, c'est la clé pour y arriver."
+          },
+          "status": {
+            "stringValue": "AMBITIEUX"
+          }
+        }
+      }
+    },
+    "welcomeMessage": {
+      "stringValue": "Bienvenue dans ton plan Semi-Marathon Finisher sur 29 semaines.\n\n🩺 **Avant tout** : à 63 ans, un bilan cardio-vasculaire complet (test d'effort) est INDISPENSABLE avant de démarrer. Consulte ton médecin et obtiens un certificat médical d'aptitude à la course en compétition.\n\n🎯 **Objectif Finisher** : terminer ton premier semi-marathon. Pas de chrono cible — l'enjeu est la régularité sur 29 semaines pour construire ton endurance. Ton 5 km en 40min est notre base de calcul (VMA estimée 8.0 km/h).\n\n📋 **Structure** (3 séances/sem : Lun, Mer, Ven) :\n- Lundi : marche/course en aisance — plaisir + récupération active\n- Mercredi : renforcement musculaire (gainage, fessiers, équilibre — clé pour les seniors)\n- Vendredi : sortie longue progressive en marche/course\n\n📍 **Tes sorties** seront suggérées autour de **Macon** — privilégie surfaces souples (chemins, gazon) plutôt que béton dur.\n\n⚠ **Plan long (29 sem) — vigilance adhérence** : les plans > 24 semaines ont un taux d'abandon élevé. Pour maximiser tes chances :\n- Note tes séances dans un calendrier physique ou app pour rendre l'engagement concret\n- Cherche un partenaire d'entraînement ou un groupe local (les seniors progressent mieux en groupe)\n- Si tu décroches 1-2 semaines, reprends où tu en étais — pas la peine de tout recommencer\n- À mi-parcours (S15), évalue : si motivation faible, on peut basculer sur un 10 km comme objectif intermédiaire avant de retenter le semi\n\n👤 **Adaptations seniors** :\n- Échauffements LONGS obligatoires (10-15 min minimum)\n- Récupération entre séances : 48-72h minimum\n- Étirements + mobilité dans chaque cooldown\n- Surveiller articulations (genoux, chevilles, hanches)\n- Progression douce : +8% volume/sem maximum\n\nBonne route — la régularité prime sur la perfection."
+    },
+    "location": {
+      "stringValue": "Macon"
+    },
+    "startDate": {
+      "stringValue": "2026-04-20"
+    },
+    "weeks": {
+      "arrayValue": {
+        "values": [
+          {
+            "mapValue": {
+              "fields": {
+                "weekGoal": {
+                  "stringValue": "Initiation à l'endurance et au renforcement"
+                },
+                "weekNumber": {
+                  "integerValue": "1"
+                },
+                "sessions": {
+                  "arrayValue": {
+                    "values": [
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "distance": {
+                              "stringValue": "3.19 km"
+                            },
+                            "cooldown": {
+                              "stringValue": "5 min de marche très lente (allure Récupération : 12:30 min/km) suivies de 5-10 min d'étirements doux et de mobilité articulaire pour les chevilles, genoux et hanches. Hydrate-toi bien."
+                            },
+                            "id": {
+                              "stringValue": "w1-s1-1778574019380-na1utf2"
+                            },
+                            "duration": {
+                              "stringValue": "39 min"
+                            },
+                            "title": {
+                              "stringValue": "Marche/Course en aisance respiratoire"
+                            },
+                            "advice": {
+                              "stringValue": "Rappel : assure-toi d'avoir consulté ton médecin avant de démarrer. Écoute attentivement les signaux de ton corps. Si une douleur thoracique, un essoufflement anormal ou un malaise survient, arrête-toi immédiatement et consulte un professionnel de santé. Le but est de créer une base solide, pas de forcer."
+                            },
+                            "warmup": {
+                              "stringValue": "10 min de marche active (allure Récupération : 12:30 min/km), augmentant progressivement l'amplitude des mouvements et préparant doucement ton corps à l'effort."
+                            },
+                            "targetPace": {
+                              "stringValue": "EF (11:12 min/km) / Récupération (12:30 min/km)"
+                            },
+                            "day": {
+                              "stringValue": "Lundi"
+                            },
+                            "type": {
+                              "stringValue": "Marche/Course"
+                            },
+                            "locationSuggestion": {
+                              "stringValue": "Parc de la Roche — autour de Macon"
+                            },
+                            "intensity": {
+                              "stringValue": "Facile"
+                            },
+                            "mainSet": {
+                              "stringValue": "8 cycles de (1 min course légère à 11:12 min/km + 2 min marche active à 12:30 min/km). Concentre-toi sur une respiration aisée et un rythme où tu peux facilement parler."
+                            },
+                            "elevationGain": {
+                              "integerValue": "0"
+                            }
+                          }
+                        }
+                      },
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "title": {
+                              "stringValue": "Renfo Focus A - Quadriceps & Gainage (S1)"
+                            },
+                            "advice": {
+                              "stringValue": "Le renforcement musculaire est crucial pour prévenir les blessures et améliorer ton efficacité de course, surtout en tant que débutant et pour préserver tes articulations. Adapte les exercices à ton niveau et assure-toi d'avoir une bonne forme pour éviter les blessures. Écoute ton corps et ne force pas."
+                            },
+                            "duration": {
+                              "stringValue": "30 min"
+                            },
+                            "warmup": {
+                              "stringValue": "10 min de mobilité articulaire et échauffement dynamique"
+                            },
+                            "id": {
+                              "stringValue": "w1-s2-1778574019380-9qm15o2"
+                            },
+                            "cooldown": {
+                              "stringValue": "5 min d'étirements : quadriceps, ischio-jambiers, mollets, hanches"
+                            },
+                            "distance": {
+                              "stringValue": "0 km"
+                            },
+                            "mainSet": {
+                              "stringValue": "Circuit 2 tours : Squats poids de corps (3x9), Squat bulgare (3x6/jambe), Fentes avant (3x6/jambe), Gainage ventral (3x19-60s), Dead bug (3x6/côté), Extensions mollets debout (3x13). Repos 2 min entre tours."
+                            },
+                            "intensity": {
+                              "stringValue": "Modéré"
+                            },
+                            "locationSuggestion": {
+                              "stringValue": "À la maison"
+                            },
+                            "elevationGain": {
+                              "integerValue": "0"
+                            },
+                            "type": {
+                              "stringValue": "Renforcement"
+                            },
+                            "day": {
+                              "stringValue": "Mercredi"
+                            }
+                          }
+                        }
+                      },
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "warmup": {
+                              "stringValue": "15 min de marche active (allure Récupération : 12:30 min/km), en commençant très doucement et en augmentant l'allure progressivement. Prépare tes articulations avec des mouvements de rotation."
+                            },
+                            "title": {
+                              "stringValue": "Sortie Longue Marche/Course au fil de l'eau"
+                            },
+                            "duration": {
+                              "stringValue": "45 min"
+                            },
+                            "advice": {
+                              "stringValue": "La sortie longue est la clé de ta préparation pour un semi-marathon finisher. Il est primordial de rester en endurance fondamentale, même pendant les phases de course légère. L'objectif est d'habituer ton corps à la durée de l'effort, pas à la vitesse. Si tu ressens une douleur articulaire ou musculaire inhabituelle, ralentis ou marche jusqu'à la fin de la séance. Bois régulièrement."
+                            },
+                            "id": {
+                              "stringValue": "w1-s3-1778574019380-kveaof5"
+                            },
+                            "cooldown": {
+                              "stringValue": "5 min de marche très lente (allure Récupération : 12:30 min/km) suivies de 5-10 min d'étirements doux pour tout le corps, en insistant sur les jambes. Hydrate-toi abondamment pendant et après l'effort. Pense à l'entretien de tes chaussures de course."
+                            },
+                            "distance": {
+                              "stringValue": "3.69 km"
+                            },
+                            "elevationGain": {
+                              "integerValue": "0"
+                            },
+                            "mainSet": {
+                              "stringValue": "10 cycles de (1 min course légère à 11:12 min/km + 2 min marche active à 12:30 min/km). Cette séance longue permet à ton corps de s'habituer à l'effort prolongé. Maintiens une foulée souple et une posture droite."
+                            },
+                            "intensity": {
+                              "stringValue": "Facile"
+                            },
+                            "locationSuggestion": {
+                              "stringValue": "Voie Bleue (Saône à Vélo) — autour de Macon"
+                            },
+                            "type": {
+                              "stringValue": "Sortie Longue"
+                            },
+                            "day": {
+                              "stringValue": "Vendredi"
+                            },
+                            "targetPace": {
+                              "stringValue": "EF (11:12 min/km) / Récupération (12:30 min/km)"
+                            }
+                          }
+                        }
+                      }
+                    ]
+                  }
+                },
+                "theme": {
+                  "stringValue": "Initiation à l'endurance et au renforcement"
+                },
+                "phase": {
+                  "stringValue": "fondamental"
+                }
+              }
+            }
+          }
+        ]
+      }
+    },
+    "raceDate": {
+      "stringValue": "2026-11-28"
+    },
+    "name": {
+      "stringValue": "Préparation Semi-Marathon — Finisher — 29 sem."
+    },
+    "distance": {
+      "stringValue": "Semi-Marathon"
+    },
+    "fullPlanGenerated": {
+      "booleanValue": false
+    },
+    "endDate": {
+      "stringValue": "2026-11-09"
+    },
+    "vma": {
+      "integerValue": "8"
+    },
+    "vmaSource": {
+      "stringValue": "5km en 40min (corrigé)"
+    },
+    "calculatedVMA": {
+      "integerValue": "8"
+    },
+    "suggestedLocations": {
+      "arrayValue": {
+        "values": [
+          {
+            "mapValue": {
+              "fields": {
+                "name": {
+                  "stringValue": "Voie Bleue (Saône à Vélo)"
+                },
+                "description": {
+                  "stringValue": "Idéal pour les sorties longues et les footings à plat le long de la Saône, offrant un environnement calme et sécurisé."
+                },
+                "type": {
+                  "stringValue": "NATURE"
+                }
+              }
+            }
+          },
+          {
+            "mapValue": {
+              "fields": {
+                "name": {
+                  "stringValue": "Parc de la Roche"
+                },
+                "description": {
+                  "stringValue": "Parfait pour les séances de marche/course avec un terrain légèrement varié et une atmosphère agréable."
+                },
+                "type": {
+                  "stringValue": "PARK"
+                }
+              }
+            }
+          },
+          {
+            "mapValue": {
+              "fields": {
+                "type": {
+                  "stringValue": "TRACK"
+                },
+                "name": {
+                  "stringValue": "Stade Nord de Mâcon"
+                },
+                "description": {
+                  "stringValue": "Piste d'athlétisme pour de futures séances de fractionné (phases avancées du plan) ou des éducatifs de course."
+                }
+              }
+            }
+          }
+        ]
+      }
+    },
+    "userId": {
+      "stringValue": "Kh5LlN4E6ROLjyHksBYYTxTU9pL2"
+    },
+    "sessionsPerWeek": {
+      "integerValue": "3"
+    },
+    "createdAt": {
+      "stringValue": "2026-05-12T08:20:19.379Z"
+    },
+    "id": {
+      "stringValue": "1778574019379"
+    },
+    "goal": {
+      "stringValue": "Course sur route"
+    },
+    "paces": {
+      "mapValue": {
+        "fields": {
+          "allureSpecifique10k": {
+            "stringValue": "8:20"
+          },
+          "efPace": {
+            "stringValue": "11:12"
+          },
+          "recoveryPace": {
+            "stringValue": "12:30"
+          },
+          "allureSpecifiqueSemi": {
+            "stringValue": "8:49"
+          },
+          "eaPace": {
+            "stringValue": "9:44"
+          },
+          "vmaPace": {
+            "stringValue": "7:30"
+          },
+          "allureSpecifique5k": {
+            "stringValue": "7:54"
+          },
+          "allureSpecifiqueMarathon": {
+            "stringValue": "9:23"
+          },
+          "seuilPace": {
+            "stringValue": "8:37"
+          }
+        }
+      }
+    },
+    "adaptationLog": {
+      "mapValue": {
+        "fields": {
+          "adaptationsThisWeek": {
+            "integerValue": "0"
+          },
+          "adaptationHistory": {
+            "arrayValue": {}
+          },
+          "weekNumber": {
+            "integerValue": "0"
+          }
+        }
+      }
+    },
+    "userEmail": {
+      "stringValue": "pierre.dewitte@free.fr"
+    },
+    "isPreview": {
+      "booleanValue": true
+    },
+    "generationContext": {
+      "mapValue": {
+        "fields": {
+          "paces": {
+            "mapValue": {
+              "fields": {
+                "allureSpecifiqueSemi": {
+                  "stringValue": "8:49"
+                },
+                "eaPace": {
+                  "stringValue": "9:44"
+                },
+                "allureSpecifique10k": {
+                  "stringValue": "8:20"
+                },
+                "efPace": {
+                  "stringValue": "11:12"
+                },
+                "recoveryPace": {
+                  "stringValue": "12:30"
+                },
+                "seuilPace": {
+                  "stringValue": "8:37"
+                },
+                "allureSpecifique5k": {
+                  "stringValue": "7:54"
+                },
+                "vmaPace": {
+                  "stringValue": "7:30"
+                },
+                "allureSpecifiqueMarathon": {
+                  "stringValue": "9:23"
+                }
+              }
+            }
+          },
+          "vmaSource": {
+            "stringValue": "5km en 40min (corrigé)"
+          },
+          "generatedAt": {
+            "stringValue": "2026-05-12T08:19:46.712Z"
+          },
+          "questionnaireSnapshot": {
+            "mapValue": {
+              "fields": {
+                "sex": {
+                  "stringValue": "Homme"
+                },
+                "subGoal": {
+                  "stringValue": "Semi-Marathon"
+                },
+                "comments": {
+                  "stringValue": "Je vais du vélo le week-end "
+                },
+                "raceDate": {
+                  "stringValue": "2026-11-28"
+                },
+                "startDate": {
+                  "stringValue": "2026-05-12"
+                },
+                "currentWeeklyVolume": {
+                  "integerValue": "8"
+                },
+                "city": {
+                  "stringValue": "Macon"
+                },
+                "preferredLongRunDay": {
+                  "stringValue": "Vendredi"
+                },
+                "level": {
+                  "stringValue": "Débutant (0-1 an)"
+                },
+                "weight": {
+                  "integerValue": "91"
+                },
+                "email": {
+                  "stringValue": "pierre.dewitte@free.fr"
+                },
+                "height": {
+                  "integerValue": "181"
+                },
+                "frequency": {
+                  "integerValue": "3"
+                },
+                "preferredDays": {
+                  "arrayValue": {
+                    "values": [
+                      {
+                        "stringValue": "Lundi"
+                      },
+                      {
+                        "stringValue": "Mercredi"
+                      },
+                      {
+                        "stringValue": "Vendredi"
+                      }
+                    ]
+                  }
+                },
+                "vma": {
+                  "integerValue": "8"
+                },
+                "goal": {
+                  "stringValue": "Course sur route"
+                },
+                "age": {
+                  "integerValue": "63"
+                },
+                "recentRaceTimes": {
+                  "mapValue": {
+                    "fields": {
+                      "distance5km": {
+                        "stringValue": "40min"
+                      }
+                    }
+                  }
+                },
+                "injuries": {
+                  "mapValue": {
+                    "fields": {
+                      "hasInjury": {
+                        "booleanValue": false
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "vma": {
+            "integerValue": "8"
+          },
+          "periodizationPlan": {
+            "mapValue": {
+              "fields": {
+                "weeklyVolumes": {
+                  "arrayValue": {
+                    "values": [
+                      {
+                        "integerValue": "7"
+                      },
+                      {
+                        "integerValue": "8"
+                      },
+                      {
+                        "integerValue": "8"
+                      },
+                      {
+                        "integerValue": "6"
+                      },
+                      {
+                        "integerValue": "7"
+                      },
+                      {
+                        "integerValue": "8"
+                      },
+                      {
+                        "integerValue": "8"
+                      },
+                      {
+                        "integerValue": "8"
+                      },
+                      {
+                        "integerValue": "9"
+                      },
+                      {
+                        "integerValue": "9"
+                      },
+                      {
+                        "integerValue": "9"
+                      },
+                      {
+                        "integerValue": "10"
+                      },
+                      {
+                        "integerValue": "8"
+                      },
+                      {
+                        "integerValue": "9"
+                      },
+                      {
+                        "integerValue": "10"
+                      },
+                      {
+                        "integerValue": "8"
+                      },
+                      {
+                        "integerValue": "9"
+                      },
+                      {
+                        "integerValue": "10"
+                      },
+                      {
+                        "integerValue": "8"
+                      },
+                      {
+                        "integerValue": "9"
+                      },
+                      {
+                        "integerValue": "10"
+                      },
+                      {
+                        "integerValue": "8"
+                      },
+                      {
+                        "integerValue": "9"
+                      },
+                      {
+                        "integerValue": "10"
+                      },
+                      {
+                        "integerValue": "8"
+                      },
+                      {
+                        "integerValue": "9"
+                      },
+                      {
+                        "integerValue": "10"
+                      },
+                      {
+                        "integerValue": "7"
+                      },
+                      {
+                        "integerValue": "6"
+                      }
+                    ]
+                  }
+                },
+                "recoveryWeeks": {
+                  "arrayValue": {
+                    "values": [
+                      {
+                        "integerValue": "4"
+                      },
+                      {
+                        "integerValue": "7"
+                      },
+                      {
+                        "integerValue": "10"
+                      },
+                      {
+                        "integerValue": "13"
+                      },
+                      {
+                        "integerValue": "16"
+                      },
+                      {
+                        "integerValue": "19"
+                      },
+                      {
+                        "integerValue": "22"
+                      },
+                      {
+                        "integerValue": "25"
+                      }
+                    ]
+                  }
+                },
+                "weeklyPhases": {
+                  "arrayValue": {
+                    "values": [
+                      {
+                        "stringValue": "fondamental"
+                      },
+                      {
+                        "stringValue": "fondamental"
+                      },
+                      {
+                        "stringValue": "fondamental"
+                      },
+                      {
+                        "stringValue": "recuperation"
+                      },
+                      {
+                        "stringValue": "fondamental"
+                      },
+                      {
+                        "stringValue": "fondamental"
+                      },
+                      {
+                        "stringValue": "recuperation"
+                      },
+                      {
+                        "stringValue": "fondamental"
+                      },
+                      {
+                        "stringValue": "developpement"
+                      },
+                      {
+                        "stringValue": "recuperation"
+                      },
+                      {
+                        "stringValue": "developpement"
+                      },
+                      {
+                        "stringValue": "developpement"
+                      },
+                      {
+                        "stringValue": "recuperation"
+                      },
+                      {
+                        "stringValue": "developpement"
+                      },
+                      {
+                        "stringValue": "developpement"
+                      },
+                      {
+                        "stringValue": "recuperation"
+                      },
+                      {
+                        "stringValue": "developpement"
+                      },
+                      {
+                        "stringValue": "developpement"
+                      },
+                      {
+                        "stringValue": "recuperation"
+                      },
+                      {
+                        "stringValue": "specifique"
+                      },
+                      {
+                        "stringValue": "specifique"
+                      },
+                      {
+                        "stringValue": "recuperation"
+                      },
+                      {
+                        "stringValue": "specifique"
+                      },
+                      {
+                        "stringValue": "specifique"
+                      },
+                      {
+                        "stringValue": "recuperation"
+                      },
+                      {
+                        "stringValue": "specifique"
+                      },
+                      {
+                        "stringValue": "specifique"
+                      },
+                      {
+                        "stringValue": "affutage"
+                      },
+                      {
+                        "stringValue": "affutage"
+                      }
+                    ]
+                  }
+                },
+                "totalWeeks": {
+                  "integerValue": "29"
+                }
+              }
+            }
+          },
+          "modelUsed": {
+            "stringValue": "gemini-2.5-flash"
+          }
+        }
+      }
+    }
+  },
+  "createTime": "2026-05-12T08:20:30.992799Z",
+  "updateTime": "2026-05-12T15:48:09.411150Z"
+}

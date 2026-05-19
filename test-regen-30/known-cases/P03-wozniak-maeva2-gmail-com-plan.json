@@ -1,0 +1,670 @@
+{
+  "name": "projects/coach-running-ia/databases/(default)/documents/plans/1779188625574",
+  "fields": {
+    "fullPlanGenerated": {
+      "booleanValue": false
+    },
+    "suggestedLocations": {
+      "arrayValue": {
+        "values": [
+          {
+            "mapValue": {
+              "fields": {
+                "type": {
+                  "stringValue": "PARK"
+                },
+                "name": {
+                  "stringValue": "Parc La Grange"
+                },
+                "description": {
+                  "stringValue": "Idéal pour les footings vallonnés et les sorties en nature avec de légères inclinaisons, offrant une variété de terrains."
+                }
+              }
+            }
+          },
+          {
+            "mapValue": {
+              "fields": {
+                "description": {
+                  "stringValue": "Parfait pour les footings en aisance respiratoire et les sorties longues sur des chemins plats et agréables, le long de l'eau."
+                },
+                "type": {
+                  "stringValue": "NATURE"
+                },
+                "name": {
+                  "stringValue": "Berges du Rhône / Lac Léman"
+                }
+              }
+            }
+          },
+          {
+            "mapValue": {
+              "fields": {
+                "description": {
+                  "stringValue": "Une option pour les séances de fractionné de vitesse ou VMA à venir dans les phases ultérieures du plan."
+                },
+                "name": {
+                  "stringValue": "Piste d'athlétisme du Bout-du-Monde"
+                },
+                "type": {
+                  "stringValue": "TRACK"
+                }
+              }
+            }
+          }
+        ]
+      }
+    },
+    "id": {
+      "stringValue": "1779188625574"
+    },
+    "adaptationLog": {
+      "mapValue": {
+        "fields": {
+          "adaptationHistory": {
+            "arrayValue": {}
+          },
+          "adaptationsThisWeek": {
+            "integerValue": "0"
+          },
+          "weekNumber": {
+            "integerValue": "0"
+          }
+        }
+      }
+    },
+    "confidenceScore": {
+      "integerValue": "40"
+    },
+    "targetTime": {
+      "stringValue": "1h30"
+    },
+    "startDate": {
+      "stringValue": "2026-05-18"
+    },
+    "location": {
+      "stringValue": "genève "
+    },
+    "sessionsPerWeek": {
+      "integerValue": "3"
+    },
+    "name": {
+      "stringValue": "Prépa Course Hyrox — Objectif 1h30 — 21 sem."
+    },
+    "goal": {
+      "stringValue": "Hyrox"
+    },
+    "endDate": {
+      "stringValue": "2026-10-12"
+    },
+    "generationContext": {
+      "mapValue": {
+        "fields": {
+          "questionnaireSnapshot": {
+            "mapValue": {
+              "fields": {
+                "recentRaceTimes": {
+                  "mapValue": {
+                    "fields": {
+                      "distance5km": {
+                        "stringValue": "30min"
+                      }
+                    }
+                  }
+                },
+                "comments": {
+                  "stringValue": "je peux courir du tapis de course "
+                },
+                "injuries": {
+                  "mapValue": {
+                    "fields": {
+                      "hasInjury": {
+                        "booleanValue": true
+                      },
+                      "description": {
+                        "stringValue": "douleurs genoux/ménisques "
+                      }
+                    }
+                  }
+                },
+                "level": {
+                  "stringValue": "Intermédiaire (Régulier)"
+                },
+                "city": {
+                  "stringValue": "genève "
+                },
+                "sex": {
+                  "stringValue": "Femme"
+                },
+                "goal": {
+                  "stringValue": "Hyrox"
+                },
+                "email": {
+                  "stringValue": "wozniak.maeva2@gmail.com"
+                },
+                "age": {
+                  "integerValue": "24"
+                },
+                "height": {
+                  "integerValue": "172"
+                },
+                "currentWeeklyVolume": {
+                  "integerValue": "10"
+                },
+                "vma": {
+                  "doubleValue": 10.526315789473685
+                },
+                "targetTime": {
+                  "stringValue": "1h30"
+                },
+                "weight": {
+                  "integerValue": "70"
+                },
+                "startDate": {
+                  "stringValue": "2026-05-19"
+                },
+                "frequency": {
+                  "integerValue": "3"
+                },
+                "raceDate": {
+                  "stringValue": "2026-10-10"
+                },
+                "preferredDays": {
+                  "arrayValue": {
+                    "values": [
+                      {
+                        "stringValue": "Lundi"
+                      },
+                      {
+                        "stringValue": "Mercredi"
+                      },
+                      {
+                        "stringValue": "Vendredi"
+                      }
+                    ]
+                  }
+                }
+              }
+            }
+          },
+          "modelUsed": {
+            "stringValue": "gemini-2.5-flash"
+          },
+          "paces": {
+            "mapValue": {
+              "fields": {
+                "allureSpecifique5k": {
+                  "stringValue": "6:00"
+                },
+                "efPace": {
+                  "stringValue": "8:30"
+                },
+                "recoveryPace": {
+                  "stringValue": "9:30"
+                },
+                "vmaPace": {
+                  "stringValue": "5:42"
+                },
+                "allureSpecifiqueSemi": {
+                  "stringValue": "6:42"
+                },
+                "allureSpecifique10k": {
+                  "stringValue": "6:20"
+                },
+                "allureSpecifiqueMarathon": {
+                  "stringValue": "7:07"
+                },
+                "seuilPace": {
+                  "stringValue": "6:33"
+                },
+                "eaPace": {
+                  "stringValue": "7:24"
+                }
+              }
+            }
+          },
+          "vmaSource": {
+            "stringValue": "5km en 30min"
+          },
+          "periodizationPlan": {
+            "mapValue": {
+              "fields": {
+                "totalWeeks": {
+                  "integerValue": "21"
+                },
+                "weeklyPhases": {
+                  "arrayValue": {
+                    "values": [
+                      {
+                        "stringValue": "fondamental"
+                      },
+                      {
+                        "stringValue": "fondamental"
+                      },
+                      {
+                        "stringValue": "fondamental"
+                      },
+                      {
+                        "stringValue": "recuperation"
+                      },
+                      {
+                        "stringValue": "fondamental"
+                      },
+                      {
+                        "stringValue": "fondamental"
+                      },
+                      {
+                        "stringValue": "developpement"
+                      },
+                      {
+                        "stringValue": "recuperation"
+                      },
+                      {
+                        "stringValue": "developpement"
+                      },
+                      {
+                        "stringValue": "developpement"
+                      },
+                      {
+                        "stringValue": "developpement"
+                      },
+                      {
+                        "stringValue": "recuperation"
+                      },
+                      {
+                        "stringValue": "developpement"
+                      },
+                      {
+                        "stringValue": "specifique"
+                      },
+                      {
+                        "stringValue": "specifique"
+                      },
+                      {
+                        "stringValue": "recuperation"
+                      },
+                      {
+                        "stringValue": "specifique"
+                      },
+                      {
+                        "stringValue": "specifique"
+                      },
+                      {
+                        "stringValue": "specifique"
+                      },
+                      {
+                        "stringValue": "recuperation"
+                      },
+                      {
+                        "stringValue": "affutage"
+                      }
+                    ]
+                  }
+                },
+                "recoveryWeeks": {
+                  "arrayValue": {
+                    "values": [
+                      {
+                        "integerValue": "4"
+                      },
+                      {
+                        "integerValue": "8"
+                      },
+                      {
+                        "integerValue": "12"
+                      },
+                      {
+                        "integerValue": "16"
+                      },
+                      {
+                        "integerValue": "20"
+                      }
+                    ]
+                  }
+                },
+                "weeklyVolumes": {
+                  "arrayValue": {
+                    "values": [
+                      {
+                        "integerValue": "10"
+                      },
+                      {
+                        "integerValue": "11"
+                      },
+                      {
+                        "integerValue": "12"
+                      },
+                      {
+                        "integerValue": "10"
+                      },
+                      {
+                        "integerValue": "12"
+                      },
+                      {
+                        "integerValue": "11"
+                      },
+                      {
+                        "integerValue": "12"
+                      },
+                      {
+                        "integerValue": "10"
+                      },
+                      {
+                        "integerValue": "12"
+                      },
+                      {
+                        "integerValue": "11"
+                      },
+                      {
+                        "integerValue": "12"
+                      },
+                      {
+                        "integerValue": "10"
+                      },
+                      {
+                        "integerValue": "12"
+                      },
+                      {
+                        "integerValue": "11"
+                      },
+                      {
+                        "integerValue": "12"
+                      },
+                      {
+                        "integerValue": "10"
+                      },
+                      {
+                        "integerValue": "12"
+                      },
+                      {
+                        "integerValue": "11"
+                      },
+                      {
+                        "integerValue": "12"
+                      },
+                      {
+                        "integerValue": "10"
+                      },
+                      {
+                        "integerValue": "6"
+                      }
+                    ]
+                  }
+                }
+              }
+            }
+          },
+          "generatedAt": {
+            "stringValue": "2026-05-19T11:03:09.417Z"
+          },
+          "vma": {
+            "doubleValue": 10.526315789473685
+          }
+        }
+      }
+    },
+    "paces": {
+      "mapValue": {
+        "fields": {
+          "eaPace": {
+            "stringValue": "7:24"
+          },
+          "seuilPace": {
+            "stringValue": "6:33"
+          },
+          "allureSpecifiqueMarathon": {
+            "stringValue": "7:07"
+          },
+          "allureSpecifique10k": {
+            "stringValue": "6:20"
+          },
+          "allureSpecifiqueSemi": {
+            "stringValue": "6:42"
+          },
+          "vmaPace": {
+            "stringValue": "5:42"
+          },
+          "recoveryPace": {
+            "stringValue": "9:30"
+          },
+          "efPace": {
+            "stringValue": "8:30"
+          },
+          "allureSpecifique5k": {
+            "stringValue": "6:00"
+          }
+        }
+      }
+    },
+    "feasibility": {
+      "mapValue": {
+        "fields": {
+          "confidenceScore": {
+            "integerValue": "40"
+          },
+          "recommendation": {
+            "stringValue": "un chrono cible autour de 1h45-1h55"
+          },
+          "score": {
+            "integerValue": "40"
+          },
+          "message": {
+            "stringValue": "Ton objectif de 1h30 sur l'Hyrox est très ambitieux : il demande de tenir une allure course autour de 5:37/km entre les stations, soit ~89% de ta VMA actuelle (10,5 km/h) en jambes carbo après chaque station. Physiologiquement, c'est à la limite haute pour ce format.\n\nPlus important : ta blessure genoux/ménisques nous impose une vraie prudence sur le volume — on reste à 12 km/sem au pic (pas 30-40 km comme pour un Hyrox 1h30 compétitif sans blessure) pour protéger ton genou.\n\nAvec ce plan calibré sécurité, un **chrono réaliste se situe plutôt autour de 1h45-1h55**. C'est déjà une belle perf vu le contexte. L'objectif numéro 1 reste de finir l'Hyrox en bonne santé."
+          },
+          "safetyWarning": {
+            "stringValue": "Fais valider la reprise avec ton kiné/médecin avant de démarrer ce plan. Adapte les séances si nécessaire.\n\n⚠️ DURÉE DU PLAN : 21 semaines, c'est long pour ton profil. La plupart des coureurs de ton niveau préparent cette distance en 14 semaines maximum. Un plan trop long peut entraîner de la lassitude et une stagnation. Si tu te sens prêt, tu peux envisager de rapprocher ta date de début."
+          },
+          "status": {
+            "stringValue": "AMBITIEUX"
+          }
+        }
+      }
+    },
+    "userEmail": {
+      "stringValue": "wozniak.maeva2@gmail.com"
+    },
+    "vma": {
+      "doubleValue": 10.526315789473685
+    },
+    "isPreview": {
+      "booleanValue": true
+    },
+    "createdAt": {
+      "stringValue": "2026-05-19T11:03:45.574Z"
+    },
+    "durationWeeks": {
+      "integerValue": "21"
+    },
+    "raceDate": {
+      "stringValue": "2026-10-10"
+    },
+    "welcomeMessage": {
+      "stringValue": "Bienvenue dans ton plan Hyrox sur 20 semaines. On a calibré ce plan avec deux contraintes prioritaires : ta blessure genoux/ménisques et la spécificité du format Hyrox (course + stations).\n\n⚠️ Honnêteté sur l'objectif 1h30 : avec ta VMA actuelle de 10,5 km/h et la prudence imposée par ta blessure, ce chrono est très ambitieux. Un chrono réaliste pour cette prépa se situe autour de 1h45-1h55, ce qui est déjà une belle performance. L'objectif n°1 reste de finir en bonne santé.\n\n📌 Important — Scope de ce plan : Coach Running IA prépare uniquement la partie course de ton Hyrox (8 × 1 km entre les stations). La préparation des stations (sled push, burpees, wall balls, etc.) est à compléter à part avec un coach Hyrox ou en salle. On se concentre sur l'aérobie + fractionnés au pace cible Hyrox.\n\n🦵 Côté blessure : on reste à 12 km/sem au pic (très en-dessous des 30-40 km/sem usuels pour Hyrox 1h30 compétitif) pour protéger ton genou. Le renfo \"Quadriceps & Prévention Genou\" est intégré 1×/sem. Garde un suivi kiné régulier pendant la prépa et arrête toute séance qui réveille la douleur.\n\nOn compte sur toi pour t'écouter et te faire confiance sur ce plan calibré sécurité avant performance."
+    },
+    "userId": {
+      "stringValue": "sRLuCBE8yKMxlmWczdTAGcoL0H42"
+    },
+    "weeks": {
+      "arrayValue": {
+        "values": [
+          {
+            "mapValue": {
+              "fields": {
+                "phase": {
+                  "stringValue": "fondamental"
+                },
+                "sessions": {
+                  "arrayValue": {
+                    "values": [
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "elevationGain": {
+                              "integerValue": "0"
+                            },
+                            "cooldown": {
+                              "stringValue": "5 min de marche. (à 9:30 min/km)"
+                            },
+                            "locationSuggestion": {
+                              "stringValue": "Berges du Rhône"
+                            },
+                            "warmup": {
+                              "stringValue": "5 min de marche, à 9:30 min/km active."
+                            },
+                            "id": {
+                              "stringValue": "w1-s1-1779188625575-vz4bi0g"
+                            },
+                            "day": {
+                              "stringValue": "Lundi"
+                            },
+                            "distance": {
+                              "stringValue": "5.5 km"
+                            },
+                            "mainSet": {
+                              "stringValue": "5 blocs de 5 min de footing en endurance fondamentale (8:30), entrecoupés de 1 min de marche. Le footing reste lent et confortable ; la marche est une respiration de confort, pas une récupération d'effort dur. (allure : 8:30 min/km)"
+                            },
+                            "duration": {
+                              "stringValue": "47 min"
+                            },
+                            "intensity": {
+                              "stringValue": "Facile"
+                            },
+                            "advice": {
+                              "stringValue": "Découper l'effort permet d'accumuler du volume aérobie en réduisant la charge mécanique globale. Idéal pour progresser sans casser."
+                            },
+                            "title": {
+                              "stringValue": "Footing en blocs souples"
+                            },
+                            "targetPace": {
+                              "stringValue": "8:30 min/km"
+                            },
+                            "type": {
+                              "stringValue": "Jogging"
+                            }
+                          }
+                        }
+                      },
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "intensity": {
+                              "stringValue": "Modéré"
+                            },
+                            "duration": {
+                              "stringValue": "35-40 min"
+                            },
+                            "type": {
+                              "stringValue": "Renforcement"
+                            },
+                            "targetPace": {
+                              "stringValue": "N/A"
+                            },
+                            "title": {
+                              "stringValue": "Renfo Hyrox Focus A - Quadriceps & Prévention Genou (S1)"
+                            },
+                            "advice": {
+                              "stringValue": "Ce travail de renforcement est crucial pour prévenir les douleurs et blessures liées à la course à pied, en particulier pour tes genoux et ménisques. Il solidifie les muscles stabilisateurs et renforce la chaîne postérieure, ce qui te permettra de mieux supporter le volume d'entraînement et les impacts de la course. La qualité du mouvement prime sur la quantité."
+                            },
+                            "cooldown": {
+                              "stringValue": "8 min d'étirements : quadriceps (30s×2/jambe), bandelette IT (rouleau, 30s/côté), mollets, mobilité rotule en flexion douce."
+                            },
+                            "elevationGain": {
+                              "integerValue": "0"
+                            },
+                            "mainSet": {
+                              "stringValue": "Circuit 3 tours : Squats poids de corps (3x14), Fentes avant (3x9/jambe), Gainage ventral (3x27-60s), Dead bug (3x9/cote), Extensions mollets debout (3x18), Quart de squat isométrique (mur) (3x27s), Step-down excentrique lent (3x7/jambe). Repos 1 min 30 entre tours. ⚠️ Exercices de prévention inclus pour ta blessure — si douleur, arrête immédiatement."
+                            },
+                            "day": {
+                              "stringValue": "Mercredi"
+                            },
+                            "distance": {
+                              "stringValue": "0 km"
+                            },
+                            "locationSuggestion": {
+                              "stringValue": "À la maison"
+                            },
+                            "warmup": {
+                              "stringValue": "10 min de mobilité articulaire douce et échauffement progressif (marche rapide, rotations, pas chassés)"
+                            },
+                            "id": {
+                              "stringValue": "w1-s2-1779188625575-es48w58"
+                            }
+                          }
+                        }
+                      },
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "distance": {
+                              "stringValue": "4.5 km"
+                            },
+                            "day": {
+                              "stringValue": "Vendredi"
+                            },
+                            "locationSuggestion": {
+                              "stringValue": "Parc La Grange"
+                            },
+                            "warmup": {
+                              "stringValue": "10 min de footing, à 9:30 min/km en endurance fondamentale sur chemin roulant."
+                            },
+                            "id": {
+                              "stringValue": "w1-s3-1779188625575-5r1sgsi"
+                            },
+                            "mainSet": {
+                              "stringValue": "20 min sur sentier roulant non technique avec du dénivelé régulier et diffus (pas de côte marquée). Garde un effort d'endurance fondamentale constant (8:30 en référence) : tu laisses la vitesse fluctuer avec le terrain. (allure : 8:30 min/km)"
+                            },
+                            "cooldown": {
+                              "stringValue": "5 à 10 min sur terrain roulant puis marche. (à 9:30 min/km)"
+                            },
+                            "elevationGain": {
+                              "integerValue": "0"
+                            },
+                            "advice": {
+                              "stringValue": "Le sentier roulant fait travailler le dénivelé \"de fond\", diffus et régulier, sans pic d'effort excentrique. La meilleure école pour habituer les jambes au D+."
+                            },
+                            "targetPace": {
+                              "stringValue": "8:30 min/km"
+                            },
+                            "type": {
+                              "stringValue": "Jogging"
+                            },
+                            "title": {
+                              "stringValue": "Footing sur sentier roulant"
+                            },
+                            "intensity": {
+                              "stringValue": "Facile"
+                            },
+                            "duration": {
+                              "stringValue": "38 min"
+                            }
+                          }
+                        }
+                      }
+                    ]
+                  }
+                },
+                "weekGoal": {
+                  "stringValue": "Construction de la base aérobie et prévention"
+                },
+                "weekNumber": {
+                  "integerValue": "1"
+                },
+                "theme": {
+                  "stringValue": "Construction de la base aérobie et prévention"
+                }
+              }
+            }
+          }
+        ]
+      }
+    },
+    "vmaSource": {
+      "stringValue": "5km en 30min"
+    },
+    "calculatedVMA": {
+      "doubleValue": 10.526315789473685
+    }
+  },
+  "createTime": "2026-05-19T11:04:22.981023Z",
+  "updateTime": "2026-05-19T12:54:41.767052Z"
+}

@@ -1,0 +1,550 @@
+{
+  "name": "projects/coach-running-ia/databases/(default)/documents/plans/1772455525047",
+  "fields": {
+    "goal": {
+      "stringValue": "Course sur route"
+    },
+    "generationContext": {
+      "mapValue": {
+        "fields": {
+          "questionnaireSnapshot": {
+            "mapValue": {
+              "fields": {
+                "injuries": {
+                  "mapValue": {
+                    "fields": {
+                      "hasInjury": {
+                        "booleanValue": false
+                      }
+                    }
+                  }
+                },
+                "city": {
+                  "stringValue": "10km Locronan Quimper "
+                },
+                "level": {
+                  "stringValue": "Confirmé (Compétition)"
+                },
+                "sex": {
+                  "stringValue": "Femme"
+                },
+                "trailDetails": {
+                  "mapValue": {
+                    "fields": {
+                      "elevation": {
+                        "integerValue": "500"
+                      },
+                      "distance": {
+                        "integerValue": "20"
+                      }
+                    }
+                  }
+                },
+                "recentRaceTimes": {
+                  "mapValue": {
+                    "fields": {
+                      "distance5km": {
+                        "stringValue": "37:00"
+                      },
+                      "distance10km": {
+                        "stringValue": "1h20"
+                      }
+                    }
+                  }
+                },
+                "comments": {
+                  "stringValue": "Je sors de blessure, déchirure mollet et syndrome rotulien "
+                },
+                "currentWeeklyVolume": {
+                  "integerValue": "12"
+                },
+                "height": {
+                  "integerValue": "159"
+                },
+                "email": {
+                  "stringValue": "marine.gaborit.pro@gmail.com"
+                },
+                "goal": {
+                  "stringValue": "Course sur route"
+                },
+                "targetTime": {
+                  "stringValue": "1h15"
+                },
+                "weight": {
+                  "integerValue": "65"
+                },
+                "subGoal": {
+                  "stringValue": "10 km"
+                },
+                "preferredDays": {
+                  "arrayValue": {}
+                },
+                "raceDate": {
+                  "stringValue": "2026-03-29"
+                },
+                "startDate": {
+                  "stringValue": "2026-03-02"
+                },
+                "frequency": {
+                  "integerValue": "4"
+                }
+              }
+            }
+          },
+          "modelUsed": {
+            "stringValue": "gemini-2.0-flash"
+          },
+          "vmaSource": {
+            "stringValue": "Moyenne 5km en 37:00 et 10km en 1h20"
+          },
+          "paces": {
+            "mapValue": {
+              "fields": {
+                "efPace": {
+                  "stringValue": "10:36"
+                },
+                "recoveryPace": {
+                  "stringValue": "11:50"
+                },
+                "allureSpecifique5k": {
+                  "stringValue": "7:28"
+                },
+                "vmaPace": {
+                  "stringValue": "7:06"
+                },
+                "allureSpecifique10k": {
+                  "stringValue": "7:53"
+                },
+                "allureSpecifiqueMarathon": {
+                  "stringValue": "8:52"
+                },
+                "allureSpecifiqueSemi": {
+                  "stringValue": "8:21"
+                },
+                "seuilPace": {
+                  "stringValue": "8:09"
+                },
+                "eaPace": {
+                  "stringValue": "9:13"
+                }
+              }
+            }
+          },
+          "periodizationPlan": {
+            "mapValue": {
+              "fields": {
+                "recoveryWeeks": {
+                  "arrayValue": {}
+                },
+                "weeklyVolumes": {
+                  "arrayValue": {
+                    "values": [
+                      {
+                        "integerValue": "12"
+                      },
+                      {
+                        "integerValue": "13"
+                      },
+                      {
+                        "integerValue": "15"
+                      },
+                      {
+                        "integerValue": "16"
+                      }
+                    ]
+                  }
+                },
+                "totalWeeks": {
+                  "integerValue": "4"
+                },
+                "weeklyPhases": {
+                  "arrayValue": {
+                    "values": [
+                      {
+                        "stringValue": "fondamental"
+                      },
+                      {
+                        "stringValue": "fondamental"
+                      },
+                      {
+                        "stringValue": "developpement"
+                      },
+                      {
+                        "stringValue": "developpement"
+                      }
+                    ]
+                  }
+                }
+              }
+            }
+          },
+          "generatedAt": {
+            "stringValue": "2026-03-02T12:45:16.365Z"
+          },
+          "vma": {
+            "doubleValue": 8.454243717401614
+          }
+        }
+      }
+    },
+    "paces": {
+      "mapValue": {
+        "fields": {
+          "vmaPace": {
+            "stringValue": "7:06"
+          },
+          "allureSpecifique5k": {
+            "stringValue": "7:28"
+          },
+          "recoveryPace": {
+            "stringValue": "11:50"
+          },
+          "efPace": {
+            "stringValue": "10:36"
+          },
+          "eaPace": {
+            "stringValue": "9:13"
+          },
+          "seuilPace": {
+            "stringValue": "8:09"
+          },
+          "allureSpecifiqueSemi": {
+            "stringValue": "8:21"
+          },
+          "allureSpecifiqueMarathon": {
+            "stringValue": "8:52"
+          },
+          "allureSpecifique10k": {
+            "stringValue": "7:53"
+          }
+        }
+      }
+    },
+    "location": {
+      "stringValue": "10km Locronan Quimper "
+    },
+    "startDate": {
+      "stringValue": "2026-03-02"
+    },
+    "sessionsPerWeek": {
+      "integerValue": "4"
+    },
+    "name": {
+      "stringValue": "Plan 10km - Objectif 1h15"
+    },
+    "suggestedLocations": {
+      "arrayValue": {
+        "values": [
+          {
+            "mapValue": {
+              "fields": {
+                "name": {
+                  "stringValue": "Bois de Kerjestin"
+                },
+                "type": {
+                  "stringValue": "NATURE"
+                },
+                "description": {
+                  "stringValue": "Idéal pour les séances d'endurance et les sorties longues grâce à ses sentiers variés."
+                }
+              }
+            }
+          },
+          {
+            "mapValue": {
+              "fields": {
+                "name": {
+                  "stringValue": "Stade de Penvillers (Quimper)"
+                },
+                "type": {
+                  "stringValue": "TRACK"
+                },
+                "description": {
+                  "stringValue": "Parfait pour les séances de VMA et les intervalles."
+                }
+              }
+            }
+          },
+          {
+            "mapValue": {
+              "fields": {
+                "description": {
+                  "stringValue": "Adaptée aux séances d'endurance et de récupération, surface plane et sécurisée."
+                },
+                "name": {
+                  "stringValue": "Voie verte le long du Steir"
+                },
+                "type": {
+                  "stringValue": "NATURE"
+                }
+              }
+            }
+          }
+        ]
+      }
+    },
+    "fullPlanGenerated": {
+      "booleanValue": false
+    },
+    "adaptationLog": {
+      "mapValue": {
+        "fields": {
+          "adaptationHistory": {
+            "arrayValue": {}
+          },
+          "adaptationsThisWeek": {
+            "integerValue": "0"
+          },
+          "weekNumber": {
+            "integerValue": "0"
+          }
+        }
+      }
+    },
+    "id": {
+      "stringValue": "1772455525047"
+    },
+    "confidenceScore": {
+      "integerValue": "75"
+    },
+    "targetTime": {
+      "stringValue": "1h15"
+    },
+    "calculatedVMA": {
+      "doubleValue": 8.454243717401614
+    },
+    "weeks": {
+      "arrayValue": {
+        "values": [
+          {
+            "mapValue": {
+              "fields": {
+                "theme": {
+                  "stringValue": "Endurance Fondamentale"
+                },
+                "sessions": {
+                  "arrayValue": {
+                    "values": [
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "warmup": {
+                              "stringValue": "15 minutes à 10:36 min/km"
+                            },
+                            "advice": {
+                              "stringValue": "Profite de cette sortie pour explorer de nouveaux parcours et tu familiariser avec ton allure d'endurance fondamentale."
+                            },
+                            "id": {
+                              "stringValue": "w1-s1-1772455525047-te6dgqu"
+                            },
+                            "day": {
+                              "stringValue": "Mardi"
+                            },
+                            "distance": {
+                              "stringValue": "5.7 km"
+                            },
+                            "title": {
+                              "stringValue": "Sortie longue en endurance fondamentale"
+                            },
+                            "mainSet": {
+                              "stringValue": "30 minutes à 10:36 min/km"
+                            },
+                            "targetPace": {
+                              "stringValue": "10:36 min/km"
+                            },
+                            "type": {
+                              "stringValue": "Endurance"
+                            },
+                            "cooldown": {
+                              "stringValue": "15 minutes à 11:50 min/km"
+                            },
+                            "duration": {
+                              "stringValue": "1h00"
+                            },
+                            "intensity": {
+                              "stringValue": "Facile"
+                            }
+                          }
+                        }
+                      },
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "duration": {
+                              "stringValue": "40 min"
+                            },
+                            "intensity": {
+                              "stringValue": "Modéré"
+                            },
+                            "cooldown": {
+                              "stringValue": "5 minutes d'étirements statiques (quadriceps, ischio-jambiers, mollets)"
+                            },
+                            "title": {
+                              "stringValue": "Séance de renforcement musculaire spécifique course à pied"
+                            },
+                            "mainSet": {
+                              "stringValue": "3 séries de 15 squats, 3 séries de 10 fentes par jambe, 3 séries de 30 secondes de gainage (planche), 3 séries de 15 montées sur pointes de pieds"
+                            },
+                            "type": {
+                              "stringValue": "Renforcement"
+                            },
+                            "advice": {
+                              "stringValue": "Concentre-toi sur la qualité de l'exécution des mouvements pour maximiser les bénéfices et minimiser les risques de blessures. Tu pouvez utiliser le poids du corps ou de petites charges."
+                            },
+                            "warmup": {
+                              "stringValue": "5 minutes de marche active et quelques étirements dynamiques"
+                            },
+                            "id": {
+                              "stringValue": "w1-s2-1772455525047-ifpvti9"
+                            },
+                            "day": {
+                              "stringValue": "Mercredi"
+                            }
+                          }
+                        }
+                      },
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "cooldown": {
+                              "stringValue": "10 minutes à 11:50 min/km"
+                            },
+                            "intensity": {
+                              "stringValue": "Facile"
+                            },
+                            "duration": {
+                              "stringValue": "45 min"
+                            },
+                            "day": {
+                              "stringValue": "Jeudi"
+                            },
+                            "distance": {
+                              "stringValue": "4.3 km"
+                            },
+                            "id": {
+                              "stringValue": "w1-s3-1772455525047-fip37xb"
+                            },
+                            "warmup": {
+                              "stringValue": "10 minutes à 10:36 min/km"
+                            },
+                            "advice": {
+                              "stringValue": "Cette séance a pour but de faciliter la récupération après la séance longue de mardi. Courez à une allure très confortable et profitez du paysage."
+                            },
+                            "targetPace": {
+                              "stringValue": "10:36 min/km"
+                            },
+                            "type": {
+                              "stringValue": "Endurance"
+                            },
+                            "mainSet": {
+                              "stringValue": "25 minutes à 10:36 min/km"
+                            },
+                            "title": {
+                              "stringValue": "Footing Léger"
+                            }
+                          }
+                        }
+                      },
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "title": {
+                              "stringValue": "Sortie avec portion au seuil"
+                            },
+                            "mainSet": {
+                              "stringValue": "20 minutes à 8:09 min/km"
+                            },
+                            "type": {
+                              "stringValue": "Seuil"
+                            },
+                            "targetPace": {
+                              "stringValue": "8:09 min/km"
+                            },
+                            "advice": {
+                              "stringValue": "Cette séance va tu aider à travailler ton allure cible pour le 10km. Concentre-toi sur ton posture et ton respiration pendant la portion au seuil."
+                            },
+                            "warmup": {
+                              "stringValue": "15 minutes à 10:36 min/km"
+                            },
+                            "id": {
+                              "stringValue": "w1-s4-1772455525047-39jlqyf"
+                            },
+                            "day": {
+                              "stringValue": "Dimanche"
+                            },
+                            "distance": {
+                              "stringValue": "5.1 km"
+                            },
+                            "duration": {
+                              "stringValue": "50 min"
+                            },
+                            "intensity": {
+                              "stringValue": "Modéré"
+                            },
+                            "cooldown": {
+                              "stringValue": "15 minutes à 11:50 min/km"
+                            }
+                          }
+                        }
+                      }
+                    ]
+                  }
+                },
+                "weekNumber": {
+                  "integerValue": "1"
+                },
+                "phase": {
+                  "stringValue": "fondamental"
+                }
+              }
+            }
+          }
+        ]
+      }
+    },
+    "vmaSource": {
+      "stringValue": "Moyenne 5km en 37:00 et 10km en 1h20"
+    },
+    "createdAt": {
+      "stringValue": "2026-03-02T12:45:25.047Z"
+    },
+    "durationWeeks": {
+      "integerValue": "4"
+    },
+    "welcomeMessage": {
+      "stringValue": "Bienvenue dans ce plan de 4 semaines pour atteindre ton objectif de 1h15 au 10km ! Cette première semaine sera axée sur le développement de ton endurance fondamentale, avec des séances variées pour préparer les semaines suivantes. On commence en douceur !"
+    },
+    "userId": {
+      "stringValue": "9L7DvHMZMmXu7K4FqxFBeRvD37t2"
+    },
+    "feasibility": {
+      "mapValue": {
+        "fields": {
+          "status": {
+            "stringValue": "BON"
+          },
+          "message": {
+            "stringValue": "Avec une VMA de 8.5 km/h, ton temps théorique sur 10km est d'environ 1h10 si tu maintiens 75% de ton VMA. L'objectif de 1h15 est donc atteignable avec un entraînement régulier."
+          },
+          "safetyWarning": {
+            "stringValue": "Adapte toujours l'intensité des séances à ton état de forme et hydrate-toi correctement, surtout si les températures sont élevées. N'oublie pas l'échauffement et le retour au calme pour éviter les blessures."
+          }
+        }
+      }
+    },
+    "userEmail": {
+      "stringValue": "marine.gaborit.pro@gmail.com"
+    },
+    "vma": {
+      "doubleValue": 8.454243717401614
+    },
+    "isPreview": {
+      "booleanValue": true
+    },
+    "distance": {
+      "stringValue": "10 km"
+    }
+  },
+  "createTime": "2026-03-02T12:45:25.105637Z",
+  "updateTime": "2026-03-18T16:39:08.009604Z"
+}

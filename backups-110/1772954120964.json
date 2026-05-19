@@ -1,0 +1,574 @@
+{
+  "name": "projects/coach-running-ia/databases/(default)/documents/plans/1772954120964",
+  "fields": {
+    "goal": {
+      "stringValue": "Course sur route"
+    },
+    "id": {
+      "stringValue": "1772954120964"
+    },
+    "createdAt": {
+      "stringValue": "2026-03-08T07:15:20.964Z"
+    },
+    "generationContext": {
+      "mapValue": {
+        "fields": {
+          "vmaSource": {
+            "stringValue": "Moyenne 5km en 28:00 et 10km en 58:00"
+          },
+          "generatedAt": {
+            "stringValue": "2026-03-08T07:15:13.067Z"
+          },
+          "paces": {
+            "mapValue": {
+              "fields": {
+                "allureSpecifiqueSemi": {
+                  "stringValue": "6:13"
+                },
+                "eaPace": {
+                  "stringValue": "6:51"
+                },
+                "efPace": {
+                  "stringValue": "7:53"
+                },
+                "recoveryPace": {
+                  "stringValue": "8:48"
+                },
+                "allureSpecifique10k": {
+                  "stringValue": "5:52"
+                },
+                "seuilPace": {
+                  "stringValue": "6:04"
+                },
+                "vmaPace": {
+                  "stringValue": "5:17"
+                },
+                "allureSpecifique5k": {
+                  "stringValue": "5:33"
+                },
+                "allureSpecifiqueMarathon": {
+                  "stringValue": "6:36"
+                }
+              }
+            }
+          },
+          "modelUsed": {
+            "stringValue": "gemini-2.0-flash"
+          },
+          "vma": {
+            "doubleValue": 11.364618442658369
+          },
+          "periodizationPlan": {
+            "mapValue": {
+              "fields": {
+                "weeklyVolumes": {
+                  "arrayValue": {
+                    "values": [
+                      {
+                        "integerValue": "40"
+                      },
+                      {
+                        "integerValue": "44"
+                      },
+                      {
+                        "integerValue": "48"
+                      },
+                      {
+                        "integerValue": "53"
+                      }
+                    ]
+                  }
+                },
+                "weeklyPhases": {
+                  "arrayValue": {
+                    "values": [
+                      {
+                        "stringValue": "fondamental"
+                      },
+                      {
+                        "stringValue": "fondamental"
+                      },
+                      {
+                        "stringValue": "developpement"
+                      },
+                      {
+                        "stringValue": "developpement"
+                      }
+                    ]
+                  }
+                },
+                "totalWeeks": {
+                  "integerValue": "4"
+                },
+                "recoveryWeeks": {
+                  "arrayValue": {}
+                }
+              }
+            }
+          },
+          "questionnaireSnapshot": {
+            "mapValue": {
+              "fields": {
+                "frequency": {
+                  "integerValue": "4"
+                },
+                "weight": {
+                  "integerValue": "65"
+                },
+                "email": {
+                  "stringValue": "elladeshoux@gmail.com"
+                },
+                "height": {
+                  "integerValue": "166"
+                },
+                "recentRaceTimes": {
+                  "mapValue": {
+                    "fields": {
+                      "distance10km": {
+                        "stringValue": "58:00"
+                      },
+                      "distance5km": {
+                        "stringValue": "28:00"
+                      },
+                      "distanceHalfMarathon": {
+                        "stringValue": "2ho4"
+                      }
+                    }
+                  }
+                },
+                "injuries": {
+                  "mapValue": {
+                    "fields": {
+                      "hasInjury": {
+                        "booleanValue": false
+                      }
+                    }
+                  }
+                },
+                "preferredDays": {
+                  "arrayValue": {}
+                },
+                "goal": {
+                  "stringValue": "Course sur route"
+                },
+                "targetTime": {
+                  "stringValue": "4h30"
+                },
+                "subGoal": {
+                  "stringValue": "Marathon"
+                },
+                "raceDate": {
+                  "stringValue": "2026-03-15"
+                },
+                "trailDetails": {
+                  "mapValue": {
+                    "fields": {
+                      "distance": {
+                        "integerValue": "20"
+                      },
+                      "elevation": {
+                        "integerValue": "500"
+                      }
+                    }
+                  }
+                },
+                "sex": {
+                  "stringValue": "Femme"
+                },
+                "currentWeeklyVolume": {
+                  "integerValue": "40"
+                },
+                "city": {
+                  "stringValue": "Laillé"
+                },
+                "level": {
+                  "stringValue": "Confirmé (Compétition)"
+                },
+                "startDate": {
+                  "stringValue": "2026-03-08"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "isPreview": {
+      "booleanValue": true
+    },
+    "userEmail": {
+      "stringValue": "elladeshoux@gmail.com"
+    },
+    "paces": {
+      "mapValue": {
+        "fields": {
+          "seuilPace": {
+            "stringValue": "6:04"
+          },
+          "vmaPace": {
+            "stringValue": "5:17"
+          },
+          "allureSpecifique5k": {
+            "stringValue": "5:33"
+          },
+          "allureSpecifiqueMarathon": {
+            "stringValue": "6:36"
+          },
+          "allureSpecifiqueSemi": {
+            "stringValue": "6:13"
+          },
+          "eaPace": {
+            "stringValue": "6:51"
+          },
+          "efPace": {
+            "stringValue": "7:53"
+          },
+          "recoveryPace": {
+            "stringValue": "8:48"
+          },
+          "allureSpecifique10k": {
+            "stringValue": "5:52"
+          }
+        }
+      }
+    },
+    "adaptationLog": {
+      "mapValue": {
+        "fields": {
+          "weekNumber": {
+            "integerValue": "0"
+          },
+          "adaptationHistory": {
+            "arrayValue": {}
+          },
+          "adaptationsThisWeek": {
+            "integerValue": "0"
+          }
+        }
+      }
+    },
+    "userId": {
+      "stringValue": "lSExU2gWrHdzrvDMmH4N943Q6XN2"
+    },
+    "sessionsPerWeek": {
+      "integerValue": "4"
+    },
+    "fullPlanGenerated": {
+      "booleanValue": false
+    },
+    "vma": {
+      "doubleValue": 11.364618442658369
+    },
+    "targetTime": {
+      "stringValue": "4h30"
+    },
+    "distance": {
+      "stringValue": "Marathon"
+    },
+    "vmaSource": {
+      "stringValue": "Moyenne 5km en 28:00 et 10km en 58:00"
+    },
+    "calculatedVMA": {
+      "doubleValue": 11.364618442658369
+    },
+    "suggestedLocations": {
+      "arrayValue": {
+        "values": [
+          {
+            "mapValue": {
+              "fields": {
+                "description": {
+                  "stringValue": "Idéal pour les footings de récupération et l'endurance fondamentale."
+                },
+                "name": {
+                  "stringValue": "Parc de la Chèze"
+                },
+                "type": {
+                  "stringValue": "PARK"
+                }
+              }
+            }
+          },
+          {
+            "mapValue": {
+              "fields": {
+                "name": {
+                  "stringValue": "Forêt de Teillay"
+                },
+                "description": {
+                  "stringValue": "Parfait pour les sorties longues et les séances de côtes grâce à ses sentiers vallonnés."
+                },
+                "type": {
+                  "stringValue": "NATURE"
+                }
+              }
+            }
+          },
+          {
+            "mapValue": {
+              "fields": {
+                "type": {
+                  "stringValue": "TRACK"
+                },
+                "description": {
+                  "stringValue": "Adapté aux séances de fractionné VMA."
+                },
+                "name": {
+                  "stringValue": "Stade Municipal de Laillé"
+                }
+              }
+            }
+          }
+        ]
+      }
+    },
+    "welcomeMessage": {
+      "stringValue": "Bienvenue dans ce plan de préparation marathon axé sur l'atteinte de ton objectif de 4h30. Cette première semaine est dédiée à la construction d'une base solide avec des séances d'endurance et de renforcement musculaire. Suivez attentivement les instructions pour une progression optimale."
+    },
+    "location": {
+      "stringValue": "Laillé"
+    },
+    "startDate": {
+      "stringValue": "2026-03-08"
+    },
+    "durationWeeks": {
+      "integerValue": "4"
+    },
+    "feasibility": {
+      "mapValue": {
+        "fields": {
+          "safetyWarning": {
+            "stringValue": "Hydrate-toi correctement avant, pendant et après chaque séance. Adapte l'allure en fonction de la météo et de ton état de forme."
+          },
+          "message": {
+            "stringValue": "Avec une VMA de 11.4 km/h, ton temps théorique sur marathon est d'environ 4h15. L'objectif de 4h30 est donc réaliste avec un entraînement adapté et une bonne gestion de course."
+          },
+          "status": {
+            "stringValue": "BON"
+          }
+        }
+      }
+    },
+    "confidenceScore": {
+      "integerValue": "75"
+    },
+    "name": {
+      "stringValue": "Plan Marathon 4h30 - Préparation Fondamentale"
+    },
+    "weeks": {
+      "arrayValue": {
+        "values": [
+          {
+            "mapValue": {
+              "fields": {
+                "phase": {
+                  "stringValue": "fondamental"
+                },
+                "sessions": {
+                  "arrayValue": {
+                    "values": [
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "elevationGain": {
+                              "integerValue": "50"
+                            },
+                            "locationSuggestion": {
+                              "stringValue": "Parc de la Chèze"
+                            },
+                            "intensity": {
+                              "stringValue": "Facile"
+                            },
+                            "mainSet": {
+                              "stringValue": "40 minutes à 7:53 min/km"
+                            },
+                            "type": {
+                              "stringValue": "Endurance Fondamentale"
+                            },
+                            "day": {
+                              "stringValue": "Mardi"
+                            },
+                            "targetPace": {
+                              "stringValue": "7:53 min/km"
+                            },
+                            "warmup": {
+                              "stringValue": "10 minutes à 8:48 min/km"
+                            },
+                            "duration": {
+                              "stringValue": "1h00"
+                            },
+                            "title": {
+                              "stringValue": "Footing Léger en Nature"
+                            },
+                            "advice": {
+                              "stringValue": "Concentre-toi sur ton respiration et maintiens une allure confortable."
+                            },
+                            "cooldown": {
+                              "stringValue": "10 minutes à 8:48 min/km"
+                            },
+                            "distance": {
+                              "stringValue": "10 km"
+                            },
+                            "id": {
+                              "stringValue": "w1-s1-1772954120964-jctq3ov"
+                            }
+                          }
+                        }
+                      },
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "elevationGain": {
+                              "integerValue": "0"
+                            },
+                            "warmup": {
+                              "stringValue": "5 minutes d'échauffement articulaire"
+                            },
+                            "mainSet": {
+                              "stringValue": "3 séries de 15 squats, 3 séries de 15 fentes avant par jambe, 3 séries de 30 secondes de gainage ventral, 3 séries de 15 montées sur pointes de pieds."
+                            },
+                            "advice": {
+                              "stringValue": "Privilégiez la qualité à la quantité. Contractez bien les muscles pendant chaque exercice."
+                            },
+                            "duration": {
+                              "stringValue": "45 minutes"
+                            },
+                            "title": {
+                              "stringValue": "Séance de Renforcement Musculaire Spécifique"
+                            },
+                            "locationSuggestion": {
+                              "stringValue": "À la maison"
+                            },
+                            "intensity": {
+                              "stringValue": "Modéré"
+                            },
+                            "day": {
+                              "stringValue": "Mercredi"
+                            },
+                            "type": {
+                              "stringValue": "Renforcement"
+                            },
+                            "id": {
+                              "stringValue": "w1-s2-1772954120964-pcc9xm4"
+                            },
+                            "cooldown": {
+                              "stringValue": "5 minutes d'étirements doux"
+                            }
+                          }
+                        }
+                      },
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "day": {
+                              "stringValue": "Jeudi"
+                            },
+                            "type": {
+                              "stringValue": "Fractionné Seuil"
+                            },
+                            "targetPace": {
+                              "stringValue": "6:04 min/km"
+                            },
+                            "elevationGain": {
+                              "integerValue": "20"
+                            },
+                            "mainSet": {
+                              "stringValue": "30 minutes à 6:04 min/km"
+                            },
+                            "locationSuggestion": {
+                              "stringValue": "Chemin le long de la Vilaine"
+                            },
+                            "intensity": {
+                              "stringValue": "Modéré"
+                            },
+                            "id": {
+                              "stringValue": "w1-s3-1772954120964-rxo3nyf"
+                            },
+                            "distance": {
+                              "stringValue": "10 km"
+                            },
+                            "cooldown": {
+                              "stringValue": "10 minutes à 7:53 min/km"
+                            },
+                            "warmup": {
+                              "stringValue": "10 minutes à 7:53 min/km"
+                            },
+                            "advice": {
+                              "stringValue": "Trouvez ton allure de seuil, celle où tu sens une légère difficulté à maintenir la conversation."
+                            },
+                            "title": {
+                              "stringValue": "Tempo Run sur Terrain Plat"
+                            },
+                            "duration": {
+                              "stringValue": "50 minutes"
+                            }
+                          }
+                        }
+                      },
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "type": {
+                              "stringValue": "Sortie Longue"
+                            },
+                            "day": {
+                              "stringValue": "Dimanche"
+                            },
+                            "targetPace": {
+                              "stringValue": "7:53 min/km"
+                            },
+                            "elevationGain": {
+                              "integerValue": "150"
+                            },
+                            "intensity": {
+                              "stringValue": "Facile"
+                            },
+                            "locationSuggestion": {
+                              "stringValue": "Forêt de Teillay"
+                            },
+                            "mainSet": {
+                              "stringValue": "1h15 à 7:53 min/km"
+                            },
+                            "cooldown": {
+                              "stringValue": "15 minutes à 8:48 min/km"
+                            },
+                            "distance": {
+                              "stringValue": "17 km"
+                            },
+                            "id": {
+                              "stringValue": "w1-s4-1772954120964-w8y80w6"
+                            },
+                            "warmup": {
+                              "stringValue": "15 minutes à 8:48 min/km"
+                            },
+                            "advice": {
+                              "stringValue": "Profitez du paysage et variez légèrement l'allure dans les montées et les descentes."
+                            },
+                            "title": {
+                              "stringValue": "Sortie Longue Progressive en Forêt"
+                            },
+                            "duration": {
+                              "stringValue": "1h45"
+                            }
+                          }
+                        }
+                      }
+                    ]
+                  }
+                },
+                "theme": {
+                  "stringValue": "Construction Fondamentale"
+                },
+                "weekNumber": {
+                  "integerValue": "1"
+                }
+              }
+            }
+          }
+        ]
+      }
+    }
+  },
+  "createTime": "2026-03-08T07:15:21.041916Z",
+  "updateTime": "2026-03-18T16:39:48.285890Z"
+}

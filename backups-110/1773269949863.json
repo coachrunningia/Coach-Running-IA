@@ -1,0 +1,775 @@
+{
+  "name": "projects/coach-running-ia/databases/(default)/documents/plans/1773269949863",
+  "fields": {
+    "confidenceScore": {
+      "integerValue": "75"
+    },
+    "adaptationLog": {
+      "mapValue": {
+        "fields": {
+          "adaptationHistory": {
+            "arrayValue": {}
+          },
+          "weekNumber": {
+            "integerValue": "0"
+          },
+          "adaptationsThisWeek": {
+            "integerValue": "0"
+          }
+        }
+      }
+    },
+    "goal": {
+      "stringValue": "Course sur route"
+    },
+    "durationWeeks": {
+      "integerValue": "20"
+    },
+    "paces": {
+      "mapValue": {
+        "fields": {
+          "vmaPace": {
+            "stringValue": "3:30"
+          },
+          "allureSpecifique10k": {
+            "stringValue": "3:54"
+          },
+          "efPace": {
+            "stringValue": "5:14"
+          },
+          "allureSpecifique5k": {
+            "stringValue": "3:42"
+          },
+          "allureSpecifiqueSemi": {
+            "stringValue": "4:08"
+          },
+          "eaPace": {
+            "stringValue": "4:33"
+          },
+          "seuilPace": {
+            "stringValue": "4:02"
+          },
+          "allureSpecifiqueMarathon": {
+            "stringValue": "4:23"
+          },
+          "recoveryPace": {
+            "stringValue": "5:51"
+          }
+        }
+      }
+    },
+    "userId": {
+      "stringValue": "G2qzpIjmAXffe1ZqTS1nKhQ1DDu1"
+    },
+    "generationContext": {
+      "mapValue": {
+        "fields": {
+          "generatedAt": {
+            "stringValue": "2026-03-11T22:58:58.692Z"
+          },
+          "modelUsed": {
+            "stringValue": "gemini-2.0-flash"
+          },
+          "questionnaireSnapshot": {
+            "mapValue": {
+              "fields": {
+                "level": {
+                  "stringValue": "Expert (Performance)"
+                },
+                "age": {
+                  "integerValue": "46"
+                },
+                "recentRaceTimes": {
+                  "mapValue": {
+                    "fields": {
+                      "distanceMarathon": {
+                        "stringValue": "3h05"
+                      }
+                    }
+                  }
+                },
+                "frequency": {
+                  "integerValue": "6"
+                },
+                "currentWeeklyVolume": {
+                  "integerValue": "60"
+                },
+                "raceDate": {
+                  "stringValue": "2026-10-10"
+                },
+                "weight": {
+                  "integerValue": "79"
+                },
+                "startDate": {
+                  "stringValue": "2026-03-11"
+                },
+                "subGoal": {
+                  "stringValue": "Marathon"
+                },
+                "goal": {
+                  "stringValue": "Course sur route"
+                },
+                "preferredDays": {
+                  "arrayValue": {}
+                },
+                "height": {
+                  "integerValue": "172"
+                },
+                "targetTime": {
+                  "stringValue": "2h55"
+                },
+                "trailDetails": {
+                  "mapValue": {
+                    "fields": {
+                      "distance": {
+                        "integerValue": "20"
+                      },
+                      "elevation": {
+                        "integerValue": "500"
+                      }
+                    }
+                  }
+                },
+                "injuries": {
+                  "mapValue": {
+                    "fields": {
+                      "hasInjury": {
+                        "booleanValue": false
+                      }
+                    }
+                  }
+                },
+                "sex": {
+                  "stringValue": "Homme"
+                },
+                "email": {
+                  "stringValue": "nriq.bernardo@gmail.com"
+                },
+                "city": {
+                  "stringValue": "Gagny "
+                }
+              }
+            }
+          },
+          "periodizationPlan": {
+            "mapValue": {
+              "fields": {
+                "weeklyVolumes": {
+                  "arrayValue": {
+                    "values": [
+                      {
+                        "integerValue": "60"
+                      },
+                      {
+                        "integerValue": "67"
+                      },
+                      {
+                        "integerValue": "75"
+                      },
+                      {
+                        "integerValue": "59"
+                      },
+                      {
+                        "integerValue": "84"
+                      },
+                      {
+                        "integerValue": "94"
+                      },
+                      {
+                        "integerValue": "106"
+                      },
+                      {
+                        "integerValue": "83"
+                      },
+                      {
+                        "integerValue": "118"
+                      },
+                      {
+                        "integerValue": "133"
+                      },
+                      {
+                        "integerValue": "149"
+                      },
+                      {
+                        "integerValue": "116"
+                      },
+                      {
+                        "integerValue": "166"
+                      },
+                      {
+                        "integerValue": "186"
+                      },
+                      {
+                        "integerValue": "209"
+                      },
+                      {
+                        "integerValue": "164"
+                      },
+                      {
+                        "integerValue": "234"
+                      },
+                      {
+                        "integerValue": "262"
+                      },
+                      {
+                        "integerValue": "183"
+                      },
+                      {
+                        "integerValue": "147"
+                      }
+                    ]
+                  }
+                },
+                "recoveryWeeks": {
+                  "arrayValue": {
+                    "values": [
+                      {
+                        "integerValue": "4"
+                      },
+                      {
+                        "integerValue": "8"
+                      },
+                      {
+                        "integerValue": "12"
+                      },
+                      {
+                        "integerValue": "16"
+                      }
+                    ]
+                  }
+                },
+                "weeklyPhases": {
+                  "arrayValue": {
+                    "values": [
+                      {
+                        "stringValue": "fondamental"
+                      },
+                      {
+                        "stringValue": "fondamental"
+                      },
+                      {
+                        "stringValue": "fondamental"
+                      },
+                      {
+                        "stringValue": "recuperation"
+                      },
+                      {
+                        "stringValue": "fondamental"
+                      },
+                      {
+                        "stringValue": "fondamental"
+                      },
+                      {
+                        "stringValue": "developpement"
+                      },
+                      {
+                        "stringValue": "recuperation"
+                      },
+                      {
+                        "stringValue": "developpement"
+                      },
+                      {
+                        "stringValue": "developpement"
+                      },
+                      {
+                        "stringValue": "developpement"
+                      },
+                      {
+                        "stringValue": "recuperation"
+                      },
+                      {
+                        "stringValue": "developpement"
+                      },
+                      {
+                        "stringValue": "specifique"
+                      },
+                      {
+                        "stringValue": "specifique"
+                      },
+                      {
+                        "stringValue": "recuperation"
+                      },
+                      {
+                        "stringValue": "specifique"
+                      },
+                      {
+                        "stringValue": "specifique"
+                      },
+                      {
+                        "stringValue": "affutage"
+                      },
+                      {
+                        "stringValue": "affutage"
+                      }
+                    ]
+                  }
+                },
+                "totalWeeks": {
+                  "integerValue": "20"
+                }
+              }
+            }
+          },
+          "vma": {
+            "doubleValue": 17.10608108108108
+          },
+          "vmaSource": {
+            "stringValue": "Marathon en 3h05"
+          },
+          "paces": {
+            "mapValue": {
+              "fields": {
+                "eaPace": {
+                  "stringValue": "4:33"
+                },
+                "seuilPace": {
+                  "stringValue": "4:02"
+                },
+                "allureSpecifiqueMarathon": {
+                  "stringValue": "4:23"
+                },
+                "recoveryPace": {
+                  "stringValue": "5:51"
+                },
+                "allureSpecifiqueSemi": {
+                  "stringValue": "4:08"
+                },
+                "allureSpecifique5k": {
+                  "stringValue": "3:42"
+                },
+                "efPace": {
+                  "stringValue": "5:14"
+                },
+                "vmaPace": {
+                  "stringValue": "3:30"
+                },
+                "allureSpecifique10k": {
+                  "stringValue": "3:54"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "userEmail": {
+      "stringValue": "nriq.bernardo@gmail.com"
+    },
+    "weeks": {
+      "arrayValue": {
+        "values": [
+          {
+            "mapValue": {
+              "fields": {
+                "theme": {
+                  "stringValue": "Fondamental"
+                },
+                "sessions": {
+                  "arrayValue": {
+                    "values": [
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "cooldown": {
+                              "stringValue": "15 minutes à 5:51 min/km"
+                            },
+                            "day": {
+                              "stringValue": "Lundi"
+                            },
+                            "type": {
+                              "stringValue": "Endurance Fondamentale"
+                            },
+                            "distance": {
+                              "stringValue": "10.7 km"
+                            },
+                            "duration": {
+                              "stringValue": "56 min"
+                            },
+                            "mainSet": {
+                              "stringValue": "45 minutes à 5:14 min/km"
+                            },
+                            "targetPace": {
+                              "stringValue": "5:14 min/km"
+                            },
+                            "intensity": {
+                              "stringValue": "Facile"
+                            },
+                            "elevationGain": {
+                              "integerValue": "0"
+                            },
+                            "id": {
+                              "stringValue": "w1-s1-1773269949864-48kcxko"
+                            },
+                            "advice": {
+                              "stringValue": "Concentre-toi sur une foulée relâchée et une respiration régulière."
+                            },
+                            "warmup": {
+                              "stringValue": "15 minutes à 5:51 min/km"
+                            },
+                            "title": {
+                              "stringValue": "Footing Léger"
+                            },
+                            "locationSuggestion": {
+                              "stringValue": "Parc de Montguichet"
+                            }
+                          }
+                        }
+                      },
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "id": {
+                              "stringValue": "w1-s2-1773269949864-bwd0sed"
+                            },
+                            "locationSuggestion": {
+                              "stringValue": "À la maison"
+                            },
+                            "title": {
+                              "stringValue": "Séance de Renforcement Spécifique"
+                            },
+                            "warmup": {
+                              "stringValue": "5 minutes d'échauffement articulaire"
+                            },
+                            "mainSet": {
+                              "stringValue": "3 séries de 15 squats, 3 séries de 12 fentes par jambe, 3 séries de 30 secondes de gainage (planche), 3 séries de 20 montées sur pointes de pieds."
+                            },
+                            "duration": {
+                              "stringValue": "40 min"
+                            },
+                            "advice": {
+                              "stringValue": "Effectue les mouvements lentement et en contrôlant ton posture. Privilégie la qualité à la quantité."
+                            },
+                            "elevationGain": {
+                              "integerValue": "0"
+                            },
+                            "intensity": {
+                              "stringValue": "Modéré"
+                            },
+                            "cooldown": {
+                              "stringValue": "5 minutes d'étirements"
+                            },
+                            "day": {
+                              "stringValue": "Mardi"
+                            },
+                            "type": {
+                              "stringValue": "Renforcement"
+                            }
+                          }
+                        }
+                      },
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "duration": {
+                              "stringValue": "1h07"
+                            },
+                            "mainSet": {
+                              "stringValue": "1 heure à 5:14 min/km"
+                            },
+                            "type": {
+                              "stringValue": "Endurance Fondamentale"
+                            },
+                            "distance": {
+                              "stringValue": "12.8 km"
+                            },
+                            "day": {
+                              "stringValue": "Mercredi"
+                            },
+                            "cooldown": {
+                              "stringValue": "15 minutes à 5:51 min/km"
+                            },
+                            "advice": {
+                              "stringValue": "Profite du paysage et maintiens une allure confortable. Hydrate-toi bien."
+                            },
+                            "title": {
+                              "stringValue": "Sortie en Endurance"
+                            },
+                            "warmup": {
+                              "stringValue": "15 minutes à 5:51 min/km"
+                            },
+                            "locationSuggestion": {
+                              "stringValue": "Forêt de Bondy (proche de Gagny)"
+                            },
+                            "id": {
+                              "stringValue": "w1-s3-1773269949864-bpjw0fn"
+                            },
+                            "targetPace": {
+                              "stringValue": "5:14 min/km"
+                            },
+                            "elevationGain": {
+                              "integerValue": "0"
+                            },
+                            "intensity": {
+                              "stringValue": "Facile"
+                            }
+                          }
+                        }
+                      },
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "locationSuggestion": {
+                              "stringValue": "Forêt de Bondy (proche de Gagny)"
+                            },
+                            "advice": {
+                              "stringValue": "Maintenez une allure soutenue mais contrôlable pendant la phase de tempo. Relâchez bien les épaules."
+                            },
+                            "title": {
+                              "stringValue": "Tempo Run"
+                            },
+                            "warmup": {
+                              "stringValue": "15 minutes à 5:51 min/km"
+                            },
+                            "id": {
+                              "stringValue": "w1-s4-1773269949864-p5d1p3t"
+                            },
+                            "elevationGain": {
+                              "integerValue": "0"
+                            },
+                            "intensity": {
+                              "stringValue": "Modéré"
+                            },
+                            "targetPace": {
+                              "stringValue": "4:02 min/km"
+                            },
+                            "duration": {
+                              "stringValue": "41 min"
+                            },
+                            "mainSet": {
+                              "stringValue": "25 minutes à 4:02 min/km"
+                            },
+                            "distance": {
+                              "stringValue": "10.1 km"
+                            },
+                            "type": {
+                              "stringValue": "Seuil"
+                            },
+                            "cooldown": {
+                              "stringValue": "15 minutes à 5:51 min/km"
+                            },
+                            "day": {
+                              "stringValue": "Jeudi"
+                            }
+                          }
+                        }
+                      },
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "mainSet": {
+                              "stringValue": "10 x 400m à 3:30 min/km avec récupération de 200m à 5:51 min/km"
+                            },
+                            "duration": {
+                              "stringValue": "45 min"
+                            },
+                            "distance": {
+                              "stringValue": "9.3 km"
+                            },
+                            "type": {
+                              "stringValue": "VMA"
+                            },
+                            "day": {
+                              "stringValue": "Samedi"
+                            },
+                            "cooldown": {
+                              "stringValue": "20 minutes à 5:51 min/km"
+                            },
+                            "locationSuggestion": {
+                              "stringValue": "Stade Jean Bouin"
+                            },
+                            "title": {
+                              "stringValue": "Fractionné Court"
+                            },
+                            "warmup": {
+                              "stringValue": "20 minutes à 5:51 min/km"
+                            },
+                            "advice": {
+                              "stringValue": "Adoptez une foulée dynamique et concentre-toi sur ton technique de course. Ne pars pas trop vite."
+                            },
+                            "id": {
+                              "stringValue": "w1-s5-1773269949864-6z51txp"
+                            },
+                            "elevationGain": {
+                              "integerValue": "0"
+                            },
+                            "intensity": {
+                              "stringValue": "Difficile"
+                            },
+                            "targetPace": {
+                              "stringValue": "3:30 min/km"
+                            }
+                          }
+                        }
+                      },
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "targetPace": {
+                              "stringValue": "4:35 min/km"
+                            },
+                            "elevationGain": {
+                              "integerValue": "100"
+                            },
+                            "intensity": {
+                              "stringValue": "Modéré"
+                            },
+                            "title": {
+                              "stringValue": "Sortie Longue Progressive"
+                            },
+                            "warmup": {
+                              "stringValue": "15 minutes à 5:51 min/km"
+                            },
+                            "advice": {
+                              "stringValue": "Pars prudemment et augmente progressivement ton allure. Testez ton stratégie d'hydratation et d'alimentation."
+                            },
+                            "locationSuggestion": {
+                              "stringValue": "Forêt de Bondy (proche de Gagny)"
+                            },
+                            "id": {
+                              "stringValue": "w1-s6-1773269949864-0j516mu"
+                            },
+                            "type": {
+                              "stringValue": "Sortie Longue"
+                            },
+                            "distance": {
+                              "stringValue": "22 km"
+                            },
+                            "day": {
+                              "stringValue": "Dimanche"
+                            },
+                            "mainSet": {
+                              "stringValue": "2 heures à 4:35 min/km"
+                            },
+                            "duration": {
+                              "stringValue": "1h41"
+                            }
+                          }
+                        }
+                      }
+                    ]
+                  }
+                },
+                "weekNumber": {
+                  "integerValue": "1"
+                },
+                "phase": {
+                  "stringValue": "fondamental"
+                }
+              }
+            }
+          }
+        ]
+      }
+    },
+    "location": {
+      "stringValue": "Gagny "
+    },
+    "suggestedLocations": {
+      "arrayValue": {
+        "values": [
+          {
+            "mapValue": {
+              "fields": {
+                "type": {
+                  "stringValue": "PARK"
+                },
+                "description": {
+                  "stringValue": "Idéal pour les footings légers et les séances d'endurance."
+                },
+                "name": {
+                  "stringValue": "Parc de Montguichet"
+                }
+              }
+            }
+          },
+          {
+            "mapValue": {
+              "fields": {
+                "type": {
+                  "stringValue": "TRACK"
+                },
+                "name": {
+                  "stringValue": "Stade Jean Bouin"
+                },
+                "description": {
+                  "stringValue": "Parfait pour les séances de fractionné VMA."
+                }
+              }
+            }
+          },
+          {
+            "mapValue": {
+              "fields": {
+                "description": {
+                  "stringValue": "Adaptée aux sorties longues et aux séances de tempo sur chemins."
+                },
+                "name": {
+                  "stringValue": "Forêt de Bondy (proche de Gagny)"
+                },
+                "type": {
+                  "stringValue": "NATURE"
+                }
+              }
+            }
+          }
+        ]
+      }
+    },
+    "calculatedVMA": {
+      "doubleValue": 17.10608108108108
+    },
+    "vmaSource": {
+      "stringValue": "Marathon en 3h05"
+    },
+    "targetTime": {
+      "stringValue": "2h55"
+    },
+    "id": {
+      "stringValue": "1773269949863"
+    },
+    "name": {
+      "stringValue": "Plan Marathon Expert - Objectif 2h55"
+    },
+    "createdAt": {
+      "stringValue": "2026-03-11T22:59:09.863Z"
+    },
+    "isPreview": {
+      "booleanValue": true
+    },
+    "sessionsPerWeek": {
+      "integerValue": "6"
+    },
+    "fullPlanGenerated": {
+      "booleanValue": false
+    },
+    "vma": {
+      "doubleValue": 17.10608108108108
+    },
+    "distance": {
+      "stringValue": "Marathon"
+    },
+    "welcomeMessage": {
+      "stringValue": "Bienvenue dans ce plan d'entraînement marathon de 20 semaines conçu pour atteindre ton objectif de 2h55. Cette première semaine est axée sur le développement fondamental, établissant une base solide pour les semaines à venir. Concentre-toi sur le volume et l'endurance, en intégrant une séance de renforcement musculaire spécifique pour la course à pied."
+    },
+    "feasibility": {
+      "mapValue": {
+        "fields": {
+          "safetyWarning": {
+            "stringValue": "Augmente progressivement le volume kilométrique pour éviter les blessures. Reste attentif aux signaux de ton corps et n'hésite pas à prendre des jours de repos si nécessaire."
+          },
+          "status": {
+            "stringValue": "BON"
+          },
+          "message": {
+            "stringValue": "Avec une VMA de 17.1 km/h, un marathon en 2h55 est ambitieux mais atteignable. Ton VMA théorique permet d'envisager un temps autour de 3h05. Nécessite un entraînement rigoureux et une gestion optimale de la course."
+          }
+        }
+      }
+    },
+    "startDate": {
+      "stringValue": "2026-03-11"
+    }
+  },
+  "createTime": "2026-03-11T22:59:10.039440Z",
+  "updateTime": "2026-03-18T17:02:54.853205Z"
+}

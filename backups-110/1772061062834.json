@@ -1,0 +1,586 @@
+{
+  "name": "projects/coach-running-ia/databases/(default)/documents/plans/1772061062834",
+  "fields": {
+    "vma": {
+      "doubleValue": 8.421052631578947
+    },
+    "createdAt": {
+      "stringValue": "2026-02-25T23:11:02.834Z"
+    },
+    "userEmail": {
+      "stringValue": "daumas.melanie@yahoo.fr"
+    },
+    "location": {
+      "stringValue": "Mèze"
+    },
+    "feasibility": {
+      "mapValue": {
+        "fields": {
+          "status": {
+            "stringValue": "BON"
+          },
+          "message": {
+            "stringValue": "Ton VMA de 8.4 km/h indique un temps théorique possible de 1h45 au semi-marathon. Avec un entraînement régulier et adapté, l'objectif de 1h30 est atteignable."
+          },
+          "safetyWarning": {
+            "stringValue": "Sois attentif aux signaux de ton corps. Ne force pas et hydrate-toi régulièrement, surtout par temps chaud."
+          }
+        }
+      }
+    },
+    "paces": {
+      "mapValue": {
+        "fields": {
+          "vmaPace": {
+            "stringValue": "7:08"
+          },
+          "recoveryPace": {
+            "stringValue": "11:53"
+          },
+          "allureSpecifiqueSemi": {
+            "stringValue": "8:23"
+          },
+          "seuilPace": {
+            "stringValue": "8:11"
+          },
+          "efPace": {
+            "stringValue": "10:38"
+          },
+          "allureSpecifique5k": {
+            "stringValue": "7:30"
+          },
+          "allureSpecifique10k": {
+            "stringValue": "7:55"
+          },
+          "allureSpecifiqueMarathon": {
+            "stringValue": "8:54"
+          },
+          "eaPace": {
+            "stringValue": "9:15"
+          }
+        }
+      }
+    },
+    "startDate": {
+      "stringValue": "2026-02-25"
+    },
+    "distance": {
+      "stringValue": "Semi-Marathon"
+    },
+    "isPreview": {
+      "booleanValue": true
+    },
+    "goal": {
+      "stringValue": "Course sur route"
+    },
+    "sessionsPerWeek": {
+      "integerValue": "3"
+    },
+    "calculatedVMA": {
+      "doubleValue": 8.421052631578947
+    },
+    "suggestedLocations": {
+      "arrayValue": {
+        "values": [
+          {
+            "mapValue": {
+              "fields": {
+                "type": {
+                  "stringValue": "PARK"
+                },
+                "name": {
+                  "stringValue": "Parc du Sesquier"
+                },
+                "description": {
+                  "stringValue": "Idéal pour les séances de marche/course et d'endurance facile."
+                }
+              }
+            }
+          },
+          {
+            "mapValue": {
+              "fields": {
+                "type": {
+                  "stringValue": "NATURE"
+                },
+                "name": {
+                  "stringValue": "Bords de l'Étang de Thau (côté Mèze)"
+                },
+                "description": {
+                  "stringValue": "Parfait pour les sorties longues et les séances de récupération en nature."
+                }
+              }
+            }
+          },
+          {
+            "mapValue": {
+              "fields": {
+                "type": {
+                  "stringValue": "TRACK"
+                },
+                "name": {
+                  "stringValue": "Stade Municipal de Mèze"
+                },
+                "description": {
+                  "stringValue": "Adapté pour les séances de renforcement musculaire et les exercices de proprioception."
+                }
+              }
+            }
+          }
+        ]
+      }
+    },
+    "vmaSource": {
+      "stringValue": "5km en 37:30"
+    },
+    "confidenceScore": {
+      "integerValue": "75"
+    },
+    "adaptationLog": {
+      "mapValue": {
+        "fields": {
+          "adaptationHistory": {
+            "arrayValue": {}
+          },
+          "adaptationsThisWeek": {
+            "integerValue": "0"
+          },
+          "weekNumber": {
+            "integerValue": "0"
+          }
+        }
+      }
+    },
+    "userId": {
+      "stringValue": "dkpLBMr7DxS6X7ZYYEDaK6Bbg3s2"
+    },
+    "generationContext": {
+      "mapValue": {
+        "fields": {
+          "periodizationPlan": {
+            "mapValue": {
+              "fields": {
+                "recoveryWeeks": {
+                  "arrayValue": {
+                    "values": [
+                      {
+                        "integerValue": "3"
+                      },
+                      {
+                        "integerValue": "6"
+                      },
+                      {
+                        "integerValue": "9"
+                      },
+                      {
+                        "integerValue": "12"
+                      }
+                    ]
+                  }
+                },
+                "weeklyPhases": {
+                  "arrayValue": {
+                    "values": [
+                      {
+                        "stringValue": "fondamental"
+                      },
+                      {
+                        "stringValue": "fondamental"
+                      },
+                      {
+                        "stringValue": "recuperation"
+                      },
+                      {
+                        "stringValue": "fondamental"
+                      },
+                      {
+                        "stringValue": "developpement"
+                      },
+                      {
+                        "stringValue": "recuperation"
+                      },
+                      {
+                        "stringValue": "developpement"
+                      },
+                      {
+                        "stringValue": "developpement"
+                      },
+                      {
+                        "stringValue": "recuperation"
+                      },
+                      {
+                        "stringValue": "specifique"
+                      },
+                      {
+                        "stringValue": "specifique"
+                      },
+                      {
+                        "stringValue": "recuperation"
+                      },
+                      {
+                        "stringValue": "affutage"
+                      },
+                      {
+                        "stringValue": "affutage"
+                      },
+                      {
+                        "stringValue": "affutage"
+                      }
+                    ]
+                  }
+                },
+                "totalWeeks": {
+                  "integerValue": "15"
+                },
+                "weeklyVolumes": {
+                  "arrayValue": {
+                    "values": [
+                      {
+                        "integerValue": "15"
+                      },
+                      {
+                        "integerValue": "16"
+                      },
+                      {
+                        "integerValue": "12"
+                      },
+                      {
+                        "integerValue": "17"
+                      },
+                      {
+                        "integerValue": "17"
+                      },
+                      {
+                        "integerValue": "13"
+                      },
+                      {
+                        "integerValue": "18"
+                      },
+                      {
+                        "integerValue": "19"
+                      },
+                      {
+                        "integerValue": "14"
+                      },
+                      {
+                        "integerValue": "20"
+                      },
+                      {
+                        "integerValue": "21"
+                      },
+                      {
+                        "integerValue": "16"
+                      },
+                      {
+                        "integerValue": "15"
+                      },
+                      {
+                        "integerValue": "13"
+                      },
+                      {
+                        "integerValue": "11"
+                      }
+                    ]
+                  }
+                }
+              }
+            }
+          },
+          "modelUsed": {
+            "stringValue": "gemini-2.0-flash"
+          },
+          "generatedAt": {
+            "stringValue": "2026-02-25T23:10:53.901Z"
+          },
+          "vma": {
+            "doubleValue": 8.421052631578947
+          },
+          "vmaSource": {
+            "stringValue": "5km en 37:30"
+          },
+          "questionnaireSnapshot": {
+            "mapValue": {
+              "fields": {
+                "raceDate": {
+                  "stringValue": "2026-06-10"
+                },
+                "targetTime": {
+                  "stringValue": "1h30"
+                },
+                "injuries": {
+                  "mapValue": {
+                    "fields": {
+                      "hasInjury": {
+                        "booleanValue": false
+                      }
+                    }
+                  }
+                },
+                "age": {
+                  "integerValue": "34"
+                },
+                "sex": {
+                  "stringValue": "Femme"
+                },
+                "subGoal": {
+                  "stringValue": "Semi-Marathon"
+                },
+                "preferredDays": {
+                  "arrayValue": {}
+                },
+                "weight": {
+                  "integerValue": "70"
+                },
+                "height": {
+                  "integerValue": "162"
+                },
+                "goal": {
+                  "stringValue": "Course sur route"
+                },
+                "recentRaceTimes": {
+                  "mapValue": {
+                    "fields": {
+                      "distance5km": {
+                        "stringValue": "37:30"
+                      }
+                    }
+                  }
+                },
+                "startDate": {
+                  "stringValue": "2026-02-25"
+                },
+                "city": {
+                  "stringValue": "Mèze"
+                },
+                "trailDetails": {
+                  "mapValue": {
+                    "fields": {
+                      "elevation": {
+                        "integerValue": "500"
+                      },
+                      "distance": {
+                        "integerValue": "20"
+                      }
+                    }
+                  }
+                },
+                "frequency": {
+                  "integerValue": "3"
+                },
+                "email": {
+                  "stringValue": "daumas.melanie@yahoo.fr"
+                },
+                "currentWeeklyVolume": {
+                  "integerValue": "15"
+                },
+                "level": {
+                  "stringValue": "Débutant (0-1 an)"
+                }
+              }
+            }
+          },
+          "paces": {
+            "mapValue": {
+              "fields": {
+                "allureSpecifiqueSemi": {
+                  "stringValue": "8:23"
+                },
+                "recoveryPace": {
+                  "stringValue": "11:53"
+                },
+                "vmaPace": {
+                  "stringValue": "7:08"
+                },
+                "allureSpecifique10k": {
+                  "stringValue": "7:55"
+                },
+                "eaPace": {
+                  "stringValue": "9:15"
+                },
+                "allureSpecifiqueMarathon": {
+                  "stringValue": "8:54"
+                },
+                "seuilPace": {
+                  "stringValue": "8:11"
+                },
+                "allureSpecifique5k": {
+                  "stringValue": "7:30"
+                },
+                "efPace": {
+                  "stringValue": "10:38"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "id": {
+      "stringValue": "1772061062834"
+    },
+    "weeks": {
+      "arrayValue": {
+        "values": [
+          {
+            "mapValue": {
+              "fields": {
+                "phase": {
+                  "stringValue": "fondamental"
+                },
+                "weekNumber": {
+                  "integerValue": "1"
+                },
+                "sessions": {
+                  "arrayValue": {
+                    "values": [
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "title": {
+                              "stringValue": "Reprise en douceur"
+                            },
+                            "duration": {
+                              "stringValue": "30 min"
+                            },
+                            "mainSet": {
+                              "stringValue": "8 x (1 min course légère à 10:38 min/km + 2 min marche active à 11:53 min/km)"
+                            },
+                            "id": {
+                              "stringValue": "w1-s1-1772061062834-wt4vdfh"
+                            },
+                            "day": {
+                              "stringValue": "Mardi"
+                            },
+                            "distance": {
+                              "stringValue": "5 km"
+                            },
+                            "intensity": {
+                              "stringValue": "Facile"
+                            },
+                            "cooldown": {
+                              "stringValue": "5 min de marche lente (11:53 min/km)"
+                            },
+                            "type": {
+                              "stringValue": "Marche/Course"
+                            },
+                            "advice": {
+                              "stringValue": "La marche fait partie intégrante de la séance. Concentre-toi sur ton posture et ton respiration."
+                            },
+                            "warmup": {
+                              "stringValue": "5 min de marche active (11:53 min/km)"
+                            },
+                            "targetPace": {
+                              "stringValue": "10:38 min/km (course)"
+                            }
+                          }
+                        }
+                      },
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "id": {
+                              "stringValue": "w1-s2-1772061062834-xzm3mes"
+                            },
+                            "day": {
+                              "stringValue": "Jeudi"
+                            },
+                            "title": {
+                              "stringValue": "Préparation musculaire"
+                            },
+                            "duration": {
+                              "stringValue": "35 min"
+                            },
+                            "mainSet": {
+                              "stringValue": "3 séries de : 10 squats, 10 fentes par jambe, 30 secondes de gainage ventral, 30 secondes de gainage latéral par côté, 15 montées sur pointes de pieds. 1 minute de repos entre chaque série."
+                            },
+                            "advice": {
+                              "stringValue": "Privilégie la qualité à la quantité. Contractez bien tes abdominaux pendant le gainage."
+                            },
+                            "type": {
+                              "stringValue": "Renforcement"
+                            },
+                            "warmup": {
+                              "stringValue": "5 min de marche et quelques étirements dynamiques"
+                            },
+                            "intensity": {
+                              "stringValue": "Modéré"
+                            },
+                            "cooldown": {
+                              "stringValue": "5 min d'étirements doux des principaux groupes musculaires sollicités."
+                            }
+                          }
+                        }
+                      },
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "advice": {
+                              "stringValue": "Profite du paysage et maintiens une allure confortable. Hydrate-toi après la séance."
+                            },
+                            "type": {
+                              "stringValue": "Marche/Course"
+                            },
+                            "warmup": {
+                              "stringValue": "5 min de marche active (11:53 min/km)"
+                            },
+                            "targetPace": {
+                              "stringValue": "10:38 min/km (course)"
+                            },
+                            "intensity": {
+                              "stringValue": "Facile"
+                            },
+                            "cooldown": {
+                              "stringValue": "5 min de marche lente (11:53 min/km)"
+                            },
+                            "id": {
+                              "stringValue": "w1-s3-1772061062834-d3tqy2m"
+                            },
+                            "day": {
+                              "stringValue": "Dimanche"
+                            },
+                            "distance": {
+                              "stringValue": "6 km"
+                            },
+                            "title": {
+                              "stringValue": "Sortie Longue Progressive"
+                            },
+                            "duration": {
+                              "stringValue": "35 min"
+                            },
+                            "mainSet": {
+                              "stringValue": "10 x (1 min course légère à 10:38 min/km + 2 min marche active à 11:53 min/km)"
+                            }
+                          }
+                        }
+                      }
+                    ]
+                  }
+                },
+                "theme": {
+                  "stringValue": "Mise en route"
+                }
+              }
+            }
+          }
+        ]
+      }
+    },
+    "durationWeeks": {
+      "integerValue": "15"
+    },
+    "name": {
+      "stringValue": "Plan Semi-Marathon 1h30 - Objectif Juin 2026"
+    },
+    "welcomeMessage": {
+      "stringValue": "Bienvenue dans ce plan d'entraînement de 15 semaines pour atteindre ton objectif de semi-marathon en 1h30 ! Cette première semaine est axée sur la mise en place d'une base solide avec des séances d'alternance marche/course et une séance de renforcement musculaire. Accrochez-toi au programme, suivez les instructions, et tu progresserez vers ton but !"
+    },
+    "fullPlanGenerated": {
+      "booleanValue": false
+    },
+    "targetTime": {
+      "stringValue": "1h30"
+    }
+  },
+  "createTime": "2026-02-25T23:11:02.830737Z",
+  "updateTime": "2026-03-18T16:38:42.839011Z"
+}

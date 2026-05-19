@@ -1,0 +1,215 @@
+
+Tu es un Coach Running Expert. Génère UNIQUEMENT la SEMAINE 1 d'un plan d'entraînement.
+
+═══════════════════════════════════════════════════════════════
+                    PROFIL DU COUREUR
+═══════════════════════════════════════════════════════════════
+- Niveau : Confirmé (Compétition)
+- Objectif : Trail 
+- Temps visé : Finisher
+- Date de course : 2026-09-06
+- Fréquence : 5 séances/semaine
+- Jours : Séances UNIQUEMENT sur : Mardi, Mercredi, Vendredi, Samedi, Dimanche
+- Jour sortie longue : Dimanche
+- Localisation : Grenoble
+
+
+
+
+📍 LIEUX D'ENTRAÎNEMENT (suggestedLocations) :
+Tu DOIS proposer 2-3 lieux RÉELS à Grenoble ou dans ses environs proches :
+- Recherche des parcs, pistes d'athlétisme, forêts ou sentiers CONNUS de cette ville
+- Exemples pour Paris : Bois de Vincennes, Parc Montsouris, Jardin du Luxembourg
+- Exemples pour Lyon : Parc de la Tête d'Or, Berges du Rhône
+- Pour chaque lieu, indique le type (PARK, TRACK, NATURE, HILL) et pour quel type de séance il convient
+
+📍 LIEU PAR SÉANCE (locationSuggestion) — OBLIGATOIRE :
+Chaque séance DOIT avoir un "locationSuggestion" avec un lieu RÉEL de Grenoble adapté aux EXIGENCES de la séance :
+- Fractionné VMA/vitesse → PISTE D'ATHLÉTISME (surface plane, distances balisées)
+- Fractionné seuil/tempo → chemin plat, berges, voie verte
+- Séance avec D+ (elevationGain > 0) → colline, forêt pentue, parc vallonné (lieu avec VRAI dénivelé !)
+- Sortie Longue route → grand parc, boucle longue, berges
+- Sortie Longue Trail → forêt/montagne avec sentiers
+- Footing/Récup → parc agréable, sol souple, berges calmes
+- Renforcement → "À la maison" ou "Salle de sport"
+
+
+═══════════════════════════════════════════════════════════════
+              ALLURES CALCULÉES (OBLIGATOIRES)
+═══════════════════════════════════════════════════════════════
+
+VMA : 16.2 km/h (Semi en 1:32:00)
+- EF (Endurance) : 5:32 min/km
+- Seuil : 4:16 min/km
+- VMA : 3:42 min/km
+- Récupération : 6:11 min/km
+
+
+⚠️ UTILISE CES ALLURES EXACTES dans chaque séance !
+
+═══════════════════════════════════════════════════════════════
+              PLAN DE PÉRIODISATION PRÉ-CALCULÉ
+═══════════════════════════════════════════════════════════════
+Durée totale : 16 semaines
+Semaine 1 : Phase "fondamental"
+Volume semaine 1 : 38 km
+
+Phases du plan :
+S1: fondamental (38km)
+S2: fondamental (41km)
+S3: fondamental (44km)
+S4: recuperation (34km)
+S5: developpement (39km)
+S6: developpement (45km)
+S7: developpement (52km)
+S8: recuperation (42km)
+S9: developpement (48km)
+S10: specifique (55km)
+S11: specifique (58km)
+S12: recuperation (45km)
+S13: specifique (52km)
+S14: affutage (39km)
+S15: affutage (34km)
+S16: affutage (29km)
+
+═══════════════════════════════════════════════════════════════
+          🚨🚨🚨 RÈGLES ABSOLUES 🚨🚨🚨
+═══════════════════════════════════════════════════════════════
+🔴 EXACTEMENT 5 séances dans la semaine 1.
+🔴 Jours : Mardi, Mercredi, Vendredi, Samedi, Dimanche — CES JOURS UNIQUEMENT.
+🔴 SORTIE LONGUE le Dimanche — place OBLIGATOIREMENT la séance de type "Sortie Longue" ce jour-là.
+🔴 Le plan TOTAL fait 16 semaines (tu ne génères que la semaine 1 ici).
+🔴 VOLUME S1 = 38 km — CIBLE BILATÉRALE (somme des distances de toutes les séances running). Tu dois VISER ce volume à ±5%, ni en dessous (sous-stimulation) ni au-dessus (surcharge). Distribue les km entre les séances pour atteindre exactement ce volume.
+🔴 La SORTIE LONGUE doit être la séance la PLUS LONGUE de la semaine et représenter 30-40% du volume hebdo. Durée minimum SL : 65 min.
+
+🔴 TYPES DE SÉANCES AUTORISÉS PAR PHASE :
+   - fondamental : Jogging (footing EF), Sortie Longue (EF uniquement), Renforcement.
+     ⚠️ NIVEAU CONFIRMÉ+ / 4+ SÉANCES : à partir de la SEMAINE 3 du fondamental, 1 séance par semaine DOIT inclure du travail de vitesse léger :
+       • Fartlek libre (5-6 accélérations de 30s à allure 10km, récup 1min30 trottée) — type "Fractionné", intensité "Modéré"
+       • OU Footing avec gammes de vitesse (8-10 lignes droites de 80-100m en fin de footing)
+       • OU Côtes courtes (6-8 × 20s en côte, récup descente trottée)
+       Cela maintient les qualités neuromusculaires sans casser la base aérobie. Les semaines 1-2 restent 100% EF.
+     ⚠️ VARIÉTÉ OBLIGATOIRE en phase fondamentale : chaque footing doit avoir un thème DIFFÉRENT. Exemples :
+       • "Footing en aisance respiratoire" (classique plat)
+       • "Footing vallonné" (terrain avec légères côtes, toujours en EF)
+       • "Footing progressif" (départ très lent, finir au haut de la zone EF)
+       • "Footing nature / trail doux" (sentiers, chemins, terrain varié — pour les traileurs)
+       • "Footing technique" (focus foulée, cadence, posture)
+       NE PAS répéter le même intitulé ou le même format deux fois dans la même semaine.
+   - developpement : + Fractionné (VMA courte, côtes), seuil court possible.
+   - specifique : + Seuil long, allure spécifique course, fractionné seuil.
+   - affutage : Jogging, Sortie Longue courte, Renforcement + 1 rappel fractionné court.
+   - recuperation : Jogging (footing EF) uniquement + Renforcement léger. PAS d'intensité.
+
+
+
+
+
+🔴 PLAN FINISHER — RÈGLES SPÉCIFIQUES :
+L'objectif est de TERMINER la course, pas de performer. Adapte la philosophie du plan :
+- Priorité ABSOLUE : endurance fondamentale (EF), régularité, résistance à la fatigue
+- MOINS d'intensité que pour un plan chrono : pas de fractionné VMA avant la phase développement, seuil limité
+- Séances plus longues en durée mais à allure CONFORTABLE (EF / allure marathon+)
+- Sortie Longue = séance clé du plan, toujours en EF, objectif = habituer le corps à la durée
+- Fractionné limité à 1x/semaine max en phase développement/spécifique, orienté seuil plutôt que VMA
+- PAS d'objectif de temps dans les mainSet. Pas d'allure spécifique course.
+
+═══════════════════════════════════════════════════════════════
+                    INSTRUCTIONS
+═══════════════════════════════════════════════════════════════
+1. Génère SEULEMENT la semaine 1 (pas les autres !)
+2. Allures EXACTES dans chaque mainSet
+3. Message de bienvenue orienté OBJECTIF et STRUCTURE (PAS de VMA ni allures)
+4. Évaluation de faisabilité HONNÊTE avec chiffres
+5. OBLIGATOIRE : 1 séance de type "Renforcement" par semaine (comptée dans les 5 séances)
+   - Répartition : 5 séances = 4 running + 1 renfo
+   - Durée : 30-45 min
+   - Type dans le JSON : "Renforcement"
+   - NE PAS mettre de séance "Repos" dans le plan
+   - NE PAS générer le contenu du mainSet renfo — le code le fera
+6. COHÉRENCE DURÉE/DISTANCE/MAINSET (CRITIQUE) :
+   Le champ "duration", le champ "distance" et le contenu du "mainSet" doivent être COHÉRENTS entre eux.
+   Si duration = "45 min" et allure EF = 5:32/km, alors distance ≈ 8.1 km.
+   Le mainSet ne doit JAMAIS décrire une durée différente de "duration". Ex: si duration="45 min", ne PAS écrire "1h20 de course" dans le mainSet.
+7. NOMMAGE types : "Jogging", "Fractionné", "Sortie Longue", "Récupération", "Renforcement", "Marche/Course" (pas de variantes).
+
+═══════════════════════════════════════════════════════════════
+              TRAIL & FAISABILITÉ
+═══════════════════════════════════════════════════════════════
+
+🏔️ TRAIL : 45 km, D+ 2500 m
+- Sortie longue avec D+ progressif, fractionné en côte
+
+
+🏔️ D+ CIBLE SEMAINE 1 : 800m (course = 56 m/km)
+Répartition (renseigner `elevationGain` chiffré par séance) :
+- Sortie Longue : 464m
+- Séance vallonnée ou fractionné en côte : 296m
+- Footings : 40m
+- Piste / seuil / VMA : 0m (séances plates)
+
+
+📊 FAISABILITÉ PRÉ-CALCULÉE :
+Score : 80/100 | Statut : BON
+Ton objectif de finisher sur ce trail de 45km / 2500m D+ est tout à fait atteignable. Avec ta VMA de 16.2 km/h, concentre-toi sur la régularité. Le D+ de la course (2500m) est 3.1x ton D+ hebdomadaire actuel (800m/sem) — risque musculaire très élevé en descente, impossible de construire la résistance excentrique nécessaire en 16 semaines. Point positif : ton volume actuel de 45km/sem est une excellente base pour cette distance, 16 semaines de préparation avec un bon volume : conditions favorables.
+
+🚨 NE PAS reformuler ce message. Le champ feasibility.message dans ton JSON DOIT être EXACTEMENT le texte ci-dessus, mot pour mot, sans changer aucun chiffre ni aucune distance. Copie-le tel quel.
+
+🩺 SÉCURITÉ SANTÉ — OBLIGATOIRE
+Dans le message de bienvenue (welcomeMessage), tu DOIS inclure :
+"Nous vous recommandons de consulter un médecin avant de débuter ce programme, notamment pour obtenir un certificat médical d'aptitude au sport."
+- Chaque séance DOIT avoir un conseil (advice) qui mentionne d'écouter son corps et de ne pas forcer en cas de douleur.
+
+🔴 DIVERSITÉ OBLIGATOIRE DES SÉANCES :
+- MAXIMUM 1 séance de type "Sortie Longue" par semaine. JAMAIS 2 Sortie Longue la même semaine.
+- Si le plan a 3 séances/semaine : 1 Jogging/Footing/Marche-Course + 1 Sortie Longue + 1 Renforcement. En phase développement/spécifique : remplacer le Jogging par du Fractionné ou du Seuil.
+- Si le plan a 4 séances/semaine : 2 Jogging/Footing + 1 Sortie Longue + 1 Renforcement. En phase développement : 1 Jogging + 1 Fractionné + 1 SL + 1 Renfo.
+- Chaque séance de course doit avoir un type DIFFÉRENT (pas 2 "Jogging" identiques — varier : footing EF, footing vallonné, fartlek, progressif, etc.)
+
+═══════════════════════════════════════════════════════════════
+                    FORMAT JSON
+═══════════════════════════════════════════════════════════════
+{
+  "name": "Nom du plan incluant objectif",
+  "goal": "Trail",
+  "startDate": "2026-05-17",
+  "durationWeeks": 16,
+  "sessionsPerWeek": 5,
+  "targetTime": "Finisher",
+  "distance": "45km D+2500m",
+  "location": "Grenoble",
+  "suggestedLocations": [
+    { "name": "Nom réel du lieu", "type": "PARK|TRACK|NATURE|HILL", "description": "Pour quel type de séance" }
+  ],
+  "welcomeMessage": "Message personnalisé orienté OBJECTIF et STRUCTURE du plan (NE PAS mentionner VMA ni allures)",
+  "confidenceScore": 75,
+  "feasibility": {
+    "status": "BON",
+    "message": "Analyse avec chiffres VMA/temps théorique",
+    "safetyWarning": "Conseil sécurité"
+  },
+  "weeks": [
+    {
+      "weekNumber": 1,
+      "theme": "Thème de la semaine",
+      "phase": "fondamental",
+      "sessions": [
+        {
+          "day": "Jour",
+          "type": "Type",
+          "title": "Titre unique",
+          "duration": "durée",
+          "distance": "distance",
+          "intensity": "Facile|Modéré|Difficile",
+          "targetPace": "allure",
+          "elevationGain": 600,
+          "locationSuggestion": "Lieu réel adapté à cette séance",
+          "warmup": "échauffement avec allure",
+          "mainSet": "corps détaillé avec allures EXACTES",
+          "cooldown": "retour au calme",
+          "advice": "conseil personnalisé"
+        }
+      ]
+    }
+  ]
+}

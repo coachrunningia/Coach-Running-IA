@@ -1,0 +1,709 @@
+{
+  "name": "projects/coach-running-ia/databases/(default)/documents/plans/1774273169498",
+  "fields": {
+    "isPreview": {
+      "booleanValue": true
+    },
+    "goal": {
+      "stringValue": "Course sur route"
+    },
+    "distance": {
+      "stringValue": "Semi-Marathon"
+    },
+    "endDate": {
+      "stringValue": "2026-11-02"
+    },
+    "sessionsPerWeek": {
+      "integerValue": "4"
+    },
+    "calculatedVMA": {
+      "doubleValue": 10.256410256410255
+    },
+    "location": {
+      "stringValue": "Clermont-Ferrand"
+    },
+    "feasibility": {
+      "mapValue": {
+        "fields": {
+          "status": {
+            "stringValue": "RISQUÉ"
+          },
+          "message": {
+            "stringValue": "En tant que Coach Expert, je dois être honnête sur la faisabilité de ton objectif. Avec une VMA actuelle de 10.3 km/h, ton temps théorique sur semi-marathon se situe autour de 2h25min. Pour atteindre les 2h00min, une VMA d'environ 12.4 km/h serait nécessaire. L'écart est significatif et représente un défi de taille sur 20 semaines. Ton volume actuel de 15 km/semaine est un bon point de départ, mais la progression devra être très structurée. Un objectif alternatif plus réaliste pour le moment pourrait être 2h32min, nous permettant d'ajuster si nécessaire au fil des semaines. L'important est de progresser, pas de se blesser."
+          },
+          "safetyWarning": {
+            "stringValue": "Fais valider la reprise avec ton kiné/médecin avant de démarrer ce plan. Adapte les séances si nécessaire."
+          }
+        }
+      }
+    },
+    "createdAt": {
+      "stringValue": "2026-03-23T13:39:29.498Z"
+    },
+    "vma": {
+      "doubleValue": 10.256410256410255
+    },
+    "userEmail": {
+      "stringValue": "adrien.lhuillery26@gmail.com"
+    },
+    "paces": {
+      "mapValue": {
+        "fields": {
+          "seuilPace": {
+            "stringValue": "6:43"
+          },
+          "efPace": {
+            "stringValue": "8:44"
+          },
+          "allureSpecifique5k": {
+            "stringValue": "6:09"
+          },
+          "allureSpecifique10k": {
+            "stringValue": "6:30"
+          },
+          "allureSpecifiqueMarathon": {
+            "stringValue": "7:19"
+          },
+          "eaPace": {
+            "stringValue": "7:36"
+          },
+          "vmaPace": {
+            "stringValue": "5:51"
+          },
+          "recoveryPace": {
+            "stringValue": "9:45"
+          },
+          "allureSpecifiqueSemi": {
+            "stringValue": "6:53"
+          }
+        }
+      }
+    },
+    "startDate": {
+      "stringValue": "2026-06-15"
+    },
+    "weeks": {
+      "arrayValue": {
+        "values": [
+          {
+            "mapValue": {
+              "fields": {
+                "weekGoal": {
+                  "stringValue": "Reprise en douceur et fondations solides"
+                },
+                "theme": {
+                  "stringValue": "Reprise en douceur et fondations solides"
+                },
+                "weekNumber": {
+                  "integerValue": "1"
+                },
+                "phase": {
+                  "stringValue": "fondamental"
+                },
+                "sessions": {
+                  "arrayValue": {
+                    "values": [
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "advice": {
+                              "stringValue": "C'est la première séance, l'objectif est de retrouver les sensations. Sois particulièrement vigilant à ton tendon d'Achille droit. La moindre gêne signifie qu'il faut ralentir ou s'arrêter."
+                            },
+                            "locationSuggestion": {
+                              "stringValue": "Parc de Montjuzet"
+                            },
+                            "duration": {
+                              "stringValue": "45 min"
+                            },
+                            "mainSet": {
+                              "stringValue": "30 min de course en endurance fondamentale à 8:44 min/km. Concentre-toi sur des foulées légères et un effort très confortable."
+                            },
+                            "day": {
+                              "stringValue": "Mardi"
+                            },
+                            "intensity": {
+                              "stringValue": "Facile"
+                            },
+                            "cooldown": {
+                              "stringValue": "5 min de marche lente avec quelques étirements doux pour les mollets. (à 9:45 min/km)"
+                            },
+                            "elevationGain": {
+                              "integerValue": "20"
+                            },
+                            "type": {
+                              "stringValue": "Jogging"
+                            },
+                            "warmup": {
+                              "stringValue": "10 min de marche rapide, puis 5 min de course très lente (9:45 min/km)"
+                            },
+                            "targetPace": {
+                              "stringValue": "8:44 min/km"
+                            },
+                            "title": {
+                              "stringValue": "Footing de reprise en endurance fondamentale"
+                            },
+                            "id": {
+                              "stringValue": "w1-s1-1774273169498-aek570x"
+                            },
+                            "distance": {
+                              "stringValue": "5.1 km"
+                            }
+                          }
+                        }
+                      },
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "advice": {
+                              "stringValue": "Même si la durée est plus longue, l'intensité reste très faible. C'est crucial pour construire ta base sans stresser le tendon. Si la douleur apparaît, marche ou arrête-toi."
+                            },
+                            "day": {
+                              "stringValue": "Jeudi"
+                            },
+                            "duration": {
+                              "stringValue": "60 min"
+                            },
+                            "mainSet": {
+                              "stringValue": "50 min de course en endurance fondamentale à 8:44 min/km. Maintiens une discussion aisée et une sensation de confort."
+                            },
+                            "locationSuggestion": {
+                              "stringValue": "Berges de l'Allier (proche Cournon-d'Auvergne)"
+                            },
+                            "warmup": {
+                              "stringValue": "10 min de course très lente (9:45 min/km) pour préparer le corps en douceur."
+                            },
+                            "targetPace": {
+                              "stringValue": "8:44 min/km"
+                            },
+                            "type": {
+                              "stringValue": "Sortie Longue"
+                            },
+                            "elevationGain": {
+                              "integerValue": "30"
+                            },
+                            "intensity": {
+                              "stringValue": "Facile"
+                            },
+                            "cooldown": {
+                              "stringValue": "10 min de marche et quelques étirements légers, en insistant sur l'arrière de la jambe. (à 9:45 min/km)"
+                            },
+                            "distance": {
+                              "stringValue": "6.8 km"
+                            },
+                            "id": {
+                              "stringValue": "w1-s2-1774273169498-56t4oig"
+                            },
+                            "title": {
+                              "stringValue": "Endurance fondamentale progressive"
+                            }
+                          }
+                        }
+                      },
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "advice": {
+                              "stringValue": "Le renforcement est essentiel pour prévenir les blessures et renforcer ta structure. Pour le tendon d'Achille, privilégie des mouvements lents et contrôlés, sans charge additionnelle et sans aucune douleur."
+                            },
+                            "day": {
+                              "stringValue": "Samedi"
+                            },
+                            "duration": {
+                              "stringValue": "35-40 min"
+                            },
+                            "mainSet": {
+                              "stringValue": "Circuit 3 tours : Squats poids de corps (3x14), Squat bulgare (3x9/jambe), Fentes avant (3x9/jambe), Gainage ventral (3x27-60s), Dead bug (3x9/côté), Extensions mollets debout (3x18). Repos 1 min 30 entre tours."
+                            },
+                            "locationSuggestion": {
+                              "stringValue": "À la maison"
+                            },
+                            "warmup": {
+                              "stringValue": "10 min de mobilité articulaire douce et échauffement progressif (marche rapide, rotations, pas chassés)"
+                            },
+                            "targetPace": {
+                              "stringValue": "N/A"
+                            },
+                            "type": {
+                              "stringValue": "Renforcement"
+                            },
+                            "elevationGain": {
+                              "integerValue": "0"
+                            },
+                            "intensity": {
+                              "stringValue": "Modéré"
+                            },
+                            "cooldown": {
+                              "stringValue": "5 min d'étirements : quadriceps, ischio-jambiers, mollets, hanches"
+                            },
+                            "distance": {
+                              "stringValue": "0 km"
+                            },
+                            "id": {
+                              "stringValue": "w1-s3-1774273169498-4lu0yiu"
+                            },
+                            "title": {
+                              "stringValue": "Renfo Focus A - Quadriceps & Gainage (S1)"
+                            }
+                          }
+                        }
+                      },
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "duration": {
+                              "stringValue": "25 min"
+                            },
+                            "mainSet": {
+                              "stringValue": "20 min de course très facile en endurance fondamentale à 8:44 min/km. L'objectif est la récupération active, pas la performance."
+                            },
+                            "locationSuggestion": {
+                              "stringValue": "Parc de Montjuzet (zones planes)"
+                            },
+                            "day": {
+                              "stringValue": "Dimanche"
+                            },
+                            "advice": {
+                              "stringValue": "Ce footing est léger et doux pour aider à la récupération. Si le tendon d'Achille est sensible, n'hésite pas à remplacer par de la marche ou du vélo à faible résistance."
+                            },
+                            "title": {
+                              "stringValue": "Footing de récupération active"
+                            },
+                            "distance": {
+                              "stringValue": "3.1 km"
+                            },
+                            "id": {
+                              "stringValue": "w1-s4-1774273169498-6vhqks5"
+                            },
+                            "elevationGain": {
+                              "integerValue": "0"
+                            },
+                            "intensity": {
+                              "stringValue": "Facile"
+                            },
+                            "cooldown": {
+                              "stringValue": "5 min de marche et respirations profondes. (à 9:45 min/km)"
+                            },
+                            "targetPace": {
+                              "stringValue": "8:44 min/km"
+                            },
+                            "warmup": {
+                              "stringValue": "5 min de marche, à 9:45 min/km."
+                            },
+                            "type": {
+                              "stringValue": "Jogging"
+                            }
+                          }
+                        }
+                      }
+                    ]
+                  }
+                }
+              }
+            }
+          }
+        ]
+      }
+    },
+    "durationWeeks": {
+      "integerValue": "20"
+    },
+    "userId": {
+      "stringValue": "CIxpRbDvbTWhuaMsCasZp4iiXLi2"
+    },
+    "generationContext": {
+      "mapValue": {
+        "fields": {
+          "modelUsed": {
+            "stringValue": "gemini-2.5-flash"
+          },
+          "periodizationPlan": {
+            "mapValue": {
+              "fields": {
+                "weeklyVolumes": {
+                  "arrayValue": {
+                    "values": [
+                      {
+                        "integerValue": "15"
+                      },
+                      {
+                        "integerValue": "16"
+                      },
+                      {
+                        "integerValue": "12"
+                      },
+                      {
+                        "integerValue": "16"
+                      },
+                      {
+                        "integerValue": "18"
+                      },
+                      {
+                        "integerValue": "14"
+                      },
+                      {
+                        "integerValue": "18"
+                      },
+                      {
+                        "integerValue": "21"
+                      },
+                      {
+                        "integerValue": "17"
+                      },
+                      {
+                        "integerValue": "22"
+                      },
+                      {
+                        "integerValue": "25"
+                      },
+                      {
+                        "integerValue": "19"
+                      },
+                      {
+                        "integerValue": "25"
+                      },
+                      {
+                        "integerValue": "29"
+                      },
+                      {
+                        "integerValue": "23"
+                      },
+                      {
+                        "integerValue": "30"
+                      },
+                      {
+                        "integerValue": "35"
+                      },
+                      {
+                        "integerValue": "25"
+                      },
+                      {
+                        "integerValue": "22"
+                      },
+                      {
+                        "integerValue": "18"
+                      }
+                    ]
+                  }
+                },
+                "totalWeeks": {
+                  "integerValue": "20"
+                },
+                "weeklyPhases": {
+                  "arrayValue": {
+                    "values": [
+                      {
+                        "stringValue": "fondamental"
+                      },
+                      {
+                        "stringValue": "fondamental"
+                      },
+                      {
+                        "stringValue": "recuperation"
+                      },
+                      {
+                        "stringValue": "fondamental"
+                      },
+                      {
+                        "stringValue": "fondamental"
+                      },
+                      {
+                        "stringValue": "recuperation"
+                      },
+                      {
+                        "stringValue": "developpement"
+                      },
+                      {
+                        "stringValue": "developpement"
+                      },
+                      {
+                        "stringValue": "recuperation"
+                      },
+                      {
+                        "stringValue": "developpement"
+                      },
+                      {
+                        "stringValue": "developpement"
+                      },
+                      {
+                        "stringValue": "recuperation"
+                      },
+                      {
+                        "stringValue": "developpement"
+                      },
+                      {
+                        "stringValue": "specifique"
+                      },
+                      {
+                        "stringValue": "recuperation"
+                      },
+                      {
+                        "stringValue": "specifique"
+                      },
+                      {
+                        "stringValue": "specifique"
+                      },
+                      {
+                        "stringValue": "recuperation"
+                      },
+                      {
+                        "stringValue": "affutage"
+                      },
+                      {
+                        "stringValue": "affutage"
+                      }
+                    ]
+                  }
+                },
+                "recoveryWeeks": {
+                  "arrayValue": {
+                    "values": [
+                      {
+                        "integerValue": "3"
+                      },
+                      {
+                        "integerValue": "6"
+                      },
+                      {
+                        "integerValue": "9"
+                      },
+                      {
+                        "integerValue": "12"
+                      },
+                      {
+                        "integerValue": "15"
+                      },
+                      {
+                        "integerValue": "18"
+                      }
+                    ]
+                  }
+                }
+              }
+            }
+          },
+          "generatedAt": {
+            "stringValue": "2026-03-23T13:39:13.372Z"
+          },
+          "vma": {
+            "doubleValue": 10.256410256410255
+          },
+          "questionnaireSnapshot": {
+            "mapValue": {
+              "fields": {
+                "startDate": {
+                  "stringValue": "2026-03-23"
+                },
+                "recentRaceTimes": {
+                  "mapValue": {
+                    "fields": {
+                      "distance10km": {
+                        "stringValue": "1h05"
+                      }
+                    }
+                  }
+                },
+                "email": {
+                  "stringValue": "adrien.lhuillery26@gmail.com"
+                },
+                "frequency": {
+                  "integerValue": "4"
+                },
+                "vma": {
+                  "doubleValue": 10.256410256410255
+                },
+                "trailDetails": {
+                  "mapValue": {
+                    "fields": {
+                      "distance": {
+                        "integerValue": "20"
+                      },
+                      "elevation": {
+                        "integerValue": "500"
+                      }
+                    }
+                  }
+                },
+                "city": {
+                  "stringValue": "Clermont-Ferrand"
+                },
+                "level": {
+                  "stringValue": "Intermédiaire (Régulier)"
+                },
+                "currentWeeklyVolume": {
+                  "integerValue": "15"
+                },
+                "comments": {
+                  "stringValue": "sortie longue le w-e"
+                },
+                "raceDate": {
+                  "stringValue": "2026-10-30"
+                },
+                "targetTime": {
+                  "stringValue": "2h00"
+                },
+                "age": {
+                  "integerValue": "28"
+                },
+                "sex": {
+                  "stringValue": "Homme"
+                },
+                "subGoal": {
+                  "stringValue": "Semi-Marathon"
+                },
+                "injuries": {
+                  "mapValue": {
+                    "fields": {
+                      "description": {
+                        "stringValue": "légère douleur tendon d'achille droit "
+                      },
+                      "hasInjury": {
+                        "booleanValue": true
+                      }
+                    }
+                  }
+                },
+                "goal": {
+                  "stringValue": "Course sur route"
+                },
+                "height": {
+                  "integerValue": "181"
+                },
+                "weight": {
+                  "integerValue": "94"
+                },
+                "preferredDays": {
+                  "arrayValue": {}
+                }
+              }
+            }
+          },
+          "vmaSource": {
+            "stringValue": "10km en 1h05"
+          },
+          "paces": {
+            "mapValue": {
+              "fields": {
+                "allureSpecifiqueSemi": {
+                  "stringValue": "6:53"
+                },
+                "recoveryPace": {
+                  "stringValue": "9:45"
+                },
+                "vmaPace": {
+                  "stringValue": "5:51"
+                },
+                "allureSpecifique10k": {
+                  "stringValue": "6:30"
+                },
+                "eaPace": {
+                  "stringValue": "7:36"
+                },
+                "allureSpecifiqueMarathon": {
+                  "stringValue": "7:19"
+                },
+                "seuilPace": {
+                  "stringValue": "6:43"
+                },
+                "allureSpecifique5k": {
+                  "stringValue": "6:09"
+                },
+                "efPace": {
+                  "stringValue": "8:44"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "id": {
+      "stringValue": "1774273169498"
+    },
+    "targetTime": {
+      "stringValue": "2h00"
+    },
+    "name": {
+      "stringValue": "Préparation Semi-Marathon en 2h00 — 20 sem."
+    },
+    "fullPlanGenerated": {
+      "booleanValue": false
+    },
+    "welcomeMessage": {
+      "stringValue": "Bonjour et bienvenue dans ton programme de préparation au Semi-Marathon de Clermont-Ferrand ! Ton objectif ambitieux de 2h00 sera le fil rouge de ces 20 prochaines semaines. Ce plan est conçu pour te faire progresser de manière régulière et sécuritaire, en intégrant 4 séances par semaine, incluant de la course à pied et du renforcement musculaire. La clé sera la constance, l'écoute de ton corps et une progression intelligente. Nous te recommandons de consulter un médecin avant de débuter ce programme, notamment pour obtenir un certificat médical d'aptitude au sport."
+    },
+    "suggestedLocations": {
+      "arrayValue": {
+        "values": [
+          {
+            "mapValue": {
+              "fields": {
+                "type": {
+                  "stringValue": "HILL"
+                },
+                "description": {
+                  "stringValue": "Idéal pour les footings en endurance fondamentale, avec des zones planes et des côtes pour les séances de dénivelé."
+                },
+                "name": {
+                  "stringValue": "Parc de Montjuzet"
+                }
+              }
+            }
+          },
+          {
+            "mapValue": {
+              "fields": {
+                "type": {
+                  "stringValue": "NATURE"
+                },
+                "description": {
+                  "stringValue": "Parfait pour les sorties longues et les séances au seuil, avec un parcours plat et agréable le long de la rivière."
+                },
+                "name": {
+                  "stringValue": "Berges de l'Allier (à proximité de Cournon-d'Auvergne)"
+                }
+              }
+            }
+          },
+          {
+            "mapValue": {
+              "fields": {
+                "type": {
+                  "stringValue": "TRACK"
+                },
+                "description": {
+                  "stringValue": "Indispensable pour les séances de fractionné court (VMA) ou d'allure spécifique sur une surface régulière."
+                },
+                "name": {
+                  "stringValue": "Piste d'athlétisme du Stade Philippe Marcombes"
+                }
+              }
+            }
+          }
+        ]
+      }
+    },
+    "vmaSource": {
+      "stringValue": "10km en 1h05"
+    },
+    "confidenceScore": {
+      "integerValue": "36"
+    },
+    "adaptationLog": {
+      "mapValue": {
+        "fields": {
+          "adaptationHistory": {
+            "arrayValue": {}
+          },
+          "weekNumber": {
+            "integerValue": "0"
+          },
+          "adaptationsThisWeek": {
+            "integerValue": "0"
+          }
+        }
+      }
+    }
+  },
+  "createTime": "2026-03-23T13:39:40.756975Z",
+  "updateTime": "2026-03-23T13:39:40.756975Z"
+}

@@ -1,0 +1,577 @@
+{
+  "name": "projects/coach-running-ia/databases/(default)/documents/plans/1774645125950",
+  "fields": {
+    "goal": {
+      "stringValue": "Course sur route"
+    },
+    "generationContext": {
+      "mapValue": {
+        "fields": {
+          "vma": {
+            "doubleValue": 16.064257028112447
+          },
+          "generatedAt": {
+            "stringValue": "2026-03-27T20:58:07.163Z"
+          },
+          "periodizationPlan": {
+            "mapValue": {
+              "fields": {
+                "totalWeeks": {
+                  "integerValue": "7"
+                },
+                "weeklyPhases": {
+                  "arrayValue": {
+                    "values": [
+                      {
+                        "stringValue": "fondamental"
+                      },
+                      {
+                        "stringValue": "fondamental"
+                      },
+                      {
+                        "stringValue": "developpement"
+                      },
+                      {
+                        "stringValue": "recuperation"
+                      },
+                      {
+                        "stringValue": "specifique"
+                      },
+                      {
+                        "stringValue": "specifique"
+                      },
+                      {
+                        "stringValue": "affutage"
+                      }
+                    ]
+                  }
+                },
+                "recoveryWeeks": {
+                  "arrayValue": {
+                    "values": [
+                      {
+                        "integerValue": "4"
+                      }
+                    ]
+                  }
+                },
+                "weeklyVolumes": {
+                  "arrayValue": {
+                    "values": [
+                      {
+                        "integerValue": "39"
+                      },
+                      {
+                        "integerValue": "43"
+                      },
+                      {
+                        "integerValue": "47"
+                      },
+                      {
+                        "integerValue": "33"
+                      },
+                      {
+                        "integerValue": "43"
+                      },
+                      {
+                        "integerValue": "49"
+                      },
+                      {
+                        "integerValue": "30"
+                      }
+                    ]
+                  }
+                }
+              }
+            }
+          },
+          "modelUsed": {
+            "stringValue": "gemini-2.5-flash"
+          },
+          "vmaSource": {
+            "stringValue": "10km en 41:30"
+          },
+          "paces": {
+            "mapValue": {
+              "fields": {
+                "allureSpecifique5k": {
+                  "stringValue": "3:56"
+                },
+                "recoveryPace": {
+                  "stringValue": "6:14"
+                },
+                "efPace": {
+                  "stringValue": "5:34"
+                },
+                "vmaPace": {
+                  "stringValue": "3:44"
+                },
+                "allureSpecifiqueSemi": {
+                  "stringValue": "4:24"
+                },
+                "allureSpecifiqueMarathon": {
+                  "stringValue": "4:40"
+                },
+                "allureSpecifique10k": {
+                  "stringValue": "4:09"
+                },
+                "eaPace": {
+                  "stringValue": "4:51"
+                },
+                "seuilPace": {
+                  "stringValue": "4:18"
+                }
+              }
+            }
+          },
+          "questionnaireSnapshot": {
+            "mapValue": {
+              "fields": {
+                "sex": {
+                  "stringValue": "Homme"
+                },
+                "city": {
+                  "stringValue": "Illkirch"
+                },
+                "injuries": {
+                  "mapValue": {
+                    "fields": {
+                      "hasInjury": {
+                        "booleanValue": false
+                      }
+                    }
+                  }
+                },
+                "level": {
+                  "stringValue": "Expert (Performance)"
+                },
+                "comments": {
+                  "stringValue": "5 séances, mardi mercredi jeudi samedi et dimanche"
+                },
+                "recentRaceTimes": {
+                  "mapValue": {
+                    "fields": {
+                      "distance10km": {
+                        "stringValue": "41:30"
+                      }
+                    }
+                  }
+                },
+                "height": {
+                  "integerValue": "171"
+                },
+                "currentWeeklyVolume": {
+                  "integerValue": "60"
+                },
+                "goal": {
+                  "stringValue": "Course sur route"
+                },
+                "email": {
+                  "stringValue": "gauthierbazille@yahoo.fr"
+                },
+                "age": {
+                  "integerValue": "43"
+                },
+                "weight": {
+                  "integerValue": "71"
+                },
+                "targetTime": {
+                  "stringValue": "1h30"
+                },
+                "vma": {
+                  "doubleValue": 16.064257028112447
+                },
+                "preferredDays": {
+                  "arrayValue": {
+                    "values": [
+                      {
+                        "stringValue": "Mardi"
+                      },
+                      {
+                        "stringValue": "Jeudi"
+                      },
+                      {
+                        "stringValue": "Samedi"
+                      }
+                    ]
+                  }
+                },
+                "subGoal": {
+                  "stringValue": "Semi-Marathon"
+                },
+                "frequency": {
+                  "integerValue": "3"
+                },
+                "startDate": {
+                  "stringValue": "2026-03-27"
+                },
+                "raceDate": {
+                  "stringValue": "2026-05-10"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "endDate": {
+      "stringValue": "2026-05-10"
+    },
+    "paces": {
+      "mapValue": {
+        "fields": {
+          "allureSpecifiqueSemi": {
+            "stringValue": "4:24"
+          },
+          "allureSpecifiqueMarathon": {
+            "stringValue": "4:40"
+          },
+          "allureSpecifique10k": {
+            "stringValue": "4:09"
+          },
+          "eaPace": {
+            "stringValue": "4:51"
+          },
+          "seuilPace": {
+            "stringValue": "4:18"
+          },
+          "allureSpecifique5k": {
+            "stringValue": "3:56"
+          },
+          "recoveryPace": {
+            "stringValue": "6:14"
+          },
+          "efPace": {
+            "stringValue": "5:34"
+          },
+          "vmaPace": {
+            "stringValue": "3:44"
+          }
+        }
+      }
+    },
+    "startDate": {
+      "stringValue": "2026-03-23"
+    },
+    "location": {
+      "stringValue": "Illkirch"
+    },
+    "sessionsPerWeek": {
+      "integerValue": "3"
+    },
+    "name": {
+      "stringValue": "Préparation Semi-Marathon en 1h30 — 7 sem."
+    },
+    "suggestedLocations": {
+      "arrayValue": {
+        "values": [
+          {
+            "mapValue": {
+              "fields": {
+                "description": {
+                  "stringValue": "Pour les séances de fractionné court et VMA, sur piste d'athlétisme."
+                },
+                "type": {
+                  "stringValue": "TRACK"
+                },
+                "name": {
+                  "stringValue": "Stade de l'Ill (Lixenbuhl)"
+                }
+              }
+            }
+          },
+          {
+            "mapValue": {
+              "fields": {
+                "type": {
+                  "stringValue": "PARK"
+                },
+                "name": {
+                  "stringValue": "Parc Friedel"
+                },
+                "description": {
+                  "stringValue": "Idéal pour les footings en endurance fondamentale et les récupérations actives, sur des chemins agréables."
+                }
+              }
+            }
+          },
+          {
+            "mapValue": {
+              "fields": {
+                "description": {
+                  "stringValue": "Parfait pour les sorties longues sur terrain plat, les footings réguliers ou les séances au seuil."
+                },
+                "name": {
+                  "stringValue": "Berges de l'Ill et Canal du Rhône au Rhin"
+                },
+                "type": {
+                  "stringValue": "NATURE"
+                }
+              }
+            }
+          },
+          {
+            "mapValue": {
+              "fields": {
+                "description": {
+                  "stringValue": "Pour les footings vallonnés et les sorties longues avec un léger dénivelé naturel sur sentiers forestiers."
+                },
+                "name": {
+                  "stringValue": "Forêt de l'Ill"
+                },
+                "type": {
+                  "stringValue": "NATURE"
+                }
+              }
+            }
+          }
+        ]
+      }
+    },
+    "fullPlanGenerated": {
+      "booleanValue": false
+    },
+    "id": {
+      "stringValue": "1774645125950"
+    },
+    "adaptationLog": {
+      "mapValue": {
+        "fields": {
+          "adaptationHistory": {
+            "arrayValue": {}
+          },
+          "adaptationsThisWeek": {
+            "integerValue": "0"
+          },
+          "weekNumber": {
+            "integerValue": "0"
+          }
+        }
+      }
+    },
+    "confidenceScore": {
+      "integerValue": "71"
+    },
+    "targetTime": {
+      "stringValue": "1h30"
+    },
+    "calculatedVMA": {
+      "doubleValue": 16.064257028112447
+    },
+    "weeks": {
+      "arrayValue": {
+        "values": [
+          {
+            "mapValue": {
+              "fields": {
+                "sessions": {
+                  "arrayValue": {
+                    "values": [
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "title": {
+                              "stringValue": "Footing en aisance respiratoire"
+                            },
+                            "targetPace": {
+                              "stringValue": "5:34 min/km"
+                            },
+                            "type": {
+                              "stringValue": "Sortie Longue"
+                            },
+                            "advice": {
+                              "stringValue": "Concentre-toi sur une respiration régulière et une foulée fluide. Tu dois être capable de tenir une conversation. Écoute ton corps et adapte l'allure si nécessaire. Ne force jamais en cas de douleur."
+                            },
+                            "duration": {
+                              "stringValue": "1h 55 min"
+                            },
+                            "intensity": {
+                              "stringValue": "Facile"
+                            },
+                            "mainSet": {
+                              "stringValue": "1h26min à 5:34 min/km"
+                            },
+                            "locationSuggestion": {
+                              "stringValue": "Berges de l'Ill et Canal du Rhône au Rhin"
+                            },
+                            "warmup": {
+                              "stringValue": "10 min à 5:34 min/km"
+                            },
+                            "id": {
+                              "stringValue": "w1-s1-1774645125950-wizlgm2"
+                            },
+                            "day": {
+                              "stringValue": "Mardi"
+                            },
+                            "distance": {
+                              "stringValue": "20.6 km"
+                            },
+                            "elevationGain": {
+                              "integerValue": "0"
+                            },
+                            "cooldown": {
+                              "stringValue": "10 min à 5:34 min/km"
+                            }
+                          }
+                        }
+                      },
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "elevationGain": {
+                              "integerValue": "0"
+                            },
+                            "cooldown": {
+                              "stringValue": "5 min d'étirements : quadriceps, ischio-jambiers, mollets, hanches"
+                            },
+                            "duration": {
+                              "stringValue": "40-45 min"
+                            },
+                            "intensity": {
+                              "stringValue": "Modéré"
+                            },
+                            "locationSuggestion": {
+                              "stringValue": "À la maison"
+                            },
+                            "warmup": {
+                              "stringValue": "10 min de mobilité articulaire et échauffement dynamique"
+                            },
+                            "id": {
+                              "stringValue": "w1-s2-1774645125950-juywz6q"
+                            },
+                            "day": {
+                              "stringValue": "Jeudi"
+                            },
+                            "distance": {
+                              "stringValue": "0.0 km"
+                            },
+                            "title": {
+                              "stringValue": "Renfo Focus A - Quadriceps & Gainage (S1)"
+                            },
+                            "mainSet": {
+                              "stringValue": "Circuit 4 tours : Squats poids de corps (3x18), Squat bulgare (3x12/jambe), Fentes avant (3x12/jambe), Gainage ventral (3x35-60s), Dead bug (3x12/côté), Extensions mollets debout (3x23). Repos 1 min entre tours."
+                            },
+                            "type": {
+                              "stringValue": "Renforcement"
+                            }
+                          }
+                        }
+                      },
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "cooldown": {
+                              "stringValue": "10 min à 5:34 min/km"
+                            },
+                            "elevationGain": {
+                              "integerValue": "0"
+                            },
+                            "day": {
+                              "stringValue": "Samedi"
+                            },
+                            "distance": {
+                              "stringValue": "20.0 km"
+                            },
+                            "locationSuggestion": {
+                              "stringValue": "Forêt de l'Ill"
+                            },
+                            "warmup": {
+                              "stringValue": "10 min à 5:34 min/km"
+                            },
+                            "id": {
+                              "stringValue": "w1-s3-1774645125950-f7xfoys"
+                            },
+                            "mainSet": {
+                              "stringValue": "1h31min à 5:34 min/km avec quelques légers faux-plats. Maintiens une allure constante et aisée."
+                            },
+                            "intensity": {
+                              "stringValue": "Facile"
+                            },
+                            "duration": {
+                              "stringValue": "1h51min"
+                            },
+                            "advice": {
+                              "stringValue": "Cette sortie longue est essentielle pour développer ton endurance. Gère ton effort, hydrate-toi régulièrement et prévois de l'eau si nécessaire. Écoute ton corps et ne force pas en cas de fatigue ou de douleur."
+                            },
+                            "targetPace": {
+                              "stringValue": "5:34 min/km"
+                            },
+                            "type": {
+                              "stringValue": "Sortie Longue"
+                            },
+                            "title": {
+                              "stringValue": "Sortie Longue vallonnée"
+                            }
+                          }
+                        }
+                      }
+                    ]
+                  }
+                },
+                "phase": {
+                  "stringValue": "fondamental"
+                },
+                "theme": {
+                  "stringValue": "Construction de l'Endurance Fondamentale"
+                },
+                "weekNumber": {
+                  "integerValue": "1"
+                },
+                "weekGoal": {
+                  "stringValue": "Construction de l'Endurance Fondamentale"
+                }
+              }
+            }
+          }
+        ]
+      }
+    },
+    "vmaSource": {
+      "stringValue": "10km en 41:30"
+    },
+    "createdAt": {
+      "stringValue": "2026-03-27T20:58:45.950Z"
+    },
+    "durationWeeks": {
+      "integerValue": "7"
+    },
+    "raceDate": {
+      "stringValue": "2026-05-10"
+    },
+    "userId": {
+      "stringValue": "hmnp49eLWXhiAtYDKH8RyGww4Qh2"
+    },
+    "welcomeMessage": {
+      "stringValue": "Bienvenue dans ton plan d'entraînement pour le Semi-Marathon, conçu pour t'aider à atteindre ton objectif ambitieux de 1h30 ! Ce programme de 7 semaines est structuré autour de 3 séances hebdomadaires, réparties entre des courses d'endurance fondamentale et des séances de renforcement musculaire. Il est pensé pour construire progressivement ta base athlétique et te préparer spécifiquement à la distance. Nous te recommandons de consulter un médecin avant de débuter ce programme, notamment pour obtenir un certificat médical d'aptitude au sport."
+    },
+    "userEmail": {
+      "stringValue": "gauthierbazille@yahoo.fr"
+    },
+    "feasibility": {
+      "mapValue": {
+        "fields": {
+          "safetyWarning": {
+            "stringValue": "Hydrate-toi bien, échauffe-toi avant chaque séance et accorde-toi un vrai temps de récupération."
+          },
+          "message": {
+            "stringValue": "Avec ta VMA de 16.1 km/h, ton temps théorique sur semi-marathon est d'environ 1h33min. Viser 1h30min est un bel objectif. Avec un entraînement régulier, c'est tout à fait atteignable. Attention : 7 semaines, c'est court pour une préparation semi-marathon. Le plan sera condensé."
+          },
+          "status": {
+            "stringValue": "BON"
+          }
+        }
+      }
+    },
+    "vma": {
+      "doubleValue": 16.064257028112447
+    },
+    "isPreview": {
+      "booleanValue": true
+    },
+    "distance": {
+      "stringValue": "Semi-Marathon"
+    }
+  },
+  "createTime": "2026-03-27T20:58:51.628914Z",
+  "updateTime": "2026-03-27T20:58:51.628914Z"
+}

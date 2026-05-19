@@ -1,0 +1,577 @@
+{
+  "name": "projects/coach-running-ia/databases/(default)/documents/plans/1773091785858",
+  "fields": {
+    "goal": {
+      "stringValue": "Course sur route"
+    },
+    "name": {
+      "stringValue": "Plan Semi-Marathon 2H10"
+    },
+    "durationWeeks": {
+      "integerValue": "11"
+    },
+    "sessionsPerWeek": {
+      "integerValue": "3"
+    },
+    "createdAt": {
+      "stringValue": "2026-03-09T21:29:45.858Z"
+    },
+    "userEmail": {
+      "stringValue": "acornot33@gmail.com"
+    },
+    "fullPlanGenerated": {
+      "booleanValue": false
+    },
+    "location": {
+      "stringValue": "metz"
+    },
+    "weeks": {
+      "arrayValue": {
+        "values": [
+          {
+            "mapValue": {
+              "fields": {
+                "theme": {
+                  "stringValue": "Mise en place des fondations"
+                },
+                "phase": {
+                  "stringValue": "fondamental"
+                },
+                "weekNumber": {
+                  "integerValue": "1"
+                },
+                "sessions": {
+                  "arrayValue": {
+                    "values": [
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "duration": {
+                              "stringValue": "45 minutes"
+                            },
+                            "targetPace": {
+                              "stringValue": "9:04 min/km"
+                            },
+                            "advice": {
+                              "stringValue": "Concentre-toi sur ton respiration et ton posture pendant la course."
+                            },
+                            "type": {
+                              "stringValue": "Endurance Fondamentale"
+                            },
+                            "cooldown": {
+                              "stringValue": "10 minutes de marche et étirements"
+                            },
+                            "elevationGain": {
+                              "integerValue": "0"
+                            },
+                            "intensity": {
+                              "stringValue": "Facile"
+                            },
+                            "warmup": {
+                              "stringValue": "10 minutes de footing léger à 9:30 min/km"
+                            },
+                            "locationSuggestion": {
+                              "stringValue": "Parc de la Seille"
+                            },
+                            "day": {
+                              "stringValue": "Mardi"
+                            },
+                            "mainSet": {
+                              "stringValue": "25 minutes à 9:04 min/km"
+                            },
+                            "distance": {
+                              "stringValue": "5 km"
+                            },
+                            "title": {
+                              "stringValue": "Footing en endurance"
+                            },
+                            "id": {
+                              "stringValue": "w1-s1-1773091785859-2ya4vbw"
+                            }
+                          }
+                        }
+                      },
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "locationSuggestion": {
+                              "stringValue": "À la maison"
+                            },
+                            "day": {
+                              "stringValue": "Jeudi"
+                            },
+                            "mainSet": {
+                              "stringValue": "3 séries de 15 squats, 3 séries de 12 fentes par jambe, 3 séries de 30 secondes de gainage ventral, 3 séries de 15 montées sur pointes de pieds, 3 séries de 1 minute de proprioception sur une jambe"
+                            },
+                            "cooldown": {
+                              "stringValue": "5 minutes d'étirements doux"
+                            },
+                            "title": {
+                              "stringValue": "Séance de renforcement musculaire spécial course"
+                            },
+                            "id": {
+                              "stringValue": "w1-s2-1773091785859-ry3svso"
+                            },
+                            "advice": {
+                              "stringValue": "Maintenez une bonne technique lors de chaque exercice pour éviter les blessures."
+                            },
+                            "duration": {
+                              "stringValue": "40 minutes"
+                            },
+                            "elevationGain": {
+                              "integerValue": "0"
+                            },
+                            "intensity": {
+                              "stringValue": "Modéré"
+                            },
+                            "type": {
+                              "stringValue": "Renforcement"
+                            },
+                            "warmup": {
+                              "stringValue": "5 minutes d'échauffement articulaire"
+                            }
+                          }
+                        }
+                      },
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "intensity": {
+                              "stringValue": "Facile"
+                            },
+                            "warmup": {
+                              "stringValue": "15 minutes de footing léger à 9:30 min/km"
+                            },
+                            "elevationGain": {
+                              "integerValue": "0"
+                            },
+                            "distance": {
+                              "stringValue": "8 km"
+                            },
+                            "id": {
+                              "stringValue": "w1-s3-1773091785859-mb7moy6"
+                            },
+                            "title": {
+                              "stringValue": "Sortie longue en endurance"
+                            },
+                            "day": {
+                              "stringValue": "Dimanche"
+                            },
+                            "locationSuggestion": {
+                              "stringValue": "Parc de la Seille"
+                            },
+                            "mainSet": {
+                              "stringValue": "45 minutes à 9:04 min/km"
+                            },
+                            "type": {
+                              "stringValue": "Sortie Longue"
+                            },
+                            "targetPace": {
+                              "stringValue": "9:04 min/km"
+                            },
+                            "duration": {
+                              "stringValue": "75 minutes"
+                            },
+                            "advice": {
+                              "stringValue": "Profite de cette sortie pour tester ton équipement et ton alimentation pour les courses longues."
+                            },
+                            "cooldown": {
+                              "stringValue": "15 minutes de marche et étirements"
+                            }
+                          }
+                        }
+                      }
+                    ]
+                  }
+                }
+              }
+            }
+          }
+        ]
+      }
+    },
+    "isPreview": {
+      "booleanValue": true
+    },
+    "generationContext": {
+      "mapValue": {
+        "fields": {
+          "modelUsed": {
+            "stringValue": "gemini-2.0-flash"
+          },
+          "paces": {
+            "mapValue": {
+              "fields": {
+                "efPace": {
+                  "stringValue": "9:04"
+                },
+                "seuilPace": {
+                  "stringValue": "6:59"
+                },
+                "allureSpecifiqueMarathon": {
+                  "stringValue": "7:36"
+                },
+                "allureSpecifique5k": {
+                  "stringValue": "6:24"
+                },
+                "allureSpecifiqueSemi": {
+                  "stringValue": "7:09"
+                },
+                "allureSpecifique10k": {
+                  "stringValue": "6:45"
+                },
+                "vmaPace": {
+                  "stringValue": "6:05"
+                },
+                "eaPace": {
+                  "stringValue": "7:54"
+                },
+                "recoveryPace": {
+                  "stringValue": "10:08"
+                }
+              }
+            }
+          },
+          "periodizationPlan": {
+            "mapValue": {
+              "fields": {
+                "totalWeeks": {
+                  "integerValue": "11"
+                },
+                "weeklyVolumes": {
+                  "arrayValue": {
+                    "values": [
+                      {
+                        "integerValue": "15"
+                      },
+                      {
+                        "integerValue": "16"
+                      },
+                      {
+                        "integerValue": "17"
+                      },
+                      {
+                        "integerValue": "13"
+                      },
+                      {
+                        "integerValue": "19"
+                      },
+                      {
+                        "integerValue": "20"
+                      },
+                      {
+                        "integerValue": "22"
+                      },
+                      {
+                        "integerValue": "17"
+                      },
+                      {
+                        "integerValue": "16"
+                      },
+                      {
+                        "integerValue": "14"
+                      },
+                      {
+                        "integerValue": "12"
+                      }
+                    ]
+                  }
+                },
+                "recoveryWeeks": {
+                  "arrayValue": {
+                    "values": [
+                      {
+                        "integerValue": "4"
+                      },
+                      {
+                        "integerValue": "8"
+                      }
+                    ]
+                  }
+                },
+                "weeklyPhases": {
+                  "arrayValue": {
+                    "values": [
+                      {
+                        "stringValue": "fondamental"
+                      },
+                      {
+                        "stringValue": "fondamental"
+                      },
+                      {
+                        "stringValue": "fondamental"
+                      },
+                      {
+                        "stringValue": "recuperation"
+                      },
+                      {
+                        "stringValue": "developpement"
+                      },
+                      {
+                        "stringValue": "developpement"
+                      },
+                      {
+                        "stringValue": "specifique"
+                      },
+                      {
+                        "stringValue": "recuperation"
+                      },
+                      {
+                        "stringValue": "affutage"
+                      },
+                      {
+                        "stringValue": "affutage"
+                      },
+                      {
+                        "stringValue": "affutage"
+                      }
+                    ]
+                  }
+                }
+              }
+            }
+          },
+          "vmaSource": {
+            "stringValue": "Moyenne 5km en 32:30 et 10km en 1H06"
+          },
+          "questionnaireSnapshot": {
+            "mapValue": {
+              "fields": {
+                "level": {
+                  "stringValue": "Intermédiaire (Régulier)"
+                },
+                "injuries": {
+                  "mapValue": {
+                    "fields": {
+                      "hasInjury": {
+                        "booleanValue": false
+                      }
+                    }
+                  }
+                },
+                "weight": {
+                  "integerValue": "90"
+                },
+                "height": {
+                  "integerValue": "170"
+                },
+                "raceDate": {
+                  "stringValue": "2026-05-31"
+                },
+                "sex": {
+                  "stringValue": "Femme"
+                },
+                "trailDetails": {
+                  "mapValue": {
+                    "fields": {
+                      "distance": {
+                        "integerValue": "20"
+                      },
+                      "elevation": {
+                        "integerValue": "500"
+                      }
+                    }
+                  }
+                },
+                "frequency": {
+                  "integerValue": "3"
+                },
+                "email": {
+                  "stringValue": "acornot33@gmail.com"
+                },
+                "targetTime": {
+                  "stringValue": "2H10"
+                },
+                "currentWeeklyVolume": {
+                  "integerValue": "15"
+                },
+                "recentRaceTimes": {
+                  "mapValue": {
+                    "fields": {
+                      "distance5km": {
+                        "stringValue": "32:30"
+                      },
+                      "distance10km": {
+                        "stringValue": "1H06"
+                      },
+                      "distanceHalfMarathon": {
+                        "stringValue": "2H24"
+                      }
+                    }
+                  }
+                },
+                "startDate": {
+                  "stringValue": "2026-03-09"
+                },
+                "subGoal": {
+                  "stringValue": "Semi-Marathon"
+                },
+                "preferredDays": {
+                  "arrayValue": {}
+                },
+                "city": {
+                  "stringValue": "metz"
+                },
+                "goal": {
+                  "stringValue": "Course sur route"
+                }
+              }
+            }
+          },
+          "vma": {
+            "doubleValue": 9.87036355457408
+          },
+          "generatedAt": {
+            "stringValue": "2026-03-09T21:29:36.807Z"
+          }
+        }
+      }
+    },
+    "welcomeMessage": {
+      "stringValue": "Bienvenue dans ce plan d'entraînement de 11 semaines conçu pour t'amener à boucler ton semi-marathon en 2h10. La première semaine sera axée sur la mise en place des fondations avec des séances d'endurance et de renforcement musculaire."
+    },
+    "vma": {
+      "doubleValue": 9.87036355457408
+    },
+    "calculatedVMA": {
+      "doubleValue": 9.87036355457408
+    },
+    "vmaSource": {
+      "stringValue": "Moyenne 5km en 32:30 et 10km en 1H06"
+    },
+    "id": {
+      "stringValue": "1773091785858"
+    },
+    "distance": {
+      "stringValue": "Semi-Marathon"
+    },
+    "confidenceScore": {
+      "integerValue": "75"
+    },
+    "startDate": {
+      "stringValue": "2026-03-09"
+    },
+    "targetTime": {
+      "stringValue": "2H10"
+    },
+    "suggestedLocations": {
+      "arrayValue": {
+        "values": [
+          {
+            "mapValue": {
+              "fields": {
+                "name": {
+                  "stringValue": "Parc de la Seille"
+                },
+                "description": {
+                  "stringValue": "Idéal pour les footings et les sorties longues sur terrain plat."
+                },
+                "type": {
+                  "stringValue": "PARK"
+                }
+              }
+            }
+          },
+          {
+            "mapValue": {
+              "fields": {
+                "description": {
+                  "stringValue": "Parfait pour les séances de fractionné VMA et les tests de vitesse."
+                },
+                "name": {
+                  "stringValue": "Piste d'athlétisme du campus Bridoux"
+                },
+                "type": {
+                  "stringValue": "TRACK"
+                }
+              }
+            }
+          },
+          {
+            "mapValue": {
+              "fields": {
+                "name": {
+                  "stringValue": "Forêt de Montvaux"
+                },
+                "description": {
+                  "stringValue": "Adaptée pour les sorties nature et le travail de côtes."
+                },
+                "type": {
+                  "stringValue": "NATURE"
+                }
+              }
+            }
+          }
+        ]
+      }
+    },
+    "paces": {
+      "mapValue": {
+        "fields": {
+          "allureSpecifique10k": {
+            "stringValue": "6:45"
+          },
+          "vmaPace": {
+            "stringValue": "6:05"
+          },
+          "eaPace": {
+            "stringValue": "7:54"
+          },
+          "recoveryPace": {
+            "stringValue": "10:08"
+          },
+          "seuilPace": {
+            "stringValue": "6:59"
+          },
+          "efPace": {
+            "stringValue": "9:04"
+          },
+          "allureSpecifique5k": {
+            "stringValue": "6:24"
+          },
+          "allureSpecifiqueSemi": {
+            "stringValue": "7:09"
+          },
+          "allureSpecifiqueMarathon": {
+            "stringValue": "7:36"
+          }
+        }
+      }
+    },
+    "adaptationLog": {
+      "mapValue": {
+        "fields": {
+          "adaptationHistory": {
+            "arrayValue": {}
+          },
+          "adaptationsThisWeek": {
+            "integerValue": "0"
+          },
+          "weekNumber": {
+            "integerValue": "0"
+          }
+        }
+      }
+    },
+    "userId": {
+      "stringValue": "SUgKHvc0MBQIqvWaHGG8kxZ9ZCA3"
+    },
+    "feasibility": {
+      "mapValue": {
+        "fields": {
+          "status": {
+            "stringValue": "BON"
+          },
+          "safetyWarning": {
+            "stringValue": "Respectez les allures indiquées et n'hésitez pas à prendre des jours de repos supplémentaires si nécessaire. L'hydratation et l'alimentation sont également cruciales."
+          },
+          "message": {
+            "stringValue": "Ton VMA de 9.9 km/h suggère un temps théorique possible de 2h06 pour un semi-marathon. L'objectif de 2h10 est donc atteignable avec un entraînement assidu."
+          }
+        }
+      }
+    }
+  },
+  "createTime": "2026-03-09T21:29:45.334095Z",
+  "updateTime": "2026-03-18T16:40:01.092202Z"
+}

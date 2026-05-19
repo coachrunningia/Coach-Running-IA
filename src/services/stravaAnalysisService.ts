@@ -184,7 +184,7 @@ export const analyzeActivitiesWithGemini = async (activities: any[], userId: str
     if (!apiKey) throw new Error("No Gemini Key");
 
     const genAI = new GoogleGenerativeAI(apiKey);
-    const MODEL_ID = "gemini-3-flash";
+    const MODEL_ID = "gemini-3-flash-preview";
     const model = genAI.getGenerativeModel({ model: MODEL_ID });
     console.log(`[Gemini Strava] model=${MODEL_ID}`);
 

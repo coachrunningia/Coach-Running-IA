@@ -1,0 +1,53 @@
+--- /Users/romanemarino/Coach-Running-IA/tests-v1/prompts-AVANT/profil-04-INTER_SEMI_1H45-preview.txt	2026-05-17 20:59:26
++++ /Users/romanemarino/Coach-Running-IA/tests-v1/prompts-APRES/profil-04-INTER_SEMI_1H45-preview.txt	2026-05-17 21:01:52
+@@ -8,9 +8,7 @@
+ - Objectif : Course sur route (Semi-Marathon)
+ - Temps visé : 1h45
+ - Date de course : 2026-08-23
+-- Fréquence : 4 séances/semaine
+ - Jours : Séances UNIQUEMENT sur : Mardi, Jeudi, Samedi, Dimanche
+-- Jour sortie longue : Dimanche
+ - Localisation : Bordeaux
+ 
+ 
+@@ -45,8 +43,6 @@
+ - Récupération : 7:12 min/km
+ 
+ 
+-⚠️ UTILISE CES ALLURES EXACTES dans chaque séance !
+-
+ ═══════════════════════════════════════════════════════════════
+               PLAN DE PÉRIODISATION PRÉ-CALCULÉ
+ ═══════════════════════════════════════════════════════════════
+@@ -114,7 +110,6 @@
+ 4. Évaluation de faisabilité HONNÊTE avec chiffres
+ 5. OBLIGATOIRE : 1 séance de type "Renforcement" par semaine (comptée dans les 4 séances)
+    - Répartition : 4 séances = 3 running + 1 renfo
+-   - Durée : 30-45 min
+    - Type dans le JSON : "Renforcement"
+    - NE PAS mettre de séance "Repos" dans le plan
+    - NE PAS générer le contenu du mainSet renfo — le code le fera
+@@ -149,7 +144,7 @@
+                     FORMAT JSON
+ ═══════════════════════════════════════════════════════════════
+ {
+-  "name": "Nom du plan incluant objectif",
++  "name": "Préparation Semi-Marathon en 1h45 — 14 sem.",
+   "goal": "Course sur route",
+   "startDate": "2026-05-17",
+   "durationWeeks": 14,
+@@ -161,12 +156,8 @@
+     { "name": "Nom réel du lieu", "type": "PARK|TRACK|NATURE|HILL", "description": "Pour quel type de séance" }
+   ],
+   "welcomeMessage": "Message personnalisé orienté OBJECTIF et STRUCTURE du plan (NE PAS mentionner VMA ni allures)",
+-  "confidenceScore": 75,
+-  "feasibility": {
+-    "status": "BON",
+-    "message": "Analyse avec chiffres VMA/temps théorique",
+-    "safetyWarning": "Conseil sécurité"
+-  },
++  "confidenceScore": 0,
++  "feasibility": { "status": "rempli code", "message": "rempli code", "safetyWarning": "rempli code" },
+   "weeks": [
+     {
+       "weekNumber": 1,

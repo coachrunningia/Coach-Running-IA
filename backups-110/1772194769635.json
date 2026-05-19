@@ -1,0 +1,658 @@
+{
+  "name": "projects/coach-running-ia/databases/(default)/documents/plans/1772194769635",
+  "fields": {
+    "vma": {
+      "integerValue": "11"
+    },
+    "isPreview": {
+      "booleanValue": true
+    },
+    "generationContext": {
+      "mapValue": {
+        "fields": {
+          "questionnaireSnapshot": {
+            "mapValue": {
+              "fields": {
+                "injuries": {
+                  "mapValue": {
+                    "fields": {
+                      "hasInjury": {
+                        "booleanValue": false
+                      }
+                    }
+                  }
+                },
+                "level": {
+                  "stringValue": "Débutant (0-1 an)"
+                },
+                "comments": {
+                  "stringValue": "Je peux très simplement faire du vélo à la place de courir sans problème et sinon je peux courir jeudi vendredi samedi et dimanche sachant que mardi je prend une pause et que lundi et mercredi j’ai musculation + vélo le mercredi aprem"
+                },
+                "email": {
+                  "stringValue": "elio.cadima@gmail.com"
+                },
+                "trailDetails": {
+                  "mapValue": {
+                    "fields": {
+                      "elevation": {
+                        "integerValue": "500"
+                      },
+                      "distance": {
+                        "integerValue": "20"
+                      }
+                    }
+                  }
+                },
+                "frequency": {
+                  "integerValue": "4"
+                },
+                "height": {
+                  "integerValue": "182"
+                },
+                "weight": {
+                  "integerValue": "73"
+                },
+                "sex": {
+                  "stringValue": "Homme"
+                },
+                "raceDate": {
+                  "stringValue": "2026-11-22"
+                },
+                "startDate": {
+                  "stringValue": "2026-02-27"
+                },
+                "recentRaceTimes": {
+                  "mapValue": {}
+                },
+                "subGoal": {
+                  "stringValue": "Marathon"
+                },
+                "age": {
+                  "integerValue": "16"
+                },
+                "targetTime": {
+                  "stringValue": "3h30"
+                },
+                "city": {
+                  "stringValue": "Lyon"
+                },
+                "goal": {
+                  "stringValue": "Course sur route"
+                },
+                "preferredDays": {
+                  "arrayValue": {}
+                }
+              }
+            }
+          },
+          "vma": {
+            "integerValue": "11"
+          },
+          "generatedAt": {
+            "stringValue": "2026-02-27T12:19:21.302Z"
+          },
+          "paces": {
+            "mapValue": {
+              "fields": {
+                "seuilPace": {
+                  "stringValue": "6:16"
+                },
+                "efPace": {
+                  "stringValue": "8:08"
+                },
+                "allureSpecifique5k": {
+                  "stringValue": "5:44"
+                },
+                "allureSpecifiqueSemi": {
+                  "stringValue": "6:25"
+                },
+                "allureSpecifiqueMarathon": {
+                  "stringValue": "6:49"
+                },
+                "allureSpecifique10k": {
+                  "stringValue": "6:04"
+                },
+                "vmaPace": {
+                  "stringValue": "5:27"
+                },
+                "eaPace": {
+                  "stringValue": "7:05"
+                },
+                "recoveryPace": {
+                  "stringValue": "9:05"
+                }
+              }
+            }
+          },
+          "periodizationPlan": {
+            "mapValue": {
+              "fields": {
+                "weeklyVolumes": {
+                  "arrayValue": {
+                    "values": [
+                      {
+                        "integerValue": "15"
+                      },
+                      {
+                        "integerValue": "16"
+                      },
+                      {
+                        "integerValue": "12"
+                      },
+                      {
+                        "integerValue": "17"
+                      },
+                      {
+                        "integerValue": "17"
+                      },
+                      {
+                        "integerValue": "13"
+                      },
+                      {
+                        "integerValue": "18"
+                      },
+                      {
+                        "integerValue": "19"
+                      },
+                      {
+                        "integerValue": "14"
+                      },
+                      {
+                        "integerValue": "20"
+                      },
+                      {
+                        "integerValue": "21"
+                      },
+                      {
+                        "integerValue": "16"
+                      },
+                      {
+                        "integerValue": "22"
+                      },
+                      {
+                        "integerValue": "23"
+                      },
+                      {
+                        "integerValue": "17"
+                      },
+                      {
+                        "integerValue": "24"
+                      },
+                      {
+                        "integerValue": "26"
+                      },
+                      {
+                        "integerValue": "19"
+                      },
+                      {
+                        "integerValue": "17"
+                      },
+                      {
+                        "integerValue": "13"
+                      }
+                    ]
+                  }
+                },
+                "totalWeeks": {
+                  "integerValue": "20"
+                },
+                "recoveryWeeks": {
+                  "arrayValue": {
+                    "values": [
+                      {
+                        "integerValue": "3"
+                      },
+                      {
+                        "integerValue": "6"
+                      },
+                      {
+                        "integerValue": "9"
+                      },
+                      {
+                        "integerValue": "12"
+                      },
+                      {
+                        "integerValue": "15"
+                      },
+                      {
+                        "integerValue": "18"
+                      }
+                    ]
+                  }
+                },
+                "weeklyPhases": {
+                  "arrayValue": {
+                    "values": [
+                      {
+                        "stringValue": "fondamental"
+                      },
+                      {
+                        "stringValue": "fondamental"
+                      },
+                      {
+                        "stringValue": "recuperation"
+                      },
+                      {
+                        "stringValue": "fondamental"
+                      },
+                      {
+                        "stringValue": "fondamental"
+                      },
+                      {
+                        "stringValue": "recuperation"
+                      },
+                      {
+                        "stringValue": "developpement"
+                      },
+                      {
+                        "stringValue": "developpement"
+                      },
+                      {
+                        "stringValue": "recuperation"
+                      },
+                      {
+                        "stringValue": "developpement"
+                      },
+                      {
+                        "stringValue": "developpement"
+                      },
+                      {
+                        "stringValue": "recuperation"
+                      },
+                      {
+                        "stringValue": "developpement"
+                      },
+                      {
+                        "stringValue": "specifique"
+                      },
+                      {
+                        "stringValue": "recuperation"
+                      },
+                      {
+                        "stringValue": "specifique"
+                      },
+                      {
+                        "stringValue": "specifique"
+                      },
+                      {
+                        "stringValue": "recuperation"
+                      },
+                      {
+                        "stringValue": "affutage"
+                      },
+                      {
+                        "stringValue": "affutage"
+                      }
+                    ]
+                  }
+                }
+              }
+            }
+          },
+          "modelUsed": {
+            "stringValue": "gemini-2.0-flash"
+          },
+          "vmaSource": {
+            "stringValue": "Estimation niveau Débutant (0-1 an)"
+          }
+        }
+      }
+    },
+    "welcomeMessage": {
+      "stringValue": "Bienvenue dans ce plan marathon ! Cette première semaine est axée sur la mise en place progressive de ton endurance de base. Nous allons alterner marche et course pour habituer ton corps à l'effort. Suivez bien les séances et n'hésite pas à adapter si besoin. Le but est d'arriver en pleine forme au marathon dans 20 semaines !"
+    },
+    "weeks": {
+      "arrayValue": {
+        "values": [
+          {
+            "mapValue": {
+              "fields": {
+                "phase": {
+                  "stringValue": "fondamental"
+                },
+                "theme": {
+                  "stringValue": "Mise en route progressive"
+                },
+                "sessions": {
+                  "arrayValue": {
+                    "values": [
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "id": {
+                              "stringValue": "w1-s1-1772194769635-rwgwl3b"
+                            },
+                            "title": {
+                              "stringValue": "Alternance Douce Marche/Course"
+                            },
+                            "distance": {
+                              "stringValue": "3.5 km"
+                            },
+                            "cooldown": {
+                              "stringValue": "5 min de marche lente"
+                            },
+                            "mainSet": {
+                              "stringValue": "8 x (1 min course légère à 8:08 min/km + 2 min marche active)"
+                            },
+                            "day": {
+                              "stringValue": "Mardi"
+                            },
+                            "warmup": {
+                              "stringValue": "5 min de marche active"
+                            },
+                            "type": {
+                              "stringValue": "Marche/Course"
+                            },
+                            "intensity": {
+                              "stringValue": "Facile"
+                            },
+                            "duration": {
+                              "stringValue": "30 min"
+                            },
+                            "advice": {
+                              "stringValue": "La marche fait partie intégrante du programme, ne la négligez pas. Concentre-toi sur ton posture et ton respiration."
+                            },
+                            "targetPace": {
+                              "stringValue": "8:08 min/km (course) - Marche active"
+                            }
+                          }
+                        }
+                      },
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "duration": {
+                              "stringValue": "40 min"
+                            },
+                            "advice": {
+                              "stringValue": "Contractez bien les abdominaux pendant les exercices de gainage. Faites les mouvements lentement et contrôlez."
+                            },
+                            "intensity": {
+                              "stringValue": "Modéré"
+                            },
+                            "type": {
+                              "stringValue": "Renforcement"
+                            },
+                            "warmup": {
+                              "stringValue": "5 min d'échauffement articulaire"
+                            },
+                            "day": {
+                              "stringValue": "Mercredi"
+                            },
+                            "mainSet": {
+                              "stringValue": "3 séries de : 15 squats, 10 fentes par jambe, 30 secondes de gainage ventral, 30 secondes de gainage latéral par côté, 20 montées sur pointes de pieds."
+                            },
+                            "cooldown": {
+                              "stringValue": "5 min d'étirements doux"
+                            },
+                            "title": {
+                              "stringValue": "Renforcement Musculaire Spécifique"
+                            },
+                            "id": {
+                              "stringValue": "w1-s2-1772194769635-knuk2sc"
+                            }
+                          }
+                        }
+                      },
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "cooldown": {
+                              "stringValue": "5 min de marche lente"
+                            },
+                            "distance": {
+                              "stringValue": "4 km"
+                            },
+                            "title": {
+                              "stringValue": "Sortie Marche/Course en Nature"
+                            },
+                            "id": {
+                              "stringValue": "w1-s3-1772194769635-67vt48s"
+                            },
+                            "day": {
+                              "stringValue": "Jeudi"
+                            },
+                            "mainSet": {
+                              "stringValue": "10 x (1 min course légère à 8:08 min/km + 2 min marche active)"
+                            },
+                            "intensity": {
+                              "stringValue": "Facile"
+                            },
+                            "type": {
+                              "stringValue": "Marche/Course"
+                            },
+                            "warmup": {
+                              "stringValue": "5 min de marche active"
+                            },
+                            "targetPace": {
+                              "stringValue": "8:08 min/km (course) - Marche active"
+                            },
+                            "advice": {
+                              "stringValue": "Profite du paysage et reste à l'écoute de ton corps. Ajustez l'intensité si nécessaire."
+                            },
+                            "duration": {
+                              "stringValue": "35 min"
+                            }
+                          }
+                        }
+                      },
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "mainSet": {
+                              "stringValue": "20 min course légère à 8:08 min/km"
+                            },
+                            "day": {
+                              "stringValue": "Dimanche"
+                            },
+                            "id": {
+                              "stringValue": "w1-s4-1772194769635-p0fz6jb"
+                            },
+                            "title": {
+                              "stringValue": "Sortie Longue Très Légère"
+                            },
+                            "cooldown": {
+                              "stringValue": "5 min de marche lente"
+                            },
+                            "distance": {
+                              "stringValue": "3.5 km"
+                            },
+                            "advice": {
+                              "stringValue": "Si 20 minutes tu semble trop long, alterne 5 minutes de marche rapide / 5 minutes de course légère."
+                            },
+                            "targetPace": {
+                              "stringValue": "8:08 min/km"
+                            },
+                            "duration": {
+                              "stringValue": "30 min"
+                            },
+                            "warmup": {
+                              "stringValue": "5 min de marche rapide"
+                            },
+                            "type": {
+                              "stringValue": "Endurance"
+                            },
+                            "intensity": {
+                              "stringValue": "Facile"
+                            }
+                          }
+                        }
+                      }
+                    ]
+                  }
+                },
+                "weekNumber": {
+                  "integerValue": "1"
+                }
+              }
+            }
+          }
+        ]
+      }
+    },
+    "location": {
+      "stringValue": "Lyon"
+    },
+    "userEmail": {
+      "stringValue": "elio.cadima@gmail.com"
+    },
+    "fullPlanGenerated": {
+      "booleanValue": false
+    },
+    "createdAt": {
+      "stringValue": "2026-02-27T12:19:29.635Z"
+    },
+    "sessionsPerWeek": {
+      "integerValue": "4"
+    },
+    "durationWeeks": {
+      "integerValue": "20"
+    },
+    "goal": {
+      "stringValue": "Course sur route"
+    },
+    "name": {
+      "stringValue": "Plan Marathon 3h30 - Débutant"
+    },
+    "userId": {
+      "stringValue": "woFBcz92dVhsJZUjPv8OisB7aCL2"
+    },
+    "feasibility": {
+      "mapValue": {
+        "fields": {
+          "message": {
+            "stringValue": "Avec une VMA estimée à 11 km/h, ton objectif de 3h30 est atteignable avec un entraînement régulier et une progression constante. Cela correspond à une allure moyenne de 4:58 min/km, ce qui est dans tes cordes avec de la persévérance."
+          },
+          "safetyWarning": {
+            "stringValue": "Écoute ton corps et n'hésite pas à prendre des jours de repos supplémentaires si nécessaire. Hydrate-toi et alimente-toi correctement."
+          },
+          "status": {
+            "stringValue": "BON"
+          }
+        }
+      }
+    },
+    "adaptationLog": {
+      "mapValue": {
+        "fields": {
+          "adaptationsThisWeek": {
+            "integerValue": "0"
+          },
+          "adaptationHistory": {
+            "arrayValue": {}
+          },
+          "weekNumber": {
+            "integerValue": "0"
+          }
+        }
+      }
+    },
+    "suggestedLocations": {
+      "arrayValue": {
+        "values": [
+          {
+            "mapValue": {
+              "fields": {
+                "type": {
+                  "stringValue": "PARK"
+                },
+                "description": {
+                  "stringValue": "Idéal pour les séances d'endurance et de marche/course"
+                },
+                "name": {
+                  "stringValue": "Parc de la Tête d'Or"
+                }
+              }
+            }
+          },
+          {
+            "mapValue": {
+              "fields": {
+                "name": {
+                  "stringValue": "Berges du Rhône"
+                },
+                "description": {
+                  "stringValue": "Parfait pour les sorties longues et les séances de récupération"
+                },
+                "type": {
+                  "stringValue": "NATURE"
+                }
+              }
+            }
+          },
+          {
+            "mapValue": {
+              "fields": {
+                "name": {
+                  "stringValue": "Stade de Parilly"
+                },
+                "description": {
+                  "stringValue": "Adapté pour les séances de renforcement musculaire"
+                },
+                "type": {
+                  "stringValue": "TRACK"
+                }
+              }
+            }
+          }
+        ]
+      }
+    },
+    "paces": {
+      "mapValue": {
+        "fields": {
+          "allureSpecifique10k": {
+            "stringValue": "6:04"
+          },
+          "vmaPace": {
+            "stringValue": "5:27"
+          },
+          "eaPace": {
+            "stringValue": "7:05"
+          },
+          "recoveryPace": {
+            "stringValue": "9:05"
+          },
+          "efPace": {
+            "stringValue": "8:08"
+          },
+          "seuilPace": {
+            "stringValue": "6:16"
+          },
+          "allureSpecifiqueMarathon": {
+            "stringValue": "6:49"
+          },
+          "allureSpecifique5k": {
+            "stringValue": "5:44"
+          },
+          "allureSpecifiqueSemi": {
+            "stringValue": "6:25"
+          }
+        }
+      }
+    },
+    "targetTime": {
+      "stringValue": "3h30"
+    },
+    "id": {
+      "stringValue": "1772194769635"
+    },
+    "distance": {
+      "stringValue": "Marathon"
+    },
+    "confidenceScore": {
+      "integerValue": "75"
+    },
+    "startDate": {
+      "stringValue": "2026-02-27"
+    },
+    "calculatedVMA": {
+      "integerValue": "11"
+    },
+    "vmaSource": {
+      "stringValue": "Estimation niveau Débutant (0-1 an)"
+    }
+  },
+  "createTime": "2026-02-27T12:19:30.587689Z",
+  "updateTime": "2026-03-18T16:38:46.344774Z"
+}

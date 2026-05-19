@@ -1,0 +1,691 @@
+{
+  "name": "projects/coach-running-ia/databases/(default)/documents/plans/1778852278323",
+  "fields": {
+    "generationContext": {
+      "mapValue": {
+        "fields": {
+          "generatedAt": {
+            "stringValue": "2026-05-15T13:37:26.815Z"
+          },
+          "vmaSource": {
+            "stringValue": "Moyenne 5km en 20min et 10km en 41min"
+          },
+          "paces": {
+            "mapValue": {
+              "fields": {
+                "allureSpecifique10k": {
+                  "stringValue": "4:10"
+                },
+                "recoveryPace": {
+                  "stringValue": "6:16"
+                },
+                "efPace": {
+                  "stringValue": "5:36"
+                },
+                "eaPace": {
+                  "stringValue": "4:53"
+                },
+                "allureSpecifiqueSemi": {
+                  "stringValue": "4:25"
+                },
+                "allureSpecifiqueMarathon": {
+                  "stringValue": "4:42"
+                },
+                "vmaPace": {
+                  "stringValue": "3:45"
+                },
+                "allureSpecifique5k": {
+                  "stringValue": "3:57"
+                },
+                "seuilPace": {
+                  "stringValue": "4:19"
+                }
+              }
+            }
+          },
+          "modelUsed": {
+            "stringValue": "gemini-2.5-flash"
+          },
+          "vma": {
+            "doubleValue": 15.977749251176725
+          },
+          "periodizationPlan": {
+            "mapValue": {
+              "fields": {
+                "weeklyPhases": {
+                  "arrayValue": {
+                    "values": [
+                      {
+                        "stringValue": "fondamental"
+                      },
+                      {
+                        "stringValue": "fondamental"
+                      },
+                      {
+                        "stringValue": "developpement"
+                      },
+                      {
+                        "stringValue": "recuperation"
+                      },
+                      {
+                        "stringValue": "specifique"
+                      },
+                      {
+                        "stringValue": "specifique"
+                      },
+                      {
+                        "stringValue": "affutage"
+                      }
+                    ]
+                  }
+                },
+                "totalWeeks": {
+                  "integerValue": "7"
+                },
+                "recoveryWeeks": {
+                  "arrayValue": {
+                    "values": [
+                      {
+                        "integerValue": "4"
+                      }
+                    ]
+                  }
+                },
+                "weeklyVolumes": {
+                  "arrayValue": {
+                    "values": [
+                      {
+                        "integerValue": "48"
+                      },
+                      {
+                        "integerValue": "53"
+                      },
+                      {
+                        "integerValue": "58"
+                      },
+                      {
+                        "integerValue": "45"
+                      },
+                      {
+                        "integerValue": "52"
+                      },
+                      {
+                        "integerValue": "60"
+                      },
+                      {
+                        "integerValue": "39"
+                      }
+                    ]
+                  }
+                }
+              }
+            }
+          },
+          "questionnaireSnapshot": {
+            "mapValue": {
+              "fields": {
+                "injuries": {
+                  "mapValue": {
+                    "fields": {
+                      "hasInjury": {
+                        "booleanValue": false
+                      }
+                    }
+                  }
+                },
+                "age": {
+                  "integerValue": "20"
+                },
+                "recentRaceTimes": {
+                  "mapValue": {
+                    "fields": {
+                      "distance10km": {
+                        "stringValue": "41min"
+                      },
+                      "distance5km": {
+                        "stringValue": "20min"
+                      },
+                      "distanceHalfMarathon": {
+                        "stringValue": "1h30"
+                      }
+                    }
+                  }
+                },
+                "vma": {
+                  "doubleValue": 15.977749251176725
+                },
+                "targetTime": {
+                  "stringValue": "3h15"
+                },
+                "goal": {
+                  "stringValue": "Course sur route"
+                },
+                "preferredDays": {
+                  "arrayValue": {
+                    "values": [
+                      {
+                        "stringValue": "Lundi"
+                      },
+                      {
+                        "stringValue": "Mercredi"
+                      },
+                      {
+                        "stringValue": "Vendredi"
+                      },
+                      {
+                        "stringValue": "Samedi"
+                      },
+                      {
+                        "stringValue": "Jeudi"
+                      }
+                    ]
+                  }
+                },
+                "frequency": {
+                  "integerValue": "5"
+                },
+                "height": {
+                  "integerValue": "187"
+                },
+                "email": {
+                  "stringValue": "hippolyte.tavan@gmail.com"
+                },
+                "weight": {
+                  "integerValue": "73"
+                },
+                "level": {
+                  "stringValue": "Confirmé (Compétition)"
+                },
+                "preferredLongRunDay": {
+                  "stringValue": "Vendredi"
+                },
+                "city": {
+                  "stringValue": "Angers"
+                },
+                "currentWeeklyVolume": {
+                  "integerValue": "48"
+                },
+                "startDate": {
+                  "stringValue": "2026-05-15"
+                },
+                "raceDate": {
+                  "stringValue": "2026-07-03"
+                },
+                "subGoal": {
+                  "stringValue": "Marathon"
+                },
+                "sex": {
+                  "stringValue": "Homme"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "isPreview": {
+      "booleanValue": true
+    },
+    "userEmail": {
+      "stringValue": "hippolyte.tavan@gmail.com"
+    },
+    "paces": {
+      "mapValue": {
+        "fields": {
+          "efPace": {
+            "stringValue": "5:36"
+          },
+          "recoveryPace": {
+            "stringValue": "6:16"
+          },
+          "allureSpecifique10k": {
+            "stringValue": "4:10"
+          },
+          "allureSpecifiqueSemi": {
+            "stringValue": "4:25"
+          },
+          "eaPace": {
+            "stringValue": "4:53"
+          },
+          "vmaPace": {
+            "stringValue": "3:45"
+          },
+          "allureSpecifique5k": {
+            "stringValue": "3:57"
+          },
+          "allureSpecifiqueMarathon": {
+            "stringValue": "4:42"
+          },
+          "seuilPace": {
+            "stringValue": "4:19"
+          }
+        }
+      }
+    },
+    "adaptationLog": {
+      "mapValue": {
+        "fields": {
+          "adaptationsThisWeek": {
+            "integerValue": "0"
+          },
+          "adaptationHistory": {
+            "arrayValue": {}
+          },
+          "weekNumber": {
+            "integerValue": "0"
+          }
+        }
+      }
+    },
+    "goal": {
+      "stringValue": "Course sur route"
+    },
+    "createdAt": {
+      "stringValue": "2026-05-15T13:37:58.323Z"
+    },
+    "id": {
+      "stringValue": "1778852278323"
+    },
+    "userId": {
+      "stringValue": "VLt9T4Yf6CZvpyTi2WRvezLi0Vz2"
+    },
+    "sessionsPerWeek": {
+      "integerValue": "5"
+    },
+    "vmaSource": {
+      "stringValue": "Moyenne 5km en 20min et 10km en 41min"
+    },
+    "calculatedVMA": {
+      "doubleValue": 15.977749251176725
+    },
+    "suggestedLocations": {
+      "arrayValue": {
+        "values": [
+          {
+            "mapValue": {
+              "fields": {
+                "type": {
+                  "stringValue": "NATURE"
+                },
+                "name": {
+                  "stringValue": "Parc de l'Île Saint-Aubin"
+                },
+                "description": {
+                  "stringValue": "Idéal pour les sorties longues et les footings en nature, vastes prairies et chemins plats."
+                }
+              }
+            }
+          },
+          {
+            "mapValue": {
+              "fields": {
+                "type": {
+                  "stringValue": "PARK"
+                },
+                "description": {
+                  "stringValue": "Parfait pour les footings, avec une belle boucle autour du lac et des chemins stabilisés."
+                },
+                "name": {
+                  "stringValue": "Lac de Maine"
+                }
+              }
+            }
+          },
+          {
+            "mapValue": {
+              "fields": {
+                "type": {
+                  "stringValue": "NATURE"
+                },
+                "name": {
+                  "stringValue": "Le Bois de la Baumette"
+                },
+                "description": {
+                  "stringValue": "Propose un dénivelé intéressant pour les footings vallonnés et les côtes."
+                }
+              }
+            }
+          },
+          {
+            "mapValue": {
+              "fields": {
+                "type": {
+                  "stringValue": "TRACK"
+                },
+                "name": {
+                  "stringValue": "Piste d'athlétisme du Lac de Maine (Stade Miksa)"
+                },
+                "description": {
+                  "stringValue": "Essentielle pour les séances de VMA et de fractionné court, surface idéale pour la vitesse."
+                }
+              }
+            }
+          }
+        ]
+      }
+    },
+    "fullPlanGenerated": {
+      "booleanValue": false
+    },
+    "endDate": {
+      "stringValue": "2026-06-29"
+    },
+    "vma": {
+      "doubleValue": 15.977749251176725
+    },
+    "targetTime": {
+      "stringValue": "3h15"
+    },
+    "distance": {
+      "stringValue": "Marathon"
+    },
+    "name": {
+      "stringValue": "Préparation Marathon en 3h15 — 7 sem."
+    },
+    "raceDate": {
+      "stringValue": "2026-07-03"
+    },
+    "weeks": {
+      "arrayValue": {
+        "values": [
+          {
+            "mapValue": {
+              "fields": {
+                "phase": {
+                  "stringValue": "fondamental"
+                },
+                "weekGoal": {
+                  "stringValue": "Construction de la base aérobie et adaptation au volume"
+                },
+                "theme": {
+                  "stringValue": "Construction de la base aérobie et adaptation au volume"
+                },
+                "sessions": {
+                  "arrayValue": {
+                    "values": [
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "id": {
+                              "stringValue": "w1-s1-1778852278324-y4hnsbc"
+                            },
+                            "cooldown": {
+                              "stringValue": "5 min de footing lent puis marche. (à 6:16 min/km)"
+                            },
+                            "distance": {
+                              "stringValue": "10.0 km"
+                            },
+                            "title": {
+                              "stringValue": "Footing + gammes athlétiques"
+                            },
+                            "duration": {
+                              "stringValue": "56 min"
+                            },
+                            "advice": {
+                              "stringValue": "Les gammes améliorent l'économie de course et la qualité de foulée. C'est un investissement technique qui rend chaque footing futur plus efficace."
+                            },
+                            "warmup": {
+                              "stringValue": "5 min de marche, à 6:16 min/km puis 10 min de footing en endurance fondamentale."
+                            },
+                            "targetPace": {
+                              "stringValue": "5:36 min/km"
+                            },
+                            "day": {
+                              "stringValue": "Lundi"
+                            },
+                            "type": {
+                              "stringValue": "Jogging"
+                            },
+                            "mainSet": {
+                              "stringValue": "28 min de footing en endurance fondamentale (5:36), puis un circuit d'éducatifs réalisé en souplesse, sans recherche d'intensité : talons-fesses, montées de genoux, pas chassés, foulées bondissantes légères, jambes tendues — 2 séries de 20-30 m par exercice, retour en marche. (allure : 5:36 min/km)"
+                            },
+                            "intensity": {
+                              "stringValue": "Facile"
+                            },
+                            "locationSuggestion": {
+                              "stringValue": "Lac de Maine"
+                            },
+                            "elevationGain": {
+                              "integerValue": "0"
+                            }
+                          }
+                        }
+                      },
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "warmup": {
+                              "stringValue": "10 min de footing, à 6:16 min/km en endurance fondamentale sur terrain plat."
+                            },
+                            "title": {
+                              "stringValue": "Footing vallonné"
+                            },
+                            "duration": {
+                              "stringValue": "1h02 min"
+                            },
+                            "advice": {
+                              "stringValue": "Le relief renforce les chaînes musculaires de façon naturelle et progressive. La règle d'or : c'est l'effort qui reste constant, pas la vitesse."
+                            },
+                            "id": {
+                              "stringValue": "w1-s2-1778852278324-9e8g52o"
+                            },
+                            "cooldown": {
+                              "stringValue": "5 à 10 min de footing plat puis marche. (à 6:16 min/km)"
+                            },
+                            "distance": {
+                              "stringValue": "11.0 km"
+                            },
+                            "elevationGain": {
+                              "integerValue": "0"
+                            },
+                            "mainSet": {
+                              "stringValue": "44 min sur parcours légèrement vallonné. En montée : foulée courte, effort d'endurance fondamentale maintenu (5:36 en référence sur le plat, la vitesse baisse en côte c'est normal). En descente : relâché, foulée courte et contrôlée. Pas de côte raide, du vallon doux. (allure : 5:36 min/km)"
+                            },
+                            "locationSuggestion": {
+                              "stringValue": "Le Bois de la Baumette"
+                            },
+                            "intensity": {
+                              "stringValue": "Facile"
+                            },
+                            "day": {
+                              "stringValue": "Mercredi"
+                            },
+                            "type": {
+                              "stringValue": "Jogging"
+                            },
+                            "targetPace": {
+                              "stringValue": "5:36 min/km"
+                            }
+                          }
+                        }
+                      },
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "type": {
+                              "stringValue": "Jogging"
+                            },
+                            "day": {
+                              "stringValue": "Jeudi"
+                            },
+                            "targetPace": {
+                              "stringValue": "5:36 min/km"
+                            },
+                            "elevationGain": {
+                              "integerValue": "0"
+                            },
+                            "locationSuggestion": {
+                              "stringValue": "Bords de Maine"
+                            },
+                            "intensity": {
+                              "stringValue": "Facile"
+                            },
+                            "mainSet": {
+                              "stringValue": "39 min de footing en alternant librement, au ressenti, des portions \"bas de l'EF\" et des portions \"haut de l'EF\" (5:36 en référence). Aucune portion ne doit faire monter l'essoufflement : tu restes conversationnel partout. (allure : 5:36 min/km)"
+                            },
+                            "cooldown": {
+                              "stringValue": "5 min de footing lent puis marche. (à 6:16 min/km)"
+                            },
+                            "distance": {
+                              "stringValue": "10.2 km"
+                            },
+                            "id": {
+                              "stringValue": "w1-s5-1778852278324-dpcwu69"
+                            },
+                            "warmup": {
+                              "stringValue": "10 min de footing, à 6:16 min/km en endurance fondamentale."
+                            },
+                            "title": {
+                              "stringValue": "Footing au ressenti (fartlek doux)"
+                            },
+                            "duration": {
+                              "stringValue": "57 min"
+                            },
+                            "advice": {
+                              "stringValue": "Le fartlek souple t'apprend à écouter tes sensations plutôt que ta montre. Le jeu d'allure casse la routine tout en restant 100 % aérobie."
+                            }
+                          }
+                        }
+                      },
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "cooldown": {
+                              "stringValue": "5 min de course très lente à 6:16 min/km, suivie de 10-15 min d'étirements légers, en insistant sur les jambes."
+                            },
+                            "distance": {
+                              "stringValue": "16.8 km"
+                            },
+                            "id": {
+                              "stringValue": "w1-s4-1778852278324-b91nqev"
+                            },
+                            "warmup": {
+                              "stringValue": "10 min de marche active, à 6:16 min/km puis 5 min de course très lente."
+                            },
+                            "title": {
+                              "stringValue": "Sortie longue en endurance fondamentale"
+                            },
+                            "advice": {
+                              "stringValue": "Écoute ton corps et ne force pas en cas de douleur. C'est la pierre angulaire de ta préparation, mais la prudence est de mise pour éviter la fatigue excessive."
+                            },
+                            "duration": {
+                              "stringValue": "1h34 min"
+                            },
+                            "type": {
+                              "stringValue": "Sortie Longue"
+                            },
+                            "day": {
+                              "stringValue": "Vendredi"
+                            },
+                            "targetPace": {
+                              "stringValue": "5:36 min/km"
+                            },
+                            "elevationGain": {
+                              "integerValue": "0"
+                            },
+                            "intensity": {
+                              "stringValue": "Facile"
+                            },
+                            "locationSuggestion": {
+                              "stringValue": "Parc de l'Île Saint-Aubin"
+                            },
+                            "mainSet": {
+                              "stringValue": "1h19 min de course continue à allure EF (5:36 min/km). Maintiens un rythme régulier et confortable. Hydrate-toi régulièrement."
+                            }
+                          }
+                        }
+                      },
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "warmup": {
+                              "stringValue": "10 min de mobilité articulaire et échauffement dynamique"
+                            },
+                            "duration": {
+                              "stringValue": "35-45 min"
+                            },
+                            "advice": {
+                              "stringValue": "Écoute ton corps et ne force pas en cas de douleur. La régularité du renforcement est clé pour prévenir les blessures."
+                            },
+                            "title": {
+                              "stringValue": "Renfo Focus A - Quadriceps & Gainage (S1)"
+                            },
+                            "id": {
+                              "stringValue": "w1-s3-1778852278324-9syvqkg"
+                            },
+                            "cooldown": {
+                              "stringValue": "5 min d'étirements : quadriceps, ischio-jambiers, mollets, hanches"
+                            },
+                            "distance": {
+                              "stringValue": "0 km"
+                            },
+                            "elevationGain": {
+                              "integerValue": "0"
+                            },
+                            "mainSet": {
+                              "stringValue": "Circuit 3 tours : Squats poids de corps (3x16), Squat bulgare (3x10/jambe), Fentes avant (3x10/jambe), Gainage ventral (3x31-60s), Dead bug (3x10/côté), Extensions mollets debout (3x21), Gainage ventral long (2x93-120s). Repos 1 min 30 entre tours."
+                            },
+                            "intensity": {
+                              "stringValue": "Modéré"
+                            },
+                            "locationSuggestion": {
+                              "stringValue": "À la maison"
+                            },
+                            "day": {
+                              "stringValue": "Samedi"
+                            },
+                            "type": {
+                              "stringValue": "Renforcement"
+                            },
+                            "targetPace": {
+                              "stringValue": "N/A"
+                            }
+                          }
+                        }
+                      }
+                    ]
+                  }
+                },
+                "weekNumber": {
+                  "integerValue": "1"
+                }
+              }
+            }
+          }
+        ]
+      }
+    },
+    "welcomeMessage": {
+      "stringValue": "⚠️ **Préparation marathon en 7 semaines — très en-dessous du standard** — 7 semaines pour un premier marathon, c'est très court (12-16 sem recommandées). Risque sérieux de blessure (tendons, fascia plantaire) et de \"mur\" musculaire/énergétique après 30 km. Si la date est négociable, vise plutôt l'automne. Sinon, accepte que l'objectif réaliste devienne \"finir\" plutôt que 3h15.\n\nFélicitations pour ton engagement vers le Marathon de 3h15 ! Ce plan de 7 semaines est structuré pour t'aider à atteindre cet objectif ambitieux en développant ton endurance et ta vitesse de manière progressive. Il s'appuie sur une phase fondamentale solide pour bâtir tes bases. Nous te recommandons de consulter un médecin avant de débuter ce programme, notamment pour obtenir un certificat médical d'aptitude au sport."
+    },
+    "location": {
+      "stringValue": "Angers"
+    },
+    "startDate": {
+      "stringValue": "2026-05-11"
+    },
+    "durationWeeks": {
+      "integerValue": "7"
+    },
+    "feasibility": {
+      "mapValue": {
+        "fields": {
+          "safetyWarning": {
+            "stringValue": "Hydrate-toi bien, échauffe-toi avant chaque séance et accorde-toi un vrai temps de récupération."
+          },
+          "message": {
+            "stringValue": "Avec ta VMA de 16.0 km/h, ton temps théorique sur marathon est d'environ 3h18min. Viser 3h15min est un bel objectif. Avec un entraînement régulier, c'est tout à fait atteignable. Attention : 7 semaines, c'est court pour une préparation marathon optimale. Le plan sera condensé."
+          },
+          "status": {
+            "stringValue": "BON"
+          }
+        }
+      }
+    },
+    "confidenceScore": {
+      "integerValue": "75"
+    }
+  },
+  "createTime": "2026-05-15T13:38:12.059917Z",
+  "updateTime": "2026-05-15T14:45:26.598396Z"
+}

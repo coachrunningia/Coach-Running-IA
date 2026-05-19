@@ -1,0 +1,712 @@
+{
+  "name": "projects/coach-running-ia/databases/(default)/documents/plans/1778437313058",
+  "fields": {
+    "id": {
+      "stringValue": "1778437313058"
+    },
+    "adaptationLog": {
+      "mapValue": {
+        "fields": {
+          "adaptationHistory": {
+            "arrayValue": {}
+          },
+          "adaptationsThisWeek": {
+            "integerValue": "0"
+          },
+          "weekNumber": {
+            "integerValue": "0"
+          }
+        }
+      }
+    },
+    "targetTime": {
+      "stringValue": "5h00"
+    },
+    "confidenceScore": {
+      "integerValue": "52"
+    },
+    "fullPlanGenerated": {
+      "booleanValue": false
+    },
+    "suggestedLocations": {
+      "arrayValue": {
+        "values": [
+          {
+            "mapValue": {
+              "fields": {
+                "description": {
+                  "stringValue": "Idéal pour les sorties Marche/Course et les footings en endurance fondamentale sur terrain plat."
+                },
+                "name": {
+                  "stringValue": "Parc de la Tête d'Or"
+                },
+                "type": {
+                  "stringValue": "PARK"
+                }
+              }
+            }
+          },
+          {
+            "mapValue": {
+              "fields": {
+                "description": {
+                  "stringValue": "Parfait pour les sorties longues et les séances de Marche/Course avec un profil plat, en bord de l'eau."
+                },
+                "name": {
+                  "stringValue": "Berges du Rhône"
+                },
+                "type": {
+                  "stringValue": "NATURE"
+                }
+              }
+            }
+          },
+          {
+            "mapValue": {
+              "fields": {
+                "description": {
+                  "stringValue": "Convient aux séances de Marche/Course et aux footings en EF, avec des boucles variées et planes."
+                },
+                "type": {
+                  "stringValue": "PARK"
+                },
+                "name": {
+                  "stringValue": "Parc de Gerland"
+                }
+              }
+            }
+          }
+        ]
+      }
+    },
+    "name": {
+      "stringValue": "Préparation Marathon en 5h00 — 28 sem."
+    },
+    "startDate": {
+      "stringValue": "2026-05-04"
+    },
+    "location": {
+      "stringValue": "lyon"
+    },
+    "sessionsPerWeek": {
+      "integerValue": "3"
+    },
+    "paces": {
+      "mapValue": {
+        "fields": {
+          "seuilPace": {
+            "stringValue": "6:16"
+          },
+          "eaPace": {
+            "stringValue": "7:05"
+          },
+          "allureSpecifique10k": {
+            "stringValue": "6:04"
+          },
+          "allureSpecifiqueMarathon": {
+            "stringValue": "7:07"
+          },
+          "allureSpecifiqueSemi": {
+            "stringValue": "6:25"
+          },
+          "vmaPace": {
+            "stringValue": "5:27"
+          },
+          "efPace": {
+            "stringValue": "8:08"
+          },
+          "recoveryPace": {
+            "stringValue": "9:05"
+          },
+          "allureSpecifique5k": {
+            "stringValue": "5:44"
+          }
+        }
+      }
+    },
+    "goal": {
+      "stringValue": "Course sur route"
+    },
+    "generationContext": {
+      "mapValue": {
+        "fields": {
+          "vma": {
+            "integerValue": "11"
+          },
+          "periodizationPlan": {
+            "mapValue": {
+              "fields": {
+                "totalWeeks": {
+                  "integerValue": "28"
+                },
+                "weeklyPhases": {
+                  "arrayValue": {
+                    "values": [
+                      {
+                        "stringValue": "fondamental"
+                      },
+                      {
+                        "stringValue": "fondamental"
+                      },
+                      {
+                        "stringValue": "fondamental"
+                      },
+                      {
+                        "stringValue": "recuperation"
+                      },
+                      {
+                        "stringValue": "fondamental"
+                      },
+                      {
+                        "stringValue": "fondamental"
+                      },
+                      {
+                        "stringValue": "recuperation"
+                      },
+                      {
+                        "stringValue": "fondamental"
+                      },
+                      {
+                        "stringValue": "developpement"
+                      },
+                      {
+                        "stringValue": "recuperation"
+                      },
+                      {
+                        "stringValue": "developpement"
+                      },
+                      {
+                        "stringValue": "developpement"
+                      },
+                      {
+                        "stringValue": "recuperation"
+                      },
+                      {
+                        "stringValue": "developpement"
+                      },
+                      {
+                        "stringValue": "developpement"
+                      },
+                      {
+                        "stringValue": "recuperation"
+                      },
+                      {
+                        "stringValue": "developpement"
+                      },
+                      {
+                        "stringValue": "specifique"
+                      },
+                      {
+                        "stringValue": "recuperation"
+                      },
+                      {
+                        "stringValue": "specifique"
+                      },
+                      {
+                        "stringValue": "specifique"
+                      },
+                      {
+                        "stringValue": "recuperation"
+                      },
+                      {
+                        "stringValue": "specifique"
+                      },
+                      {
+                        "stringValue": "specifique"
+                      },
+                      {
+                        "stringValue": "recuperation"
+                      },
+                      {
+                        "stringValue": "affutage"
+                      },
+                      {
+                        "stringValue": "affutage"
+                      },
+                      {
+                        "stringValue": "affutage"
+                      }
+                    ]
+                  }
+                },
+                "recoveryWeeks": {
+                  "arrayValue": {
+                    "values": [
+                      {
+                        "integerValue": "4"
+                      },
+                      {
+                        "integerValue": "7"
+                      },
+                      {
+                        "integerValue": "10"
+                      },
+                      {
+                        "integerValue": "13"
+                      },
+                      {
+                        "integerValue": "16"
+                      },
+                      {
+                        "integerValue": "19"
+                      },
+                      {
+                        "integerValue": "22"
+                      },
+                      {
+                        "integerValue": "25"
+                      }
+                    ]
+                  }
+                },
+                "weeklyVolumes": {
+                  "arrayValue": {
+                    "values": [
+                      {
+                        "integerValue": "5"
+                      },
+                      {
+                        "integerValue": "6"
+                      },
+                      {
+                        "integerValue": "7"
+                      },
+                      {
+                        "integerValue": "6"
+                      },
+                      {
+                        "integerValue": "8"
+                      },
+                      {
+                        "integerValue": "10"
+                      },
+                      {
+                        "integerValue": "8"
+                      },
+                      {
+                        "integerValue": "11"
+                      },
+                      {
+                        "integerValue": "13"
+                      },
+                      {
+                        "integerValue": "11"
+                      },
+                      {
+                        "integerValue": "14"
+                      },
+                      {
+                        "integerValue": "16"
+                      },
+                      {
+                        "integerValue": "13"
+                      },
+                      {
+                        "integerValue": "16"
+                      },
+                      {
+                        "integerValue": "19"
+                      },
+                      {
+                        "integerValue": "16"
+                      },
+                      {
+                        "integerValue": "19"
+                      },
+                      {
+                        "integerValue": "22"
+                      },
+                      {
+                        "integerValue": "18"
+                      },
+                      {
+                        "integerValue": "22"
+                      },
+                      {
+                        "integerValue": "25"
+                      },
+                      {
+                        "integerValue": "21"
+                      },
+                      {
+                        "integerValue": "25"
+                      },
+                      {
+                        "integerValue": "28"
+                      },
+                      {
+                        "integerValue": "22"
+                      },
+                      {
+                        "integerValue": "18"
+                      },
+                      {
+                        "integerValue": "15"
+                      },
+                      {
+                        "integerValue": "12"
+                      }
+                    ]
+                  }
+                }
+              }
+            }
+          },
+          "generatedAt": {
+            "stringValue": "2026-05-10T18:21:27.302Z"
+          },
+          "questionnaireSnapshot": {
+            "mapValue": {
+              "fields": {
+                "vma": {
+                  "integerValue": "11"
+                },
+                "targetTime": {
+                  "stringValue": "5h00"
+                },
+                "weight": {
+                  "integerValue": "55"
+                },
+                "raceDate": {
+                  "stringValue": "2026-11-21"
+                },
+                "startDate": {
+                  "stringValue": "2026-05-10"
+                },
+                "frequency": {
+                  "integerValue": "3"
+                },
+                "subGoal": {
+                  "stringValue": "Marathon"
+                },
+                "preferredDays": {
+                  "arrayValue": {
+                    "values": [
+                      {
+                        "stringValue": "Mercredi"
+                      },
+                      {
+                        "stringValue": "Dimanche"
+                      }
+                    ]
+                  }
+                },
+                "recentRaceTimes": {
+                  "mapValue": {}
+                },
+                "comments": {
+                  "stringValue": "je fais du vélo pour aller au travail. je ne peux pas faire plus de deux sorties par semaine"
+                },
+                "city": {
+                  "stringValue": "lyon"
+                },
+                "level": {
+                  "stringValue": "Débutant (0-1 an)"
+                },
+                "injuries": {
+                  "mapValue": {
+                    "fields": {
+                      "hasInjury": {
+                        "booleanValue": true
+                      },
+                      "description": {
+                        "stringValue": "douleur au genou en descente"
+                      }
+                    }
+                  }
+                },
+                "sex": {
+                  "stringValue": "Femme"
+                },
+                "age": {
+                  "integerValue": "34"
+                },
+                "email": {
+                  "stringValue": "j.tissot@lilo.org"
+                },
+                "goal": {
+                  "stringValue": "Course sur route"
+                },
+                "currentWeeklyVolume": {
+                  "integerValue": "3"
+                },
+                "height": {
+                  "integerValue": "167"
+                }
+              }
+            }
+          },
+          "modelUsed": {
+            "stringValue": "gemini-2.5-flash"
+          },
+          "paces": {
+            "mapValue": {
+              "fields": {
+                "allureSpecifiqueMarathon": {
+                  "stringValue": "7:07"
+                },
+                "allureSpecifique10k": {
+                  "stringValue": "6:04"
+                },
+                "allureSpecifiqueSemi": {
+                  "stringValue": "6:25"
+                },
+                "eaPace": {
+                  "stringValue": "7:05"
+                },
+                "seuilPace": {
+                  "stringValue": "6:16"
+                },
+                "recoveryPace": {
+                  "stringValue": "9:05"
+                },
+                "efPace": {
+                  "stringValue": "8:08"
+                },
+                "allureSpecifique5k": {
+                  "stringValue": "5:44"
+                },
+                "vmaPace": {
+                  "stringValue": "5:27"
+                }
+              }
+            }
+          },
+          "vmaSource": {
+            "stringValue": "Estimation niveau Débutant (0-1 an)"
+          }
+        }
+      }
+    },
+    "endDate": {
+      "stringValue": "2026-11-16"
+    },
+    "isPreview": {
+      "booleanValue": true
+    },
+    "distance": {
+      "stringValue": "Marathon"
+    },
+    "userEmail": {
+      "stringValue": "j.tissot@lilo.org"
+    },
+    "feasibility": {
+      "mapValue": {
+        "fields": {
+          "recommendation": {
+            "stringValue": "valider ta VMA avec un test terrain ou un chrono récent (5km, 10km) pour affiner l'évaluation"
+          },
+          "status": {
+            "stringValue": "RISQUÉ"
+          },
+          "message": {
+            "stringValue": "Avec ta VMA de 11.0 km/h, ton temps théorique sur marathon est d'environ 4h48min. Ton objectif de 5h00min semble confortable, mais des facteurs de risque limitent la confiance dans cette évaluation. Note : ta VMA est estimée (pas de chrono de référence), l'évaluation comporte donc une marge d'incertitude. Ton volume actuel (3 km/sem) est bas pour un marathon. La montée en charge sera progressive mais exigeante. Note : ton volume actuel (3 km/sem) est en dessous du minimum pour ton niveau (8 km/sem). Le plan démarrera légèrement au-dessus pour garantir une progression cohérente. Cette évaluation repose sur une VMA estimée (11.0 km/h) et non sur un chrono validé. Il faudra ajuster le plan au fil des séances selon ton ressenti, ou régénérer un plan en renseignant un chrono de référence (5km, 10km, semi) pour des allures plus précises."
+          },
+          "safetyWarning": {
+            "stringValue": "Fais valider la reprise avec ton kiné/médecin avant de démarrer ce plan. Adapte les séances si nécessaire."
+          }
+        }
+      }
+    },
+    "vma": {
+      "integerValue": "11"
+    },
+    "welcomeMessage": {
+      "stringValue": "⚠️ **Volume actuel très bas pour un marathon** — Tu démarres à seulement 3 km/sem pour préparer un marathon (42 km). Même avec 28 semaines de plan, atteindre les standards de prépa marathon (≥35 km/sem peak) demande une rampe agressive — risque de blessure. De plus, ta blessure au genou en descente est un point de vigilance majeur : **la sortie longue doit absolument rester sur terrain plat ou descentes très douces**. Objectif réaliste : **finir le marathon en mode marche-course assumée** sur les derniers kilomètres, pas forcément en 5h00. Si une douleur au genou réapparaît à l'entraînement, on adapte ou on suspend immédiatement.\n\nBienvenue dans ton plan d'entraînement pour le Marathon de Lyon en 2026 ! Ce programme est spécialement conçu pour les coureurs débutants souhaitant atteindre l'objectif des 5h00. Nous allons progresser ensemble, en nous concentrant sur le développement de ton endurance fondamentale et l'adaptation de ton corps à l'effort. Les premières semaines seront dédiées à l'alternance marche/course pour construire une base solide et prévenir les blessures. Chaque séance est pensée pour être progressive et respectueuse de tes sensations. Nous te recommandons de consulter un médecin avant de débuter ce programme, notamment pour obtenir un certificat médical d'aptitude au sport."
+    },
+    "userId": {
+      "stringValue": "MPBVo8H7kvSVDuyYwwyReBYaIOs1"
+    },
+    "createdAt": {
+      "stringValue": "2026-05-10T18:21:53.058Z"
+    },
+    "durationWeeks": {
+      "integerValue": "28"
+    },
+    "raceDate": {
+      "stringValue": "2026-11-21"
+    },
+    "vmaSource": {
+      "stringValue": "Estimation niveau Débutant (0-1 an)"
+    },
+    "weeks": {
+      "arrayValue": {
+        "values": [
+          {
+            "mapValue": {
+              "fields": {
+                "phase": {
+                  "stringValue": "fondamental"
+                },
+                "sessions": {
+                  "arrayValue": {
+                    "values": [
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "duration": {
+                              "stringValue": "35-45 min"
+                            },
+                            "intensity": {
+                              "stringValue": "Facile"
+                            },
+                            "advice": {
+                              "stringValue": "Le renforcement est crucial pour la prévention des blessures, en particulier pour stabiliser le genou. Écoute ton corps et adapte les exercices si une douleur apparaît. Hydrate-toi bien avant et après."
+                            },
+                            "title": {
+                              "stringValue": "Renfo Focus A - Quadriceps & Prévention Genou (S1)"
+                            },
+                            "targetPace": {
+                              "stringValue": "N/A"
+                            },
+                            "type": {
+                              "stringValue": "Renforcement"
+                            },
+                            "elevationGain": {
+                              "integerValue": "0"
+                            },
+                            "cooldown": {
+                              "stringValue": "8 min d'étirements : quadriceps (30s×2/jambe), bandelette IT (rouleau, 30s/côté), mollets, mobilité rotule en flexion douce."
+                            },
+                            "warmup": {
+                              "stringValue": "10 min de mobilité articulaire douce et échauffement progressif (marche rapide, rotations, pas chassés)"
+                            },
+                            "locationSuggestion": {
+                              "stringValue": "À la maison"
+                            },
+                            "id": {
+                              "stringValue": "w1-s1-1778437313059-p794r33"
+                            },
+                            "distance": {
+                              "stringValue": "0 km"
+                            },
+                            "day": {
+                              "stringValue": "Mercredi"
+                            },
+                            "mainSet": {
+                              "stringValue": "Circuit 2 tours : Squats poids de corps (3x9), Fentes avant (3x6/jambe), Gainage ventral (3x19-60s), Dead bug (3x6/côté), Extensions mollets debout (3x13), Gainage ventral long (2x57-120s), Quart de squat isométrique (mur) (3x19s), Step-down excentrique lent (3x5/jambe). Repos 2 min entre tours. ⚠️ Exercices de prévention inclus pour ta blessure — si douleur, arrête immédiatement."
+                            }
+                          }
+                        }
+                      },
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "id": {
+                              "stringValue": "w1-s2-1778437313059-byazn1b"
+                            },
+                            "warmup": {
+                              "stringValue": "10 min de marche active (9:05 min/km)"
+                            },
+                            "locationSuggestion": {
+                              "stringValue": "Parc de la Tête d'Or"
+                            },
+                            "distance": {
+                              "stringValue": "3.3 km"
+                            },
+                            "day": {
+                              "stringValue": "Vendredi"
+                            },
+                            "mainSet": {
+                              "stringValue": "9 x (1 min course légère à 8:08 min/km + 2 min marche active à 9:05 min/km). Concentre-toi sur une sensation d'aisance et une respiration régulière. La course doit être très douce, comme si tu pouvais parler facilement."
+                            },
+                            "elevationGain": {
+                              "integerValue": "0"
+                            },
+                            "cooldown": {
+                              "stringValue": "3 min de marche très lente et étirements doux des mollets et quadriceps. (à 9:05 min/km)"
+                            },
+                            "advice": {
+                              "stringValue": "Cette séance est la base de ton endurance. Écoute attentivement ton genou : la transition course/marche est là pour ça. Si tu ressens la moindre douleur, prolonge la marche. Choisis des chaussures bien amorties et évite les descentes raides."
+                            },
+                            "title": {
+                              "stringValue": "Marche/Course en Aisance Respiratoire"
+                            },
+                            "targetPace": {
+                              "stringValue": "EF (8:08 min/km) / Récupération (9:05 min/km)"
+                            },
+                            "type": {
+                              "stringValue": "Marche/Course"
+                            },
+                            "duration": {
+                              "stringValue": "40 min"
+                            },
+                            "intensity": {
+                              "stringValue": "Facile"
+                            }
+                          }
+                        }
+                      },
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "title": {
+                              "stringValue": "Sortie Longue Marche/Course Progressive"
+                            },
+                            "targetPace": {
+                              "stringValue": "EF (8:08 min/km) / Récupération (9:05 min/km)"
+                            },
+                            "type": {
+                              "stringValue": "Sortie Longue"
+                            },
+                            "advice": {
+                              "stringValue": "C'est ta première sortie longue. Reste bien hydraté avant, pendant (si besoin), et après la séance. Écoute ton corps, particulièrement ton genou. N'hésite pas à marcher plus si nécessaire. Les berges du Rhône sont idéales pour leur platitude, minimisant l'impact sur les descentes."
+                            },
+                            "duration": {
+                              "stringValue": "50 min"
+                            },
+                            "intensity": {
+                              "stringValue": "Facile"
+                            },
+                            "mainSet": {
+                              "stringValue": "13 x (1 min course légère à 8:08 min/km + 2 min marche active à 9:05 min/km). Démarre chaque phase de course très progressivement, puis maintiens une allure stable et très confortable. L'objectif est de s'habituer à l'effort prolongé sans fatigue excessive."
+                            },
+                            "id": {
+                              "stringValue": "w1-s3-1778437313059-lc601s8"
+                            },
+                            "locationSuggestion": {
+                              "stringValue": "Berges du Rhône"
+                            },
+                            "warmup": {
+                              "stringValue": "10 min de marche active (9:05 min/km)."
+                            },
+                            "distance": {
+                              "stringValue": "4.7 km"
+                            },
+                            "day": {
+                              "stringValue": "Dimanche"
+                            },
+                            "elevationGain": {
+                              "integerValue": "0"
+                            },
+                            "cooldown": {
+                              "stringValue": "1 min de marche très lente et 5 min d'étirements doux. (à 9:05 min/km)"
+                            }
+                          }
+                        }
+                      }
+                    ]
+                  }
+                },
+                "weekGoal": {
+                  "stringValue": "Introduction à l'endurance fondamentale et renforcement doux"
+                },
+                "weekNumber": {
+                  "integerValue": "1"
+                },
+                "theme": {
+                  "stringValue": "Introduction à l'endurance fondamentale et renforcement doux"
+                }
+              }
+            }
+          }
+        ]
+      }
+    },
+    "calculatedVMA": {
+      "integerValue": "11"
+    }
+  },
+  "createTime": "2026-05-10T18:22:01.754716Z",
+  "updateTime": "2026-05-15T15:34:14.646138Z"
+}

@@ -1,0 +1,736 @@
+{
+  "name": "projects/coach-running-ia/databases/(default)/documents/plans/1775559439193",
+  "fields": {
+    "userId": {
+      "stringValue": "054Jlirhr8b08ZXCrbSlRVHS0WI3"
+    },
+    "welcomeMessage": {
+      "stringValue": "Bienvenue dans ton plan d'entraînement pour le Semi-Marathon ! Ce programme de 30 semaines est conçu pour t'accompagner vers ton objectif sur route avec une approche progressive. Nous allons construire ta base d'endurance, développer ta vitesse et ta résistance, puis affiner ta forme pour le jour de la course. La première phase sera dédiée à l'acquisition d'un fond solide. Nous te recommandons de consulter un médecin avant de débuter ce programme, notamment pour obtenir un certificat médical d'aptitude au sport."
+    },
+    "raceDate": {
+      "stringValue": "2027-03-13"
+    },
+    "createdAt": {
+      "stringValue": "2026-04-07T10:57:19.193Z"
+    },
+    "durationWeeks": {
+      "integerValue": "30"
+    },
+    "isPreview": {
+      "booleanValue": true
+    },
+    "distance": {
+      "stringValue": "Semi-Marathon"
+    },
+    "feasibility": {
+      "mapValue": {
+        "fields": {
+          "recommendation": {
+            "stringValue": "un temps cible de 3h11min"
+          },
+          "message": {
+            "stringValue": "Ton objectif de 2h00min sur Semi-Marathon nécessiterait une VMA de 12.4 km/h, soit 151% de ta VMA actuelle (8.2 km/h). Même avec une progression optimale, cet écart est trop important. Ton temps théorique est de 3h02min. Un objectif réaliste serait autour de 3h11min."
+          },
+          "status": {
+            "stringValue": "IRRÉALISTE"
+          },
+          "safetyWarning": {
+            "stringValue": "Hydrate-toi bien, échauffe-toi avant chaque séance et accorde-toi un vrai temps de récupération."
+          }
+        }
+      }
+    },
+    "userEmail": {
+      "stringValue": "amb.painvin@gmail.com"
+    },
+    "vma": {
+      "doubleValue": 8.2049331409571
+    },
+    "calculatedVMA": {
+      "doubleValue": 8.2049331409571
+    },
+    "vmaSource": {
+      "stringValue": "Moyenne 5km en 39:14 et 10km en 1h19"
+    },
+    "weeks": {
+      "arrayValue": {
+        "values": [
+          {
+            "mapValue": {
+              "fields": {
+                "weekGoal": {
+                  "stringValue": "Initiation à l'endurance fondamentale"
+                },
+                "theme": {
+                  "stringValue": "Initiation à l'endurance fondamentale"
+                },
+                "weekNumber": {
+                  "integerValue": "1"
+                },
+                "phase": {
+                  "stringValue": "fondamental"
+                },
+                "sessions": {
+                  "arrayValue": {
+                    "values": [
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "cooldown": {
+                              "stringValue": "5 min de marche lente, étirements doux des jambes. (à 12:11 min/km)"
+                            },
+                            "elevationGain": {
+                              "integerValue": "0"
+                            },
+                            "mainSet": {
+                              "stringValue": "25 min de course continue en endurance fondamentale (10:55 min/km). Tu dois être capable de parler sans être essoufflé."
+                            },
+                            "day": {
+                              "stringValue": "Lundi"
+                            },
+                            "distance": {
+                              "stringValue": "3.2 km"
+                            },
+                            "id": {
+                              "stringValue": "w1-s1-1775559439195-ndqrtcu"
+                            },
+                            "locationSuggestion": {
+                              "stringValue": "Parc de la Pépinière"
+                            },
+                            "warmup": {
+                              "stringValue": "5 min de marche rapide, puis 5 min de footing très lent (12:11 min/km)"
+                            },
+                            "intensity": {
+                              "stringValue": "Facile"
+                            },
+                            "duration": {
+                              "stringValue": "35 min"
+                            },
+                            "type": {
+                              "stringValue": "Jogging"
+                            },
+                            "targetPace": {
+                              "stringValue": "10:55 min/km (EF)"
+                            },
+                            "title": {
+                              "stringValue": "Footing en aisance respiratoire"
+                            },
+                            "advice": {
+                              "stringValue": "Concentre-toi sur une respiration régulière et profonde. C'est la base de ton endurance, ne force pas et écoute ton corps."
+                            }
+                          }
+                        }
+                      },
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "type": {
+                              "stringValue": "Renforcement"
+                            },
+                            "targetPace": {
+                              "stringValue": "N/A"
+                            },
+                            "title": {
+                              "stringValue": "Renfo Focus A - Quadriceps & Gainage (S1)"
+                            },
+                            "advice": {
+                              "stringValue": "Le renforcement est clé pour prévenir les blessures et améliorer ton efficacité de course. Privilégie la qualité du mouvement à la quantité. En cas de douleur, arrête l'exercice."
+                            },
+                            "intensity": {
+                              "stringValue": "Modéré"
+                            },
+                            "duration": {
+                              "stringValue": "35-40 min"
+                            },
+                            "mainSet": {
+                              "stringValue": "Circuit 3 tours : Squats poids de corps (3x14), Squat bulgare (3x9/jambe), Fentes avant (3x9/jambe), Gainage ventral (3x27-60s), Dead bug (3x9/côté), Extensions mollets debout (3x18). Repos 1 min 30 entre tours."
+                            },
+                            "day": {
+                              "stringValue": "Mercredi"
+                            },
+                            "distance": {
+                              "stringValue": "N/A"
+                            },
+                            "warmup": {
+                              "stringValue": "10 min de mobilité articulaire et échauffement dynamique"
+                            },
+                            "locationSuggestion": {
+                              "stringValue": "À la maison"
+                            },
+                            "id": {
+                              "stringValue": "w1-s2-1775559439195-ulhvtqn"
+                            },
+                            "cooldown": {
+                              "stringValue": "5 min d'étirements : quadriceps, ischio-jambiers, mollets, hanches"
+                            },
+                            "elevationGain": {
+                              "integerValue": "0"
+                            }
+                          }
+                        }
+                      },
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "cooldown": {
+                              "stringValue": "5 min de marche lente, étirements doux axés sur les mollets et les cuisses. (à 12:11 min/km)"
+                            },
+                            "elevationGain": {
+                              "integerValue": "0"
+                            },
+                            "day": {
+                              "stringValue": "Samedi"
+                            },
+                            "distance": {
+                              "stringValue": "3.8 km"
+                            },
+                            "id": {
+                              "stringValue": "w1-s3-1775559439195-wmxwzwa"
+                            },
+                            "warmup": {
+                              "stringValue": "5 min de marche rapide, puis 5 min de footing très lent (12:11 min/km)."
+                            },
+                            "locationSuggestion": {
+                              "stringValue": "Bords de Meurthe / Canal de la Marne au Rhin"
+                            },
+                            "mainSet": {
+                              "stringValue": "32 min de course continue en endurance fondamentale (10:55 min/km). Maintiens une allure où tu peux parler sans difficulté."
+                            },
+                            "intensity": {
+                              "stringValue": "Facile"
+                            },
+                            "duration": {
+                              "stringValue": "42 min"
+                            },
+                            "advice": {
+                              "stringValue": "Hydrate-toi bien avant et après la séance. Cette sortie est essentielle pour habituer ton corps à l'effort de longue durée à une intensité contrôlée. N'hésite pas à marcher quelques secondes si tu en ressens le besoin."
+                            },
+                            "type": {
+                              "stringValue": "Sortie Longue"
+                            },
+                            "targetPace": {
+                              "stringValue": "10:55 min/km (EF)"
+                            },
+                            "title": {
+                              "stringValue": "Sortie Longue en endurance fondamentale"
+                            }
+                          }
+                        }
+                      }
+                    ]
+                  }
+                }
+              }
+            }
+          }
+        ]
+      }
+    },
+    "name": {
+      "stringValue": "Préparation Semi-Marathon en 2h00 — 30 sem."
+    },
+    "location": {
+      "stringValue": "Nancy"
+    },
+    "startDate": {
+      "stringValue": "2026-05-18"
+    },
+    "sessionsPerWeek": {
+      "integerValue": "3"
+    },
+    "adaptationLog": {
+      "mapValue": {
+        "fields": {
+          "adaptationHistory": {
+            "arrayValue": {}
+          },
+          "adaptationsThisWeek": {
+            "integerValue": "0"
+          },
+          "weekNumber": {
+            "integerValue": "0"
+          }
+        }
+      }
+    },
+    "id": {
+      "stringValue": "1775559439193"
+    },
+    "confidenceScore": {
+      "integerValue": "5"
+    },
+    "targetTime": {
+      "stringValue": "2h00"
+    },
+    "fullPlanGenerated": {
+      "booleanValue": false
+    },
+    "suggestedLocations": {
+      "arrayValue": {
+        "values": [
+          {
+            "mapValue": {
+              "fields": {
+                "type": {
+                  "stringValue": "PARK"
+                },
+                "name": {
+                  "stringValue": "Parc de la Pépinière"
+                },
+                "description": {
+                  "stringValue": "Idéal pour les footings en endurance fondamentale, avec des allées plates et agréables en centre-ville."
+                }
+              }
+            }
+          },
+          {
+            "mapValue": {
+              "fields": {
+                "type": {
+                  "stringValue": "NATURE"
+                },
+                "name": {
+                  "stringValue": "Bords de Meurthe / Canal de la Marne au Rhin"
+                },
+                "description": {
+                  "stringValue": "Longues portions plates le long de l'eau, parfaites pour les sorties longues en endurance."
+                }
+              }
+            }
+          },
+          {
+            "mapValue": {
+              "fields": {
+                "description": {
+                  "stringValue": "Pour les sorties vallonnées et la course sur sentiers, offrant un dénivelé varié."
+                },
+                "type": {
+                  "stringValue": "NATURE"
+                },
+                "name": {
+                  "stringValue": "Forêt de Haye (secteur Nancy-Ouest)"
+                }
+              }
+            }
+          }
+        ]
+      }
+    },
+    "paces": {
+      "mapValue": {
+        "fields": {
+          "allureSpecifique5k": {
+            "stringValue": "7:42"
+          },
+          "efPace": {
+            "stringValue": "10:55"
+          },
+          "recoveryPace": {
+            "stringValue": "12:11"
+          },
+          "vmaPace": {
+            "stringValue": "7:19"
+          },
+          "allureSpecifiqueSemi": {
+            "stringValue": "8:36"
+          },
+          "allureSpecifique10k": {
+            "stringValue": "8:08"
+          },
+          "allureSpecifiqueMarathon": {
+            "stringValue": "9:08"
+          },
+          "seuilPace": {
+            "stringValue": "8:24"
+          },
+          "eaPace": {
+            "stringValue": "9:30"
+          }
+        }
+      }
+    },
+    "goal": {
+      "stringValue": "Course sur route"
+    },
+    "generationContext": {
+      "mapValue": {
+        "fields": {
+          "periodizationPlan": {
+            "mapValue": {
+              "fields": {
+                "totalWeeks": {
+                  "integerValue": "30"
+                },
+                "weeklyPhases": {
+                  "arrayValue": {
+                    "values": [
+                      {
+                        "stringValue": "fondamental"
+                      },
+                      {
+                        "stringValue": "fondamental"
+                      },
+                      {
+                        "stringValue": "fondamental"
+                      },
+                      {
+                        "stringValue": "recuperation"
+                      },
+                      {
+                        "stringValue": "fondamental"
+                      },
+                      {
+                        "stringValue": "fondamental"
+                      },
+                      {
+                        "stringValue": "recuperation"
+                      },
+                      {
+                        "stringValue": "fondamental"
+                      },
+                      {
+                        "stringValue": "fondamental"
+                      },
+                      {
+                        "stringValue": "recuperation"
+                      },
+                      {
+                        "stringValue": "developpement"
+                      },
+                      {
+                        "stringValue": "developpement"
+                      },
+                      {
+                        "stringValue": "recuperation"
+                      },
+                      {
+                        "stringValue": "developpement"
+                      },
+                      {
+                        "stringValue": "developpement"
+                      },
+                      {
+                        "stringValue": "recuperation"
+                      },
+                      {
+                        "stringValue": "developpement"
+                      },
+                      {
+                        "stringValue": "developpement"
+                      },
+                      {
+                        "stringValue": "recuperation"
+                      },
+                      {
+                        "stringValue": "specifique"
+                      },
+                      {
+                        "stringValue": "specifique"
+                      },
+                      {
+                        "stringValue": "recuperation"
+                      },
+                      {
+                        "stringValue": "specifique"
+                      },
+                      {
+                        "stringValue": "specifique"
+                      },
+                      {
+                        "stringValue": "recuperation"
+                      },
+                      {
+                        "stringValue": "specifique"
+                      },
+                      {
+                        "stringValue": "specifique"
+                      },
+                      {
+                        "stringValue": "recuperation"
+                      },
+                      {
+                        "stringValue": "affutage"
+                      },
+                      {
+                        "stringValue": "affutage"
+                      }
+                    ]
+                  }
+                },
+                "recoveryWeeks": {
+                  "arrayValue": {
+                    "values": [
+                      {
+                        "integerValue": "4"
+                      },
+                      {
+                        "integerValue": "7"
+                      },
+                      {
+                        "integerValue": "10"
+                      },
+                      {
+                        "integerValue": "13"
+                      },
+                      {
+                        "integerValue": "16"
+                      },
+                      {
+                        "integerValue": "19"
+                      },
+                      {
+                        "integerValue": "22"
+                      },
+                      {
+                        "integerValue": "25"
+                      },
+                      {
+                        "integerValue": "28"
+                      }
+                    ]
+                  }
+                },
+                "weeklyVolumes": {
+                  "arrayValue": {
+                    "values": [
+                      {
+                        "integerValue": "7"
+                      },
+                      {
+                        "integerValue": "7"
+                      },
+                      {
+                        "integerValue": "8"
+                      },
+                      {
+                        "integerValue": "6"
+                      },
+                      {
+                        "integerValue": "8"
+                      },
+                      {
+                        "integerValue": "8"
+                      },
+                      {
+                        "integerValue": "6"
+                      },
+                      {
+                        "integerValue": "8"
+                      },
+                      {
+                        "integerValue": "9"
+                      },
+                      {
+                        "integerValue": "6"
+                      },
+                      {
+                        "integerValue": "9"
+                      },
+                      {
+                        "integerValue": "10"
+                      },
+                      {
+                        "integerValue": "7"
+                      },
+                      {
+                        "integerValue": "10"
+                      },
+                      {
+                        "integerValue": "10"
+                      },
+                      {
+                        "integerValue": "7"
+                      },
+                      {
+                        "integerValue": "10"
+                      },
+                      {
+                        "integerValue": "11"
+                      },
+                      {
+                        "integerValue": "8"
+                      },
+                      {
+                        "integerValue": "11"
+                      },
+                      {
+                        "integerValue": "10"
+                      },
+                      {
+                        "integerValue": "7"
+                      },
+                      {
+                        "integerValue": "10"
+                      },
+                      {
+                        "integerValue": "10"
+                      },
+                      {
+                        "integerValue": "7"
+                      },
+                      {
+                        "integerValue": "10"
+                      },
+                      {
+                        "integerValue": "10"
+                      },
+                      {
+                        "integerValue": "7"
+                      },
+                      {
+                        "integerValue": "7"
+                      },
+                      {
+                        "integerValue": "6"
+                      }
+                    ]
+                  }
+                }
+              }
+            }
+          },
+          "generatedAt": {
+            "stringValue": "2026-04-07T10:56:49.899Z"
+          },
+          "vma": {
+            "doubleValue": 8.2049331409571
+          },
+          "questionnaireSnapshot": {
+            "mapValue": {
+              "fields": {
+                "vma": {
+                  "doubleValue": 8.2049331409571
+                },
+                "targetTime": {
+                  "stringValue": "2h00"
+                },
+                "weight": {
+                  "integerValue": "70"
+                },
+                "startDate": {
+                  "stringValue": "2026-08-15"
+                },
+                "frequency": {
+                  "integerValue": "3"
+                },
+                "raceDate": {
+                  "stringValue": "2027-03-13"
+                },
+                "preferredDays": {
+                  "arrayValue": {
+                    "values": [
+                      {
+                        "stringValue": "Lundi"
+                      },
+                      {
+                        "stringValue": "Mercredi"
+                      },
+                      {
+                        "stringValue": "Samedi"
+                      }
+                    ]
+                  }
+                },
+                "subGoal": {
+                  "stringValue": "Semi-Marathon"
+                },
+                "recentRaceTimes": {
+                  "mapValue": {
+                    "fields": {
+                      "distanceHalfMarathon": {
+                        "stringValue": "3h05"
+                      },
+                      "distance10km": {
+                        "stringValue": "1h19"
+                      },
+                      "distance5km": {
+                        "stringValue": "39:14"
+                      }
+                    }
+                  }
+                },
+                "injuries": {
+                  "mapValue": {
+                    "fields": {
+                      "hasInjury": {
+                        "booleanValue": false
+                      }
+                    }
+                  }
+                },
+                "city": {
+                  "stringValue": "Nancy"
+                },
+                "level": {
+                  "stringValue": "Intermédiaire (Régulier)"
+                },
+                "sex": {
+                  "stringValue": "Femme"
+                },
+                "goal": {
+                  "stringValue": "Course sur route"
+                },
+                "email": {
+                  "stringValue": "amb.painvin@gmail.com"
+                },
+                "age": {
+                  "integerValue": "20"
+                },
+                "height": {
+                  "integerValue": "168"
+                },
+                "currentWeeklyVolume": {
+                  "integerValue": "5"
+                }
+              }
+            }
+          },
+          "paces": {
+            "mapValue": {
+              "fields": {
+                "allureSpecifiqueMarathon": {
+                  "stringValue": "9:08"
+                },
+                "allureSpecifique10k": {
+                  "stringValue": "8:08"
+                },
+                "allureSpecifiqueSemi": {
+                  "stringValue": "8:36"
+                },
+                "eaPace": {
+                  "stringValue": "9:30"
+                },
+                "seuilPace": {
+                  "stringValue": "8:24"
+                },
+                "recoveryPace": {
+                  "stringValue": "12:11"
+                },
+                "efPace": {
+                  "stringValue": "10:55"
+                },
+                "allureSpecifique5k": {
+                  "stringValue": "7:42"
+                },
+                "vmaPace": {
+                  "stringValue": "7:19"
+                }
+              }
+            }
+          },
+          "vmaSource": {
+            "stringValue": "Moyenne 5km en 39:14 et 10km en 1h19"
+          },
+          "modelUsed": {
+            "stringValue": "gemini-2.5-flash"
+          }
+        }
+      }
+    },
+    "endDate": {
+      "stringValue": "2027-03-08"
+    }
+  },
+  "createTime": "2026-04-07T10:57:26.432314Z",
+  "updateTime": "2026-05-10T15:49:07.595830Z"
+}

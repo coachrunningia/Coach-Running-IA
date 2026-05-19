@@ -1,0 +1,799 @@
+{
+  "name": "projects/coach-running-ia/databases/(default)/documents/plans/1778677412470",
+  "fields": {
+    "adaptationLog": {
+      "mapValue": {
+        "fields": {
+          "adaptationHistory": {
+            "arrayValue": {}
+          },
+          "adaptationsThisWeek": {
+            "integerValue": "0"
+          },
+          "weekNumber": {
+            "integerValue": "0"
+          }
+        }
+      }
+    },
+    "calculatedVMA": {
+      "doubleValue": 15.5
+    },
+    "distance": {
+      "stringValue": "87km D+2000m"
+    },
+    "vmaSource": {
+      "stringValue": "Estimation niveau Confirmé (Compétition)"
+    },
+    "startDate": {
+      "stringValue": "2026-05-04"
+    },
+    "name": {
+      "stringValue": "Préparation Trail 87km / 2000m D+ — Finisher — 26 sem."
+    },
+    "sessionsPerWeek": {
+      "integerValue": "5"
+    },
+    "suggestedLocations": {
+      "arrayValue": {
+        "values": [
+          {
+            "mapValue": {
+              "fields": {
+                "description": {
+                  "stringValue": "Idéal pour les sorties longues et les footings vallonnés avec du dénivelé significatif sur des sentiers techniques et variés."
+                },
+                "type": {
+                  "stringValue": "HILL"
+                },
+                "name": {
+                  "stringValue": "Sentiers du Mont Ventoux (face Sud)"
+                }
+              }
+            }
+          },
+          {
+            "mapValue": {
+              "fields": {
+                "name": {
+                  "stringValue": "Chemins de vigne autour de Bedoin"
+                },
+                "type": {
+                  "stringValue": "NATURE"
+                },
+                "description": {
+                  "stringValue": "Parfait pour les footings en endurance fondamentale, offrant des parcours roulants et légèrement vallonnés au milieu des paysages viticoles."
+                }
+              }
+            }
+          },
+          {
+            "mapValue": {
+              "fields": {
+                "name": {
+                  "stringValue": "Piste cyclable du Comtat Venaissin (Tronçon Bedoin-Carpentras)"
+                },
+                "description": {
+                  "stringValue": "Convient pour les footings en aisance respiratoire sur une surface plane et stable, permettant de maintenir une allure régulière."
+                },
+                "type": {
+                  "stringValue": "PARK"
+                }
+              }
+            }
+          }
+        ]
+      }
+    },
+    "fullPlanGenerated": {
+      "booleanValue": false
+    },
+    "createdAt": {
+      "stringValue": "2026-05-13T13:03:32.470Z"
+    },
+    "raceDate": {
+      "stringValue": "2026-11-07"
+    },
+    "endDate": {
+      "stringValue": "2026-11-02"
+    },
+    "generationContext": {
+      "mapValue": {
+        "fields": {
+          "vma": {
+            "doubleValue": 15.5
+          },
+          "generatedAt": {
+            "stringValue": "2026-05-13T13:03:03.743Z"
+          },
+          "paces": {
+            "mapValue": {
+              "fields": {
+                "allureSpecifiqueSemi": {
+                  "stringValue": "4:33"
+                },
+                "seuilPace": {
+                  "stringValue": "4:27"
+                },
+                "recoveryPace": {
+                  "stringValue": "6:27"
+                },
+                "allureSpecifiqueMarathon": {
+                  "stringValue": "4:50"
+                },
+                "allureSpecifique5k": {
+                  "stringValue": "4:04"
+                },
+                "efPace": {
+                  "stringValue": "5:47"
+                },
+                "eaPace": {
+                  "stringValue": "5:02"
+                },
+                "allureSpecifique10k": {
+                  "stringValue": "4:18"
+                },
+                "vmaPace": {
+                  "stringValue": "3:52"
+                }
+              }
+            }
+          },
+          "vmaSource": {
+            "stringValue": "Estimation niveau Confirmé (Compétition)"
+          },
+          "periodizationPlan": {
+            "mapValue": {
+              "fields": {
+                "weeklyPhases": {
+                  "arrayValue": {
+                    "values": [
+                      {
+                        "stringValue": "fondamental"
+                      },
+                      {
+                        "stringValue": "fondamental"
+                      },
+                      {
+                        "stringValue": "fondamental"
+                      },
+                      {
+                        "stringValue": "recuperation"
+                      },
+                      {
+                        "stringValue": "fondamental"
+                      },
+                      {
+                        "stringValue": "fondamental"
+                      },
+                      {
+                        "stringValue": "fondamental"
+                      },
+                      {
+                        "stringValue": "recuperation"
+                      },
+                      {
+                        "stringValue": "developpement"
+                      },
+                      {
+                        "stringValue": "developpement"
+                      },
+                      {
+                        "stringValue": "developpement"
+                      },
+                      {
+                        "stringValue": "recuperation"
+                      },
+                      {
+                        "stringValue": "developpement"
+                      },
+                      {
+                        "stringValue": "developpement"
+                      },
+                      {
+                        "stringValue": "developpement"
+                      },
+                      {
+                        "stringValue": "recuperation"
+                      },
+                      {
+                        "stringValue": "specifique"
+                      },
+                      {
+                        "stringValue": "specifique"
+                      },
+                      {
+                        "stringValue": "specifique"
+                      },
+                      {
+                        "stringValue": "recuperation"
+                      },
+                      {
+                        "stringValue": "specifique"
+                      },
+                      {
+                        "stringValue": "specifique"
+                      },
+                      {
+                        "stringValue": "affutage"
+                      },
+                      {
+                        "stringValue": "affutage"
+                      },
+                      {
+                        "stringValue": "affutage"
+                      },
+                      {
+                        "stringValue": "affutage"
+                      }
+                    ]
+                  }
+                },
+                "weeklyVolumes": {
+                  "arrayValue": {
+                    "values": [
+                      {
+                        "integerValue": "51"
+                      },
+                      {
+                        "integerValue": "56"
+                      },
+                      {
+                        "integerValue": "62"
+                      },
+                      {
+                        "integerValue": "50"
+                      },
+                      {
+                        "integerValue": "57"
+                      },
+                      {
+                        "integerValue": "66"
+                      },
+                      {
+                        "integerValue": "69"
+                      },
+                      {
+                        "integerValue": "55"
+                      },
+                      {
+                        "integerValue": "63"
+                      },
+                      {
+                        "integerValue": "66"
+                      },
+                      {
+                        "integerValue": "69"
+                      },
+                      {
+                        "integerValue": "55"
+                      },
+                      {
+                        "integerValue": "63"
+                      },
+                      {
+                        "integerValue": "66"
+                      },
+                      {
+                        "integerValue": "69"
+                      },
+                      {
+                        "integerValue": "55"
+                      },
+                      {
+                        "integerValue": "63"
+                      },
+                      {
+                        "integerValue": "66"
+                      },
+                      {
+                        "integerValue": "69"
+                      },
+                      {
+                        "integerValue": "55"
+                      },
+                      {
+                        "integerValue": "63"
+                      },
+                      {
+                        "integerValue": "66"
+                      },
+                      {
+                        "integerValue": "47"
+                      },
+                      {
+                        "integerValue": "43"
+                      },
+                      {
+                        "integerValue": "39"
+                      },
+                      {
+                        "integerValue": "35"
+                      }
+                    ]
+                  }
+                },
+                "recoveryWeeks": {
+                  "arrayValue": {
+                    "values": [
+                      {
+                        "integerValue": "4"
+                      },
+                      {
+                        "integerValue": "8"
+                      },
+                      {
+                        "integerValue": "12"
+                      },
+                      {
+                        "integerValue": "16"
+                      },
+                      {
+                        "integerValue": "20"
+                      }
+                    ]
+                  }
+                },
+                "totalWeeks": {
+                  "integerValue": "26"
+                }
+              }
+            }
+          },
+          "questionnaireSnapshot": {
+            "mapValue": {
+              "fields": {
+                "injuries": {
+                  "mapValue": {
+                    "fields": {
+                      "description": {
+                        "stringValue": "Douleur osseuse à la hanche "
+                      },
+                      "hasInjury": {
+                        "booleanValue": true
+                      }
+                    }
+                  }
+                },
+                "preferredLongRunDay": {
+                  "stringValue": "Jeudi"
+                },
+                "frequency": {
+                  "integerValue": "5"
+                },
+                "vma": {
+                  "doubleValue": 15.5
+                },
+                "startDate": {
+                  "stringValue": "2026-05-13"
+                },
+                "currentWeeklyElevation": {
+                  "integerValue": "1500"
+                },
+                "sex": {
+                  "stringValue": "Homme"
+                },
+                "goal": {
+                  "stringValue": "Trail"
+                },
+                "city": {
+                  "stringValue": "Bedoin"
+                },
+                "height": {
+                  "integerValue": "184"
+                },
+                "recentRaceTimes": {
+                  "mapValue": {}
+                },
+                "age": {
+                  "integerValue": "25"
+                },
+                "currentWeeklyVolume": {
+                  "integerValue": "60"
+                },
+                "weight": {
+                  "integerValue": "83"
+                },
+                "email": {
+                  "stringValue": "estenoza.tom@gmail.com"
+                },
+                "preferredDays": {
+                  "arrayValue": {
+                    "values": [
+                      {
+                        "stringValue": "Lundi"
+                      },
+                      {
+                        "stringValue": "Mardi"
+                      },
+                      {
+                        "stringValue": "Jeudi"
+                      },
+                      {
+                        "stringValue": "Vendredi"
+                      },
+                      {
+                        "stringValue": "Dimanche"
+                      }
+                    ]
+                  }
+                },
+                "trailDetails": {
+                  "mapValue": {
+                    "fields": {
+                      "distance": {
+                        "integerValue": "87"
+                      },
+                      "elevation": {
+                        "integerValue": "2000"
+                      }
+                    }
+                  }
+                },
+                "raceDate": {
+                  "stringValue": "2026-11-07"
+                },
+                "level": {
+                  "stringValue": "Confirmé (Compétition)"
+                }
+              }
+            }
+          },
+          "modelUsed": {
+            "stringValue": "gemini-2.5-flash"
+          }
+        }
+      }
+    },
+    "feasibility": {
+      "mapValue": {
+        "fields": {
+          "safetyWarning": {
+            "stringValue": "Fais valider la reprise avec ton kiné/médecin avant de démarrer ce plan. Adapte les séances si nécessaire.\n\n⚠️ DURÉE DU PLAN : 26 semaines, c'est long pour ton profil. La plupart des coureurs de ton niveau préparent cette distance en 22 semaines maximum. Un plan trop long peut entraîner de la lassitude et une stagnation. Si tu te sens prêt, tu peux envisager de rapprocher ta date de début."
+          },
+          "message": {
+            "stringValue": "Ton objectif de finisher sur ce trail de 87km / 2000m D+ est tout à fait atteignable. Avec ta VMA de 15.5 km/h, concentre-toi sur la régularité. Blessure déclarée : adapte les séances et consulte un professionnel de santé. Ton volume actuel de 60km/sem est une excellente base pour cette distance. 26 semaines de préparation avec un bon volume : conditions favorables."
+          },
+          "status": {
+            "stringValue": "BON"
+          }
+        }
+      }
+    },
+    "userId": {
+      "stringValue": "Y9ZV0uqO3AWX5k4MOPZX2YAT2fa2"
+    },
+    "id": {
+      "stringValue": "1778677412470"
+    },
+    "weeks": {
+      "arrayValue": {
+        "values": [
+          {
+            "mapValue": {
+              "fields": {
+                "weekNumber": {
+                  "integerValue": "1"
+                },
+                "weekGoal": {
+                  "stringValue": "Introduction à l'Endurance Fondamentale Trail"
+                },
+                "sessions": {
+                  "arrayValue": {
+                    "values": [
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "day": {
+                              "stringValue": "Lundi"
+                            },
+                            "title": {
+                              "stringValue": "Footing en aisance respiratoire"
+                            },
+                            "locationSuggestion": {
+                              "stringValue": "Piste cyclable du Comtat Venaissin (Tronçon Bedoin-Carpentras)"
+                            },
+                            "id": {
+                              "stringValue": "w1-s1-1778677412471-ffqb6w5"
+                            },
+                            "advice": {
+                              "stringValue": "Écoute attentivement les signaux de ton corps, surtout au niveau de la hanche. Si une douleur apparaît, ralentis ou arrête la séance. Hydrate-toi bien avant, pendant et après l'effort."
+                            },
+                            "intensity": {
+                              "stringValue": "Facile"
+                            },
+                            "distance": {
+                              "stringValue": "10.0 km"
+                            },
+                            "warmup": {
+                              "stringValue": "10 min de marche rapide puis footing en Endurance Fondamentale (EF) à 5:47 min/km."
+                            },
+                            "duration": {
+                              "stringValue": "58 min"
+                            },
+                            "targetPace": {
+                              "stringValue": "5:47 min/km"
+                            },
+                            "type": {
+                              "stringValue": "Jogging"
+                            },
+                            "mainSet": {
+                              "stringValue": "38 min de course en Endurance Fondamentale (EF) à 5:47 min/km sur terrain plat. Concentre-toi sur une respiration facile et régulière."
+                            },
+                            "cooldown": {
+                              "stringValue": "10 min de footing très lent en récupération à 6:27 min/km, suivi d'étirements légers."
+                            },
+                            "elevationGain": {
+                              "integerValue": "90"
+                            }
+                          }
+                        }
+                      },
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "elevationGain": {
+                              "integerValue": "240"
+                            },
+                            "duration": {
+                              "stringValue": "46 min"
+                            },
+                            "targetPace": {
+                              "stringValue": "5:47 min/km"
+                            },
+                            "type": {
+                              "stringValue": "Jogging"
+                            },
+                            "mainSet": {
+                              "stringValue": "26 min de course en Endurance Fondamentale (EF) à 5:47 min/km sur un parcours légèrement vallonné. Adapte ton allure dans les montées pour rester en aisance respiratoire."
+                            },
+                            "cooldown": {
+                              "stringValue": "10 min de footing très lent en récupération à 6:27 min/km, suivi d'étirements doux."
+                            },
+                            "intensity": {
+                              "stringValue": "Facile"
+                            },
+                            "distance": {
+                              "stringValue": "8.0 km"
+                            },
+                            "warmup": {
+                              "stringValue": "10 min de footing en Endurance Fondamentale (EF) à 5:47 min/km."
+                            },
+                            "day": {
+                              "stringValue": "Mardi"
+                            },
+                            "title": {
+                              "stringValue": "Footing vallonné"
+                            },
+                            "locationSuggestion": {
+                              "stringValue": "Chemins de vigne autour de Bedoin"
+                            },
+                            "id": {
+                              "stringValue": "w1-s2-1778677412471-n5c0f4x"
+                            },
+                            "advice": {
+                              "stringValue": "Sois attentif à ta technique de course en montée et en descente pour protéger tes articulations. Écoute ton corps et ne force jamais en cas de douleur à la hanche."
+                            }
+                          }
+                        }
+                      },
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "type": {
+                              "stringValue": "Sortie Longue"
+                            },
+                            "targetPace": {
+                              "stringValue": "5:47 min/km"
+                            },
+                            "duration": {
+                              "stringValue": "1h50 min"
+                            },
+                            "cooldown": {
+                              "stringValue": "10 min de footing très lent en récupération à 6:27 min/km sur la fin du parcours, suivi d'étirements. Assure un bon réapprovisionnement hydrique et énergétique."
+                            },
+                            "mainSet": {
+                              "stringValue": "1h30 min de course en Endurance Fondamentale (EF) à 5:47 min/km sur sentiers, avec des montées et descentes. Marche si nécessaire dans les portions très raides pour préserver l'énergie et rester en EF."
+                            },
+                            "elevationGain": {
+                              "integerValue": "780"
+                            },
+                            "locationSuggestion": {
+                              "stringValue": "Sentiers du Mont Ventoux (face Sud)"
+                            },
+                            "title": {
+                              "stringValue": "Sortie Longue Trail en endurance"
+                            },
+                            "day": {
+                              "stringValue": "Jeudi"
+                            },
+                            "advice": {
+                              "stringValue": "Cette sortie est la pierre angulaire de ta préparation Finisher. Concentre-toi sur la durée et l'endurance, pas sur la vitesse. Porte des chaussures adaptées au trail. En cas de douleur à la hanche, n'hésite pas à marcher plus longtemps ou à écourter la séance."
+                            },
+                            "id": {
+                              "stringValue": "w1-s3-1778677412471-vs38239"
+                            },
+                            "warmup": {
+                              "stringValue": "10 min de footing en Endurance Fondamentale (EF) à 5:47 min/km sur terrain plat avant d'aborder les sentiers."
+                            },
+                            "distance": {
+                              "stringValue": "19.0 km"
+                            },
+                            "intensity": {
+                              "stringValue": "Facile"
+                            }
+                          }
+                        }
+                      },
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "elevationGain": {
+                              "integerValue": "90"
+                            },
+                            "duration": {
+                              "stringValue": "1h20 min"
+                            },
+                            "targetPace": {
+                              "stringValue": "5:47 min/km"
+                            },
+                            "type": {
+                              "stringValue": "Jogging"
+                            },
+                            "mainSet": {
+                              "stringValue": "1h00 min de course en Endurance Fondamentale (EF) à 5:47 min/km sur chemins de terre et sentiers roulants. Profite du paysage et de la fluidité de ta foulée."
+                            },
+                            "cooldown": {
+                              "stringValue": "10 min de footing très lent en récupération à 6:27 min/km, suivi d'étirements et d'une hydratation."
+                            },
+                            "warmup": {
+                              "stringValue": "10 min de footing en Endurance Fondamentale (EF) à 5:47 min/km."
+                            },
+                            "distance": {
+                              "stringValue": "14.0 km"
+                            },
+                            "intensity": {
+                              "stringValue": "Facile"
+                            },
+                            "locationSuggestion": {
+                              "stringValue": "Chemins de vigne autour de Bedoin"
+                            },
+                            "day": {
+                              "stringValue": "Vendredi"
+                            },
+                            "title": {
+                              "stringValue": "Footing nature et découverte"
+                            },
+                            "id": {
+                              "stringValue": "w1-s4-1778677412471-r3nx9d8"
+                            },
+                            "advice": {
+                              "stringValue": "Après la sortie longue d'hier, cette séance est une récupération active. Reste en aisance respiratoire et ne force absolument pas. La douleur à la hanche doit être une alarme pour réduire l'effort ou s'arrêter."
+                            }
+                          }
+                        }
+                      },
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "duration": {
+                              "stringValue": "45-50 min"
+                            },
+                            "type": {
+                              "stringValue": "Renforcement"
+                            },
+                            "cooldown": {
+                              "stringValue": "5 min d'étirements : quadriceps, ischio-jambiers, mollets, hanches"
+                            },
+                            "mainSet": {
+                              "stringValue": "Circuit 3 tours : Squats poids de corps (3x16), Fentes avant (3x10/jambe), Gainage ventral (3x31-60s), Dead bug (3x10/cote), Extensions mollets debout (3x21), Squat excentrique (descente 4s) (3x10), Step-down excentrique (3x8/jambe), Mollets debout unipodal (3x12/jambe), Pompes (3x16), Dips sur banc (3x12). Repos 1 min 30 entre tours."
+                            },
+                            "elevationGain": {
+                              "integerValue": "0"
+                            },
+                            "locationSuggestion": {
+                              "stringValue": "À la maison"
+                            },
+                            "title": {
+                              "stringValue": "Renfo Trail Focus A - Quadriceps & Excentrique (S1)"
+                            },
+                            "day": {
+                              "stringValue": "Dimanche"
+                            },
+                            "advice": {
+                              "stringValue": "Le renforcement est crucial pour le trail et la prévention des blessures. Adapte les exercices pour ne pas solliciter la hanche douloureuse. Si un mouvement provoque une douleur, ne le fais pas et consulte un spécialiste si nécessaire."
+                            },
+                            "id": {
+                              "stringValue": "w1-s5-1778677412471-wptku5u"
+                            },
+                            "warmup": {
+                              "stringValue": "10 min de mobilité articulaire douce et échauffement progressif (marche rapide, rotations, pas chassés)"
+                            },
+                            "distance": {
+                              "stringValue": "0 km"
+                            },
+                            "intensity": {
+                              "stringValue": "Modéré"
+                            }
+                          }
+                        }
+                      }
+                    ]
+                  }
+                },
+                "theme": {
+                  "stringValue": "Introduction à l'Endurance Fondamentale Trail"
+                },
+                "phase": {
+                  "stringValue": "fondamental"
+                }
+              }
+            }
+          }
+        ]
+      }
+    },
+    "welcomeMessage": {
+      "stringValue": "Bienvenue dans ton plan d'entraînement dédié à l'Ultra-Trail de 87km avec 2000m de D+ ! Ton objectif est de devenir Finisher, et ce programme est conçu pour t'y aider en construisant une base solide d'endurance. Nous allons prioriser la régularité, le volume confortable et l'adaptation au terrain. La structure de ces premières semaines sera axée sur l'endurance fondamentale et le renforcement. Nous te recommandons de consulter un médecin avant de débuter ce programme, notamment pour obtenir un certificat médical d'aptitude au sport."
+    },
+    "isPreview": {
+      "booleanValue": true
+    },
+    "vma": {
+      "doubleValue": 15.5
+    },
+    "location": {
+      "stringValue": "Bedoin"
+    },
+    "goal": {
+      "stringValue": "Trail"
+    },
+    "durationWeeks": {
+      "integerValue": "26"
+    },
+    "confidenceScore": {
+      "integerValue": "80"
+    },
+    "targetTime": {
+      "stringValue": "Finisher"
+    },
+    "userEmail": {
+      "stringValue": "estenoza.tom@gmail.com"
+    },
+    "paces": {
+      "mapValue": {
+        "fields": {
+          "allureSpecifique10k": {
+            "stringValue": "4:18"
+          },
+          "vmaPace": {
+            "stringValue": "3:52"
+          },
+          "eaPace": {
+            "stringValue": "5:02"
+          },
+          "efPace": {
+            "stringValue": "5:47"
+          },
+          "allureSpecifique5k": {
+            "stringValue": "4:04"
+          },
+          "allureSpecifiqueMarathon": {
+            "stringValue": "4:50"
+          },
+          "recoveryPace": {
+            "stringValue": "6:27"
+          },
+          "seuilPace": {
+            "stringValue": "4:27"
+          },
+          "allureSpecifiqueSemi": {
+            "stringValue": "4:33"
+          }
+        }
+      }
+    }
+  },
+  "createTime": "2026-05-13T13:03:49.241323Z",
+  "updateTime": "2026-05-13T13:03:49.241323Z"
+}

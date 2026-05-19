@@ -1,0 +1,763 @@
+{
+  "vma": 13.559322033898304,
+  "welcomeMessage": "Félicitations pour l'objectif ambitieux de ce semi-marathon en 1h50 ! Ce plan d'entraînement de 11 semaines est conçu pour te guider progressivement vers ta performance, en se concentrant d'abord sur la construction de ta base d'endurance. La première phase, dite \"fondamentale\", sera dédiée au renforcement de tes capacités cardiovasculaires sans intensité excessive, afin de préparer ton corps aux efforts futurs. Nous te recommandons de consulter un médecin avant de débuter ce programme, notamment pour obtenir un certificat médical d'aptitude au sport.",
+  "endDate": "2026-06-06",
+  "guardStats": {
+    "postValidatorFixes": 0,
+    "volumeScaledUp": 0,
+    "progressionSmoothed": 0,
+    "volumeScaledDown": 7,
+    "slDurationCapped": 0,
+    "sessionKmCapped": 0,
+    "dplusRedistributed": 0,
+    "affutageCorrected": 0,
+    "hardSessionsDowngraded": 0
+  },
+  "confidenceScore": 100,
+  "adaptationLog": {
+    "weekNumber": 0,
+    "adaptationHistory": [],
+    "adaptationsThisWeek": 0
+  },
+  "distance": "Semi-Marathon",
+  "durationWeeks": 11,
+  "isPreview": false,
+  "createdAt": "2026-03-22T08:42:17.601Z",
+  "name": "Préparation Semi-Marathon en 1h50 — 11 sem.",
+  "startDate": "2026-03-22",
+  "fullPlanGenerated": true,
+  "sessionsPerWeek": 3,
+  "goal": "Course sur route",
+  "paces": {
+    "allureSpecifique10k": "4:55",
+    "vmaPace": "4:26",
+    "efPace": "6:36",
+    "allureSpecifique5k": "4:39",
+    "allureSpecifiqueSemi": "5:12",
+    "recoveryPace": "7:23",
+    "eaPace": "5:45",
+    "allureSpecifiqueMarathon": "5:32",
+    "seuilPace": "5:05"
+  },
+  "suggestedLocations": [
+    {
+      "name": "Chemins des Bords du Tech (Saint-André)",
+      "description": "Idéal pour les footings en endurance fondamentale, les sorties longues à plat et le travail d'allure seuil sur une surface variée et agréable le long de la rivière.",
+      "type": "NATURE"
+    },
+    {
+      "name": "Stade Gaston Pams (Argelès-sur-Mer)",
+      "description": "Piste d'athlétisme voisine, parfaite pour les séances de fractionné VMA et de vitesse, avec des distances précises et une surface propice à la performance.",
+      "type": "TRACK"
+    },
+    {
+      "description": "Offre des parcours variés avec de légères ondulations, idéal pour les sorties longues en endurance fondamentale ou des séances de seuil avec un léger dénivelé.",
+      "name": "Chemins ruraux et vignobles (Saint-André/Sorède)",
+      "type": "PATH"
+    }
+  ],
+  "userEmail": "erwannperrin406@gmail.com",
+  "generationContext": {
+    "modelUsed": "gemini-2.5-flash",
+    "vma": 13.559322033898304,
+    "vmaSource": "10km en 49:10",
+    "paces": {
+      "eaPace": "5:45",
+      "recoveryPace": "7:23",
+      "seuilPace": "5:05",
+      "allureSpecifiqueMarathon": "5:32",
+      "efPace": "6:36",
+      "allureSpecifique10k": "4:55",
+      "vmaPace": "4:26",
+      "allureSpecifique5k": "4:39",
+      "allureSpecifiqueSemi": "5:12"
+    },
+    "periodizationPlan": {
+      "recoveryWeeks": [
+        4,
+        8
+      ],
+      "weeklyPhases": [
+        "fondamental",
+        "fondamental",
+        "fondamental",
+        "recuperation",
+        "developpement",
+        "developpement",
+        "specifique",
+        "recuperation",
+        "affutage",
+        "affutage",
+        "affutage"
+      ],
+      "totalWeeks": 11,
+      "weeklyVolumes": [
+        28,
+        30,
+        33,
+        25,
+        33,
+        38,
+        41,
+        31,
+        30,
+        26,
+        22
+      ]
+    },
+    "questionnaireSnapshot": {
+      "level": "Expert (Performance)",
+      "subGoal": "Semi-Marathon",
+      "targetTime": "1h50",
+      "preferredDays": [],
+      "vma": 13.559322033898304,
+      "goal": "Course sur route",
+      "injuries": {
+        "hasInjury": false
+      },
+      "frequency": 3,
+      "city": "66690 Saint André ",
+      "email": "erwannperrin406@gmail.com",
+      "recentRaceTimes": {
+        "distanceHalfMarathon": "1h52",
+        "distanceMarathon": "4h50",
+        "distance10km": "49:10"
+      },
+      "startDate": "2026-03-22",
+      "trailDetails": {
+        "distance": 20,
+        "elevation": 500
+      },
+      "raceDate": "2026-06-07",
+      "sex": "Homme"
+    },
+    "generatedAt": "2026-03-22T08:41:53.733Z"
+  },
+  "targetTime": "1h50",
+  "location": "66690 Saint André ",
+  "weeks": [
+    {
+      "theme": "Introduction et endurance fondamentale",
+      "sessions": [
+        {
+          "intensity": "Facile",
+          "type": "Jogging",
+          "mainSet": "60 minutes de course en endurance fondamentale à l'allure de 6:36 min/km.",
+          "warmup": "10 minutes de marche rapide suivies de 5 minutes de course très lente (7:23 min/km).",
+          "targetPace": "6:36 min/km",
+          "elevationGain": 0,
+          "advice": "Écoute attentivement les signaux de ton corps. Cette séance est en endurance fondamentale, maintiens une allure confortable où tu peux parler sans essoufflement. N'hésite pas à marcher quelques instants si la fatigue se fait sentir.",
+          "title": "Footing de reprise en Endurance Fondamentale",
+          "cooldown": "5 minutes de marche active et étirements légers. (à 7:23 min/km)",
+          "locationSuggestion": "Chemins des Bords du Tech, Saint-André",
+          "day": "Mardi",
+          "distance": "9.1 km",
+          "duration": "1h00",
+          "id": "w1-s1-1774168937602-axnoi0z"
+        },
+        {
+          "elevationGain": 0,
+          "targetPace": "N/A",
+          "type": "Renforcement",
+          "warmup": "10 min de mobilité articulaire et échauffement dynamique",
+          "mainSet": "Circuit 4 tours : Squats poids de corps (3x18), Squat bulgare (3x12/jambe), Fentes avant (3x12/jambe), Gainage ventral (3x35-60s), Dead bug (3x12/côté), Extensions mollets debout (3x23). Repos 1 min entre tours.",
+          "intensity": "Modéré",
+          "id": "w1-s2-1774168937602-uvnse8q",
+          "duration": "40-45 min",
+          "distance": "N/A",
+          "locationSuggestion": "À la maison",
+          "day": "Jeudi",
+          "advice": "Concentre-toi sur la qualité d'exécution des mouvements plutôt que sur la quantité. Engage bien ta sangle abdominale pour protéger ton dos. Adapte le nombre de répétitions à ta forme du jour.",
+          "title": "Renfo Focus A - Quadriceps & Gainage (S1)",
+          "cooldown": "5 min d'étirements : quadriceps, ischio-jambiers, mollets, hanches"
+        },
+        {
+          "elevationGain": 0,
+          "targetPace": "6:36 min/km",
+          "intensity": "Facile",
+          "mainSet": "100 minutes de course en endurance fondamentale continue à l'allure de 6:36 min/km.",
+          "warmup": "10 minutes de marche rapide suivies de 5 minutes de course très lente (7:23 min/km).",
+          "type": "Sortie Longue",
+          "distance": "15.1 km",
+          "duration": "1h40",
+          "id": "w1-s3-1774168937602-azgs8e7",
+          "cooldown": "5 minutes de marche active et étirements légers, en insistant sur les quadriceps et les ischio-jambiers. (à 7:23 min/km)",
+          "advice": "Cette sortie est cruciale pour développer ton endurance. Maintiens une allure régulière et confortable, sans chercher la vitesse. Hydrate-toi bien avant et pendant la séance. Écoute ton corps et ajuste si nécessaire.",
+          "title": "Sortie Longue en Endurance Fondamentale",
+          "day": "Dimanche",
+          "locationSuggestion": "Chemins ruraux et vignobles entre Saint-André et Sorède"
+        }
+      ],
+      "weekNumber": 1,
+      "phase": "fondamental",
+      "weekGoal": "Introduction et endurance fondamentale"
+    },
+    {
+      "weekNumber": 2,
+      "phase": "fondamental",
+      "isRecoveryWeek": false,
+      "weekGoal": "Reprise progressive et base aérobie",
+      "theme": "Reprise progressive et base aérobie",
+      "sessions": [
+        {
+          "intensity": "Facile",
+          "type": "Jogging",
+          "mainSet": "1h00 en Endurance Fondamentale (6:36 min/km), augmentant légèrement l'allure sur les 15 dernières minutes sans dépasser le confort.",
+          "warmup": "Départ lent en Endurance Fondamentale (EF). (à 7:23 min/km)",
+          "targetPace": "6:36 min/km",
+          "elevationGain": 0,
+          "cooldown": "5 min de marche active et étirements légers. (à 7:23 min/km)",
+          "title": "Footing de reprise progressif",
+          "advice": "Écoute toujours ton corps et n'hésite pas à adapter l'allure ou la durée en cas de fatigue ou de douleur. Hydrate-toi bien avant, pendant, et après la séance. Nous te recommandons de consulter un médecin avant de débuter ce programme, notamment pour obtenir un certificat médical d'aptitude au sport.",
+          "locationSuggestion": "Parc des Albères, Saint-André",
+          "day": "Mardi",
+          "distance": "11.4 km",
+          "id": "w2-s1-1776053685608-lmmikmj",
+          "duration": "1h15"
+        },
+        {
+          "elevationGain": 0,
+          "id": "w2-s2-1776053685608-2f6zsdl",
+          "duration": "40-45 min",
+          "cooldown": "5 min d'étirements : quadriceps, ischio-jambiers, mollets, hanches",
+          "title": "Renfo Focus B - Fessiers/Hanches & Gainage lateral (S2)",
+          "intensity": "Modéré",
+          "advice": "Concentre-toi sur la qualité d'exécution des mouvements plutôt que sur la quantité. Ne force jamais si une douleur apparaît.",
+          "locationSuggestion": "À la maison",
+          "day": "Jeudi",
+          "type": "Renforcement",
+          "warmup": "10 min de mobilité articulaire et échauffement dynamique",
+          "mainSet": "Circuit 4 tours : Pont unipodal (3x12/jambe), Clamshell avec elastique (3x18/cote), Marche laterale avec elastique (3x12 pas/cote), Bird-dog (3x12/cote), Gainage lateral (3x23-30s/cote), Marche sur talons (2x23m). Repos 1 min entre tours."
+        },
+        {
+          "targetPace": "6:36 min/km",
+          "elevationGain": 0,
+          "intensity": "Facile",
+          "type": "Sortie Longue",
+          "mainSet": "2h00 entièrement en Endurance Fondamentale (6:36 min/km), maintiens une allure stable où tu peux parler sans essoufflement.",
+          "warmup": "10 min de marche rapide, à 7:23 min/km avant de commencer à courir.",
+          "distance": "17.4 km",
+          "duration": "1h 55 min",
+          "id": "w2-s3-1776053685608-uimdr0s",
+          "cooldown": "10 min de marche et étirements doux des grands groupes musculaires. (à 7:23 min/km)",
+          "advice": "Pense à bien tu alimenter la veille et à emporter de l'eau ou une boisson isotonique pour t'hydrater durant la sortie. Écoute ton corps et ne pousse pas au-delà de tes limites de confort.",
+          "title": "Sortie Longue en Endurance Fondamentale",
+          "locationSuggestion": "Les berges de la Riberette, Saint-André",
+          "day": "Dimanche"
+        }
+      ]
+    },
+    {
+      "weekGoal": "Consolidation aérobie et endurance de base",
+      "weekNumber": 3,
+      "phase": "fondamental",
+      "isRecoveryWeek": false,
+      "theme": "Consolidation aérobie et endurance de base",
+      "sessions": [
+        {
+          "distance": "12.1 km",
+          "id": "w3-s1-1776053685608-wuscc8o",
+          "duration": "1h20",
+          "title": "Footing EF vallonné",
+          "advice": "Les variations de terrain sollicitent différemment les muscles, sois attentif aux sensations. Si une douleur se manifeste, réduis l'effort.",
+          "cooldown": "10 min en Endurance Fondamentale sur terrain plat et étirements des mollets et ischio-jambiers. (à 7:23 min/km)",
+          "day": "Mardi",
+          "locationSuggestion": "Collines d'Argelès-sur-Mer, à proximité de Saint-André",
+          "elevationGain": 0,
+          "targetPace": "6:36 min/km",
+          "intensity": "Facile",
+          "warmup": "10 min en Endurance Fondamentale sur terrain plat. (à 7:23 min/km)",
+          "mainSet": "1h10 en Endurance Fondamentale (6:36 min/km) sur un parcours avec de légères montées et descentes pour renforcer les appuis sans augmenter l'intensité cardiaque.",
+          "type": "Jogging"
+        },
+        {
+          "duration": "40-45 min",
+          "id": "w3-s2-1776053685608-7yap3f6",
+          "elevationGain": 0,
+          "type": "Renforcement",
+          "mainSet": "Circuit 4 tours : Fentes avant (3x12/jambe), Fentes marchees (3x14/jambe), Step-up sur marche (3x12/jambe), Superman (3x14), Pompes (3x12), Extensions mollets debout (3x23). Repos 1 min entre tours.",
+          "warmup": "10 min de mobilité articulaire et échauffement dynamique",
+          "locationSuggestion": "À la maison",
+          "day": "Jeudi",
+          "title": "Renfo Focus A - Quadriceps & Gainage (S3)",
+          "intensity": "Modéré",
+          "advice": "La stabilité du bassin est clé en course. Travaille ton gainage avec contrôle. Écoute ton corps et respecte tes limites.",
+          "cooldown": "5 min d'étirements : quadriceps, ischio-jambiers, mollets, hanches"
+        },
+        {
+          "distance": "17.4 km",
+          "duration": "1h 55 min",
+          "id": "w3-s3-1776053685608-ddu8fh6",
+          "cooldown": "10 min de marche et étirements doux. (à 7:23 min/km)",
+          "advice": "Cette longue sortie renforce ton endurance de base. N'oublie pas l'hydratation et, si nécessaire, un petit apport énergétique pour la fin de séance. Arrête-toi si tu ressens une douleur anormale.",
+          "title": "Sortie Longue en Endurance Fondamentale",
+          "locationSuggestion": "Boucle de la plaine de Saint-André",
+          "day": "Dimanche",
+          "elevationGain": 0,
+          "targetPace": "6:36 min/km",
+          "intensity": "Facile",
+          "type": "Sortie Longue",
+          "warmup": "10 min de marche, à 7:23 min/km avant le départ.",
+          "mainSet": "2h10 entièrement en Endurance Fondamentale (6:36 min/km), en maintenant un rythme très confortable. Focalise-toi sur ta posture et ta respiration."
+        }
+      ]
+    },
+    {
+      "theme": "Régénération et maintien",
+      "sessions": [
+        {
+          "distance": "10.6 km",
+          "duration": "1h10",
+          "id": "w4-s1-1776053685608-sa16mgs",
+          "cooldown": "10 min de marche et étirements très doux des mollets. (à 7:23 min/km)",
+          "title": "Jogging EF léger",
+          "advice": "Cette séance est dédiée à la récupération. Le but n'est pas la performance mais de favoriser le drainage et la régénération musculaire. Écoute ton corps avant tout.",
+          "day": "Mardi",
+          "locationSuggestion": "Parc du Château de Valmy, Argelès-sur-Mer",
+          "targetPace": "6:36 min/km",
+          "elevationGain": 0,
+          "intensity": "Facile",
+          "mainSet": "1h00 en Endurance Fondamentale (6:36 min/km), très légère et sans aucune contrainte de rythme. L'objectif est la récupération active.",
+          "warmup": "10 min de marche, à 7:23 min/km.",
+          "type": "Jogging"
+        },
+        {
+          "cooldown": "5 min d'étirements : quadriceps, ischio-jambiers, mollets, hanches",
+          "title": "Renfo Leger - Recuperation (S4)",
+          "intensity": "Facile",
+          "advice": "Prends ce temps pour te concentrer sur ta respiration et relâcher les tensions. Si tu ressens une gêne, arrête l'exercice.",
+          "day": "Jeudi",
+          "locationSuggestion": "À la maison",
+          "warmup": "10 min de mobilité articulaire et échauffement dynamique",
+          "mainSet": "Circuit 3 tours : Marche laterale avec elastique (3x8 pas/cote), Fente laterale (3x8/jambe), Bird-dog (3x8/cote), Gainage lateral (3x16-30s/cote), Marche sur talons (2x16m). Repos 1 min entre tours.",
+          "type": "Renforcement",
+          "elevationGain": 0,
+          "id": "w4-s2-1776053685608-bpcxo05",
+          "duration": "25-30 min"
+        },
+        {
+          "type": "Jogging",
+          "warmup": "10 min de marche, à 7:23 min/km tranquille.",
+          "mainSet": "1h30 en Endurance Fondamentale (6:36 min/km), maintenue à un rythme très doux et facile. Concentre-toi sur le plaisir de courir et la sensation de légèreté.",
+          "intensity": "Facile",
+          "targetPace": "6:36 min/km",
+          "elevationGain": 0,
+          "locationSuggestion": "Berges du Tech, Elne",
+          "day": "Dimanche",
+          "cooldown": "10 min de marche et étirements très légers. (à 7:23 min/km)",
+          "title": "Jogging EF court",
+          "advice": "C'est une semaine pour recharger les batteries. Ne cherche pas à aller vite, mais à tu sentir bien et à préparer le corps pour le prochain bloc d'entraînement.",
+          "id": "w4-s3-1776053685608-es9eesr",
+          "duration": "1h 26 min",
+          "distance": "13.1 km"
+        }
+      ],
+      "weekGoal": "Régénération et maintien",
+      "weekNumber": 4,
+      "phase": "recuperation",
+      "isRecoveryWeek": true
+    },
+    {
+      "phase": "developpement",
+      "weekNumber": 5,
+      "isRecoveryWeek": false,
+      "weekGoal": "Introduction à l'intensité et développement VMA",
+      "theme": "Introduction à l'intensité et développement VMA",
+      "sessions": [
+        {
+          "type": "Fractionné",
+          "warmup": "25 min en Endurance Fondamentale (6:36 min/km).",
+          "mainSet": "8x (1' montée rapide ~90% VMA (4:55 min/km) / 2' récupération en descente active (5:45 min/km)). Concentration sur une foulée dynamique en montée.",
+          "intensity": "Modéré",
+          "elevationGain": 0,
+          "targetPace": "Variable",
+          "locationSuggestion": "Colline de l'Étoile, Sorède",
+          "day": "Mardi",
+          "cooldown": "20 min en Endurance Fondamentale (6:36 min/km) puis 10 min de retour au calme en marche.",
+          "title": "Footing EF + Côtes courtes",
+          "advice": "Les séances de côtes sont excellentes pour développer la puissance et la VMA sans traumatiser les articulations. Gère ton effort pour maintenir l'intensité sur toutes les répétitions. Cesse l'exercice en cas de douleur vive.",
+          "duration": "1h20",
+          "id": "w5-s1-1776053685608-li99a43",
+          "distance": "12.3 km"
+        },
+        {
+          "elevationGain": 0,
+          "duration": "40-45 min",
+          "id": "w5-s2-1776053685608-ozp1k71",
+          "title": "Renfo Focus A - Quadriceps & Gainage (S5)",
+          "advice": "Un renforcement ciblé des jambes est crucial pour la prévention des blessures et l'efficacité de la foulée. Écoute attentivement les signaux de ton corps.",
+          "intensity": "Modéré",
+          "cooldown": "5 min d'étirements : quadriceps, ischio-jambiers, mollets, hanches",
+          "type": "Renforcement",
+          "warmup": "10 min de mobilité articulaire et échauffement dynamique",
+          "mainSet": "Circuit 4 tours : Step-up sur marche (3x13/jambe), Chaise murale (3x39-45s), Squats poids de corps (3x20), Gainage ventral (3x39-60s), Dead bug (3x13/cote), Extensions mollets debout (3x26). Repos 1 min entre tours.",
+          "locationSuggestion": "À la maison",
+          "day": "Jeudi"
+        },
+        {
+          "locationSuggestion": "Voie Verte de la plaine du Roussillon, à partir de Saint-André",
+          "day": "Dimanche",
+          "advice": "C'est la première fois que tu intègre un bloc significatif à l'allure de course. Familiarise-toi avec la sensation et l'effort. Ne force pas au-delà de tes limites de confort.",
+          "title": "Sortie Longue avec allure spécifique Semi",
+          "cooldown": "15 min en Endurance Fondamentale (6:36 min/km) puis étirements légers.",
+          "id": "w5-s3-1776053685608-6wqvths",
+          "duration": "1h 55 min",
+          "distance": "18.5 km",
+          "type": "Sortie Longue",
+          "mainSet": "30 min à Allure Spécifique Semi-Marathon (5:12 min/km). Concentre-toi sur le maintien d'un rythme régulier et une bonne économie de course.",
+          "warmup": "1h30 en Endurance Fondamentale (6:36 min/km).",
+          "intensity": "Modéré",
+          "elevationGain": 0,
+          "targetPace": "Variable"
+        }
+      ]
+    },
+    {
+      "theme": "Renforcement de l'endurance spécifique et vitesse",
+      "sessions": [
+        {
+          "intensity": "Difficile",
+          "type": "Fractionné",
+          "warmup": "20 min en Endurance Fondamentale (6:36 min/km) + 4 lignes droites progressives sur 100m.",
+          "mainSet": "10x400m à Allure VMA (4:26 min/km) / Récupération 200m trot lent (7:23 min/km) entre chaque répétition.",
+          "elevationGain": 0,
+          "targetPace": "4:26 min/km",
+          "cooldown": "15 min en Endurance Fondamentale (6:36 min/km) + étirements légers et progressifs.",
+          "advice": "Cette séance vise à améliorer ta vitesse maximale aérobie. Veille à bien récupérer entre les efforts pour pouvoir maintenir la qualité des répétitions. Ne poursuive pas l'exercice en cas de douleur musculaire.",
+          "title": "Fractionné VMA courte (400m)",
+          "locationSuggestion": "Piste d'athlétisme d'Elne",
+          "day": "Mardi",
+          "distance": "11.3 km",
+          "duration": "1h07",
+          "id": "w6-s1-1776053685608-asyxj0y"
+        },
+        {
+          "mainSet": "Circuit 4 tours : Equilibre unipodal (2x39s/pied), Hip thrust (3x20), Pont unipodal (3x13/jambe), Bird-dog (3x13/cote), Gainage lateral (3x26-30s/cote), Marche sur talons (2x26m). Repos 1 min entre tours.",
+          "warmup": "10 min de mobilité articulaire et échauffement dynamique",
+          "type": "Renforcement",
+          "day": "Jeudi",
+          "locationSuggestion": "À la maison",
+          "title": "Renfo Focus B - Fessiers/Hanches & Gainage lateral (S6)",
+          "advice": "Un 'core' fort et une bonne souplesse sont essentiels pour une foulée efficace et une bonne prévention des blessures. Écoute les limites de ton corps.",
+          "intensity": "Modéré",
+          "cooldown": "5 min d'étirements : quadriceps, ischio-jambiers, mollets, hanches",
+          "duration": "40-45 min",
+          "id": "w6-s2-1776053685608-d30dijk",
+          "elevationGain": 0
+        },
+        {
+          "advice": "C'est un bloc d'allure spécifique plus long, une excellente simulation pour le semi-marathon. Gère ton effort pour pouvoir tenir l'allure jusqu'au bout. Hydrate-toi et ravitaille-toi si nécessaire pendant cette longue sortie. Respecte ton corps en cas de fatigue excessive.",
+          "title": "Sortie Longue avec bloc d'allure spécifique Semi",
+          "cooldown": "30 min en Endurance Fondamentale (6:36 min/km) puis étirements longs et doux.",
+          "locationSuggestion": "Boucle des lacs de Saint-Jean-Pla-de-Corts",
+          "day": "Dimanche",
+          "distance": "19.3 km",
+          "id": "w6-s3-1776053685608-n09emrh",
+          "duration": "1h 55 min",
+          "intensity": "Modéré",
+          "type": "Sortie Longue",
+          "warmup": "1h00 en Endurance Fondamentale (6:36 min/km).",
+          "mainSet": "1h00 à Allure Spécifique Semi-Marathon (5:12 min/km). Maintiens une concentration sur le rythme et ta technique de course.",
+          "targetPace": "Variable",
+          "elevationGain": 0
+        }
+      ],
+      "weekNumber": 6,
+      "phase": "developpement",
+      "isRecoveryWeek": false,
+      "weekGoal": "Renforcement de l'endurance spécifique et vitesse"
+    },
+    {
+      "theme": "Préparation spécifique et optimisation de l'allure de course",
+      "sessions": [
+        {
+          "intensity": "Difficile",
+          "type": "Fractionné",
+          "mainSet": "3x (10 min à Allure Spécifique Semi-Marathon (5:12 min/km) / 5 min de récupération en Endurance Fondamentale (6:36 min/km)).",
+          "warmup": "20 min en Endurance Fondamentale (6:36 min/km) + 2x (30s rapide / 30s lent).",
+          "elevationGain": 0,
+          "targetPace": "5:12 min/km",
+          "cooldown": "15 min en Endurance Fondamentale (6:36 min/km) + étirements légers des jambes.",
+          "advice": "Cette séance est cruciale pour habituer ton corps et ton esprit à tenir l'allure de course sur de plus longues périodes. La gestion de l'effort est primordiale. Ne dépasse pas tes sensations de douleur.",
+          "title": "Fractionné Seuil / Allure Spé Semi",
+          "locationSuggestion": "Chemin plat le long du Tech, Elne",
+          "day": "Mardi",
+          "distance": "13.3 km",
+          "duration": "1h20",
+          "id": "w7-s1-1776053685608-66b3x6b"
+        },
+        {
+          "elevationGain": 0,
+          "id": "w7-s2-1776053685608-96fjrbj",
+          "duration": "40-45 min",
+          "cooldown": "5 min d'étirements : quadriceps, ischio-jambiers, mollets, hanches",
+          "advice": "Une bonne posture et un bon équilibre sont gage d'efficacité et de prévention des blessures. Sois doux avec ton corps, surtout après des séances intenses.",
+          "title": "Renfo Focus A - Quadriceps & Gainage (S7)",
+          "intensity": "Modéré",
+          "locationSuggestion": "À la maison",
+          "day": "Jeudi",
+          "type": "Renforcement",
+          "warmup": "10 min de mobilité articulaire et échauffement dynamique",
+          "mainSet": "Circuit 4 tours : Squats poids de corps (3x21), Squat bulgare (3x14/jambe), Fentes avant (3x14/jambe), Superman (3x17), Pompes (3x14), Extensions mollets debout (3x29). Repos 1 min entre tours."
+        },
+        {
+          "locationSuggestion": "La Grande Maïre, Canet-en-Roussillon",
+          "day": "Dimanche",
+          "cooldown": "30 min en Endurance Fondamentale (6:36 min/km) puis étirements complets et hydratation.",
+          "title": "Sortie Longue avec bloc d'allure spécifique Semi (long)",
+          "advice": "Cette sortie est une répétition générale cruciale. Visualise le jour de la course et concentre-toi sur tes sensations. N'oublie pas l'hydratation et l'apport énergétique. Toute douleur persistante doit entraîner une diminution de l'effort.",
+          "duration": "1h 55 min",
+          "id": "w7-s3-1776053685608-qxd13zt",
+          "distance": "19.8 km",
+          "type": "Sortie Longue",
+          "mainSet": "1h15 à Allure Spécifique Semi-Marathon (5:12 min/km). C'est ton plus long bloc à allure spécifique avant la course, donne le meilleur de te-même tout en restant à l'écoute de ton corps.",
+          "warmup": "45 min en Endurance Fondamentale (6:36 min/km).",
+          "intensity": "Difficile",
+          "elevationGain": 0,
+          "targetPace": "Variable"
+        }
+      ],
+      "isRecoveryWeek": false,
+      "weekNumber": 7,
+      "phase": "specifique",
+      "weekGoal": "Préparation spécifique et optimisation de l'allure de course"
+    },
+    {
+      "weekGoal": "Récupération active et maintien de la forme",
+      "isRecoveryWeek": true,
+      "phase": "recuperation",
+      "weekNumber": 8,
+      "theme": "Récupération active et maintien de la forme",
+      "sessions": [
+        {
+          "cooldown": "10 min de retour au calme en marchant, puis étirements doux des ischio-jambiers et mollets. (à 7:23 min/km)",
+          "advice": "Nous te recommandons de consulter un médecin avant de débuter ce programme, notamment pour obtenir un certificat médical d'aptitude au sport. Pour cette séance, écoute attentivement ton corps. Ne force absolument pas en cas de fatigue ou de douleur. L'objectif est la récupération.",
+          "title": "Footing de Récupération - Doux",
+          "locationSuggestion": "Parc de la Prade à Saint-André (66690)",
+          "day": "Mardi",
+          "distance": "~12.1 km",
+          "duration": "1h20",
+          "id": "w8-s1-1776053730658-jf0zp9k",
+          "intensity": "Facile",
+          "type": "Jogging",
+          "warmup": "10 min d'échauffement en EF, suivi de quelques éducatifs très légers (talons-fesses, montées de genoux). (à 7:23 min/km)",
+          "mainSet": "1h00 de course en Endurance Fondamentale (6:36 min/km). Concentre-toi sur une foulée légère et relâchée.",
+          "elevationGain": 0,
+          "targetPace": "6:36 min/km"
+        },
+        {
+          "advice": "Cette séance est axée sur la récupération musculaire et la prévention des blessures. N'hésite pas à adapter le nombre de répétitions ou la durée du gainage si tu ressens une gêne. La fluidité du mouvement prime sur l'intensité.",
+          "title": "Renfo Leger - Recuperation (S8)",
+          "cooldown": "5 min d'étirements : quadriceps, ischio-jambiers, mollets, hanches",
+          "locationSuggestion": "À la maison",
+          "day": "Jeudi",
+          "distance": "N/A",
+          "duration": "25-30 min",
+          "id": "w8-s2-1776053730658-j6ndejx",
+          "intensity": "Facile",
+          "type": "Renforcement",
+          "mainSet": "Circuit 3 tours : Pont unipodal (3x8/jambe), Clamshell avec elastique (3x12/cote), Bird-dog (3x8/cote), Gainage lateral (3x16-30s/cote), Marche sur talons (2x16m). Repos 1 min entre tours.",
+          "warmup": "10 min de mobilité articulaire et échauffement dynamique",
+          "elevationGain": 0,
+          "targetPace": "N/A"
+        },
+        {
+          "locationSuggestion": "Sentiers côtiers autour d'Argelès-sur-Mer (66700)",
+          "day": "Dimanche",
+          "advice": "Profite de cette sortie pour recharger tes batteries. Le léger dénivelé sera une stimulation douce. Sois vigilant aux appuis sur les sentiers. Si tu ressens une douleur, diminue l'allure ou marche.",
+          "title": "Sortie Longue Récupération - Sentiers Côtiers",
+          "cooldown": "5 min de marche et 5 min d'étirements ciblés sur les mollets et quadriceps, sensibles après les montées et descentes. (à 7:23 min/km)",
+          "id": "w8-s3-1776053730658-4l8er51",
+          "duration": "1h50",
+          "distance": "~16.7 km",
+          "type": "Sortie Longue",
+          "mainSet": "1h30 de course en Endurance Fondamentale (6:36 min/km) sur un parcours légèrement vallonné, en appréciant le paysage. Maintiens une allure où la conversation est facile.",
+          "warmup": "15 min d'échauffement très doux en marchant ou en trottinant très lentement en EF. Prépare ton corps au terrain varié. (à 7:23 min/km)",
+          "intensity": "Facile",
+          "elevationGain": 0,
+          "targetPace": "6:36 min/km"
+        }
+      ]
+    },
+    {
+      "theme": "Rappel d'intensité et transition vers l'affûtage",
+      "sessions": [
+        {
+          "targetPace": "4:26 min/km",
+          "elevationGain": 0,
+          "type": "Fractionné",
+          "mainSet": "10 x 400m à allure VMA (4:26 min/km) avec 1 min de récupération active entre chaque (7:23 min/km).",
+          "warmup": "20 min d'échauffement progressif en EF, suivi de 3 lignes droites accélérées sur 100m pour préparer le corps à la vitesse. (à 7:23 min/km)",
+          "intensity": "Difficile",
+          "duration": "1h00",
+          "id": "w9-s1-1776053730658-d5ai7s0",
+          "distance": "~10.0 km",
+          "locationSuggestion": "Piste d'athlétisme municipale de Saint-André (66690)",
+          "day": "Mardi",
+          "cooldown": "15 min de retour au calme en Endurance Fondamentale (6:36 min/km), puis étirements légers et hydratation.",
+          "title": "Rappel VMA courte - 10x400m",
+          "advice": "Cette séance est un rappel de vitesse pour maintenir tes capacités. Concentre-toi sur la régularité de l'allure et une bonne technique de course. Écoute ton corps : si la fatigue est trop présente, réduis le nombre de répétitions."
+        },
+        {
+          "distance": "N/A",
+          "duration": "25-30 min",
+          "id": "w9-s2-1776053730658-64rnrqw",
+          "advice": "Le renforcement des fessiers et des hanches est crucial pour la stabilité et la puissance en course. Effectue chaque mouvement de manière contrôlée. Si une douleur apparaît, arrête l'exercice ou adapte-le.",
+          "title": "Renfo Maintien Leger - Affutage (S9)",
+          "cooldown": "5 min d'étirements : quadriceps, ischio-jambiers, mollets, hanches",
+          "locationSuggestion": "À la maison",
+          "day": "Jeudi",
+          "targetPace": "N/A",
+          "elevationGain": 0,
+          "intensity": "Modéré",
+          "type": "Renforcement",
+          "warmup": "10 min de mobilité articulaire et échauffement dynamique",
+          "mainSet": "Circuit 3 tours : Fentes avant (3x8/jambe), Fentes marchees (3x10/jambe), Gainage ventral (3x25-60s), Dead bug (3x8/cote), Extensions mollets debout (3x17). Repos 1 min entre tours."
+        },
+        {
+          "advice": "Cette sortie longue vise à consolider ton endurance. La progression de l'allure sur la fin permet de stimuler le corps en vue de l'objectif. Hydrate-toi régulièrement et écoute ton corps pour éviter la sur-fatigue.",
+          "title": "Sortie Longue EF progressive le long du Tech",
+          "cooldown": "15 min de retour au calme en EF, puis étirements des grands groupes musculaires (quadriceps, ischio-jambiers, mollets). (à 7:23 min/km)",
+          "locationSuggestion": "Bords du Tech entre Saint-André (66690) et Elne",
+          "day": "Dimanche",
+          "distance": "17.4 km",
+          "duration": "1h 55 min",
+          "id": "w9-s3-1776053730658-9r5p4zf",
+          "intensity": "Modéré",
+          "type": "Sortie Longue",
+          "warmup": "15 min d'échauffement en EF à allure très facile pour démarrer la sortie en douceur. (à 7:23 min/km)",
+          "mainSet": "1h30 de course en Endurance Fondamentale (6:36 min/km), puis les 15 dernières minutes légèrement plus soutenues mais toujours en aisance respiratoire (vers 6:00-6:15 min/km).",
+          "targetPace": "6:36 min/km",
+          "elevationGain": 0
+        }
+      ],
+      "isRecoveryWeek": false,
+      "weekNumber": 9,
+      "phase": "affutage",
+      "weekGoal": "Rappel d'intensité et transition vers l'affûtage"
+    },
+    {
+      "theme": "Affûtage spécifique - Maintien de l'allure de course",
+      "sessions": [
+        {
+          "elevationGain": 0,
+          "targetPace": "5:12 min/km",
+          "mainSet": "2 x 15 min à allure spécifique Semi-Marathon (5:12 min/km) avec 5 min de récupération active en Endurance Fondamentale (6:36 min/km) entre chaque bloc.",
+          "warmup": "20 min d'échauffement en Endurance Fondamentale (6:36 min/km), incluant quelques accélérations progressives sur 100m.",
+          "type": "Fractionné",
+          "intensity": "Modéré",
+          "duration": "1h00",
+          "id": "w10-s1-1776053730658-85pi6ry",
+          "distance": "~10.2 km",
+          "day": "Mardi",
+          "locationSuggestion": "Voie verte des Albères, sections planes (66690)",
+          "cooldown": "10 min de retour au calme en EF (6:36 min/km) et étirements légers.",
+          "advice": "Cette séance est primordiale pour ancrer l'allure de ton semi-marathon. Reste concentré sur la régularité de l'allure et la sensation d'effort. Si la forme n'est pas au rende-toi, privilégie la récupération et raccourcis les blocs.",
+          "title": "Rappel Allure Spécifique Semi - 2x15min"
+        },
+        {
+          "distance": "N/A",
+          "duration": "25-30 min",
+          "id": "w10-s2-1776053730658-hhtbmbv",
+          "title": "Renfo Maintien Leger - Affutage (S10)",
+          "advice": "Maintiens la routine de renforcement pour préserver ton musculature sans la fatiguer. La qualité du mouvement est plus importante que la quantité. Ne fais pas d'exercices qui provoquent une douleur.",
+          "cooldown": "5 min d'étirements : quadriceps, ischio-jambiers, mollets, hanches",
+          "locationSuggestion": "À la maison",
+          "day": "Jeudi",
+          "targetPace": "N/A",
+          "elevationGain": 0,
+          "intensity": "Facile",
+          "type": "Renforcement",
+          "mainSet": "Circuit 3 tours : Marche laterale avec elastique (3x8 pas/cote), Fente laterale (3x8/jambe), Bird-dog (3x8/cote), Gainage lateral (3x17-30s/cote), Marche sur talons (2x17m). Repos 1 min entre tours.",
+          "warmup": "10 min de mobilité articulaire et échauffement dynamique"
+        },
+        {
+          "id": "w10-s3-1776053730658-02dr4x3",
+          "duration": "1h45",
+          "distance": "~15.9 km",
+          "day": "Dimanche",
+          "locationSuggestion": "Le long de la côte Vermeille, de Saint-André (66690) vers Collioure",
+          "advice": "Cette sortie longue est un dernier test d'endurance avant la course, mais doit rester agréable. L'objectif est de se rassurer sur la capacité à tenir la distance sans se fatiguer excessivement. Hydrate-toi bien.",
+          "title": "Sortie Longue EF légère - Côte Vermeille",
+          "cooldown": "10 min de retour au calme en EF, puis étirements passifs et hydratation. (à 7:23 min/km)",
+          "targetPace": "6:36 min/km",
+          "elevationGain": 0,
+          "warmup": "15 min d'échauffement en EF à allure très souple. Prends le temps de te mettre en route. (à 7:23 min/km)",
+          "mainSet": "1h20 de course en Endurance Fondamentale (6:36 min/km) sur un parcours avec quelques légères ondulations. Garde une allure confortable.",
+          "type": "Sortie Longue",
+          "intensity": "Facile"
+        }
+      ],
+      "phase": "affutage",
+      "weekNumber": 10,
+      "isRecoveryWeek": false,
+      "weekGoal": "Affûtage spécifique - Maintien de l'allure de course"
+    },
+    {
+      "theme": "Affûtage final - Précourse",
+      "sessions": [
+        {
+          "elevationGain": 0,
+          "targetPace": "5:05 min/km",
+          "intensity": "Modéré",
+          "mainSet": "3 x 8 min à allure Seuil (5:05 min/km) avec 4 min de récupération active en Endurance Fondamentale (6:36 min/km) entre chaque bloc.",
+          "warmup": "20 min d'échauffement en Endurance Fondamentale (6:36 min/km), suivi de 2-3 accélérations progressives (100m).",
+          "type": "Fractionné",
+          "distance": "~10.0 km",
+          "id": "w11-s1-1776053730658-1wyfon2",
+          "duration": "55 min",
+          "cooldown": "10 min de retour au calme en EF (6:36 min/km) et étirements très doux.",
+          "title": "Rappel Seuil court - 3x8min",
+          "advice": "C'est une séance clé pour réactiver les sensations d'allure sans puiser dans les réserves. Ne cherche pas à aller plus vite que l'allure cible. La fraîcheur est primordiale à ce stade. Arrête si tu ne tu sens pas bien.",
+          "day": "Mardi",
+          "locationSuggestion": "Chemin plat du Rec d'Elne (66690)"
+        },
+        {
+          "distance": "N/A",
+          "id": "w11-s2-1776053730658-utmp59i",
+          "duration": "25-30 min",
+          "cooldown": "5 min d'étirements : quadriceps, ischio-jambiers, mollets, hanches",
+          "title": "Renfo Maintien Leger - Affutage (S11)",
+          "advice": "Cette dernière séance de renforcement est très légère, visant à maintenir l'activation musculaire sans créer de fatigue. La récupération est la priorité absolue. Écoute ton corps et ne fais que ce qui te semble facile.",
+          "day": "Jeudi",
+          "locationSuggestion": "À la maison",
+          "targetPace": "N/A",
+          "elevationGain": 0,
+          "intensity": "Facile",
+          "warmup": "10 min de mobilité articulaire et échauffement dynamique",
+          "mainSet": "Circuit 3 tours : Step-up sur marche (3x8/jambe), Chaise murale (3x25-45s), Superman (3x10), Pompes (3x8), Extensions mollets debout (3x17). Repos 1 min entre tours.",
+          "type": "Renforcement"
+        },
+        {
+          "mainSet": "1h00 de course en Endurance Fondamentale (6:36 min/km) à une allure très confortable. Ne regarde pas ton montre, cours aux sensations.",
+          "warmup": "15 min d'échauffement en marchant ou trottinant très doucement en EF. (à 7:23 min/km)",
+          "type": "Sortie Longue",
+          "intensity": "Facile",
+          "targetPace": "6:36 min/km",
+          "elevationGain": 0,
+          "day": "Dimanche",
+          "locationSuggestion": "Parc de la Prade à Saint-André (66690)",
+          "cooldown": "15 min de marche et 5 min d'étirements doux. Visualise ta course à venir. (à 7:23 min/km)",
+          "title": "Dernière sortie longue - Très courte et relaxante",
+          "advice": "Cette sortie est là pour te détendre et tu débloquer, pas pour te fatiguer. C'est le moment de te sentir léger et confiant. Écoute tes sensations et prépare-toi mentalement à l'objectif.",
+          "duration": "1h30",
+          "id": "w11-s3-1776053730658-k3j4h3t",
+          "distance": "~13.6 km"
+        }
+      ],
+      "weekGoal": "Affûtage final - Précourse",
+      "phase": "affutage",
+      "weekNumber": 11,
+      "isRecoveryWeek": false
+    }
+  ],
+  "id": "1774168937601",
+  "userId": "Aprh9fjRiEaRUn03ApxNAVPX1aQ2",
+  "calculatedVMA": 13.559322033898304,
+  "vmaSource": "10km en 49:10",
+  "feasibility": {
+    "status": "EXCELLENT",
+    "safetyWarning": "Hydrate-toi bien, échauffe-toi avant chaque séance et accorde-toi un vrai temps de récupération.",
+    "message": "Ton VMA de 13.6 km/h suggère un potentiel sur semi-marathon d'environ 1h50min. L'objectif que tu vises est parfaitement en phase avec tes capacités actuelles, rendant ce plan très réaliste et bien adapté à ton profil d'expert."
+  }
+}

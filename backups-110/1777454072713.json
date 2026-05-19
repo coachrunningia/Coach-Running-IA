@@ -1,0 +1,718 @@
+{
+  "name": "projects/coach-running-ia/databases/(default)/documents/plans/1777454072713",
+  "fields": {
+    "createdAt": {
+      "stringValue": "2026-04-29T09:14:32.713Z"
+    },
+    "sessionsPerWeek": {
+      "integerValue": "5"
+    },
+    "durationWeeks": {
+      "integerValue": "14"
+    },
+    "goal": {
+      "stringValue": "Course sur route"
+    },
+    "name": {
+      "stringValue": "Préparation Marathon en 3h40 — 14 sem."
+    },
+    "vma": {
+      "doubleValue": 14.0825450329618
+    },
+    "endDate": {
+      "stringValue": "2026-08-03"
+    },
+    "welcomeMessage": {
+      "stringValue": "Bonjour, expert du bitume ! Ce plan est conçu pour t'emmener vers ton objectif de marathon en 3h40. Nous allons construire ton endurance et ta vitesse de manière progressive et structurée sur 14 semaines, en commençant par les fondamentaux. Chaque semaine apportera sa pierre à l'édifice, en augmentant progressivement le volume et en introduisant des intensités spécifiques à mesure que ton corps s'adapte. La régularité et l'écoute de tes sensations seront tes meilleurs alliés. Nous te recommandons vivement de consulter un médecin avant de débuter ce programme, notamment pour obtenir un certificat médical d'aptitude au sport. À partir de 53 ans, un bilan cardio-vasculaire est particulièrement conseillé."
+    },
+    "isPreview": {
+      "booleanValue": true
+    },
+    "generationContext": {
+      "mapValue": {
+        "fields": {
+          "vma": {
+            "doubleValue": 14.0825450329618
+          },
+          "questionnaireSnapshot": {
+            "mapValue": {
+              "fields": {
+                "level": {
+                  "stringValue": "Expert (Performance)"
+                },
+                "vma": {
+                  "doubleValue": 14.0825450329618
+                },
+                "injuries": {
+                  "mapValue": {
+                    "fields": {
+                      "hasInjury": {
+                        "booleanValue": false
+                      }
+                    }
+                  }
+                },
+                "sex": {
+                  "stringValue": "Homme"
+                },
+                "raceDate": {
+                  "stringValue": "2026-08-02"
+                },
+                "weight": {
+                  "integerValue": "73"
+                },
+                "height": {
+                  "integerValue": "179"
+                },
+                "email": {
+                  "stringValue": "vincensos@yahoo.fr"
+                },
+                "frequency": {
+                  "integerValue": "5"
+                },
+                "currentWeeklyVolume": {
+                  "integerValue": "40"
+                },
+                "targetTime": {
+                  "stringValue": "3h40"
+                },
+                "age": {
+                  "integerValue": "53"
+                },
+                "subGoal": {
+                  "stringValue": "Marathon"
+                },
+                "startDate": {
+                  "stringValue": "2026-04-29"
+                },
+                "recentRaceTimes": {
+                  "mapValue": {
+                    "fields": {
+                      "distanceHalfMarathon": {
+                        "stringValue": "1h45"
+                      },
+                      "distance5km": {
+                        "stringValue": "22:32"
+                      }
+                    }
+                  }
+                },
+                "preferredLongRunDay": {
+                  "stringValue": "Samedi"
+                },
+                "preferredDays": {
+                  "arrayValue": {
+                    "values": [
+                      {
+                        "stringValue": "Lundi"
+                      },
+                      {
+                        "stringValue": "Mercredi"
+                      },
+                      {
+                        "stringValue": "Jeudi"
+                      },
+                      {
+                        "stringValue": "Vendredi"
+                      },
+                      {
+                        "stringValue": "Samedi"
+                      }
+                    ]
+                  }
+                },
+                "city": {
+                  "stringValue": "Piolenc"
+                },
+                "goal": {
+                  "stringValue": "Course sur route"
+                }
+              }
+            }
+          },
+          "generatedAt": {
+            "stringValue": "2026-04-29T09:13:57.272Z"
+          },
+          "paces": {
+            "mapValue": {
+              "fields": {
+                "seuilPace": {
+                  "stringValue": "4:54"
+                },
+                "efPace": {
+                  "stringValue": "6:22"
+                },
+                "allureSpecifique5k": {
+                  "stringValue": "4:29"
+                },
+                "allureSpecifiqueSemi": {
+                  "stringValue": "5:01"
+                },
+                "allureSpecifiqueMarathon": {
+                  "stringValue": "5:20"
+                },
+                "allureSpecifique10k": {
+                  "stringValue": "4:44"
+                },
+                "vmaPace": {
+                  "stringValue": "4:16"
+                },
+                "eaPace": {
+                  "stringValue": "5:32"
+                },
+                "recoveryPace": {
+                  "stringValue": "7:06"
+                }
+              }
+            }
+          },
+          "periodizationPlan": {
+            "mapValue": {
+              "fields": {
+                "weeklyPhases": {
+                  "arrayValue": {
+                    "values": [
+                      {
+                        "stringValue": "fondamental"
+                      },
+                      {
+                        "stringValue": "fondamental"
+                      },
+                      {
+                        "stringValue": "fondamental"
+                      },
+                      {
+                        "stringValue": "recuperation"
+                      },
+                      {
+                        "stringValue": "developpement"
+                      },
+                      {
+                        "stringValue": "developpement"
+                      },
+                      {
+                        "stringValue": "developpement"
+                      },
+                      {
+                        "stringValue": "recuperation"
+                      },
+                      {
+                        "stringValue": "specifique"
+                      },
+                      {
+                        "stringValue": "specifique"
+                      },
+                      {
+                        "stringValue": "specifique"
+                      },
+                      {
+                        "stringValue": "recuperation"
+                      },
+                      {
+                        "stringValue": "affutage"
+                      },
+                      {
+                        "stringValue": "affutage"
+                      }
+                    ]
+                  }
+                },
+                "weeklyVolumes": {
+                  "arrayValue": {
+                    "values": [
+                      {
+                        "integerValue": "34"
+                      },
+                      {
+                        "integerValue": "37"
+                      },
+                      {
+                        "integerValue": "41"
+                      },
+                      {
+                        "integerValue": "31"
+                      },
+                      {
+                        "integerValue": "41"
+                      },
+                      {
+                        "integerValue": "47"
+                      },
+                      {
+                        "integerValue": "54"
+                      },
+                      {
+                        "integerValue": "41"
+                      },
+                      {
+                        "integerValue": "54"
+                      },
+                      {
+                        "integerValue": "55"
+                      },
+                      {
+                        "integerValue": "58"
+                      },
+                      {
+                        "integerValue": "44"
+                      },
+                      {
+                        "integerValue": "36"
+                      },
+                      {
+                        "integerValue": "29"
+                      }
+                    ]
+                  }
+                },
+                "totalWeeks": {
+                  "integerValue": "14"
+                },
+                "recoveryWeeks": {
+                  "arrayValue": {
+                    "values": [
+                      {
+                        "integerValue": "4"
+                      },
+                      {
+                        "integerValue": "8"
+                      },
+                      {
+                        "integerValue": "12"
+                      }
+                    ]
+                  }
+                }
+              }
+            }
+          },
+          "modelUsed": {
+            "stringValue": "gemini-2.5-flash"
+          },
+          "vmaSource": {
+            "stringValue": "Moyenne 5km en 22:32 et Semi en 1h45"
+          }
+        }
+      }
+    },
+    "location": {
+      "stringValue": "Piolenc"
+    },
+    "weeks": {
+      "arrayValue": {
+        "values": [
+          {
+            "mapValue": {
+              "fields": {
+                "weekNumber": {
+                  "integerValue": "1"
+                },
+                "theme": {
+                  "stringValue": "Introduction à l'endurance fondamentale et renforcement"
+                },
+                "sessions": {
+                  "arrayValue": {
+                    "values": [
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "cooldown": {
+                              "stringValue": "5 min de marche lente, suivies de quelques étirements doux et mobilité articulaire ciblée (chevilles, genoux, hanches). (à 7:06 min/km)"
+                            },
+                            "duration": {
+                              "stringValue": "50 min"
+                            },
+                            "advice": {
+                              "stringValue": "Concentre-toi sur une respiration régulière et profonde. Écoute ton corps et adapte l'allure si nécessaire. Surveille tes articulations (genoux, chevilles) et ne force pas en cas de douleur."
+                            },
+                            "targetPace": {
+                              "stringValue": "6:22 min/km"
+                            },
+                            "type": {
+                              "stringValue": "Jogging"
+                            },
+                            "mainSet": {
+                              "stringValue": "29 min de course en endurance fondamentale (6:22 min/km) en maintenant une conversation aisée. Reste dans ta zone de confort aérobie."
+                            },
+                            "day": {
+                              "stringValue": "Lundi"
+                            },
+                            "locationSuggestion": {
+                              "stringValue": "Chemins des Berges du Rhône (secteur Piolenc)"
+                            },
+                            "id": {
+                              "stringValue": "w1-s1-1777454072715-8byndxb"
+                            },
+                            "title": {
+                              "stringValue": "Footing en aisance respiratoire"
+                            },
+                            "distance": {
+                              "stringValue": "8 km"
+                            },
+                            "elevationGain": {
+                              "integerValue": "0"
+                            },
+                            "warmup": {
+                              "stringValue": "10 min de marche rapide, puis 5 min de footing très lent (7:06 min/km)."
+                            },
+                            "intensity": {
+                              "stringValue": "Facile"
+                            }
+                          }
+                        }
+                      },
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "day": {
+                              "stringValue": "Mercredi"
+                            },
+                            "locationSuggestion": {
+                              "stringValue": "Chemins de campagne autour de Piolenc"
+                            },
+                            "mainSet": {
+                              "stringValue": "29 min de course en endurance fondamentale (6:22 min/km) sur un parcours légèrement vallonné. Maintiens l'effort constant même dans les montées douces."
+                            },
+                            "distance": {
+                              "stringValue": "6 km"
+                            },
+                            "id": {
+                              "stringValue": "w1-s2-1777454072715-3yz9vcm"
+                            },
+                            "title": {
+                              "stringValue": "Footing vallonné"
+                            },
+                            "elevationGain": {
+                              "integerValue": "0"
+                            },
+                            "intensity": {
+                              "stringValue": "Facile"
+                            },
+                            "warmup": {
+                              "stringValue": "10 min de marche rapide, puis 5 min de footing très lent (7:06 min/km)."
+                            },
+                            "cooldown": {
+                              "stringValue": "5 min de marche lente, suivies de quelques étirements doux et mobilité articulaire ciblée (chevilles, genoux, hanches). (à 7:06 min/km)"
+                            },
+                            "duration": {
+                              "stringValue": "38 min"
+                            },
+                            "targetPace": {
+                              "stringValue": "6:22 min/km"
+                            },
+                            "advice": {
+                              "stringValue": "Ces légères variations de terrain renforcent tes muscles stabilisateurs. Garde une foulée fluide et n'hésite pas à ralentir légèrement en côte pour maintenir l'aisance respiratoire. Écoute ton corps et ne force pas en cas de douleur."
+                            },
+                            "type": {
+                              "stringValue": "Jogging"
+                            }
+                          }
+                        }
+                      },
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "mainSet": {
+                              "stringValue": "Circuit 4 tours : Squats poids de corps (3x18), Squat bulgare (3x12/jambe), Fentes avant (3x12/jambe), Gainage ventral (3x35-60s), Dead bug (3x12/côté), Extensions mollets debout (3x23), Gainage ventral long (2x105-120s). Repos 1 min entre tours."
+                            },
+                            "locationSuggestion": {
+                              "stringValue": "À la maison"
+                            },
+                            "day": {
+                              "stringValue": "Jeudi"
+                            },
+                            "title": {
+                              "stringValue": "Renfo Focus A - Quadriceps & Gainage (S1)"
+                            },
+                            "id": {
+                              "stringValue": "w1-s3-1777454072715-0i43k1a"
+                            },
+                            "distance": {
+                              "stringValue": "0 km"
+                            },
+                            "elevationGain": {
+                              "integerValue": "0"
+                            },
+                            "warmup": {
+                              "stringValue": "10 min de mobilité articulaire et échauffement dynamique"
+                            },
+                            "intensity": {
+                              "stringValue": "Modéré"
+                            },
+                            "cooldown": {
+                              "stringValue": "5 min d'étirements : quadriceps, ischio-jambiers, mollets, hanches"
+                            },
+                            "advice": {
+                              "stringValue": "Ce travail renforce les muscles sollicités en course et prévient les blessures. Concentre-toi sur la qualité du mouvement plutôt que sur la quantité. Écoute ton corps et ne force pas en cas de douleur, en particulier sur les articulations. Adapte les exercices à ton niveau."
+                            },
+                            "duration": {
+                              "stringValue": "35-45 min"
+                            },
+                            "type": {
+                              "stringValue": "Renforcement"
+                            }
+                          }
+                        }
+                      },
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "duration": {
+                              "stringValue": "44 min"
+                            },
+                            "advice": {
+                              "stringValue": "Cette séance habitue ton corps à gérer des changements d'allure sans sortir de l'endurance. Reste à l'écoute de tes sensations et ne force pas pour atteindre une vitesse, laisse la progression se faire naturellement. Surveille tes articulations et ne force pas en cas de douleur."
+                            },
+                            "targetPace": {
+                              "stringValue": "6:22 - 5:50 min/km"
+                            },
+                            "type": {
+                              "stringValue": "Jogging"
+                            },
+                            "cooldown": {
+                              "stringValue": "5 min de marche lente, suivies de quelques étirements doux et mobilité articulaire ciblée (chevilles, genoux, hanches). (à 7:06 min/km)"
+                            },
+                            "elevationGain": {
+                              "integerValue": "0"
+                            },
+                            "warmup": {
+                              "stringValue": "10 min de marche rapide, puis 5 min de footing très lent (7:06 min/km)."
+                            },
+                            "intensity": {
+                              "stringValue": "Facile"
+                            },
+                            "mainSet": {
+                              "stringValue": "29 min de course progressive : commence à 6:22 min/km et accélère très légèrement toutes les 10 min pour finir la dernière partie au haut de ta zone d'endurance fondamentale (environ 5:50 min/km)."
+                            },
+                            "day": {
+                              "stringValue": "Vendredi"
+                            },
+                            "locationSuggestion": {
+                              "stringValue": "Chemins des Berges du Rhône (secteur Piolenc)"
+                            },
+                            "id": {
+                              "stringValue": "w1-s4-1777454072715-j77tctm"
+                            },
+                            "title": {
+                              "stringValue": "Footing progressif"
+                            },
+                            "distance": {
+                              "stringValue": "7.0 km"
+                            }
+                          }
+                        }
+                      },
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "mainSet": {
+                              "stringValue": "1h06 min de course en endurance fondamentale (6:22 min/km) sur des chemins variés, en profitant du paysage et en maintenant une conversation aisée."
+                            },
+                            "day": {
+                              "stringValue": "Samedi"
+                            },
+                            "locationSuggestion": {
+                              "stringValue": "Chemins des Berges du Rhône (secteur Piolenc)"
+                            },
+                            "id": {
+                              "stringValue": "w1-s5-1777454072715-6o08vex"
+                            },
+                            "title": {
+                              "stringValue": "Sortie longue nature"
+                            },
+                            "distance": {
+                              "stringValue": "12.8 km"
+                            },
+                            "elevationGain": {
+                              "integerValue": "0"
+                            },
+                            "warmup": {
+                              "stringValue": "10 min de marche rapide, puis 5 min de footing très lent (7:06 min/km)."
+                            },
+                            "intensity": {
+                              "stringValue": "Facile"
+                            },
+                            "cooldown": {
+                              "stringValue": "5 min de marche lente, suivies de quelques étirements doux et mobilité articulaire ciblée (chevilles, genoux, hanches). (à 7:06 min/km)"
+                            },
+                            "duration": {
+                              "stringValue": "1h21 min"
+                            },
+                            "targetPace": {
+                              "stringValue": "6:22 min/km"
+                            },
+                            "advice": {
+                              "stringValue": "La sortie longue est la clé de ta préparation marathon. Concentre-toi sur l'endurance et l'économie de course. Hydrate-toi bien avant et après la séance. Écoute ton corps et ne force pas en cas de douleur, en particulier sur les articulations après une longue sollicitation."
+                            },
+                            "type": {
+                              "stringValue": "Sortie Longue"
+                            }
+                          }
+                        }
+                      }
+                    ]
+                  }
+                },
+                "weekGoal": {
+                  "stringValue": "Introduction à l'endurance fondamentale et renforcement"
+                },
+                "phase": {
+                  "stringValue": "fondamental"
+                }
+              }
+            }
+          }
+        ]
+      }
+    },
+    "fullPlanGenerated": {
+      "booleanValue": false
+    },
+    "userEmail": {
+      "stringValue": "vincensos@yahoo.fr"
+    },
+    "targetTime": {
+      "stringValue": "3h40"
+    },
+    "distance": {
+      "stringValue": "Marathon"
+    },
+    "confidenceScore": {
+      "integerValue": "94"
+    },
+    "startDate": {
+      "stringValue": "2026-04-27"
+    },
+    "id": {
+      "stringValue": "1777454072713"
+    },
+    "calculatedVMA": {
+      "doubleValue": 14.0825450329618
+    },
+    "vmaSource": {
+      "stringValue": "Moyenne 5km en 22:32 et Semi en 1h45"
+    },
+    "feasibility": {
+      "mapValue": {
+        "fields": {
+          "message": {
+            "stringValue": "Avec ta VMA de 14.1 km/h, ton temps théorique sur marathon est d'environ 3h45min. Ton objectif de 3h40min est cohérent avec ton niveau. C'est un plan réaliste et bien calibré."
+          },
+          "status": {
+            "stringValue": "EXCELLENT"
+          },
+          "safetyWarning": {
+            "stringValue": "À 53 ans, on te recommande vivement de consulter ton médecin et de réaliser un test d'effort avant de démarrer cette préparation. Un certificat médical d'aptitude est indispensable pour cette distance. Privilégie la récupération (48-72h entre séances intenses), hydrate-toi bien et écoute ton corps."
+          }
+        }
+      }
+    },
+    "userId": {
+      "stringValue": "yTPTJsyC12WCQV8X8XWpNZ2QP6G3"
+    },
+    "adaptationLog": {
+      "mapValue": {
+        "fields": {
+          "adaptationsThisWeek": {
+            "integerValue": "0"
+          },
+          "adaptationHistory": {
+            "arrayValue": {}
+          },
+          "weekNumber": {
+            "integerValue": "0"
+          }
+        }
+      }
+    },
+    "raceDate": {
+      "stringValue": "2026-08-02"
+    },
+    "paces": {
+      "mapValue": {
+        "fields": {
+          "allureSpecifique10k": {
+            "stringValue": "4:44"
+          },
+          "vmaPace": {
+            "stringValue": "4:16"
+          },
+          "eaPace": {
+            "stringValue": "5:32"
+          },
+          "recoveryPace": {
+            "stringValue": "7:06"
+          },
+          "efPace": {
+            "stringValue": "6:22"
+          },
+          "seuilPace": {
+            "stringValue": "4:54"
+          },
+          "allureSpecifiqueMarathon": {
+            "stringValue": "5:20"
+          },
+          "allureSpecifique5k": {
+            "stringValue": "4:29"
+          },
+          "allureSpecifiqueSemi": {
+            "stringValue": "5:01"
+          }
+        }
+      }
+    },
+    "suggestedLocations": {
+      "arrayValue": {
+        "values": [
+          {
+            "mapValue": {
+              "fields": {
+                "description": {
+                  "stringValue": "Idéale pour les séances de vitesse et de fractionné grâce à sa surface plane et mesurée."
+                },
+                "name": {
+                  "stringValue": "Piste d'Athlétisme de Piolenc"
+                },
+                "type": {
+                  "stringValue": "TRACK"
+                }
+              }
+            }
+          },
+          {
+            "mapValue": {
+              "fields": {
+                "type": {
+                  "stringValue": "NATURE"
+                },
+                "name": {
+                  "stringValue": "Chemins des Berges du Rhône (secteur Piolenc)"
+                },
+                "description": {
+                  "stringValue": "Parfait pour les sorties longues et les footings à plat, offrant un cadre paisible et roulant."
+                }
+              }
+            }
+          },
+          {
+            "mapValue": {
+              "fields": {
+                "description": {
+                  "stringValue": "Convient pour des footings variés sur des terrains souples et légèrement vallonnés."
+                },
+                "name": {
+                  "stringValue": "Chemins de campagne autour de Piolenc"
+                },
+                "type": {
+                  "stringValue": "NATURE"
+                }
+              }
+            }
+          }
+        ]
+      }
+    }
+  },
+  "createTime": "2026-04-29T09:14:46.606522Z",
+  "updateTime": "2026-04-29T09:14:46.606522Z"
+}

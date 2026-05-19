@@ -1,0 +1,643 @@
+{
+  "name": "projects/coach-running-ia/databases/(default)/documents/plans/1778505133265",
+  "fields": {
+    "id": {
+      "stringValue": "1778505133265"
+    },
+    "targetTime": {
+      "stringValue": "35min"
+    },
+    "vma": {
+      "doubleValue": 17.543859649122805
+    },
+    "userEmail": {
+      "stringValue": "frige60@hotmail.fr"
+    },
+    "createdAt": {
+      "stringValue": "2026-05-11T13:12:13.265Z"
+    },
+    "location": {
+      "stringValue": "Rochefort "
+    },
+    "startDate": {
+      "stringValue": "2026-05-25"
+    },
+    "distance": {
+      "stringValue": "10 km"
+    },
+    "welcomeMessage": {
+      "stringValue": "Bienvenue dans ton plan d'entraînement expert pour atteindre l'objectif de 35 minutes sur 10km! Ce programme de 4 semaines est structuré pour développer progressivement ton endurance, ta vitesse et ta résistance. La première semaine sera dédiée à la pose des fondations de ta condition physique. Nous te recommandons de consulter un médecin avant de débuter ce programme, notamment pour obtenir un certificat médical d'aptitude au sport."
+    },
+    "calculatedVMA": {
+      "doubleValue": 17.543859649122805
+    },
+    "fullPlanGenerated": {
+      "booleanValue": false
+    },
+    "suggestedLocations": {
+      "arrayValue": {
+        "values": [
+          {
+            "mapValue": {
+              "fields": {
+                "type": {
+                  "stringValue": "PARK"
+                },
+                "description": {
+                  "stringValue": "Idéal pour les footings en endurance fondamentale, avec des allées planes et un cadre agréable."
+                },
+                "name": {
+                  "stringValue": "Parc des Pères"
+                }
+              }
+            }
+          },
+          {
+            "mapValue": {
+              "fields": {
+                "description": {
+                  "stringValue": "Parfait pour les sorties longues et les footings, offrant des chemins plats le long du fleuve."
+                },
+                "name": {
+                  "stringValue": "Chemin de Charente (Bords de Charente)"
+                },
+                "type": {
+                  "stringValue": "NATURE"
+                }
+              }
+            }
+          },
+          {
+            "mapValue": {
+              "fields": {
+                "type": {
+                  "stringValue": "TRACK"
+                },
+                "name": {
+                  "stringValue": "Stade Marcel Cerdan"
+                },
+                "description": {
+                  "stringValue": "Piste d'athlétisme pour les séances de fractionné et de vitesse."
+                }
+              }
+            }
+          }
+        ]
+      }
+    },
+    "name": {
+      "stringValue": "Préparation 10 km en 35min — 4 sem."
+    },
+    "confidenceScore": {
+      "integerValue": "80"
+    },
+    "weeks": {
+      "arrayValue": {
+        "values": [
+          {
+            "mapValue": {
+              "fields": {
+                "weekGoal": {
+                  "stringValue": "Fondamental : Construction de la base aérobie"
+                },
+                "theme": {
+                  "stringValue": "Fondamental : Construction de la base aérobie"
+                },
+                "phase": {
+                  "stringValue": "fondamental"
+                },
+                "weekNumber": {
+                  "integerValue": "1"
+                },
+                "sessions": {
+                  "arrayValue": {
+                    "values": [
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "distance": {
+                              "stringValue": "8.8 km"
+                            },
+                            "intensity": {
+                              "stringValue": "Facile"
+                            },
+                            "elevationGain": {
+                              "integerValue": "0"
+                            },
+                            "targetPace": {
+                              "stringValue": "5:06 min/km"
+                            },
+                            "type": {
+                              "stringValue": "Jogging"
+                            },
+                            "day": {
+                              "stringValue": "Lundi"
+                            },
+                            "id": {
+                              "stringValue": "w1-s1-1778505133265-h05pi7v"
+                            },
+                            "locationSuggestion": {
+                              "stringValue": "Parc des Pères"
+                            },
+                            "mainSet": {
+                              "stringValue": "30 min de course continue en endurance fondamentale (5:06 min/km). Maintiens une conversation facile tout au long de la séance."
+                            },
+                            "advice": {
+                              "stringValue": "Concentre-toi sur ta respiration et le plaisir de courir. Si tu ressens une gêne, ralentis ou marche un court instant."
+                            },
+                            "duration": {
+                              "stringValue": "45 min"
+                            },
+                            "cooldown": {
+                              "stringValue": "5 min de course très lente (5:42 min/km) suivies d'étirements légers."
+                            },
+                            "warmup": {
+                              "stringValue": "10 min de marche active puis course très lente (environ 6:00 min/km)."
+                            },
+                            "title": {
+                              "stringValue": "Footing en aisance respiratoire"
+                            }
+                          }
+                        }
+                      },
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "mainSet": {
+                              "stringValue": "25 min de course en endurance fondamentale (5:06 min/km) en te concentrant sur une foulée légère, efficace et une cadence élevée (autour de 170-180 pas/min). Imagine que tu cours sur des œufs."
+                            },
+                            "advice": {
+                              "stringValue": "Écoute ton corps et ajuste ton effort si nécessaire. L'objectif est de trouver une foulée naturelle et fluide, pas de forcer."
+                            },
+                            "locationSuggestion": {
+                              "stringValue": "Chemin de Charente (Bords de Charente)"
+                            },
+                            "id": {
+                              "stringValue": "w1-s2-1778505133265-hqob20k"
+                            },
+                            "day": {
+                              "stringValue": "Mercredi"
+                            },
+                            "elevationGain": {
+                              "integerValue": "0"
+                            },
+                            "targetPace": {
+                              "stringValue": "5:06 min/km"
+                            },
+                            "type": {
+                              "stringValue": "Jogging"
+                            },
+                            "intensity": {
+                              "stringValue": "Facile"
+                            },
+                            "distance": {
+                              "stringValue": "7.8 km"
+                            },
+                            "title": {
+                              "stringValue": "Footing avec focus foulée et cadence"
+                            },
+                            "warmup": {
+                              "stringValue": "10 min de course en endurance fondamentale (5:06 min/km)."
+                            },
+                            "cooldown": {
+                              "stringValue": "5 min de course très lente (5:42 min/km) et quelques exercices de mobilité articulaire."
+                            },
+                            "duration": {
+                              "stringValue": "40 min"
+                            }
+                          }
+                        }
+                      },
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "advice": {
+                              "stringValue": "Écoute attentivement les sensations de ton corps. Le but n'est pas de sprinter à la fin, mais d'habituer ton corps à différentes facettes de l'endurance fondamentale tout en restant dans le confort."
+                            },
+                            "mainSet": {
+                              "stringValue": "30 min de course progressive : commence à une allure très confortable (environ 5:15 min/km) et augmente très légèrement l'allure toutes les 10 minutes pour finir la dernière partie au haut de ta zone d'endurance fondamentale (autour de 4:55 min/km). L'effort doit rester facile et contrôlé."
+                            },
+                            "locationSuggestion": {
+                              "stringValue": "Parc des Pères"
+                            },
+                            "id": {
+                              "stringValue": "w1-s4-1778505133265-3whgi8n"
+                            },
+                            "day": {
+                              "stringValue": "Jeudi"
+                            },
+                            "type": {
+                              "stringValue": "Jogging"
+                            },
+                            "targetPace": {
+                              "stringValue": "5:06 min/km"
+                            },
+                            "elevationGain": {
+                              "integerValue": "0"
+                            },
+                            "intensity": {
+                              "stringValue": "Facile"
+                            },
+                            "distance": {
+                              "stringValue": "8.8 km"
+                            },
+                            "title": {
+                              "stringValue": "Footing progressif"
+                            },
+                            "warmup": {
+                              "stringValue": "10 min de course très facile (environ 5:30 min/km)."
+                            },
+                            "cooldown": {
+                              "stringValue": "5 min de course très lente (5:42 min/km) suivies de quelques étirements actifs."
+                            },
+                            "duration": {
+                              "stringValue": "45 min"
+                            }
+                          }
+                        }
+                      },
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "id": {
+                              "stringValue": "w1-s3-1778505133265-dky4fff"
+                            },
+                            "locationSuggestion": {
+                              "stringValue": "À la maison"
+                            },
+                            "mainSet": {
+                              "stringValue": "Circuit 4 tours : Squats poids de corps (3x18), Squat bulgare (3x12/jambe), Fentes avant (3x12/jambe), Gainage ventral (3x35-60s), Dead bug (3x12/côté), Extensions mollets debout (3x23), Squats sautés (3x12). Repos 1 min entre tours."
+                            },
+                            "advice": {
+                              "stringValue": "La régularité est la clé pour le renforcement. Effectue les mouvements avec une bonne technique, même si cela signifie moins de répétitions. C'est ta base pour prévenir les blessures."
+                            },
+                            "distance": {
+                              "stringValue": "0 km"
+                            },
+                            "intensity": {
+                              "stringValue": "Modéré"
+                            },
+                            "elevationGain": {
+                              "integerValue": "0"
+                            },
+                            "targetPace": {
+                              "stringValue": "N/A"
+                            },
+                            "type": {
+                              "stringValue": "Renforcement"
+                            },
+                            "day": {
+                              "stringValue": "Vendredi"
+                            },
+                            "title": {
+                              "stringValue": "Renfo Focus A - Quadriceps & Gainage (S1)"
+                            },
+                            "duration": {
+                              "stringValue": "40-45 min"
+                            },
+                            "warmup": {
+                              "stringValue": "10 min de mobilité articulaire et échauffement dynamique"
+                            },
+                            "cooldown": {
+                              "stringValue": "5 min d'étirements : quadriceps, ischio-jambiers, mollets, hanches"
+                            }
+                          }
+                        }
+                      },
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "title": {
+                              "stringValue": "Sortie longue nature et endurance"
+                            },
+                            "duration": {
+                              "stringValue": "1h20"
+                            },
+                            "warmup": {
+                              "stringValue": "10 min de course très facile (5:15-5:20 min/km)."
+                            },
+                            "cooldown": {
+                              "stringValue": "5 min de course très lente (5:42 min/km) puis étirements passifs et hydratation."
+                            },
+                            "id": {
+                              "stringValue": "w1-s5-1778505133265-65x08tx"
+                            },
+                            "locationSuggestion": {
+                              "stringValue": "Chemin de Charente (Bords de Charente)"
+                            },
+                            "mainSet": {
+                              "stringValue": "1h05 de course continue en endurance fondamentale (5:06 min/km). Maintiens une allure régulière et confortable, propice à l'échange. Profite du paysage et concentre-toi sur ton hydratation."
+                            },
+                            "advice": {
+                              "stringValue": "C'est ta séance clé de la semaine pour construire l'endurance. Ne force pas et privilégie une allure où tu peux parler sans essoufflement. N'oublie pas de t'hydrater avant, pendant et après la séance."
+                            },
+                            "distance": {
+                              "stringValue": "15.7 km"
+                            },
+                            "intensity": {
+                              "stringValue": "Facile"
+                            },
+                            "elevationGain": {
+                              "integerValue": "0"
+                            },
+                            "targetPace": {
+                              "stringValue": "5:06 min/km"
+                            },
+                            "type": {
+                              "stringValue": "Sortie Longue"
+                            },
+                            "day": {
+                              "stringValue": "Dimanche"
+                            }
+                          }
+                        }
+                      }
+                    ]
+                  }
+                }
+              }
+            }
+          }
+        ]
+      }
+    },
+    "isPreview": {
+      "booleanValue": true
+    },
+    "paces": {
+      "mapValue": {
+        "fields": {
+          "vmaPace": {
+            "stringValue": "3:25"
+          },
+          "seuilPace": {
+            "stringValue": "3:56"
+          },
+          "eaPace": {
+            "stringValue": "4:26"
+          },
+          "allureSpecifique5k": {
+            "stringValue": "3:36"
+          },
+          "allureSpecifiqueMarathon": {
+            "stringValue": "4:17"
+          },
+          "efPace": {
+            "stringValue": "5:06"
+          },
+          "recoveryPace": {
+            "stringValue": "5:42"
+          },
+          "allureSpecifiqueSemi": {
+            "stringValue": "4:01"
+          },
+          "allureSpecifique10k": {
+            "stringValue": "3:48"
+          }
+        }
+      }
+    },
+    "raceDate": {
+      "stringValue": "2026-06-28"
+    },
+    "endDate": {
+      "stringValue": "2026-06-22"
+    },
+    "generationContext": {
+      "mapValue": {
+        "fields": {
+          "questionnaireSnapshot": {
+            "mapValue": {
+              "fields": {
+                "level": {
+                  "stringValue": "Expert (Performance)"
+                },
+                "height": {
+                  "integerValue": "175"
+                },
+                "subGoal": {
+                  "stringValue": "10 km"
+                },
+                "weight": {
+                  "integerValue": "74"
+                },
+                "frequency": {
+                  "integerValue": "5"
+                },
+                "goal": {
+                  "stringValue": "Course sur route"
+                },
+                "city": {
+                  "stringValue": "Rochefort "
+                },
+                "targetTime": {
+                  "stringValue": "35min"
+                },
+                "recentRaceTimes": {
+                  "mapValue": {
+                    "fields": {
+                      "distance10km": {
+                        "stringValue": "38min"
+                      }
+                    }
+                  }
+                },
+                "preferredDays": {
+                  "arrayValue": {
+                    "values": [
+                      {
+                        "stringValue": "Lundi"
+                      },
+                      {
+                        "stringValue": "Mercredi"
+                      },
+                      {
+                        "stringValue": "Vendredi"
+                      },
+                      {
+                        "stringValue": "Dimanche"
+                      },
+                      {
+                        "stringValue": "Jeudi"
+                      }
+                    ]
+                  }
+                },
+                "raceDate": {
+                  "stringValue": "2026-06-28"
+                },
+                "startDate": {
+                  "stringValue": "2026-05-31"
+                },
+                "injuries": {
+                  "mapValue": {
+                    "fields": {
+                      "hasInjury": {
+                        "booleanValue": false
+                      }
+                    }
+                  }
+                },
+                "email": {
+                  "stringValue": "frige60@hotmail.fr"
+                },
+                "age": {
+                  "integerValue": "42"
+                },
+                "currentWeeklyVolume": {
+                  "integerValue": "50"
+                },
+                "vma": {
+                  "doubleValue": 17.543859649122805
+                },
+                "sex": {
+                  "stringValue": "Homme"
+                }
+              }
+            }
+          },
+          "vma": {
+            "doubleValue": 17.543859649122805
+          },
+          "generatedAt": {
+            "stringValue": "2026-05-11T13:11:33.219Z"
+          },
+          "periodizationPlan": {
+            "mapValue": {
+              "fields": {
+                "recoveryWeeks": {
+                  "arrayValue": {}
+                },
+                "totalWeeks": {
+                  "integerValue": "4"
+                },
+                "weeklyPhases": {
+                  "arrayValue": {
+                    "values": [
+                      {
+                        "stringValue": "fondamental"
+                      },
+                      {
+                        "stringValue": "developpement"
+                      },
+                      {
+                        "stringValue": "specifique"
+                      },
+                      {
+                        "stringValue": "affutage"
+                      }
+                    ]
+                  }
+                },
+                "weeklyVolumes": {
+                  "arrayValue": {
+                    "values": [
+                      {
+                        "integerValue": "43"
+                      },
+                      {
+                        "integerValue": "48"
+                      },
+                      {
+                        "integerValue": "54"
+                      },
+                      {
+                        "integerValue": "29"
+                      }
+                    ]
+                  }
+                }
+              }
+            }
+          },
+          "modelUsed": {
+            "stringValue": "gemini-2.5-flash"
+          },
+          "paces": {
+            "mapValue": {
+              "fields": {
+                "vmaPace": {
+                  "stringValue": "3:25"
+                },
+                "seuilPace": {
+                  "stringValue": "3:56"
+                },
+                "allureSpecifiqueMarathon": {
+                  "stringValue": "4:17"
+                },
+                "allureSpecifique5k": {
+                  "stringValue": "3:36"
+                },
+                "eaPace": {
+                  "stringValue": "4:26"
+                },
+                "efPace": {
+                  "stringValue": "5:06"
+                },
+                "recoveryPace": {
+                  "stringValue": "5:42"
+                },
+                "allureSpecifique10k": {
+                  "stringValue": "3:48"
+                },
+                "allureSpecifiqueSemi": {
+                  "stringValue": "4:01"
+                }
+              }
+            }
+          },
+          "vmaSource": {
+            "stringValue": "10km en 38min"
+          }
+        }
+      }
+    },
+    "sessionsPerWeek": {
+      "integerValue": "5"
+    },
+    "feasibility": {
+      "mapValue": {
+        "fields": {
+          "message": {
+            "stringValue": "Avec ta VMA de 17.5 km/h, ton temps théorique sur 10km est d'environ 38:00. Viser 35:00 est un bel objectif. Avec un entraînement régulier, c'est tout à fait atteignable."
+          },
+          "status": {
+            "stringValue": "BON"
+          },
+          "safetyWarning": {
+            "stringValue": "⚠ FAISABILITÉ : ton objectif de 10km en 35min demande une allure soutenue à 97.7% de ta VMA actuelle — au-delà du seuil tenable physiologiquement (max ~92% sur 10km). Un objectif réaliste à court terme serait 37-38min (≈ 92-93% VMA). En 4 semaines, tu peux espérer ~36-37min en restant proche de ta VMA actuelle. Pour passer sous 35min, prévoir 8-12 semaines avec progression VMA.\n\nHydrate-toi bien, échauffe-toi avant chaque séance et accorde-toi un vrai temps de récupération."
+          }
+        }
+      }
+    },
+    "vmaSource": {
+      "stringValue": "10km en 38min"
+    },
+    "goal": {
+      "stringValue": "Course sur route"
+    },
+    "durationWeeks": {
+      "integerValue": "4"
+    },
+    "adaptationLog": {
+      "mapValue": {
+        "fields": {
+          "adaptationsThisWeek": {
+            "integerValue": "0"
+          },
+          "adaptationHistory": {
+            "arrayValue": {}
+          },
+          "weekNumber": {
+            "integerValue": "0"
+          }
+        }
+      }
+    },
+    "userId": {
+      "stringValue": "pvIbmLY81uY8z0rRBGZyFydOUgg2"
+    }
+  },
+  "createTime": "2026-05-11T13:12:27.760254Z",
+  "updateTime": "2026-05-12T11:10:21.991794Z"
+}

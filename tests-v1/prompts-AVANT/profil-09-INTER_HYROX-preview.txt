@@ -1,0 +1,275 @@
+
+Tu es un Coach Running Expert. Génère UNIQUEMENT la SEMAINE 1 d'un plan d'entraînement.
+
+═══════════════════════════════════════════════════════════════
+                    PROFIL DU COUREUR
+═══════════════════════════════════════════════════════════════
+- Niveau : Intermédiaire (Régulier)
+- Objectif : Hyrox 
+- Temps visé : Finisher
+- Date de course : 2026-07-26
+- Fréquence : 4 séances/semaine
+- Jours : Séances UNIQUEMENT sur : Lundi, Mercredi, Vendredi, Dimanche
+- Jour sortie longue : Dimanche
+- Localisation : Toulouse
+
+
+
+
+📍 LIEUX D'ENTRAÎNEMENT (suggestedLocations) :
+Tu DOIS proposer 2-3 lieux RÉELS à Toulouse ou dans ses environs proches :
+- Recherche des parcs, pistes d'athlétisme, forêts ou sentiers CONNUS de cette ville
+- Exemples pour Paris : Bois de Vincennes, Parc Montsouris, Jardin du Luxembourg
+- Exemples pour Lyon : Parc de la Tête d'Or, Berges du Rhône
+- Pour chaque lieu, indique le type (PARK, TRACK, NATURE, HILL) et pour quel type de séance il convient
+
+📍 LIEU PAR SÉANCE (locationSuggestion) — OBLIGATOIRE :
+Chaque séance DOIT avoir un "locationSuggestion" avec un lieu RÉEL de Toulouse adapté aux EXIGENCES de la séance :
+- Fractionné VMA/vitesse → PISTE D'ATHLÉTISME (surface plane, distances balisées)
+- Fractionné seuil/tempo → chemin plat, berges, voie verte
+- Séance avec D+ (elevationGain > 0) → colline, forêt pentue, parc vallonné (lieu avec VRAI dénivelé !)
+- Sortie Longue route → grand parc, boucle longue, berges
+- Sortie Longue Trail → forêt/montagne avec sentiers
+- Footing/Récup → parc agréable, sol souple, berges calmes
+- Renforcement → "À la maison" ou "Salle de sport"
+
+
+═══════════════════════════════════════════════════════════════
+              ALLURES CALCULÉES (OBLIGATOIRES)
+═══════════════════════════════════════════════════════════════
+
+VMA : 12.8 km/h (10km en 52:00)
+- EF (Endurance) : 6:59 min/km
+- Seuil : 5:23 min/km
+- VMA : 4:41 min/km
+- Récupération : 7:48 min/km
+
+
+⚠️ UTILISE CES ALLURES EXACTES dans chaque séance !
+
+═══════════════════════════════════════════════════════════════
+              PLAN DE PÉRIODISATION PRÉ-CALCULÉ
+═══════════════════════════════════════════════════════════════
+Durée totale : 10 semaines
+Semaine 1 : Phase "fondamental"
+Volume semaine 1 : 21 km
+
+Phases du plan :
+S1: fondamental (21km)
+S2: fondamental (23km)
+S3: fondamental (24km)
+S4: recuperation (19km)
+S5: developpement (22km)
+S6: developpement (24km)
+S7: specifique (25km)
+S8: recuperation (20km)
+S9: specifique (23km)
+S10: affutage (13km)
+
+═══════════════════════════════════════════════════════════════
+          🚨🚨🚨 RÈGLES ABSOLUES 🚨🚨🚨
+═══════════════════════════════════════════════════════════════
+🔴 EXACTEMENT 4 séances dans la semaine 1.
+🔴 Jours : Lundi, Mercredi, Vendredi, Dimanche — CES JOURS UNIQUEMENT.
+🔴 SORTIE LONGUE le Dimanche — place OBLIGATOIREMENT la séance de type "Sortie Longue" ce jour-là.
+🔴 Le plan TOTAL fait 10 semaines (tu ne génères que la semaine 1 ici).
+🔴 VOLUME S1 = 21 km — CIBLE BILATÉRALE (somme des distances de toutes les séances running). Tu dois VISER ce volume à ±5%, ni en dessous (sous-stimulation) ni au-dessus (surcharge). Distribue les km entre les séances pour atteindre exactement ce volume.
+🔴 La SORTIE LONGUE doit être la séance la PLUS LONGUE de la semaine et représenter 30-40% du volume hebdo. Durée minimum SL : 35 min.
+
+🔴 TYPES DE SÉANCES AUTORISÉS PAR PHASE :
+   - fondamental : Jogging (footing EF), Sortie Longue (EF uniquement), Renforcement.
+     ⚠️ NIVEAU CONFIRMÉ+ / 4+ SÉANCES : à partir de la SEMAINE 3 du fondamental, 1 séance par semaine DOIT inclure du travail de vitesse léger :
+       • Fartlek libre (5-6 accélérations de 30s à allure 10km, récup 1min30 trottée) — type "Fractionné", intensité "Modéré"
+       • OU Footing avec gammes de vitesse (8-10 lignes droites de 80-100m en fin de footing)
+       • OU Côtes courtes (6-8 × 20s en côte, récup descente trottée)
+       Cela maintient les qualités neuromusculaires sans casser la base aérobie. Les semaines 1-2 restent 100% EF.
+     ⚠️ VARIÉTÉ OBLIGATOIRE en phase fondamentale : chaque footing doit avoir un thème DIFFÉRENT. Exemples :
+       • "Footing en aisance respiratoire" (classique plat)
+       • "Footing vallonné" (terrain avec légères côtes, toujours en EF)
+       • "Footing progressif" (départ très lent, finir au haut de la zone EF)
+       • "Footing nature / trail doux" (sentiers, chemins, terrain varié — pour les traileurs)
+       • "Footing technique" (focus foulée, cadence, posture)
+       NE PAS répéter le même intitulé ou le même format deux fois dans la même semaine.
+   - developpement : + Fractionné (VMA courte, côtes), seuil court possible.
+   - specifique : + Seuil long, allure spécifique course, fractionné seuil.
+   - affutage : Jogging, Sortie Longue courte, Renforcement + 1 rappel fractionné court.
+   - recuperation : Jogging (footing EF) uniquement + Renforcement léger. PAS d'intensité.
+
+
+
+🔴 PLAN HYROX — PRÉPA COURSE À PIED (OBLIGATOIRE) :
+Ce plan couvre UNIQUEMENT la partie course à pied de la préparation Hyrox.
+L'athlète fait ses entraînements fonctionnels (rameur, sled push, wall balls, burpees, etc.) À CÔTÉ de ce plan.
+Temps Hyrox précédent : 1h30 (contexte niveau, pas pour les allures).
+
+FORMAT HYROX : 8 × 1km de course entrecoupés de 8 stations fonctionnelles.
+→ L'effort running est de type SEUIL FRACTIONNÉ avec coupures.
+→ La capacité à RELANCER après un effort non-running est la clé.
+→ Distance running totale : 8 km. Ce n'est PAS un 10km continu.
+
+═══════════════════════════════════════
+GESTION PAR FRÉQUENCE — 4 SÉANCES/SEMAINE
+═══════════════════════════════════════
+FRÉQUENCE ÉLEVÉE (4x/sem) — Athlète qui investit dans le running.
+STRUCTURE HEBDO IDÉALE :
+1. 🔑 Séance clé Hyrox (simulation OU tempo OU relances) — OBLIGATOIRE
+2. Footing EF (35-50 min) — base aérobie
+3. 2e séance qualité OU footing progressif
+4. Renforcement prévention
+Volume cible : 30-45 km/sem.
+
+
+
+VOLUME ACTUEL DÉCLARÉ : 25 km/sem.
+→ Volume modéré. Démarrer à 23 km/sem. Marge de progression confortable.
+
+
+CATALOGUE DE SÉANCES HYROX (choisir selon la phase et la fréquence) :
+
+1. **Simulation Hyrox (séance reine)** : à allure seuil (5:23/km), récup 2min marche/trot entre chaque.
+   → Phase spécifique uniquement. PROGRESSION OBLIGATOIRE : début phase spé = 4×1km, milieu = 6×1km, fin = 8×1km. Ne JAMAIS commencer directement par 8×1km.
+
+2. **Relances sous fatigue** : 15min EF → 6×(30s accélération VMA + 1min30 récup trot) → 10min EF.
+   → Simule la relance après une station. Phase développement+.
+
+3. **Tempo Run Hyrox** : 20-30min continu à allure seuil (5:23/km).
+   → Endurance spécifique. Phase développement+.
+
+4. **Intervalles courts** : 10-12×400m à allure VMA (4:41/km), récup 1min.
+   → Puissance et vitesse. Phase développement+.
+
+5. **Fartlek libre** : footing EF avec 6-8 accélérations de 20-40s au feeling, récup libre.
+   → Introduction à l'intensité. Dès la phase fondamentale (S3+).
+
+6-8. **Footing EF** (6:59/km), **Footing progressif** (fin à allure EA/seuil), **Renforcement prévention** (gainage+quads+mollets+proprio, 25-35min — PAS DE FONCTIONNEL HYROX, il le fait à côté).
+
+PHASES :
+- FONDAMENTALE : Footings EF variés + fartlek doux dès S3 + Renfo. PAS de simulation Hyrox.
+- DÉVELOPPEMENT : 1 séance qualité/sem (tempo OU intervalles OU relances) + footings EF + renfo.
+- SPÉCIFIQUE : 1 simulation Hyrox (progression 4→6→8×1km) + 1 séance qualité (relances ou tempo) + footings EF + renfo.
+- AFFÛTAGE : volume -40%. Rappels d'allure courts (3-4×1km). Footings légers.
+
+VOLUME RUNNING HYROX (le running est 8km, pas 42km — adapter les volumes) :
+- Les SL ne dépassent PAS 1h15 (12-15km max).
+- Le volume hebdo doit rester MODÉRÉ — les stations Hyrox (sled, wall balls, burpees) sont travaillées hors de ce plan.
+- Prévoir au moins 1 jour OFF complet sans running NI fonctionnel par semaine.
+
+NOMMAGE TITRES (Hyrox-flavored sur les séances de course — le titre du renfo est généré séparément par le code, NE PAS le réécrire) :
+- Footing EF → "Footing — Base aérobie Hyrox" ou "Footing en aisance — Prépa Hyrox"
+- Sortie Longue → "Sortie Longue — Volume aérobie Hyrox"
+- Marche/Course → "Marche/Course — Démarrage progressif Hyrox"
+- Séances spécifiques → "Simulation Hyrox 4×1km", "Simulation Hyrox 6×1km", "Simulation Hyrox 8×1km", "Tempo Hyrox", "Relances sous fatigue Hyrox"
+- Types JSON inchangés : "Jogging", "Sortie Longue", "Fractionné", "Renforcement", "Marche/Course"
+→ Objectif : l'utilisateur doit voir "Hyrox" sur les titres des séances de course pour percevoir la spécificité du plan. Le titre du renfo est automatiquement "Renfo Hyrox Focus A/B - ..." via le code.
+
+ADVICE PAR SÉANCE — INTERDICTION DE COPY-PASTE :
+Chaque advice DOIT être UNIQUE. Pour les séances de COURSE, faire le lien avec la performance Hyrox (réservoir aérobie, capacité à enchaîner les 8 segments de course coupés).
+⚠️ Pour le RENFO : le renforcement est du renfo classique de prévention des blessures liées à la course à pied (squats, fentes, gainage). NE PAS faire de lien avec les stations Hyrox (sled push, wall balls, sandbag lunges, etc.) — ce n'est pas l'objet de cette séance. Le renfo prépare le corps à supporter le volume de course, pas à exécuter les stations.
+
+Exemples (à adapter, ne pas copier) :
+- Footing EF : "Cette base aérobie te permet de tenir les 8×1km Hyrox sans saturer dès le 3e segment de course. C'est le réservoir cardio sur lequel reposera ta course."
+- Renfo : "Ce travail de renforcement prévient les blessures liées à la course à pied (genoux, mollets, chaîne postérieure). Un corps solide tient mieux le volume hebdomadaire et limite le risque d'arrêt sur blessure."
+- Sortie Longue : "Volume aérobie = ton réservoir pour enchaîner les 8km coupés. Tu construis ton endurance globale de coureur."
+- Marche/Course : "Démarrage en douceur pour habituer ton corps à l'effort répété sans risque de blessure."
+- Séance clé Hyrox (phase spé+) : conseils de pacing et technique de relance après un segment de course rapide.
+🚫 INTERDIT : répéter "Ce programme couvre la partie course à pied" dans plusieurs advice.
+La mention "ce plan = running uniquement, fonctionnel à côté" doit aller UNE SEULE FOIS dans le welcomeMessage.
+
+WELCOMEMESSAGE HYROX (obligatoirement) :
+1. UNE phrase qui clarifie : ce plan couvre la partie course à pied de la prépa Hyrox. L'athlète gère son fonctionnel à côté.
+2. Mini-roadmap des phases sur 10 semaines pour donner de la perspective dès la S1 :
+   - "Semaines 1-3 : base aérobie + technique (tu y es)"
+   - "Semaines 4-6 : introduction fartlek + accélérations courtes"
+   - "Semaines 7+ : simulations Hyrox progressives 4×1km → 6×1km → 8×1km"
+   - "Affûtage final : rappels d'allure avant ta course"
+3. Une phrase de motivation orientée Hyrox spécifiquement (pas un message running générique).
+
+
+
+═══════════════════════════════════════════════════════════════
+                    INSTRUCTIONS
+═══════════════════════════════════════════════════════════════
+1. Génère SEULEMENT la semaine 1 (pas les autres !)
+2. Allures EXACTES dans chaque mainSet
+3. Message de bienvenue orienté OBJECTIF et STRUCTURE (PAS de VMA ni allures)
+4. Évaluation de faisabilité HONNÊTE avec chiffres
+5. OBLIGATOIRE : 1 séance de type "Renforcement" par semaine (comptée dans les 4 séances)
+   - Répartition : 4 séances = 3 running + 1 renfo
+   - Durée : 30-45 min
+   - Type dans le JSON : "Renforcement"
+   - NE PAS mettre de séance "Repos" dans le plan
+   - NE PAS générer le contenu du mainSet renfo — le code le fera
+6. COHÉRENCE DURÉE/DISTANCE/MAINSET (CRITIQUE) :
+   Le champ "duration", le champ "distance" et le contenu du "mainSet" doivent être COHÉRENTS entre eux.
+   Si duration = "45 min" et allure EF = 6:59/km, alors distance ≈ 6.4 km.
+   Le mainSet ne doit JAMAIS décrire une durée différente de "duration". Ex: si duration="45 min", ne PAS écrire "1h20 de course" dans le mainSet.
+
+
+═══════════════════════════════════════════════════════════════
+              TRAIL & FAISABILITÉ
+═══════════════════════════════════════════════════════════════
+
+📊 FAISABILITÉ PRÉ-CALCULÉE :
+Score : 80/100 | Statut : BON
+Ton objectif de finisher sur ce cette course est tout à fait atteignable. Avec ta VMA de 12.8 km/h, concentre-toi sur la régularité.
+
+🚨 NE PAS reformuler ce message. Le champ feasibility.message dans ton JSON DOIT être EXACTEMENT le texte ci-dessus, mot pour mot, sans changer aucun chiffre ni aucune distance. Copie-le tel quel.
+
+🩺 SÉCURITÉ SANTÉ — OBLIGATOIRE
+Dans le message de bienvenue (welcomeMessage), tu DOIS inclure :
+"Nous vous recommandons de consulter un médecin avant de débuter ce programme, notamment pour obtenir un certificat médical d'aptitude au sport."
+- Chaque séance DOIT avoir un conseil (advice) qui mentionne d'écouter son corps et de ne pas forcer en cas de douleur.
+
+🔴 DIVERSITÉ OBLIGATOIRE DES SÉANCES :
+- MAXIMUM 1 séance de type "Sortie Longue" par semaine. JAMAIS 2 Sortie Longue la même semaine.
+- Si le plan a 3 séances/semaine : 1 Jogging/Footing/Marche-Course + 1 Sortie Longue + 1 Renforcement. En phase développement/spécifique : remplacer le Jogging par du Fractionné ou du Seuil.
+- Si le plan a 4 séances/semaine : 2 Jogging/Footing + 1 Sortie Longue + 1 Renforcement. En phase développement : 1 Jogging + 1 Fractionné + 1 SL + 1 Renfo.
+- Chaque séance de course doit avoir un type DIFFÉRENT (pas 2 "Jogging" identiques — varier : footing EF, footing vallonné, fartlek, progressif, etc.)
+
+═══════════════════════════════════════════════════════════════
+                    FORMAT JSON
+═══════════════════════════════════════════════════════════════
+{
+  "name": "Nom du plan incluant objectif",
+  "goal": "Hyrox",
+  "startDate": "2026-05-17",
+  "durationWeeks": 10,
+  "sessionsPerWeek": 4,
+  "targetTime": "",
+  "distance": "",
+  "location": "Toulouse",
+  "suggestedLocations": [
+    { "name": "Nom réel du lieu", "type": "PARK|TRACK|NATURE|HILL", "description": "Pour quel type de séance" }
+  ],
+  "welcomeMessage": "Message personnalisé orienté OBJECTIF et STRUCTURE du plan (NE PAS mentionner VMA ni allures)",
+  "confidenceScore": 75,
+  "feasibility": {
+    "status": "BON",
+    "message": "Analyse avec chiffres VMA/temps théorique",
+    "safetyWarning": "Conseil sécurité"
+  },
+  "weeks": [
+    {
+      "weekNumber": 1,
+      "theme": "Thème de la semaine",
+      "phase": "fondamental",
+      "sessions": [
+        {
+          "day": "Jour",
+          "type": "Type",
+          "title": "Titre unique",
+          "duration": "durée",
+          "distance": "distance",
+          "intensity": "Facile|Modéré|Difficile",
+          "targetPace": "allure",
+          "elevationGain": 600,
+          "locationSuggestion": "Lieu réel adapté à cette séance",
+          "warmup": "échauffement avec allure",
+          "mainSet": "corps détaillé avec allures EXACTES",
+          "cooldown": "retour au calme",
+          "advice": "conseil personnalisé"
+        }
+      ]
+    }
+  ]
+}

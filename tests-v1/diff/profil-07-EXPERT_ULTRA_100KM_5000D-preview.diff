@@ -1,0 +1,58 @@
+--- /Users/romanemarino/Coach-Running-IA/tests-v1/prompts-AVANT/profil-07-EXPERT_ULTRA_100KM_5000D-preview.txt	2026-05-17 20:59:35
++++ /Users/romanemarino/Coach-Running-IA/tests-v1/prompts-APRES/profil-07-EXPERT_ULTRA_100KM_5000D-preview.txt	2026-05-17 21:02:01
+@@ -8,9 +8,7 @@
+ - Objectif : Trail 
+ - Temps visé : 15h00
+ - Date de course : 2026-11-01
+-- Fréquence : 6 séances/semaine
+ - Jours : Séances UNIQUEMENT sur : Lundi, Mardi, Mercredi, Vendredi, Samedi, Dimanche
+-- Jour sortie longue : Samedi
+ - Localisation : Chamonix
+ 
+ 
+@@ -45,8 +43,6 @@
+ - Récupération : 5:51 min/km
+ 
+ 
+-⚠️ UTILISE CES ALLURES EXACTES dans chaque séance !
+-
+ ═══════════════════════════════════════════════════════════════
+               PLAN DE PÉRIODISATION PRÉ-CALCULÉ
+ ═══════════════════════════════════════════════════════════════
+@@ -124,7 +120,6 @@
+ 4. Évaluation de faisabilité HONNÊTE avec chiffres
+ 5. OBLIGATOIRE : 1 séance de type "Renforcement" par semaine (comptée dans les 6 séances)
+    - Répartition : 6 séances = 5 running + 1 renfo
+-   - Durée : 30-45 min
+    - Type dans le JSON : "Renforcement"
+    - NE PAS mettre de séance "Repos" dans le plan
+    - NE PAS générer le contenu du mainSet renfo — le code le fera
+@@ -177,24 +172,20 @@
+                     FORMAT JSON
+ ═══════════════════════════════════════════════════════════════
+ {
+-  "name": "Nom du plan incluant objectif",
++  "name": "Préparation Trail 100km / 5000m D+ en 15h00 — 24 sem.",
+   "goal": "Trail",
+   "startDate": "2026-05-17",
+   "durationWeeks": 24,
+   "sessionsPerWeek": 6,
+   "targetTime": "15h00",
+-  "distance": "100km D+5000m",
++  "distance": "",
+   "location": "Chamonix",
+   "suggestedLocations": [
+     { "name": "Nom réel du lieu", "type": "PARK|TRACK|NATURE|HILL", "description": "Pour quel type de séance" }
+   ],
+   "welcomeMessage": "Message personnalisé orienté OBJECTIF et STRUCTURE du plan (NE PAS mentionner VMA ni allures)",
+-  "confidenceScore": 75,
+-  "feasibility": {
+-    "status": "BON",
+-    "message": "Analyse avec chiffres VMA/temps théorique",
+-    "safetyWarning": "Conseil sécurité"
+-  },
++  "confidenceScore": 0,
++  "feasibility": { "status": "rempli code", "message": "rempli code", "safetyWarning": "rempli code" },
+   "weeks": [
+     {
+       "weekNumber": 1,

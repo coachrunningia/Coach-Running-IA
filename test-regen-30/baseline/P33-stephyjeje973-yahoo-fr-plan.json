@@ -1,0 +1,565 @@
+{
+  "name": "projects/coach-running-ia/databases/(default)/documents/plans/1771126846688",
+  "fields": {
+    "createdAt": {
+      "stringValue": "2026-02-15T03:40:46.688Z"
+    },
+    "adaptationLog": {
+      "mapValue": {
+        "fields": {
+          "weekNumber": {
+            "integerValue": "0"
+          },
+          "adaptationsThisWeek": {
+            "integerValue": "0"
+          },
+          "adaptationHistory": {
+            "arrayValue": {}
+          }
+        }
+      }
+    },
+    "feasibility": {
+      "mapValue": {
+        "fields": {
+          "safetyWarning": {
+            "stringValue": "Échauffe-toi bien avant chaque séance et hydrate-toi correctement, surtout pendant les sorties longues. Adapte l'entraînement en cas de fatigue."
+          },
+          "message": {
+            "stringValue": "Avec une VMA de 13.5 km/h, un objectif de finisher est réaliste. Temps théorique possible entre 2h00 et 2h30. Plan progressif pour éviter les blessures."
+          },
+          "status": {
+            "stringValue": "BON"
+          }
+        }
+      }
+    },
+    "sessionsPerWeek": {
+      "integerValue": "3"
+    },
+    "targetTime": {
+      "stringValue": "Finisher"
+    },
+    "suggestedLocations": {
+      "arrayValue": {
+        "values": [
+          {
+            "mapValue": {
+              "fields": {
+                "name": {
+                  "stringValue": "Parc de la Mairie de Muirancourt"
+                },
+                "description": {
+                  "stringValue": "Idéal pour les séances d'endurance facile et les échauffements."
+                },
+                "type": {
+                  "stringValue": "PARK"
+                }
+              }
+            }
+          },
+          {
+            "mapValue": {
+              "fields": {
+                "type": {
+                  "stringValue": "NATURE"
+                },
+                "name": {
+                  "stringValue": "Chemins de halage le long de l'Oise (près de Muirancourt)"
+                },
+                "description": {
+                  "stringValue": "Parfait pour les sorties longues en nature et les séances de récupération."
+                }
+              }
+            }
+          },
+          {
+            "mapValue": {
+              "fields": {
+                "name": {
+                  "stringValue": "Stade Municipal de Noyon (proche de Muirancourt)"
+                },
+                "description": {
+                  "stringValue": "Adapté aux séances de VMA et aux intervalles."
+                },
+                "type": {
+                  "stringValue": "TRACK"
+                }
+              }
+            }
+          }
+        ]
+      }
+    },
+    "calculatedVMA": {
+      "doubleValue": 13.5
+    },
+    "userEmail": {
+      "stringValue": "stephyjeje973@yahoo.fr"
+    },
+    "weeks": {
+      "arrayValue": {
+        "values": [
+          {
+            "mapValue": {
+              "fields": {
+                "sessions": {
+                  "arrayValue": {
+                    "values": [
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "distance": {
+                              "stringValue": "9.1 km"
+                            },
+                            "duration": {
+                              "stringValue": "60 minutes"
+                            },
+                            "id": {
+                              "stringValue": "w1-s1-1771126846689-uhsf479"
+                            },
+                            "targetPace": {
+                              "stringValue": "6:38 min/km"
+                            },
+                            "warmup": {
+                              "stringValue": "10 minutes en Endurance Fondamentale (6:38 min/km)"
+                            },
+                            "intensity": {
+                              "stringValue": "Facile"
+                            },
+                            "advice": {
+                              "stringValue": "Concentre-toi sur ton posture et ton respiration. Si tu sens de la fatigue, ralentis."
+                            },
+                            "mainSet": {
+                              "stringValue": "40 minutes en Endurance Fondamentale (6:38 min/km)"
+                            },
+                            "type": {
+                              "stringValue": "Endurance Fondamentale"
+                            },
+                            "day": {
+                              "stringValue": "Mardi"
+                            },
+                            "title": {
+                              "stringValue": "Sortie Endurance Facile"
+                            },
+                            "cooldown": {
+                              "stringValue": "10 minutes en Récupération (7:24 min/km)"
+                            }
+                          }
+                        }
+                      },
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "intensity": {
+                              "stringValue": "Modéré"
+                            },
+                            "warmup": {
+                              "stringValue": "5 minutes de marche et quelques étirements dynamiques"
+                            },
+                            "duration": {
+                              "stringValue": "35 minutes"
+                            },
+                            "id": {
+                              "stringValue": "w1-s2-1771126846689-aydi6wa"
+                            },
+                            "advice": {
+                              "stringValue": "Privilégiez la qualité à la quantité. Contractez bien les muscles pendant chaque exercice."
+                            },
+                            "mainSet": {
+                              "stringValue": "3 séries de 15 squats, 3 séries de 12 fentes (chaque jambe), 3 séries de 30 secondes de gainage (planche), 3 séries de 20 montées sur pointes de pieds, exercices de proprioception (équilibre sur une jambe)"
+                            },
+                            "cooldown": {
+                              "stringValue": "5 minutes d'étirements doux"
+                            },
+                            "title": {
+                              "stringValue": "Renforcement musculaire - Spécifique Course"
+                            },
+                            "day": {
+                              "stringValue": "Jeudi"
+                            },
+                            "type": {
+                              "stringValue": "Renforcement"
+                            }
+                          }
+                        }
+                      },
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "advice": {
+                              "stringValue": "Partez lentement et terminez à une allure confortable. Emportez de l'eau et éventuellement une collation."
+                            },
+                            "targetPace": {
+                              "stringValue": "6:38 min/km"
+                            },
+                            "warmup": {
+                              "stringValue": "15 minutes en Endurance Fondamentale (6:38 min/km)"
+                            },
+                            "intensity": {
+                              "stringValue": "Facile"
+                            },
+                            "distance": {
+                              "stringValue": "16 km"
+                            },
+                            "id": {
+                              "stringValue": "w1-s3-1771126846689-qvfdq44"
+                            },
+                            "duration": {
+                              "stringValue": "105 minutes"
+                            },
+                            "day": {
+                              "stringValue": "Dimanche"
+                            },
+                            "cooldown": {
+                              "stringValue": "15 minutes en Récupération (7:24 min/km)"
+                            },
+                            "title": {
+                              "stringValue": "Sortie Longue Progressive"
+                            },
+                            "type": {
+                              "stringValue": "Sortie Longue"
+                            },
+                            "mainSet": {
+                              "stringValue": "75 minutes en Endurance Fondamentale (6:38 min/km)"
+                            }
+                          }
+                        }
+                      }
+                    ]
+                  }
+                },
+                "weekNumber": {
+                  "integerValue": "1"
+                },
+                "theme": {
+                  "stringValue": "Mise en place des bases"
+                },
+                "phase": {
+                  "stringValue": "fondamental"
+                }
+              }
+            }
+          }
+        ]
+      }
+    },
+    "welcomeMessage": {
+      "stringValue": "Bienvenue dans ton plan d'entraînement semi-marathon ! Ton VMA est de 13.5 km/h. Les allures clés seront : Endurance Fondamentale (6:38 min/km), Seuil (5:07 min/km) et VMA (4:27 min/km). Ce plan progressif tu préparera à franchir la ligne d'arrivée. Nous commencerons par une phase fondamentale pour construire une base solide."
+    },
+    "id": {
+      "stringValue": "1771126846688"
+    },
+    "userId": {
+      "stringValue": "8urKJb84hTTO6F13BAGwi3WWM4D3"
+    },
+    "fullPlanGenerated": {
+      "booleanValue": false
+    },
+    "durationWeeks": {
+      "integerValue": "19"
+    },
+    "startDate": {
+      "stringValue": "2026-02-15"
+    },
+    "confidenceScore": {
+      "integerValue": "75"
+    },
+    "generationContext": {
+      "mapValue": {
+        "fields": {
+          "vmaSource": {
+            "stringValue": "Estimation niveau Intermédiaire (Régulier)"
+          },
+          "periodizationPlan": {
+            "mapValue": {
+              "fields": {
+                "totalWeeks": {
+                  "integerValue": "19"
+                },
+                "weeklyVolumes": {
+                  "arrayValue": {
+                    "values": [
+                      {
+                        "integerValue": "30"
+                      },
+                      {
+                        "integerValue": "32"
+                      },
+                      {
+                        "integerValue": "35"
+                      },
+                      {
+                        "integerValue": "26"
+                      },
+                      {
+                        "integerValue": "38"
+                      },
+                      {
+                        "integerValue": "41"
+                      },
+                      {
+                        "integerValue": "44"
+                      },
+                      {
+                        "integerValue": "33"
+                      },
+                      {
+                        "integerValue": "48"
+                      },
+                      {
+                        "integerValue": "51"
+                      },
+                      {
+                        "integerValue": "56"
+                      },
+                      {
+                        "integerValue": "42"
+                      },
+                      {
+                        "integerValue": "60"
+                      },
+                      {
+                        "integerValue": "65"
+                      },
+                      {
+                        "integerValue": "70"
+                      },
+                      {
+                        "integerValue": "53"
+                      },
+                      {
+                        "integerValue": "47"
+                      },
+                      {
+                        "integerValue": "42"
+                      },
+                      {
+                        "integerValue": "38"
+                      }
+                    ]
+                  }
+                },
+                "weeklyPhases": {
+                  "arrayValue": {
+                    "values": [
+                      {
+                        "stringValue": "fondamental"
+                      },
+                      {
+                        "stringValue": "fondamental"
+                      },
+                      {
+                        "stringValue": "fondamental"
+                      },
+                      {
+                        "stringValue": "recuperation"
+                      },
+                      {
+                        "stringValue": "fondamental"
+                      },
+                      {
+                        "stringValue": "developpement"
+                      },
+                      {
+                        "stringValue": "developpement"
+                      },
+                      {
+                        "stringValue": "recuperation"
+                      },
+                      {
+                        "stringValue": "developpement"
+                      },
+                      {
+                        "stringValue": "developpement"
+                      },
+                      {
+                        "stringValue": "developpement"
+                      },
+                      {
+                        "stringValue": "recuperation"
+                      },
+                      {
+                        "stringValue": "specifique"
+                      },
+                      {
+                        "stringValue": "specifique"
+                      },
+                      {
+                        "stringValue": "specifique"
+                      },
+                      {
+                        "stringValue": "recuperation"
+                      },
+                      {
+                        "stringValue": "affutage"
+                      },
+                      {
+                        "stringValue": "affutage"
+                      },
+                      {
+                        "stringValue": "affutage"
+                      }
+                    ]
+                  }
+                },
+                "recoveryWeeks": {
+                  "arrayValue": {
+                    "values": [
+                      {
+                        "integerValue": "4"
+                      },
+                      {
+                        "integerValue": "8"
+                      },
+                      {
+                        "integerValue": "12"
+                      },
+                      {
+                        "integerValue": "16"
+                      }
+                    ]
+                  }
+                }
+              }
+            }
+          },
+          "generatedAt": {
+            "stringValue": "2026-02-15T03:40:39.041Z"
+          },
+          "questionnaireSnapshot": {
+            "mapValue": {
+              "fields": {
+                "level": {
+                  "stringValue": "Intermédiaire (Régulier)"
+                },
+                "injuries": {
+                  "mapValue": {
+                    "fields": {
+                      "hasInjury": {
+                        "booleanValue": false
+                      }
+                    }
+                  }
+                },
+                "preferredDays": {
+                  "arrayValue": {}
+                },
+                "raceDate": {
+                  "stringValue": "2026-06-28"
+                },
+                "recentRaceTimes": {
+                  "mapValue": {
+                    "fields": {
+                      "distance10km": {
+                        "stringValue": "1h00"
+                      }
+                    }
+                  }
+                },
+                "goal": {
+                  "stringValue": "Course sur route"
+                },
+                "city": {
+                  "stringValue": "Muirancourt"
+                },
+                "subGoal": {
+                  "stringValue": "Semi-Marathon"
+                },
+                "trailDetails": {
+                  "mapValue": {
+                    "fields": {
+                      "distance": {
+                        "integerValue": "20"
+                      },
+                      "elevation": {
+                        "integerValue": "500"
+                      }
+                    }
+                  }
+                },
+                "frequency": {
+                  "integerValue": "3"
+                },
+                "sex": {
+                  "stringValue": "Femme"
+                },
+                "startDate": {
+                  "stringValue": "2026-02-15"
+                },
+                "email": {
+                  "stringValue": "stephyjeje973@yahoo.fr"
+                },
+                "age": {
+                  "integerValue": "51"
+                },
+                "height": {
+                  "integerValue": "172"
+                },
+                "weight": {
+                  "integerValue": "62"
+                }
+              }
+            }
+          },
+          "vma": {
+            "doubleValue": 13.5
+          },
+          "paces": {
+            "mapValue": {
+              "fields": {
+                "efPace": {
+                  "stringValue": "6:38"
+                },
+                "allureSpecifique5k": {
+                  "stringValue": "4:41"
+                },
+                "seuilPace": {
+                  "stringValue": "5:07"
+                },
+                "vmaPace": {
+                  "stringValue": "4:27"
+                },
+                "allureSpecifiqueMarathon": {
+                  "stringValue": "5:33"
+                },
+                "recoveryPace": {
+                  "stringValue": "7:24"
+                },
+                "allureSpecifique10k": {
+                  "stringValue": "4:56"
+                },
+                "allureSpecifiqueSemi": {
+                  "stringValue": "5:14"
+                },
+                "eaPace": {
+                  "stringValue": "5:46"
+                }
+              }
+            }
+          },
+          "modelUsed": {
+            "stringValue": "gemini-2.0-flash"
+          }
+        }
+      }
+    },
+    "name": {
+      "stringValue": "Plan Semi-Marathon Finisher"
+    },
+    "isPreview": {
+      "booleanValue": true
+    },
+    "goal": {
+      "stringValue": "Course sur route"
+    },
+    "location": {
+      "stringValue": "Muirancourt"
+    },
+    "distance": {
+      "stringValue": "Semi-Marathon"
+    }
+  },
+  "createTime": "2026-02-15T03:40:46.825511Z",
+  "updateTime": "2026-03-18T16:37:49.290472Z"
+}

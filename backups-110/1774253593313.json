@@ -1,0 +1,601 @@
+{
+  "name": "projects/coach-running-ia/databases/(default)/documents/plans/1774253593313",
+  "fields": {
+    "paces": {
+      "mapValue": {
+        "fields": {
+          "seuilPace": {
+            "stringValue": "5:55"
+          },
+          "allureSpecifiqueMarathon": {
+            "stringValue": "6:26"
+          },
+          "allureSpecifique5k": {
+            "stringValue": "5:25"
+          },
+          "vmaPace": {
+            "stringValue": "5:09"
+          },
+          "eaPace": {
+            "stringValue": "6:41"
+          },
+          "allureSpecifiqueSemi": {
+            "stringValue": "6:03"
+          },
+          "allureSpecifique10k": {
+            "stringValue": "5:43"
+          },
+          "recoveryPace": {
+            "stringValue": "8:34"
+          },
+          "efPace": {
+            "stringValue": "7:41"
+          }
+        }
+      }
+    },
+    "adaptationLog": {
+      "mapValue": {
+        "fields": {
+          "adaptationHistory": {
+            "arrayValue": {}
+          },
+          "weekNumber": {
+            "integerValue": "0"
+          },
+          "adaptationsThisWeek": {
+            "integerValue": "0"
+          }
+        }
+      }
+    },
+    "isPreview": {
+      "booleanValue": true
+    },
+    "generationContext": {
+      "mapValue": {
+        "fields": {
+          "paces": {
+            "mapValue": {
+              "fields": {
+                "allureSpecifiqueSemi": {
+                  "stringValue": "6:03"
+                },
+                "eaPace": {
+                  "stringValue": "6:41"
+                },
+                "allureSpecifique10k": {
+                  "stringValue": "5:43"
+                },
+                "efPace": {
+                  "stringValue": "7:41"
+                },
+                "recoveryPace": {
+                  "stringValue": "8:34"
+                },
+                "seuilPace": {
+                  "stringValue": "5:55"
+                },
+                "allureSpecifique5k": {
+                  "stringValue": "5:25"
+                },
+                "vmaPace": {
+                  "stringValue": "5:09"
+                },
+                "allureSpecifiqueMarathon": {
+                  "stringValue": "6:26"
+                }
+              }
+            }
+          },
+          "vmaSource": {
+            "stringValue": "Moyenne 10km en 58min et Semi en 2h05"
+          },
+          "generatedAt": {
+            "stringValue": "2026-03-23T08:12:52.231Z"
+          },
+          "periodizationPlan": {
+            "mapValue": {
+              "fields": {
+                "totalWeeks": {
+                  "integerValue": "7"
+                },
+                "weeklyPhases": {
+                  "arrayValue": {
+                    "values": [
+                      {
+                        "stringValue": "fondamental"
+                      },
+                      {
+                        "stringValue": "fondamental"
+                      },
+                      {
+                        "stringValue": "developpement"
+                      },
+                      {
+                        "stringValue": "recuperation"
+                      },
+                      {
+                        "stringValue": "specifique"
+                      },
+                      {
+                        "stringValue": "specifique"
+                      },
+                      {
+                        "stringValue": "affutage"
+                      }
+                    ]
+                  }
+                },
+                "recoveryWeeks": {
+                  "arrayValue": {
+                    "values": [
+                      {
+                        "integerValue": "4"
+                      }
+                    ]
+                  }
+                },
+                "weeklyVolumes": {
+                  "arrayValue": {
+                    "values": [
+                      {
+                        "integerValue": "35"
+                      },
+                      {
+                        "integerValue": "38"
+                      },
+                      {
+                        "integerValue": "41"
+                      },
+                      {
+                        "integerValue": "31"
+                      },
+                      {
+                        "integerValue": "40"
+                      },
+                      {
+                        "integerValue": "46"
+                      },
+                      {
+                        "integerValue": "26"
+                      }
+                    ]
+                  }
+                }
+              }
+            }
+          },
+          "vma": {
+            "doubleValue": 11.662669371196754
+          },
+          "modelUsed": {
+            "stringValue": "gemini-2.5-flash"
+          },
+          "questionnaireSnapshot": {
+            "mapValue": {
+              "fields": {
+                "city": {
+                  "stringValue": "Genève "
+                },
+                "level": {
+                  "stringValue": "Confirmé (Compétition)"
+                },
+                "currentWeeklyVolume": {
+                  "integerValue": "35"
+                },
+                "startDate": {
+                  "stringValue": "2026-03-23"
+                },
+                "raceDate": {
+                  "stringValue": "2026-05-10"
+                },
+                "subGoal": {
+                  "stringValue": "Marathon"
+                },
+                "sex": {
+                  "stringValue": "Femme"
+                },
+                "trailDetails": {
+                  "mapValue": {
+                    "fields": {
+                      "distance": {
+                        "integerValue": "20"
+                      },
+                      "elevation": {
+                        "integerValue": "500"
+                      }
+                    }
+                  }
+                },
+                "injuries": {
+                  "mapValue": {
+                    "fields": {
+                      "hasInjury": {
+                        "booleanValue": true
+                      },
+                      "description": {
+                        "stringValue": "Periostite "
+                      }
+                    }
+                  }
+                },
+                "age": {
+                  "integerValue": "31"
+                },
+                "recentRaceTimes": {
+                  "mapValue": {
+                    "fields": {
+                      "distance10km": {
+                        "stringValue": "58min"
+                      },
+                      "distanceHalfMarathon": {
+                        "stringValue": "2h05"
+                      }
+                    }
+                  }
+                },
+                "preferredDays": {
+                  "arrayValue": {}
+                },
+                "goal": {
+                  "stringValue": "Course sur route"
+                },
+                "targetTime": {
+                  "stringValue": "4h20"
+                },
+                "vma": {
+                  "doubleValue": 11.662669371196754
+                },
+                "frequency": {
+                  "integerValue": "4"
+                },
+                "email": {
+                  "stringValue": "amandinenisbet@gmail.com"
+                },
+                "height": {
+                  "integerValue": "176"
+                },
+                "weight": {
+                  "integerValue": "70"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "userEmail": {
+      "stringValue": "amandinenisbet@gmail.com"
+    },
+    "createdAt": {
+      "stringValue": "2026-03-23T08:13:13.313Z"
+    },
+    "id": {
+      "stringValue": "1774253593313"
+    },
+    "goal": {
+      "stringValue": "Course sur route"
+    },
+    "userId": {
+      "stringValue": "MxHzyRwGEqVQTBhXZrGOrzVjNGg1"
+    },
+    "sessionsPerWeek": {
+      "integerValue": "4"
+    },
+    "vmaSource": {
+      "stringValue": "Moyenne 10km en 58min et Semi en 2h05"
+    },
+    "calculatedVMA": {
+      "doubleValue": 11.662669371196754
+    },
+    "suggestedLocations": {
+      "arrayValue": {
+        "values": [
+          {
+            "mapValue": {
+              "fields": {
+                "type": {
+                  "stringValue": "PARK"
+                },
+                "description": {
+                  "stringValue": "Idéal pour les footings en endurance fondamentale, offre des chemins plats et un sol souvent souple, parfait pour ménager les articulations et la périostite."
+                },
+                "name": {
+                  "stringValue": "Parc La Grange"
+                }
+              }
+            }
+          },
+          {
+            "mapValue": {
+              "fields": {
+                "type": {
+                  "stringValue": "NATURE"
+                },
+                "description": {
+                  "stringValue": "Un parcours plat et agréable le long de l'eau, idéal pour les sorties longues en endurance fondamentale. Permet de maintenir une allure régulière sur une surface relativement uniforme."
+                },
+                "name": {
+                  "stringValue": "Rives du Lac Léman (Quai Gustave-Ador)"
+                }
+              }
+            }
+          }
+        ]
+      }
+    },
+    "distance": {
+      "stringValue": "Marathon"
+    },
+    "fullPlanGenerated": {
+      "booleanValue": false
+    },
+    "endDate": {
+      "stringValue": "2026-05-10"
+    },
+    "vma": {
+      "doubleValue": 11.662669371196754
+    },
+    "targetTime": {
+      "stringValue": "4h20"
+    },
+    "name": {
+      "stringValue": "Préparation Marathon en 4h20 — 7 sem."
+    },
+    "weeks": {
+      "arrayValue": {
+        "values": [
+          {
+            "mapValue": {
+              "fields": {
+                "weekGoal": {
+                  "stringValue": "Mise en place de la base d'endurance"
+                },
+                "weekNumber": {
+                  "integerValue": "1"
+                },
+                "theme": {
+                  "stringValue": "Mise en place de la base d'endurance"
+                },
+                "sessions": {
+                  "arrayValue": {
+                    "values": [
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "cooldown": {
+                              "stringValue": "5 min à 8:34 min/km (Récupération)"
+                            },
+                            "distance": {
+                              "stringValue": "9 km"
+                            },
+                            "id": {
+                              "stringValue": "w1-s1-1774253593314-vmmin5w"
+                            },
+                            "advice": {
+                              "stringValue": "Concentre-toi sur une foulée légère et fluide, idéale pour ménager ta périostite. Si la douleur apparaît, marche ou arrête-toi. Le sol souple du parc est parfait pour cette séance."
+                            },
+                            "duration": {
+                              "stringValue": "1h15"
+                            },
+                            "title": {
+                              "stringValue": "Footing en Endurance Fondamentale"
+                            },
+                            "warmup": {
+                              "stringValue": "10 min à 8:34 min/km (Récupération)"
+                            },
+                            "targetPace": {
+                              "stringValue": "7:41 min/km"
+                            },
+                            "day": {
+                              "stringValue": "Mardi"
+                            },
+                            "type": {
+                              "stringValue": "Running"
+                            },
+                            "intensity": {
+                              "stringValue": "Facile"
+                            },
+                            "locationSuggestion": {
+                              "stringValue": "Parc La Grange"
+                            },
+                            "mainSet": {
+                              "stringValue": "60 min à 7:41 min/km (Endurance Fondamentale)"
+                            },
+                            "elevationGain": {
+                              "integerValue": "0"
+                            }
+                          }
+                        }
+                      },
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "warmup": {
+                              "stringValue": "10 min de mobilité articulaire et échauffement dynamique"
+                            },
+                            "duration": {
+                              "stringValue": "35-45 min"
+                            },
+                            "advice": {
+                              "stringValue": "Le renforcement est clé pour prévenir la périostite. Privilégie des exercices sans impact et écoute ton corps. Ne force jamais si une douleur se manifeste."
+                            },
+                            "title": {
+                              "stringValue": "Renfo Focus A - Quadriceps & Gainage (S1)"
+                            },
+                            "id": {
+                              "stringValue": "w1-s2-1774253593314-13zzzes"
+                            },
+                            "distance": {
+                              "stringValue": "0 km"
+                            },
+                            "cooldown": {
+                              "stringValue": "5 min d'étirements : quadriceps, ischio-jambiers, mollets, hanches"
+                            },
+                            "elevationGain": {
+                              "integerValue": "0"
+                            },
+                            "mainSet": {
+                              "stringValue": "Circuit 3 tours : Squats poids de corps (3x16), Squat bulgare (3x10/jambe), Fentes avant (3x10/jambe), Gainage ventral (3x31-60s), Dead bug (3x10/côté), Extensions mollets debout (3x21), Gainage ventral long (2x93-120s). Repos 1 min 30 entre tours."
+                            },
+                            "locationSuggestion": {
+                              "stringValue": "À la maison"
+                            },
+                            "intensity": {
+                              "stringValue": "Modéré"
+                            },
+                            "day": {
+                              "stringValue": "Jeudi"
+                            },
+                            "type": {
+                              "stringValue": "Renforcement"
+                            },
+                            "targetPace": {
+                              "stringValue": "N/A"
+                            }
+                          }
+                        }
+                      },
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "targetPace": {
+                              "stringValue": "8:34"
+                            },
+                            "day": {
+                              "stringValue": "Samedi"
+                            },
+                            "type": {
+                              "stringValue": "Récupération"
+                            },
+                            "mainSet": {
+                              "stringValue": "25 min de footing très léger à 8:34 min/km"
+                            },
+                            "intensity": {
+                              "stringValue": "Facile"
+                            },
+                            "locationSuggestion": {
+                              "stringValue": "Rives du Lac Léman (Quai Gustave-Ador)"
+                            },
+                            "elevationGain": {
+                              "integerValue": "0"
+                            },
+                            "id": {
+                              "stringValue": "w1-s3-1774253593314-t0mz1w9"
+                            },
+                            "distance": {
+                              "stringValue": "5.3 km"
+                            },
+                            "cooldown": {
+                              "stringValue": "5 min de marche + étirements (à 8:34 min/km)"
+                            },
+                            "advice": {
+                              "stringValue": "Profite de la surface plane et roulante le long du lac pour maintenir une allure constante. Hydrate-toi bien et sois attentif à toute sensation anormale au niveau de ton tibia. L'objectif est de courir sans douleur."
+                            },
+                            "duration": {
+                              "stringValue": "45 min"
+                            },
+                            "title": {
+                              "stringValue": "Footing de Récupération"
+                            },
+                            "warmup": {
+                              "stringValue": "10 min de footing léger à 8:34 min/km"
+                            }
+                          }
+                        }
+                      },
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "advice": {
+                              "stringValue": "C'est ta sortie longue de la semaine. L'allure très confortable est primordiale, surtout avec la périostite. N'hésite pas à marcher quelques minutes si tu ressens une gêne. L'important est de finir la séance sans douleur intense."
+                            },
+                            "duration": {
+                              "stringValue": "2h00"
+                            },
+                            "title": {
+                              "stringValue": "Sortie Longue - Endurance Fondamentale"
+                            },
+                            "warmup": {
+                              "stringValue": "10 min à 8:34 min/km (Récupération)"
+                            },
+                            "id": {
+                              "stringValue": "w1-s4-1774253593314-bvydfzb"
+                            },
+                            "distance": {
+                              "stringValue": "15 km"
+                            },
+                            "cooldown": {
+                              "stringValue": "10 min à 8:34 min/km (Récupération)"
+                            },
+                            "mainSet": {
+                              "stringValue": "105 min à 7:41 min/km (Endurance Fondamentale)"
+                            },
+                            "intensity": {
+                              "stringValue": "Facile"
+                            },
+                            "locationSuggestion": {
+                              "stringValue": "Rives du Lac Léman (boucle étendue)"
+                            },
+                            "elevationGain": {
+                              "integerValue": "0"
+                            },
+                            "targetPace": {
+                              "stringValue": "7:41 min/km"
+                            },
+                            "day": {
+                              "stringValue": "Dimanche"
+                            },
+                            "type": {
+                              "stringValue": "Sortie Longue"
+                            }
+                          }
+                        }
+                      }
+                    ]
+                  }
+                },
+                "phase": {
+                  "stringValue": "fondamental"
+                }
+              }
+            }
+          }
+        ]
+      }
+    },
+    "durationWeeks": {
+      "integerValue": "7"
+    },
+    "feasibility": {
+      "mapValue": {
+        "fields": {
+          "safetyWarning": {
+            "stringValue": "Fais valider la reprise avec ton kiné/médecin avant de démarrer ce plan. Adapte les séances si nécessaire."
+          },
+          "message": {
+            "stringValue": "Avec ta VMA actuelle de 11.7 km/h, ton temps théorique sur marathon est estimé à environ 4h31min. Viser 4h20min représente un objectif ambitieux qui nécessite une VMA d'environ 12.2 km/h, indiquant un écart significatif avec ton niveau actuel. Ce plan te guidera vers une progression notable, mais un objectif légèrement ajusté autour de 4h31min pourrait être plus réaliste pour cette préparation. De plus, 7 semaines sont une durée courte pour une préparation marathon optimale, le plan sera donc condensé. En alternative, un objectif de 4h45min est également envisageable pour valider l'expérience marathon."
+          },
+          "status": {
+            "stringValue": "AMBITIEUX"
+          }
+        }
+      }
+    },
+    "confidenceScore": {
+      "integerValue": "57"
+    },
+    "location": {
+      "stringValue": "Genève"
+    },
+    "welcomeMessage": {
+      "stringValue": "Bonjour ! Bienvenue dans ton plan d'entraînement intensif de 7 semaines pour le marathon de Genève. Ce programme est conçu pour t'aider à atteindre ton objectif de 4h20min en structurant ta progression de manière cohérente, en commençant par le renforcement de ta base d'endurance fondamentale. Nous allons progressivement développer tes capacités pour te préparer spécifiquement à la distance. La première semaine est dédiée à la phase fondamentale, axée sur l'endurance pure et le renforcement. Nous te recommandons de consulter un médecin avant de débuter ce programme, notamment pour obtenir un certificat médical d'aptitude au sport."
+    },
+    "startDate": {
+      "stringValue": "2026-03-23"
+    }
+  },
+  "createTime": "2026-03-23T08:13:25.330802Z",
+  "updateTime": "2026-03-23T08:13:25.330802Z"
+}

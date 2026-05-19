@@ -1,0 +1,823 @@
+{
+  "name": "projects/coach-running-ia/databases/(default)/documents/plans/1779086346189",
+  "fields": {
+    "suggestedLocations": {
+      "arrayValue": {
+        "values": [
+          {
+            "mapValue": {
+              "fields": {
+                "description": {
+                  "stringValue": "Idéal pour les footings longs et les sorties tempo sur terrain plat."
+                },
+                "name": {
+                  "stringValue": "Berges du Meu et du Canal d'Ille-et-Rance"
+                },
+                "type": {
+                  "stringValue": "NATURE"
+                }
+              }
+            }
+          },
+          {
+            "mapValue": {
+              "fields": {
+                "type": {
+                  "stringValue": "PARK"
+                },
+                "description": {
+                  "stringValue": "Parfait pour les footings en endurance fondamentale, avec quelques légères ondulations."
+                },
+                "name": {
+                  "stringValue": "Étang de la Planchette (Montfort-sur-Meu)"
+                }
+              }
+            }
+          },
+          {
+            "mapValue": {
+              "fields": {
+                "type": {
+                  "stringValue": "TRACK"
+                },
+                "description": {
+                  "stringValue": "Piste d'athlétisme pour les séances de VMA et de vitesse (à quelques minutes de Montfort)."
+                },
+                "name": {
+                  "stringValue": "Complexe Sportif de Bréal-sous-Montfort"
+                }
+              }
+            }
+          }
+        ]
+      }
+    },
+    "confidenceScore": {
+      "integerValue": "100"
+    },
+    "vmaSource": {
+      "stringValue": "Moyenne 10km en 38:06 et Semi en 1h24"
+    },
+    "adaptationLog": {
+      "mapValue": {
+        "fields": {
+          "weekNumber": {
+            "integerValue": "0"
+          },
+          "adaptationsThisWeek": {
+            "integerValue": "0"
+          },
+          "adaptationHistory": {
+            "arrayValue": {}
+          }
+        }
+      }
+    },
+    "generationContext": {
+      "mapValue": {
+        "fields": {
+          "vmaSource": {
+            "stringValue": "Moyenne 10km en 38:06 et Semi en 1h24"
+          },
+          "questionnaireSnapshot": {
+            "mapValue": {
+              "fields": {
+                "frequency": {
+                  "integerValue": "6"
+                },
+                "vma": {
+                  "doubleValue": 17.59112463883191
+                },
+                "email": {
+                  "stringValue": "antoineg.gde@outlook.fr"
+                },
+                "city": {
+                  "stringValue": "Montfort sur meu"
+                },
+                "currentWeeklyVolume": {
+                  "integerValue": "80"
+                },
+                "level": {
+                  "stringValue": "Expert (Performance)"
+                },
+                "recentRaceTimes": {
+                  "mapValue": {
+                    "fields": {
+                      "distanceMarathon": {
+                        "stringValue": "3h12"
+                      },
+                      "distanceHalfMarathon": {
+                        "stringValue": "1h24"
+                      },
+                      "distance10km": {
+                        "stringValue": "38:06"
+                      }
+                    }
+                  }
+                },
+                "startDate": {
+                  "stringValue": "2026-05-18"
+                },
+                "injuries": {
+                  "mapValue": {
+                    "fields": {
+                      "hasInjury": {
+                        "booleanValue": false
+                      }
+                    }
+                  }
+                },
+                "subGoal": {
+                  "stringValue": "Marathon"
+                },
+                "sex": {
+                  "stringValue": "Homme"
+                },
+                "age": {
+                  "integerValue": "32"
+                },
+                "goal": {
+                  "stringValue": "Course sur route"
+                },
+                "height": {
+                  "integerValue": "180"
+                },
+                "preferredDays": {
+                  "arrayValue": {
+                    "values": [
+                      {
+                        "stringValue": "Lundi"
+                      },
+                      {
+                        "stringValue": "Mardi"
+                      },
+                      {
+                        "stringValue": "Mercredi"
+                      },
+                      {
+                        "stringValue": "Jeudi"
+                      },
+                      {
+                        "stringValue": "Samedi"
+                      },
+                      {
+                        "stringValue": "Dimanche"
+                      }
+                    ]
+                  }
+                },
+                "weight": {
+                  "integerValue": "72"
+                },
+                "raceDate": {
+                  "stringValue": "2026-10-18"
+                },
+                "targetTime": {
+                  "stringValue": "3h00"
+                }
+              }
+            }
+          },
+          "paces": {
+            "mapValue": {
+              "fields": {
+                "vmaPace": {
+                  "stringValue": "3:25"
+                },
+                "recoveryPace": {
+                  "stringValue": "5:41"
+                },
+                "allureSpecifiqueSemi": {
+                  "stringValue": "4:01"
+                },
+                "seuilPace": {
+                  "stringValue": "3:55"
+                },
+                "efPace": {
+                  "stringValue": "5:05"
+                },
+                "allureSpecifique5k": {
+                  "stringValue": "3:35"
+                },
+                "allureSpecifique10k": {
+                  "stringValue": "3:47"
+                },
+                "allureSpecifiqueMarathon": {
+                  "stringValue": "4:16"
+                },
+                "eaPace": {
+                  "stringValue": "4:26"
+                }
+              }
+            }
+          },
+          "modelUsed": {
+            "stringValue": "gemini-2.5-flash"
+          },
+          "periodizationPlan": {
+            "mapValue": {
+              "fields": {
+                "weeklyVolumes": {
+                  "arrayValue": {
+                    "values": [
+                      {
+                        "integerValue": "80"
+                      },
+                      {
+                        "integerValue": "80"
+                      },
+                      {
+                        "integerValue": "86"
+                      },
+                      {
+                        "integerValue": "71"
+                      },
+                      {
+                        "integerValue": "81"
+                      },
+                      {
+                        "integerValue": "86"
+                      },
+                      {
+                        "integerValue": "86"
+                      },
+                      {
+                        "integerValue": "77"
+                      },
+                      {
+                        "integerValue": "86"
+                      },
+                      {
+                        "integerValue": "86"
+                      },
+                      {
+                        "integerValue": "86"
+                      },
+                      {
+                        "integerValue": "77"
+                      },
+                      {
+                        "integerValue": "86"
+                      },
+                      {
+                        "integerValue": "86"
+                      },
+                      {
+                        "integerValue": "86"
+                      },
+                      {
+                        "integerValue": "77"
+                      },
+                      {
+                        "integerValue": "86"
+                      },
+                      {
+                        "integerValue": "86"
+                      },
+                      {
+                        "integerValue": "86"
+                      },
+                      {
+                        "integerValue": "64"
+                      },
+                      {
+                        "integerValue": "56"
+                      },
+                      {
+                        "integerValue": "48"
+                      }
+                    ]
+                  }
+                },
+                "totalWeeks": {
+                  "integerValue": "22"
+                },
+                "recoveryWeeks": {
+                  "arrayValue": {
+                    "values": [
+                      {
+                        "integerValue": "4"
+                      },
+                      {
+                        "integerValue": "8"
+                      },
+                      {
+                        "integerValue": "12"
+                      },
+                      {
+                        "integerValue": "16"
+                      }
+                    ]
+                  }
+                },
+                "weeklyPhases": {
+                  "arrayValue": {
+                    "values": [
+                      {
+                        "stringValue": "fondamental"
+                      },
+                      {
+                        "stringValue": "fondamental"
+                      },
+                      {
+                        "stringValue": "fondamental"
+                      },
+                      {
+                        "stringValue": "recuperation"
+                      },
+                      {
+                        "stringValue": "fondamental"
+                      },
+                      {
+                        "stringValue": "fondamental"
+                      },
+                      {
+                        "stringValue": "developpement"
+                      },
+                      {
+                        "stringValue": "recuperation"
+                      },
+                      {
+                        "stringValue": "developpement"
+                      },
+                      {
+                        "stringValue": "developpement"
+                      },
+                      {
+                        "stringValue": "developpement"
+                      },
+                      {
+                        "stringValue": "recuperation"
+                      },
+                      {
+                        "stringValue": "developpement"
+                      },
+                      {
+                        "stringValue": "specifique"
+                      },
+                      {
+                        "stringValue": "specifique"
+                      },
+                      {
+                        "stringValue": "recuperation"
+                      },
+                      {
+                        "stringValue": "specifique"
+                      },
+                      {
+                        "stringValue": "specifique"
+                      },
+                      {
+                        "stringValue": "specifique"
+                      },
+                      {
+                        "stringValue": "affutage"
+                      },
+                      {
+                        "stringValue": "affutage"
+                      },
+                      {
+                        "stringValue": "affutage"
+                      }
+                    ]
+                  }
+                }
+              }
+            }
+          },
+          "vma": {
+            "doubleValue": 17.59112463883191
+          },
+          "generatedAt": {
+            "stringValue": "2026-05-18T06:38:37.443Z"
+          }
+        }
+      }
+    },
+    "id": {
+      "stringValue": "1779086346189"
+    },
+    "userId": {
+      "stringValue": "G1QYJ1KzqqWXoB5BbcjKQFmORC02"
+    },
+    "weeks": {
+      "arrayValue": {
+        "values": [
+          {
+            "mapValue": {
+              "fields": {
+                "theme": {
+                  "stringValue": "Introduction au Fondamental et adaptation"
+                },
+                "weekNumber": {
+                  "integerValue": "1"
+                },
+                "weekGoal": {
+                  "stringValue": "Introduction au Fondamental et adaptation"
+                },
+                "sessions": {
+                  "arrayValue": {
+                    "values": [
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "id": {
+                              "stringValue": "w1-s1-1779086346190-c95x5s9"
+                            },
+                            "distance": {
+                              "stringValue": "10.0 km"
+                            },
+                            "title": {
+                              "stringValue": "Footing + lignes droites"
+                            },
+                            "type": {
+                              "stringValue": "Jogging"
+                            },
+                            "targetPace": {
+                              "stringValue": "5:05 min/km"
+                            },
+                            "warmup": {
+                              "stringValue": "5 min de marche, à 5:41 min/km puis 10 min de footing en endurance fondamentale."
+                            },
+                            "intensity": {
+                              "stringValue": "Facile"
+                            },
+                            "cooldown": {
+                              "stringValue": "5 min de footing lent puis marche. (à 5:41 min/km)"
+                            },
+                            "elevationGain": {
+                              "integerValue": "0"
+                            },
+                            "day": {
+                              "stringValue": "Lundi"
+                            },
+                            "locationSuggestion": {
+                              "stringValue": "Berges du Meu et du Canal d'Ille-et-Rance"
+                            },
+                            "duration": {
+                              "stringValue": "51 min"
+                            },
+                            "mainSet": {
+                              "stringValue": "25 min de footing en endurance fondamentale (5:05), puis 4 à 6 lignes droites : ~60-80 m en accélération souple et progressive sur terrain plat (on monte en fréquence de jambes sans forcer), avec retour à allure de footing et récupération complète entre chaque. C'est trop court pour solliciter le cardio — c'est un travail de coordination, pas de vitesse. (allure : 5:05 min/km)"
+                            },
+                            "advice": {
+                              "stringValue": "Les lignes droites réveillent la coordination et la qualité de foulée sans coût cardiovasculaire — elles sont trop courtes pour être un travail de vitesse."
+                            }
+                          }
+                        }
+                      },
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "locationSuggestion": {
+                              "stringValue": "À la maison"
+                            },
+                            "mainSet": {
+                              "stringValue": "Circuit 3 tours : Squats poids de corps (3x16), Squat bulgare (3x10/jambe), Fentes avant (3x10/jambe), Gainage ventral (3x31-60s), Dead bug (3x10/côté), Extensions mollets debout (3x21), Gainage ventral long (2x93-120s). Repos 1 min 30 entre tours."
+                            },
+                            "duration": {
+                              "stringValue": "35-45 min"
+                            },
+                            "day": {
+                              "stringValue": "Mardi"
+                            },
+                            "advice": {
+                              "stringValue": "Concentre-toi sur la qualité du mouvement plutôt que sur la quantité. Une bonne technique est primordiale pour éviter les blessures."
+                            },
+                            "title": {
+                              "stringValue": "Renfo Focus A - Quadriceps & Gainage (S1)"
+                            },
+                            "id": {
+                              "stringValue": "w1-s2-1779086346190-93v6prp"
+                            },
+                            "distance": {
+                              "stringValue": "0 km"
+                            },
+                            "cooldown": {
+                              "stringValue": "5 min d'étirements : quadriceps, ischio-jambiers, mollets, hanches"
+                            },
+                            "intensity": {
+                              "stringValue": "Modéré"
+                            },
+                            "elevationGain": {
+                              "integerValue": "0"
+                            },
+                            "type": {
+                              "stringValue": "Renforcement"
+                            },
+                            "targetPace": {
+                              "stringValue": "N/A"
+                            },
+                            "warmup": {
+                              "stringValue": "10 min de mobilité articulaire et échauffement dynamique"
+                            }
+                          }
+                        }
+                      },
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "day": {
+                              "stringValue": "Mercredi"
+                            },
+                            "locationSuggestion": {
+                              "stringValue": "Étang de la Planchette (Montfort-sur-Meu)"
+                            },
+                            "duration": {
+                              "stringValue": "1h01 min"
+                            },
+                            "mainSet": {
+                              "stringValue": "43 min sur parcours vallonné. Les montées les plus raides se franchissent en marche active et dynamique (poussée des bras, gainage). Le plat et les descentes douces se courent en endurance fondamentale (5:05 en référence). On gère l'effort, pas le chrono. (allure : 5:05 min/km)"
+                            },
+                            "advice": {
+                              "stringValue": "Franchir les montées raides en marche active limite le travail excentrique tout en construisant les chaînes musculaires. Une approche accessible du relief, peu traumatisante."
+                            },
+                            "id": {
+                              "stringValue": "w1-s3-1779086346190-fg2n4gd"
+                            },
+                            "distance": {
+                              "stringValue": "12.0 km"
+                            },
+                            "title": {
+                              "stringValue": "Footing vallonné, côtes en marche"
+                            },
+                            "type": {
+                              "stringValue": "Jogging"
+                            },
+                            "warmup": {
+                              "stringValue": "10 min de footing, à 5:41 min/km en endurance fondamentale sur terrain plat ou faux-plat."
+                            },
+                            "targetPace": {
+                              "stringValue": "5:05 min/km"
+                            },
+                            "intensity": {
+                              "stringValue": "Facile"
+                            },
+                            "cooldown": {
+                              "stringValue": "5 à 10 min de footing plat puis marche. (à 5:41 min/km)"
+                            },
+                            "elevationGain": {
+                              "integerValue": "0"
+                            }
+                          }
+                        }
+                      },
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "duration": {
+                              "stringValue": "51 min"
+                            },
+                            "mainSet": {
+                              "stringValue": "5 blocs de 5 min de footing en endurance fondamentale (5:05), entrecoupés de 1 min de marche. Le footing reste lent et confortable ; la marche est une respiration de confort, pas une récupération d'effort dur. (allure : 5:05 min/km)"
+                            },
+                            "locationSuggestion": {
+                              "stringValue": "Berges du Meu et du Canal d'Ille-et-Rance"
+                            },
+                            "day": {
+                              "stringValue": "Jeudi"
+                            },
+                            "advice": {
+                              "stringValue": "Découper l'effort permet d'accumuler du volume aérobie en réduisant la charge mécanique globale. Idéal pour progresser sans casser."
+                            },
+                            "title": {
+                              "stringValue": "Footing en blocs souples"
+                            },
+                            "distance": {
+                              "stringValue": "10.0 km"
+                            },
+                            "id": {
+                              "stringValue": "w1-s4-1779086346190-zo7vocs"
+                            },
+                            "elevationGain": {
+                              "integerValue": "0"
+                            },
+                            "intensity": {
+                              "stringValue": "Facile"
+                            },
+                            "cooldown": {
+                              "stringValue": "5 min de marche. (à 5:41 min/km)"
+                            },
+                            "warmup": {
+                              "stringValue": "5 min de marche active, à 5:41 min/km."
+                            },
+                            "targetPace": {
+                              "stringValue": "5:05 min/km"
+                            },
+                            "type": {
+                              "stringValue": "Jogging"
+                            }
+                          }
+                        }
+                      },
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "cooldown": {
+                              "stringValue": "5 à 10 min de footing plat puis marche. (à 5:41 min/km)"
+                            },
+                            "intensity": {
+                              "stringValue": "Facile"
+                            },
+                            "elevationGain": {
+                              "integerValue": "0"
+                            },
+                            "type": {
+                              "stringValue": "Jogging"
+                            },
+                            "warmup": {
+                              "stringValue": "10 min de footing, à 5:41 min/km en endurance fondamentale sur terrain plat ou faux-plat."
+                            },
+                            "targetPace": {
+                              "stringValue": "5:05 min/km"
+                            },
+                            "title": {
+                              "stringValue": "Footing vallonné, côtes en marche"
+                            },
+                            "id": {
+                              "stringValue": "w1-s5-1779086346190-3ekq9ap"
+                            },
+                            "distance": {
+                              "stringValue": "12.0 km"
+                            },
+                            "advice": {
+                              "stringValue": "Franchir les montées raides en marche active limite le travail excentrique tout en construisant les chaînes musculaires. Une approche accessible du relief, peu traumatisante."
+                            },
+                            "locationSuggestion": {
+                              "stringValue": "Étang de la Planchette (Montfort-sur-Meu)"
+                            },
+                            "mainSet": {
+                              "stringValue": "43 min sur parcours vallonné. Les montées les plus raides se franchissent en marche active et dynamique (poussée des bras, gainage). Le plat et les descentes douces se courent en endurance fondamentale (5:05 en référence). On gère l'effort, pas le chrono. (allure : 5:05 min/km)"
+                            },
+                            "duration": {
+                              "stringValue": "1h01 min"
+                            },
+                            "day": {
+                              "stringValue": "Samedi"
+                            }
+                          }
+                        }
+                      },
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "day": {
+                              "stringValue": "Dimanche"
+                            },
+                            "mainSet": {
+                              "stringValue": "1h51 min de course continue en endurance fondamentale (allure : 5:05 min/km). Maintiens une allure stable et une conversation aisée tout au long de la sortie. Hydrate-toi régulièrement."
+                            },
+                            "duration": {
+                              "stringValue": "2h01 min"
+                            },
+                            "locationSuggestion": {
+                              "stringValue": "Berges du Meu et du Canal d'Ille-et-Rance"
+                            },
+                            "advice": {
+                              "stringValue": "C'est la séance clé de la semaine pour développer ton endurance. La patience est ta meilleure alliée. N'hésite pas à emporter de l'eau ou une boisson énergétique. Écoute ton corps et ne force jamais en cas de douleur."
+                            },
+                            "distance": {
+                              "stringValue": "24.0 km"
+                            },
+                            "id": {
+                              "stringValue": "w1-s6-1779086346190-k79mief"
+                            },
+                            "title": {
+                              "stringValue": "Sortie Longue en endurance fondamentale"
+                            },
+                            "warmup": {
+                              "stringValue": "5 min de marche rapide, suivi de 5 min de course très lente (récupération : 5:41 min/km)"
+                            },
+                            "targetPace": {
+                              "stringValue": "5:05 min/km"
+                            },
+                            "type": {
+                              "stringValue": "Sortie Longue"
+                            },
+                            "elevationGain": {
+                              "integerValue": "0"
+                            },
+                            "cooldown": {
+                              "stringValue": "5 min de marche lente (à 5:41 min/km)"
+                            },
+                            "intensity": {
+                              "stringValue": "Facile"
+                            }
+                          }
+                        }
+                      }
+                    ]
+                  }
+                },
+                "phase": {
+                  "stringValue": "fondamental"
+                }
+              }
+            }
+          }
+        ]
+      }
+    },
+    "durationWeeks": {
+      "integerValue": "22"
+    },
+    "name": {
+      "stringValue": "Préparation Marathon en 3h00 — 22 sem."
+    },
+    "welcomeMessage": {
+      "stringValue": "Bienvenue dans ton plan d'entraînement de 22 semaines pour le Marathon ! Ton objectif de terminer en 3h00 est ambitieux et réaliste, parfaitement aligné avec ton niveau de coureur confirmé. Ce programme est structuré pour te faire progresser progressivement, en construisant une base solide d'endurance, puis en développant tes qualités de vitesse et de résistance spécifiques au marathon. Chaque semaine sera un pas de plus vers ton succès le jour J. Nous te recommandons de consulter un médecin avant de débuter ce programme, notamment pour obtenir un certificat médical d'aptitude au sport."
+    },
+    "fullPlanGenerated": {
+      "booleanValue": false
+    },
+    "targetTime": {
+      "stringValue": "3h00"
+    },
+    "userEmail": {
+      "stringValue": "antoineg.gde@outlook.fr"
+    },
+    "vma": {
+      "doubleValue": 17.59112463883191
+    },
+    "createdAt": {
+      "stringValue": "2026-05-18T06:39:06.189Z"
+    },
+    "location": {
+      "stringValue": "Montfort sur meu"
+    },
+    "feasibility": {
+      "mapValue": {
+        "fields": {
+          "message": {
+            "stringValue": "Avec ta VMA de 17.6 km/h, ton temps théorique sur marathon est d'environ 3h00min. Ton objectif de 3h00min est cohérent avec ton niveau. C'est un plan réaliste et bien calibré."
+          },
+          "safetyWarning": {
+            "stringValue": "Hydrate-toi bien, échauffe-toi avant chaque séance et accorde-toi un vrai temps de récupération.\n\n⚠️ DURÉE DU PLAN : 22 semaines, c'est long pour ton profil. La plupart des coureurs de ton niveau préparent cette distance en 20 semaines maximum. Un plan trop long peut entraîner de la lassitude et une stagnation. Si tu te sens prêt, tu peux envisager de rapprocher ta date de début."
+          },
+          "status": {
+            "stringValue": "EXCELLENT"
+          }
+        }
+      }
+    },
+    "paces": {
+      "mapValue": {
+        "fields": {
+          "recoveryPace": {
+            "stringValue": "5:41"
+          },
+          "vmaPace": {
+            "stringValue": "3:25"
+          },
+          "allureSpecifiqueSemi": {
+            "stringValue": "4:01"
+          },
+          "seuilPace": {
+            "stringValue": "3:55"
+          },
+          "allureSpecifique5k": {
+            "stringValue": "3:35"
+          },
+          "efPace": {
+            "stringValue": "5:05"
+          },
+          "allureSpecifique10k": {
+            "stringValue": "3:47"
+          },
+          "eaPace": {
+            "stringValue": "4:26"
+          },
+          "allureSpecifiqueMarathon": {
+            "stringValue": "4:16"
+          }
+        }
+      }
+    },
+    "startDate": {
+      "stringValue": "2026-05-25"
+    },
+    "distance": {
+      "stringValue": "Marathon"
+    },
+    "isPreview": {
+      "booleanValue": true
+    },
+    "goal": {
+      "stringValue": "Course sur route"
+    },
+    "raceDate": {
+      "stringValue": "2026-10-18"
+    },
+    "sessionsPerWeek": {
+      "integerValue": "6"
+    },
+    "endDate": {
+      "stringValue": "2026-10-26"
+    },
+    "calculatedVMA": {
+      "doubleValue": 17.59112463883191
+    }
+  },
+  "createTime": "2026-05-18T06:39:23.964675Z",
+  "updateTime": "2026-05-18T18:36:39.385453Z"
+}

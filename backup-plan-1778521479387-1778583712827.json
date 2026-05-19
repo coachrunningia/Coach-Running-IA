@@ -1,0 +1,2431 @@
+{
+  "name": "projects/coach-running-ia/databases/(default)/documents/plans/1778521479387",
+  "fields": {
+    "suggestedLocations": {
+      "arrayValue": {
+        "values": [
+          {
+            "mapValue": {
+              "fields": {
+                "name": {
+                  "stringValue": "Sentiers de campagne autour de Saint-Pierre-de-Côle"
+                },
+                "description": {
+                  "stringValue": "Idéal pour les footings en endurance fondamentale, offrant des chemins variés et de légères ondulations."
+                },
+                "type": {
+                  "stringValue": "NATURE"
+                }
+              }
+            }
+          },
+          {
+            "mapValue": {
+              "fields": {
+                "type": {
+                  "stringValue": "NATURE"
+                },
+                "name": {
+                  "stringValue": "Bords de Côle (proche Saint-Pierre-de-Côle)"
+                },
+                "description": {
+                  "stringValue": "Parfait pour les footings plats et rythmés, le long de la rivière, en toute tranquillité."
+                }
+              }
+            }
+          },
+          {
+            "mapValue": {
+              "fields": {
+                "type": {
+                  "stringValue": "NATURE"
+                },
+                "name": {
+                  "stringValue": "Forêt Domaniale de Lanmary (environs)"
+                },
+                "description": {
+                  "stringValue": "Excellente pour les sorties longues en nature ou les footings vallonnés, avec de beaux sentiers et un sol souple."
+                }
+              }
+            }
+          }
+        ]
+      }
+    },
+    "calculatedVMA": {
+      "doubleValue": 16.16925202555826
+    },
+    "vmaSource": {
+      "stringValue": "Moyenne Semi en 1h34 et Marathon en 3h10"
+    },
+    "targetTime": {
+      "stringValue": "Finisher"
+    },
+    "endDate": {
+      "stringValue": "2026-08-03"
+    },
+    "vma": {
+      "doubleValue": 16.16925202555826
+    },
+    "fullPlanGenerated": {
+      "booleanValue": true
+    },
+    "name": {
+      "stringValue": "Programme Perte de Poids — 12 semaines"
+    },
+    "guardStats": {
+      "mapValue": {
+        "fields": {
+          "hardSessionsDowngraded": {
+            "integerValue": "0"
+          },
+          "dplusRedistributed": {
+            "integerValue": "0"
+          },
+          "postValidatorFixes": {
+            "integerValue": "12"
+          },
+          "sessionKmCapped": {
+            "integerValue": "0"
+          },
+          "volumeScaledUp": {
+            "integerValue": "1"
+          },
+          "affutageCorrected": {
+            "integerValue": "0"
+          },
+          "slDurationCapped": {
+            "integerValue": "0"
+          },
+          "progressionSmoothed": {
+            "integerValue": "0"
+          },
+          "volumeScaledDown": {
+            "integerValue": "11"
+          }
+        }
+      }
+    },
+    "weeks": {
+      "arrayValue": {
+        "values": [
+          {
+            "mapValue": {
+              "fields": {
+                "weekNumber": {
+                  "integerValue": "1"
+                },
+                "sessions": {
+                  "arrayValue": {
+                    "values": [
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "elevationGain": {
+                              "integerValue": "0"
+                            },
+                            "locationSuggestion": {
+                              "stringValue": "Boucle plate aux alentours de Saint-Pierre-de-Côle"
+                            },
+                            "intensity": {
+                              "stringValue": "Facile"
+                            },
+                            "mainSet": {
+                              "stringValue": "7km à 5:32 min/km (EF, 70 % VMA). Cadence relâchée, respiration nasale possible. Optionnel : 4×100m lignes droites en fin de séance."
+                            },
+                            "day": {
+                              "stringValue": "Mardi"
+                            },
+                            "type": {
+                              "stringValue": "Jogging"
+                            },
+                            "targetPace": {
+                              "stringValue": "5:32 min/km"
+                            },
+                            "warmup": {
+                              "stringValue": "5 min de marche active + 5 min footing très léger"
+                            },
+                            "advice": {
+                              "stringValue": "Le footing EF est la base du plan. Pas d'objectif d'allure — privilégie la sensation. Le renfo en fin compense l'absence de jour dédié force."
+                            },
+                            "title": {
+                              "stringValue": "Footing EF — 7 km"
+                            },
+                            "duration": {
+                              "stringValue": "39 min"
+                            },
+                            "distance": {
+                              "stringValue": "7 km"
+                            },
+                            "cooldown": {
+                              "stringValue": "5 min retour au calme + 8 min mini-circuit renfo : 3×(15 squats lestés ou au poids du corps, 10 fentes alternées/jambe, 12 pompes, 40s gainage)"
+                            },
+                            "id": {
+                              "stringValue": "w1-s1-1778580968617"
+                            }
+                          }
+                        }
+                      },
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "warmup": {
+                              "stringValue": "10 min de marche active puis 5 min footing très léger pour amorcer"
+                            },
+                            "duration": {
+                              "stringValue": "39 min"
+                            },
+                            "title": {
+                              "stringValue": "Sortie Longue molle — 7 km"
+                            },
+                            "advice": {
+                              "stringValue": "Cette 2e sortie longue est volontairement molle. Le but n'est pas la performance mais l'accumulation de durée à faible intensité. Le mini-circuit renfo en fin de séance préserve la masse maigre (clé pour la perte de poids)."
+                            },
+                            "distance": {
+                              "stringValue": "7 km"
+                            },
+                            "cooldown": {
+                              "stringValue": "5 min marche active + étirements ciblés (mollets, ischios) + 5 min mini-circuit renfo : 2×(15 squats lestés, 10 fentes/jambe, 30s gainage)"
+                            },
+                            "id": {
+                              "stringValue": "w1-s2-1778580968618"
+                            },
+                            "elevationGain": {
+                              "integerValue": "0"
+                            },
+                            "intensity": {
+                              "stringValue": "Facile"
+                            },
+                            "locationSuggestion": {
+                              "stringValue": "Sentiers de la campagne de Saint-Pierre-de-Côle, ou boucle vallonnée si envie de variété"
+                            },
+                            "mainSet": {
+                              "stringValue": "Allure très facile à 5:32-6:00 min/km (60-70 % VMA). C'est une 2e sortie longue MOLLE — durée prime sur intensité. Marche/course autorisée si jambes lourdes."
+                            },
+                            "type": {
+                              "stringValue": "Sortie Longue"
+                            },
+                            "day": {
+                              "stringValue": "Jeudi"
+                            },
+                            "targetPace": {
+                              "stringValue": "5:32 min/km"
+                            }
+                          }
+                        }
+                      },
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "warmup": {
+                              "stringValue": "10 min de marche active puis 5 min footing très léger pour amorcer"
+                            },
+                            "advice": {
+                              "stringValue": "La sortie longue principale est LE pilier de ce plan. Pour la perte de poids, la durée en zone aérobie maximise l'oxydation lipidique. Hydratation toutes les 20 min, gel optionnel après 1h15."
+                            },
+                            "title": {
+                              "stringValue": "Sortie Longue principale — 11 km"
+                            },
+                            "duration": {
+                              "stringValue": "1h 01 min"
+                            },
+                            "id": {
+                              "stringValue": "w1-s3-1778580968619"
+                            },
+                            "cooldown": {
+                              "stringValue": "10 min marche active + étirements complets (mollets, ischios, quadriceps, fessiers, hanches) + 3 min gainage statique (planche 1 min, planches latérales 30s/côté)"
+                            },
+                            "distance": {
+                              "stringValue": "11 km"
+                            },
+                            "elevationGain": {
+                              "integerValue": "0"
+                            },
+                            "mainSet": {
+                              "stringValue": "Allure stable à 5:32 min/km (EF, 70 % VMA). Conversation possible mais légèrement gênée. 11km en aisance — visez la régularité."
+                            },
+                            "intensity": {
+                              "stringValue": "Facile"
+                            },
+                            "locationSuggestion": {
+                              "stringValue": "Sentiers de la campagne de Saint-Pierre-de-Côle, ou boucle vallonnée si envie de variété"
+                            },
+                            "type": {
+                              "stringValue": "Sortie Longue"
+                            },
+                            "day": {
+                              "stringValue": "Dimanche"
+                            },
+                            "targetPace": {
+                              "stringValue": "5:32 min/km"
+                            }
+                          }
+                        }
+                      }
+                    ]
+                  }
+                },
+                "theme": {
+                  "stringValue": "Démarrage en aisance respiratoire"
+                },
+                "phase": {
+                  "stringValue": "fondamental"
+                }
+              }
+            }
+          },
+          {
+            "mapValue": {
+              "fields": {
+                "theme": {
+                  "stringValue": "Construction du volume aérobie"
+                },
+                "sessions": {
+                  "arrayValue": {
+                    "values": [
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "warmup": {
+                              "stringValue": "5 min de marche active + 5 min footing très léger"
+                            },
+                            "duration": {
+                              "stringValue": "44 min"
+                            },
+                            "advice": {
+                              "stringValue": "Le footing EF est la base du plan. Pas d'objectif d'allure — privilégie la sensation. Le renfo en fin compense l'absence de jour dédié force."
+                            },
+                            "title": {
+                              "stringValue": "Footing EF — 8 km"
+                            },
+                            "cooldown": {
+                              "stringValue": "5 min retour au calme + 8 min mini-circuit renfo : 3×(15 squats lestés ou au poids du corps, 10 fentes alternées/jambe, 12 pompes, 40s gainage)"
+                            },
+                            "distance": {
+                              "stringValue": "8 km"
+                            },
+                            "id": {
+                              "stringValue": "w2-s1-1778580969617"
+                            },
+                            "elevationGain": {
+                              "integerValue": "0"
+                            },
+                            "intensity": {
+                              "stringValue": "Facile"
+                            },
+                            "locationSuggestion": {
+                              "stringValue": "Boucle plate aux alentours de Saint-Pierre-de-Côle"
+                            },
+                            "mainSet": {
+                              "stringValue": "8km à 5:32 min/km (EF, 70 % VMA). Cadence relâchée, respiration nasale possible. Optionnel : 4×100m lignes droites en fin de séance."
+                            },
+                            "type": {
+                              "stringValue": "Jogging"
+                            },
+                            "day": {
+                              "stringValue": "Mardi"
+                            },
+                            "targetPace": {
+                              "stringValue": "5:32 min/km"
+                            }
+                          }
+                        }
+                      },
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "intensity": {
+                              "stringValue": "Facile"
+                            },
+                            "locationSuggestion": {
+                              "stringValue": "Sentiers de la campagne de Saint-Pierre-de-Côle, ou boucle vallonnée si envie de variété"
+                            },
+                            "mainSet": {
+                              "stringValue": "Allure très facile à 5:32-6:00 min/km (60-70 % VMA). C'est une 2e sortie longue MOLLE — durée prime sur intensité. Marche/course autorisée si jambes lourdes."
+                            },
+                            "elevationGain": {
+                              "integerValue": "0"
+                            },
+                            "targetPace": {
+                              "stringValue": "5:32 min/km"
+                            },
+                            "type": {
+                              "stringValue": "Sortie Longue"
+                            },
+                            "day": {
+                              "stringValue": "Jeudi"
+                            },
+                            "duration": {
+                              "stringValue": "44 min"
+                            },
+                            "advice": {
+                              "stringValue": "Cette 2e sortie longue est volontairement molle. Le but n'est pas la performance mais l'accumulation de durée à faible intensité. Le mini-circuit renfo en fin de séance préserve la masse maigre (clé pour la perte de poids)."
+                            },
+                            "title": {
+                              "stringValue": "Sortie Longue molle — 8 km"
+                            },
+                            "warmup": {
+                              "stringValue": "10 min de marche active puis 5 min footing très léger pour amorcer"
+                            },
+                            "cooldown": {
+                              "stringValue": "5 min marche active + étirements ciblés (mollets, ischios) + 5 min mini-circuit renfo : 2×(15 squats lestés, 10 fentes/jambe, 30s gainage)"
+                            },
+                            "distance": {
+                              "stringValue": "8 km"
+                            },
+                            "id": {
+                              "stringValue": "w2-s2-1778580969618"
+                            }
+                          }
+                        }
+                      },
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "distance": {
+                              "stringValue": "12 km"
+                            },
+                            "cooldown": {
+                              "stringValue": "10 min marche active + étirements complets (mollets, ischios, quadriceps, fessiers, hanches) + 3 min gainage statique (planche 1 min, planches latérales 30s/côté)"
+                            },
+                            "id": {
+                              "stringValue": "w2-s3-1778580969619"
+                            },
+                            "duration": {
+                              "stringValue": "1h 06 min"
+                            },
+                            "title": {
+                              "stringValue": "Sortie Longue principale — 12 km"
+                            },
+                            "advice": {
+                              "stringValue": "La sortie longue principale est LE pilier de ce plan. Pour la perte de poids, la durée en zone aérobie maximise l'oxydation lipidique. Hydratation toutes les 20 min, gel optionnel après 1h15."
+                            },
+                            "warmup": {
+                              "stringValue": "10 min de marche active puis 5 min footing très léger pour amorcer"
+                            },
+                            "targetPace": {
+                              "stringValue": "5:32 min/km"
+                            },
+                            "type": {
+                              "stringValue": "Sortie Longue"
+                            },
+                            "day": {
+                              "stringValue": "Dimanche"
+                            },
+                            "locationSuggestion": {
+                              "stringValue": "Sentiers de la campagne de Saint-Pierre-de-Côle, ou boucle vallonnée si envie de variété"
+                            },
+                            "intensity": {
+                              "stringValue": "Facile"
+                            },
+                            "mainSet": {
+                              "stringValue": "Allure stable à 5:32 min/km (EF, 70 % VMA). Conversation possible mais légèrement gênée. 12km en aisance — visez la régularité."
+                            },
+                            "elevationGain": {
+                              "integerValue": "0"
+                            }
+                          }
+                        }
+                      }
+                    ]
+                  }
+                },
+                "weekNumber": {
+                  "integerValue": "2"
+                },
+                "phase": {
+                  "stringValue": "fondamental"
+                }
+              }
+            }
+          },
+          {
+            "mapValue": {
+              "fields": {
+                "sessions": {
+                  "arrayValue": {
+                    "values": [
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "id": {
+                              "stringValue": "w3-s1-1778580970617"
+                            },
+                            "cooldown": {
+                              "stringValue": "5 min retour au calme + 8 min mini-circuit renfo : 3×(15 squats lestés ou au poids du corps, 10 fentes alternées/jambe, 12 pompes, 40s gainage)"
+                            },
+                            "distance": {
+                              "stringValue": "9 km"
+                            },
+                            "duration": {
+                              "stringValue": "50 min"
+                            },
+                            "advice": {
+                              "stringValue": "Le footing EF est la base du plan. Pas d'objectif d'allure — privilégie la sensation. Le renfo en fin compense l'absence de jour dédié force."
+                            },
+                            "title": {
+                              "stringValue": "Footing EF — 9 km"
+                            },
+                            "warmup": {
+                              "stringValue": "5 min de marche active + 5 min footing très léger"
+                            },
+                            "targetPace": {
+                              "stringValue": "5:32 min/km"
+                            },
+                            "type": {
+                              "stringValue": "Jogging"
+                            },
+                            "day": {
+                              "stringValue": "Mardi"
+                            },
+                            "mainSet": {
+                              "stringValue": "9km à 5:32 min/km (EF, 70 % VMA). Cadence relâchée, respiration nasale possible. Optionnel : 4×100m lignes droites en fin de séance."
+                            },
+                            "locationSuggestion": {
+                              "stringValue": "Boucle plate aux alentours de Saint-Pierre-de-Côle"
+                            },
+                            "intensity": {
+                              "stringValue": "Facile"
+                            },
+                            "elevationGain": {
+                              "integerValue": "0"
+                            }
+                          }
+                        }
+                      },
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "targetPace": {
+                              "stringValue": "5:32 min/km"
+                            },
+                            "type": {
+                              "stringValue": "Sortie Longue"
+                            },
+                            "day": {
+                              "stringValue": "Jeudi"
+                            },
+                            "intensity": {
+                              "stringValue": "Facile"
+                            },
+                            "locationSuggestion": {
+                              "stringValue": "Sentiers de la campagne de Saint-Pierre-de-Côle, ou boucle vallonnée si envie de variété"
+                            },
+                            "mainSet": {
+                              "stringValue": "Allure très facile à 5:32-6:00 min/km (60-70 % VMA). C'est une 2e sortie longue MOLLE — durée prime sur intensité. Marche/course autorisée si jambes lourdes."
+                            },
+                            "elevationGain": {
+                              "integerValue": "0"
+                            },
+                            "cooldown": {
+                              "stringValue": "5 min marche active + étirements ciblés (mollets, ischios) + 5 min mini-circuit renfo : 2×(15 squats lestés, 10 fentes/jambe, 30s gainage)"
+                            },
+                            "distance": {
+                              "stringValue": "8 km"
+                            },
+                            "id": {
+                              "stringValue": "w3-s2-1778580970618"
+                            },
+                            "duration": {
+                              "stringValue": "44 min"
+                            },
+                            "advice": {
+                              "stringValue": "Cette 2e sortie longue est volontairement molle. Le but n'est pas la performance mais l'accumulation de durée à faible intensité. Le mini-circuit renfo en fin de séance préserve la masse maigre (clé pour la perte de poids)."
+                            },
+                            "title": {
+                              "stringValue": "Sortie Longue molle — 8 km"
+                            },
+                            "warmup": {
+                              "stringValue": "10 min de marche active puis 5 min footing très léger pour amorcer"
+                            }
+                          }
+                        }
+                      },
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "type": {
+                              "stringValue": "Sortie Longue"
+                            },
+                            "day": {
+                              "stringValue": "Dimanche"
+                            },
+                            "targetPace": {
+                              "stringValue": "5:32 min/km"
+                            },
+                            "elevationGain": {
+                              "integerValue": "0"
+                            },
+                            "mainSet": {
+                              "stringValue": "Allure stable à 5:32 min/km (EF, 70 % VMA). Conversation possible mais légèrement gênée. 13km en aisance — visez la régularité."
+                            },
+                            "locationSuggestion": {
+                              "stringValue": "Sentiers de la campagne de Saint-Pierre-de-Côle, ou boucle vallonnée si envie de variété"
+                            },
+                            "intensity": {
+                              "stringValue": "Facile"
+                            },
+                            "id": {
+                              "stringValue": "w3-s3-1778580970619"
+                            },
+                            "distance": {
+                              "stringValue": "13 km"
+                            },
+                            "cooldown": {
+                              "stringValue": "10 min marche active + étirements complets (mollets, ischios, quadriceps, fessiers, hanches) + 3 min gainage statique (planche 1 min, planches latérales 30s/côté)"
+                            },
+                            "warmup": {
+                              "stringValue": "10 min de marche active puis 5 min footing très léger pour amorcer"
+                            },
+                            "duration": {
+                              "stringValue": "1h 12 min"
+                            },
+                            "advice": {
+                              "stringValue": "La sortie longue principale est LE pilier de ce plan. Pour la perte de poids, la durée en zone aérobie maximise l'oxydation lipidique. Hydratation toutes les 20 min, gel optionnel après 1h15."
+                            },
+                            "title": {
+                              "stringValue": "Sortie Longue principale — 13 km"
+                            }
+                          }
+                        }
+                      }
+                    ]
+                  }
+                },
+                "theme": {
+                  "stringValue": "Consolidation et endurance"
+                },
+                "weekNumber": {
+                  "integerValue": "3"
+                },
+                "phase": {
+                  "stringValue": "fondamental"
+                }
+              }
+            }
+          },
+          {
+            "mapValue": {
+              "fields": {
+                "sessions": {
+                  "arrayValue": {
+                    "values": [
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "distance": {
+                              "stringValue": "7 km"
+                            },
+                            "cooldown": {
+                              "stringValue": "5 min retour au calme + 8 min mini-circuit renfo : 3×(15 squats lestés ou au poids du corps, 10 fentes alternées/jambe, 12 pompes, 40s gainage)"
+                            },
+                            "id": {
+                              "stringValue": "w4-s1-1778580971617"
+                            },
+                            "duration": {
+                              "stringValue": "39 min"
+                            },
+                            "advice": {
+                              "stringValue": "Le footing EF est la base du plan. Pas d'objectif d'allure — privilégie la sensation. Le renfo en fin compense l'absence de jour dédié force."
+                            },
+                            "title": {
+                              "stringValue": "Footing EF — 7 km"
+                            },
+                            "warmup": {
+                              "stringValue": "5 min de marche active + 5 min footing très léger"
+                            },
+                            "targetPace": {
+                              "stringValue": "5:32 min/km"
+                            },
+                            "type": {
+                              "stringValue": "Jogging"
+                            },
+                            "day": {
+                              "stringValue": "Mardi"
+                            },
+                            "intensity": {
+                              "stringValue": "Facile"
+                            },
+                            "locationSuggestion": {
+                              "stringValue": "Boucle plate aux alentours de Saint-Pierre-de-Côle"
+                            },
+                            "mainSet": {
+                              "stringValue": "7km à 5:32 min/km (EF, 70 % VMA). Cadence relâchée, respiration nasale possible. Optionnel : 4×100m lignes droites en fin de séance."
+                            },
+                            "elevationGain": {
+                              "integerValue": "0"
+                            }
+                          }
+                        }
+                      },
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "type": {
+                              "stringValue": "Sortie Longue"
+                            },
+                            "day": {
+                              "stringValue": "Jeudi"
+                            },
+                            "targetPace": {
+                              "stringValue": "5:32 min/km"
+                            },
+                            "elevationGain": {
+                              "integerValue": "0"
+                            },
+                            "locationSuggestion": {
+                              "stringValue": "Sentiers de la campagne de Saint-Pierre-de-Côle, ou boucle vallonnée si envie de variété"
+                            },
+                            "intensity": {
+                              "stringValue": "Facile"
+                            },
+                            "mainSet": {
+                              "stringValue": "Allure très facile à 5:32-6:00 min/km (60-70 % VMA). C'est une 2e sortie longue MOLLE — durée prime sur intensité. Marche/course autorisée si jambes lourdes."
+                            },
+                            "cooldown": {
+                              "stringValue": "5 min marche active + étirements ciblés (mollets, ischios) + 5 min mini-circuit renfo : 2×(15 squats lestés, 10 fentes/jambe, 30s gainage)"
+                            },
+                            "distance": {
+                              "stringValue": "6 km"
+                            },
+                            "id": {
+                              "stringValue": "w4-s2-1778580971618"
+                            },
+                            "warmup": {
+                              "stringValue": "10 min de marche active puis 5 min footing très léger pour amorcer"
+                            },
+                            "title": {
+                              "stringValue": "Sortie Longue molle — 6 km"
+                            },
+                            "duration": {
+                              "stringValue": "33 min"
+                            },
+                            "advice": {
+                              "stringValue": "Cette 2e sortie longue est volontairement molle. Le but n'est pas la performance mais l'accumulation de durée à faible intensité. Le mini-circuit renfo en fin de séance préserve la masse maigre (clé pour la perte de poids)."
+                            }
+                          }
+                        }
+                      },
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "cooldown": {
+                              "stringValue": "10 min marche active + étirements complets (mollets, ischios, quadriceps, fessiers, hanches) + 3 min gainage statique (planche 1 min, planches latérales 30s/côté)"
+                            },
+                            "distance": {
+                              "stringValue": "10 km"
+                            },
+                            "id": {
+                              "stringValue": "w4-s3-1778580971619"
+                            },
+                            "warmup": {
+                              "stringValue": "10 min de marche active puis 5 min footing très léger pour amorcer"
+                            },
+                            "advice": {
+                              "stringValue": "La sortie longue principale est LE pilier de ce plan. Pour la perte de poids, la durée en zone aérobie maximise l'oxydation lipidique. Hydratation toutes les 20 min, gel optionnel après 1h15."
+                            },
+                            "title": {
+                              "stringValue": "Sortie Longue principale — 10 km"
+                            },
+                            "duration": {
+                              "stringValue": "55 min"
+                            },
+                            "day": {
+                              "stringValue": "Dimanche"
+                            },
+                            "type": {
+                              "stringValue": "Sortie Longue"
+                            },
+                            "targetPace": {
+                              "stringValue": "5:32 min/km"
+                            },
+                            "elevationGain": {
+                              "integerValue": "0"
+                            },
+                            "intensity": {
+                              "stringValue": "Facile"
+                            },
+                            "locationSuggestion": {
+                              "stringValue": "Sentiers de la campagne de Saint-Pierre-de-Côle, ou boucle vallonnée si envie de variété"
+                            },
+                            "mainSet": {
+                              "stringValue": "Allure stable à 5:32 min/km (EF, 70 % VMA). Conversation possible mais légèrement gênée. 10km en aisance — visez la régularité."
+                            }
+                          }
+                        }
+                      }
+                    ]
+                  }
+                },
+                "theme": {
+                  "stringValue": "Semaine de décharge"
+                },
+                "weekNumber": {
+                  "integerValue": "4"
+                },
+                "phase": {
+                  "stringValue": "recuperation"
+                }
+              }
+            }
+          },
+          {
+            "mapValue": {
+              "fields": {
+                "phase": {
+                  "stringValue": "fondamental"
+                },
+                "theme": {
+                  "stringValue": "Relance du volume"
+                },
+                "sessions": {
+                  "arrayValue": {
+                    "values": [
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "advice": {
+                              "stringValue": "Le footing EF est la base du plan. Pas d'objectif d'allure — privilégie la sensation. Le renfo en fin compense l'absence de jour dédié force."
+                            },
+                            "title": {
+                              "stringValue": "Footing EF — 9 km"
+                            },
+                            "duration": {
+                              "stringValue": "50 min"
+                            },
+                            "warmup": {
+                              "stringValue": "5 min de marche active + 5 min footing très léger"
+                            },
+                            "id": {
+                              "stringValue": "w5-s1-1778580972617"
+                            },
+                            "cooldown": {
+                              "stringValue": "5 min retour au calme + 8 min mini-circuit renfo : 3×(15 squats lestés ou au poids du corps, 10 fentes alternées/jambe, 12 pompes, 40s gainage)"
+                            },
+                            "distance": {
+                              "stringValue": "9 km"
+                            },
+                            "mainSet": {
+                              "stringValue": "9km à 5:32 min/km (EF, 70 % VMA). Cadence relâchée, respiration nasale possible. Optionnel : 4×100m lignes droites en fin de séance."
+                            },
+                            "locationSuggestion": {
+                              "stringValue": "Boucle plate aux alentours de Saint-Pierre-de-Côle"
+                            },
+                            "intensity": {
+                              "stringValue": "Facile"
+                            },
+                            "elevationGain": {
+                              "integerValue": "0"
+                            },
+                            "targetPace": {
+                              "stringValue": "5:32 min/km"
+                            },
+                            "day": {
+                              "stringValue": "Mardi"
+                            },
+                            "type": {
+                              "stringValue": "Jogging"
+                            }
+                          }
+                        }
+                      },
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "distance": {
+                              "stringValue": "8 km"
+                            },
+                            "cooldown": {
+                              "stringValue": "5 min marche active + étirements ciblés (mollets, ischios) + 5 min mini-circuit renfo : 2×(15 squats lestés, 10 fentes/jambe, 30s gainage)"
+                            },
+                            "id": {
+                              "stringValue": "w5-s2-1778580972618"
+                            },
+                            "advice": {
+                              "stringValue": "Cette 2e sortie longue est volontairement molle. Le but n'est pas la performance mais l'accumulation de durée à faible intensité. Le mini-circuit renfo en fin de séance préserve la masse maigre (clé pour la perte de poids)."
+                            },
+                            "duration": {
+                              "stringValue": "44 min"
+                            },
+                            "title": {
+                              "stringValue": "Sortie Longue molle — 8 km"
+                            },
+                            "warmup": {
+                              "stringValue": "10 min de marche active puis 5 min footing très léger pour amorcer"
+                            },
+                            "targetPace": {
+                              "stringValue": "5:32 min/km"
+                            },
+                            "type": {
+                              "stringValue": "Sortie Longue"
+                            },
+                            "day": {
+                              "stringValue": "Jeudi"
+                            },
+                            "locationSuggestion": {
+                              "stringValue": "Sentiers de la campagne de Saint-Pierre-de-Côle, ou boucle vallonnée si envie de variété"
+                            },
+                            "intensity": {
+                              "stringValue": "Facile"
+                            },
+                            "mainSet": {
+                              "stringValue": "Allure très facile à 5:32-6:00 min/km (60-70 % VMA). C'est une 2e sortie longue MOLLE — durée prime sur intensité. Marche/course autorisée si jambes lourdes."
+                            },
+                            "elevationGain": {
+                              "integerValue": "0"
+                            }
+                          }
+                        }
+                      },
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "advice": {
+                              "stringValue": "La sortie longue principale est LE pilier de ce plan. Pour la perte de poids, la durée en zone aérobie maximise l'oxydation lipidique. Hydratation toutes les 20 min, gel optionnel après 1h15."
+                            },
+                            "title": {
+                              "stringValue": "Sortie Longue principale — 13 km"
+                            },
+                            "duration": {
+                              "stringValue": "1h 12 min"
+                            },
+                            "warmup": {
+                              "stringValue": "10 min de marche active puis 5 min footing très léger pour amorcer"
+                            },
+                            "id": {
+                              "stringValue": "w5-s3-1778580972619"
+                            },
+                            "distance": {
+                              "stringValue": "13 km"
+                            },
+                            "cooldown": {
+                              "stringValue": "10 min marche active + étirements complets (mollets, ischios, quadriceps, fessiers, hanches) + 3 min gainage statique (planche 1 min, planches latérales 30s/côté)"
+                            },
+                            "mainSet": {
+                              "stringValue": "Allure stable à 5:32 min/km (EF, 70 % VMA). Conversation possible mais légèrement gênée. 13km en aisance — visez la régularité."
+                            },
+                            "locationSuggestion": {
+                              "stringValue": "Sentiers de la campagne de Saint-Pierre-de-Côle, ou boucle vallonnée si envie de variété"
+                            },
+                            "intensity": {
+                              "stringValue": "Facile"
+                            },
+                            "elevationGain": {
+                              "integerValue": "0"
+                            },
+                            "targetPace": {
+                              "stringValue": "5:32 min/km"
+                            },
+                            "day": {
+                              "stringValue": "Dimanche"
+                            },
+                            "type": {
+                              "stringValue": "Sortie Longue"
+                            }
+                          }
+                        }
+                      }
+                    ]
+                  }
+                },
+                "weekNumber": {
+                  "integerValue": "5"
+                }
+              }
+            }
+          },
+          {
+            "mapValue": {
+              "fields": {
+                "weekNumber": {
+                  "integerValue": "6"
+                },
+                "theme": {
+                  "stringValue": "Endurance prolongée"
+                },
+                "sessions": {
+                  "arrayValue": {
+                    "values": [
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "distance": {
+                              "stringValue": "10 km"
+                            },
+                            "cooldown": {
+                              "stringValue": "5 min retour au calme + 8 min mini-circuit renfo : 3×(15 squats lestés ou au poids du corps, 10 fentes alternées/jambe, 12 pompes, 40s gainage)"
+                            },
+                            "id": {
+                              "stringValue": "w6-s1-1778580973617"
+                            },
+                            "warmup": {
+                              "stringValue": "5 min de marche active + 5 min footing très léger"
+                            },
+                            "advice": {
+                              "stringValue": "Le footing EF est la base du plan. Pas d'objectif d'allure — privilégie la sensation. Le renfo en fin compense l'absence de jour dédié force."
+                            },
+                            "title": {
+                              "stringValue": "Footing EF — 10 km"
+                            },
+                            "duration": {
+                              "stringValue": "55 min"
+                            },
+                            "type": {
+                              "stringValue": "Jogging"
+                            },
+                            "day": {
+                              "stringValue": "Mardi"
+                            },
+                            "targetPace": {
+                              "stringValue": "5:32 min/km"
+                            },
+                            "elevationGain": {
+                              "integerValue": "0"
+                            },
+                            "locationSuggestion": {
+                              "stringValue": "Boucle plate aux alentours de Saint-Pierre-de-Côle"
+                            },
+                            "intensity": {
+                              "stringValue": "Facile"
+                            },
+                            "mainSet": {
+                              "stringValue": "10km à 5:32 min/km (EF, 70 % VMA). Cadence relâchée, respiration nasale possible. Optionnel : 4×100m lignes droites en fin de séance."
+                            }
+                          }
+                        }
+                      },
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "locationSuggestion": {
+                              "stringValue": "Sentiers de la campagne de Saint-Pierre-de-Côle, ou boucle vallonnée si envie de variété"
+                            },
+                            "intensity": {
+                              "stringValue": "Facile"
+                            },
+                            "mainSet": {
+                              "stringValue": "Allure très facile à 5:32-6:00 min/km (60-70 % VMA). C'est une 2e sortie longue MOLLE — durée prime sur intensité. Marche/course autorisée si jambes lourdes."
+                            },
+                            "elevationGain": {
+                              "integerValue": "0"
+                            },
+                            "targetPace": {
+                              "stringValue": "5:32 min/km"
+                            },
+                            "type": {
+                              "stringValue": "Sortie Longue"
+                            },
+                            "day": {
+                              "stringValue": "Jeudi"
+                            },
+                            "duration": {
+                              "stringValue": "50 min"
+                            },
+                            "title": {
+                              "stringValue": "Sortie Longue molle — 9 km"
+                            },
+                            "advice": {
+                              "stringValue": "Cette 2e sortie longue est volontairement molle. Le but n'est pas la performance mais l'accumulation de durée à faible intensité. Le mini-circuit renfo en fin de séance préserve la masse maigre (clé pour la perte de poids)."
+                            },
+                            "warmup": {
+                              "stringValue": "10 min de marche active puis 5 min footing très léger pour amorcer"
+                            },
+                            "cooldown": {
+                              "stringValue": "5 min marche active + étirements ciblés (mollets, ischios) + 5 min mini-circuit renfo : 2×(15 squats lestés, 10 fentes/jambe, 30s gainage)"
+                            },
+                            "distance": {
+                              "stringValue": "9 km"
+                            },
+                            "id": {
+                              "stringValue": "w6-s2-1778580973618"
+                            }
+                          }
+                        }
+                      },
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "warmup": {
+                              "stringValue": "10 min de marche active puis 5 min footing très léger pour amorcer"
+                            },
+                            "advice": {
+                              "stringValue": "La sortie longue principale est LE pilier de ce plan. Pour la perte de poids, la durée en zone aérobie maximise l'oxydation lipidique. Hydratation toutes les 20 min, gel optionnel après 1h15."
+                            },
+                            "duration": {
+                              "stringValue": "1h 17 min"
+                            },
+                            "title": {
+                              "stringValue": "Sortie Longue principale — 14 km"
+                            },
+                            "cooldown": {
+                              "stringValue": "10 min marche active + étirements complets (mollets, ischios, quadriceps, fessiers, hanches) + 3 min gainage statique (planche 1 min, planches latérales 30s/côté)"
+                            },
+                            "distance": {
+                              "stringValue": "14 km"
+                            },
+                            "id": {
+                              "stringValue": "w6-s3-1778580973619"
+                            },
+                            "elevationGain": {
+                              "integerValue": "0"
+                            },
+                            "intensity": {
+                              "stringValue": "Facile"
+                            },
+                            "locationSuggestion": {
+                              "stringValue": "Sentiers de la campagne de Saint-Pierre-de-Côle, ou boucle vallonnée si envie de variété"
+                            },
+                            "mainSet": {
+                              "stringValue": "Allure stable à 5:32 min/km (EF, 70 % VMA). Conversation possible mais légèrement gênée. 14km en aisance — visez la régularité."
+                            },
+                            "day": {
+                              "stringValue": "Dimanche"
+                            },
+                            "type": {
+                              "stringValue": "Sortie Longue"
+                            },
+                            "targetPace": {
+                              "stringValue": "5:32 min/km"
+                            }
+                          }
+                        }
+                      }
+                    ]
+                  }
+                },
+                "phase": {
+                  "stringValue": "fondamental"
+                }
+              }
+            }
+          },
+          {
+            "mapValue": {
+              "fields": {
+                "sessions": {
+                  "arrayValue": {
+                    "values": [
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "warmup": {
+                              "stringValue": "20 min EF à 5:32 min/km + 4 lignes droites progressives de 80m"
+                            },
+                            "advice": {
+                              "stringValue": "L'allure tempo (~86 % VMA) est la zone idéale pour développer l'économie de course tout en restant en aérobie. Pour la perte de poids, cette séance casse la monotonie aérobie pure et apporte un stimulus métabolique additionnel."
+                            },
+                            "duration": {
+                              "stringValue": "55 min"
+                            },
+                            "title": {
+                              "stringValue": "Tempo continu — 10 km"
+                            },
+                            "id": {
+                              "stringValue": "w7-s1-1778580974617"
+                            },
+                            "cooldown": {
+                              "stringValue": "10 min retour au calme à 6:11 min/km + étirements légers (ischios, mollets)"
+                            },
+                            "distance": {
+                              "stringValue": "10 km"
+                            },
+                            "elevationGain": {
+                              "integerValue": "0"
+                            },
+                            "mainSet": {
+                              "stringValue": "Tempo continu de 15-20 min à 4:22 min/km (allure semi). Garder cadence régulière, ne pas accélérer en fin."
+                            },
+                            "intensity": {
+                              "stringValue": "Modéré"
+                            },
+                            "locationSuggestion": {
+                              "stringValue": "Parcours plat de Saint-Pierre-de-Côle — éviter les chemins trop techniques"
+                            },
+                            "type": {
+                              "stringValue": "Jogging"
+                            },
+                            "day": {
+                              "stringValue": "Mardi"
+                            },
+                            "targetPace": {
+                              "stringValue": "EF 5:32 + 3×5' tempo 4:22 (86% VMA) R=2'"
+                            }
+                          }
+                        }
+                      },
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "advice": {
+                              "stringValue": "Cette 2e sortie longue est volontairement molle. Le but n'est pas la performance mais l'accumulation de durée à faible intensité. Le mini-circuit renfo en fin de séance préserve la masse maigre (clé pour la perte de poids)."
+                            },
+                            "title": {
+                              "stringValue": "Sortie Longue molle — 9 km"
+                            },
+                            "duration": {
+                              "stringValue": "50 min"
+                            },
+                            "warmup": {
+                              "stringValue": "10 min de marche active puis 5 min footing très léger pour amorcer"
+                            },
+                            "id": {
+                              "stringValue": "w7-s2-1778580974618"
+                            },
+                            "distance": {
+                              "stringValue": "9 km"
+                            },
+                            "cooldown": {
+                              "stringValue": "5 min marche active + étirements ciblés (mollets, ischios) + 5 min mini-circuit renfo : 2×(15 squats lestés, 10 fentes/jambe, 30s gainage)"
+                            },
+                            "mainSet": {
+                              "stringValue": "Allure très facile à 5:32-6:00 min/km (60-70 % VMA). C'est une 2e sortie longue MOLLE — durée prime sur intensité. Marche/course autorisée si jambes lourdes."
+                            },
+                            "locationSuggestion": {
+                              "stringValue": "Sentiers de la campagne de Saint-Pierre-de-Côle, ou boucle vallonnée si envie de variété"
+                            },
+                            "intensity": {
+                              "stringValue": "Facile"
+                            },
+                            "elevationGain": {
+                              "integerValue": "0"
+                            },
+                            "targetPace": {
+                              "stringValue": "5:32 min/km"
+                            },
+                            "type": {
+                              "stringValue": "Sortie Longue"
+                            },
+                            "day": {
+                              "stringValue": "Jeudi"
+                            }
+                          }
+                        }
+                      },
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "targetPace": {
+                              "stringValue": "5:32 min/km"
+                            },
+                            "day": {
+                              "stringValue": "Dimanche"
+                            },
+                            "type": {
+                              "stringValue": "Sortie Longue"
+                            },
+                            "intensity": {
+                              "stringValue": "Facile"
+                            },
+                            "locationSuggestion": {
+                              "stringValue": "Sentiers de la campagne de Saint-Pierre-de-Côle, ou boucle vallonnée si envie de variété"
+                            },
+                            "mainSet": {
+                              "stringValue": "Allure stable à 5:32 min/km (EF, 70 % VMA). Conversation possible mais légèrement gênée. 16km en aisance — visez la régularité."
+                            },
+                            "elevationGain": {
+                              "integerValue": "0"
+                            },
+                            "distance": {
+                              "stringValue": "16 km"
+                            },
+                            "cooldown": {
+                              "stringValue": "10 min marche active + étirements complets (mollets, ischios, quadriceps, fessiers, hanches) + 3 min gainage statique (planche 1 min, planches latérales 30s/côté)"
+                            },
+                            "id": {
+                              "stringValue": "w7-s3-1778580974619"
+                            },
+                            "advice": {
+                              "stringValue": "La sortie longue principale est LE pilier de ce plan. Pour la perte de poids, la durée en zone aérobie maximise l'oxydation lipidique. Hydratation toutes les 20 min, gel optionnel après 1h15."
+                            },
+                            "title": {
+                              "stringValue": "Sortie Longue principale — 16 km"
+                            },
+                            "duration": {
+                              "stringValue": "1h 29 min"
+                            },
+                            "warmup": {
+                              "stringValue": "10 min de marche active puis 5 min footing très léger pour amorcer"
+                            }
+                          }
+                        }
+                      }
+                    ]
+                  }
+                },
+                "theme": {
+                  "stringValue": "Introduction du tempo continu"
+                },
+                "weekNumber": {
+                  "integerValue": "7"
+                },
+                "phase": {
+                  "stringValue": "fondamental"
+                }
+              }
+            }
+          },
+          {
+            "mapValue": {
+              "fields": {
+                "phase": {
+                  "stringValue": "recuperation"
+                },
+                "weekNumber": {
+                  "integerValue": "8"
+                },
+                "theme": {
+                  "stringValue": "Semaine de décharge"
+                },
+                "sessions": {
+                  "arrayValue": {
+                    "values": [
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "elevationGain": {
+                              "integerValue": "0"
+                            },
+                            "mainSet": {
+                              "stringValue": "8km à 5:32 min/km (EF, 70 % VMA). Cadence relâchée, respiration nasale possible. Optionnel : 4×100m lignes droites en fin de séance."
+                            },
+                            "locationSuggestion": {
+                              "stringValue": "Boucle plate aux alentours de Saint-Pierre-de-Côle"
+                            },
+                            "intensity": {
+                              "stringValue": "Facile"
+                            },
+                            "type": {
+                              "stringValue": "Jogging"
+                            },
+                            "day": {
+                              "stringValue": "Mardi"
+                            },
+                            "targetPace": {
+                              "stringValue": "5:32 min/km"
+                            },
+                            "warmup": {
+                              "stringValue": "5 min de marche active + 5 min footing très léger"
+                            },
+                            "duration": {
+                              "stringValue": "44 min"
+                            },
+                            "advice": {
+                              "stringValue": "Le footing EF est la base du plan. Pas d'objectif d'allure — privilégie la sensation. Le renfo en fin compense l'absence de jour dédié force."
+                            },
+                            "title": {
+                              "stringValue": "Footing EF — 8 km"
+                            },
+                            "id": {
+                              "stringValue": "w8-s1-1778580975617"
+                            },
+                            "cooldown": {
+                              "stringValue": "5 min retour au calme + 8 min mini-circuit renfo : 3×(15 squats lestés ou au poids du corps, 10 fentes alternées/jambe, 12 pompes, 40s gainage)"
+                            },
+                            "distance": {
+                              "stringValue": "8 km"
+                            }
+                          }
+                        }
+                      },
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "id": {
+                              "stringValue": "w8-s2-1778580975618"
+                            },
+                            "cooldown": {
+                              "stringValue": "5 min marche active + étirements ciblés (mollets, ischios) + 5 min mini-circuit renfo : 2×(15 squats lestés, 10 fentes/jambe, 30s gainage)"
+                            },
+                            "distance": {
+                              "stringValue": "7 km"
+                            },
+                            "duration": {
+                              "stringValue": "39 min"
+                            },
+                            "advice": {
+                              "stringValue": "Cette 2e sortie longue est volontairement molle. Le but n'est pas la performance mais l'accumulation de durée à faible intensité. Le mini-circuit renfo en fin de séance préserve la masse maigre (clé pour la perte de poids)."
+                            },
+                            "title": {
+                              "stringValue": "Sortie Longue molle — 7 km"
+                            },
+                            "warmup": {
+                              "stringValue": "10 min de marche active puis 5 min footing très léger pour amorcer"
+                            },
+                            "targetPace": {
+                              "stringValue": "5:32 min/km"
+                            },
+                            "type": {
+                              "stringValue": "Sortie Longue"
+                            },
+                            "day": {
+                              "stringValue": "Jeudi"
+                            },
+                            "mainSet": {
+                              "stringValue": "Allure très facile à 5:32-6:00 min/km (60-70 % VMA). C'est une 2e sortie longue MOLLE — durée prime sur intensité. Marche/course autorisée si jambes lourdes."
+                            },
+                            "locationSuggestion": {
+                              "stringValue": "Sentiers de la campagne de Saint-Pierre-de-Côle, ou boucle vallonnée si envie de variété"
+                            },
+                            "intensity": {
+                              "stringValue": "Facile"
+                            },
+                            "elevationGain": {
+                              "integerValue": "0"
+                            }
+                          }
+                        }
+                      },
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "cooldown": {
+                              "stringValue": "10 min marche active + étirements complets (mollets, ischios, quadriceps, fessiers, hanches) + 3 min gainage statique (planche 1 min, planches latérales 30s/côté)"
+                            },
+                            "distance": {
+                              "stringValue": "12 km"
+                            },
+                            "id": {
+                              "stringValue": "w8-s3-1778580975619"
+                            },
+                            "warmup": {
+                              "stringValue": "10 min de marche active puis 5 min footing très léger pour amorcer"
+                            },
+                            "title": {
+                              "stringValue": "Sortie Longue principale — 12 km"
+                            },
+                            "advice": {
+                              "stringValue": "La sortie longue principale est LE pilier de ce plan. Pour la perte de poids, la durée en zone aérobie maximise l'oxydation lipidique. Hydratation toutes les 20 min, gel optionnel après 1h15."
+                            },
+                            "duration": {
+                              "stringValue": "1h 06 min"
+                            },
+                            "day": {
+                              "stringValue": "Dimanche"
+                            },
+                            "type": {
+                              "stringValue": "Sortie Longue"
+                            },
+                            "targetPace": {
+                              "stringValue": "5:32 min/km"
+                            },
+                            "elevationGain": {
+                              "integerValue": "0"
+                            },
+                            "intensity": {
+                              "stringValue": "Facile"
+                            },
+                            "locationSuggestion": {
+                              "stringValue": "Sentiers de la campagne de Saint-Pierre-de-Côle, ou boucle vallonnée si envie de variété"
+                            },
+                            "mainSet": {
+                              "stringValue": "Allure stable à 5:32 min/km (EF, 70 % VMA). Conversation possible mais légèrement gênée. 12km en aisance — visez la régularité."
+                            }
+                          }
+                        }
+                      }
+                    ]
+                  }
+                }
+              }
+            }
+          },
+          {
+            "mapValue": {
+              "fields": {
+                "theme": {
+                  "stringValue": "Développement aérobie avec tempo"
+                },
+                "sessions": {
+                  "arrayValue": {
+                    "values": [
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "elevationGain": {
+                              "integerValue": "0"
+                            },
+                            "mainSet": {
+                              "stringValue": "Tempo continu de 15-20 min à 4:22 min/km (allure semi). Garder cadence régulière, ne pas accélérer en fin."
+                            },
+                            "intensity": {
+                              "stringValue": "Modéré"
+                            },
+                            "locationSuggestion": {
+                              "stringValue": "Parcours plat de Saint-Pierre-de-Côle — éviter les chemins trop techniques"
+                            },
+                            "type": {
+                              "stringValue": "Jogging"
+                            },
+                            "day": {
+                              "stringValue": "Mardi"
+                            },
+                            "targetPace": {
+                              "stringValue": "EF 5:32 + 4×4' tempo 4:22 R=1'30"
+                            },
+                            "warmup": {
+                              "stringValue": "20 min EF à 5:32 min/km + 4 lignes droites progressives de 80m"
+                            },
+                            "duration": {
+                              "stringValue": "55 min"
+                            },
+                            "advice": {
+                              "stringValue": "L'allure tempo (~86 % VMA) est la zone idéale pour développer l'économie de course tout en restant en aérobie. Pour la perte de poids, cette séance casse la monotonie aérobie pure et apporte un stimulus métabolique additionnel."
+                            },
+                            "title": {
+                              "stringValue": "Tempo continu — 10 km"
+                            },
+                            "id": {
+                              "stringValue": "w9-s1-1778580976617"
+                            },
+                            "cooldown": {
+                              "stringValue": "10 min retour au calme à 6:11 min/km + étirements légers (ischios, mollets)"
+                            },
+                            "distance": {
+                              "stringValue": "10 km"
+                            }
+                          }
+                        }
+                      },
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "day": {
+                              "stringValue": "Jeudi"
+                            },
+                            "type": {
+                              "stringValue": "Sortie Longue"
+                            },
+                            "targetPace": {
+                              "stringValue": "5:32 min/km"
+                            },
+                            "elevationGain": {
+                              "integerValue": "0"
+                            },
+                            "mainSet": {
+                              "stringValue": "Allure très facile à 5:32-6:00 min/km (60-70 % VMA). C'est une 2e sortie longue MOLLE — durée prime sur intensité. Marche/course autorisée si jambes lourdes."
+                            },
+                            "intensity": {
+                              "stringValue": "Facile"
+                            },
+                            "locationSuggestion": {
+                              "stringValue": "Sentiers de la campagne de Saint-Pierre-de-Côle, ou boucle vallonnée si envie de variété"
+                            },
+                            "id": {
+                              "stringValue": "w9-s2-1778580976618"
+                            },
+                            "cooldown": {
+                              "stringValue": "5 min marche active + étirements ciblés (mollets, ischios) + 5 min mini-circuit renfo : 2×(15 squats lestés, 10 fentes/jambe, 30s gainage)"
+                            },
+                            "distance": {
+                              "stringValue": "9 km"
+                            },
+                            "warmup": {
+                              "stringValue": "10 min de marche active puis 5 min footing très léger pour amorcer"
+                            },
+                            "advice": {
+                              "stringValue": "Cette 2e sortie longue est volontairement molle. Le but n'est pas la performance mais l'accumulation de durée à faible intensité. Le mini-circuit renfo en fin de séance préserve la masse maigre (clé pour la perte de poids)."
+                            },
+                            "duration": {
+                              "stringValue": "50 min"
+                            },
+                            "title": {
+                              "stringValue": "Sortie Longue molle — 9 km"
+                            }
+                          }
+                        }
+                      },
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "mainSet": {
+                              "stringValue": "Allure stable à 5:32 min/km (EF, 70 % VMA). Conversation possible mais légèrement gênée. 14km en aisance — visez la régularité."
+                            },
+                            "locationSuggestion": {
+                              "stringValue": "Sentiers de la campagne de Saint-Pierre-de-Côle, ou boucle vallonnée si envie de variété"
+                            },
+                            "intensity": {
+                              "stringValue": "Facile"
+                            },
+                            "elevationGain": {
+                              "integerValue": "0"
+                            },
+                            "targetPace": {
+                              "stringValue": "5:32 min/km"
+                            },
+                            "type": {
+                              "stringValue": "Sortie Longue"
+                            },
+                            "day": {
+                              "stringValue": "Dimanche"
+                            },
+                            "advice": {
+                              "stringValue": "La sortie longue principale est LE pilier de ce plan. Pour la perte de poids, la durée en zone aérobie maximise l'oxydation lipidique. Hydratation toutes les 20 min, gel optionnel après 1h15."
+                            },
+                            "duration": {
+                              "stringValue": "1h 17 min"
+                            },
+                            "title": {
+                              "stringValue": "Sortie Longue principale — 14 km"
+                            },
+                            "warmup": {
+                              "stringValue": "10 min de marche active puis 5 min footing très léger pour amorcer"
+                            },
+                            "id": {
+                              "stringValue": "w9-s3-1778580976619"
+                            },
+                            "distance": {
+                              "stringValue": "14 km"
+                            },
+                            "cooldown": {
+                              "stringValue": "10 min marche active + étirements complets (mollets, ischios, quadriceps, fessiers, hanches) + 3 min gainage statique (planche 1 min, planches latérales 30s/côté)"
+                            }
+                          }
+                        }
+                      }
+                    ]
+                  }
+                },
+                "weekNumber": {
+                  "integerValue": "9"
+                },
+                "phase": {
+                  "stringValue": "developpement"
+                }
+              }
+            }
+          },
+          {
+            "mapValue": {
+              "fields": {
+                "theme": {
+                  "stringValue": "Tempo allongé + SL progressive"
+                },
+                "sessions": {
+                  "arrayValue": {
+                    "values": [
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "elevationGain": {
+                              "integerValue": "0"
+                            },
+                            "mainSet": {
+                              "stringValue": "Tempo continu de 15-20 min à 4:22 min/km (allure semi). Garder cadence régulière, ne pas accélérer en fin."
+                            },
+                            "locationSuggestion": {
+                              "stringValue": "Parcours plat de Saint-Pierre-de-Côle — éviter les chemins trop techniques"
+                            },
+                            "intensity": {
+                              "stringValue": "Modéré"
+                            },
+                            "day": {
+                              "stringValue": "Mardi"
+                            },
+                            "type": {
+                              "stringValue": "Jogging"
+                            },
+                            "targetPace": {
+                              "stringValue": "EF 5:32 + 5×3'30 tempo 4:22 R=1'"
+                            },
+                            "warmup": {
+                              "stringValue": "20 min EF à 5:32 min/km + 4 lignes droites progressives de 80m"
+                            },
+                            "advice": {
+                              "stringValue": "L'allure tempo (~86 % VMA) est la zone idéale pour développer l'économie de course tout en restant en aérobie. Pour la perte de poids, cette séance casse la monotonie aérobie pure et apporte un stimulus métabolique additionnel."
+                            },
+                            "title": {
+                              "stringValue": "Tempo continu — 11 km"
+                            },
+                            "duration": {
+                              "stringValue": "1h 01 min"
+                            },
+                            "id": {
+                              "stringValue": "w10-s1-1778580977617"
+                            },
+                            "distance": {
+                              "stringValue": "11 km"
+                            },
+                            "cooldown": {
+                              "stringValue": "10 min retour au calme à 6:11 min/km + étirements légers (ischios, mollets)"
+                            }
+                          }
+                        }
+                      },
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "advice": {
+                              "stringValue": "Cette 2e sortie longue est volontairement molle. Le but n'est pas la performance mais l'accumulation de durée à faible intensité. Le mini-circuit renfo en fin de séance préserve la masse maigre (clé pour la perte de poids)."
+                            },
+                            "title": {
+                              "stringValue": "Sortie Longue molle — 9 km"
+                            },
+                            "duration": {
+                              "stringValue": "50 min"
+                            },
+                            "warmup": {
+                              "stringValue": "10 min de marche active puis 5 min footing très léger pour amorcer"
+                            },
+                            "cooldown": {
+                              "stringValue": "5 min marche active + étirements ciblés (mollets, ischios) + 5 min mini-circuit renfo : 2×(15 squats lestés, 10 fentes/jambe, 30s gainage)"
+                            },
+                            "distance": {
+                              "stringValue": "9 km"
+                            },
+                            "id": {
+                              "stringValue": "w10-s2-1778580977618"
+                            },
+                            "intensity": {
+                              "stringValue": "Facile"
+                            },
+                            "locationSuggestion": {
+                              "stringValue": "Sentiers de la campagne de Saint-Pierre-de-Côle, ou boucle vallonnée si envie de variété"
+                            },
+                            "mainSet": {
+                              "stringValue": "Allure très facile à 5:32-6:00 min/km (60-70 % VMA). C'est une 2e sortie longue MOLLE — durée prime sur intensité. Marche/course autorisée si jambes lourdes."
+                            },
+                            "elevationGain": {
+                              "integerValue": "0"
+                            },
+                            "targetPace": {
+                              "stringValue": "5:32 min/km"
+                            },
+                            "day": {
+                              "stringValue": "Jeudi"
+                            },
+                            "type": {
+                              "stringValue": "Sortie Longue"
+                            }
+                          }
+                        }
+                      },
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "targetPace": {
+                              "stringValue": "5:32 → 5:00 (progressif)"
+                            },
+                            "day": {
+                              "stringValue": "Dimanche"
+                            },
+                            "type": {
+                              "stringValue": "Sortie Longue"
+                            },
+                            "mainSet": {
+                              "stringValue": "Sortie progressive : 11 km à 5:32 min/km (EF) puis 5 km descendants progressivement vers 5:00 min/km. Ne pas forcer — c'est la durée qui compte, pas la vitesse."
+                            },
+                            "intensity": {
+                              "stringValue": "Modéré"
+                            },
+                            "locationSuggestion": {
+                              "stringValue": "Sentiers de la campagne de Saint-Pierre-de-Côle, ou boucle vallonnée si envie de variété"
+                            },
+                            "elevationGain": {
+                              "integerValue": "0"
+                            },
+                            "id": {
+                              "stringValue": "w10-s3-1778580977619"
+                            },
+                            "cooldown": {
+                              "stringValue": "10 min marche active + étirements complets (mollets, ischios, quadriceps, fessiers, hanches) + 3 min gainage statique (planche 1 min, planches latérales 30s/côté)"
+                            },
+                            "distance": {
+                              "stringValue": "16 km"
+                            },
+                            "duration": {
+                              "stringValue": "1h 29 min"
+                            },
+                            "title": {
+                              "stringValue": "Sortie Longue progressive — 16 km"
+                            },
+                            "advice": {
+                              "stringValue": "La sortie longue principale est LE pilier de ce plan. Pour la perte de poids, la durée en zone aérobie maximise l'oxydation lipidique. Hydratation toutes les 20 min, gel optionnel après 1h15."
+                            },
+                            "warmup": {
+                              "stringValue": "10 min de marche active puis 5 min footing très léger pour amorcer"
+                            }
+                          }
+                        }
+                      }
+                    ]
+                  }
+                },
+                "weekNumber": {
+                  "integerValue": "10"
+                },
+                "phase": {
+                  "stringValue": "developpement"
+                }
+              }
+            }
+          },
+          {
+            "mapValue": {
+              "fields": {
+                "theme": {
+                  "stringValue": "Pic du plan — endurance + qualité"
+                },
+                "sessions": {
+                  "arrayValue": {
+                    "values": [
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "intensity": {
+                              "stringValue": "Modéré"
+                            },
+                            "locationSuggestion": {
+                              "stringValue": "Parcours plat de Saint-Pierre-de-Côle — éviter les chemins trop techniques"
+                            },
+                            "mainSet": {
+                              "stringValue": "Tempo continu de 15-20 min à 4:22 min/km (allure semi). Garder cadence régulière, ne pas accélérer en fin."
+                            },
+                            "elevationGain": {
+                              "integerValue": "0"
+                            },
+                            "targetPace": {
+                              "stringValue": "EF 5:32 + tempo continu 15 min à 4:22"
+                            },
+                            "type": {
+                              "stringValue": "Jogging"
+                            },
+                            "day": {
+                              "stringValue": "Mardi"
+                            },
+                            "title": {
+                              "stringValue": "Tempo continu — 11 km"
+                            },
+                            "advice": {
+                              "stringValue": "L'allure tempo (~86 % VMA) est la zone idéale pour développer l'économie de course tout en restant en aérobie. Pour la perte de poids, cette séance casse la monotonie aérobie pure et apporte un stimulus métabolique additionnel."
+                            },
+                            "duration": {
+                              "stringValue": "1h 01 min"
+                            },
+                            "warmup": {
+                              "stringValue": "20 min EF à 5:32 min/km + 4 lignes droites progressives de 80m"
+                            },
+                            "distance": {
+                              "stringValue": "11 km"
+                            },
+                            "cooldown": {
+                              "stringValue": "10 min retour au calme à 6:11 min/km + étirements légers (ischios, mollets)"
+                            },
+                            "id": {
+                              "stringValue": "w11-s1-1778580978617"
+                            }
+                          }
+                        }
+                      },
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "warmup": {
+                              "stringValue": "10 min de marche active puis 5 min footing très léger pour amorcer"
+                            },
+                            "duration": {
+                              "stringValue": "55 min"
+                            },
+                            "advice": {
+                              "stringValue": "Cette 2e sortie longue est volontairement molle. Le but n'est pas la performance mais l'accumulation de durée à faible intensité. Le mini-circuit renfo en fin de séance préserve la masse maigre (clé pour la perte de poids)."
+                            },
+                            "title": {
+                              "stringValue": "Sortie Longue molle — 10 km"
+                            },
+                            "id": {
+                              "stringValue": "w11-s2-1778580978618"
+                            },
+                            "distance": {
+                              "stringValue": "10 km"
+                            },
+                            "cooldown": {
+                              "stringValue": "5 min marche active + étirements ciblés (mollets, ischios) + 5 min mini-circuit renfo : 2×(15 squats lestés, 10 fentes/jambe, 30s gainage)"
+                            },
+                            "elevationGain": {
+                              "integerValue": "0"
+                            },
+                            "mainSet": {
+                              "stringValue": "Allure très facile à 5:32-6:00 min/km (60-70 % VMA). C'est une 2e sortie longue MOLLE — durée prime sur intensité. Marche/course autorisée si jambes lourdes."
+                            },
+                            "locationSuggestion": {
+                              "stringValue": "Sentiers de la campagne de Saint-Pierre-de-Côle, ou boucle vallonnée si envie de variété"
+                            },
+                            "intensity": {
+                              "stringValue": "Facile"
+                            },
+                            "type": {
+                              "stringValue": "Sortie Longue"
+                            },
+                            "day": {
+                              "stringValue": "Jeudi"
+                            },
+                            "targetPace": {
+                              "stringValue": "5:32 min/km"
+                            }
+                          }
+                        }
+                      },
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "duration": {
+                              "stringValue": "1h 34 min"
+                            },
+                            "advice": {
+                              "stringValue": "La sortie longue principale est LE pilier de ce plan. Pour la perte de poids, la durée en zone aérobie maximise l'oxydation lipidique. Hydratation toutes les 20 min, gel optionnel après 1h15."
+                            },
+                            "title": {
+                              "stringValue": "Sortie Longue progressive — 17 km"
+                            },
+                            "warmup": {
+                              "stringValue": "10 min de marche active puis 5 min footing très léger pour amorcer"
+                            },
+                            "cooldown": {
+                              "stringValue": "10 min marche active + étirements complets (mollets, ischios, quadriceps, fessiers, hanches) + 3 min gainage statique (planche 1 min, planches latérales 30s/côté)"
+                            },
+                            "distance": {
+                              "stringValue": "17 km"
+                            },
+                            "id": {
+                              "stringValue": "w11-s3-1778580978619"
+                            },
+                            "intensity": {
+                              "stringValue": "Modéré"
+                            },
+                            "locationSuggestion": {
+                              "stringValue": "Sentiers de la campagne de Saint-Pierre-de-Côle, ou boucle vallonnée si envie de variété"
+                            },
+                            "mainSet": {
+                              "stringValue": "Sortie progressive : 12 km à 5:32 min/km (EF) puis 5 km descendants progressivement vers 5:00 min/km. Ne pas forcer — c'est la durée qui compte, pas la vitesse."
+                            },
+                            "elevationGain": {
+                              "integerValue": "0"
+                            },
+                            "targetPace": {
+                              "stringValue": "5:32 → 5:00 (progressif)"
+                            },
+                            "type": {
+                              "stringValue": "Sortie Longue"
+                            },
+                            "day": {
+                              "stringValue": "Dimanche"
+                            }
+                          }
+                        }
+                      }
+                    ]
+                  }
+                },
+                "weekNumber": {
+                  "integerValue": "11"
+                },
+                "phase": {
+                  "stringValue": "developpement"
+                }
+              }
+            }
+          },
+          {
+            "mapValue": {
+              "fields": {
+                "phase": {
+                  "stringValue": "recuperation"
+                },
+                "sessions": {
+                  "arrayValue": {
+                    "values": [
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "elevationGain": {
+                              "integerValue": "0"
+                            },
+                            "locationSuggestion": {
+                              "stringValue": "Boucle plate aux alentours de Saint-Pierre-de-Côle"
+                            },
+                            "intensity": {
+                              "stringValue": "Facile"
+                            },
+                            "mainSet": {
+                              "stringValue": "8km à 5:32 min/km (EF, 70 % VMA). Cadence relâchée, respiration nasale possible. Optionnel : 4×100m lignes droites en fin de séance."
+                            },
+                            "type": {
+                              "stringValue": "Jogging"
+                            },
+                            "day": {
+                              "stringValue": "Mardi"
+                            },
+                            "targetPace": {
+                              "stringValue": "5:32 min/km"
+                            },
+                            "warmup": {
+                              "stringValue": "5 min de marche active + 5 min footing très léger"
+                            },
+                            "advice": {
+                              "stringValue": "Le footing EF est la base du plan. Pas d'objectif d'allure — privilégie la sensation. Le renfo en fin compense l'absence de jour dédié force."
+                            },
+                            "title": {
+                              "stringValue": "Footing EF — 8 km"
+                            },
+                            "duration": {
+                              "stringValue": "44 min"
+                            },
+                            "distance": {
+                              "stringValue": "8 km"
+                            },
+                            "cooldown": {
+                              "stringValue": "5 min retour au calme + 8 min mini-circuit renfo : 3×(15 squats lestés ou au poids du corps, 10 fentes alternées/jambe, 12 pompes, 40s gainage)"
+                            },
+                            "id": {
+                              "stringValue": "w12-s1-1778580979617"
+                            }
+                          }
+                        }
+                      },
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "type": {
+                              "stringValue": "Sortie Longue"
+                            },
+                            "day": {
+                              "stringValue": "Jeudi"
+                            },
+                            "targetPace": {
+                              "stringValue": "5:32 min/km"
+                            },
+                            "elevationGain": {
+                              "integerValue": "0"
+                            },
+                            "mainSet": {
+                              "stringValue": "Allure très facile à 5:32-6:00 min/km (60-70 % VMA). C'est une 2e sortie longue MOLLE — durée prime sur intensité. Marche/course autorisée si jambes lourdes."
+                            },
+                            "intensity": {
+                              "stringValue": "Facile"
+                            },
+                            "locationSuggestion": {
+                              "stringValue": "Sentiers de la campagne de Saint-Pierre-de-Côle, ou boucle vallonnée si envie de variété"
+                            },
+                            "id": {
+                              "stringValue": "w12-s2-1778580979618"
+                            },
+                            "cooldown": {
+                              "stringValue": "5 min marche active + étirements ciblés (mollets, ischios) + 5 min mini-circuit renfo : 2×(15 squats lestés, 10 fentes/jambe, 30s gainage)"
+                            },
+                            "distance": {
+                              "stringValue": "8 km"
+                            },
+                            "warmup": {
+                              "stringValue": "10 min de marche active puis 5 min footing très léger pour amorcer"
+                            },
+                            "duration": {
+                              "stringValue": "44 min"
+                            },
+                            "advice": {
+                              "stringValue": "Cette 2e sortie longue est volontairement molle. Le but n'est pas la performance mais l'accumulation de durée à faible intensité. Le mini-circuit renfo en fin de séance préserve la masse maigre (clé pour la perte de poids)."
+                            },
+                            "title": {
+                              "stringValue": "Sortie Longue molle — 8 km"
+                            }
+                          }
+                        }
+                      },
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "mainSet": {
+                              "stringValue": "Allure stable à 5:32 min/km (EF, 70 % VMA). Conversation possible mais légèrement gênée. 12km en aisance — visez la régularité."
+                            },
+                            "locationSuggestion": {
+                              "stringValue": "Sentiers de la campagne de Saint-Pierre-de-Côle, ou boucle vallonnée si envie de variété"
+                            },
+                            "intensity": {
+                              "stringValue": "Facile"
+                            },
+                            "elevationGain": {
+                              "integerValue": "0"
+                            },
+                            "targetPace": {
+                              "stringValue": "5:32 min/km"
+                            },
+                            "type": {
+                              "stringValue": "Sortie Longue"
+                            },
+                            "day": {
+                              "stringValue": "Dimanche"
+                            },
+                            "title": {
+                              "stringValue": "Sortie Longue principale — 12 km"
+                            },
+                            "duration": {
+                              "stringValue": "1h 06 min"
+                            },
+                            "advice": {
+                              "stringValue": "La sortie longue principale est LE pilier de ce plan. Pour la perte de poids, la durée en zone aérobie maximise l'oxydation lipidique. Hydratation toutes les 20 min, gel optionnel après 1h15."
+                            },
+                            "warmup": {
+                              "stringValue": "10 min de marche active puis 5 min footing très léger pour amorcer"
+                            },
+                            "id": {
+                              "stringValue": "w12-s3-1778580979619"
+                            },
+                            "distance": {
+                              "stringValue": "12 km"
+                            },
+                            "cooldown": {
+                              "stringValue": "10 min marche active + étirements complets (mollets, ischios, quadriceps, fessiers, hanches) + 3 min gainage statique (planche 1 min, planches latérales 30s/côté)"
+                            }
+                          }
+                        }
+                      }
+                    ]
+                  }
+                },
+                "theme": {
+                  "stringValue": "Régénération et clôture cycle"
+                },
+                "weekNumber": {
+                  "integerValue": "12"
+                }
+              }
+            }
+          }
+        ]
+      }
+    },
+    "feasibility": {
+      "mapValue": {
+        "fields": {
+          "message": {
+            "stringValue": "Ton programme perte de poids sur 12 semaines est bien calibré pour ton profil. Avec ta VMA de 16.2 km/h, concentre-toi sur la régularité et le plaisir."
+          },
+          "safetyWarning": {
+            "stringValue": "Hydrate-toi bien, échauffe-toi avant chaque séance et accorde-toi un vrai temps de récupération."
+          },
+          "status": {
+            "stringValue": "BON"
+          }
+        }
+      }
+    },
+    "confidenceScore": {
+      "integerValue": "80"
+    },
+    "durationWeeks": {
+      "integerValue": "12"
+    },
+    "startDate": {
+      "stringValue": "2026-05-11"
+    },
+    "welcomeMessage": {
+      "stringValue": "Bienvenue dans ton programme de 12 semaines pour la perte de poids — version révisée.\n\nVolume cible : 25 à 38 km/sem (≈ 3h à 4h30 de course par semaine). Ton profil de coureur expérimenté (Marathon 3h10, VMA 16.2 km/h) permet ce volume sans risque. Le plan original sous-utilisait ton potentiel — cette version révisée corrige cela tout en restant dans la fourchette coach « perte de poids » (régularité et durée Z2 > accumulation de km).\n\n**Important pour la perte de poids :** la course seule suffit rarement à perdre du poids significativement. Vise un déficit calorique de 300 à 500 kcal par jour via l'alimentation (légèrement moins manger, pas drastique). Sans cela, l'entraînement seul produira peu de résultats sur la balance, même si tes performances et ton bien-être progresseront.\n\n**Structure du plan (3 séances/sem, Mardi/Jeudi/Dimanche) :**\n- Mardi : footing EF (puis tempo continu à partir de la S7)\n- Jeudi : 2ᵉ sortie longue molle (durée prime sur intensité)\n- Dimanche : sortie longue principale (pilier du plan)\n- Renforcement intégré en fin de séance (gainage + squats/fentes) — préserve la masse maigre\n- Décharges en S4 et S8 (cycle 3+1)\n- Pas d'affûtage : programme glissant renouvelable\n\n**Option (recommandée) :** si tu peux ajouter 1 séance hebdo de force compound (squat, soulevé de terre, fentes lestées, 30 min) à un autre moment de la semaine, l'effet sur la masse maigre et le métabolisme de repos sera nettement supérieur. Non bloquant.\n\nBon entraînement."
+    },
+    "location": {
+      "stringValue": "Saint Pierre de cole "
+    },
+    "adaptationLog": {
+      "mapValue": {
+        "fields": {
+          "adaptationsThisWeek": {
+            "integerValue": "0"
+          },
+          "weekNumber": {
+            "integerValue": "0"
+          },
+          "adaptationHistory": {
+            "arrayValue": {}
+          }
+        }
+      }
+    },
+    "paces": {
+      "mapValue": {
+        "fields": {
+          "efPace": {
+            "stringValue": "5:32"
+          },
+          "recoveryPace": {
+            "stringValue": "6:11"
+          },
+          "allureSpecifique10k": {
+            "stringValue": "4:07"
+          },
+          "allureSpecifiqueSemi": {
+            "stringValue": "4:22"
+          },
+          "eaPace": {
+            "stringValue": "4:49"
+          },
+          "allureSpecifique5k": {
+            "stringValue": "3:54"
+          },
+          "vmaPace": {
+            "stringValue": "3:43"
+          },
+          "allureSpecifiqueMarathon": {
+            "stringValue": "4:38"
+          },
+          "seuilPace": {
+            "stringValue": "4:16"
+          }
+        }
+      }
+    },
+    "generationContext": {
+      "mapValue": {
+        "fields": {
+          "modelUsed": {
+            "stringValue": "gemini-2.5-flash"
+          },
+          "periodizationPlan": {
+            "mapValue": {
+              "fields": {
+                "weeklyVolumes": {
+                  "arrayValue": {
+                    "values": [
+                      {
+                        "integerValue": "30"
+                      },
+                      {
+                        "integerValue": "33"
+                      },
+                      {
+                        "integerValue": "35"
+                      },
+                      {
+                        "integerValue": "27"
+                      },
+                      {
+                        "integerValue": "31"
+                      },
+                      {
+                        "integerValue": "33"
+                      },
+                      {
+                        "integerValue": "35"
+                      },
+                      {
+                        "integerValue": "27"
+                      },
+                      {
+                        "integerValue": "31"
+                      },
+                      {
+                        "integerValue": "33"
+                      },
+                      {
+                        "integerValue": "35"
+                      },
+                      {
+                        "integerValue": "33"
+                      }
+                    ]
+                  }
+                },
+                "recoveryWeeks": {
+                  "arrayValue": {
+                    "values": [
+                      {
+                        "integerValue": "4"
+                      },
+                      {
+                        "integerValue": "8"
+                      }
+                    ]
+                  }
+                },
+                "weeklyPhases": {
+                  "arrayValue": {
+                    "values": [
+                      {
+                        "stringValue": "fondamental"
+                      },
+                      {
+                        "stringValue": "fondamental"
+                      },
+                      {
+                        "stringValue": "fondamental"
+                      },
+                      {
+                        "stringValue": "recuperation"
+                      },
+                      {
+                        "stringValue": "fondamental"
+                      },
+                      {
+                        "stringValue": "developpement"
+                      },
+                      {
+                        "stringValue": "developpement"
+                      },
+                      {
+                        "stringValue": "recuperation"
+                      },
+                      {
+                        "stringValue": "developpement"
+                      },
+                      {
+                        "stringValue": "developpement"
+                      },
+                      {
+                        "stringValue": "developpement"
+                      },
+                      {
+                        "stringValue": "developpement"
+                      }
+                    ]
+                  }
+                },
+                "totalWeeks": {
+                  "integerValue": "12"
+                }
+              }
+            }
+          },
+          "vma": {
+            "doubleValue": 16.16925202555826
+          },
+          "questionnaireSnapshot": {
+            "mapValue": {
+              "fields": {
+                "frequency": {
+                  "integerValue": "3"
+                },
+                "email": {
+                  "stringValue": "arnaudmanoeuvre@gmail.com"
+                },
+                "height": {
+                  "integerValue": "172"
+                },
+                "weight": {
+                  "integerValue": "70"
+                },
+                "injuries": {
+                  "mapValue": {
+                    "fields": {
+                      "hasInjury": {
+                        "booleanValue": false
+                      }
+                    }
+                  }
+                },
+                "age": {
+                  "integerValue": "38"
+                },
+                "recentRaceTimes": {
+                  "mapValue": {
+                    "fields": {
+                      "distanceHalfMarathon": {
+                        "stringValue": "1h34"
+                      },
+                      "distanceMarathon": {
+                        "stringValue": "3h10"
+                      }
+                    }
+                  }
+                },
+                "preferredDays": {
+                  "arrayValue": {
+                    "values": [
+                      {
+                        "stringValue": "Mardi"
+                      },
+                      {
+                        "stringValue": "Jeudi"
+                      },
+                      {
+                        "stringValue": "Dimanche"
+                      }
+                    ]
+                  }
+                },
+                "goal": {
+                  "stringValue": "Perte de poids"
+                },
+                "vma": {
+                  "doubleValue": 16.16925202555826
+                },
+                "sex": {
+                  "stringValue": "Homme"
+                },
+                "weeklyTimeAvailable": {
+                  "stringValue": "2h+"
+                },
+                "city": {
+                  "stringValue": "Saint Pierre de cole "
+                },
+                "level": {
+                  "stringValue": "Confirmé (Compétition)"
+                },
+                "startDate": {
+                  "stringValue": "2026-05-11"
+                }
+              }
+            }
+          },
+          "generatedAt": {
+            "stringValue": "2026-05-11T17:43:13.758Z"
+          },
+          "vmaSource": {
+            "stringValue": "Moyenne Semi en 1h34 et Marathon en 3h10"
+          },
+          "paces": {
+            "mapValue": {
+              "fields": {
+                "seuilPace": {
+                  "stringValue": "4:16"
+                },
+                "vmaPace": {
+                  "stringValue": "3:43"
+                },
+                "allureSpecifique5k": {
+                  "stringValue": "3:54"
+                },
+                "allureSpecifiqueMarathon": {
+                  "stringValue": "4:38"
+                },
+                "allureSpecifiqueSemi": {
+                  "stringValue": "4:22"
+                },
+                "eaPace": {
+                  "stringValue": "4:49"
+                },
+                "allureSpecifique10k": {
+                  "stringValue": "4:07"
+                },
+                "efPace": {
+                  "stringValue": "5:32"
+                },
+                "recoveryPace": {
+                  "stringValue": "6:11"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "isPreview": {
+      "booleanValue": false
+    },
+    "userEmail": {
+      "stringValue": "arnaudmanoeuvre@gmail.com"
+    },
+    "id": {
+      "stringValue": "1778521479387"
+    },
+    "createdAt": {
+      "stringValue": "2026-05-11T17:44:39.387Z"
+    },
+    "goal": {
+      "stringValue": "Perte de poids"
+    },
+    "sessionsPerWeek": {
+      "integerValue": "3"
+    },
+    "userId": {
+      "stringValue": "dVuk3CvGFYTauwRI2gGIFhUix7I2"
+    }
+  },
+  "createTime": "2026-05-11T17:44:54.720111Z",
+  "updateTime": "2026-05-12T10:16:07.824865Z"
+}

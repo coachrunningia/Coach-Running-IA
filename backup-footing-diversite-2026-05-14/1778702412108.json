@@ -1,0 +1,746 @@
+{
+  "name": {
+    "stringValue": "Préparation Trail 63km / 1200m D+ en 6h20 — 18 sem."
+  },
+  "goal": {
+    "stringValue": "Trail"
+  },
+  "startDate": {
+    "stringValue": "2026-05-11"
+  },
+  "durationWeeks": {
+    "integerValue": "18"
+  },
+  "sessionsPerWeek": {
+    "integerValue": "5"
+  },
+  "targetTime": {
+    "stringValue": "6h20"
+  },
+  "distance": {
+    "stringValue": "63km D+1200m"
+  },
+  "location": {
+    "stringValue": "Nabringhen"
+  },
+  "suggestedLocations": {
+    "arrayValue": {
+      "values": [
+        {
+          "mapValue": {
+            "fields": {
+              "name": {
+                "stringValue": "Forêt Domaniale de Desvres"
+              },
+              "type": {
+                "stringValue": "NATURE"
+              },
+              "description": {
+                "stringValue": "Pour les sorties longues, les footings vallonnés et les séances de trail avec dénivelé, offrant des sentiers variés et une immersion en nature."
+              }
+            }
+          }
+        },
+        {
+          "mapValue": {
+            "fields": {
+              "name": {
+                "stringValue": "Chemins ruraux autour de Nabringhen"
+              },
+              "type": {
+                "stringValue": "NATURE"
+              },
+              "description": {
+                "stringValue": "Idéal pour les footings en endurance fondamentale, offrant des parcours plats ou très légèrement vallonnés sur des chemins de terre ou goudronnés calmes."
+              }
+            }
+          }
+        }
+      ]
+    }
+  },
+  "welcomeMessage": {
+    "stringValue": "Bonjour ! Ce plan d'entraînement est conçu pour t'accompagner dans ton objectif ambitieux de terminer ton Trail de 63km D+1200m en 6h20. La première phase, 'fondamental', posera les bases solides de ton endurance en augmentant progressivement le volume et en variant les types de footings. Le plan est structuré sur 18 semaines, avec 5 séances par semaine, incluant une sortie longue et une séance de renforcement essentielle pour le trail. Nous te recommandons de consulter un médecin avant de débuter ce programme, notamment pour obtenir un certificat médical d'aptitude au sport."
+  },
+  "confidenceScore": {
+    "integerValue": "82"
+  },
+  "feasibility": {
+    "mapValue": {
+      "fields": {
+        "status": {
+          "stringValue": "BON"
+        },
+        "message": {
+          "stringValue": "Avec ta VMA de 16.5 km/h, ton temps théorique sur 63km avec 1200m D+ est d'environ 6h30min. Viser 6h20min est un bel objectif. Avec un entraînement régulier, c'est tout à fait atteignable."
+        },
+        "safetyWarning": {
+          "stringValue": "Fais valider la reprise avec ton kiné/médecin avant de démarrer ce plan. Adapte les séances si nécessaire."
+        }
+      }
+    }
+  },
+  "weeks": {
+    "arrayValue": {
+      "values": [
+        {
+          "mapValue": {
+            "fields": {
+              "weekNumber": {
+                "integerValue": "1"
+              },
+              "theme": {
+                "stringValue": "Introduction au volume et à l'endurance fondamentale"
+              },
+              "phase": {
+                "stringValue": "fondamental"
+              },
+              "sessions": {
+                "arrayValue": {
+                  "values": [
+                    {
+                      "mapValue": {
+                        "fields": {
+                          "day": {
+                            "stringValue": "Lundi"
+                          },
+                          "type": {
+                            "stringValue": "Jogging"
+                          },
+                          "title": {
+                            "stringValue": "Footing en aisance respiratoire"
+                          },
+                          "duration": {
+                            "stringValue": "56 min"
+                          },
+                          "distance": {
+                            "stringValue": "10.4 km"
+                          },
+                          "intensity": {
+                            "stringValue": "Facile"
+                          },
+                          "targetPace": {
+                            "stringValue": "5:26 min/km"
+                          },
+                          "elevationGain": {
+                            "integerValue": "45"
+                          },
+                          "locationSuggestion": {
+                            "stringValue": "Chemins ruraux autour de Nabringhen"
+                          },
+                          "warmup": {
+                            "stringValue": "5 min de marche rapide, puis 10 min en Endurance Fondamentale (5:26 min/km)."
+                          },
+                          "mainSet": {
+                            "stringValue": "35 min en Endurance Fondamentale (5:26 min/km), en focalisant sur une respiration fluide et une foulée légère. Maintiens une conversation facile tout au long de la séance."
+                          },
+                          "cooldown": {
+                            "stringValue": "5 min de marche active pour un retour au calme progressif. (à 6:04 min/km)"
+                          },
+                          "advice": {
+                            "stringValue": "Écoute attentivement ton corps, surtout au niveau du tendon d'Achille gauche. La moindre gêne doit t'inciter à réduire l'intensité ou à marcher. L'objectif est de courir sans douleur."
+                          },
+                          "id": {
+                            "stringValue": "w1-s1-1778702412109-ugq3yts"
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "mapValue": {
+                        "fields": {
+                          "day": {
+                            "stringValue": "Mardi"
+                          },
+                          "type": {
+                            "stringValue": "Jogging"
+                          },
+                          "title": {
+                            "stringValue": "Footing vallonné doux"
+                          },
+                          "duration": {
+                            "stringValue": "42 min"
+                          },
+                          "distance": {
+                            "stringValue": "7.8 km"
+                          },
+                          "intensity": {
+                            "stringValue": "Facile"
+                          },
+                          "targetPace": {
+                            "stringValue": "5:26 min/km"
+                          },
+                          "elevationGain": {
+                            "integerValue": "120"
+                          },
+                          "locationSuggestion": {
+                            "stringValue": "Forêt Domaniale de Desvres"
+                          },
+                          "warmup": {
+                            "stringValue": "5 min de marche rapide, puis 10 min en Endurance Fondamentale (5:26 min/km) sur terrain plat."
+                          },
+                          "mainSet": {
+                            "stringValue": "35 min en Endurance Fondamentale (5:26 min/km), sur un parcours avec de légers vallonnements. Adapte ton allure dans les montées et descentes douces pour rester en aisance respiratoire et protéger ton tendon d'Achille."
+                          },
+                          "cooldown": {
+                            "stringValue": "5 min de marche active et quelques étirements doux pour les mollets et les ischios-jambiers. (à 6:04 min/km)"
+                          },
+                          "advice": {
+                            "stringValue": "Privilégie les pentes douces et régulières. Surveille la réactivité de ton tendon dans les changements de pente. Ta foulée doit rester souple et amortie."
+                          },
+                          "id": {
+                            "stringValue": "w1-s2-1778702412109-karwjob"
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "mapValue": {
+                        "fields": {
+                          "day": {
+                            "stringValue": "Mercredi"
+                          },
+                          "type": {
+                            "stringValue": "Jogging"
+                          },
+                          "title": {
+                            "stringValue": "Footing progressif"
+                          },
+                          "duration": {
+                            "stringValue": "59 min"
+                          },
+                          "distance": {
+                            "stringValue": "10 km"
+                          },
+                          "intensity": {
+                            "stringValue": "Modéré"
+                          },
+                          "targetPace": {
+                            "stringValue": "5:26 min/km à 5:00 min/km"
+                          },
+                          "elevationGain": {
+                            "integerValue": "45"
+                          },
+                          "locationSuggestion": {
+                            "stringValue": "Chemins ruraux autour de Nabringhen"
+                          },
+                          "warmup": {
+                            "stringValue": "5 min de marche rapide, puis 10 min en Endurance Fondamentale (5:26 min/km)."
+                          },
+                          "mainSet": {
+                            "stringValue": "40 min de course en progression d'allure. Démarre à 5:26 min/km et augmente très progressivement ton allure toutes les 10 minutes, pour finir la dernière partie autour de 5:00 min/km. L'objectif est de rester dans la zone d'Endurance Fondamentale, mais vers le haut de celle-ci."
+                          },
+                          "cooldown": {
+                            "stringValue": "5 min de marche active pour un retour au calme complet. (à 6:04 min/km)"
+                          },
+                          "advice": {
+                            "stringValue": "La progression doit être fluide et non forcée. Sens l'effort augmenter doucement. Si une douleur apparaît au tendon, reviens immédiatement à une allure plus lente ou marche."
+                          },
+                          "id": {
+                            "stringValue": "w1-s3-1778702412109-gfsiy5q"
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "mapValue": {
+                        "fields": {
+                          "day": {
+                            "stringValue": "Vendredi"
+                          },
+                          "type": {
+                            "stringValue": "Sortie Longue"
+                          },
+                          "title": {
+                            "stringValue": "Sortie Longue Trail Doux"
+                          },
+                          "duration": {
+                            "stringValue": "1h 22 min"
+                          },
+                          "distance": {
+                            "stringValue": "15.1 km"
+                          },
+                          "intensity": {
+                            "stringValue": "Facile"
+                          },
+                          "targetPace": {
+                            "stringValue": "5:26 min/km"
+                          },
+                          "elevationGain": {
+                            "integerValue": "390"
+                          },
+                          "locationSuggestion": {
+                            "stringValue": "Forêt Domaniale de Desvres"
+                          },
+                          "warmup": {
+                            "stringValue": "10 min de marche rapide, puis 15 min en Endurance Fondamentale (5:26 min/km) sur terrain plat ou très légèrement vallonné."
+                          },
+                          "mainSet": {
+                            "stringValue": "55 min en Endurance Fondamentale (5:26 min/km), sur des sentiers de forêt avec des vallonnements modérés. Concentre-toi sur la fluidité de la foulée, l'adaptation au terrain et le maintien d'une aisance respiratoire. Cible des chemins sans racines ni roches trop agressives pour le tendon."
+                          },
+                          "cooldown": {
+                            "stringValue": "10 min de marche active. Hydrate-toi bien après cette sortie. (à 6:04 min/km)"
+                          },
+                          "advice": {
+                            "stringValue": "C'est ta première sortie longue de la phase fondamentale. Hydrate-toi régulièrement et pense à emporter un petit encas si besoin. Sois très attentif aux sensations de ton tendon d'Achille, notamment dans les descentes. Privilégie les descentes avec une cadence élevée et de petits pas pour minimiser l'impact."
+                          },
+                          "id": {
+                            "stringValue": "w1-s4-1778702412109-nj4m6bh"
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "mapValue": {
+                        "fields": {
+                          "day": {
+                            "stringValue": "Samedi"
+                          },
+                          "type": {
+                            "stringValue": "Renforcement"
+                          },
+                          "title": {
+                            "stringValue": "Renfo Trail Focus A - Quadriceps & Excentrique (S1)"
+                          },
+                          "duration": {
+                            "stringValue": "45-50 min"
+                          },
+                          "distance": {
+                            "stringValue": "N/A"
+                          },
+                          "intensity": {
+                            "stringValue": "Modéré"
+                          },
+                          "targetPace": {
+                            "stringValue": "N/A"
+                          },
+                          "elevationGain": {
+                            "integerValue": "0"
+                          },
+                          "locationSuggestion": {
+                            "stringValue": "À la maison"
+                          },
+                          "warmup": {
+                            "stringValue": "10 min de mobilité articulaire douce et échauffement progressif (marche rapide, rotations, pas chassés)"
+                          },
+                          "mainSet": {
+                            "stringValue": "Circuit 4 tours : Squats poids de corps (3x18), Fentes avant (3x12/jambe), Gainage ventral (3x35-60s), Dead bug (3x12/côté), Extensions mollets debout (3x23), Squat excentrique (descente 4s) (3x12), Step-down excentrique (3x9/jambe), Mollets debout unipodal (3x14/jambe), Pompes (3x18), Dips sur banc (3x14), Mobilité cheville (genou au mur) (2x18/pied), Équilibre unipodal yeux fermés (3x23s/pied). Repos 1 min entre tours. ⚠️ Exercices de prévention inclus pour ta blessure — si douleur, arrête immédiatement."
+                          },
+                          "cooldown": {
+                            "stringValue": "8 min : mobilité cheville (genou au mur 15×2), étirements mollets + soléaire, automassage voûte plantaire (balle)."
+                          },
+                          "advice": {
+                            "stringValue": "Concentre-toi sur la qualité d'exécution des mouvements. Évite tout exercice qui provoquerait une douleur ou une sollicitation excessive de ton tendon d'Achille gauche. La stabilité du bassin et le renforcement des fessiers sont clés pour la course en trail et la prévention des blessures."
+                          },
+                          "id": {
+                            "stringValue": "w1-s5-1778702412109-q4akudp"
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              },
+              "weekGoal": {
+                "stringValue": "Introduction au volume et à l'endurance fondamentale"
+              }
+            }
+          }
+        }
+      ]
+    }
+  },
+  "id": {
+    "stringValue": "1778702412108"
+  },
+  "createdAt": {
+    "stringValue": "2026-05-13T20:00:12.108Z"
+  },
+  "calculatedVMA": {
+    "doubleValue": 16.467654042604078
+  },
+  "vma": {
+    "doubleValue": 16.467654042604078
+  },
+  "vmaSource": {
+    "stringValue": "Moyenne 5km en 19:30 et 10km en 39:30"
+  },
+  "paces": {
+    "mapValue": {
+      "fields": {
+        "efPace": {
+          "stringValue": "5:26"
+        },
+        "eaPace": {
+          "stringValue": "4:44"
+        },
+        "seuilPace": {
+          "stringValue": "4:11"
+        },
+        "vmaPace": {
+          "stringValue": "3:39"
+        },
+        "recoveryPace": {
+          "stringValue": "6:04"
+        },
+        "allureSpecifique5k": {
+          "stringValue": "3:50"
+        },
+        "allureSpecifique10k": {
+          "stringValue": "4:03"
+        },
+        "allureSpecifiqueSemi": {
+          "stringValue": "4:17"
+        },
+        "allureSpecifiqueMarathon": {
+          "stringValue": "4:33"
+        }
+      }
+    }
+  },
+  "isPreview": {
+    "booleanValue": true
+  },
+  "fullPlanGenerated": {
+    "booleanValue": false
+  },
+  "generationContext": {
+    "mapValue": {
+      "fields": {
+        "vma": {
+          "doubleValue": 16.467654042604078
+        },
+        "vmaSource": {
+          "stringValue": "Moyenne 5km en 19:30 et 10km en 39:30"
+        },
+        "paces": {
+          "mapValue": {
+            "fields": {
+              "efPace": {
+                "stringValue": "5:26"
+              },
+              "eaPace": {
+                "stringValue": "4:44"
+              },
+              "seuilPace": {
+                "stringValue": "4:11"
+              },
+              "vmaPace": {
+                "stringValue": "3:39"
+              },
+              "recoveryPace": {
+                "stringValue": "6:04"
+              },
+              "allureSpecifique5k": {
+                "stringValue": "3:50"
+              },
+              "allureSpecifique10k": {
+                "stringValue": "4:03"
+              },
+              "allureSpecifiqueSemi": {
+                "stringValue": "4:17"
+              },
+              "allureSpecifiqueMarathon": {
+                "stringValue": "4:33"
+              }
+            }
+          }
+        },
+        "periodizationPlan": {
+          "mapValue": {
+            "fields": {
+              "totalWeeks": {
+                "integerValue": "18"
+              },
+              "weeklyVolumes": {
+                "arrayValue": {
+                  "values": [
+                    {
+                      "integerValue": "43"
+                    },
+                    {
+                      "integerValue": "47"
+                    },
+                    {
+                      "integerValue": "51"
+                    },
+                    {
+                      "integerValue": "40"
+                    },
+                    {
+                      "integerValue": "46"
+                    },
+                    {
+                      "integerValue": "53"
+                    },
+                    {
+                      "integerValue": "61"
+                    },
+                    {
+                      "integerValue": "52"
+                    },
+                    {
+                      "integerValue": "60"
+                    },
+                    {
+                      "integerValue": "69"
+                    },
+                    {
+                      "integerValue": "73"
+                    },
+                    {
+                      "integerValue": "58"
+                    },
+                    {
+                      "integerValue": "67"
+                    },
+                    {
+                      "integerValue": "73"
+                    },
+                    {
+                      "integerValue": "77"
+                    },
+                    {
+                      "integerValue": "51"
+                    },
+                    {
+                      "integerValue": "45"
+                    },
+                    {
+                      "integerValue": "39"
+                    }
+                  ]
+                }
+              },
+              "weeklyPhases": {
+                "arrayValue": {
+                  "values": [
+                    {
+                      "stringValue": "fondamental"
+                    },
+                    {
+                      "stringValue": "fondamental"
+                    },
+                    {
+                      "stringValue": "fondamental"
+                    },
+                    {
+                      "stringValue": "recuperation"
+                    },
+                    {
+                      "stringValue": "fondamental"
+                    },
+                    {
+                      "stringValue": "developpement"
+                    },
+                    {
+                      "stringValue": "developpement"
+                    },
+                    {
+                      "stringValue": "recuperation"
+                    },
+                    {
+                      "stringValue": "developpement"
+                    },
+                    {
+                      "stringValue": "developpement"
+                    },
+                    {
+                      "stringValue": "developpement"
+                    },
+                    {
+                      "stringValue": "recuperation"
+                    },
+                    {
+                      "stringValue": "specifique"
+                    },
+                    {
+                      "stringValue": "specifique"
+                    },
+                    {
+                      "stringValue": "specifique"
+                    },
+                    {
+                      "stringValue": "affutage"
+                    },
+                    {
+                      "stringValue": "affutage"
+                    },
+                    {
+                      "stringValue": "affutage"
+                    }
+                  ]
+                }
+              },
+              "recoveryWeeks": {
+                "arrayValue": {
+                  "values": [
+                    {
+                      "integerValue": "4"
+                    },
+                    {
+                      "integerValue": "8"
+                    },
+                    {
+                      "integerValue": "12"
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        },
+        "questionnaireSnapshot": {
+          "mapValue": {
+            "fields": {
+              "goal": {
+                "stringValue": "Trail"
+              },
+              "level": {
+                "stringValue": "Expert (Performance)"
+              },
+              "frequency": {
+                "integerValue": "5"
+              },
+              "preferredDays": {
+                "arrayValue": {
+                  "values": [
+                    {
+                      "stringValue": "Lundi"
+                    },
+                    {
+                      "stringValue": "Mardi"
+                    },
+                    {
+                      "stringValue": "Mercredi"
+                    },
+                    {
+                      "stringValue": "Vendredi"
+                    },
+                    {
+                      "stringValue": "Samedi"
+                    }
+                  ]
+                }
+              },
+              "startDate": {
+                "stringValue": "2026-05-13"
+              },
+              "sex": {
+                "stringValue": "Homme"
+              },
+              "trailDetails": {
+                "mapValue": {
+                  "fields": {
+                    "distance": {
+                      "integerValue": "63"
+                    },
+                    "elevation": {
+                      "integerValue": "1200"
+                    }
+                  }
+                }
+              },
+              "recentRaceTimes": {
+                "mapValue": {
+                  "fields": {
+                    "distance5km": {
+                      "stringValue": "19:30"
+                    },
+                    "distance10km": {
+                      "stringValue": "39:30"
+                    },
+                    "distanceHalfMarathon": {
+                      "stringValue": "1h30"
+                    },
+                    "distanceMarathon": {
+                      "stringValue": "3h25"
+                    }
+                  }
+                }
+              },
+              "city": {
+                "stringValue": "Nabringhen"
+              },
+              "injuries": {
+                "mapValue": {
+                  "fields": {
+                    "hasInjury": {
+                      "booleanValue": true
+                    },
+                    "description": {
+                      "stringValue": "Enthesopathie insertion tendon d’Achille gauche "
+                    }
+                  }
+                }
+              },
+              "raceDate": {
+                "stringValue": "2026-09-13"
+              },
+              "targetTime": {
+                "stringValue": "6h20"
+              },
+              "currentWeeklyVolume": {
+                "integerValue": "50"
+              },
+              "currentWeeklyElevation": {
+                "integerValue": "600"
+              },
+              "age": {
+                "integerValue": "37"
+              },
+              "weight": {
+                "integerValue": "62"
+              },
+              "height": {
+                "integerValue": "170"
+              },
+              "preferredLongRunDay": {
+                "stringValue": "Vendredi"
+              },
+              "email": {
+                "stringValue": "adrien_marcourt@hotmail.fr"
+              },
+              "vma": {
+                "doubleValue": 16.467654042604078
+              }
+            }
+          }
+        },
+        "generatedAt": {
+          "stringValue": "2026-05-13T19:59:44.589Z"
+        },
+        "modelUsed": {
+          "stringValue": "gemini-2.5-flash"
+        }
+      }
+    }
+  },
+  "raceDate": {
+    "stringValue": "2026-09-13"
+  },
+  "adaptationLog": {
+    "mapValue": {
+      "fields": {
+        "weekNumber": {
+          "integerValue": "0"
+        },
+        "adaptationsThisWeek": {
+          "integerValue": "0"
+        },
+        "adaptationHistory": {
+          "arrayValue": {}
+        }
+      }
+    }
+  },
+  "endDate": {
+    "stringValue": "2026-09-14"
+  },
+  "userId": {
+    "stringValue": "CxIr00SfkxOme5npEDxLKUPeQUi1"
+  },
+  "userEmail": {
+    "stringValue": "adrien_marcourt@hotmail.fr"
+  }
+}

@@ -1,0 +1,73 @@
+--- /Users/romanemarino/Coach-Running-IA/tests-v1/prompts-AVANT/profil-02-DEBUTANT_IMC32_PDP-preview.txt	2026-05-17 20:59:20
++++ /Users/romanemarino/Coach-Running-IA/tests-v1/prompts-APRES/profil-02-DEBUTANT_IMC32_PDP-preview.txt	2026-05-17 21:01:46
+@@ -8,15 +8,13 @@
+ - Objectif : Perte de poids 
+ - Temps visé : Finisher
+ - Date de course : 2026-08-09
+-- Fréquence : 3 séances/semaine
+ - Jours : Séances UNIQUEMENT sur : Lundi, Mercredi, Samedi
+-- Jour sortie longue : Samedi
+ - Localisation : Marseille
+ 
+ 📝 PRÉCISIONS DU COUREUR : "Veux retrouver la forme en douceur"
+ 
+ 
+-🚶‍♂️🏃 IMPORTANT - NIVEAU DÉBUTANT DÉTECTÉ :
++🚶 IMPORTANT - NIVEAU DÉBUTANT DÉTECTÉ :
+ - Type de séance : "Marche/Course" (OBLIGATOIRE pour au moins 2 séances sur 3)
+ - Format semaine 1 : 8-10 x (1 min course légère + 2 min marche active)
+ - Pas de VMA, pas de fractionné intense
+@@ -51,8 +49,6 @@
+ - Récupération : 9:05 min/km
+ 
+ 
+-⚠️ UTILISE CES ALLURES EXACTES dans chaque séance !
+-
+ ═══════════════════════════════════════════════════════════════
+               PLAN DE PÉRIODISATION PRÉ-CALCULÉ
+ ═══════════════════════════════════════════════════════════════
+@@ -146,11 +142,7 @@
+ - Focus : bas du corps + gainage = protection articulaire + métabolisme
+ - Progression : augmenter les reps (3x12 → 3x15 → 3x18) avant de varier les exercices
+ 
+-EFFORT PERÇU DANS LES MAINSET (OBLIGATOIRE) :
+-Chaque mainSet DOIT mentionner le niveau d'effort perçu :
+-- Jogging EF / SL : "Effort perçu 4/10 — conversation facile, respiration aisée"
+-- Fartlek doux (accélérations) : "Effort perçu 6-7/10 sur les accélérations, retour à 4/10 entre"
+-- Récupération : "Effort perçu 3/10 — très très facile, trot lent"
++EFFORT PERÇU dans chaque mainSet (OBLIGATOIRE) : Jogging/SL = "4/10, conversation facile" | Fartlek = "6-7/10 sur accélérations, retour 4/10 entre" | Récup = "3/10, très très facile".
+ 
+ ALTERNANCE MARCHE/COURSE (semaines 1-3) :
+ L'allure EF (8:08/km) est très lente pour ce profil. Les 2-3 premières semaines, proposer :
+@@ -183,7 +175,6 @@
+ 4. Évaluation de faisabilité HONNÊTE avec chiffres
+ 5. OBLIGATOIRE : 1 séance de type "Renforcement" par semaine (comptée dans les 3 séances)
+    - Répartition : 3 séances = 2 running + 1 renfo
+-   - Durée : 30-45 min
+    - Type dans le JSON : "Renforcement"
+    - NE PAS mettre de séance "Repos" dans le plan
+    - NE PAS générer le contenu du mainSet renfo — le code le fera
+@@ -254,7 +245,7 @@
+                     FORMAT JSON
+ ═══════════════════════════════════════════════════════════════
+ {
+-  "name": "Nom du plan incluant objectif",
++  "name": "Programme Perte de Poids — 12 semaines",
+   "goal": "Perte de poids",
+   "startDate": "2026-05-17",
+   "durationWeeks": 12,
+@@ -266,12 +257,8 @@
+     { "name": "Nom réel du lieu", "type": "PARK|TRACK|NATURE|HILL", "description": "Pour quel type de séance" }
+   ],
+   "welcomeMessage": "Message personnalisé orienté OBJECTIF et STRUCTURE du plan (NE PAS mentionner VMA ni allures)",
+-  "confidenceScore": 75,
+-  "feasibility": {
+-    "status": "BON",
+-    "message": "Analyse avec chiffres VMA/temps théorique",
+-    "safetyWarning": "Conseil sécurité"
+-  },
++  "confidenceScore": 0,
++  "feasibility": { "status": "rempli code", "message": "rempli code", "safetyWarning": "rempli code" },
+   "weeks": [
+     {
+       "weekNumber": 1,

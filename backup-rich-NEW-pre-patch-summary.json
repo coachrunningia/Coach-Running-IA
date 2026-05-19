@@ -1,0 +1,41 @@
+{
+  "_note": "Snapshot des champs ORIGINAUX (avant patch 2026-05-18) pour Rich plan 1779135832271. Le backup complet brut a été écrasé par le 2e run du script (corrigé depuis pour ne plus overwrite).",
+  "planId": "1779135832271",
+  "userId": "eSVsxhsqU2en9sbXbIAmL4xA72A3",
+  "userEmail": "rauroy@yahoo.fr",
+  "patchedAt": "2026-05-18T~20:35Z",
+  "ORIGINAL_VALUES_PRE_PATCH": {
+    "generationContext.periodizationPlan.weeklyVolumes":           [70, 78, 84, 67, 77, 80, 84, 67, 77, 80, 84, 53, 42],
+    "generationContext.periodizationPlan.weeklyElevationTarget":   [1500, 1667, 1833, 1100, 2167, 2333, 2500, 1467, 2833, 3000, 3167, 1667, 1400],
+    "feasibility.status": "IRRÉALISTE",
+    "feasibility.score":  10,
+    "feasibility.recommendation": "une durée de préparation d'au moins 20 semaines",
+    "feasibility.message":       "Ce trail de 110km / 12000m D+ n'est pas réaliste dans les conditions actuelles. 13 semaines pour un ultra de 110km est très dangereux — 20-24 semaines sont le strict minimum. Le D+ de la course (12000m) est 4.0x ton D+ hebdomadaire actuel (3000m/sem) — risque musculaire très élevé en descente, impossible de construire la résistance excentrique nécessaire en 13 semaines. D+ cycle projeté 32500m < min 36000m (3× race D+, doctrine UTMB Academy). VMA estimée sur un ultra de 110km : les allures sont incertaines, valide avec un chrono (10km, semi) pour plus de fiabilité. Ratio D+/km de 109m/km extrême — la gestion en montée sera déterminante. VMA estimée (pas de chrono validé) : l'évaluation comporte une marge d'incertitude. Point positif : ton volume actuel de 70km/sem est une excellente base pour cette distance. Écoute ton corps, sois très progressif, et n'hésite pas à adapter le plan si nécessaire.",
+    "feasibility.safetyWarning": "À 55 ans, on te recommande vivement de consulter ton médecin et de réaliser un test d'effort avant de démarrer cette préparation. Un certificat médical d'aptitude est indispensable pour cette distance. Privilégie la récupération (48-72h entre séances intenses), hydrate-toi bien et écoute ton corps.",
+    "confidenceScore_topLevel": 10,
+    "welcomeMessage": "Bonjour ! Ce plan d'entraînement de 13 semaines est conçu pour t'accompagner vers ton objectif de finir l'Ultra-Trail de 110km avec 12000m de D+. La clé de ton succès sera l'endurance fondamentale, la régularité et une écoute attentive de ton corps. Cette première semaine marque le début de la phase \"fondamentale\", axée sur la construction de ta base aérobie sans intensité excessive, et l'adaptation progressive au dénivelé. Pour un coureur de 55 ans préparant un tel ultra, la patience et une récupération optimale seront tes meilleurs alliés. Nous te recommandons vivement de consulter un médecin avant de débuter ce programme, notamment pour obtenir un certificat médical d'aptitude au sport. À partir de 55 ans, un bilan cardio-vasculaire est particulièrement conseillé.",
+    "weeks[0].sessions": [
+      { "day": "Mardi",    "type": "Jogging",       "distance": "12.9 km", "elevationGain": 300 },
+      { "day": "Mercredi", "type": "Renforcement",  "distance": "0 km",    "elevationGain": 0   },
+      { "day": "Jeudi",    "type": "Jogging",       "distance": "17.1 km", "elevationGain": 225 },
+      { "day": "Samedi",   "type": "Récupération",  "distance": "7.9 km",  "elevationGain": 0   },
+      { "day": "Dimanche", "type": "Sortie Longue", "distance": "26 km",   "elevationGain": 975 }
+    ],
+    "_TOTAL_S1_D+": 1500
+  },
+  "NEW_VALUES_POST_PATCH": {
+    "generationContext.periodizationPlan.weeklyVolumes":         [60, 70, 80, 65, 85, 100, 75, 110, 125, 130, 100, 65, 45],
+    "generationContext.periodizationPlan.weeklyElevationTarget": [3000, 3500, 4200, 2800, 5000, 6000, 4500, 6500, 7500, 7800, 5500, 3500, 1500],
+    "feasibility.status": "AMBITIEUX",
+    "feasibility.score":  60,
+    "confidenceScore_topLevel": 60,
+    "weeks[0].sessions": [
+      { "day": "Mardi",    "elevationGain": 400  },
+      { "day": "Mercredi", "elevationGain": 0    },
+      { "day": "Jeudi",    "elevationGain": 700  },
+      { "day": "Samedi",   "elevationGain": 200  },
+      { "day": "Dimanche", "elevationGain": 1700 }
+    ],
+    "_TOTAL_S1_D+": 3000
+  }
+}

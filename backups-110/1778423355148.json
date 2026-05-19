@@ -1,0 +1,829 @@
+{
+  "name": "projects/coach-running-ia/databases/(default)/documents/plans/1778423355148",
+  "fields": {
+    "raceDate": {
+      "stringValue": "2027-11-15"
+    },
+    "suggestedLocations": {
+      "arrayValue": {
+        "values": [
+          {
+            "mapValue": {
+              "fields": {
+                "name": {
+                  "stringValue": "Bords de l'Erdre (Nantes)"
+                },
+                "description": {
+                  "stringValue": "Pour des footings en aisance respiratoire sur des chemins plats et agréables, ou des sorties longues. Accessible depuis Sautron."
+                },
+                "type": {
+                  "stringValue": "NATURE"
+                }
+              }
+            }
+          },
+          {
+            "mapValue": {
+              "fields": {
+                "type": {
+                  "stringValue": "NATURE"
+                },
+                "name": {
+                  "stringValue": "Bois de la Perrière (Sautron)"
+                },
+                "description": {
+                  "stringValue": "Idéal pour des footings nature sur sol souple ou des parcours légèrement vallonnés au cœur de Sautron."
+                }
+              }
+            }
+          },
+          {
+            "mapValue": {
+              "fields": {
+                "name": {
+                  "stringValue": "Parc de la Gournerie (Saint-Herblain)"
+                },
+                "description": {
+                  "stringValue": "Un grand parc avec des chemins variés, parfait pour des footings vallonnés et des sorties longues avec un peu de dénivelé. Proche de Sautron."
+                },
+                "type": {
+                  "stringValue": "PARK"
+                }
+              }
+            }
+          }
+        ]
+      }
+    },
+    "paces": {
+      "mapValue": {
+        "fields": {
+          "allureSpecifiqueMarathon": {
+            "stringValue": "4:58"
+          },
+          "allureSpecifiqueSemi": {
+            "stringValue": "4:40"
+          },
+          "allureSpecifique5k": {
+            "stringValue": "4:11"
+          },
+          "efPace": {
+            "stringValue": "5:56"
+          },
+          "seuilPace": {
+            "stringValue": "4:34"
+          },
+          "recoveryPace": {
+            "stringValue": "6:37"
+          },
+          "eaPace": {
+            "stringValue": "5:09"
+          },
+          "vmaPace": {
+            "stringValue": "3:58"
+          },
+          "allureSpecifique10k": {
+            "stringValue": "4:25"
+          }
+        }
+      }
+    },
+    "userId": {
+      "stringValue": "Bf58sIodoaXK5OGcFeheuRMuWUH2"
+    },
+    "feasibility": {
+      "mapValue": {
+        "fields": {
+          "safetyWarning": {
+            "stringValue": "Hydrate-toi bien, échauffe-toi avant chaque séance et accorde-toi un vrai temps de récupération.\n\n⚠️ DURÉE DU PLAN : 30 semaines, c'est long pour ton profil. La plupart des coureurs de ton niveau préparent cette distance en 20 semaines maximum. Un plan trop long peut entraîner de la lassitude et une stagnation. Si tu te sens prêt, tu peux envisager de rapprocher ta date de début."
+          },
+          "status": {
+            "stringValue": "BON"
+          },
+          "message": {
+            "stringValue": "Avec ta VMA de 15.1 km/h, ton temps théorique sur marathon est d'environ 3h29min. Viser 3h00min est un bel objectif. Avec un entraînement régulier, c'est tout à fait atteignable."
+          }
+        }
+      }
+    },
+    "adaptationLog": {
+      "mapValue": {
+        "fields": {
+          "weekNumber": {
+            "integerValue": "0"
+          },
+          "adaptationHistory": {
+            "arrayValue": {}
+          },
+          "adaptationsThisWeek": {
+            "integerValue": "0"
+          }
+        }
+      }
+    },
+    "vmaSource": {
+      "stringValue": "Moyenne 5km en 20:46 et 10km en 44:32"
+    },
+    "calculatedVMA": {
+      "doubleValue": 15.111957381174122
+    },
+    "targetTime": {
+      "stringValue": "3h00"
+    },
+    "id": {
+      "stringValue": "1778423355148"
+    },
+    "confidenceScore": {
+      "integerValue": "71"
+    },
+    "startDate": {
+      "stringValue": "2027-04-19"
+    },
+    "distance": {
+      "stringValue": "Marathon"
+    },
+    "weeks": {
+      "arrayValue": {
+        "values": [
+          {
+            "mapValue": {
+              "fields": {
+                "theme": {
+                  "stringValue": "Introduction à l'Endurance Fondamentale"
+                },
+                "weekNumber": {
+                  "integerValue": "1"
+                },
+                "weekGoal": {
+                  "stringValue": "Introduction à l'Endurance Fondamentale"
+                },
+                "phase": {
+                  "stringValue": "fondamental"
+                },
+                "sessions": {
+                  "arrayValue": {
+                    "values": [
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "type": {
+                              "stringValue": "Jogging"
+                            },
+                            "targetPace": {
+                              "stringValue": "5:56 min/km"
+                            },
+                            "duration": {
+                              "stringValue": "1h 08 min"
+                            },
+                            "advice": {
+                              "stringValue": "Profite de cette première séance pour te reconnecter avec tes sensations et poser les bases de ton endurance. N'oublie pas de t'hydrater et d'écouter ton corps. Si une douleur apparaît, ralentis ou arrête-toi."
+                            },
+                            "cooldown": {
+                              "stringValue": "5 min de retour au calme en marchant. (à 6:37 min/km)"
+                            },
+                            "intensity": {
+                              "stringValue": "Facile"
+                            },
+                            "warmup": {
+                              "stringValue": "10 min d'échauffement en marchant puis trottinant très doucement. (à 6:37 min/km)"
+                            },
+                            "elevationGain": {
+                              "integerValue": "0"
+                            },
+                            "distance": {
+                              "stringValue": "11.5 km"
+                            },
+                            "title": {
+                              "stringValue": "Footing en aisance respiratoire"
+                            },
+                            "id": {
+                              "stringValue": "w1-s1-1778423355148-msz1zui"
+                            },
+                            "locationSuggestion": {
+                              "stringValue": "Bords de l'Erdre (Nantes)"
+                            },
+                            "day": {
+                              "stringValue": "Lundi"
+                            },
+                            "mainSet": {
+                              "stringValue": "50 min de course à une allure très facile (Endurance Fondamentale - 5:56 min/km), où la conversation est aisée."
+                            }
+                          }
+                        }
+                      },
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "duration": {
+                              "stringValue": "52 min"
+                            },
+                            "advice": {
+                              "stringValue": "Ce footing permet de varier le terrain et de solliciter légèrement d'autres groupes musculaires. Concentre-toi sur ta foulée dans les petites montées et descentes. Reste toujours à l'écoute de ton corps, ne force jamais."
+                            },
+                            "targetPace": {
+                              "stringValue": "5:56 min/km"
+                            },
+                            "type": {
+                              "stringValue": "Jogging"
+                            },
+                            "cooldown": {
+                              "stringValue": "5 min de marche et étirements légers. (à 6:37 min/km)"
+                            },
+                            "elevationGain": {
+                              "integerValue": "0"
+                            },
+                            "intensity": {
+                              "stringValue": "Facile"
+                            },
+                            "warmup": {
+                              "stringValue": "10 min d'échauffement dynamique (marche, puis course légère). (à 6:37 min/km)"
+                            },
+                            "day": {
+                              "stringValue": "Mercredi"
+                            },
+                            "locationSuggestion": {
+                              "stringValue": "Bois de la Perrière (Sautron)"
+                            },
+                            "mainSet": {
+                              "stringValue": "50 min de course en Endurance Fondamentale (5:56 min/km) sur un parcours légèrement vallonné. Adapte l'allure dans les montées pour rester en aisance respiratoire."
+                            },
+                            "distance": {
+                              "stringValue": "8.7 km"
+                            },
+                            "id": {
+                              "stringValue": "w1-s2-1778423355148-bwan4ph"
+                            },
+                            "title": {
+                              "stringValue": "Footing vallonné et découverte"
+                            }
+                          }
+                        }
+                      },
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "cooldown": {
+                              "stringValue": "5 min d'étirements : quadriceps, ischio-jambiers, mollets, hanches"
+                            },
+                            "advice": {
+                              "stringValue": "Le renforcement est clé pour prévenir les blessures et améliorer l'efficacité de la foulée. Fais les mouvements lentement et contrôlés. N'oublie pas d'écouter ton corps et de ne pas forcer."
+                            },
+                            "duration": {
+                              "stringValue": "35-45 min"
+                            },
+                            "type": {
+                              "stringValue": "Renforcement"
+                            },
+                            "mainSet": {
+                              "stringValue": "Circuit 4 tours : Squats poids de corps (3x18), Squat bulgare (3x12/jambe), Fentes avant (3x12/jambe), Gainage ventral (3x35-60s), Dead bug (3x12/côté), Extensions mollets debout (3x23), Gainage ventral long (2x105-120s). Repos 1 min entre tours."
+                            },
+                            "locationSuggestion": {
+                              "stringValue": "À la maison"
+                            },
+                            "day": {
+                              "stringValue": "Jeudi"
+                            },
+                            "title": {
+                              "stringValue": "Renfo Focus A - Quadriceps & Gainage (S1)"
+                            },
+                            "id": {
+                              "stringValue": "w1-s3-1778423355148-3t6oly3"
+                            },
+                            "distance": {
+                              "stringValue": "0 km"
+                            },
+                            "elevationGain": {
+                              "integerValue": "0"
+                            },
+                            "warmup": {
+                              "stringValue": "10 min de mobilité articulaire et échauffement dynamique"
+                            },
+                            "intensity": {
+                              "stringValue": "Modéré"
+                            }
+                          }
+                        }
+                      },
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "mainSet": {
+                              "stringValue": "1h40 de course en Endurance Fondamentale (5:56 min/km). Maintiens une aisance respiratoire constante. N'hésite pas à faire des pauses marche si nécessaire, surtout en début de plan."
+                            },
+                            "locationSuggestion": {
+                              "stringValue": "Bords de l'Erdre (Nantes)"
+                            },
+                            "day": {
+                              "stringValue": "Samedi"
+                            },
+                            "title": {
+                              "stringValue": "Sortie Longue en Endurance Fondamentale"
+                            },
+                            "id": {
+                              "stringValue": "w1-s4-1778423355148-fhztpfb"
+                            },
+                            "distance": {
+                              "stringValue": "18.5 km"
+                            },
+                            "elevationGain": {
+                              "integerValue": "0"
+                            },
+                            "warmup": {
+                              "stringValue": "10 min de marche, à 6:37 min/km active puis trottinement très léger."
+                            },
+                            "intensity": {
+                              "stringValue": "Facile"
+                            },
+                            "cooldown": {
+                              "stringValue": "5 min de marche et hydratation. (à 6:37 min/km)"
+                            },
+                            "advice": {
+                              "stringValue": "C'est ta séance clé de la semaine pour développer ton endurance. Pense à bien t'hydrater avant, pendant et après. Écoute attentivement ton corps et ne pousse pas au-delà de l'aisance respiratoire."
+                            },
+                            "duration": {
+                              "stringValue": "1h50"
+                            },
+                            "targetPace": {
+                              "stringValue": "5:56 min/km"
+                            },
+                            "type": {
+                              "stringValue": "Sortie Longue"
+                            }
+                          }
+                        }
+                      },
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "cooldown": {
+                              "stringValue": "5 min de marche et étirements doux. (à 6:37 min/km)"
+                            },
+                            "advice": {
+                              "stringValue": "Ce footing aide à la récupération active après la sortie longue. Le terrain souple réduit l'impact et est agréable pour les articulations. Concentre-toi sur le plaisir de courir et les sensations. N'oublie pas d'écouter ton corps et de ne pas forcer."
+                            },
+                            "targetPace": {
+                              "stringValue": "5:56 min/km"
+                            },
+                            "duration": {
+                              "stringValue": "1h 22 min"
+                            },
+                            "type": {
+                              "stringValue": "Jogging"
+                            },
+                            "locationSuggestion": {
+                              "stringValue": "Bois de la Perrière (Sautron)"
+                            },
+                            "day": {
+                              "stringValue": "Dimanche"
+                            },
+                            "mainSet": {
+                              "stringValue": "1h00 de course en Endurance Fondamentale (5:56 min/km) sur sentiers ou chemins souples. Profite du cadre et de la légèreté de la course."
+                            },
+                            "distance": {
+                              "stringValue": "11.8 km"
+                            },
+                            "title": {
+                              "stringValue": "Footing nature et récupération active"
+                            },
+                            "id": {
+                              "stringValue": "w1-s5-1778423355148-haj35vx"
+                            },
+                            "elevationGain": {
+                              "integerValue": "0"
+                            },
+                            "intensity": {
+                              "stringValue": "Facile"
+                            },
+                            "warmup": {
+                              "stringValue": "10 min de marche, à 6:37 min/km puis trottinement doux."
+                            }
+                          }
+                        }
+                      }
+                    ]
+                  }
+                }
+              }
+            }
+          }
+        ]
+      }
+    },
+    "location": {
+      "stringValue": "Sautron"
+    },
+    "userEmail": {
+      "stringValue": "Vitalityanto3@gmail.com"
+    },
+    "fullPlanGenerated": {
+      "booleanValue": false
+    },
+    "endDate": {
+      "stringValue": "2027-11-15"
+    },
+    "vma": {
+      "doubleValue": 15.111957381174122
+    },
+    "welcomeMessage": {
+      "stringValue": "Bienvenue dans ton plan d'entraînement dédié à l'objectif Marathon en 3h00 ! Ce programme de 30 semaines est structuré pour t'emmener progressivement vers ta performance. La première phase, dite 'fondamentale', vise à construire ta base aérobie. Chaque séance est conçue pour être réalisée de préférence le matin, selon ta préférence. Nous te recommandons de consulter un médecin avant de débuter ce programme, notamment pour obtenir un certificat médical d'aptitude au sport."
+    },
+    "generationContext": {
+      "mapValue": {
+        "fields": {
+          "vmaSource": {
+            "stringValue": "Moyenne 5km en 20:46 et 10km en 44:32"
+          },
+          "modelUsed": {
+            "stringValue": "gemini-2.5-flash"
+          },
+          "periodizationPlan": {
+            "mapValue": {
+              "fields": {
+                "weeklyPhases": {
+                  "arrayValue": {
+                    "values": [
+                      {
+                        "stringValue": "fondamental"
+                      },
+                      {
+                        "stringValue": "fondamental"
+                      },
+                      {
+                        "stringValue": "fondamental"
+                      },
+                      {
+                        "stringValue": "recuperation"
+                      },
+                      {
+                        "stringValue": "fondamental"
+                      },
+                      {
+                        "stringValue": "fondamental"
+                      },
+                      {
+                        "stringValue": "fondamental"
+                      },
+                      {
+                        "stringValue": "recuperation"
+                      },
+                      {
+                        "stringValue": "fondamental"
+                      },
+                      {
+                        "stringValue": "developpement"
+                      },
+                      {
+                        "stringValue": "developpement"
+                      },
+                      {
+                        "stringValue": "recuperation"
+                      },
+                      {
+                        "stringValue": "developpement"
+                      },
+                      {
+                        "stringValue": "developpement"
+                      },
+                      {
+                        "stringValue": "developpement"
+                      },
+                      {
+                        "stringValue": "recuperation"
+                      },
+                      {
+                        "stringValue": "developpement"
+                      },
+                      {
+                        "stringValue": "developpement"
+                      },
+                      {
+                        "stringValue": "developpement"
+                      },
+                      {
+                        "stringValue": "recuperation"
+                      },
+                      {
+                        "stringValue": "specifique"
+                      },
+                      {
+                        "stringValue": "specifique"
+                      },
+                      {
+                        "stringValue": "specifique"
+                      },
+                      {
+                        "stringValue": "recuperation"
+                      },
+                      {
+                        "stringValue": "specifique"
+                      },
+                      {
+                        "stringValue": "specifique"
+                      },
+                      {
+                        "stringValue": "specifique"
+                      },
+                      {
+                        "stringValue": "affutage"
+                      },
+                      {
+                        "stringValue": "affutage"
+                      },
+                      {
+                        "stringValue": "affutage"
+                      }
+                    ]
+                  }
+                },
+                "recoveryWeeks": {
+                  "arrayValue": {
+                    "values": [
+                      {
+                        "integerValue": "4"
+                      },
+                      {
+                        "integerValue": "8"
+                      },
+                      {
+                        "integerValue": "12"
+                      },
+                      {
+                        "integerValue": "16"
+                      },
+                      {
+                        "integerValue": "20"
+                      },
+                      {
+                        "integerValue": "24"
+                      }
+                    ]
+                  }
+                },
+                "weeklyVolumes": {
+                  "arrayValue": {
+                    "values": [
+                      {
+                        "integerValue": "51"
+                      },
+                      {
+                        "integerValue": "56"
+                      },
+                      {
+                        "integerValue": "62"
+                      },
+                      {
+                        "integerValue": "50"
+                      },
+                      {
+                        "integerValue": "57"
+                      },
+                      {
+                        "integerValue": "66"
+                      },
+                      {
+                        "integerValue": "76"
+                      },
+                      {
+                        "integerValue": "66"
+                      },
+                      {
+                        "integerValue": "76"
+                      },
+                      {
+                        "integerValue": "78"
+                      },
+                      {
+                        "integerValue": "82"
+                      },
+                      {
+                        "integerValue": "66"
+                      },
+                      {
+                        "integerValue": "76"
+                      },
+                      {
+                        "integerValue": "78"
+                      },
+                      {
+                        "integerValue": "82"
+                      },
+                      {
+                        "integerValue": "66"
+                      },
+                      {
+                        "integerValue": "76"
+                      },
+                      {
+                        "integerValue": "78"
+                      },
+                      {
+                        "integerValue": "82"
+                      },
+                      {
+                        "integerValue": "66"
+                      },
+                      {
+                        "integerValue": "76"
+                      },
+                      {
+                        "integerValue": "78"
+                      },
+                      {
+                        "integerValue": "82"
+                      },
+                      {
+                        "integerValue": "66"
+                      },
+                      {
+                        "integerValue": "76"
+                      },
+                      {
+                        "integerValue": "78"
+                      },
+                      {
+                        "integerValue": "82"
+                      },
+                      {
+                        "integerValue": "55"
+                      },
+                      {
+                        "integerValue": "48"
+                      },
+                      {
+                        "integerValue": "41"
+                      }
+                    ]
+                  }
+                },
+                "totalWeeks": {
+                  "integerValue": "30"
+                }
+              }
+            }
+          },
+          "paces": {
+            "mapValue": {
+              "fields": {
+                "eaPace": {
+                  "stringValue": "5:09"
+                },
+                "recoveryPace": {
+                  "stringValue": "6:37"
+                },
+                "allureSpecifique10k": {
+                  "stringValue": "4:25"
+                },
+                "vmaPace": {
+                  "stringValue": "3:58"
+                },
+                "allureSpecifiqueMarathon": {
+                  "stringValue": "4:58"
+                },
+                "allureSpecifique5k": {
+                  "stringValue": "4:11"
+                },
+                "allureSpecifiqueSemi": {
+                  "stringValue": "4:40"
+                },
+                "efPace": {
+                  "stringValue": "5:56"
+                },
+                "seuilPace": {
+                  "stringValue": "4:34"
+                }
+              }
+            }
+          },
+          "generatedAt": {
+            "stringValue": "2026-05-10T14:28:39.853Z"
+          },
+          "vma": {
+            "doubleValue": 15.111957381174122
+          },
+          "questionnaireSnapshot": {
+            "mapValue": {
+              "fields": {
+                "targetTime": {
+                  "stringValue": "3h00"
+                },
+                "currentWeeklyVolume": {
+                  "integerValue": "60"
+                },
+                "age": {
+                  "integerValue": "20"
+                },
+                "subGoal": {
+                  "stringValue": "Marathon"
+                },
+                "startDate": {
+                  "stringValue": "2027-04-19"
+                },
+                "recentRaceTimes": {
+                  "mapValue": {
+                    "fields": {
+                      "distanceHalfMarathon": {
+                        "stringValue": "1h39"
+                      },
+                      "distance10km": {
+                        "stringValue": "44:32"
+                      },
+                      "distance5km": {
+                        "stringValue": "20:46"
+                      }
+                    }
+                  }
+                },
+                "preferredLongRunDay": {
+                  "stringValue": "Samedi"
+                },
+                "preferredDays": {
+                  "arrayValue": {
+                    "values": [
+                      {
+                        "stringValue": "Lundi"
+                      },
+                      {
+                        "stringValue": "Mercredi"
+                      },
+                      {
+                        "stringValue": "Jeudi"
+                      },
+                      {
+                        "stringValue": "Samedi"
+                      },
+                      {
+                        "stringValue": "Dimanche"
+                      }
+                    ]
+                  }
+                },
+                "goal": {
+                  "stringValue": "Course sur route"
+                },
+                "city": {
+                  "stringValue": "Sautron"
+                },
+                "comments": {
+                  "stringValue": "Je préfère courir le matin"
+                },
+                "level": {
+                  "stringValue": "Expert (Performance)"
+                },
+                "vma": {
+                  "doubleValue": 15.111957381174122
+                },
+                "injuries": {
+                  "mapValue": {
+                    "fields": {
+                      "hasInjury": {
+                        "booleanValue": false
+                      }
+                    }
+                  }
+                },
+                "sex": {
+                  "stringValue": "Homme"
+                },
+                "raceDate": {
+                  "stringValue": "2027-11-15"
+                },
+                "weight": {
+                  "integerValue": "75"
+                },
+                "height": {
+                  "integerValue": "174"
+                },
+                "email": {
+                  "stringValue": "Vitalityanto3@gmail.com"
+                },
+                "frequency": {
+                  "integerValue": "5"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "isPreview": {
+      "booleanValue": true
+    },
+    "durationWeeks": {
+      "integerValue": "30"
+    },
+    "goal": {
+      "stringValue": "Course sur route"
+    },
+    "name": {
+      "stringValue": "Préparation Marathon en 3h00 — 30 sem."
+    },
+    "createdAt": {
+      "stringValue": "2026-05-10T14:29:15.148Z"
+    },
+    "sessionsPerWeek": {
+      "integerValue": "5"
+    }
+  },
+  "createTime": "2026-05-10T14:29:29.871551Z",
+  "updateTime": "2026-05-10T14:29:29.871551Z"
+}

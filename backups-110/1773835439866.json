@@ -1,0 +1,688 @@
+{
+  "name": "projects/coach-running-ia/databases/(default)/documents/plans/1773835439866",
+  "fields": {
+    "suggestedLocations": {
+      "arrayValue": {
+        "values": [
+          {
+            "mapValue": {
+              "fields": {
+                "type": {
+                  "stringValue": "PARK"
+                },
+                "description": {
+                  "stringValue": "Idéal pour les footings de récupération et les sorties longues sur route."
+                },
+                "name": {
+                  "stringValue": "Parc du Jard"
+                }
+              }
+            }
+          },
+          {
+            "mapValue": {
+              "fields": {
+                "description": {
+                  "stringValue": "Parfait pour les séances de fractionné VMA."
+                },
+                "name": {
+                  "stringValue": "Piste d'athlétisme du stade Charles Jacquin"
+                },
+                "type": {
+                  "stringValue": "TRACK"
+                }
+              }
+            }
+          },
+          {
+            "mapValue": {
+              "fields": {
+                "name": {
+                  "stringValue": "Forêt de Saint-Dizier"
+                },
+                "description": {
+                  "stringValue": "Adaptée aux sorties longues en nature et aux séances avec dénivelé léger."
+                },
+                "type": {
+                  "stringValue": "NATURE"
+                }
+              }
+            }
+          }
+        ]
+      }
+    },
+    "adaptationLog": {
+      "mapValue": {
+        "fields": {
+          "adaptationHistory": {
+            "arrayValue": {}
+          },
+          "weekNumber": {
+            "integerValue": "0"
+          },
+          "adaptationsThisWeek": {
+            "integerValue": "0"
+          }
+        }
+      }
+    },
+    "vmaSource": {
+      "stringValue": "Moyenne 10km en 49:39 et Semi en 1h50"
+    },
+    "confidenceScore": {
+      "integerValue": "94"
+    },
+    "userId": {
+      "stringValue": "zljwSBkriNMjPkRgvErZroPuhiC2"
+    },
+    "generationContext": {
+      "mapValue": {
+        "fields": {
+          "modelUsed": {
+            "stringValue": "gemini-2.0-flash"
+          },
+          "periodizationPlan": {
+            "mapValue": {
+              "fields": {
+                "recoveryWeeks": {
+                  "arrayValue": {
+                    "values": [
+                      {
+                        "integerValue": "4"
+                      },
+                      {
+                        "integerValue": "8"
+                      }
+                    ]
+                  }
+                },
+                "weeklyPhases": {
+                  "arrayValue": {
+                    "values": [
+                      {
+                        "stringValue": "fondamental"
+                      },
+                      {
+                        "stringValue": "fondamental"
+                      },
+                      {
+                        "stringValue": "fondamental"
+                      },
+                      {
+                        "stringValue": "recuperation"
+                      },
+                      {
+                        "stringValue": "developpement"
+                      },
+                      {
+                        "stringValue": "developpement"
+                      },
+                      {
+                        "stringValue": "developpement"
+                      },
+                      {
+                        "stringValue": "recuperation"
+                      },
+                      {
+                        "stringValue": "specifique"
+                      },
+                      {
+                        "stringValue": "specifique"
+                      },
+                      {
+                        "stringValue": "affutage"
+                      },
+                      {
+                        "stringValue": "affutage"
+                      },
+                      {
+                        "stringValue": "affutage"
+                      }
+                    ]
+                  }
+                },
+                "weeklyVolumes": {
+                  "arrayValue": {
+                    "values": [
+                      {
+                        "integerValue": "40"
+                      },
+                      {
+                        "integerValue": "45"
+                      },
+                      {
+                        "integerValue": "50"
+                      },
+                      {
+                        "integerValue": "39"
+                      },
+                      {
+                        "integerValue": "56"
+                      },
+                      {
+                        "integerValue": "63"
+                      },
+                      {
+                        "integerValue": "70"
+                      },
+                      {
+                        "integerValue": "55"
+                      },
+                      {
+                        "integerValue": "79"
+                      },
+                      {
+                        "integerValue": "85"
+                      },
+                      {
+                        "integerValue": "57"
+                      },
+                      {
+                        "integerValue": "50"
+                      },
+                      {
+                        "integerValue": "43"
+                      }
+                    ]
+                  }
+                },
+                "totalWeeks": {
+                  "integerValue": "13"
+                }
+              }
+            }
+          },
+          "generatedAt": {
+            "stringValue": "2026-03-18T12:03:48.306Z"
+          },
+          "vma": {
+            "doubleValue": 13.472437544092067
+          },
+          "vmaSource": {
+            "stringValue": "Moyenne 10km en 49:39 et Semi en 1h50"
+          },
+          "questionnaireSnapshot": {
+            "mapValue": {
+              "fields": {
+                "targetTime": {
+                  "stringValue": "3h50"
+                },
+                "raceDate": {
+                  "stringValue": "2026-06-14"
+                },
+                "height": {
+                  "integerValue": "160"
+                },
+                "goal": {
+                  "stringValue": "Course sur route"
+                },
+                "weight": {
+                  "integerValue": "63"
+                },
+                "preferredDays": {
+                  "arrayValue": {}
+                },
+                "subGoal": {
+                  "stringValue": "Marathon"
+                },
+                "sex": {
+                  "stringValue": "Femme"
+                },
+                "injuries": {
+                  "mapValue": {
+                    "fields": {
+                      "hasInjury": {
+                        "booleanValue": false
+                      }
+                    }
+                  }
+                },
+                "recentRaceTimes": {
+                  "mapValue": {
+                    "fields": {
+                      "distanceMarathon": {
+                        "stringValue": "4h06"
+                      },
+                      "distanceHalfMarathon": {
+                        "stringValue": "1h50"
+                      },
+                      "distance10km": {
+                        "stringValue": "49:39"
+                      }
+                    }
+                  }
+                },
+                "startDate": {
+                  "stringValue": "2026-03-18"
+                },
+                "level": {
+                  "stringValue": "Expert (Performance)"
+                },
+                "currentWeeklyVolume": {
+                  "integerValue": "40"
+                },
+                "email": {
+                  "stringValue": "sandrine.severino@orange.fr"
+                },
+                "frequency": {
+                  "integerValue": "5"
+                },
+                "trailDetails": {
+                  "mapValue": {
+                    "fields": {
+                      "distance": {
+                        "integerValue": "20"
+                      },
+                      "elevation": {
+                        "integerValue": "500"
+                      }
+                    }
+                  }
+                },
+                "city": {
+                  "stringValue": "Saint dizier"
+                }
+              }
+            }
+          },
+          "paces": {
+            "mapValue": {
+              "fields": {
+                "seuilPace": {
+                  "stringValue": "5:07"
+                },
+                "allureSpecifique5k": {
+                  "stringValue": "4:41"
+                },
+                "efPace": {
+                  "stringValue": "6:39"
+                },
+                "allureSpecifique10k": {
+                  "stringValue": "4:57"
+                },
+                "eaPace": {
+                  "stringValue": "5:47"
+                },
+                "allureSpecifiqueMarathon": {
+                  "stringValue": "5:34"
+                },
+                "recoveryPace": {
+                  "stringValue": "7:25"
+                },
+                "vmaPace": {
+                  "stringValue": "4:27"
+                },
+                "allureSpecifiqueSemi": {
+                  "stringValue": "5:14"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "id": {
+      "stringValue": "1773835439866"
+    },
+    "durationWeeks": {
+      "integerValue": "13"
+    },
+    "weeks": {
+      "arrayValue": {
+        "values": [
+          {
+            "mapValue": {
+              "fields": {
+                "theme": {
+                  "stringValue": "Mise en place fondamentale"
+                },
+                "weekNumber": {
+                  "integerValue": "1"
+                },
+                "weekGoal": {
+                  "stringValue": "Mise en place fondamentale"
+                },
+                "sessions": {
+                  "arrayValue": {
+                    "values": [
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "day": {
+                              "stringValue": "Mardi"
+                            },
+                            "duration": {
+                              "stringValue": "53 min"
+                            },
+                            "mainSet": {
+                              "stringValue": "60 minutes à 6:39 min/km"
+                            },
+                            "locationSuggestion": {
+                              "stringValue": "Parc du Jard"
+                            },
+                            "advice": {
+                              "stringValue": "Écoute ton corps et ralentis si nécessaire. Concentre-toi sur ton respiration."
+                            },
+                            "distance": {
+                              "stringValue": "8.8 km"
+                            },
+                            "id": {
+                              "stringValue": "w1-s1-1773835439867-sca4o9d"
+                            },
+                            "title": {
+                              "stringValue": "Footing Léger"
+                            },
+                            "warmup": {
+                              "stringValue": "15 minutes à 7:25 min/km"
+                            },
+                            "targetPace": {
+                              "stringValue": "6:39 min/km"
+                            },
+                            "type": {
+                              "stringValue": "Endurance Fondamentale"
+                            },
+                            "elevationGain": {
+                              "integerValue": "0"
+                            },
+                            "intensity": {
+                              "stringValue": "Facile"
+                            },
+                            "cooldown": {
+                              "stringValue": "5 minutes à 7:25 min/km"
+                            }
+                          }
+                        }
+                      },
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "elevationGain": {
+                              "integerValue": "0"
+                            },
+                            "intensity": {
+                              "stringValue": "Modéré"
+                            },
+                            "cooldown": {
+                              "stringValue": "5 min d'étirements : quadriceps, ischio-jambiers, mollets, hanches"
+                            },
+                            "warmup": {
+                              "stringValue": "10 min de mobilité articulaire et échauffement dynamique"
+                            },
+                            "type": {
+                              "stringValue": "Renforcement"
+                            },
+                            "advice": {
+                              "stringValue": "Adapte les exercices à ton niveau et sois régulier dans ton respiration."
+                            },
+                            "duration": {
+                              "stringValue": "35-45 min"
+                            },
+                            "mainSet": {
+                              "stringValue": "Circuit 4 tours : Squats poids de corps (3x18), Squat bulgare (3x12/jambe), Fentes avant (3x12/jambe), Gainage ventral (3x35-60s), Dead bug (3x12/cote), Extensions mollets debout (3x23), Gainage ventral long (2x105-120s). Repos 1 min entre tours."
+                            },
+                            "title": {
+                              "stringValue": "Renfo Focus A - Quadriceps & Gainage (S1)"
+                            },
+                            "locationSuggestion": {
+                              "stringValue": "À la maison"
+                            },
+                            "id": {
+                              "stringValue": "w1-s2-1773835439867-tmv9azf"
+                            },
+                            "day": {
+                              "stringValue": "Mercredi"
+                            }
+                          }
+                        }
+                      },
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "title": {
+                              "stringValue": "Séance VMA courte"
+                            },
+                            "id": {
+                              "stringValue": "w1-s3-1773835439867-0d0qmgy"
+                            },
+                            "distance": {
+                              "stringValue": "10.5 km"
+                            },
+                            "cooldown": {
+                              "stringValue": "15 minutes à 7:25 min/km"
+                            },
+                            "intensity": {
+                              "stringValue": "Difficile"
+                            },
+                            "elevationGain": {
+                              "integerValue": "0"
+                            },
+                            "type": {
+                              "stringValue": "Fractionné VMA"
+                            },
+                            "warmup": {
+                              "stringValue": "20 minutes à 6:39 min/km"
+                            },
+                            "targetPace": {
+                              "stringValue": "4:27 min/km"
+                            },
+                            "locationSuggestion": {
+                              "stringValue": "Piste d'athlétisme du stade Charles Jacquin"
+                            },
+                            "mainSet": {
+                              "stringValue": "10 x 300m à 4:27 min/km (récupération 1min30 en footing très lent à 7:25 min/km entre chaque)"
+                            },
+                            "duration": {
+                              "stringValue": "53 min"
+                            },
+                            "day": {
+                              "stringValue": "Jeudi"
+                            },
+                            "advice": {
+                              "stringValue": "Respecte les temps de récupération et ne force pas si tu ressens une douleur."
+                            }
+                          }
+                        }
+                      },
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "warmup": {
+                              "stringValue": "10 minutes à 6:39 min/km"
+                            },
+                            "targetPace": {
+                              "stringValue": "6:00 min/km"
+                            },
+                            "type": {
+                              "stringValue": "Sortie Longue"
+                            },
+                            "elevationGain": {
+                              "integerValue": "50"
+                            },
+                            "cooldown": {
+                              "stringValue": "10 minutes à 7:25 min/km"
+                            },
+                            "intensity": {
+                              "stringValue": "Facile"
+                            },
+                            "distance": {
+                              "stringValue": "17.6 km"
+                            },
+                            "id": {
+                              "stringValue": "w1-s4-1773835439867-7r0knge"
+                            },
+                            "title": {
+                              "stringValue": "Sortie Longue Cool"
+                            },
+                            "advice": {
+                              "stringValue": "Hydrate-toi régulièrement et adapte ton allure en fonction du terrain."
+                            },
+                            "day": {
+                              "stringValue": "Samedi"
+                            },
+                            "mainSet": {
+                              "stringValue": "2h00 à 6:00 min/km"
+                            },
+                            "duration": {
+                              "stringValue": "1h45"
+                            },
+                            "locationSuggestion": {
+                              "stringValue": "Forêt de Saint-Dizier"
+                            }
+                          }
+                        }
+                      },
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "id": {
+                              "stringValue": "w1-s5-1773835439867-rjwqafb"
+                            },
+                            "distance": {
+                              "stringValue": "6.1 km"
+                            },
+                            "title": {
+                              "stringValue": "Footing de récupération"
+                            },
+                            "type": {
+                              "stringValue": "Endurance Fondamentale"
+                            },
+                            "targetPace": {
+                              "stringValue": "6:39 min/km"
+                            },
+                            "warmup": {
+                              "stringValue": "10 minutes à 7:25 min/km"
+                            },
+                            "intensity": {
+                              "stringValue": "Facile"
+                            },
+                            "cooldown": {
+                              "stringValue": "5 minutes à 7:25 min/km"
+                            },
+                            "elevationGain": {
+                              "integerValue": "0"
+                            },
+                            "day": {
+                              "stringValue": "Dimanche"
+                            },
+                            "locationSuggestion": {
+                              "stringValue": "Parc du Jard"
+                            },
+                            "duration": {
+                              "stringValue": "39 min"
+                            },
+                            "mainSet": {
+                              "stringValue": "45 minutes à 6:39 min/km"
+                            },
+                            "advice": {
+                              "stringValue": "Profite de cette séance pour bien récupérer et relâcher les muscles."
+                            }
+                          }
+                        }
+                      }
+                    ]
+                  }
+                },
+                "phase": {
+                  "stringValue": "fondamental"
+                }
+              }
+            }
+          }
+        ]
+      }
+    },
+    "welcomeMessage": {
+      "stringValue": "Bienvenue dans ce plan d'entraînement marathon de 13 semaines ! Ce programme est conçu pour t'amener à atteindre ton objectif de 3h50. Il est structuré en plusieurs phases, allant du développement fondamental à l'affûtage, pour optimiser ton performance le jour de la course. Nous te recommandons de consulter un médecin avant de débuter ce programme, notamment pour obtenir un certificat médical d'aptitude au sport."
+    },
+    "fullPlanGenerated": {
+      "booleanValue": false
+    },
+    "name": {
+      "stringValue": "Préparation Marathon en 3h50 — 13 sem."
+    },
+    "targetTime": {
+      "stringValue": "3h50"
+    },
+    "vma": {
+      "doubleValue": 13.472437544092067
+    },
+    "createdAt": {
+      "stringValue": "2026-03-18T12:03:59.866Z"
+    },
+    "userEmail": {
+      "stringValue": "sandrine.severino@orange.fr"
+    },
+    "feasibility": {
+      "mapValue": {
+        "fields": {
+          "status": {
+            "stringValue": "EXCELLENT"
+          },
+          "safetyWarning": {
+            "stringValue": "Hydrate-toi bien, échauffe-toi avant chaque séance et accorde-toi un vrai temps de récupération."
+          },
+          "message": {
+            "stringValue": "Avec une VMA de 13.5 km/h, ton temps théorique sur marathon est estimé à environ 3h55. Ton objectif de 3h50 est donc tout à fait atteignable avec ce plan d'entraînement réaliste et bien calibré."
+          }
+        }
+      }
+    },
+    "location": {
+      "stringValue": "Saint dizier"
+    },
+    "paces": {
+      "mapValue": {
+        "fields": {
+          "allureSpecifiqueSemi": {
+            "stringValue": "5:14"
+          },
+          "recoveryPace": {
+            "stringValue": "7:25"
+          },
+          "vmaPace": {
+            "stringValue": "4:27"
+          },
+          "allureSpecifique10k": {
+            "stringValue": "4:57"
+          },
+          "eaPace": {
+            "stringValue": "5:47"
+          },
+          "allureSpecifiqueMarathon": {
+            "stringValue": "5:34"
+          },
+          "seuilPace": {
+            "stringValue": "5:07"
+          },
+          "allureSpecifique5k": {
+            "stringValue": "4:41"
+          },
+          "efPace": {
+            "stringValue": "6:39"
+          }
+        }
+      }
+    },
+    "startDate": {
+      "stringValue": "2026-03-18"
+    },
+    "distance": {
+      "stringValue": "Marathon"
+    },
+    "goal": {
+      "stringValue": "Course sur route"
+    },
+    "isPreview": {
+      "booleanValue": true
+    },
+    "calculatedVMA": {
+      "doubleValue": 13.472437544092067
+    },
+    "sessionsPerWeek": {
+      "integerValue": "5"
+    }
+  },
+  "createTime": "2026-03-18T12:03:59.653927Z",
+  "updateTime": "2026-03-18T17:03:01.717519Z"
+}

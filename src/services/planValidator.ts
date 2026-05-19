@@ -877,7 +877,7 @@ Sois STRICT et HONNÊTE. Un plan trop facile pour un expert est aussi mauvais qu
     // Sprint 4 : upgrade 2.0-flash → 3-pro pour audit qualitatif (+800 ELO).
     // Pro est plus lent (P95 ~25-30s) mais cet appel tourne en background
     // post-generateRemainingWeeks, non sur le chemin critique UX.
-    const MODEL_ID = 'gemini-3-pro';
+    const MODEL_ID = 'gemini-3-pro-preview';
     const model = genAI.getGenerativeModel({ model: MODEL_ID });
     console.log(`[PlanValidator AI Review] model=${MODEL_ID}`);
 
@@ -929,7 +929,7 @@ export const generateCorrectedWeeks = async (
   if (flaggedWeeks.length === 0) return [];
 
   // Sprint 4 : migration 2.0-flash → 3-flash (catch up modèle ancien).
-  const MODEL_ID = 'gemini-3-flash';
+  const MODEL_ID = 'gemini-3-flash-preview';
   const model = genAI.getGenerativeModel({ model: MODEL_ID });
   console.log(`[PlanValidator CorrectedWeeks] model=${MODEL_ID}`);
   const paces = (plan as any).paces;

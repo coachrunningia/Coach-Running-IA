@@ -1,0 +1,562 @@
+{
+  "name": "projects/coach-running-ia/databases/(default)/documents/plans/1773731563050",
+  "fields": {
+    "targetTime": {
+      "stringValue": "1h50"
+    },
+    "distance": {
+      "stringValue": "Semi-Marathon"
+    },
+    "startDate": {
+      "stringValue": "2026-03-16"
+    },
+    "confidenceScore": {
+      "integerValue": "70"
+    },
+    "id": {
+      "stringValue": "1773731563050"
+    },
+    "calculatedVMA": {
+      "doubleValue": 13.073422752988874
+    },
+    "vmaSource": {
+      "stringValue": "Moyenne 5km en 23:22 et Semi en 2h"
+    },
+    "feasibility": {
+      "mapValue": {
+        "fields": {
+          "safetyWarning": {
+            "stringValue": "Hydrate-toi bien, échauffe-toi avant chaque séance et accorde-toi un vrai temps de récupération."
+          },
+          "status": {
+            "stringValue": "BON"
+          },
+          "message": {
+            "stringValue": "Avec une VMA de 13.1 km/h, ton temps théorique sur semi-marathon est d'environ 1h54. Viser 1h50 est un objectif ambitieux mais réalisable avec un entraînement régulier et adapté. 7 semaines représentent une préparation courte pour un semi-marathon, le plan sera donc condensé."
+          }
+        }
+      }
+    },
+    "userId": {
+      "stringValue": "9RFR1BR2wVg9gVkm3IhkjMD7hG13"
+    },
+    "adaptationLog": {
+      "mapValue": {
+        "fields": {
+          "weekNumber": {
+            "integerValue": "0"
+          },
+          "adaptationsThisWeek": {
+            "integerValue": "0"
+          },
+          "adaptationHistory": {
+            "arrayValue": {}
+          }
+        }
+      }
+    },
+    "paces": {
+      "mapValue": {
+        "fields": {
+          "seuilPace": {
+            "stringValue": "5:17"
+          },
+          "efPace": {
+            "stringValue": "6:51"
+          },
+          "allureSpecifiqueSemi": {
+            "stringValue": "5:24"
+          },
+          "allureSpecifique5k": {
+            "stringValue": "4:50"
+          },
+          "allureSpecifiqueMarathon": {
+            "stringValue": "5:44"
+          },
+          "vmaPace": {
+            "stringValue": "4:35"
+          },
+          "allureSpecifique10k": {
+            "stringValue": "5:06"
+          },
+          "recoveryPace": {
+            "stringValue": "7:39"
+          },
+          "eaPace": {
+            "stringValue": "5:58"
+          }
+        }
+      }
+    },
+    "suggestedLocations": {
+      "arrayValue": {
+        "values": [
+          {
+            "mapValue": {
+              "fields": {
+                "description": {
+                  "stringValue": "Idéal pour footing de récupération et endurance fondamentale"
+                },
+                "name": {
+                  "stringValue": "Parc de la citadelle de Cambrai"
+                },
+                "type": {
+                  "stringValue": "PARK"
+                }
+              }
+            }
+          },
+          {
+            "mapValue": {
+              "fields": {
+                "type": {
+                  "stringValue": "TRACK"
+                },
+                "name": {
+                  "stringValue": "Piste d'athlétisme du stade de la Liberté"
+                },
+                "description": {
+                  "stringValue": "Parfait pour les séances de fractionné VMA"
+                }
+              }
+            }
+          },
+          {
+            "mapValue": {
+              "fields": {
+                "name": {
+                  "stringValue": "Chemin de halage le long du canal de l'Escaut"
+                },
+                "description": {
+                  "stringValue": "Adapté aux sorties longues et fractionné seuil"
+                },
+                "type": {
+                  "stringValue": "NATURE"
+                }
+              }
+            }
+          }
+        ]
+      }
+    },
+    "createdAt": {
+      "stringValue": "2026-03-17T07:12:43.050Z"
+    },
+    "sessionsPerWeek": {
+      "integerValue": "3"
+    },
+    "durationWeeks": {
+      "integerValue": "7"
+    },
+    "goal": {
+      "stringValue": "Course sur route"
+    },
+    "name": {
+      "stringValue": "Plan Semi-Marathon 1h50 - 7 Semaines"
+    },
+    "vma": {
+      "doubleValue": 13.073422752988874
+    },
+    "welcomeMessage": {
+      "stringValue": "Bienvenue dans ce plan d'entraînement de 7 semaines visant à préparer le semi-marathon en 1h50 ! Cette première semaine sera axée sur le développement de ton endurance fondamentale. Le plan est structuré autour de 3 séances hebdomadaires : 2 séances de course à pied et 1 séance de renforcement musculaire. Nous te recommandons de consulter un médecin avant de débuter ce programme, notamment pour obtenir un certificat médical d'aptitude au sport."
+    },
+    "generationContext": {
+      "mapValue": {
+        "fields": {
+          "periodizationPlan": {
+            "mapValue": {
+              "fields": {
+                "totalWeeks": {
+                  "integerValue": "7"
+                },
+                "recoveryWeeks": {
+                  "arrayValue": {
+                    "values": [
+                      {
+                        "integerValue": "4"
+                      }
+                    ]
+                  }
+                },
+                "weeklyVolumes": {
+                  "arrayValue": {
+                    "values": [
+                      {
+                        "integerValue": "30"
+                      },
+                      {
+                        "integerValue": "32"
+                      },
+                      {
+                        "integerValue": "35"
+                      },
+                      {
+                        "integerValue": "26"
+                      },
+                      {
+                        "integerValue": "38"
+                      },
+                      {
+                        "integerValue": "41"
+                      },
+                      {
+                        "integerValue": "22"
+                      }
+                    ]
+                  }
+                },
+                "weeklyPhases": {
+                  "arrayValue": {
+                    "values": [
+                      {
+                        "stringValue": "fondamental"
+                      },
+                      {
+                        "stringValue": "fondamental"
+                      },
+                      {
+                        "stringValue": "developpement"
+                      },
+                      {
+                        "stringValue": "recuperation"
+                      },
+                      {
+                        "stringValue": "specifique"
+                      },
+                      {
+                        "stringValue": "specifique"
+                      },
+                      {
+                        "stringValue": "affutage"
+                      }
+                    ]
+                  }
+                }
+              }
+            }
+          },
+          "paces": {
+            "mapValue": {
+              "fields": {
+                "efPace": {
+                  "stringValue": "6:51"
+                },
+                "seuilPace": {
+                  "stringValue": "5:17"
+                },
+                "allureSpecifiqueMarathon": {
+                  "stringValue": "5:44"
+                },
+                "allureSpecifique5k": {
+                  "stringValue": "4:50"
+                },
+                "allureSpecifiqueSemi": {
+                  "stringValue": "5:24"
+                },
+                "allureSpecifique10k": {
+                  "stringValue": "5:06"
+                },
+                "vmaPace": {
+                  "stringValue": "4:35"
+                },
+                "eaPace": {
+                  "stringValue": "5:58"
+                },
+                "recoveryPace": {
+                  "stringValue": "7:39"
+                }
+              }
+            }
+          },
+          "modelUsed": {
+            "stringValue": "gemini-2.0-flash"
+          },
+          "vmaSource": {
+            "stringValue": "Moyenne 5km en 23:22 et Semi en 2h"
+          },
+          "questionnaireSnapshot": {
+            "mapValue": {
+              "fields": {
+                "weight": {
+                  "integerValue": "85"
+                },
+                "height": {
+                  "integerValue": "192"
+                },
+                "raceDate": {
+                  "stringValue": "2026-05-02"
+                },
+                "sex": {
+                  "stringValue": "Homme"
+                },
+                "trailDetails": {
+                  "mapValue": {
+                    "fields": {
+                      "distance": {
+                        "integerValue": "20"
+                      },
+                      "elevation": {
+                        "integerValue": "500"
+                      }
+                    }
+                  }
+                },
+                "frequency": {
+                  "integerValue": "3"
+                },
+                "email": {
+                  "stringValue": "corbenprix@gmail.com"
+                },
+                "level": {
+                  "stringValue": "Intermédiaire (Régulier)"
+                },
+                "injuries": {
+                  "mapValue": {
+                    "fields": {
+                      "hasInjury": {
+                        "booleanValue": false
+                      }
+                    }
+                  }
+                },
+                "preferredDays": {
+                  "arrayValue": {}
+                },
+                "goal": {
+                  "stringValue": "Course sur route"
+                },
+                "city": {
+                  "stringValue": "Cambrai"
+                },
+                "age": {
+                  "integerValue": "53"
+                },
+                "targetTime": {
+                  "stringValue": "1h50"
+                },
+                "currentWeeklyVolume": {
+                  "integerValue": "30"
+                },
+                "recentRaceTimes": {
+                  "mapValue": {
+                    "fields": {
+                      "distance5km": {
+                        "stringValue": "23:22"
+                      },
+                      "distanceHalfMarathon": {
+                        "stringValue": "2h"
+                      },
+                      "distance10km": {
+                        "stringValue": "55"
+                      }
+                    }
+                  }
+                },
+                "startDate": {
+                  "stringValue": "2026-03-17"
+                },
+                "subGoal": {
+                  "stringValue": "Semi-Marathon"
+                }
+              }
+            }
+          },
+          "vma": {
+            "doubleValue": 13.073422752988874
+          },
+          "generatedAt": {
+            "stringValue": "2026-03-17T07:12:34.381Z"
+          }
+        }
+      }
+    },
+    "isPreview": {
+      "booleanValue": true
+    },
+    "weeks": {
+      "arrayValue": {
+        "values": [
+          {
+            "mapValue": {
+              "fields": {
+                "weekNumber": {
+                  "integerValue": "1"
+                },
+                "theme": {
+                  "stringValue": "Endurance Fondamentale"
+                },
+                "sessions": {
+                  "arrayValue": {
+                    "values": [
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "cooldown": {
+                              "stringValue": "10 minutes de marche lente et étirements doux"
+                            },
+                            "type": {
+                              "stringValue": "Endurance"
+                            },
+                            "targetPace": {
+                              "stringValue": "6:51 min/km"
+                            },
+                            "advice": {
+                              "stringValue": "Échauffe-toi soigneusement et hydrate-toi bien. Sois attentif aux signaux de ton corps et ralentis si nécessaire. En tant que coureur de 53 ans, l'échauffement doit être progressif."
+                            },
+                            "duration": {
+                              "stringValue": "45 min"
+                            },
+                            "distance": {
+                              "stringValue": "7 km"
+                            },
+                            "id": {
+                              "stringValue": "w1-s1-1773731563050-7dsi5im"
+                            },
+                            "title": {
+                              "stringValue": "Footing Léger"
+                            },
+                            "day": {
+                              "stringValue": "Mardi"
+                            },
+                            "locationSuggestion": {
+                              "stringValue": "Parc de la citadelle de Cambrai"
+                            },
+                            "mainSet": {
+                              "stringValue": "45 minutes en endurance fondamentale à 6:51 min/km"
+                            },
+                            "intensity": {
+                              "stringValue": "Facile"
+                            },
+                            "warmup": {
+                              "stringValue": "10 minutes de marche rapide et footing progressif à 7:39 min/km"
+                            },
+                            "elevationGain": {
+                              "integerValue": "0"
+                            }
+                          }
+                        }
+                      },
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "type": {
+                              "stringValue": "Renforcement"
+                            },
+                            "advice": {
+                              "stringValue": "Privilégie la qualité à la quantité. Effectue les mouvements lentement et en contrôlant ton posture."
+                            },
+                            "duration": {
+                              "stringValue": "35-40 min"
+                            },
+                            "targetPace": {
+                              "stringValue": "0:00 min/km"
+                            },
+                            "cooldown": {
+                              "stringValue": "5 min d'étirements : quadriceps, ischio-jambiers, mollets, hanches"
+                            },
+                            "warmup": {
+                              "stringValue": "10 min de mobilité articulaire et échauffement dynamique"
+                            },
+                            "intensity": {
+                              "stringValue": "Modéré"
+                            },
+                            "elevationGain": {
+                              "integerValue": "0"
+                            },
+                            "id": {
+                              "stringValue": "w1-s2-1773731563051-yvib5r6"
+                            },
+                            "title": {
+                              "stringValue": "Renfo Focus A - Quadriceps & Gainage (S1)"
+                            },
+                            "distance": {
+                              "stringValue": "0 km"
+                            },
+                            "mainSet": {
+                              "stringValue": "Circuit 3 tours : Squats poids de corps (3x14), Squat bulgare (3x9/jambe), Fentes avant (3x9/jambe), Gainage ventral (3x27-60s), Dead bug (3x9/cote), Extensions mollets debout (3x18). Repos 1 min 30 entre tours."
+                            },
+                            "day": {
+                              "stringValue": "Jeudi"
+                            },
+                            "locationSuggestion": {
+                              "stringValue": "À la maison"
+                            }
+                          }
+                        }
+                      },
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "day": {
+                              "stringValue": "Dimanche"
+                            },
+                            "locationSuggestion": {
+                              "stringValue": "Chemin de halage le long du canal de l'Escaut"
+                            },
+                            "mainSet": {
+                              "stringValue": "1 heure 30 minutes en endurance fondamentale à 6:51 min/km"
+                            },
+                            "distance": {
+                              "stringValue": "13 km"
+                            },
+                            "id": {
+                              "stringValue": "w1-s3-1773731563051-gmrbgxy"
+                            },
+                            "title": {
+                              "stringValue": "Sortie Longue en Endurance"
+                            },
+                            "elevationGain": {
+                              "integerValue": "10"
+                            },
+                            "intensity": {
+                              "stringValue": "Facile"
+                            },
+                            "warmup": {
+                              "stringValue": "15 minutes de marche rapide et footing progressif à 7:39 min/km"
+                            },
+                            "cooldown": {
+                              "stringValue": "10 minutes de marche lente et étirements doux"
+                            },
+                            "targetPace": {
+                              "stringValue": "6:51 min/km"
+                            },
+                            "advice": {
+                              "stringValue": "Pars à un rythme très confortable et maintiens-le tout au long de la sortie. Hydrate-toi régulièrement et écoute ton corps."
+                            },
+                            "duration": {
+                              "stringValue": "1h30"
+                            },
+                            "type": {
+                              "stringValue": "Sortie Longue"
+                            }
+                          }
+                        }
+                      }
+                    ]
+                  }
+                },
+                "phase": {
+                  "stringValue": "fondamental"
+                },
+                "weekGoal": {
+                  "stringValue": "Endurance Fondamentale"
+                }
+              }
+            }
+          }
+        ]
+      }
+    },
+    "location": {
+      "stringValue": "Cambrai"
+    },
+    "fullPlanGenerated": {
+      "booleanValue": false
+    },
+    "userEmail": {
+      "stringValue": "corbenprix@gmail.com"
+    }
+  },
+  "createTime": "2026-03-17T07:12:43.664947Z",
+  "updateTime": "2026-03-18T16:40:31.195140Z"
+}

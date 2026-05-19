@@ -1,0 +1,810 @@
+{
+  "createdAt": "2026-05-11T17:44:39.387Z",
+  "startDate": "2026-05-11",
+  "fullPlanGenerated": true,
+  "name": "Programme Perte de Poids — 12 semaines",
+  "sessionsPerWeek": 3,
+  "generationContext": {
+    "modelUsed": "gemini-2.5-flash",
+    "vma": 16.16925202555826,
+    "vmaSource": "Moyenne Semi en 1h34 et Marathon en 3h10",
+    "questionnaireSnapshot": {
+      "recentRaceTimes": {
+        "distanceHalfMarathon": "1h34",
+        "distanceMarathon": "3h10"
+      },
+      "startDate": "2026-05-11",
+      "height": 172,
+      "email": "arnaudmanoeuvre@gmail.com",
+      "sex": "Homme",
+      "age": 38,
+      "weight": 70,
+      "injuries": {
+        "hasInjury": false
+      },
+      "goal": "Perte de poids",
+      "city": "Saint Pierre de cole ",
+      "frequency": 3,
+      "weeklyTimeAvailable": "2h+",
+      "vma": 16.16925202555826,
+      "preferredDays": [
+        "Mardi",
+        "Jeudi",
+        "Dimanche"
+      ],
+      "level": "Confirmé (Compétition)"
+    },
+    "periodizationPlan": {
+      "weeklyPhases": [
+        "fondamental",
+        "fondamental",
+        "fondamental",
+        "recuperation",
+        "fondamental",
+        "developpement",
+        "developpement",
+        "recuperation",
+        "developpement",
+        "developpement",
+        "developpement",
+        "developpement"
+      ],
+      "recoveryWeeks": [
+        4,
+        8
+      ],
+      "totalWeeks": 12,
+      "weeklyVolumes": [
+        30,
+        33,
+        35,
+        27,
+        31,
+        33,
+        35,
+        27,
+        31,
+        33,
+        35,
+        33
+      ]
+    },
+    "paces": {
+      "eaPace": "4:49",
+      "recoveryPace": "6:11",
+      "allureSpecifiqueMarathon": "4:38",
+      "seuilPace": "4:16",
+      "efPace": "5:32",
+      "allureSpecifique10k": "4:07",
+      "vmaPace": "3:43",
+      "allureSpecifique5k": "3:54",
+      "allureSpecifiqueSemi": "4:22"
+    },
+    "generatedAt": "2026-05-11T17:43:13.758Z"
+  },
+  "userEmail": "arnaudmanoeuvre@gmail.com",
+  "goal": "Perte de poids",
+  "paces": {
+    "eaPace": "4:49",
+    "recoveryPace": "6:11",
+    "allureSpecifiqueMarathon": "4:38",
+    "seuilPace": "4:16",
+    "efPace": "5:32",
+    "vmaPace": "3:43",
+    "allureSpecifique10k": "4:07",
+    "allureSpecifique5k": "3:54",
+    "allureSpecifiqueSemi": "4:22"
+  },
+  "suggestedLocations": [
+    {
+      "type": "NATURE",
+      "description": "Idéal pour les footings en endurance fondamentale, offrant des chemins variés et de légères ondulations.",
+      "name": "Sentiers de campagne autour de Saint-Pierre-de-Côle"
+    },
+    {
+      "type": "NATURE",
+      "name": "Bords de Côle (proche Saint-Pierre-de-Côle)",
+      "description": "Parfait pour les footings plats et rythmés, le long de la rivière, en toute tranquillité."
+    },
+    {
+      "type": "NATURE",
+      "name": "Forêt Domaniale de Lanmary (environs)",
+      "description": "Excellente pour les sorties longues en nature ou les footings vallonnés, avec de beaux sentiers et un sol souple."
+    }
+  ],
+  "vma": 16.16925202555826,
+  "welcomeMessage": "Bienvenue dans ton programme de 12 semaines pour la perte de poids — version révisée.\n\nVolume cible : 20 à 28 km/sem (≈ 2h à 2h30 de course par semaine). Ton profil de coureur expérimenté (Marathon 3h10, VMA 16.2 km/h) supporte largement ce volume sans risque. Pour la perte de poids, la **durée en zone aérobie** (oxydation des graisses) prime sur l'accumulation de kilomètres — d'où ce volume contenu mais régulier.\n\n**Important pour la perte de poids :** la course seule suffit rarement à perdre du poids significativement. Vise un déficit calorique de 300 à 500 kcal par jour via l'alimentation (légèrement moins manger, pas drastique). Sans cela, l'entraînement seul produira peu de résultats sur la balance, même si tes performances et ton bien-être progresseront.\n\n**Structure du plan (3 séances/sem, Mardi/Jeudi/Dimanche) :**\n- **Mardi** : footing EF — base aérobie (puis intervalles tempo à partir de la S7)\n- **Jeudi** : renforcement compound (45 min — squat, soulevé de terre, fentes, gainage) — préserve ta masse maigre, clé pour la perte de poids\n- **Dimanche** : sortie longue — pilier du plan, durée en zone aérobie pour oxydation lipidique\n- Décharges en S4 et S8 (cycle 3+1)\n- Pas d'affûtage : programme glissant renouvelable\n\nBon entraînement.",
+  "adaptationLog": {
+    "weekNumber": 0,
+    "adaptationHistory": [],
+    "adaptationsThisWeek": 0
+  },
+  "guardStats": {
+    "affutageCorrected": 0,
+    "hardSessionsDowngraded": 0,
+    "dplusRedistributed": 0,
+    "volumeScaledDown": 11,
+    "slDurationCapped": 0,
+    "sessionKmCapped": 0,
+    "progressionSmoothed": 0,
+    "volumeScaledUp": 1,
+    "postValidatorFixes": 12
+  },
+  "endDate": "2026-08-03",
+  "confidenceScore": 80,
+  "isPreview": false,
+  "durationWeeks": 12,
+  "userId": "dVuk3CvGFYTauwRI2gGIFhUix7I2",
+  "vmaSource": "Moyenne Semi en 1h34 et Marathon en 3h10",
+  "calculatedVMA": 16.16925202555826,
+  "feasibility": {
+    "message": "Ton programme perte de poids sur 12 semaines est bien calibré pour ton profil. Avec ta VMA de 16.2 km/h, concentre-toi sur la régularité et le plaisir.",
+    "status": "BON",
+    "safetyWarning": "Hydrate-toi bien, échauffe-toi avant chaque séance et accorde-toi un vrai temps de récupération."
+  },
+  "targetTime": "Finisher",
+  "weeks": [
+    {
+      "weekNumber": 1,
+      "phase": "fondamental",
+      "sessions": [
+        {
+          "distance": "8 km",
+          "id": "w1-s1-1778583713829",
+          "duration": "44 min",
+          "cooldown": "5 min retour au calme + étirements légers (mollets, ischios, hanches)",
+          "title": "Footing EF — 8 km",
+          "advice": "Le footing EF est la base du plan. Pas d'objectif d'allure — privilégie la sensation. Le renforcement dédié du Jeudi complète ce travail aérobie.",
+          "locationSuggestion": "Boucle plate aux alentours de Saint-Pierre-de-Côle",
+          "day": "Mardi",
+          "elevationGain": 0,
+          "targetPace": "5:32 min/km",
+          "intensity": "Facile",
+          "type": "Jogging",
+          "warmup": "5 min de marche active + 5 min footing très léger",
+          "mainSet": "8km à 5:32 min/km (EF, 70 % VMA). Cadence relâchée, respiration nasale possible. Optionnel : 4×100m lignes droites en fin de séance."
+        },
+        {
+          "id": "w1-s2-1778583713830",
+          "duration": "45 min",
+          "distance": "0 km",
+          "day": "Jeudi",
+          "locationSuggestion": "À la maison ou en salle de sport",
+          "cooldown": "5 min étirements ciblés : ischio-jambiers, quadriceps, mollets, fessiers, ouverture hanches",
+          "advice": "La force lente compound préserve la masse maigre essentielle pour la perte de poids. La qualité d'exécution prime sur la quantité. 1 séance/semaine est suffisant — pas besoin d'en faire plus.",
+          "title": "Renfo Compound — Full body force",
+          "targetPace": "",
+          "elevationGain": 0,
+          "mainSet": "Circuit full body, 3 tours, repos 90s : Tractions assistées (8 reps) ou rowing inversé, Pompes lestées (10 reps), Squats avec saut (10 reps — uniquement si jambes fraîches), Mountain climbers (40s), Gainage dynamique (1 min).",
+          "warmup": "10 min mobilité dynamique : cercles hanches, jambes pendulaires, fentes marchées, montées de genoux",
+          "type": "Renforcement",
+          "intensity": "Modéré"
+        },
+        {
+          "day": "Dimanche",
+          "locationSuggestion": "Sentiers de la campagne de Saint-Pierre-de-Côle, ou boucle vallonnée si envie de variété",
+          "advice": "La sortie longue est LE pilier de ce plan. Pour la perte de poids, la durée en zone aérobie maximise l'oxydation lipidique. Hydratation toutes les 20 min, gel optionnel après 1h15.",
+          "title": "Sortie Longue principale — 12 km",
+          "cooldown": "10 min marche active + étirements complets (mollets, ischios, quadriceps, fessiers, hanches)",
+          "duration": "1h 06 min",
+          "id": "w1-s3-1778583713831",
+          "distance": "12 km",
+          "warmup": "10 min de marche active puis 5 min footing très léger pour amorcer",
+          "mainSet": "Allure stable à 5:32 min/km (EF, 70 % VMA). Conversation possible mais légèrement gênée. 12km en aisance — visez la régularité.",
+          "type": "Sortie Longue",
+          "intensity": "Facile",
+          "targetPace": "5:32 min/km",
+          "elevationGain": 0
+        }
+      ],
+      "theme": "Démarrage en aisance respiratoire"
+    },
+    {
+      "phase": "fondamental",
+      "weekNumber": 2,
+      "theme": "Construction du volume aérobie",
+      "sessions": [
+        {
+          "intensity": "Facile",
+          "type": "Jogging",
+          "mainSet": "9km à 5:32 min/km (EF, 70 % VMA). Cadence relâchée, respiration nasale possible. Optionnel : 4×100m lignes droites en fin de séance.",
+          "warmup": "5 min de marche active + 5 min footing très léger",
+          "elevationGain": 0,
+          "targetPace": "5:32 min/km",
+          "advice": "Le footing EF est la base du plan. Pas d'objectif d'allure — privilégie la sensation. Le renforcement dédié du Jeudi complète ce travail aérobie.",
+          "title": "Footing EF — 9 km",
+          "cooldown": "5 min retour au calme + étirements légers (mollets, ischios, hanches)",
+          "locationSuggestion": "Boucle plate aux alentours de Saint-Pierre-de-Côle",
+          "day": "Mardi",
+          "distance": "9 km",
+          "duration": "50 min",
+          "id": "w2-s1-1778583714829"
+        },
+        {
+          "distance": "0 km",
+          "duration": "45 min",
+          "id": "w2-s2-1778583714830",
+          "cooldown": "5 min étirements ciblés : ischio-jambiers, quadriceps, mollets, fessiers, ouverture hanches",
+          "title": "Renfo Compound — Bas du corps + gainage",
+          "advice": "La force lente compound préserve la masse maigre essentielle pour la perte de poids. La qualité d'exécution prime sur la quantité. 1 séance/semaine est suffisant — pas besoin d'en faire plus.",
+          "locationSuggestion": "À la maison ou en salle de sport",
+          "day": "Jeudi",
+          "elevationGain": 0,
+          "targetPace": "",
+          "intensity": "Modéré",
+          "type": "Renforcement",
+          "warmup": "10 min mobilité dynamique : cercles hanches, jambes pendulaires, fentes marchées, montées de genoux",
+          "mainSet": "Circuit force lente, 4 tours, repos 90s entre tours : Squats lestés (12 reps), Soulevé de terre roumain (10 reps), Fentes bulgares (8/jambe), Pont fessier 1 jambe (12/côté), Gainage planche (45s) + planche latérale (30s/côté)."
+        },
+        {
+          "id": "w2-s3-1778583714831",
+          "duration": "1h 17 min",
+          "distance": "14 km",
+          "locationSuggestion": "Sentiers de la campagne de Saint-Pierre-de-Côle, ou boucle vallonnée si envie de variété",
+          "day": "Dimanche",
+          "cooldown": "10 min marche active + étirements complets (mollets, ischios, quadriceps, fessiers, hanches)",
+          "advice": "La sortie longue est LE pilier de ce plan. Pour la perte de poids, la durée en zone aérobie maximise l'oxydation lipidique. Hydratation toutes les 20 min, gel optionnel après 1h15.",
+          "title": "Sortie Longue principale — 14 km",
+          "targetPace": "5:32 min/km",
+          "elevationGain": 0,
+          "type": "Sortie Longue",
+          "mainSet": "Allure stable à 5:32 min/km (EF, 70 % VMA). Conversation possible mais légèrement gênée. 14km en aisance — visez la régularité.",
+          "warmup": "10 min de marche active puis 5 min footing très léger pour amorcer",
+          "intensity": "Facile"
+        }
+      ]
+    },
+    {
+      "phase": "fondamental",
+      "weekNumber": 3,
+      "theme": "Consolidation et endurance",
+      "sessions": [
+        {
+          "intensity": "Facile",
+          "type": "Jogging",
+          "warmup": "5 min de marche active + 5 min footing très léger",
+          "mainSet": "10km à 5:32 min/km (EF, 70 % VMA). Cadence relâchée, respiration nasale possible. Optionnel : 4×100m lignes droites en fin de séance.",
+          "targetPace": "5:32 min/km",
+          "elevationGain": 0,
+          "advice": "Le footing EF est la base du plan. Pas d'objectif d'allure — privilégie la sensation. Le renforcement dédié du Jeudi complète ce travail aérobie.",
+          "title": "Footing EF — 10 km",
+          "cooldown": "5 min retour au calme + étirements légers (mollets, ischios, hanches)",
+          "locationSuggestion": "Boucle plate aux alentours de Saint-Pierre-de-Côle",
+          "day": "Mardi",
+          "distance": "10 km",
+          "duration": "55 min",
+          "id": "w3-s1-1778583715829"
+        },
+        {
+          "targetPace": "",
+          "elevationGain": 0,
+          "type": "Renforcement",
+          "warmup": "10 min mobilité dynamique : cercles hanches, jambes pendulaires, fentes marchées, montées de genoux",
+          "mainSet": "Circuit full body, 3 tours, repos 90s : Tractions assistées (8 reps) ou rowing inversé, Pompes lestées (10 reps), Squats avec saut (10 reps — uniquement si jambes fraîches), Mountain climbers (40s), Gainage dynamique (1 min).",
+          "intensity": "Modéré",
+          "id": "w3-s2-1778583715830",
+          "duration": "45 min",
+          "distance": "0 km",
+          "locationSuggestion": "À la maison ou en salle de sport",
+          "day": "Jeudi",
+          "title": "Renfo Compound — Full body force",
+          "advice": "La force lente compound préserve la masse maigre essentielle pour la perte de poids. La qualité d'exécution prime sur la quantité. 1 séance/semaine est suffisant — pas besoin d'en faire plus.",
+          "cooldown": "5 min étirements ciblés : ischio-jambiers, quadriceps, mollets, fessiers, ouverture hanches"
+        },
+        {
+          "duration": "1h 23 min",
+          "id": "w3-s3-1778583715831",
+          "distance": "15 km",
+          "locationSuggestion": "Sentiers de la campagne de Saint-Pierre-de-Côle, ou boucle vallonnée si envie de variété",
+          "day": "Dimanche",
+          "cooldown": "10 min marche active + étirements complets (mollets, ischios, quadriceps, fessiers, hanches)",
+          "title": "Sortie Longue principale — 15 km",
+          "advice": "La sortie longue est LE pilier de ce plan. Pour la perte de poids, la durée en zone aérobie maximise l'oxydation lipidique. Hydratation toutes les 20 min, gel optionnel après 1h15.",
+          "targetPace": "5:32 min/km",
+          "elevationGain": 0,
+          "type": "Sortie Longue",
+          "warmup": "10 min de marche active puis 5 min footing très léger pour amorcer",
+          "mainSet": "Allure stable à 5:32 min/km (EF, 70 % VMA). Conversation possible mais légèrement gênée. 15km en aisance — visez la régularité.",
+          "intensity": "Facile"
+        }
+      ]
+    },
+    {
+      "sessions": [
+        {
+          "intensity": "Facile",
+          "mainSet": "7km à 5:32 min/km (EF, 70 % VMA). Cadence relâchée, respiration nasale possible. Optionnel : 4×100m lignes droites en fin de séance.",
+          "warmup": "5 min de marche active + 5 min footing très léger",
+          "type": "Jogging",
+          "elevationGain": 0,
+          "targetPace": "5:32 min/km",
+          "title": "Footing EF — 7 km",
+          "advice": "Le footing EF est la base du plan. Pas d'objectif d'allure — privilégie la sensation. Le renforcement dédié du Jeudi complète ce travail aérobie.",
+          "cooldown": "5 min retour au calme + étirements légers (mollets, ischios, hanches)",
+          "day": "Mardi",
+          "locationSuggestion": "Boucle plate aux alentours de Saint-Pierre-de-Côle",
+          "distance": "7 km",
+          "id": "w4-s1-1778583716829",
+          "duration": "39 min"
+        },
+        {
+          "distance": "0 km",
+          "id": "w4-s2-1778583716830",
+          "duration": "45 min",
+          "cooldown": "5 min étirements ciblés : ischio-jambiers, quadriceps, mollets, fessiers, ouverture hanches",
+          "title": "Renfo Compound — Bas du corps + gainage",
+          "advice": "La force lente compound préserve la masse maigre essentielle pour la perte de poids. La qualité d'exécution prime sur la quantité. 1 séance/semaine est suffisant — pas besoin d'en faire plus.",
+          "day": "Jeudi",
+          "locationSuggestion": "À la maison ou en salle de sport",
+          "elevationGain": 0,
+          "targetPace": "",
+          "intensity": "Facile",
+          "warmup": "10 min mobilité dynamique : cercles hanches, jambes pendulaires, fentes marchées, montées de genoux",
+          "mainSet": "Circuit force lente, 4 tours, repos 90s entre tours : Squats lestés (12 reps), Soulevé de terre roumain (10 reps), Fentes bulgares (8/jambe), Pont fessier 1 jambe (12/côté), Gainage planche (45s) + planche latérale (30s/côté).",
+          "type": "Renforcement"
+        },
+        {
+          "warmup": "10 min de marche active puis 5 min footing très léger pour amorcer",
+          "mainSet": "Allure stable à 5:32 min/km (EF, 70 % VMA). Conversation possible mais légèrement gênée. 11km en aisance — visez la régularité.",
+          "type": "Sortie Longue",
+          "intensity": "Facile",
+          "targetPace": "5:32 min/km",
+          "elevationGain": 0,
+          "day": "Dimanche",
+          "locationSuggestion": "Sentiers de la campagne de Saint-Pierre-de-Côle, ou boucle vallonnée si envie de variété",
+          "cooldown": "10 min marche active + étirements complets (mollets, ischios, quadriceps, fessiers, hanches)",
+          "title": "Sortie Longue principale — 11 km",
+          "advice": "La sortie longue est LE pilier de ce plan. Pour la perte de poids, la durée en zone aérobie maximise l'oxydation lipidique. Hydratation toutes les 20 min, gel optionnel après 1h15.",
+          "duration": "1h 01 min",
+          "id": "w4-s3-1778583716831",
+          "distance": "11 km"
+        }
+      ],
+      "theme": "Semaine de décharge",
+      "weekNumber": 4,
+      "phase": "recuperation"
+    },
+    {
+      "theme": "Relance du volume",
+      "sessions": [
+        {
+          "targetPace": "5:32 min/km",
+          "elevationGain": 0,
+          "intensity": "Facile",
+          "type": "Jogging",
+          "warmup": "5 min de marche active + 5 min footing très léger",
+          "mainSet": "9km à 5:32 min/km (EF, 70 % VMA). Cadence relâchée, respiration nasale possible. Optionnel : 4×100m lignes droites en fin de séance.",
+          "distance": "9 km",
+          "id": "w5-s1-1778583717829",
+          "duration": "50 min",
+          "cooldown": "5 min retour au calme + étirements légers (mollets, ischios, hanches)",
+          "advice": "Le footing EF est la base du plan. Pas d'objectif d'allure — privilégie la sensation. Le renforcement dédié du Jeudi complète ce travail aérobie.",
+          "title": "Footing EF — 9 km",
+          "locationSuggestion": "Boucle plate aux alentours de Saint-Pierre-de-Côle",
+          "day": "Mardi"
+        },
+        {
+          "intensity": "Modéré",
+          "mainSet": "Circuit full body, 3 tours, repos 90s : Tractions assistées (8 reps) ou rowing inversé, Pompes lestées (10 reps), Squats avec saut (10 reps — uniquement si jambes fraîches), Mountain climbers (40s), Gainage dynamique (1 min).",
+          "warmup": "10 min mobilité dynamique : cercles hanches, jambes pendulaires, fentes marchées, montées de genoux",
+          "type": "Renforcement",
+          "targetPace": "",
+          "elevationGain": 0,
+          "cooldown": "5 min étirements ciblés : ischio-jambiers, quadriceps, mollets, fessiers, ouverture hanches",
+          "advice": "La force lente compound préserve la masse maigre essentielle pour la perte de poids. La qualité d'exécution prime sur la quantité. 1 séance/semaine est suffisant — pas besoin d'en faire plus.",
+          "title": "Renfo Compound — Full body force",
+          "day": "Jeudi",
+          "locationSuggestion": "À la maison ou en salle de sport",
+          "distance": "0 km",
+          "id": "w5-s2-1778583717830",
+          "duration": "45 min"
+        },
+        {
+          "elevationGain": 0,
+          "targetPace": "5:32 min/km",
+          "intensity": "Facile",
+          "warmup": "10 min de marche active puis 5 min footing très léger pour amorcer",
+          "mainSet": "Allure stable à 5:32 min/km (EF, 70 % VMA). Conversation possible mais légèrement gênée. 14km en aisance — visez la régularité.",
+          "type": "Sortie Longue",
+          "distance": "14 km",
+          "duration": "1h 17 min",
+          "id": "w5-s3-1778583717831",
+          "cooldown": "10 min marche active + étirements complets (mollets, ischios, quadriceps, fessiers, hanches)",
+          "advice": "La sortie longue est LE pilier de ce plan. Pour la perte de poids, la durée en zone aérobie maximise l'oxydation lipidique. Hydratation toutes les 20 min, gel optionnel après 1h15.",
+          "title": "Sortie Longue principale — 14 km",
+          "day": "Dimanche",
+          "locationSuggestion": "Sentiers de la campagne de Saint-Pierre-de-Côle, ou boucle vallonnée si envie de variété"
+        }
+      ],
+      "phase": "fondamental",
+      "weekNumber": 5
+    },
+    {
+      "theme": "Endurance prolongée",
+      "sessions": [
+        {
+          "distance": "10 km",
+          "duration": "55 min",
+          "id": "w6-s1-1778583718829",
+          "advice": "Le footing EF est la base du plan. Pas d'objectif d'allure — privilégie la sensation. Le renforcement dédié du Jeudi complète ce travail aérobie.",
+          "title": "Footing EF — 10 km",
+          "cooldown": "5 min retour au calme + étirements légers (mollets, ischios, hanches)",
+          "day": "Mardi",
+          "locationSuggestion": "Boucle plate aux alentours de Saint-Pierre-de-Côle",
+          "targetPace": "5:32 min/km",
+          "elevationGain": 0,
+          "intensity": "Facile",
+          "warmup": "5 min de marche active + 5 min footing très léger",
+          "mainSet": "10km à 5:32 min/km (EF, 70 % VMA). Cadence relâchée, respiration nasale possible. Optionnel : 4×100m lignes droites en fin de séance.",
+          "type": "Jogging"
+        },
+        {
+          "distance": "0 km",
+          "id": "w6-s2-1778583718830",
+          "duration": "45 min",
+          "cooldown": "5 min étirements ciblés : ischio-jambiers, quadriceps, mollets, fessiers, ouverture hanches",
+          "title": "Renfo Compound — Bas du corps + gainage",
+          "advice": "La force lente compound préserve la masse maigre essentielle pour la perte de poids. La qualité d'exécution prime sur la quantité. 1 séance/semaine est suffisant — pas besoin d'en faire plus.",
+          "day": "Jeudi",
+          "locationSuggestion": "À la maison ou en salle de sport",
+          "targetPace": "",
+          "elevationGain": 0,
+          "intensity": "Modéré",
+          "mainSet": "Circuit force lente, 4 tours, repos 90s entre tours : Squats lestés (12 reps), Soulevé de terre roumain (10 reps), Fentes bulgares (8/jambe), Pont fessier 1 jambe (12/côté), Gainage planche (45s) + planche latérale (30s/côté).",
+          "warmup": "10 min mobilité dynamique : cercles hanches, jambes pendulaires, fentes marchées, montées de genoux",
+          "type": "Renforcement"
+        },
+        {
+          "targetPace": "5:32 min/km",
+          "elevationGain": 0,
+          "warmup": "10 min de marche active puis 5 min footing très léger pour amorcer",
+          "mainSet": "Allure stable à 5:32 min/km (EF, 70 % VMA). Conversation possible mais légèrement gênée. 16km en aisance — visez la régularité.",
+          "type": "Sortie Longue",
+          "intensity": "Facile",
+          "duration": "1h 29 min",
+          "id": "w6-s3-1778583718831",
+          "distance": "16 km",
+          "day": "Dimanche",
+          "locationSuggestion": "Sentiers de la campagne de Saint-Pierre-de-Côle, ou boucle vallonnée si envie de variété",
+          "advice": "La sortie longue est LE pilier de ce plan. Pour la perte de poids, la durée en zone aérobie maximise l'oxydation lipidique. Hydratation toutes les 20 min, gel optionnel après 1h15.",
+          "title": "Sortie Longue principale — 16 km",
+          "cooldown": "10 min marche active + étirements complets (mollets, ischios, quadriceps, fessiers, hanches)"
+        }
+      ],
+      "phase": "fondamental",
+      "weekNumber": 6
+    },
+    {
+      "theme": "Introduction du tempo continu",
+      "sessions": [
+        {
+          "cooldown": "5 min retour au calme + étirements légers (mollets, ischios, hanches)",
+          "title": "Footing EF — 10 km",
+          "advice": "Le footing EF est la base du plan. Pas d'objectif d'allure — privilégie la sensation. Le renforcement dédié du Jeudi complète ce travail aérobie.",
+          "day": "Mardi",
+          "locationSuggestion": "Boucle plate aux alentours de Saint-Pierre-de-Côle",
+          "distance": "10 km",
+          "id": "w7-s1-1778583719829",
+          "duration": "55 min",
+          "intensity": "Modéré",
+          "warmup": "5 min de marche active + 5 min footing très léger",
+          "mainSet": "10km à 5:32 min/km (EF, 70 % VMA). Cadence relâchée, respiration nasale possible. Optionnel : 4×100m lignes droites en fin de séance.",
+          "type": "Jogging",
+          "targetPace": "EF 5:32 + 3×5' tempo 4:22 (86% VMA) R=2'",
+          "elevationGain": 0
+        },
+        {
+          "day": "Jeudi",
+          "locationSuggestion": "À la maison ou en salle de sport",
+          "title": "Renfo Compound — Full body force",
+          "advice": "La force lente compound préserve la masse maigre essentielle pour la perte de poids. La qualité d'exécution prime sur la quantité. 1 séance/semaine est suffisant — pas besoin d'en faire plus.",
+          "cooldown": "5 min étirements ciblés : ischio-jambiers, quadriceps, mollets, fessiers, ouverture hanches",
+          "duration": "45 min",
+          "id": "w7-s2-1778583719830",
+          "distance": "0 km",
+          "mainSet": "Circuit full body, 3 tours, repos 90s : Tractions assistées (8 reps) ou rowing inversé, Pompes lestées (10 reps), Squats avec saut (10 reps — uniquement si jambes fraîches), Mountain climbers (40s), Gainage dynamique (1 min).",
+          "warmup": "10 min mobilité dynamique : cercles hanches, jambes pendulaires, fentes marchées, montées de genoux",
+          "type": "Renforcement",
+          "intensity": "Modéré",
+          "elevationGain": 0,
+          "targetPace": ""
+        },
+        {
+          "distance": "16 km",
+          "duration": "1h 29 min",
+          "id": "w7-s3-1778583719831",
+          "cooldown": "10 min marche active + étirements complets (mollets, ischios, quadriceps, fessiers, hanches)",
+          "title": "Sortie Longue principale — 16 km",
+          "advice": "La sortie longue est LE pilier de ce plan. Pour la perte de poids, la durée en zone aérobie maximise l'oxydation lipidique. Hydratation toutes les 20 min, gel optionnel après 1h15.",
+          "locationSuggestion": "Sentiers de la campagne de Saint-Pierre-de-Côle, ou boucle vallonnée si envie de variété",
+          "day": "Dimanche",
+          "targetPace": "5:32 min/km",
+          "elevationGain": 0,
+          "intensity": "Facile",
+          "type": "Sortie Longue",
+          "warmup": "10 min de marche active puis 5 min footing très léger pour amorcer",
+          "mainSet": "Allure stable à 5:32 min/km (EF, 70 % VMA). Conversation possible mais légèrement gênée. 16km en aisance — visez la régularité."
+        }
+      ],
+      "phase": "fondamental",
+      "weekNumber": 7
+    },
+    {
+      "sessions": [
+        {
+          "locationSuggestion": "Boucle plate aux alentours de Saint-Pierre-de-Côle",
+          "day": "Mardi",
+          "advice": "Le footing EF est la base du plan. Pas d'objectif d'allure — privilégie la sensation. Le renforcement dédié du Jeudi complète ce travail aérobie.",
+          "title": "Footing EF — 8 km",
+          "cooldown": "5 min retour au calme + étirements légers (mollets, ischios, hanches)",
+          "id": "w8-s1-1778583720829",
+          "duration": "44 min",
+          "distance": "8 km",
+          "type": "Jogging",
+          "warmup": "5 min de marche active + 5 min footing très léger",
+          "mainSet": "8km à 5:32 min/km (EF, 70 % VMA). Cadence relâchée, respiration nasale possible. Optionnel : 4×100m lignes droites en fin de séance.",
+          "intensity": "Facile",
+          "targetPace": "5:32 min/km",
+          "elevationGain": 0
+        },
+        {
+          "intensity": "Facile",
+          "type": "Renforcement",
+          "warmup": "10 min mobilité dynamique : cercles hanches, jambes pendulaires, fentes marchées, montées de genoux",
+          "mainSet": "Circuit force lente, 4 tours, repos 90s entre tours : Squats lestés (12 reps), Soulevé de terre roumain (10 reps), Fentes bulgares (8/jambe), Pont fessier 1 jambe (12/côté), Gainage planche (45s) + planche latérale (30s/côté).",
+          "targetPace": "",
+          "elevationGain": 0,
+          "advice": "La force lente compound préserve la masse maigre essentielle pour la perte de poids. La qualité d'exécution prime sur la quantité. 1 séance/semaine est suffisant — pas besoin d'en faire plus.",
+          "title": "Renfo Compound — Bas du corps + gainage",
+          "cooldown": "5 min étirements ciblés : ischio-jambiers, quadriceps, mollets, fessiers, ouverture hanches",
+          "locationSuggestion": "À la maison ou en salle de sport",
+          "day": "Jeudi",
+          "distance": "0 km",
+          "duration": "45 min",
+          "id": "w8-s2-1778583720830"
+        },
+        {
+          "intensity": "Facile",
+          "type": "Sortie Longue",
+          "mainSet": "Allure stable à 5:32 min/km (EF, 70 % VMA). Conversation possible mais légèrement gênée. 13km en aisance — visez la régularité.",
+          "warmup": "10 min de marche active puis 5 min footing très léger pour amorcer",
+          "targetPace": "5:32 min/km",
+          "elevationGain": 0,
+          "advice": "La sortie longue est LE pilier de ce plan. Pour la perte de poids, la durée en zone aérobie maximise l'oxydation lipidique. Hydratation toutes les 20 min, gel optionnel après 1h15.",
+          "title": "Sortie Longue principale — 13 km",
+          "cooldown": "10 min marche active + étirements complets (mollets, ischios, quadriceps, fessiers, hanches)",
+          "locationSuggestion": "Sentiers de la campagne de Saint-Pierre-de-Côle, ou boucle vallonnée si envie de variété",
+          "day": "Dimanche",
+          "distance": "13 km",
+          "id": "w8-s3-1778583720831",
+          "duration": "1h 12 min"
+        }
+      ],
+      "theme": "Semaine de décharge",
+      "weekNumber": 8,
+      "phase": "recuperation"
+    },
+    {
+      "sessions": [
+        {
+          "locationSuggestion": "Boucle plate aux alentours de Saint-Pierre-de-Côle",
+          "day": "Mardi",
+          "cooldown": "5 min retour au calme + étirements légers (mollets, ischios, hanches)",
+          "advice": "Le footing EF est la base du plan. Pas d'objectif d'allure — privilégie la sensation. Le renforcement dédié du Jeudi complète ce travail aérobie.",
+          "title": "Footing EF — 10 km",
+          "duration": "55 min",
+          "id": "w9-s1-1778583721829",
+          "distance": "10 km",
+          "type": "Jogging",
+          "mainSet": "10km à 5:32 min/km (EF, 70 % VMA). Cadence relâchée, respiration nasale possible. Optionnel : 4×100m lignes droites en fin de séance.",
+          "warmup": "5 min de marche active + 5 min footing très léger",
+          "intensity": "Modéré",
+          "elevationGain": 0,
+          "targetPace": "EF 5:32 + 4×4' tempo 4:22 R=1'30"
+        },
+        {
+          "targetPace": "",
+          "elevationGain": 0,
+          "intensity": "Modéré",
+          "type": "Renforcement",
+          "mainSet": "Circuit full body, 3 tours, repos 90s : Tractions assistées (8 reps) ou rowing inversé, Pompes lestées (10 reps), Squats avec saut (10 reps — uniquement si jambes fraîches), Mountain climbers (40s), Gainage dynamique (1 min).",
+          "warmup": "10 min mobilité dynamique : cercles hanches, jambes pendulaires, fentes marchées, montées de genoux",
+          "distance": "0 km",
+          "id": "w9-s2-1778583721830",
+          "duration": "45 min",
+          "cooldown": "5 min étirements ciblés : ischio-jambiers, quadriceps, mollets, fessiers, ouverture hanches",
+          "title": "Renfo Compound — Full body force",
+          "advice": "La force lente compound préserve la masse maigre essentielle pour la perte de poids. La qualité d'exécution prime sur la quantité. 1 séance/semaine est suffisant — pas besoin d'en faire plus.",
+          "locationSuggestion": "À la maison ou en salle de sport",
+          "day": "Jeudi"
+        },
+        {
+          "targetPace": "5:32 min/km",
+          "elevationGain": 0,
+          "intensity": "Facile",
+          "mainSet": "Allure stable à 5:32 min/km (EF, 70 % VMA). Conversation possible mais légèrement gênée. 15km en aisance — visez la régularité.",
+          "warmup": "10 min de marche active puis 5 min footing très léger pour amorcer",
+          "type": "Sortie Longue",
+          "distance": "15 km",
+          "duration": "1h 23 min",
+          "id": "w9-s3-1778583721831",
+          "advice": "La sortie longue est LE pilier de ce plan. Pour la perte de poids, la durée en zone aérobie maximise l'oxydation lipidique. Hydratation toutes les 20 min, gel optionnel après 1h15.",
+          "title": "Sortie Longue principale — 15 km",
+          "cooldown": "10 min marche active + étirements complets (mollets, ischios, quadriceps, fessiers, hanches)",
+          "day": "Dimanche",
+          "locationSuggestion": "Sentiers de la campagne de Saint-Pierre-de-Côle, ou boucle vallonnée si envie de variété"
+        }
+      ],
+      "theme": "Développement aérobie avec tempo",
+      "weekNumber": 9,
+      "phase": "developpement"
+    },
+    {
+      "weekNumber": 10,
+      "phase": "developpement",
+      "sessions": [
+        {
+          "locationSuggestion": "Boucle plate aux alentours de Saint-Pierre-de-Côle",
+          "day": "Mardi",
+          "cooldown": "5 min retour au calme + étirements légers (mollets, ischios, hanches)",
+          "title": "Footing EF — 11 km",
+          "advice": "Le footing EF est la base du plan. Pas d'objectif d'allure — privilégie la sensation. Le renforcement dédié du Jeudi complète ce travail aérobie.",
+          "duration": "1h 01 min",
+          "id": "w10-s1-1778583722829",
+          "distance": "11 km",
+          "type": "Jogging",
+          "warmup": "5 min de marche active + 5 min footing très léger",
+          "mainSet": "11km à 5:32 min/km (EF, 70 % VMA). Cadence relâchée, respiration nasale possible. Optionnel : 4×100m lignes droites en fin de séance.",
+          "intensity": "Modéré",
+          "targetPace": "EF 5:32 + 5×3'30 tempo 4:22 R=1'",
+          "elevationGain": 0
+        },
+        {
+          "duration": "45 min",
+          "id": "w10-s2-1778583722830",
+          "distance": "0 km",
+          "locationSuggestion": "À la maison ou en salle de sport",
+          "day": "Jeudi",
+          "advice": "La force lente compound préserve la masse maigre essentielle pour la perte de poids. La qualité d'exécution prime sur la quantité. 1 séance/semaine est suffisant — pas besoin d'en faire plus.",
+          "title": "Renfo Compound — Bas du corps + gainage",
+          "cooldown": "5 min étirements ciblés : ischio-jambiers, quadriceps, mollets, fessiers, ouverture hanches",
+          "targetPace": "",
+          "elevationGain": 0,
+          "type": "Renforcement",
+          "mainSet": "Circuit force lente, 4 tours, repos 90s entre tours : Squats lestés (12 reps), Soulevé de terre roumain (10 reps), Fentes bulgares (8/jambe), Pont fessier 1 jambe (12/côté), Gainage planche (45s) + planche latérale (30s/côté).",
+          "warmup": "10 min mobilité dynamique : cercles hanches, jambes pendulaires, fentes marchées, montées de genoux",
+          "intensity": "Modéré"
+        },
+        {
+          "duration": "1h 29 min",
+          "id": "w10-s3-1778583722831",
+          "distance": "16 km",
+          "locationSuggestion": "Sentiers de la campagne de Saint-Pierre-de-Côle, ou boucle vallonnée si envie de variété",
+          "day": "Dimanche",
+          "cooldown": "10 min marche active + étirements complets (mollets, ischios, quadriceps, fessiers, hanches)",
+          "advice": "La sortie longue est LE pilier de ce plan. Pour la perte de poids, la durée en zone aérobie maximise l'oxydation lipidique. Hydratation toutes les 20 min, gel optionnel après 1h15.",
+          "title": "Sortie Longue principale — 16 km",
+          "elevationGain": 0,
+          "targetPace": "5:32 min/km",
+          "type": "Sortie Longue",
+          "warmup": "10 min de marche active puis 5 min footing très léger pour amorcer",
+          "mainSet": "Allure stable à 5:32 min/km (EF, 70 % VMA). Conversation possible mais légèrement gênée. 16km en aisance — visez la régularité.",
+          "intensity": "Facile"
+        }
+      ],
+      "theme": "Tempo allongé + SL"
+    },
+    {
+      "phase": "developpement",
+      "weekNumber": 11,
+      "theme": "Pic du plan — endurance + qualité",
+      "sessions": [
+        {
+          "cooldown": "5 min retour au calme + étirements légers (mollets, ischios, hanches)",
+          "advice": "Le footing EF est la base du plan. Pas d'objectif d'allure — privilégie la sensation. Le renforcement dédié du Jeudi complète ce travail aérobie.",
+          "title": "Footing EF — 11 km",
+          "locationSuggestion": "Boucle plate aux alentours de Saint-Pierre-de-Côle",
+          "day": "Mardi",
+          "distance": "11 km",
+          "duration": "1h 01 min",
+          "id": "w11-s1-1778583723829",
+          "intensity": "Modéré",
+          "type": "Jogging",
+          "warmup": "5 min de marche active + 5 min footing très léger",
+          "mainSet": "11km à 5:32 min/km (EF, 70 % VMA). Cadence relâchée, respiration nasale possible. Optionnel : 4×100m lignes droites en fin de séance.",
+          "targetPace": "EF 5:32 + tempo continu 15 min à 4:22",
+          "elevationGain": 0
+        },
+        {
+          "targetPace": "",
+          "elevationGain": 0,
+          "type": "Renforcement",
+          "warmup": "10 min mobilité dynamique : cercles hanches, jambes pendulaires, fentes marchées, montées de genoux",
+          "mainSet": "Circuit full body, 3 tours, repos 90s : Tractions assistées (8 reps) ou rowing inversé, Pompes lestées (10 reps), Squats avec saut (10 reps — uniquement si jambes fraîches), Mountain climbers (40s), Gainage dynamique (1 min).",
+          "intensity": "Modéré",
+          "duration": "45 min",
+          "id": "w11-s2-1778583723830",
+          "distance": "0 km",
+          "locationSuggestion": "À la maison ou en salle de sport",
+          "day": "Jeudi",
+          "title": "Renfo Compound — Full body force",
+          "advice": "La force lente compound préserve la masse maigre essentielle pour la perte de poids. La qualité d'exécution prime sur la quantité. 1 séance/semaine est suffisant — pas besoin d'en faire plus.",
+          "cooldown": "5 min étirements ciblés : ischio-jambiers, quadriceps, mollets, fessiers, ouverture hanches"
+        },
+        {
+          "cooldown": "10 min marche active + étirements complets (mollets, ischios, quadriceps, fessiers, hanches)",
+          "advice": "La sortie longue est LE pilier de ce plan. Pour la perte de poids, la durée en zone aérobie maximise l'oxydation lipidique. Hydratation toutes les 20 min, gel optionnel après 1h15.",
+          "title": "Sortie Longue progressive — 17 km",
+          "locationSuggestion": "Sentiers de la campagne de Saint-Pierre-de-Côle, ou boucle vallonnée si envie de variété",
+          "day": "Dimanche",
+          "distance": "17 km",
+          "id": "w11-s3-1778583723831",
+          "duration": "1h 34 min",
+          "intensity": "Modéré",
+          "type": "Sortie Longue",
+          "mainSet": "Sortie progressive : 12 km à 5:32 min/km (EF) puis 5 km descendants progressivement vers 5:00 min/km. Ne pas forcer — c'est la durée qui compte, pas la vitesse.",
+          "warmup": "10 min de marche active puis 5 min footing très léger pour amorcer",
+          "elevationGain": 0,
+          "targetPace": "5:32 → 5:00 (progressif)"
+        }
+      ]
+    },
+    {
+      "phase": "recuperation",
+      "weekNumber": 12,
+      "theme": "Régénération et clôture cycle",
+      "sessions": [
+        {
+          "elevationGain": 0,
+          "targetPace": "5:32 min/km",
+          "mainSet": "8km à 5:32 min/km (EF, 70 % VMA). Cadence relâchée, respiration nasale possible. Optionnel : 4×100m lignes droites en fin de séance.",
+          "warmup": "5 min de marche active + 5 min footing très léger",
+          "type": "Jogging",
+          "intensity": "Facile",
+          "id": "w12-s1-1778583724829",
+          "duration": "44 min",
+          "distance": "8 km",
+          "day": "Mardi",
+          "locationSuggestion": "Boucle plate aux alentours de Saint-Pierre-de-Côle",
+          "advice": "Le footing EF est la base du plan. Pas d'objectif d'allure — privilégie la sensation. Le renforcement dédié du Jeudi complète ce travail aérobie.",
+          "title": "Footing EF — 8 km",
+          "cooldown": "5 min retour au calme + étirements légers (mollets, ischios, hanches)"
+        },
+        {
+          "id": "w12-s2-1778583724830",
+          "duration": "45 min",
+          "distance": "0 km",
+          "locationSuggestion": "À la maison ou en salle de sport",
+          "day": "Jeudi",
+          "cooldown": "5 min étirements ciblés : ischio-jambiers, quadriceps, mollets, fessiers, ouverture hanches",
+          "title": "Renfo Compound — Bas du corps + gainage",
+          "advice": "La force lente compound préserve la masse maigre essentielle pour la perte de poids. La qualité d'exécution prime sur la quantité. 1 séance/semaine est suffisant — pas besoin d'en faire plus.",
+          "elevationGain": 0,
+          "targetPace": "",
+          "type": "Renforcement",
+          "mainSet": "Circuit force lente, 4 tours, repos 90s entre tours : Squats lestés (12 reps), Soulevé de terre roumain (10 reps), Fentes bulgares (8/jambe), Pont fessier 1 jambe (12/côté), Gainage planche (45s) + planche latérale (30s/côté).",
+          "warmup": "10 min mobilité dynamique : cercles hanches, jambes pendulaires, fentes marchées, montées de genoux",
+          "intensity": "Facile"
+        },
+        {
+          "cooldown": "10 min marche active + étirements complets (mollets, ischios, quadriceps, fessiers, hanches)",
+          "advice": "La sortie longue est LE pilier de ce plan. Pour la perte de poids, la durée en zone aérobie maximise l'oxydation lipidique. Hydratation toutes les 20 min, gel optionnel après 1h15.",
+          "title": "Sortie Longue principale — 13 km",
+          "day": "Dimanche",
+          "locationSuggestion": "Sentiers de la campagne de Saint-Pierre-de-Côle, ou boucle vallonnée si envie de variété",
+          "distance": "13 km",
+          "id": "w12-s3-1778583724831",
+          "duration": "1h 12 min",
+          "intensity": "Facile",
+          "mainSet": "Allure stable à 5:32 min/km (EF, 70 % VMA). Conversation possible mais légèrement gênée. 13km en aisance — visez la régularité.",
+          "warmup": "10 min de marche active puis 5 min footing très léger pour amorcer",
+          "type": "Sortie Longue",
+          "targetPace": "5:32 min/km",
+          "elevationGain": 0
+        }
+      ]
+    }
+  ],
+  "location": "Saint Pierre de cole ",
+  "id": "1778521479387"
+}

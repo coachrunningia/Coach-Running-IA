@@ -1,0 +1,754 @@
+{
+  "name": "projects/coach-running-ia/databases/(default)/documents/plans/1779135832271",
+  "fields": {
+    "raceDate": {
+      "stringValue": "2026-08-14"
+    },
+    "durationWeeks": {
+      "integerValue": "13"
+    },
+    "createdAt": {
+      "stringValue": "2026-05-18T20:23:52.271Z"
+    },
+    "welcomeMessage": {
+      "stringValue": "Bienvenue Rich ! Tu te lances dans un projet ambitieux : un ultra de 110 km avec 12 000 m de D+ en moins de 13 semaines de préparation. Ton expérience Expert (marathon 3h00) et ton volume actuel (60 km/sem + 3 000 m D+/sem) sont une base solide pour aborder ce défi.\n\nCe plan construit progressivement le volume et le dénivelé jusqu'à un pic à ~130 km/sem et ~7 800 m D+/sem en phase spécifique, pour t'amener prêt à finisher. La structure intègre 3 semaines de décharge bien placées et un affûtage de 2-3 semaines avant la course.\n\nQuelques règles d'or pour ces 13 semaines :\n- Marche les montées techniques à l'entraînement comme en course — stratégie ultra trail normale\n- Renforcement spécifique trail (quadriceps excentrique, mollets, gainage) prioritaire\n- Écoute ton corps : à la moindre douleur articulaire, tendineuse ou fatigue persistante, on adapte plutôt que forcer\n\n⚠️ À 55 ans pour cet ultra alpin, un bilan cardio-vasculaire complet (test d'effort + ECG) avant de débuter est INDISPENSABLE. La validation médicale n'est pas négociable."
+    },
+    "userId": {
+      "stringValue": "eSVsxhsqU2en9sbXbIAmL4xA72A3"
+    },
+    "feasibility": {
+      "mapValue": {
+        "fields": {
+          "status": {
+            "stringValue": "AMBITIEUX"
+          },
+          "safetyWarning": {
+            "stringValue": "⚠️ Sécurité PRIORITAIRE : à 55 ans + ultra de haute montagne (12 000 m D+), un bilan cardio-vasculaire complet (test d'effort + ECG) avant de débuter est INDISPENSABLE. Respecte impérativement les semaines de récupération, hydrate-toi rigoureusement, et écoute ton corps. À la moindre douleur articulaire, tendineuse ou cardiaque persistante, stoppe et consulte immédiatement."
+          },
+          "message": {
+            "stringValue": "Ton objectif est ambitieux : ultra 110 km / 12 000 m D+ en moins de 13 semaines, c'est court (la fenêtre idéale serait 16-20 semaines). Avec ton volume actuel (60 km + 3000 m D+/sem) et ton expérience Expert, tu as une vraie base — mais à 55 ans pour cet ultra alpin, la bonne préparation, l'écoute du corps et la validation médicale sont absolument essentiels. Le plan vise une montée progressive du volume et du dénivelé pour t'amener prêt à finisher."
+          },
+          "recommendation": {
+            "stringValue": "une durée de préparation d'au moins 20 semaines"
+          },
+          "score": {
+            "integerValue": "60"
+          }
+        }
+      }
+    },
+    "userEmail": {
+      "stringValue": "rauroy@yahoo.fr"
+    },
+    "vma": {
+      "doubleValue": 17.5
+    },
+    "isPreview": {
+      "booleanValue": true
+    },
+    "distance": {
+      "stringValue": "110km D+12000m"
+    },
+    "calculatedVMA": {
+      "doubleValue": 17.5
+    },
+    "weeks": {
+      "arrayValue": {
+        "values": [
+          {
+            "mapValue": {
+              "fields": {
+                "sessions": {
+                  "arrayValue": {
+                    "values": [
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "duration": {
+                              "stringValue": "1h 09 min"
+                            },
+                            "intensity": {
+                              "stringValue": "Facile"
+                            },
+                            "advice": {
+                              "stringValue": "Le relief renforce les chaînes musculaires de façon naturelle et progressive. La règle d'or : c'est l'effort qui reste constant, pas la vitesse."
+                            },
+                            "title": {
+                              "stringValue": "Footing vallonné"
+                            },
+                            "targetPace": {
+                              "stringValue": "Endurance Fondamentale (env. 5:20 min/km)"
+                            },
+                            "type": {
+                              "stringValue": "Jogging"
+                            },
+                            "elevationGain": {
+                              "integerValue": "400"
+                            },
+                            "cooldown": {
+                              "stringValue": "5 à 10 min de footing plat puis marche. (à 5:43 min/km)"
+                            },
+                            "id": {
+                              "stringValue": "w1-s1-1779135832272-yq936ir"
+                            },
+                            "warmup": {
+                              "stringValue": "10 min de footing, à 5:43 min/km en endurance fondamentale sur terrain plat."
+                            },
+                            "locationSuggestion": {
+                              "stringValue": "Chemins de campagne de Paulhac"
+                            },
+                            "day": {
+                              "stringValue": "Mardi"
+                            },
+                            "distance": {
+                              "stringValue": "12.9 km"
+                            },
+                            "mainSet": {
+                              "stringValue": "62 min sur parcours vallonné (~400 m D+). En montée : foulée courte, effort d'endurance fondamentale maintenu (5:07 en référence sur le plat, la vitesse baisse en côte c'est normal). En descente : relâché, foulée courte et contrôlée. Cherche du vrai relief (côtes, sentiers), pas seulement du plat. (allure : 5:07 min/km)"
+                            }
+                          }
+                        }
+                      },
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "type": {
+                              "stringValue": "Renforcement"
+                            },
+                            "targetPace": {
+                              "stringValue": "N/A"
+                            },
+                            "title": {
+                              "stringValue": "Renfo Trail Focus A - Quadriceps & Excentrique (S1)"
+                            },
+                            "intensity": {
+                              "stringValue": "Modéré"
+                            },
+                            "duration": {
+                              "stringValue": "45-50 min"
+                            },
+                            "distance": {
+                              "stringValue": "0 km"
+                            },
+                            "day": {
+                              "stringValue": "Mercredi"
+                            },
+                            "warmup": {
+                              "stringValue": "10 min de mobilité articulaire et échauffement dynamique"
+                            },
+                            "locationSuggestion": {
+                              "stringValue": "À la maison"
+                            },
+                            "id": {
+                              "stringValue": "w1-s2-1779135832272-6uzangn"
+                            },
+                            "mainSet": {
+                              "stringValue": "Circuit 4 tours : Squats poids de corps (3x18), Squat bulgare (3x12/jambe), Fentes avant (3x12/jambe), Gainage ventral (3x35-60s), Dead bug (3x12/côté), Extensions mollets debout (3x23), Squat excentrique (descente 4s) (3x12), Step-down excentrique (3x9/jambe), Sauts directionnels multi-axes (3x9), Mollets debout unipodal (3x14/jambe), Pompes (3x18), Dips sur banc (3x14), Tirage élastique horizontal (3x18). Repos 1 min entre tours."
+                            },
+                            "cooldown": {
+                              "stringValue": "5 min d'étirements : quadriceps, ischio-jambiers, mollets, hanches"
+                            },
+                            "elevationGain": {
+                              "integerValue": "0"
+                            }
+                          }
+                        }
+                      },
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "elevationGain": {
+                              "integerValue": "700"
+                            },
+                            "cooldown": {
+                              "stringValue": "5 à 10 min sur terrain roulant puis marche. (à 5:43 min/km)"
+                            },
+                            "warmup": {
+                              "stringValue": "10 min de footing, à 5:43 min/km en endurance fondamentale sur chemin roulant."
+                            },
+                            "locationSuggestion": {
+                              "stringValue": "Chemins de campagne de Paulhac"
+                            },
+                            "id": {
+                              "stringValue": "w1-s3-1779135832272-eipx383"
+                            },
+                            "day": {
+                              "stringValue": "Jeudi"
+                            },
+                            "distance": {
+                              "stringValue": "17.1 km"
+                            },
+                            "mainSet": {
+                              "stringValue": "62 min sur terrain varié et vallonné (~700 m D+) — chemins, sentiers larges, sous-bois avec relief. Adapte l'allure au sol pour garder un effort d'endurance fondamentale constant (5:07 en référence). Évite le terrain piégeux (racines, cailloux, dévers). Cherche le relief progressif, c'est ton vrai entraînement spécifique. (allure : 5:07 min/km)"
+                            },
+                            "duration": {
+                              "stringValue": "1h 31 min"
+                            },
+                            "intensity": {
+                              "stringValue": "Facile"
+                            },
+                            "advice": {
+                              "stringValue": "Le terrain varié sollicite les muscles stabilisateurs et la proprioception, en douceur. C'est un renforcement \"gratuit\" intégré au footing."
+                            },
+                            "title": {
+                              "stringValue": "Footing nature, terrain varié"
+                            },
+                            "type": {
+                              "stringValue": "Jogging"
+                            },
+                            "targetPace": {
+                              "stringValue": "Endurance Fondamentale (progressif, env. 5:20 min/km)"
+                            }
+                          }
+                        }
+                      },
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "targetPace": {
+                              "stringValue": "5:43"
+                            },
+                            "type": {
+                              "stringValue": "Récupération"
+                            },
+                            "title": {
+                              "stringValue": "Footing de Récupération"
+                            },
+                            "advice": {
+                              "stringValue": "Le sentier roulant fait travailler le dénivelé \"de fond\", diffus et régulier, sans pic d'effort excentrique. La meilleure école pour habituer les jambes au D+."
+                            },
+                            "intensity": {
+                              "stringValue": "Facile"
+                            },
+                            "duration": {
+                              "stringValue": "45 min"
+                            },
+                            "mainSet": {
+                              "stringValue": "25 min de footing très léger sur sentiers roulants vallonnés (~200 m D+ doux) à 5:43 min/km"
+                            },
+                            "distance": {
+                              "stringValue": "7.9 km"
+                            },
+                            "day": {
+                              "stringValue": "Samedi"
+                            },
+                            "locationSuggestion": {
+                              "stringValue": "Sentiers du Puy de Paulhac"
+                            },
+                            "warmup": {
+                              "stringValue": "10 min de footing léger à 5:43 min/km"
+                            },
+                            "id": {
+                              "stringValue": "w1-s4-1779135832272-q0b54q9"
+                            },
+                            "cooldown": {
+                              "stringValue": "5 min de marche + étirements (à 5:43 min/km)"
+                            },
+                            "elevationGain": {
+                              "integerValue": "200"
+                            }
+                          }
+                        }
+                      },
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "duration": {
+                              "stringValue": "3h00"
+                            },
+                            "intensity": {
+                              "stringValue": "Facile"
+                            },
+                            "title": {
+                              "stringValue": "Sortie Longue Trail en nature (Pré-fatigue)"
+                            },
+                            "targetPace": {
+                              "stringValue": "Allure Ultra-Trail (env. 6:55 min/km en moyenne)"
+                            },
+                            "type": {
+                              "stringValue": "Sortie Longue"
+                            },
+                            "elevationGain": {
+                              "integerValue": "1700"
+                            },
+                            "cooldown": {
+                              "stringValue": "15 min de marche active et étirements doux mais prolongés des jambes, du dos et des hanches. La récupération post-SL est cruciale pour un coureur de ton âge. Pense à ta stratégie nutritionnelle sur ce type de sortie (gel, pâte de fruit, boisson énergétique légère) sans attendre la faim ou la soif. Consulter un diététicien-sportif est fortement recommandé pour ta stratégie nutritionnelle. (à 5:43 min/km)"
+                            },
+                            "warmup": {
+                              "stringValue": "15 min d'échauffement progressif (marche puis trottinement très doux), augmentant très lentement l'allure. (à 5:43 min/km)"
+                            },
+                            "locationSuggestion": {
+                              "stringValue": "Sentiers du Puy de Paulhac"
+                            },
+                            "id": {
+                              "stringValue": "w1-s5-1779135832272-tgss3mn"
+                            },
+                            "day": {
+                              "stringValue": "Dimanche"
+                            },
+                            "distance": {
+                              "stringValue": "26 km"
+                            },
+                            "mainSet": {
+                              "stringValue": "2h30 de course en alternant endurance fondamentale (allure proche de 5:07 min/km sur les portions moins pentues) et des sections de marche rapide en montée (power hiking, allure 7:00-8:00 min/km) sur les pentes raides. Objectif S1 : ~1700 m D+ sur sentiers techniques pour démarrer la résistance excentrique en descente. L'objectif est d'accumuler du temps d'effort, de s'habituer au terrain technique et au dénivelé, en maintenant un effort globalement confortable sans chercher la vitesse."
+                            }
+                          }
+                        }
+                      }
+                    ]
+                  }
+                },
+                "phase": {
+                  "stringValue": "fondamental"
+                },
+                "weekNumber": {
+                  "integerValue": "1"
+                },
+                "theme": {
+                  "stringValue": "Construction de la base aérobie et adaptation douce au dénivelé"
+                },
+                "weekGoal": {
+                  "stringValue": "Construction de la base aérobie et adaptation douce au dénivelé"
+                }
+              }
+            }
+          }
+        ]
+      }
+    },
+    "vmaSource": {
+      "stringValue": "Estimation niveau Expert (Performance)"
+    },
+    "location": {
+      "stringValue": "Paulhac "
+    },
+    "startDate": {
+      "stringValue": "2026-05-18"
+    },
+    "sessionsPerWeek": {
+      "integerValue": "5"
+    },
+    "name": {
+      "stringValue": "Préparation Trail 110km / 12000m D+ — Finisher — 13 sem."
+    },
+    "fullPlanGenerated": {
+      "booleanValue": false
+    },
+    "suggestedLocations": {
+      "arrayValue": {
+        "values": [
+          {
+            "mapValue": {
+              "fields": {
+                "description": {
+                  "stringValue": "Pour les sorties vallonnées et la découverte du dénivelé."
+                },
+                "type": {
+                  "stringValue": "NATURE"
+                },
+                "name": {
+                  "stringValue": "Sentiers du Puy de Paulhac"
+                }
+              }
+            }
+          },
+          {
+            "mapValue": {
+              "fields": {
+                "description": {
+                  "stringValue": "Idéal pour les footings en aisance respiratoire et les sorties longues sur terrain varié."
+                },
+                "type": {
+                  "stringValue": "NATURE"
+                },
+                "name": {
+                  "stringValue": "Chemins de campagne de Paulhac"
+                }
+              }
+            }
+          },
+          {
+            "mapValue": {
+              "fields": {
+                "description": {
+                  "stringValue": "Pour les séances de fractionné sur piste (si nécessaire en phases ultérieures)."
+                },
+                "type": {
+                  "stringValue": "TRACK"
+                },
+                "name": {
+                  "stringValue": "Stade municipal de Saint-Léonard-de-Noblat"
+                }
+              }
+            }
+          }
+        ]
+      }
+    },
+    "adaptationLog": {
+      "mapValue": {
+        "fields": {
+          "adaptationHistory": {
+            "arrayValue": {}
+          },
+          "adaptationsThisWeek": {
+            "integerValue": "0"
+          },
+          "weekNumber": {
+            "integerValue": "0"
+          }
+        }
+      }
+    },
+    "id": {
+      "stringValue": "1779135832271"
+    },
+    "confidenceScore": {
+      "integerValue": "60"
+    },
+    "goal": {
+      "stringValue": "Trail"
+    },
+    "endDate": {
+      "stringValue": "2026-08-17"
+    },
+    "generationContext": {
+      "mapValue": {
+        "fields": {
+          "questionnaireSnapshot": {
+            "mapValue": {
+              "fields": {
+                "injuries": {
+                  "mapValue": {
+                    "fields": {
+                      "hasInjury": {
+                        "booleanValue": false
+                      }
+                    }
+                  }
+                },
+                "currentWeeklyElevation": {
+                  "integerValue": "3000"
+                },
+                "level": {
+                  "stringValue": "Expert (Performance)"
+                },
+                "city": {
+                  "stringValue": "Paulhac "
+                },
+                "sex": {
+                  "stringValue": "Homme"
+                },
+                "recentRaceTimes": {
+                  "mapValue": {}
+                },
+                "comments": {
+                  "stringValue": "Je préfère courir le soir après 18h le renforcement plutôt le matin séance plutôt dimanche "
+                },
+                "trailDetails": {
+                  "mapValue": {
+                    "fields": {
+                      "elevation": {
+                        "integerValue": "12000"
+                      },
+                      "distance": {
+                        "integerValue": "110"
+                      }
+                    }
+                  }
+                },
+                "height": {
+                  "integerValue": "177"
+                },
+                "currentWeeklyVolume": {
+                  "integerValue": "70"
+                },
+                "goal": {
+                  "stringValue": "Trail"
+                },
+                "email": {
+                  "stringValue": "rauroy@yahoo.fr"
+                },
+                "age": {
+                  "integerValue": "55"
+                },
+                "weight": {
+                  "integerValue": "69"
+                },
+                "vma": {
+                  "doubleValue": 17.5
+                },
+                "preferredDays": {
+                  "arrayValue": {
+                    "values": [
+                      {
+                        "stringValue": "Mardi"
+                      },
+                      {
+                        "stringValue": "Mercredi"
+                      },
+                      {
+                        "stringValue": "Jeudi"
+                      },
+                      {
+                        "stringValue": "Samedi"
+                      },
+                      {
+                        "stringValue": "Dimanche"
+                      }
+                    ]
+                  }
+                },
+                "startDate": {
+                  "stringValue": "2026-05-18"
+                },
+                "frequency": {
+                  "integerValue": "5"
+                },
+                "raceDate": {
+                  "stringValue": "2026-08-14"
+                }
+              }
+            }
+          },
+          "modelUsed": {
+            "stringValue": "gemini-2.5-flash"
+          },
+          "paces": {
+            "mapValue": {
+              "fields": {
+                "allureSpecifique5k": {
+                  "stringValue": "3:37"
+                },
+                "recoveryPace": {
+                  "stringValue": "5:43"
+                },
+                "efPace": {
+                  "stringValue": "5:07"
+                },
+                "vmaPace": {
+                  "stringValue": "3:26"
+                },
+                "allureSpecifiqueSemi": {
+                  "stringValue": "4:02"
+                },
+                "allureSpecifiqueMarathon": {
+                  "stringValue": "4:17"
+                },
+                "allureSpecifique10k": {
+                  "stringValue": "3:49"
+                },
+                "eaPace": {
+                  "stringValue": "4:27"
+                },
+                "seuilPace": {
+                  "stringValue": "3:56"
+                }
+              }
+            }
+          },
+          "vmaSource": {
+            "stringValue": "Estimation niveau Expert (Performance)"
+          },
+          "periodizationPlan": {
+            "mapValue": {
+              "fields": {
+                "weeklyVolumes": {
+                  "arrayValue": {
+                    "values": [
+                      {
+                        "integerValue": "60"
+                      },
+                      {
+                        "integerValue": "70"
+                      },
+                      {
+                        "integerValue": "80"
+                      },
+                      {
+                        "integerValue": "65"
+                      },
+                      {
+                        "integerValue": "85"
+                      },
+                      {
+                        "integerValue": "100"
+                      },
+                      {
+                        "integerValue": "75"
+                      },
+                      {
+                        "integerValue": "110"
+                      },
+                      {
+                        "integerValue": "125"
+                      },
+                      {
+                        "integerValue": "130"
+                      },
+                      {
+                        "integerValue": "100"
+                      },
+                      {
+                        "integerValue": "65"
+                      },
+                      {
+                        "integerValue": "45"
+                      }
+                    ]
+                  }
+                },
+                "weeklyPhases": {
+                  "arrayValue": {
+                    "values": [
+                      {
+                        "stringValue": "fondamental"
+                      },
+                      {
+                        "stringValue": "fondamental"
+                      },
+                      {
+                        "stringValue": "fondamental"
+                      },
+                      {
+                        "stringValue": "recuperation"
+                      },
+                      {
+                        "stringValue": "developpement"
+                      },
+                      {
+                        "stringValue": "developpement"
+                      },
+                      {
+                        "stringValue": "developpement"
+                      },
+                      {
+                        "stringValue": "recuperation"
+                      },
+                      {
+                        "stringValue": "specifique"
+                      },
+                      {
+                        "stringValue": "specifique"
+                      },
+                      {
+                        "stringValue": "specifique"
+                      },
+                      {
+                        "stringValue": "affutage"
+                      },
+                      {
+                        "stringValue": "affutage"
+                      }
+                    ]
+                  }
+                },
+                "totalWeeks": {
+                  "integerValue": "13"
+                },
+                "recoveryWeeks": {
+                  "arrayValue": {
+                    "values": [
+                      {
+                        "integerValue": "4"
+                      },
+                      {
+                        "integerValue": "8"
+                      }
+                    ]
+                  }
+                },
+                "weeklyElevationTarget": {
+                  "arrayValue": {
+                    "values": [
+                      {
+                        "integerValue": "3000"
+                      },
+                      {
+                        "integerValue": "3500"
+                      },
+                      {
+                        "integerValue": "4200"
+                      },
+                      {
+                        "integerValue": "2800"
+                      },
+                      {
+                        "integerValue": "5000"
+                      },
+                      {
+                        "integerValue": "6000"
+                      },
+                      {
+                        "integerValue": "4500"
+                      },
+                      {
+                        "integerValue": "6500"
+                      },
+                      {
+                        "integerValue": "7500"
+                      },
+                      {
+                        "integerValue": "7800"
+                      },
+                      {
+                        "integerValue": "5500"
+                      },
+                      {
+                        "integerValue": "3500"
+                      },
+                      {
+                        "integerValue": "1500"
+                      }
+                    ]
+                  }
+                }
+              }
+            }
+          },
+          "generatedAt": {
+            "stringValue": "2026-05-18T20:23:00.891Z"
+          },
+          "vma": {
+            "doubleValue": 17.5
+          }
+        }
+      }
+    },
+    "paces": {
+      "mapValue": {
+        "fields": {
+          "allureSpecifiqueSemi": {
+            "stringValue": "4:02"
+          },
+          "allureSpecifiqueMarathon": {
+            "stringValue": "4:17"
+          },
+          "allureSpecifique10k": {
+            "stringValue": "3:49"
+          },
+          "eaPace": {
+            "stringValue": "4:27"
+          },
+          "seuilPace": {
+            "stringValue": "3:56"
+          },
+          "allureSpecifique5k": {
+            "stringValue": "3:37"
+          },
+          "recoveryPace": {
+            "stringValue": "5:43"
+          },
+          "efPace": {
+            "stringValue": "5:07"
+          },
+          "vmaPace": {
+            "stringValue": "3:26"
+          }
+        }
+      }
+    }
+  },
+  "createTime": "2026-05-18T20:24:06.099730Z",
+  "updateTime": "2026-05-18T20:34:19.637761Z"
+}

@@ -1,0 +1,781 @@
+{
+  "name": "projects/coach-running-ia/databases/(default)/documents/plans/1779089493075",
+  "fields": {
+    "id": {
+      "stringValue": "1779089493075"
+    },
+    "vma": {
+      "doubleValue": 10.685238095238095
+    },
+    "sessionsPerWeek": {
+      "integerValue": "5"
+    },
+    "paces": {
+      "mapValue": {
+        "fields": {
+          "allureSpecifique10k": {
+            "stringValue": "6:14"
+          },
+          "allureSpecifiqueSemi": {
+            "stringValue": "6:36"
+          },
+          "eaPace": {
+            "stringValue": "7:18"
+          },
+          "vmaPace": {
+            "stringValue": "5:37"
+          },
+          "seuilPace": {
+            "stringValue": "6:27"
+          },
+          "allureSpecifiqueMarathon": {
+            "stringValue": "6:45"
+          },
+          "recoveryPace": {
+            "stringValue": "9:22"
+          },
+          "allureSpecifique5k": {
+            "stringValue": "5:55"
+          },
+          "efPace": {
+            "stringValue": "8:23"
+          }
+        }
+      }
+    },
+    "targetTime": {
+      "stringValue": "4h45"
+    },
+    "createdAt": {
+      "stringValue": "2026-05-18T07:31:33.075Z"
+    },
+    "feasibility": {
+      "mapValue": {
+        "fields": {
+          "status": {
+            "stringValue": "AMBITIEUX"
+          },
+          "score": {
+            "integerValue": "60"
+          },
+          "message": {
+            "stringValue": "Avec ta VMA de 10.7 km/h, ton temps théorique sur marathon est d'environ 4h56. Tu vises 4h45, soit 30 min de moins que ton PB marathon (5h15) — c'est une grosse réduction, un objectif ambitieux qui demande un entraînement très régulier sur 22 semaines. Le plan est construit pour t'amener au plus près, mais une marge réaliste serait autour de 4h55-5h05 pour limiter le risque de blessure."
+          },
+          "safetyWarning": {
+            "stringValue": "Objectif ambitieux : reste à l'écoute de ton corps, respecte les semaines de récupération, et n'hésite pas à revoir la cible à la baisse en cours de plan si nécessaire."
+          }
+        }
+      }
+    },
+    "adaptationLog": {
+      "mapValue": {
+        "fields": {
+          "adaptationHistory": {
+            "arrayValue": {}
+          },
+          "weekNumber": {
+            "integerValue": "0"
+          },
+          "adaptationsThisWeek": {
+            "integerValue": "0"
+          }
+        }
+      }
+    },
+    "goal": {
+      "stringValue": "Course sur route"
+    },
+    "location": {
+      "stringValue": "Agey"
+    },
+    "distance": {
+      "stringValue": "Marathon"
+    },
+    "confidenceScore": {
+      "integerValue": "60"
+    },
+    "startDate": {
+      "stringValue": "2026-05-18"
+    },
+    "fullPlanGenerated": {
+      "booleanValue": false
+    },
+    "userEmail": {
+      "stringValue": "georgeslor1@gmail.com"
+    },
+    "weeks": {
+      "arrayValue": {
+        "values": [
+          {
+            "mapValue": {
+              "fields": {
+                "sessions": {
+                  "arrayValue": {
+                    "values": [
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "duration": {
+                              "stringValue": "1h 51 min"
+                            },
+                            "id": {
+                              "stringValue": "w1-s1-1779089493078-3di34ji"
+                            },
+                            "intensity": {
+                              "stringValue": "Facile"
+                            },
+                            "elevationGain": {
+                              "integerValue": "0"
+                            },
+                            "locationSuggestion": {
+                              "stringValue": "Canal de Bourgogne (Piste Cyclable Agey-Dijon)"
+                            },
+                            "title": {
+                              "stringValue": "Sortie Longue en aisance"
+                            },
+                            "cooldown": {
+                              "stringValue": "10 min de marche/footing très lent (9:22 min/km) suivies de 5-10 min d'étirements doux et de mobilité articulaire pour les hanches, genoux et chevilles."
+                            },
+                            "advice": {
+                              "stringValue": "Hydrate-toi bien avant, pendant et après cette sortie. Écoute attentivement ton corps, surtout tes articulations (genoux, chevilles, hanches), et réduis l'allure si une douleur apparaît. La régularité est la clé."
+                            },
+                            "distance": {
+                              "stringValue": "13.2 km"
+                            },
+                            "targetPace": {
+                              "stringValue": "8:23 min/km"
+                            },
+                            "warmup": {
+                              "stringValue": "15 min de footing très léger et progressif (9:22 min/km à 8:23 min/km)."
+                            },
+                            "type": {
+                              "stringValue": "Sortie Longue"
+                            },
+                            "day": {
+                              "stringValue": "Lundi"
+                            },
+                            "mainSet": {
+                              "stringValue": "84 min de course en endurance fondamentale à 8:23 min/km. Concentre-toi sur un rythme où tu peux parler facilement."
+                            }
+                          }
+                        }
+                      },
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "advice": {
+                              "stringValue": "C'est la séance qui construit ton moteur aérobie : cœur, capillaires, tendons. La régularité de l'allure est l'objectif, pas la vitesse."
+                            },
+                            "distance": {
+                              "stringValue": "9.5 km"
+                            },
+                            "targetPace": {
+                              "stringValue": "8:23 min/km"
+                            },
+                            "warmup": {
+                              "stringValue": "5 min de marche, à 9:22 min/km active puis montée progressive vers l'allure d'endurance fondamentale."
+                            },
+                            "type": {
+                              "stringValue": "Jogging"
+                            },
+                            "day": {
+                              "stringValue": "Mardi"
+                            },
+                            "mainSet": {
+                              "stringValue": "52 min en endurance fondamentale, allure régulière et confortable (8:23). Tu dois pouvoir tenir une conversation tout du long. (allure : 8:23 min/km)"
+                            },
+                            "id": {
+                              "stringValue": "w1-s2-1779089493078-ctdf4il"
+                            },
+                            "duration": {
+                              "stringValue": "1h 19 min"
+                            },
+                            "elevationGain": {
+                              "integerValue": "0"
+                            },
+                            "intensity": {
+                              "stringValue": "Facile"
+                            },
+                            "locationSuggestion": {
+                              "stringValue": "Chemins ruraux d'Agey"
+                            },
+                            "title": {
+                              "stringValue": "Footing en endurance fondamentale"
+                            },
+                            "cooldown": {
+                              "stringValue": "5 min de footing très lent puis marche. (à 9:22 min/km)"
+                            }
+                          }
+                        }
+                      },
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "mainSet": {
+                              "stringValue": "Circuit 2 tours : Squats poids de corps (3x9), Squat bulgare (3x6/jambe), Fentes avant (3x6/jambe), Gainage ventral (3x19-60s), Dead bug (3x6/côté), Extensions mollets debout (3x13), Gainage ventral long (2x57-120s). Repos 2 min entre tours."
+                            },
+                            "type": {
+                              "stringValue": "Renforcement"
+                            },
+                            "day": {
+                              "stringValue": "Mercredi"
+                            },
+                            "distance": {
+                              "stringValue": "0 km"
+                            },
+                            "warmup": {
+                              "stringValue": "10 min de mobilité articulaire et échauffement dynamique"
+                            },
+                            "advice": {
+                              "stringValue": "Ce renforcement est essentiel pour prévenir les blessures et améliorer ton efficacité de course. Privilégie la qualité du mouvement à la quantité. Écoute ton corps et ne force pas."
+                            },
+                            "title": {
+                              "stringValue": "Renfo Focus A - Quadriceps & Gainage (S1)"
+                            },
+                            "cooldown": {
+                              "stringValue": "5 min d'étirements : quadriceps, ischio-jambiers, mollets, hanches"
+                            },
+                            "id": {
+                              "stringValue": "w1-s3-1779089493078-v5h6d6m"
+                            },
+                            "duration": {
+                              "stringValue": "35-45 min"
+                            },
+                            "elevationGain": {
+                              "integerValue": "0"
+                            },
+                            "locationSuggestion": {
+                              "stringValue": "À la maison"
+                            },
+                            "intensity": {
+                              "stringValue": "Modéré"
+                            }
+                          }
+                        }
+                      },
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "id": {
+                              "stringValue": "w1-s4-1779089493078-5n0p32q"
+                            },
+                            "duration": {
+                              "stringValue": "59 min"
+                            },
+                            "elevationGain": {
+                              "integerValue": "0"
+                            },
+                            "intensity": {
+                              "stringValue": "Facile"
+                            },
+                            "locationSuggestion": {
+                              "stringValue": "Forêt Domaniale de Velours (proche Agey)"
+                            },
+                            "title": {
+                              "stringValue": "Footing vallonné"
+                            },
+                            "cooldown": {
+                              "stringValue": "5 à 10 min de footing plat puis marche. (à 9:22 min/km)"
+                            },
+                            "advice": {
+                              "stringValue": "Le relief renforce les chaînes musculaires de façon naturelle et progressive. La règle d'or : c'est l'effort qui reste constant, pas la vitesse."
+                            },
+                            "distance": {
+                              "stringValue": "7.1 km"
+                            },
+                            "warmup": {
+                              "stringValue": "10 min de footing, à 9:22 min/km en endurance fondamentale sur terrain plat."
+                            },
+                            "targetPace": {
+                              "stringValue": "8:23 min/km"
+                            },
+                            "type": {
+                              "stringValue": "Jogging"
+                            },
+                            "day": {
+                              "stringValue": "Jeudi"
+                            },
+                            "mainSet": {
+                              "stringValue": "52 min sur parcours légèrement vallonné. En montée : foulée courte, effort d'endurance fondamentale maintenu (8:23 en référence sur le plat, la vitesse baisse en côte c'est normal). En descente : relâché, foulée courte et contrôlée. Pas de côte raide, du vallon doux. (allure : 8:23 min/km)"
+                            }
+                          }
+                        }
+                      },
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "title": {
+                              "stringValue": "Footing en endurance fondamentale"
+                            },
+                            "cooldown": {
+                              "stringValue": "5 min de footing très lent puis marche. (à 9:22 min/km)"
+                            },
+                            "locationSuggestion": {
+                              "stringValue": "Canal de Bourgogne (Piste Cyclable Agey-Dijon)"
+                            },
+                            "intensity": {
+                              "stringValue": "Facile"
+                            },
+                            "elevationGain": {
+                              "integerValue": "0"
+                            },
+                            "id": {
+                              "stringValue": "w1-s5-1779089493078-6e7teb0"
+                            },
+                            "duration": {
+                              "stringValue": "1h 03 min"
+                            },
+                            "mainSet": {
+                              "stringValue": "49 min en endurance fondamentale, allure régulière et confortable (8:23). Tu dois pouvoir tenir une conversation tout du long. (allure : 8:23 min/km)"
+                            },
+                            "day": {
+                              "stringValue": "Vendredi"
+                            },
+                            "type": {
+                              "stringValue": "Jogging"
+                            },
+                            "warmup": {
+                              "stringValue": "5 min de marche, à 9:22 min/km active puis montée progressive vers l'allure d'endurance fondamentale."
+                            },
+                            "targetPace": {
+                              "stringValue": "8:23 min/km"
+                            },
+                            "distance": {
+                              "stringValue": "7.9 km"
+                            },
+                            "advice": {
+                              "stringValue": "C'est la séance qui construit ton moteur aérobie : cœur, capillaires, tendons. La régularité de l'allure est l'objectif, pas la vitesse."
+                            }
+                          }
+                        }
+                      }
+                    ]
+                  }
+                },
+                "theme": {
+                  "stringValue": "Fondamental : Établissement des bases"
+                },
+                "phase": {
+                  "stringValue": "fondamental"
+                },
+                "weekGoal": {
+                  "stringValue": "Fondamental : Établissement des bases"
+                },
+                "weekNumber": {
+                  "integerValue": "1"
+                }
+              }
+            }
+          }
+        ]
+      }
+    },
+    "welcomeMessage": {
+      "stringValue": "Bienvenue Georges ! Tu as choisi un beau projet : un marathon en 4h45 dans 22 semaines, soit 30 min de moins que ton PB marathon en 5h15. C'est une grosse réduction : un objectif ambitieux qui demande un entraînement très régulier et progressif. Ce plan construit une base solide d'endurance, intègre des séances de renforcement musculaire (1 par semaine) et augmente progressivement le volume jusqu'à ton pic. Reste à l'écoute de ton corps : si tu sens que la cible 4h45 devient trop dure, on pourra réviser vers 4h55-5h05 en cours de plan — c'est mieux que se blesser. Avant de débuter, je te recommande vivement un bilan médical et un certificat cardio-vasculaire (à 57 ans, c'est indispensable)."
+    },
+    "calculatedVMA": {
+      "doubleValue": 10.685238095238095
+    },
+    "suggestedLocations": {
+      "arrayValue": {
+        "values": [
+          {
+            "mapValue": {
+              "fields": {
+                "type": {
+                  "stringValue": "NATURE"
+                },
+                "description": {
+                  "stringValue": "Idéal pour les sorties longues et les footings à plat, avec une surface stable et un environnement calme."
+                },
+                "name": {
+                  "stringValue": "Canal de Bourgogne (Piste Cyclable Agey-Dijon)"
+                }
+              }
+            }
+          },
+          {
+            "mapValue": {
+              "fields": {
+                "description": {
+                  "stringValue": "Parfait pour les footings en nature avec de légers dénivelés et des sentiers variés."
+                },
+                "name": {
+                  "stringValue": "Forêt Domaniale de Velours (proche Agey)"
+                },
+                "type": {
+                  "stringValue": "NATURE"
+                }
+              }
+            }
+          },
+          {
+            "mapValue": {
+              "fields": {
+                "description": {
+                  "stringValue": "Propice aux footings variés, permettant de découvrir le paysage local."
+                },
+                "name": {
+                  "stringValue": "Chemins ruraux d'Agey"
+                },
+                "type": {
+                  "stringValue": "NATURE"
+                }
+              }
+            }
+          }
+        ]
+      }
+    },
+    "endDate": {
+      "stringValue": "2026-10-19"
+    },
+    "vmaSource": {
+      "stringValue": "Moyenne 10km en 1h00 et Marathon en 5h15"
+    },
+    "raceDate": {
+      "stringValue": "2026-10-18"
+    },
+    "isPreview": {
+      "booleanValue": true
+    },
+    "name": {
+      "stringValue": "Préparation Marathon en 4h45 — 22 sem."
+    },
+    "generationContext": {
+      "mapValue": {
+        "fields": {
+          "paces": {
+            "mapValue": {
+              "fields": {
+                "seuilPace": {
+                  "stringValue": "6:27"
+                },
+                "vmaPace": {
+                  "stringValue": "5:37"
+                },
+                "allureSpecifiqueMarathon": {
+                  "stringValue": "6:45"
+                },
+                "recoveryPace": {
+                  "stringValue": "9:22"
+                },
+                "allureSpecifique10k": {
+                  "stringValue": "6:14"
+                },
+                "allureSpecifiqueSemi": {
+                  "stringValue": "6:36"
+                },
+                "eaPace": {
+                  "stringValue": "7:18"
+                },
+                "efPace": {
+                  "stringValue": "8:23"
+                },
+                "allureSpecifique5k": {
+                  "stringValue": "5:55"
+                }
+              }
+            }
+          },
+          "modelUsed": {
+            "stringValue": "gemini-2.5-flash"
+          },
+          "generatedAt": {
+            "stringValue": "2026-05-18T07:31:02.301Z"
+          },
+          "vma": {
+            "doubleValue": 10.685238095238095
+          },
+          "questionnaireSnapshot": {
+            "mapValue": {
+              "fields": {
+                "preferredLongRunDay": {
+                  "stringValue": "Lundi"
+                },
+                "targetTime": {
+                  "stringValue": "4h45"
+                },
+                "injuries": {
+                  "mapValue": {
+                    "fields": {
+                      "hasInjury": {
+                        "booleanValue": false
+                      }
+                    }
+                  }
+                },
+                "preferredDays": {
+                  "arrayValue": {
+                    "values": [
+                      {
+                        "stringValue": "Lundi"
+                      },
+                      {
+                        "stringValue": "Mardi"
+                      },
+                      {
+                        "stringValue": "Mercredi"
+                      },
+                      {
+                        "stringValue": "Jeudi"
+                      },
+                      {
+                        "stringValue": "Vendredi"
+                      }
+                    ]
+                  }
+                },
+                "comments": {
+                  "stringValue": "Pas de fractionné court"
+                },
+                "raceDate": {
+                  "stringValue": "2026-10-18"
+                },
+                "recentRaceTimes": {
+                  "mapValue": {
+                    "fields": {
+                      "distance10km": {
+                        "stringValue": "1h00"
+                      },
+                      "distanceMarathon": {
+                        "stringValue": "5h15"
+                      }
+                    }
+                  }
+                },
+                "level": {
+                  "stringValue": "Expert (Performance)"
+                },
+                "currentWeeklyVolume": {
+                  "integerValue": "45"
+                },
+                "vma": {
+                  "doubleValue": 10.685238095238095
+                },
+                "frequency": {
+                  "integerValue": "5"
+                },
+                "startDate": {
+                  "stringValue": "2026-05-18"
+                },
+                "sex": {
+                  "stringValue": "Homme"
+                },
+                "email": {
+                  "stringValue": "georgeslor1@gmail.com"
+                },
+                "age": {
+                  "integerValue": "57"
+                },
+                "height": {
+                  "integerValue": "180"
+                },
+                "weight": {
+                  "integerValue": "90"
+                },
+                "goal": {
+                  "stringValue": "Course sur route"
+                },
+                "city": {
+                  "stringValue": "Agey"
+                },
+                "subGoal": {
+                  "stringValue": "Marathon"
+                }
+              }
+            }
+          },
+          "vmaSource": {
+            "stringValue": "Moyenne 10km en 1h00 et Marathon en 5h15"
+          },
+          "periodizationPlan": {
+            "mapValue": {
+              "fields": {
+                "recoveryWeeks": {
+                  "arrayValue": {
+                    "values": [
+                      {
+                        "integerValue": "4"
+                      },
+                      {
+                        "integerValue": "7"
+                      },
+                      {
+                        "integerValue": "10"
+                      },
+                      {
+                        "integerValue": "13"
+                      },
+                      {
+                        "integerValue": "16"
+                      },
+                      {
+                        "integerValue": "19"
+                      }
+                    ]
+                  }
+                },
+                "weeklyVolumes": {
+                  "arrayValue": {
+                    "values": [
+                      {
+                        "integerValue": "40"
+                      },
+                      {
+                        "integerValue": "43"
+                      },
+                      {
+                        "integerValue": "46"
+                      },
+                      {
+                        "integerValue": "35"
+                      },
+                      {
+                        "integerValue": "41"
+                      },
+                      {
+                        "integerValue": "47"
+                      },
+                      {
+                        "integerValue": "41"
+                      },
+                      {
+                        "integerValue": "47"
+                      },
+                      {
+                        "integerValue": "50"
+                      },
+                      {
+                        "integerValue": "39"
+                      },
+                      {
+                        "integerValue": "45"
+                      },
+                      {
+                        "integerValue": "50"
+                      },
+                      {
+                        "integerValue": "39"
+                      },
+                      {
+                        "integerValue": "45"
+                      },
+                      {
+                        "integerValue": "50"
+                      },
+                      {
+                        "integerValue": "39"
+                      },
+                      {
+                        "integerValue": "45"
+                      },
+                      {
+                        "integerValue": "50"
+                      },
+                      {
+                        "integerValue": "39"
+                      },
+                      {
+                        "integerValue": "34"
+                      },
+                      {
+                        "integerValue": "30"
+                      },
+                      {
+                        "integerValue": "26"
+                      }
+                    ]
+                  }
+                },
+                "totalWeeks": {
+                  "integerValue": "22"
+                },
+                "weeklyPhases": {
+                  "arrayValue": {
+                    "values": [
+                      {
+                        "stringValue": "fondamental"
+                      },
+                      {
+                        "stringValue": "fondamental"
+                      },
+                      {
+                        "stringValue": "fondamental"
+                      },
+                      {
+                        "stringValue": "recuperation"
+                      },
+                      {
+                        "stringValue": "fondamental"
+                      },
+                      {
+                        "stringValue": "fondamental"
+                      },
+                      {
+                        "stringValue": "recuperation"
+                      },
+                      {
+                        "stringValue": "developpement"
+                      },
+                      {
+                        "stringValue": "developpement"
+                      },
+                      {
+                        "stringValue": "recuperation"
+                      },
+                      {
+                        "stringValue": "developpement"
+                      },
+                      {
+                        "stringValue": "developpement"
+                      },
+                      {
+                        "stringValue": "recuperation"
+                      },
+                      {
+                        "stringValue": "specifique"
+                      },
+                      {
+                        "stringValue": "specifique"
+                      },
+                      {
+                        "stringValue": "recuperation"
+                      },
+                      {
+                        "stringValue": "specifique"
+                      },
+                      {
+                        "stringValue": "specifique"
+                      },
+                      {
+                        "stringValue": "recuperation"
+                      },
+                      {
+                        "stringValue": "affutage"
+                      },
+                      {
+                        "stringValue": "affutage"
+                      },
+                      {
+                        "stringValue": "affutage"
+                      }
+                    ]
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "userId": {
+      "stringValue": "oWrcHj2F1CQsL34K3KS0ZMc7Olg1"
+    },
+    "durationWeeks": {
+      "integerValue": "22"
+    }
+  },
+  "createTime": "2026-05-18T07:31:50.624815Z",
+  "updateTime": "2026-05-18T11:13:28.622257Z"
+}

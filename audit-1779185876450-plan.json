@@ -1,0 +1,646 @@
+{
+  "name": "projects/coach-running-ia/databases/(default)/documents/plans/1779185876450",
+  "fields": {
+    "name": {
+      "stringValue": "Préparation 10 km — Finisher — 21 sem."
+    },
+    "startDate": {
+      "stringValue": "2026-05-18"
+    },
+    "location": {
+      "stringValue": "Reims"
+    },
+    "sessionsPerWeek": {
+      "integerValue": "3"
+    },
+    "id": {
+      "stringValue": "1779185876450"
+    },
+    "adaptationLog": {
+      "mapValue": {
+        "fields": {
+          "adaptationHistory": {
+            "arrayValue": {}
+          },
+          "adaptationsThisWeek": {
+            "integerValue": "0"
+          },
+          "weekNumber": {
+            "integerValue": "0"
+          }
+        }
+      }
+    },
+    "confidenceScore": {
+      "integerValue": "95"
+    },
+    "suggestedLocations": {
+      "arrayValue": {
+        "values": [
+          {
+            "mapValue": {
+              "fields": {
+                "name": {
+                  "stringValue": "Parc de Champagne"
+                },
+                "type": {
+                  "stringValue": "PARK"
+                },
+                "description": {
+                  "stringValue": "Idéal pour les footings en endurance fondamentale, terrain légèrement vallonné par endroits et chemins variés."
+                }
+              }
+            }
+          },
+          {
+            "mapValue": {
+              "fields": {
+                "description": {
+                  "stringValue": "Parfait pour les sorties longues et les séances à allure constante, terrain plat et roulant sur des chemins stabilisés."
+                },
+                "name": {
+                  "stringValue": "Coulée Verte (le long du Canal de l'Aisne à la Marne)"
+                },
+                "type": {
+                  "stringValue": "NATURE"
+                }
+              }
+            }
+          },
+          {
+            "mapValue": {
+              "fields": {
+                "name": {
+                  "stringValue": "Stade Georges Hébert"
+                },
+                "type": {
+                  "stringValue": "TRACK"
+                },
+                "description": {
+                  "stringValue": "Piste d'athlétisme pour les séances de fractionné et de vitesse (à partir de la phase de développement)."
+                }
+              }
+            }
+          }
+        ]
+      }
+    },
+    "fullPlanGenerated": {
+      "booleanValue": false
+    },
+    "paces": {
+      "mapValue": {
+        "fields": {
+          "seuilPace": {
+            "stringValue": "8:37"
+          },
+          "eaPace": {
+            "stringValue": "9:44"
+          },
+          "allureSpecifiqueSemi": {
+            "stringValue": "8:49"
+          },
+          "allureSpecifique10k": {
+            "stringValue": "8:20"
+          },
+          "allureSpecifiqueMarathon": {
+            "stringValue": "9:23"
+          },
+          "vmaPace": {
+            "stringValue": "7:30"
+          },
+          "allureSpecifique5k": {
+            "stringValue": "7:54"
+          },
+          "efPace": {
+            "stringValue": "11:12"
+          },
+          "recoveryPace": {
+            "stringValue": "12:30"
+          }
+        }
+      }
+    },
+    "goal": {
+      "stringValue": "Course sur route"
+    },
+    "endDate": {
+      "stringValue": "2026-10-12"
+    },
+    "generationContext": {
+      "mapValue": {
+        "fields": {
+          "vma": {
+            "integerValue": "8"
+          },
+          "generatedAt": {
+            "stringValue": "2026-05-19T10:17:14.311Z"
+          },
+          "periodizationPlan": {
+            "mapValue": {
+              "fields": {
+                "totalWeeks": {
+                  "integerValue": "21"
+                },
+                "weeklyPhases": {
+                  "arrayValue": {
+                    "values": [
+                      {
+                        "stringValue": "fondamental"
+                      },
+                      {
+                        "stringValue": "fondamental"
+                      },
+                      {
+                        "stringValue": "fondamental"
+                      },
+                      {
+                        "stringValue": "recuperation"
+                      },
+                      {
+                        "stringValue": "fondamental"
+                      },
+                      {
+                        "stringValue": "fondamental"
+                      },
+                      {
+                        "stringValue": "recuperation"
+                      },
+                      {
+                        "stringValue": "developpement"
+                      },
+                      {
+                        "stringValue": "developpement"
+                      },
+                      {
+                        "stringValue": "recuperation"
+                      },
+                      {
+                        "stringValue": "developpement"
+                      },
+                      {
+                        "stringValue": "developpement"
+                      },
+                      {
+                        "stringValue": "recuperation"
+                      },
+                      {
+                        "stringValue": "specifique"
+                      },
+                      {
+                        "stringValue": "specifique"
+                      },
+                      {
+                        "stringValue": "recuperation"
+                      },
+                      {
+                        "stringValue": "specifique"
+                      },
+                      {
+                        "stringValue": "specifique"
+                      },
+                      {
+                        "stringValue": "recuperation"
+                      },
+                      {
+                        "stringValue": "specifique"
+                      },
+                      {
+                        "stringValue": "affutage"
+                      }
+                    ]
+                  }
+                },
+                "recoveryWeeks": {
+                  "arrayValue": {
+                    "values": [
+                      {
+                        "integerValue": "4"
+                      },
+                      {
+                        "integerValue": "7"
+                      },
+                      {
+                        "integerValue": "10"
+                      },
+                      {
+                        "integerValue": "13"
+                      },
+                      {
+                        "integerValue": "16"
+                      },
+                      {
+                        "integerValue": "19"
+                      }
+                    ]
+                  }
+                },
+                "weeklyVolumes": {
+                  "arrayValue": {
+                    "values": [
+                      {
+                        "integerValue": "20"
+                      },
+                      {
+                        "integerValue": "22"
+                      },
+                      {
+                        "integerValue": "23"
+                      },
+                      {
+                        "integerValue": "18"
+                      },
+                      {
+                        "integerValue": "21"
+                      },
+                      {
+                        "integerValue": "23"
+                      },
+                      {
+                        "integerValue": "18"
+                      },
+                      {
+                        "integerValue": "21"
+                      },
+                      {
+                        "integerValue": "23"
+                      },
+                      {
+                        "integerValue": "18"
+                      },
+                      {
+                        "integerValue": "21"
+                      },
+                      {
+                        "integerValue": "23"
+                      },
+                      {
+                        "integerValue": "18"
+                      },
+                      {
+                        "integerValue": "21"
+                      },
+                      {
+                        "integerValue": "23"
+                      },
+                      {
+                        "integerValue": "18"
+                      },
+                      {
+                        "integerValue": "21"
+                      },
+                      {
+                        "integerValue": "23"
+                      },
+                      {
+                        "integerValue": "18"
+                      },
+                      {
+                        "integerValue": "21"
+                      },
+                      {
+                        "integerValue": "12"
+                      }
+                    ]
+                  }
+                }
+              }
+            }
+          },
+          "vmaSource": {
+            "stringValue": "5km en 46min (corrigé)"
+          },
+          "modelUsed": {
+            "stringValue": "gemini-2.5-flash"
+          },
+          "paces": {
+            "mapValue": {
+              "fields": {
+                "vmaPace": {
+                  "stringValue": "7:30"
+                },
+                "recoveryPace": {
+                  "stringValue": "12:30"
+                },
+                "efPace": {
+                  "stringValue": "11:12"
+                },
+                "allureSpecifique5k": {
+                  "stringValue": "7:54"
+                },
+                "eaPace": {
+                  "stringValue": "9:44"
+                },
+                "seuilPace": {
+                  "stringValue": "8:37"
+                },
+                "allureSpecifiqueMarathon": {
+                  "stringValue": "9:23"
+                },
+                "allureSpecifique10k": {
+                  "stringValue": "8:20"
+                },
+                "allureSpecifiqueSemi": {
+                  "stringValue": "8:49"
+                }
+              }
+            }
+          },
+          "questionnaireSnapshot": {
+            "mapValue": {
+              "fields": {
+                "height": {
+                  "integerValue": "165"
+                },
+                "currentWeeklyVolume": {
+                  "integerValue": "20"
+                },
+                "goal": {
+                  "stringValue": "Course sur route"
+                },
+                "email": {
+                  "stringValue": "steph-fanny@laposte.net"
+                },
+                "age": {
+                  "integerValue": "60"
+                },
+                "sex": {
+                  "stringValue": "Femme"
+                },
+                "level": {
+                  "stringValue": "Intermédiaire (Régulier)"
+                },
+                "city": {
+                  "stringValue": "Reims"
+                },
+                "injuries": {
+                  "mapValue": {
+                    "fields": {
+                      "hasInjury": {
+                        "booleanValue": false
+                      }
+                    }
+                  }
+                },
+                "recentRaceTimes": {
+                  "mapValue": {
+                    "fields": {
+                      "distance5km": {
+                        "stringValue": "46min"
+                      }
+                    }
+                  }
+                },
+                "preferredDays": {
+                  "arrayValue": {}
+                },
+                "subGoal": {
+                  "stringValue": "10 km"
+                },
+                "frequency": {
+                  "integerValue": "3"
+                },
+                "startDate": {
+                  "stringValue": "2026-05-19"
+                },
+                "raceDate": {
+                  "stringValue": "2026-10-12"
+                },
+                "weight": {
+                  "integerValue": "64"
+                },
+                "vma": {
+                  "integerValue": "8"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "userId": {
+      "stringValue": "76JExiX6ZRcFxZjKvkiyCRZ4rrl1"
+    },
+    "welcomeMessage": {
+      "stringValue": "Bienvenue dans ton plan d'entraînement de 21 semaines pour le 10 km ! Ton objectif 'Finisher' est tout à fait réalisable avec ce programme conçu pour construire progressivement ton endurance et ton régularité. La première phase, 'fondamentale', sera dédiée à l'acquisition d'une base solide en endurance fondamentale, cruciale pour réussir sur cette distance. Nous te recommandons vivement de consulter un médecin avant de débuter ce programme, notamment pour obtenir un certificat médical d'aptitude au sport. À partir de 60 ans, un bilan cardio-vasculaire est particulièrement conseillé."
+    },
+    "createdAt": {
+      "stringValue": "2026-05-19T10:17:56.450Z"
+    },
+    "durationWeeks": {
+      "integerValue": "21"
+    },
+    "raceDate": {
+      "stringValue": "2026-10-12"
+    },
+    "isPreview": {
+      "booleanValue": true
+    },
+    "distance": {
+      "stringValue": "10 km"
+    },
+    "userEmail": {
+      "stringValue": "steph-fanny@laposte.net"
+    },
+    "feasibility": {
+      "mapValue": {
+        "fields": {
+          "safetyWarning": {
+            "stringValue": "À 60 ans, on te recommande de consulter ton médecin pour un certificat d'aptitude et idéalement un test d'effort avant de démarrer. Accorde-toi une récupération suffisante entre les séances (48h minimum) et écoute ton corps."
+          },
+          "status": {
+            "stringValue": "EXCELLENT"
+          },
+          "message": {
+            "stringValue": "Ton profil est très bien adapté à ce 10 km. Avec ta VMA de 8.0 km/h et 21 semaines de préparation, les conditions sont réunies pour une belle course."
+          },
+          "score": {
+            "integerValue": "95"
+          }
+        }
+      }
+    },
+    "vma": {
+      "integerValue": "8"
+    },
+    "calculatedVMA": {
+      "integerValue": "8"
+    },
+    "vmaSource": {
+      "stringValue": "5km en 46min (corrigé)"
+    },
+    "weeks": {
+      "arrayValue": {
+        "values": [
+          {
+            "mapValue": {
+              "fields": {
+                "weekNumber": {
+                  "integerValue": "1"
+                },
+                "theme": {
+                  "stringValue": "Construction de la base aérobie"
+                },
+                "weekGoal": {
+                  "stringValue": "Construction de la base aérobie"
+                },
+                "sessions": {
+                  "arrayValue": {
+                    "values": [
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "duration": {
+                              "stringValue": "1h00"
+                            },
+                            "intensity": {
+                              "stringValue": "Facile"
+                            },
+                            "title": {
+                              "stringValue": "Footing progressif (négative split)"
+                            },
+                            "targetPace": {
+                              "stringValue": "11:12 min/km"
+                            },
+                            "type": {
+                              "stringValue": "Sortie Longue"
+                            },
+                            "advice": {
+                              "stringValue": "Apprendre à finir mieux que tu n'as commencé : gestion de l'effort et discipline mentale. La 2e partie reste en aérobie — si tu es essoufflé, tu es allé trop loin."
+                            },
+                            "elevationGain": {
+                              "integerValue": "0"
+                            },
+                            "cooldown": {
+                              "stringValue": "5 min de footing lent puis marche. (à 12:30 min/km)"
+                            },
+                            "mainSet": {
+                              "stringValue": "116 min en deux moitiés : la 1re très tranquille (bas de l'EF), la 2e dans le haut de l'EF autour de 11:12, toujours conversationnel, jamais essoufflé. Tu termines plus vite que tu n'as commencé. (allure : 11:12 min/km)"
+                            },
+                            "id": {
+                              "stringValue": "w1-s1-1779185876450-gn41wxm"
+                            },
+                            "warmup": {
+                              "stringValue": "5 min de marche, à 12:30 min/km puis 5 min de footing très lent (bas de l'endurance fondamentale)."
+                            },
+                            "locationSuggestion": {
+                              "stringValue": "Parc de Champagne"
+                            },
+                            "day": {
+                              "stringValue": "Mardi"
+                            },
+                            "distance": {
+                              "stringValue": "5.4 km"
+                            }
+                          }
+                        }
+                      },
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "intensity": {
+                              "stringValue": "Modéré"
+                            },
+                            "duration": {
+                              "stringValue": "30 min"
+                            },
+                            "type": {
+                              "stringValue": "Renforcement"
+                            },
+                            "title": {
+                              "stringValue": "Renfo Focus A - Quadriceps & Gainage (S1)"
+                            },
+                            "advice": {
+                              "stringValue": "Le renforcement est essentiel pour prévenir les blessures et améliorer ton efficacité de course. Concentre-toi sur la qualité plutôt que la quantité. Si tu ressens une douleur, arrête l'exercice."
+                            },
+                            "cooldown": {
+                              "stringValue": "5 min d'étirements : quadriceps, ischio-jambiers, mollets, hanches"
+                            },
+                            "elevationGain": {
+                              "integerValue": "0"
+                            },
+                            "mainSet": {
+                              "stringValue": "Circuit 2 tours : Squats poids de corps (3x9), Fentes avant (3x6/jambe), Gainage ventral (3x19-60s), Dead bug (3x6/côté), Extensions mollets debout (3x13). Repos 2 min entre tours."
+                            },
+                            "distance": {
+                              "stringValue": "0.0 km"
+                            },
+                            "day": {
+                              "stringValue": "Jeudi"
+                            },
+                            "id": {
+                              "stringValue": "w1-s2-1779185876450-d77bzi5"
+                            },
+                            "warmup": {
+                              "stringValue": "10 min de mobilité articulaire douce et échauffement progressif (marche rapide, rotations, pas chassés)"
+                            },
+                            "locationSuggestion": {
+                              "stringValue": "À la maison / Salle de sport"
+                            }
+                          }
+                        }
+                      },
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "mainSet": {
+                              "stringValue": "8.0 km de course continue en endurance fondamentale (EF) à l'allure de 11:12 min/km. Maintiens une conversation facile et une respiration contrôlée. L'objectif est de tenir la durée sans chercher la vitesse."
+                            },
+                            "locationSuggestion": {
+                              "stringValue": "Coulée Verte (le long du Canal de l'Aisne à la Marne)"
+                            },
+                            "warmup": {
+                              "stringValue": "10 min d'échauffement progressif : commence par de la marche, puis un jogging très doux pour préparer tes muscles et articulations à l'effort prolongé. (à 12:30 min/km)"
+                            },
+                            "id": {
+                              "stringValue": "w1-s3-1779185876450-vz5hob9"
+                            },
+                            "distance": {
+                              "stringValue": "5.3 km"
+                            },
+                            "day": {
+                              "stringValue": "Dimanche"
+                            },
+                            "elevationGain": {
+                              "integerValue": "0"
+                            },
+                            "cooldown": {
+                              "stringValue": "5-10 min de marche active, puis quelques étirements légers des mollets, ischio-jambiers et quadriceps. Prends le temps de te détendre et de relâcher les tensions. (à 12:30 min/km)"
+                            },
+                            "title": {
+                              "stringValue": "Sortie Longue en Endurance Fondamentale"
+                            },
+                            "targetPace": {
+                              "stringValue": "11:12 min/km"
+                            },
+                            "type": {
+                              "stringValue": "Sortie Longue"
+                            },
+                            "advice": {
+                              "stringValue": "La sortie longue est la clé de ta préparation pour le 10 km. Elle développe ton endurance et habitue ton corps à l'effort. N'oublie pas d'emporter de l'eau si la météo l'exige et d'écouter ton corps tout au long du parcours."
+                            },
+                            "duration": {
+                              "stringValue": "1h00"
+                            },
+                            "intensity": {
+                              "stringValue": "Facile"
+                            }
+                          }
+                        }
+                      }
+                    ]
+                  }
+                },
+                "phase": {
+                  "stringValue": "fondamental"
+                }
+              }
+            }
+          }
+        ]
+      }
+    }
+  },
+  "createTime": "2026-05-19T10:18:07.510813Z",
+  "updateTime": "2026-05-19T10:18:07.510813Z"
+}

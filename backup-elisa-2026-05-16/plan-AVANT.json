@@ -1,0 +1,619 @@
+{
+  "name": "projects/coach-running-ia/databases/(default)/documents/plans/1778948515911",
+  "fields": {
+    "generationContext": {
+      "mapValue": {
+        "fields": {
+          "periodizationPlan": {
+            "mapValue": {
+              "fields": {
+                "weeklyVolumes": {
+                  "arrayValue": {
+                    "values": [
+                      {
+                        "integerValue": "30"
+                      },
+                      {
+                        "integerValue": "32"
+                      },
+                      {
+                        "integerValue": "35"
+                      },
+                      {
+                        "integerValue": "27"
+                      },
+                      {
+                        "integerValue": "31"
+                      },
+                      {
+                        "integerValue": "36"
+                      },
+                      {
+                        "integerValue": "38"
+                      },
+                      {
+                        "integerValue": "30"
+                      },
+                      {
+                        "integerValue": "35"
+                      },
+                      {
+                        "integerValue": "38"
+                      },
+                      {
+                        "integerValue": "40"
+                      },
+                      {
+                        "integerValue": "31"
+                      },
+                      {
+                        "integerValue": "36"
+                      },
+                      {
+                        "integerValue": "38"
+                      },
+                      {
+                        "integerValue": "40"
+                      },
+                      {
+                        "integerValue": "25"
+                      },
+                      {
+                        "integerValue": "20"
+                      }
+                    ]
+                  }
+                },
+                "recoveryWeeks": {
+                  "arrayValue": {
+                    "values": [
+                      {
+                        "integerValue": "4"
+                      },
+                      {
+                        "integerValue": "8"
+                      },
+                      {
+                        "integerValue": "12"
+                      }
+                    ]
+                  }
+                },
+                "weeklyPhases": {
+                  "arrayValue": {
+                    "values": [
+                      {
+                        "stringValue": "fondamental"
+                      },
+                      {
+                        "stringValue": "fondamental"
+                      },
+                      {
+                        "stringValue": "fondamental"
+                      },
+                      {
+                        "stringValue": "recuperation"
+                      },
+                      {
+                        "stringValue": "fondamental"
+                      },
+                      {
+                        "stringValue": "developpement"
+                      },
+                      {
+                        "stringValue": "developpement"
+                      },
+                      {
+                        "stringValue": "recuperation"
+                      },
+                      {
+                        "stringValue": "developpement"
+                      },
+                      {
+                        "stringValue": "developpement"
+                      },
+                      {
+                        "stringValue": "specifique"
+                      },
+                      {
+                        "stringValue": "recuperation"
+                      },
+                      {
+                        "stringValue": "specifique"
+                      },
+                      {
+                        "stringValue": "specifique"
+                      },
+                      {
+                        "stringValue": "specifique"
+                      },
+                      {
+                        "stringValue": "affutage"
+                      },
+                      {
+                        "stringValue": "affutage"
+                      }
+                    ]
+                  }
+                },
+                "totalWeeks": {
+                  "integerValue": "17"
+                }
+              }
+            }
+          },
+          "modelUsed": {
+            "stringValue": "gemini-2.5-flash"
+          },
+          "questionnaireSnapshot": {
+            "mapValue": {
+              "fields": {
+                "raceDate": {
+                  "stringValue": "2026-09-06"
+                },
+                "weight": {
+                  "integerValue": "58"
+                },
+                "startDate": {
+                  "stringValue": "2026-05-16"
+                },
+                "currentWeeklyVolume": {
+                  "integerValue": "35"
+                },
+                "frequency": {
+                  "integerValue": "3"
+                },
+                "vma": {
+                  "doubleValue": 13.5
+                },
+                "age": {
+                  "integerValue": "46"
+                },
+                "recentRaceTimes": {
+                  "mapValue": {}
+                },
+                "level": {
+                  "stringValue": "Intermédiaire (Régulier)"
+                },
+                "city": {
+                  "stringValue": "Le Poet-Laval "
+                },
+                "email": {
+                  "stringValue": "laurent_elisa26@orange.fr"
+                },
+                "injuries": {
+                  "mapValue": {
+                    "fields": {
+                      "hasInjury": {
+                        "booleanValue": false
+                      }
+                    }
+                  }
+                },
+                "sex": {
+                  "stringValue": "Femme"
+                },
+                "height": {
+                  "integerValue": "173"
+                },
+                "trailDetails": {
+                  "mapValue": {
+                    "fields": {
+                      "distance": {
+                        "integerValue": "15"
+                      },
+                      "elevation": {
+                        "integerValue": "490"
+                      }
+                    }
+                  }
+                },
+                "currentWeeklyElevation": {
+                  "integerValue": "130"
+                },
+                "preferredDays": {
+                  "arrayValue": {}
+                },
+                "goal": {
+                  "stringValue": "Trail"
+                }
+              }
+            }
+          },
+          "vma": {
+            "doubleValue": 13.5
+          },
+          "vmaSource": {
+            "stringValue": "Estimation niveau Intermédiaire (Régulier)"
+          },
+          "paces": {
+            "mapValue": {
+              "fields": {
+                "allureSpecifiqueMarathon": {
+                  "stringValue": "5:33"
+                },
+                "seuilPace": {
+                  "stringValue": "5:07"
+                },
+                "recoveryPace": {
+                  "stringValue": "7:24"
+                },
+                "eaPace": {
+                  "stringValue": "5:46"
+                },
+                "allureSpecifiqueSemi": {
+                  "stringValue": "5:14"
+                },
+                "efPace": {
+                  "stringValue": "6:38"
+                },
+                "allureSpecifique5k": {
+                  "stringValue": "4:41"
+                },
+                "vmaPace": {
+                  "stringValue": "4:27"
+                },
+                "allureSpecifique10k": {
+                  "stringValue": "4:56"
+                }
+              }
+            }
+          },
+          "generatedAt": {
+            "stringValue": "2026-05-16T16:21:18.857Z"
+          }
+        }
+      }
+    },
+    "userId": {
+      "stringValue": "pU3EToUQWGgPJA3A8N8fHHm1Xct1"
+    },
+    "location": {
+      "stringValue": "Le Poet-Laval "
+    },
+    "userEmail": {
+      "stringValue": "laurent_elisa26@orange.fr"
+    },
+    "weeks": {
+      "arrayValue": {
+        "values": [
+          {
+            "mapValue": {
+              "fields": {
+                "phase": {
+                  "stringValue": "fondamental"
+                },
+                "weekGoal": {
+                  "stringValue": "Introduction à l'Endurance Fondamentale et au Trail Doux"
+                },
+                "theme": {
+                  "stringValue": "Introduction à l'Endurance Fondamentale et au Trail Doux"
+                },
+                "weekNumber": {
+                  "integerValue": "1"
+                },
+                "sessions": {
+                  "arrayValue": {
+                    "values": [
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "targetPace": {
+                              "stringValue": "6:38 min/km"
+                            },
+                            "intensity": {
+                              "stringValue": "Facile"
+                            },
+                            "elevationGain": {
+                              "integerValue": "0"
+                            },
+                            "advice": {
+                              "stringValue": "Le terrain varié sollicite les muscles stabilisateurs et la proprioception, en douceur. C'est un renforcement \"gratuit\" intégré au footing."
+                            },
+                            "title": {
+                              "stringValue": "Footing nature, terrain varié"
+                            },
+                            "warmup": {
+                              "stringValue": "10 min de footing, à 7:24 min/km en endurance fondamentale sur chemin roulant."
+                            },
+                            "locationSuggestion": {
+                              "stringValue": "Chemins de campagne de la Valdaine"
+                            },
+                            "id": {
+                              "stringValue": "w1-s1-1778948515912-fo3en8p"
+                            },
+                            "type": {
+                              "stringValue": "Jogging"
+                            },
+                            "distance": {
+                              "stringValue": "13.5 km"
+                            },
+                            "cooldown": {
+                              "stringValue": "5 à 10 min sur terrain roulant puis marche. (à 7:24 min/km)"
+                            },
+                            "day": {
+                              "stringValue": "Mardi"
+                            },
+                            "duration": {
+                              "stringValue": "1h 30 min"
+                            },
+                            "mainSet": {
+                              "stringValue": "77 min sur terrain varié non technique — chemins, sentiers larges, herbe, sous-bois. Adapte l'allure au sol pour garder un effort d'endurance fondamentale constant (6:38 en référence). Évite le terrain piégeux (racines, cailloux, dévers). (allure : 6:38 min/km)"
+                            }
+                          }
+                        }
+                      },
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "warmup": {
+                              "stringValue": "10 min de mobilité articulaire et échauffement dynamique"
+                            },
+                            "title": {
+                              "stringValue": "Renfo Trail Focus A - Quadriceps & Excentrique (S1)"
+                            },
+                            "advice": {
+                              "stringValue": "Concentre-toi sur la qualité de l'exécution des mouvements. Le renforcement est crucial pour prévenir les blessures en trail. Adapte l'intensité à ta forme du jour."
+                            },
+                            "locationSuggestion": {
+                              "stringValue": "À la maison"
+                            },
+                            "id": {
+                              "stringValue": "w1-s2-1778948515912-2c29t3f"
+                            },
+                            "intensity": {
+                              "stringValue": "Modéré"
+                            },
+                            "elevationGain": {
+                              "integerValue": "0"
+                            },
+                            "mainSet": {
+                              "stringValue": "Circuit 3 tours : Squats poids de corps (3x14), Squat bulgare (3x9/jambe), Fentes avant (3x9/jambe), Gainage ventral (3x27-60s), Dead bug (3x9/côté), Extensions mollets debout (3x18), Squat excentrique (descente 4s) (3x9), Step-down excentrique (3x7/jambe), Mollets debout unipodal (3x11/jambe). Repos 1 min 30 entre tours."
+                            },
+                            "duration": {
+                              "stringValue": "35-40 min"
+                            },
+                            "type": {
+                              "stringValue": "Renforcement"
+                            },
+                            "distance": {
+                              "stringValue": "0 km"
+                            },
+                            "day": {
+                              "stringValue": "Jeudi"
+                            },
+                            "cooldown": {
+                              "stringValue": "5 min d'étirements : quadriceps, ischio-jambiers, mollets, hanches"
+                            }
+                          }
+                        }
+                      },
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "duration": {
+                              "stringValue": "1h45 min"
+                            },
+                            "mainSet": {
+                              "stringValue": "1h25 min de course en endurance fondamentale à 6:38 min/km sur sentiers, en gérant le dénivelé et en marchant dans les montées les plus raides si besoin. Concentre-toi sur l'adaptation de ta foulée au terrain varié."
+                            },
+                            "day": {
+                              "stringValue": "Dimanche"
+                            },
+                            "cooldown": {
+                              "stringValue": "5 min de retour au calme en marchant, suivies de 10-15 min d'étirements spécifiques pour les muscles sollicités en trail (mollets, ischio-jambiers, quadriceps) et de mobilité articulaire. (à 7:24 min/km)"
+                            },
+                            "distance": {
+                              "stringValue": "15.8 km"
+                            },
+                            "type": {
+                              "stringValue": "Sortie Longue"
+                            },
+                            "id": {
+                              "stringValue": "w1-s3-1778948515912-foqj98j"
+                            },
+                            "locationSuggestion": {
+                              "stringValue": "Les Sentiers du Poët-Laval"
+                            },
+                            "advice": {
+                              "stringValue": "Écoute les signaux de ton corps. C'est une séance clé pour habituer ton organisme à l'effort prolongé et au terrain varié du trail. N'hésite pas à marcher dans les passages techniques ou très pentus pour conserver de l'énergie et prévenir les blessures. Pense à la nutrition et l'hydratation."
+                            },
+                            "warmup": {
+                              "stringValue": "15 min d'échauffement progressif, alternant marche active et trot léger, pour préparer les muscles et articulations aux spécificités du terrain. (à 7:24 min/km)"
+                            },
+                            "title": {
+                              "stringValue": "Sortie longue en nature (Trail doux)"
+                            },
+                            "intensity": {
+                              "stringValue": "Facile"
+                            },
+                            "elevationGain": {
+                              "integerValue": "130"
+                            },
+                            "targetPace": {
+                              "stringValue": "6:38 min/km"
+                            }
+                          }
+                        }
+                      }
+                    ]
+                  }
+                }
+              }
+            }
+          }
+        ]
+      }
+    },
+    "calculatedVMA": {
+      "doubleValue": 13.5
+    },
+    "suggestedLocations": {
+      "arrayValue": {
+        "values": [
+          {
+            "mapValue": {
+              "fields": {
+                "name": {
+                  "stringValue": "Les Sentiers du Poët-Laval"
+                },
+                "description": {
+                  "stringValue": "Pour les sorties longues et footings vallonnés, offrant des vues magnifiques et du dénivelé progressif."
+                },
+                "type": {
+                  "stringValue": "NATURE"
+                }
+              }
+            }
+          },
+          {
+            "mapValue": {
+              "fields": {
+                "name": {
+                  "stringValue": "Chemins de campagne de la Valdaine"
+                },
+                "description": {
+                  "stringValue": "Pour des footings en endurance fondamentale sur des chemins plus roulants et légèrement vallonnés."
+                },
+                "type": {
+                  "stringValue": "NATURE"
+                }
+              }
+            }
+          },
+          {
+            "mapValue": {
+              "fields": {
+                "type": {
+                  "stringValue": "NATURE"
+                },
+                "description": {
+                  "stringValue": "Un site naturel exceptionnel pour des sorties longues plus engagées avec un dénivelé varié."
+                },
+                "name": {
+                  "stringValue": "La Forêt de Saou"
+                }
+              }
+            }
+          }
+        ]
+      }
+    },
+    "vmaSource": {
+      "stringValue": "Estimation niveau Intermédiaire (Régulier)"
+    },
+    "confidenceScore": {
+      "integerValue": "65"
+    },
+    "adaptationLog": {
+      "mapValue": {
+        "fields": {
+          "adaptationsThisWeek": {
+            "integerValue": "0"
+          },
+          "weekNumber": {
+            "integerValue": "0"
+          },
+          "adaptationHistory": {
+            "arrayValue": {}
+          }
+        }
+      }
+    },
+    "goal": {
+      "stringValue": "Trail"
+    },
+    "durationWeeks": {
+      "integerValue": "17"
+    },
+    "paces": {
+      "mapValue": {
+        "fields": {
+          "allureSpecifique10k": {
+            "stringValue": "4:56"
+          },
+          "vmaPace": {
+            "stringValue": "4:27"
+          },
+          "efPace": {
+            "stringValue": "6:38"
+          },
+          "allureSpecifique5k": {
+            "stringValue": "4:41"
+          },
+          "allureSpecifiqueSemi": {
+            "stringValue": "5:14"
+          },
+          "recoveryPace": {
+            "stringValue": "7:24"
+          },
+          "allureSpecifiqueMarathon": {
+            "stringValue": "5:33"
+          },
+          "seuilPace": {
+            "stringValue": "5:07"
+          },
+          "eaPace": {
+            "stringValue": "5:46"
+          }
+        }
+      }
+    },
+    "fullPlanGenerated": {
+      "booleanValue": false
+    },
+    "sessionsPerWeek": {
+      "integerValue": "3"
+    },
+    "vma": {
+      "doubleValue": 13.5
+    },
+    "welcomeMessage": {
+      "stringValue": "Bienvenue dans ton plan d'entraînement Trail Finisher pour les 15km / 490m D+ ! Ce programme de 17 semaines est conçu pour te permettre d'atteindre ton objectif de terminer la course avec confiance et plaisir. La première phase, \"fondamental\", met l'accent sur le développement de ton endurance de base et l'adaptation à l'effort sur terrain varié. Nous te recommandons vivement de consulter un médecin avant de débuter ce programme, notamment pour obtenir un certificat médical d'aptitude au sport. À partir de 46 ans, un bilan cardio-vasculaire est particulièrement conseillé."
+    },
+    "distance": {
+      "stringValue": "15km D+490m"
+    },
+    "feasibility": {
+      "mapValue": {
+        "fields": {
+          "message": {
+            "stringValue": "Ce trail de 15km / 490m D+ est un beau défi. Avec ta VMA de 13.5 km/h, c'est faisable mais attention : Le D+ de la course (490m) est 3.8x ton D+ hebdomadaire actuel (130m/sem) — risque musculaire très élevé en descente, impossible de construire la résistance excentrique nécessaire en 17 semaines. VMA estimée (pas de chrono validé) : l'évaluation comporte une marge d'incertitude. Avec 3 séances/semaine sur 17 semaines, chaque séance sera très chargée en volume — passer à 4 séances rendrait le plan plus équilibré. Point positif : ton volume actuel de 35km/sem est une excellente base pour cette distance. Suis le plan avec rigueur et régularité, c'est la clé pour y arriver."
+          },
+          "status": {
+            "stringValue": "AMBITIEUX"
+          },
+          "safetyWarning": {
+            "stringValue": "À 46 ans, on te recommande de consulter ton médecin pour un certificat d'aptitude et idéalement un test d'effort avant de démarrer. Accorde-toi une récupération suffisante entre les séances (48h minimum) et écoute ton corps."
+          }
+        }
+      }
+    },
+    "endDate": {
+      "stringValue": "2026-09-07"
+    },
+    "startDate": {
+      "stringValue": "2026-05-11"
+    },
+    "raceDate": {
+      "stringValue": "2026-09-06"
+    },
+    "targetTime": {
+      "stringValue": "Finisher"
+    },
+    "name": {
+      "stringValue": "Préparation Trail 15km / 490m D+ — Finisher — 17 sem."
+    },
+    "id": {
+      "stringValue": "1778948515911"
+    },
+    "createdAt": {
+      "stringValue": "2026-05-16T16:21:55.911Z"
+    },
+    "isPreview": {
+      "booleanValue": true
+    }
+  },
+  "createTime": "2026-05-16T16:22:06.727163Z",
+  "updateTime": "2026-05-16T16:22:06.727163Z"
+}

@@ -1,0 +1,1475 @@
+═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════
+  AUDIT FINAL 8 PLANS — 5 DIMENSIONS  •  18/05/2026 21:09:44
+  Dimensions: 1.Faisabilité  2.Welcome+message  3.Volumes  4.SL S1  5.Variation séances S1
+═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════
+
+
+█████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████
+📧 Édouard — coquatrix.edouard@gmail.com  (NOUVEAU — jamais analysé)
+█████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████
+  UID: iXWgyc5d5QNoZM4I4ZnPefM6tYv2  •  Créé: 2026-05-18T17:57:53.858Z  •  Last login: 2026-05-18T18:00:47.870Z
+  Plans total: 1  •  Plan analysé: 1779127115948  •  createdAt=2026-05-18T17:58:35.948Z  •  full=false  •  premium=undefined  •  preview=true
+
+  ━━━ IDENTITÉ & INPUTS ━━━
+  Prénom: Edouard  •  Plan: "Préparation Semi-Marathon en 2h00 — 12 sem."
+  Sexe: Homme  •  Âge: 31  •  Poids: 118 kg  •  Taille: 188 cm  •  IMC: 33.4
+  Niveau: Confirmé (Compétition)  •  VMA: 10.62 km/h (Moyenne 5km en 30min et 10km en 1h02)
+  Objectif: Course sur route (Semi-Marathon)
+  Cible chrono: 2h00  •  Race date: 2026-10-04
+  Durée: 12 sem  •  Fréquence: 3 séances/sem
+  Vol DÉCLARÉ: 20 km/sem  •  Blessures: aucune
+  Chronos récents (PB): distance5km=30min • distance10km=1h02 • distanceHalfMarathon=2h29
+
+  Allures (paces[]) :
+    efPace                           8:26/km
+    eaPace                           7:20/km
+    seuilPace                        6:30/km
+    vmaPace                          5:39/km
+    recoveryPace                     9:25/km
+    allureSpecifique5k               5:57/km
+    allureSpecifique10k              6:17/km
+    allureSpecifiqueSemi             5:41/km
+    allureSpecifiqueMarathon         7:04/km
+
+  ━━━ 1. FAISABILITÉ ━━━
+    feasibility.status   : RISQUÉ
+    feasibility.score    : 49
+    confidenceScore      : 49
+
+    📍 Cohérence chrono cible :
+       semi 21.097km en 2h00 → pace cible = 5:41/km (99%VMA)
+       Attendu 82-90%VMA  →  🔴 INATTEIGNABLE
+    Verdict dim 1 : ✅ 
+
+  ━━━ 2. WELCOME + faisabilité.message + safetyWarning ━━━
+
+    [A] welcomeMessage (664 chars):
+    ────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+    │ Bienvenue dans ton plan d'entraînement dédié à la préparation de ton semi-marathon ! Cet objectif est ambitieux, mais avec de la régularité et une écoute attentive de ton corps, tu progresseras sereinement. Ce programme est conçu pour construire une base solide en endurance et renforcer ton corps, en mettant l'accent sur une progression douce et des sessions à faible impact. Nous te recommandons vivement de consulter un médecin avant de débuter ce programme, notamment pour obtenir un certificat médical d'aptitude au sport. Assure-toi également de courir avec des chaussures offrant un bon amorti. La clé du succès sera la constance et le plaisir de l'effort.
+    ────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+
+    [B] feasibility.message (181 chars):
+    ────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+    │ Avec ta VMA de 10.6 km/h, ton temps théorique semi est d'environ 2h20min. Sans historique confirmé, viser un temps très rapide est risqué. Vise plutôt 2h20min pour ton premier semi.
+    ────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+
+    [C] safetyWarning (215 chars):
+    ────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+    │ On te recommande de consulter ton médecin avant de démarrer. Investis dans de bonnes chaussures avec amorti renforcé et privilégie surfaces souples (herbe, terre, chemin) pour réduire l'impact sur les articulations.
+    ────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+
+    🔍 Checklist doctrine :
+      Mots interdits poids/IMC dans corps msg : ✅ aucun
+      Titre du plan : "Préparation Semi-Marathon en 2h00 — 12 sem." 
+      Cross-training mentionné : ✅ aucun
+      Nutrition chiffrée : ✅ aucune
+      Bug temps XhYY (YY>59) : ✅ aucun
+      Cohérence welcome ↔ status faisabilité : ✅ cohérent
+    Verdict dim 2 : ✅ 
+
+  ━━━ 3. VOLUMES HEBDO ━━━
+
+    📊 Vol DÉCLARÉ : 20 km/sem
+    📊 Vol S1 plan : 20 km
+    ✅ Ratio S1/declared = 100% (Δ +0%)
+    📊 Pic : S6 = 23 km
+    📊 Affûtage final : S12 = 12 km (52% du pic)
+
+    📋 TABLEAU weeklyVolumes COMPLET :
+    Sem | Phase            | km   | bar                                          | Δ%      | Flags
+    ────┼──────────────────┼──────┼──────────────────────────────────────────────┼─────────┼─────────
+    S 1 | fondamental      |   20 | ███████████████████████████████████····· |    --  | 
+    S 2 | fondamental      |   21 | █████████████████████████████████████··· |     5%  | 
+    S 3 | fondamental      |   22 | ██████████████████████████████████████·· |     5%  | 
+    S 4 | recuperation     |   18 | ███████████████████████████████········· |   -18%  | ↓DELOAD 
+    S 5 | developpement    |   21 | █████████████████████████████████████··· |    17%  | 
+    S 6 | developpement    |   23 | ████████████████████████████████████████ |    10%  | ★PIC 
+    S 7 | recuperation     |   18 | ███████████████████████████████········· |   -22%  | ↓DELOAD 
+    S 8 | specifique       |   21 | █████████████████████████████████████··· |    17%  | 
+    S 9 | specifique       |   23 | ████████████████████████████████████████ |    10%  | 
+    S10 | recuperation     |   18 | ███████████████████████████████········· |   -22%  | ↓DELOAD 
+    S11 | affutage         |   15 | ██████████████████████████·············· |   -17%  | 
+    S12 | affutage         |   12 | █████████████████████··················· |   -20%  | 🏁RACE
+
+    📈 Max augmentation : S4→S5 18→21km = +17%  🟡
+    🔄 Semaines décharge : 4, 7, 10
+    Verdict dim 3 : ✅ 
+
+  ━━━ 4. SL S1 ━━━
+    Samedi: 10.1 km • 1h 30 min • D+0m • pace Variable (Course EF: 8:26 min/km, Marche Récupération: 9:25 min/km)
+      Titre : "Sortie Longue Marche/Course - Endurance vallonnée douce"
+      mainSet : "Alterner 3 min de course (allure EF: 8:26 min/km) et 2 min de marche active (allure récupération: 9:25 min/km) pendant 1h40 (20 cycles). Le rythme de course doit rester très confortable, même dans les"
+      location : "Forêt Domaniale de Broglie (proche de Grosley)"
+    Ratio SL/Vol hebdo S1 plan : 51% 🔴 (cible 25-40%)
+    Ratio SL/Vol DÉCLARÉ user : 51%
+    Référentiel SL pic : semi (16-22 km) → 16-22 km
+    Verdict dim 4 : ⚠️ (SL=51% S1 (trop long))
+
+  ━━━ 5. VARIATION DES SÉANCES S1 (anti-ennui) ━━━
+
+    📋 Tableau sessions S1 :
+    Jour       | Type               | Titre                                        | mainSet (extrait)                    | Location
+    ───────────┼────────────────────┼──────────────────────────────────────────────┼──────────────────────────────────────┼─────────
+    Mardi      | Marche/Course      | Marche/Course - Découverte en aisance        | Alterner 2 min de course (allure EF: | Petites routes de campagne ent
+    Jeudi      | Renforcement       | Renfo Focus A - Quadriceps & Gainage (S1)    | Circuit 2 tours : Squats poids de co | À la maison
+    Samedi     | Sortie Longue      | Sortie Longue Marche/Course - Endurance vall | Alterner 3 min de course (allure EF: | Forêt Domaniale de Broglie (pr
+
+    📝 Détails complets sessions S1 :
+
+    [Session 1] Mardi — Marche/Course
+      Titre        : "Marche/Course - Découverte en aisance"
+      Distance     : 6.5 km
+      Durée        : 1h00
+      Intensité    : Facile
+      targetPace   : Variable (Course EF: 8:26 min/km, Marche Récupération: 9:25 min/km)
+      D+ visé      : 0m
+      warmUp       : ""
+      mainSet      : "Alterner 2 min de course (allure EF: 8:26 min/km) et 3 min de marche active (allure récupération: 9:25 min/km) pendant 45 min (9 cycles). La phase de course doit rester très facile et la marche doit ê"
+      coolDown     : ""
+      location     : "Petites routes de campagne entre Grosley et La Risle"
+
+    [Session 2] Jeudi — Renforcement
+      Titre        : "Renfo Focus A - Quadriceps & Gainage (S1)"
+      Distance     : 0 km
+      Durée        : 30 min
+      Intensité    : Modéré
+      targetPace   : N/A
+      D+ visé      : 0m
+      warmUp       : ""
+      mainSet      : "Circuit 2 tours : Squats poids de corps (3x9), Fentes avant (3x6/jambe), Gainage ventral (3x19-60s), Dead bug (3x6/côté), Extensions mollets debout (3x13). Repos 2 min entre tours."
+      coolDown     : ""
+      location     : "À la maison"
+
+    [Session 3] Samedi — Sortie Longue
+      Titre        : "Sortie Longue Marche/Course - Endurance vallonnée douce"
+      Distance     : 10.1 km
+      Durée        : 1h 30 min
+      Intensité    : Facile
+      targetPace   : Variable (Course EF: 8:26 min/km, Marche Récupération: 9:25 min/km)
+      D+ visé      : 0m
+      warmUp       : ""
+      mainSet      : "Alterner 3 min de course (allure EF: 8:26 min/km) et 2 min de marche active (allure récupération: 9:25 min/km) pendant 1h40 (20 cycles). Le rythme de course doit rester très confortable, même dans les"
+      coolDown     : ""
+      location     : "Forêt Domaniale de Broglie (proche de Grosley)"
+
+    📊 Métriques variation :
+      Titres uniques        : 3/3 ✅
+      Types uniques         : 3/3 (varié si ≥2)
+      mainSet uniques       : 3/3
+      Locations uniques     : 3/3
+      Intensités uniques    : 2/3
+      Titres "Footing N"    : 0 ✅
+    Verdict dim 5 : ✅ 
+
+  ━━━ SYNTHÈSE CLIENT ━━━
+    Dim1 Faisabilité   : ✅
+    Dim2 Welcome+msg   : ✅
+    Dim3 Volumes       : ✅
+    Dim4 SL S1         : ⚠️
+    Dim5 Variation S1  : ✅
+    → VERDICT GLOBAL   : ⚠️ Presque parfait  (4✅ / 1⚠️ / 0❌)
+
+
+█████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████
+📧 Aurore — auroregervot@yahoo.fr  (recheck patches volumes)
+█████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████
+  UID: ym0Uw0z1VveJGAWwmarvQRRzT6G2  •  Créé: 2026-05-18T17:19:03.497Z  •  Last login: 2026-05-18T17:21:04.993Z
+  Plans total: 1  •  Plan analysé: 1779124806518  •  createdAt=2026-05-18T17:20:06.518Z  •  full=false  •  premium=undefined  •  preview=true
+
+  ━━━ IDENTITÉ & INPUTS ━━━
+  Prénom: Aurore  •  Plan: "Programme Remise en Forme — 12 semaines"
+  Sexe: Femme  •  Âge: 30  •  Poids: 68 kg  •  Taille: 170 cm  •  IMC: 23.5
+  Niveau: Débutant (0-1 an)  •  VMA: 9.40 km/h (Estimation niveau Débutant (0-1 an) (ajustée -15% remise en forme))
+  Objectif: Maintien en forme 
+  Cible chrono: Finisher  •  Race date: (N/A)
+  Durée: 12 sem  •  Fréquence: 3 séances/sem
+  Vol DÉCLARÉ: 12 km/sem  •  Blessures: aucune
+
+  Allures (paces[]) :
+    efPace                           9:32/km
+    eaPace                           8:17/km
+    seuilPace                        7:20/km
+    vmaPace                          6:23/km
+    recoveryPace                     10:38/km
+    allureSpecifique5k               6:43/km
+    allureSpecifique10k              7:06/km
+    allureSpecifiqueSemi             7:31/km
+    allureSpecifiqueMarathon         7:59/km
+
+  ━━━ 1. FAISABILITÉ ━━━
+    feasibility.status   : BON
+    feasibility.score    : ?
+    confidenceScore      : 70
+
+    📍 Finisher / pas de cible chrono
+    Verdict dim 1 : ✅ 
+
+  ━━━ 2. WELCOME + faisabilité.message + safetyWarning ━━━
+
+    [A] welcomeMessage (618 chars):
+    ────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+    │ Bonjour ! Bienvenue dans ton programme de remise en forme de 12 semaines, conçu pour t'aider à atteindre ton objectif de maintien en forme. Ce plan est structuré pour une progression douce et durable, en mettant l'accent sur l'endurance fondamentale et le plaisir de courir, sans pression sur la performance pure ou des allures complexes dès le début. La première semaine sera dédiée à établir une base solide avec des séances de marche/course adaptées à ton niveau débutant.
+    │ 
+    │ Nous te recommandons de consulter un médecin avant de débuter ce programme, notamment pour obtenir un certificat médical d'aptitude au sport.
+    ────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+
+    [B] feasibility.message (238 chars):
+    ────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+    │ Ton programme de remise en forme sur 12 semaines est bien calibré pour ton profil. Avec ta VMA de 9.4 km/h, concentre-toi sur la régularité et le plaisir. VMA estimée (pas de chrono validé) : l'évaluation comporte une marge d'incertitude.
+    ────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+
+    [C] safetyWarning (93 chars):
+    ────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+    │ Pense à consulter un médecin pour un certificat d'aptitude avant de commencer ta préparation.
+    ────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+
+    🔍 Checklist doctrine :
+      Mots interdits poids/IMC dans corps msg : ✅ aucun
+      Titre du plan : "Programme Remise en Forme — 12 semaines" 
+      Cross-training mentionné : ✅ aucun
+      Nutrition chiffrée : ✅ aucune
+      Bug temps XhYY (YY>59) : ✅ aucun
+      Cohérence welcome ↔ status faisabilité : ✅ cohérent
+    Verdict dim 2 : ✅ 
+
+  ━━━ 3. VOLUMES HEBDO ━━━
+
+    📊 Vol DÉCLARÉ : 12 km/sem
+    📊 Vol S1 plan : 12 km
+    ✅ Ratio S1/declared = 100% (Δ +0%)
+    📊 Pic : S6 = 14 km
+    📊 Affûtage final : S12 = 14 km (100% du pic)
+
+    📋 TABLEAU weeklyVolumes COMPLET :
+    Sem | Phase            | km   | bar                                          | Δ%      | Flags
+    ────┼──────────────────┼──────┼──────────────────────────────────────────────┼─────────┼─────────
+    S 1 | fondamental      |   12 | ██████████████████████████████████······ |    --  | 
+    S 2 | fondamental      |   13 | █████████████████████████████████████··· |     8%  | 
+    S 3 | fondamental      |   13 | █████████████████████████████████████··· |     0%  | 
+    S 4 | recuperation     |   11 | ███████████████████████████████········· |   -15%  | ↓DELOAD 
+    S 5 | fondamental      |   12 | ██████████████████████████████████······ |     9%  | 
+    S 6 | developpement    |   14 | ████████████████████████████████████████ |    17%  | ★PIC 
+    S 7 | recuperation     |   12 | ██████████████████████████████████······ |   -14%  | ↓DELOAD 
+    S 8 | developpement    |   14 | ████████████████████████████████████████ |    17%  | 
+    S 9 | developpement    |   14 | ████████████████████████████████████████ |     0%  | 
+    S10 | recuperation     |   12 | ██████████████████████████████████······ |   -14%  | ↓DELOAD 
+    S11 | developpement    |   14 | ████████████████████████████████████████ |    17%  | 
+    S12 | developpement    |   14 | ████████████████████████████████████████ |     0%  | 🏁RACE
+
+    📈 Max augmentation : S5→S6 12→14km = +17%  🟡
+    🔄 Semaines décharge : 4, 7, 10
+    Verdict dim 3 : ⚠️ (affûtage faible (100%))
+
+  ━━━ 4. SL S1 ━━━
+    Lundi: 4.8 km • 50 min • D+0m • pace EF (9:32 min/km) / Récupération (10:38 min/km)
+      Titre : "Marche/Course en aisance respiratoire"
+      mainSet : "11 cycles de (1 min de course légère à allure EF + 2 min de marche active à allure récupération), suivis de 2 min de marche active. (allure : 10:38 min/km)"
+      location : "Plan d'eau des Ferréols"
+    Samedi: 4.84 km • 50 min • D+0m • pace EF (9:32 min/km) / Récupération (10:38 min/km)
+      Titre : "Marche/Course progressive pour l'endurance"
+      mainSet : "13 cycles de (1 min de course légère à allure EF + 2 min de marche active à allure récupération), suivis de 1 min de marche active. (allure : 10:38 min/km)"
+      location : "Bords de la Bléone"
+    Ratio SL/Vol hebdo S1 plan : 40% 🔴 (cible 25-40%)
+    Ratio SL/Vol DÉCLARÉ user : 40%
+    Référentiel SL pic : maintien forme (6-12 km) → 6-12 km
+    Verdict dim 4 : ✅ 
+
+  ━━━ 5. VARIATION DES SÉANCES S1 (anti-ennui) ━━━
+
+    📋 Tableau sessions S1 :
+    Jour       | Type               | Titre                                        | mainSet (extrait)                    | Location
+    ───────────┼────────────────────┼──────────────────────────────────────────────┼──────────────────────────────────────┼─────────
+    Lundi      | Sortie Longue      | Marche/Course en aisance respiratoire        | 11 cycles de (1 min de course légère | Plan d'eau des Ferréols
+    Jeudi      | Renforcement       | Renfo Equilibre - Renfo & Stabilite (S1)     | Circuit 2 tours : Squats poids de co | À la maison
+    Samedi     | Sortie Longue      | Marche/Course progressive pour l'endurance   | 13 cycles de (1 min de course légère | Bords de la Bléone
+
+    📝 Détails complets sessions S1 :
+
+    [Session 1] Lundi — Sortie Longue
+      Titre        : "Marche/Course en aisance respiratoire"
+      Distance     : 4.8 km
+      Durée        : 50 min
+      Intensité    : Facile
+      targetPace   : EF (9:32 min/km) / Récupération (10:38 min/km)
+      D+ visé      : 0m
+      warmUp       : ""
+      mainSet      : "11 cycles de (1 min de course légère à allure EF + 2 min de marche active à allure récupération), suivis de 2 min de marche active. (allure : 10:38 min/km)"
+      coolDown     : ""
+      location     : "Plan d'eau des Ferréols"
+
+    [Session 2] Jeudi — Renforcement
+      Titre        : "Renfo Equilibre - Renfo & Stabilite (S1)"
+      Distance     : 0 km
+      Durée        : 30 min
+      Intensité    : Modéré
+      targetPace   : N/A
+      D+ visé      : 0m
+      warmUp       : ""
+      mainSet      : "Circuit 2 tours : Squats poids de corps (3x9), Squat bulgare (3x6/jambe), Gainage ventral (3x19-60s), Dead bug (3x6/côté), Extensions mollets debout (3x13), Étirements dynamiques (2x5/côté). Repos 2 m"
+      coolDown     : ""
+      location     : "À la maison"
+
+    [Session 3] Samedi — Sortie Longue
+      Titre        : "Marche/Course progressive pour l'endurance"
+      Distance     : 4.84 km
+      Durée        : 50 min
+      Intensité    : Facile
+      targetPace   : EF (9:32 min/km) / Récupération (10:38 min/km)
+      D+ visé      : 0m
+      warmUp       : ""
+      mainSet      : "13 cycles de (1 min de course légère à allure EF + 2 min de marche active à allure récupération), suivis de 1 min de marche active. (allure : 10:38 min/km)"
+      coolDown     : ""
+      location     : "Bords de la Bléone"
+
+    📊 Métriques variation :
+      Titres uniques        : 3/3 ✅
+      Types uniques         : 2/3 (varié si ≥2)
+      mainSet uniques       : 3/3
+      Locations uniques     : 3/3
+      Intensités uniques    : 2/3
+      Titres "Footing N"    : 0 ✅
+    Verdict dim 5 : ✅ 
+
+  ━━━ SYNTHÈSE CLIENT ━━━
+    Dim1 Faisabilité   : ✅
+    Dim2 Welcome+msg   : ✅
+    Dim3 Volumes       : ⚠️
+    Dim4 SL S1         : ✅
+    Dim5 Variation S1  : ✅
+    → VERDICT GLOBAL   : ⚠️ Presque parfait  (4✅ / 1⚠️ / 0❌)
+
+
+█████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████
+📧 Justine — justine.clt29@icloud.com  (recheck patches volumes)
+█████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████
+  UID: oGi1YkRbNCSQfTucLkd9yxs6sfb2  •  Créé: 2026-05-18T17:06:02.297Z  •  Last login: 2026-05-18T17:15:24.200Z
+  Plans total: 1  •  Plan analysé: 1779124016788  •  createdAt=2026-05-18T17:06:56.788Z  •  full=false  •  premium=undefined  •  preview=true
+
+  ━━━ IDENTITÉ & INPUTS ━━━
+  Prénom: Justine  •  Plan: "Programme Remise en Forme — 12 semaines"
+  Sexe: Femme  •  Âge: 32  •  Poids: 77 kg  •  Taille: 169 cm  •  IMC: 27.0
+  Niveau: Confirmé (Compétition)  •  VMA: 6.80 km/h (5km en 40min (corrigé) (ajustée -15% remise en forme))
+  Objectif: Maintien en forme 
+  Cible chrono: Finisher  •  Race date: (N/A)
+  Durée: 12 sem  •  Fréquence: 3 séances/sem
+  Vol DÉCLARÉ: 13 km/sem  •  Blessures: Algodystrophie cheville droite 
+  Chronos récents (PB): distance5km=40min
+
+  Allures (paces[]) :
+    efPace                           13:10/km
+    eaPace                           11:28/km
+    seuilPace                        10:09/km
+    vmaPace                          8:49/km
+    recoveryPace                     14:42/km
+    allureSpecifique5k               9:17/km
+    allureSpecifique10k              9:48/km
+    allureSpecifiqueSemi             10:23/km
+    allureSpecifiqueMarathon         11:02/km
+
+  ━━━ 1. FAISABILITÉ ━━━
+    feasibility.status   : BON
+    feasibility.score    : ?
+    confidenceScore      : 70
+
+    📍 Finisher + PB déclaré → distance5km=40min
+    Verdict dim 1 : ✅ 
+
+  ━━━ 2. WELCOME + faisabilité.message + safetyWarning ━━━
+
+    [A] welcomeMessage (465 chars):
+    ────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+    │ Bienvenue dans ton programme de remise en forme de 12 semaines ! L'objectif est de t'accompagner vers une meilleure condition physique et de maintenir le plaisir de courir, en toute sécurité. Ce plan est structuré pour s'adapter à ton niveau débutant, en se concentrant sur la régularité et une progression douce.
+    │ 
+    │ Nous te recommandons vivement de consulter un médecin avant de débuter ce programme, notamment pour obtenir un certificat médical d'aptitude au sport.
+    ────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+
+    [B] feasibility.message (232 chars):
+    ────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+    │ Ton programme de remise en forme sur 12 semaines est bien calibré pour ton profil. Avec ta VMA de 6.8 km/h, concentre-toi sur la régularité et le plaisir. Blessure déclarée : adapte les séances et consulte un professionnel de santé.
+    ────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+
+    [C] safetyWarning (106 chars):
+    ────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+    │ Fais valider la reprise avec ton kiné/médecin avant de démarrer ce plan. Adapte les séances si nécessaire.
+    ────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+
+    🔍 Checklist doctrine :
+      Mots interdits poids/IMC dans corps msg : ✅ aucun
+      Titre du plan : "Programme Remise en Forme — 12 semaines" 
+      Cross-training mentionné : ✅ aucun
+      Nutrition chiffrée : ✅ aucune
+      Bug temps XhYY (YY>59) : ✅ aucun
+      Règle A3 (Finisher+PB) : welcome cite le PB ? ⚠️ non
+      Règle A4 (blessure="Algodystrophie cheville droite ") : welcome cite blessure ? ⚠️ | structure 3 piliers ? ⚠️
+      Cohérence welcome ↔ status faisabilité : ✅ cohérent
+    Verdict dim 2 : ⚠️ (PB non cité (A3) | blessure non citée (A4))
+
+  ━━━ 3. VOLUMES HEBDO ━━━
+
+    📊 Vol DÉCLARÉ : 13 km/sem
+    📊 Vol S1 plan : 13 km
+    ✅ Ratio S1/declared = 100% (Δ +0%)
+    📊 Pic : S6 = 15 km
+    📊 Affûtage final : S12 = 15 km (100% du pic)
+
+    📋 TABLEAU weeklyVolumes COMPLET :
+    Sem | Phase            | km   | bar                                          | Δ%      | Flags
+    ────┼──────────────────┼──────┼──────────────────────────────────────────────┼─────────┼─────────
+    S 1 | fondamental      |   13 | ███████████████████████████████████····· |    --  | 
+    S 2 | fondamental      |   14 | █████████████████████████████████████··· |     8%  | 
+    S 3 | fondamental      |   14 | █████████████████████████████████████··· |     0%  | 
+    S 4 | recuperation     |   12 | ████████████████████████████████········ |   -14%  | ↓DELOAD 
+    S 5 | fondamental      |   14 | █████████████████████████████████████··· |    17%  | 
+    S 6 | developpement    |   15 | ████████████████████████████████████████ |     7%  | ★PIC 
+    S 7 | recuperation     |   13 | ███████████████████████████████████····· |   -13%  | ↓DELOAD 
+    S 8 | developpement    |   15 | ████████████████████████████████████████ |    15%  | 
+    S 9 | developpement    |   15 | ████████████████████████████████████████ |     0%  | 
+    S10 | recuperation     |   13 | ███████████████████████████████████····· |   -13%  | ↓DELOAD 
+    S11 | developpement    |   15 | ████████████████████████████████████████ |    15%  | 
+    S12 | developpement    |   15 | ████████████████████████████████████████ |     0%  | 🏁RACE
+
+    📈 Max augmentation : S4→S5 12→14km = +17%  🟡
+    🔄 Semaines décharge : 4, 7, 10
+    Verdict dim 3 : ⚠️ (affûtage faible (100%))
+
+  ━━━ 4. SL S1 ━━━
+    Mardi: 3.5 km • 50 min • D+0m • pace 13:10 min/km (course)
+      Titre : "Marche/Course en aisance respiratoire"
+      mainSet : "15 x (1 min course légère à 13:10 min/km + 2 min marche active à 14:42 min/km)"
+      location : "Parc Grammont"
+    Dimanche: 3.5 km • 50 min • D+0m • pace 13:10 min/km (course)
+      Titre : "Sortie Longue en Marche/Course découverte"
+      mainSet : "24 x (1 min course légère à 13:10 min/km + 2 min marche active à 14:42 min/km)"
+      location : "Berges de Seine (rive droite)"
+    Ratio SL/Vol hebdo S1 plan : 27% ✅ (cible 25-40%)
+    Ratio SL/Vol DÉCLARÉ user : 27%
+    Référentiel SL pic : maintien forme (6-12 km) → 6-12 km
+    Verdict dim 4 : ✅ 
+
+  ━━━ 5. VARIATION DES SÉANCES S1 (anti-ennui) ━━━
+
+    📋 Tableau sessions S1 :
+    Jour       | Type               | Titre                                        | mainSet (extrait)                    | Location
+    ───────────┼────────────────────┼──────────────────────────────────────────────┼──────────────────────────────────────┼─────────
+    Mardi      | Sortie Longue      | Marche/Course en aisance respiratoire        | 15 x (1 min course légère à 13:10 mi | Parc Grammont
+    Jeudi      | Renforcement       | Renfo Equilibre - Renfo & Stabilite (S1)     | Circuit 2 tours : Squats poids de co | À la maison
+    Dimanche   | Sortie Longue      | Sortie Longue en Marche/Course découverte    | 24 x (1 min course légère à 13:10 mi | Berges de Seine (rive droite)
+
+    📝 Détails complets sessions S1 :
+
+    [Session 1] Mardi — Sortie Longue
+      Titre        : "Marche/Course en aisance respiratoire"
+      Distance     : 3.5 km
+      Durée        : 50 min
+      Intensité    : Facile
+      targetPace   : 13:10 min/km (course)
+      D+ visé      : 0m
+      warmUp       : ""
+      mainSet      : "15 x (1 min course légère à 13:10 min/km + 2 min marche active à 14:42 min/km)"
+      coolDown     : ""
+      location     : "Parc Grammont"
+
+    [Session 2] Jeudi — Renforcement
+      Titre        : "Renfo Equilibre - Renfo & Stabilite (S1)"
+      Distance     : 0 km
+      Durée        : 30 min
+      Intensité    : Modéré
+      targetPace   : ?
+      D+ visé      : 0m
+      warmUp       : ""
+      mainSet      : "Circuit 2 tours : Squats poids de corps (3x9), Gainage ventral (3x19-60s), Dead bug (3x6/côté), Extensions mollets debout (3x13), Étirements dynamiques (2x5/côté). Repos 2 min entre tours."
+      coolDown     : ""
+      location     : "À la maison"
+
+    [Session 3] Dimanche — Sortie Longue
+      Titre        : "Sortie Longue en Marche/Course découverte"
+      Distance     : 3.5 km
+      Durée        : 50 min
+      Intensité    : Facile
+      targetPace   : 13:10 min/km (course)
+      D+ visé      : 0m
+      warmUp       : ""
+      mainSet      : "24 x (1 min course légère à 13:10 min/km + 2 min marche active à 14:42 min/km)"
+      coolDown     : ""
+      location     : "Berges de Seine (rive droite)"
+
+    📊 Métriques variation :
+      Titres uniques        : 3/3 ✅
+      Types uniques         : 2/3 (varié si ≥2)
+      mainSet uniques       : 3/3
+      Locations uniques     : 3/3
+      Intensités uniques    : 2/3
+      Titres "Footing N"    : 0 ✅
+    Verdict dim 5 : ✅ 
+
+  ━━━ SYNTHÈSE CLIENT ━━━
+    Dim1 Faisabilité   : ✅
+    Dim2 Welcome+msg   : ⚠️
+    Dim3 Volumes       : ⚠️
+    Dim4 SL S1         : ✅
+    Dim5 Variation S1  : ✅
+    → VERDICT GLOBAL   : ⚠️ Presque parfait  (3✅ / 2⚠️ / 0❌)
+
+
+█████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████
+📧 Alan — alanwentzel74@gmail.com  (recheck patch welcome MIX)
+█████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████
+  UID: yzvy4Csd7OMYT7x5Xx6YPnFpML12  •  Créé: 2026-05-18T14:24:12.930Z  •  Last login: 2026-05-18T14:26:18.368Z
+  Plans total: 1  •  Plan analysé: 1779114282783  •  createdAt=2026-05-18T14:24:42.783Z  •  full=false  •  premium=undefined  •  preview=true
+
+  ━━━ IDENTITÉ & INPUTS ━━━
+  Prénom: Alan  •  Plan: "Préparation Trail 35km / 1200m D+ — Finisher — 11 sem."
+  Sexe: Homme  •  Âge: 21  •  Poids: 83 kg  •  Taille: 186 cm  •  IMC: 24.0
+  Niveau: Confirmé (Compétition)  •  VMA: 12.18 km/h (Moyenne 5km en 25min et 10km en 58min)
+  Objectif: Trail  — 35km / 1200m D+
+  Cible chrono: Finisher  •  Race date: 2026-07-30
+  Durée: 11 sem  •  Fréquence: 4 séances/sem
+  Vol DÉCLARÉ: 30 km/sem / D+ 400 m  •  Blessures: aucune
+  Chronos récents (PB): distance5km=25min • distance10km=58min • distanceHalfMarathon=3h30
+
+  Allures (paces[]) :
+    efPace                           7:21/km
+    eaPace                           6:24/km
+    seuilPace                        5:40/km
+    vmaPace                          4:56/km
+    recoveryPace                     8:13/km
+    allureSpecifique5k               5:11/km
+    allureSpecifique10k              5:28/km
+    allureSpecifiqueSemi             5:48/km
+    allureSpecifiqueMarathon         6:10/km
+
+  ━━━ 1. FAISABILITÉ ━━━
+    feasibility.status   : RISQUÉ
+    feasibility.score    : ?
+    confidenceScore      : 35
+
+    📍 Finisher + PB déclaré → distance5km=25min, distance10km=58min, distanceHalfMarathon=3h30
+    Verdict dim 1 : ✅ 
+
+  ━━━ 2. WELCOME + faisabilité.message + safetyWarning ━━━
+
+    [A] welcomeMessage (1182 chars):
+    ────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+    │ Bienvenue Alan ! Ton plan Trail 35 km / 1200 m D+ est conçu pour bâtir progressivement ton endurance et ta résilience spécifique au trail en 11 semaines.
+    │ 
+    │ ⚠️ Petite note de transparence : 11 semaines, c'est court pour un trail 35 km / 1200 D+ — la fenêtre idéale serait 12-16 semaines. Ton volume actuel (30 km/sem) est solide, mais ton dénivelé hebdo (400 m) est en-dessous de ce que demande la course. On va donc pousser progressivement le dénivelé.
+    │ 
+    │ La première semaine, en phase fondamentale, met l'accent sur le développement de la base aérobie et l'adaptation à des volumes croissants sur des terrains variés. Sur les semaines suivantes, le plan augmente la fréquence de séances vallonnées et la durée des sorties longues pour préparer ton corps aux exigences du jour J.
+    │ 
+    │ Quelques règles d'or sur ces 11 semaines :
+    │ - L'objectif 35 km reste l'objectif — on ne baisse rien, on optimise le temps disponible
+    │ - Marche les montées raides à l'entraînement comme en course : stratégie trail normale
+    │ - Écoute ton corps : à la moindre douleur articulaire ou tendineuse, on adapte plutôt que forcer
+    │ 
+    │ Avant de débuter, un certificat médical d'aptitude au sport reste fortement recommandé.
+    ────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+
+    [B] feasibility.message (616 chars):
+    ────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+    │ Ce trail de 35km / 1200m D+ présente des risques sérieux dans ta configuration actuelle. Le D+ de la course (1200m) est 3.0x ton D+ hebdomadaire actuel (400m/sem) — risque musculaire très élevé en descente, impossible de construire la résistance excentrique nécessaire en 11 semaines. Trail de 35km pour un débutant : la distance combinée au D+ demande une solide base. 11 semaines pour un trail de 35km : 12 à 16 semaines recommandées. Point positif : ton volume actuel de 30km/sem est une excellente base pour cette distance. Écoute ton corps, sois très progressif, et n'hésite pas à adapter le plan si nécessaire.
+    ────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+
+    [C] safetyWarning (165 chars):
+    ────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+    │ On te recommande de valider ce programme avec ton médecin, surtout pour un premier effort de cette distance. Un certificat médical d'aptitude est vivement conseillé.
+    ────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+
+    🔍 Checklist doctrine :
+      Mots interdits poids/IMC dans corps msg : ✅ aucun
+      Titre du plan : "Préparation Trail 35km / 1200m D+ — Finisher — 11 sem." 
+      Cross-training mentionné : 🔴 velo
+      Nutrition chiffrée : ✅ aucune
+      Bug temps XhYY (YY>59) : ✅ aucun
+      Règle A3 (Finisher+PB) : welcome cite le PB ? ⚠️ non
+      Cohérence welcome ↔ status faisabilité : ✅ cohérent
+    Verdict dim 2 : ❌ (cross-training | PB non cité (A3))
+
+  ━━━ 3. VOLUMES HEBDO ━━━
+
+    📊 Vol DÉCLARÉ : 30 km/sem / D+ 400m
+    📊 Vol S1 plan : 40 km
+    🔴 trop fort Ratio S1/declared = 133% (Δ +33%)
+    📊 Pic : S3 = 45 km
+    📊 Affûtage final : S11 = 26 km (58% du pic)
+
+    📋 TABLEAU weeklyVolumes COMPLET :
+    Sem | Phase            | km   | bar                                          | Δ%      | Flags
+    ────┼──────────────────┼──────┼──────────────────────────────────────────────┼─────────┼─────────
+    S 1 | fondamental      |   40 | ████████████████████████████████████···· |    --  | 
+    S 2 | fondamental      |   42 | █████████████████████████████████████··· |     5%  | 
+    S 3 | fondamental      |   45 | ████████████████████████████████████████ |     7%  | ★PIC 
+    S 4 | recuperation     |   36 | ████████████████████████████████········ |   -20%  | ↓DELOAD 
+    S 5 | developpement    |   40 | ████████████████████████████████████···· |    11%  | 
+    S 6 | developpement    |   45 | ████████████████████████████████████████ |    13%  | 
+    S 7 | recuperation     |   41 | ████████████████████████████████████···· |    -9%  | ↓DELOAD 
+    S 8 | specifique       |   45 | ████████████████████████████████████████ |    10%  | 
+    S 9 | specifique       |   45 | ████████████████████████████████████████ |     0%  | 
+    S10 | affutage         |   32 | ████████████████████████████············ |   -29%  | 
+    S11 | affutage         |   26 | ███████████████████████················· |   -19%  | 🏁RACE
+
+    📋 TABLEAU weeklyElevationTarget (D+) :
+    S 1 |    400m | █████████████████
+    S 2 |    440m | ██████████████████
+    S 3 |    480m | ████████████████████
+    S 4 |    286m | ████████████
+    S 5 |    560m | ███████████████████████
+    S 6 |    600m | █████████████████████████
+    S 7 |    352m | ███████████████
+    S 8 |    680m | ████████████████████████████
+    S 9 |    720m | ██████████████████████████████
+    S10 |    380m | ████████████████
+    S11 |    320m | █████████████
+    D+ pic = S9 = 720m vs race D+ = 1200m (ratio 60%)
+
+    📈 Max augmentation : S5→S6 40→45km = +13%  ✅
+    🔄 Semaines décharge : 4, 7
+    Verdict dim 3 : ✅ 
+
+  ━━━ 4. SL S1 ━━━
+    Jeudi: 10.2 km • 1h15 • D+260m • pace 7:21 min/km
+      Titre : "Sortie Longue sur sentiers de montagne"
+      mainSet : "1h05 de course en endurance fondamentale (7:21 min/km) sur sentiers vallonnés, en essayant de maintenir une aisance respiratoire. N'hésite pas à marcher dans les montées raides pour préserver l'énergi"
+      location : "Montagne de Bange"
+    Ratio SL/Vol hebdo S1 plan : 26% ✅ (cible 25-40%)
+    Ratio SL/Vol DÉCLARÉ user : 34%
+    Référentiel SL pic : trail 35km (60-80%) → 21-28 km
+    Verdict dim 4 : ✅ 
+
+  ━━━ 5. VARIATION DES SÉANCES S1 (anti-ennui) ━━━
+
+    📋 Tableau sessions S1 :
+    Jour       | Type               | Titre                                        | mainSet (extrait)                    | Location
+    ───────────┼────────────────────┼──────────────────────────────────────────────┼──────────────────────────────────────┼─────────
+    Mardi      | Renforcement       | Renfo Trail Focus A - Quadriceps & Excentriq | Circuit 2 tours : Squats poids de co | À la maison
+    Jeudi      | Sortie Longue      | Sortie Longue sur sentiers de montagne       | 1h05 de course en endurance fondamen | Montagne de Bange
+    Samedi     | Jogging            | Footing vallonné                             | 44 min sur parcours légèrement vallo | Sentiers forestiers de la Forê
+    Dimanche   | Jogging            | Footing vallonné, côtes en marche            | 36 min sur parcours vallonné. Les mo | Berges du Chéran (Alby-sur-Ché
+
+    📝 Détails complets sessions S1 :
+
+    [Session 1] Mardi — Renforcement
+      Titre        : "Renfo Trail Focus A - Quadriceps & Excentrique (S1)"
+      Distance     : 0 km
+      Durée        : 40-45 min
+      Intensité    : Modéré
+      targetPace   : ?
+      D+ visé      : 0m
+      warmUp       : ""
+      mainSet      : "Circuit 2 tours : Squats poids de corps (3x9), Squat bulgare (3x6/jambe), Fentes avant (3x6/jambe), Gainage ventral (3x19-60s), Dead bug (3x6/côté), Extensions mollets debout (3x13), Squat excentrique"
+      coolDown     : ""
+      location     : "À la maison"
+
+    [Session 2] Jeudi — Sortie Longue
+      Titre        : "Sortie Longue sur sentiers de montagne"
+      Distance     : 10.2 km
+      Durée        : 1h15
+      Intensité    : Facile
+      targetPace   : 7:21 min/km
+      D+ visé      : 260m
+      warmUp       : ""
+      mainSet      : "1h05 de course en endurance fondamentale (7:21 min/km) sur sentiers vallonnés, en essayant de maintenir une aisance respiratoire. N'hésite pas à marcher dans les montées raides pour préserver l'énergi"
+      coolDown     : ""
+      location     : "Montagne de Bange"
+
+    [Session 3] Samedi — Jogging
+      Titre        : "Footing vallonné"
+      Distance     : 8.5 km
+      Durée        : 1h02
+      Intensité    : Facile
+      targetPace   : 7:21 min/km
+      D+ visé      : 60m
+      warmUp       : ""
+      mainSet      : "44 min sur parcours légèrement vallonné. En montée : foulée courte, effort d'endurance fondamentale maintenu (7:21 en référence sur le plat, la vitesse baisse en côte c'est normal). En descente : relâ"
+      coolDown     : ""
+      location     : "Sentiers forestiers de la Forêt de la Chaise"
+
+    [Session 4] Dimanche — Jogging
+      Titre        : "Footing vallonné, côtes en marche"
+      Distance     : 7.3 km
+      Durée        : 54 min
+      Intensité    : Facile
+      targetPace   : 7:21 min/km
+      D+ visé      : 80m
+      warmUp       : ""
+      mainSet      : "36 min sur parcours vallonné. Les montées les plus raides se franchissent en marche active et dynamique (poussée des bras, gainage). Le plat et les descentes douces se courent en endurance fondamental"
+      coolDown     : ""
+      location     : "Berges du Chéran (Alby-sur-Chéran)"
+
+    📊 Métriques variation :
+      Titres uniques        : 4/4 ✅
+      Types uniques         : 3/4 (varié si ≥2)
+      mainSet uniques       : 4/4
+      Locations uniques     : 4/4
+      Intensités uniques    : 2/4
+      Titres "Footing N"    : 0 ✅
+    Verdict dim 5 : ✅ 
+
+  ━━━ SYNTHÈSE CLIENT ━━━
+    Dim1 Faisabilité   : ✅
+    Dim2 Welcome+msg   : ❌
+    Dim3 Volumes       : ✅
+    Dim4 SL S1         : ✅
+    Dim5 Variation S1  : ✅
+    → VERDICT GLOBAL   : ❌ Encore des défauts  (4✅ / 0⚠️ / 1❌)
+
+
+█████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████
+📧 Sébastien — sebastien.sailly@outlook.fr  (recheck allure 9:30 + welcome enrichi + SL 30min walk/run)
+█████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████
+  UID: jZ8E7E1beJeO9GdDAYM6gYwMdVN2  •  Créé: 2026-05-18T10:18:34.925Z  •  Last login: 2026-05-18T10:20:51.598Z
+  Plans total: 1  •  Plan analysé: 1779099564353  •  createdAt=2026-05-18T10:19:24.353Z  •  full=false  •  premium=undefined  •  preview=true
+
+  ━━━ IDENTITÉ & INPUTS ━━━
+  Prénom: sebastien  •  Plan: "Préparation 10 km — Finisher — 7 sem."
+  Sexe: Homme  •  Âge: 45  •  Poids: 130 kg  •  Taille: 180 cm  •  IMC: 40.1
+  Niveau: Débutant (0-1 an)  •  VMA: 8.00 km/h (10km en 1h30 (corrigé))
+  Objectif: Course sur route (10 km)
+  Cible chrono: Finisher  •  Race date: 2026-06-30
+  Durée: 7 sem  •  Fréquence: 2 séances/sem
+  Vol DÉCLARÉ: 5 km/sem  •  Blessures: aucune
+  Chronos récents (PB): distance10km=1h30
+
+  Allures (paces[]) :
+    allureSpecifiqueSemi             8:49/km
+    allureSpecifique5k               7:54/km
+    allureSpecifiqueMarathon         9:23/km
+    seuilPace                        8:37/km
+    efPace                           11:12/km
+    recoveryPace                     12:30/km
+    eaPace                           9:44/km
+    vmaPace                          7:30/km
+    allureSpecifique10k              9:30/km
+
+  ━━━ 1. FAISABILITÉ ━━━
+    feasibility.status   : AMBITIEUX
+    feasibility.score    : 60
+    confidenceScore      : 60
+
+    📍 Finisher + PB déclaré → distance10km=1h30
+    Verdict dim 1 : ✅ 
+
+  ━━━ 2. WELCOME + faisabilité.message + safetyWarning ━━━
+
+    [A] welcomeMessage (975 chars):
+    ────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+    │ Bienvenue Sébastien ! Tu te lances dans un 10 km en 7 semaines, c'est un beau projet de démarrage. Ton objectif est tendu pour ce délai court — on construit une progression très progressive pour que ton corps s'adapte sans risque. La marche est autorisée et même recommandée dès que tu en ressens le besoin, que ce soit à l'entraînement ou le jour de la course : un 10 km finisher avec une partie en marche est un succès, pas un échec. Le plan combine 1 séance de course + 1 séance de renforcement par semaine pour protéger tes articulations. Sur ton dernier 10 km tu as couru en 1h30 (allure 9:00/km) — ton plan vise une allure d'entraînement légèrement plus douce à 9:30/km, pour t'entraîner sans risque et garder de la marge pour le jour J. Avant de débuter, un bilan médical complet (cardio + articulations) est fortement recommandé. Écoute ton corps, respecte tes jours de repos, et profite du parcours — le chrono n'a aucune importance, seule la ligne d'arrivée compte.
+    ────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+
+    [B] feasibility.message (446 chars):
+    ────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+    │ Tu te lances dans un 10 km en 7 semaines, c'est un beau projet pour démarrer la course à pied. Ton volume actuel est faible — c'est normal quand on débute — et le plan est construit pour t'accompagner en douceur, avec une progression très progressive. Aucune pression sur le chrono : l'objectif est de finir confortablement ton 10 km en ayant pris du plaisir. Marche dès que tu en ressens le besoin, écoute ton corps, respecte les jours de repos.
+    ────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+
+    [C] safetyWarning (381 chars):
+    ────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+    │ Avant de débuter ce plan, un bilan médical complet (cardio + articulations) est fortement recommandé. Adapte les séances à tes sensations, marche dès que nécessaire, et arrête immédiatement en cas de douleur articulaire ou de gêne thoracique. Une montre cardio ou une bonne paire de chaussures running adaptée à ta foulée sont des investissements précieux pour limiter les risques.
+    ────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+
+    🔍 Checklist doctrine :
+      Mots interdits poids/IMC dans corps msg : ✅ aucun
+      Titre du plan : "Préparation 10 km — Finisher — 7 sem." 
+      Cross-training mentionné : ✅ aucun
+      Nutrition chiffrée : ✅ aucune
+      Bug temps XhYY (YY>59) : ✅ aucun
+      Règle A3 (Finisher+PB) : welcome cite le PB ? ✅ oui
+      Cohérence welcome ↔ status faisabilité : ⚠️ welcome ne mentionne pas le caractère ambitieux
+    Verdict dim 2 : ⚠️ (cohérence msg)
+
+  ━━━ 3. VOLUMES HEBDO ━━━
+
+    📊 Vol DÉCLARÉ : 5 km/sem
+    📊 Vol S1 plan : 4 km
+    🚨 BAISSE S1 : 4 km plan vs 5 km user (ratio 80%)
+    📊 Pic : S6 = 9 km
+    📊 Affûtage final : S7 = 5 km (56% du pic)
+
+    📋 TABLEAU weeklyVolumes COMPLET :
+    Sem | Phase            | km   | bar                                          | Δ%      | Flags
+    ────┼──────────────────┼──────┼──────────────────────────────────────────────┼─────────┼─────────
+    S 1 | fondamental      |    4 | ██████████████████······················ |    --  | 
+    S 2 | fondamental      |    5 | ██████████████████████·················· |    25%  | 
+    S 3 | developpement    |    6 | ███████████████████████████············· |    20%  | 
+    S 4 | recuperation     |    7 | ███████████████████████████████········· |    17%  | ↓DELOAD 
+    S 5 | specifique       |    8 | ████████████████████████████████████···· |    14%  | 
+    S 6 | specifique       |    9 | ████████████████████████████████████████ |    13%  | ★PIC 
+    S 7 | affutage         |    5 | ██████████████████████·················· |   -44%  | 🏁RACE
+
+    📈 Max augmentation : S1→S2 4→5km = +25%  🔴
+    🔄 Semaines décharge : 4
+    Verdict dim 3 : ❌ (S1<declared (80%))
+
+  ━━━ 4. SL S1 ━━━
+    Dimanche: ~3 km • 30 min • D+0m • pace EF : 11:12 min/km (course) / Récupération : 12:30 min/km (marche)
+      Titre : "Marche/Course découverte — 30 min en alternance"
+      mainSet : "30 min total — alternance marche/course explicite : **6 répétitions de [2 min de trot à allure très facile + 3 min de marche active]**. Pas d'arrêt complet entre les blocs. Trottiner uniquement quand "
+      location : "Parc du Vivier, Albert"
+    Ratio SL/Vol hebdo S1 plan : 75% 🔴 (cible 25-40%)
+    Ratio SL/Vol DÉCLARÉ user : 60%
+    Référentiel SL pic : 10k (7-9 km) → 7-9 km
+    ✅ Sébastien : SL S1 = walk/run conforme FFA
+    Verdict dim 4 : ⚠️ (SL=75% S1 (trop long))
+
+  ━━━ 5. VARIATION DES SÉANCES S1 (anti-ennui) ━━━
+
+    📋 Tableau sessions S1 :
+    Jour       | Type               | Titre                                        | mainSet (extrait)                    | Location
+    ───────────┼────────────────────┼──────────────────────────────────────────────┼──────────────────────────────────────┼─────────
+    Vendredi   | Renforcement       | Renfo Focus A - Quadriceps & Gainage (S1)    | Circuit 2 tours : Squats poids de co | À la maison
+    Dimanche   | Sortie Longue      | Marche/Course découverte — 30 min en alterna | 30 min total — alternance marche/cou | Parc du Vivier, Albert
+
+    📝 Détails complets sessions S1 :
+
+    [Session 1] Vendredi — Renforcement
+      Titre        : "Renfo Focus A - Quadriceps & Gainage (S1)"
+      Distance     : 0.0 km
+      Durée        : 30 min
+      Intensité    : Facile
+      targetPace   : N/A
+      D+ visé      : 0m
+      warmUp       : ""
+      mainSet      : "Circuit 2 tours : Squats poids de corps (3x9), Fentes avant (3x6/jambe), Gainage ventral (3x19-60s), Dead bug (3x6/côté), Extensions mollets debout (3x13). Repos 2 min entre tours."
+      coolDown     : ""
+      location     : "À la maison"
+
+    [Session 2] Dimanche — Sortie Longue
+      Titre        : "Marche/Course découverte — 30 min en alternance"
+      Distance     : ~3 km
+      Durée        : 30 min
+      Intensité    : Facile
+      targetPace   : EF : 11:12 min/km (course) / Récupération : 12:30 min/km (marche)
+      D+ visé      : 0m
+      warmUp       : ""
+      mainSet      : "30 min total — alternance marche/course explicite : **6 répétitions de [2 min de trot à allure très facile + 3 min de marche active]**. Pas d'arrêt complet entre les blocs. Trottiner uniquement quand "
+      coolDown     : ""
+      location     : "Parc du Vivier, Albert"
+
+    📊 Métriques variation :
+      Titres uniques        : 2/2 ✅
+      Types uniques         : 2/2 (varié si ≥2)
+      mainSet uniques       : 2/2
+      Locations uniques     : 2/2
+      Intensités uniques    : 1/2
+      Titres "Footing N"    : 0 ✅
+    Verdict dim 5 : ✅ 
+
+  ━━━ SYNTHÈSE CLIENT ━━━
+    Dim1 Faisabilité   : ✅
+    Dim2 Welcome+msg   : ⚠️
+    Dim3 Volumes       : ❌
+    Dim4 SL S1         : ⚠️
+    Dim5 Variation S1  : ✅
+    → VERDICT GLOBAL   : ❌ Encore des défauts  (2✅ / 2⚠️ / 1❌)
+
+
+█████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████
+📧 Antoine — antoineg.gde@outlook.fr  (recheck patch 2h60→3h00)
+█████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████
+  UID: G1QYJ1KzqqWXoB5BbcjKQFmORC02  •  Créé: 2026-05-18T06:38:36.134Z  •  Last login: 2026-05-18T06:38:36.134Z
+  Plans total: 1  •  Plan analysé: 1779086346189  •  createdAt=2026-05-18T06:39:06.189Z  •  full=false  •  premium=undefined  •  preview=true
+
+  ━━━ IDENTITÉ & INPUTS ━━━
+  Prénom: Antoine  •  Plan: "Préparation Marathon en 3h00 — 22 sem."
+  Sexe: Homme  •  Âge: 32  •  Poids: 72 kg  •  Taille: 180 cm  •  IMC: 22.2
+  Niveau: Expert (Performance)  •  VMA: 17.59 km/h (Moyenne 10km en 38:06 et Semi en 1h24)
+  Objectif: Course sur route (Marathon)
+  Cible chrono: 3h00  •  Race date: 2026-10-18
+  Durée: 22 sem  •  Fréquence: 6 séances/sem
+  Vol DÉCLARÉ: 80 km/sem  •  Blessures: aucune
+  Chronos récents (PB): distance10km=38:06 • distanceHalfMarathon=1h24 • distanceMarathon=3h12
+
+  Allures (paces[]) :
+    efPace                           5:05/km
+    eaPace                           4:26/km
+    seuilPace                        3:55/km
+    vmaPace                          3:25/km
+    recoveryPace                     5:41/km
+    allureSpecifique5k               3:35/km
+    allureSpecifique10k              3:47/km
+    allureSpecifiqueSemi             4:01/km
+    allureSpecifiqueMarathon         4:16/km
+
+  ━━━ 1. FAISABILITÉ ━━━
+    feasibility.status   : EXCELLENT
+    feasibility.score    : ?
+    confidenceScore      : 100
+    Verdict dim 1 : ✅ 
+
+  ━━━ 2. WELCOME + faisabilité.message + safetyWarning ━━━
+
+    [A] welcomeMessage (593 chars):
+    ────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+    │ Bienvenue dans ton plan d'entraînement de 22 semaines pour le Marathon ! Ton objectif de terminer en 3h00 est ambitieux et réaliste, parfaitement aligné avec ton niveau de coureur confirmé. Ce programme est structuré pour te faire progresser progressivement, en construisant une base solide d'endurance, puis en développant tes qualités de vitesse et de résistance spécifiques au marathon. Chaque semaine sera un pas de plus vers ton succès le jour J. Nous te recommandons de consulter un médecin avant de débuter ce programme, notamment pour obtenir un certificat médical d'aptitude au sport.
+    ────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+
+    [B] feasibility.message (175 chars):
+    ────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+    │ Avec ta VMA de 17.6 km/h, ton temps théorique sur marathon est d'environ 3h00min. Ton objectif de 3h00min est cohérent avec ton niveau. C'est un plan réaliste et bien calibré.
+    ────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+
+    [C] safetyWarning (382 chars):
+    ────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+    │ Hydrate-toi bien, échauffe-toi avant chaque séance et accorde-toi un vrai temps de récupération.
+    │ 
+    │ ⚠️ DURÉE DU PLAN : 22 semaines, c'est long pour ton profil. La plupart des coureurs de ton niveau préparent cette distance en 20 semaines maximum. Un plan trop long peut entraîner de la lassitude et une stagnation. Si tu te sens prêt, tu peux envisager de rapprocher ta date de début.
+    ────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+
+    🔍 Checklist doctrine :
+      Mots interdits poids/IMC dans corps msg : ✅ aucun
+      Titre du plan : "Préparation Marathon en 3h00 — 22 sem." 
+      Cross-training mentionné : 🔴 velo
+      Nutrition chiffrée : ✅ aucune
+      Bug temps XhYY (YY>59) : ✅ aucun
+      Cohérence welcome ↔ status faisabilité : ✅ cohérent
+    Verdict dim 2 : ❌ (cross-training)
+
+  ━━━ 3. VOLUMES HEBDO ━━━
+
+    📊 Vol DÉCLARÉ : 80 km/sem
+    📊 Vol S1 plan : 80 km
+    ✅ Ratio S1/declared = 100% (Δ +0%)
+    📊 Pic : S3 = 86 km
+    📊 Affûtage final : S22 = 48 km (56% du pic)
+
+    📋 TABLEAU weeklyVolumes COMPLET :
+    Sem | Phase            | km   | bar                                          | Δ%      | Flags
+    ────┼──────────────────┼──────┼──────────────────────────────────────────────┼─────────┼─────────
+    S 1 | fondamental      |   80 | █████████████████████████████████████··· |    --  | 
+    S 2 | fondamental      |   80 | █████████████████████████████████████··· |     0%  | 
+    S 3 | fondamental      |   86 | ████████████████████████████████████████ |     8%  | ★PIC 
+    S 4 | recuperation     |   71 | █████████████████████████████████······· |   -17%  | ↓DELOAD 
+    S 5 | fondamental      |   81 | ██████████████████████████████████████·· |    14%  | 
+    S 6 | fondamental      |   86 | ████████████████████████████████████████ |     6%  | 
+    S 7 | developpement    |   86 | ████████████████████████████████████████ |     0%  | 
+    S 8 | recuperation     |   77 | ████████████████████████████████████···· |   -10%  | ↓DELOAD 
+    S 9 | developpement    |   86 | ████████████████████████████████████████ |    12%  | 
+    S10 | developpement    |   86 | ████████████████████████████████████████ |     0%  | 
+    S11 | developpement    |   86 | ████████████████████████████████████████ |     0%  | 
+    S12 | recuperation     |   77 | ████████████████████████████████████···· |   -10%  | ↓DELOAD 
+    S13 | developpement    |   86 | ████████████████████████████████████████ |    12%  | 
+    S14 | specifique       |   86 | ████████████████████████████████████████ |     0%  | 
+    S15 | specifique       |   86 | ████████████████████████████████████████ |     0%  | 
+    S16 | recuperation     |   77 | ████████████████████████████████████···· |   -10%  | ↓DELOAD 
+    S17 | specifique       |   86 | ████████████████████████████████████████ |    12%  | 
+    S18 | specifique       |   86 | ████████████████████████████████████████ |     0%  | 
+    S19 | specifique       |   86 | ████████████████████████████████████████ |     0%  | 
+    S20 | affutage         |   64 | ██████████████████████████████·········· |   -26%  | 
+    S21 | affutage         |   56 | ██████████████████████████·············· |   -13%  | 
+    S22 | affutage         |   48 | ██████████████████████·················· |   -14%  | 🏁RACE
+
+    📈 Max augmentation : S4→S5 71→81km = +14%  ✅
+    🔄 Semaines décharge : 4, 8, 12, 16
+    Verdict dim 3 : ✅ 
+
+  ━━━ 4. SL S1 ━━━
+    Dimanche: 24.0 km • 2h01 min • D+0m • pace 5:05 min/km
+      Titre : "Sortie Longue en endurance fondamentale"
+      mainSet : "1h51 min de course continue en endurance fondamentale (allure : 5:05 min/km). Maintiens une allure stable et une conversation aisée tout au long de la sortie. Hydrate-toi régulièrement."
+      location : "Berges du Meu et du Canal d'Ille-et-Rance"
+    Ratio SL/Vol hebdo S1 plan : 30% ✅ (cible 25-40%)
+    Ratio SL/Vol DÉCLARÉ user : 30%
+    Référentiel SL pic : ? → 0-99 km
+    Verdict dim 4 : ✅ 
+
+  ━━━ 5. VARIATION DES SÉANCES S1 (anti-ennui) ━━━
+
+    📋 Tableau sessions S1 :
+    Jour       | Type               | Titre                                        | mainSet (extrait)                    | Location
+    ───────────┼────────────────────┼──────────────────────────────────────────────┼──────────────────────────────────────┼─────────
+    Lundi      | Jogging            | Footing + lignes droites                     | 25 min de footing en endurance fonda | Berges du Meu et du Canal d'Il
+    Mardi      | Renforcement       | Renfo Focus A - Quadriceps & Gainage (S1)    | Circuit 3 tours : Squats poids de co | À la maison
+    Mercredi   | Jogging            | Footing vallonné, côtes en marche            | 43 min sur parcours vallonné. Les mo | Étang de la Planchette (Montfo
+    Jeudi      | Jogging            | Footing en blocs souples                     | 5 blocs de 5 min de footing en endur | Berges du Meu et du Canal d'Il
+    Samedi     | Jogging            | Footing vallonné, côtes en marche            | 43 min sur parcours vallonné. Les mo | Étang de la Planchette (Montfo
+    Dimanche   | Sortie Longue      | Sortie Longue en endurance fondamentale      | 1h51 min de course continue en endur | Berges du Meu et du Canal d'Il
+
+    📝 Détails complets sessions S1 :
+
+    [Session 1] Lundi — Jogging
+      Titre        : "Footing + lignes droites"
+      Distance     : 10.0 km
+      Durée        : 51 min
+      Intensité    : Facile
+      targetPace   : 5:05 min/km
+      D+ visé      : 0m
+      warmUp       : ""
+      mainSet      : "25 min de footing en endurance fondamentale (5:05), puis 4 à 6 lignes droites : ~60-80 m en accélération souple et progressive sur terrain plat (on monte en fréquence de jambes sans forcer), avec reto"
+      coolDown     : ""
+      location     : "Berges du Meu et du Canal d'Ille-et-Rance"
+
+    [Session 2] Mardi — Renforcement
+      Titre        : "Renfo Focus A - Quadriceps & Gainage (S1)"
+      Distance     : 0 km
+      Durée        : 35-45 min
+      Intensité    : Modéré
+      targetPace   : N/A
+      D+ visé      : 0m
+      warmUp       : ""
+      mainSet      : "Circuit 3 tours : Squats poids de corps (3x16), Squat bulgare (3x10/jambe), Fentes avant (3x10/jambe), Gainage ventral (3x31-60s), Dead bug (3x10/côté), Extensions mollets debout (3x21), Gainage ventr"
+      coolDown     : ""
+      location     : "À la maison"
+
+    [Session 3] Mercredi — Jogging
+      Titre        : "Footing vallonné, côtes en marche"
+      Distance     : 12.0 km
+      Durée        : 1h01 min
+      Intensité    : Facile
+      targetPace   : 5:05 min/km
+      D+ visé      : 0m
+      warmUp       : ""
+      mainSet      : "43 min sur parcours vallonné. Les montées les plus raides se franchissent en marche active et dynamique (poussée des bras, gainage). Le plat et les descentes douces se courent en endurance fondamental"
+      coolDown     : ""
+      location     : "Étang de la Planchette (Montfort-sur-Meu)"
+
+    [Session 4] Jeudi — Jogging
+      Titre        : "Footing en blocs souples"
+      Distance     : 10.0 km
+      Durée        : 51 min
+      Intensité    : Facile
+      targetPace   : 5:05 min/km
+      D+ visé      : 0m
+      warmUp       : ""
+      mainSet      : "5 blocs de 5 min de footing en endurance fondamentale (5:05), entrecoupés de 1 min de marche. Le footing reste lent et confortable ; la marche est une respiration de confort, pas une récupération d'ef"
+      coolDown     : ""
+      location     : "Berges du Meu et du Canal d'Ille-et-Rance"
+
+    [Session 5] Samedi — Jogging
+      Titre        : "Footing vallonné, côtes en marche"
+      Distance     : 12.0 km
+      Durée        : 1h01 min
+      Intensité    : Facile
+      targetPace   : 5:05 min/km
+      D+ visé      : 0m
+      warmUp       : ""
+      mainSet      : "43 min sur parcours vallonné. Les montées les plus raides se franchissent en marche active et dynamique (poussée des bras, gainage). Le plat et les descentes douces se courent en endurance fondamental"
+      coolDown     : ""
+      location     : "Étang de la Planchette (Montfort-sur-Meu)"
+
+    [Session 6] Dimanche — Sortie Longue
+      Titre        : "Sortie Longue en endurance fondamentale"
+      Distance     : 24.0 km
+      Durée        : 2h01 min
+      Intensité    : Facile
+      targetPace   : 5:05 min/km
+      D+ visé      : 0m
+      warmUp       : ""
+      mainSet      : "1h51 min de course continue en endurance fondamentale (allure : 5:05 min/km). Maintiens une allure stable et une conversation aisée tout au long de la sortie. Hydrate-toi régulièrement."
+      coolDown     : ""
+      location     : "Berges du Meu et du Canal d'Ille-et-Rance"
+
+    📊 Métriques variation :
+      Titres uniques        : 5/6 ⚠️
+      Types uniques         : 3/6 (varié si ≥2)
+      mainSet uniques       : 5/6
+      Locations uniques     : 3/6
+      Intensités uniques    : 2/6
+      Titres "Footing N"    : 0 ✅
+    Verdict dim 5 : ⚠️ (titres dupliqués (5/6) | mainSets dupliqués)
+
+  ━━━ SYNTHÈSE CLIENT ━━━
+    Dim1 Faisabilité   : ✅
+    Dim2 Welcome+msg   : ❌
+    Dim3 Volumes       : ✅
+    Dim4 SL S1         : ✅
+    Dim5 Variation S1  : ⚠️
+    → VERDICT GLOBAL   : ❌ Encore des défauts  (3✅ / 1⚠️ / 1❌)
+
+
+█████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████
+📧 Annabelle — nabou57@hotmail.fr  (recheck patches)
+█████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████
+  UID: Zdxq3nSp88WYjhQ7ghVM4Z51aQA2  •  Créé: 2026-05-18T06:28:25.575Z  •  Last login: 2026-05-18T06:31:05.934Z
+  Plans total: 1  •  Plan analysé: 1779085742508  •  createdAt=2026-05-18T06:29:02.508Z  •  full=false  •  premium=undefined  •  preview=true
+
+  ━━━ IDENTITÉ & INPUTS ━━━
+  Prénom: Annabelle  •  Plan: "Préparation Semi-Marathon en 1h45 — 7 sem."
+  Sexe: Femme  •  Âge: 45  •  Poids: 51 kg  •  Taille: 160 cm  •  IMC: 19.9
+  Niveau: Expert (Performance)  •  VMA: 13.86 km/h (Moyenne 5km en 23:10 et 10km en 46:54)
+  Objectif: Course sur route (Semi-Marathon)
+  Cible chrono: 1h45  •  Race date: 2026-07-05
+  Durée: 7 sem  •  Fréquence: 4 séances/sem
+  Vol DÉCLARÉ: 40 km/sem  •  Blessures: aucune
+  Chronos récents (PB): distanceHalfMarathon=1h45 • distance10km=46:54 • distance5km=23:10
+
+  Allures (paces[]) :
+    efPace                           6:28/km
+    eaPace                           5:37/km
+    seuilPace                        4:58/km
+    vmaPace                          4:20/km
+    recoveryPace                     7:13/km
+    allureSpecifique5k               4:33/km
+    allureSpecifique10k              4:49/km
+    allureSpecifiqueSemi             4:59/km
+    allureSpecifiqueMarathon         5:25/km
+
+  ━━━ 1. FAISABILITÉ ━━━
+    feasibility.status   : BON
+    feasibility.score    : ?
+    confidenceScore      : 73
+
+    📍 Cohérence chrono cible :
+       semi 21.097km en 1h45 → pace cible = 4:59/km (87%VMA)
+       Attendu 82-90%VMA  →  ✅ cohérent
+    Verdict dim 1 : ✅ 
+
+  ━━━ 2. WELCOME + faisabilité.message + safetyWarning ━━━
+
+    [A] welcomeMessage (709 chars):
+    ────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+    │ Bonjour ! Ce plan d'entraînement de 7 semaines te guidera vers ton objectif ambitieux de terminer un semi-marathon en 1h45. Avec un score de faisabilité de 73/100, ton profil est très bon pour atteindre cet objectif avec un entraînement structuré et rigoureux. La première semaine est dédiée à la construction de tes fondations aérobies. Le programme est conçu pour être progressif, en respectant ta capacité et en te préparant étape par étape à la distance et à l'allure ciblée. Nous te recommandons vivement de consulter un médecin avant de débuter ce programme, notamment pour obtenir un certificat médical d'aptitude au sport. À partir de 45 ans, un bilan cardio-vasculaire est particulièrement conseillé.
+    ────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+
+    [B] feasibility.message (278 chars):
+    ────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+    │ Avec ta VMA de 13.9 km/h, ton temps théorique sur semi-marathon est d'environ 1h47min. Viser 1h45min est un bel objectif. Avec un entraînement régulier, c'est tout à fait atteignable. Attention : 7 semaines, c'est court pour une préparation semi-marathon. Le plan sera condensé.
+    ────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+
+    [C] safetyWarning (299 chars):
+    ────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+    │ À 45 ans, on te recommande vivement de consulter ton médecin et de réaliser un test d'effort avant de démarrer cette préparation. Un certificat médical d'aptitude est indispensable pour cette distance. Privilégie la récupération (48-72h entre séances intenses), hydrate-toi bien et écoute ton corps.
+    ────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+
+    🔍 Checklist doctrine :
+      Mots interdits poids/IMC dans corps msg : ✅ aucun
+      Titre du plan : "Préparation Semi-Marathon en 1h45 — 7 sem." 
+      Cross-training mentionné : ✅ aucun
+      Nutrition chiffrée : ✅ aucune
+      Bug temps XhYY (YY>59) : ✅ aucun
+      Cohérence welcome ↔ status faisabilité : ✅ cohérent
+    Verdict dim 2 : ✅ 
+
+  ━━━ 3. VOLUMES HEBDO ━━━
+
+    📊 Vol DÉCLARÉ : 40 km/sem
+    📊 Vol S1 plan : 40 km
+    ✅ Ratio S1/declared = 100% (Δ +0%)
+    📊 Pic : S3 = 45 km
+    📊 Affûtage final : S7 = 27 km (60% du pic)
+
+    📋 TABLEAU weeklyVolumes COMPLET :
+    Sem | Phase            | km   | bar                                          | Δ%      | Flags
+    ────┼──────────────────┼──────┼──────────────────────────────────────────────┼─────────┼─────────
+    S 1 | fondamental      |   40 | ████████████████████████████████████···· |    --  | 
+    S 2 | fondamental      |   44 | ███████████████████████████████████████· |    10%  | 
+    S 3 | developpement    |   45 | ████████████████████████████████████████ |     2%  | ★PIC 
+    S 4 | recuperation     |   38 | ██████████████████████████████████······ |   -16%  | ↓DELOAD 
+    S 5 | specifique       |   44 | ███████████████████████████████████████· |    16%  | 
+    S 6 | specifique       |   45 | ████████████████████████████████████████ |     2%  | 
+    S 7 | affutage         |   27 | ████████████████████████················ |   -40%  | 🏁RACE
+
+    📈 Max augmentation : S4→S5 38→44km = +16%  🟡
+    🔄 Semaines décharge : 4
+    Verdict dim 3 : ✅ 
+
+  ━━━ 4. SL S1 ━━━
+    Dimanche: 13 km • 1h24 min • D+0m • pace 6:28 min/km
+      Titre : "Sortie Longue en Endurance Fondamentale"
+      mainSet : "70 min de course en endurance fondamentale (EF) à une allure de 6:28 min/km. Maintiens une allure régulière et confortable, propice à une conversation. Concentre-toi sur la gestion de l'effort sur la "
+      location : "Bords de Meurthe, Nancy"
+    Ratio SL/Vol hebdo S1 plan : 33% 🟡 (cible 25-40%)
+    Ratio SL/Vol DÉCLARÉ user : 33%
+    Référentiel SL pic : semi (16-22 km) → 16-22 km
+    Verdict dim 4 : ✅ 
+
+  ━━━ 5. VARIATION DES SÉANCES S1 (anti-ennui) ━━━
+
+    📋 Tableau sessions S1 :
+    Jour       | Type               | Titre                                        | mainSet (extrait)                    | Location
+    ───────────┼────────────────────┼──────────────────────────────────────────────┼──────────────────────────────────────┼─────────
+    Lundi      | Jogging            | Footing + lignes droites                     | 39 min de footing en endurance fonda | Parc de l'Embanie, Heillecourt
+    Mercredi   | Renforcement       | Renfo Focus A - Quadriceps & Gainage (S1)    | Circuit 3 tours : Squats poids de co | À la maison
+    Vendredi   | Jogging            | Footing vallonné, côtes en marche            | 53 min sur parcours vallonné. Les mo | Forêt de Haye, Nancy
+    Dimanche   | Sortie Longue      | Sortie Longue en Endurance Fondamentale      | 70 min de course en endurance fondam | Bords de Meurthe, Nancy
+
+    📝 Détails complets sessions S1 :
+
+    [Session 1] Lundi — Jogging
+      Titre        : "Footing + lignes droites"
+      Distance     : 10 km
+      Durée        : 1h05 min
+      Intensité    : Facile
+      targetPace   : 6:28 min/km
+      D+ visé      : 0m
+      warmUp       : ""
+      mainSet      : "39 min de footing en endurance fondamentale (6:28), puis 4 à 6 lignes droites : ~60-80 m en accélération souple et progressive sur terrain plat (on monte en fréquence de jambes sans forcer), avec reto"
+      coolDown     : ""
+      location     : "Parc de l'Embanie, Heillecourt"
+
+    [Session 2] Mercredi — Renforcement
+      Titre        : "Renfo Focus A - Quadriceps & Gainage (S1)"
+      Distance     : 0 km
+      Durée        : 40-45 min
+      Intensité    : Modéré
+      targetPace   : N/A
+      D+ visé      : 0m
+      warmUp       : ""
+      mainSet      : "Circuit 3 tours : Squats poids de corps (3x16), Squat bulgare (3x10/jambe), Fentes avant (3x10/jambe), Gainage ventral (3x31-60s), Dead bug (3x10/côté), Extensions mollets debout (3x21). Repos 1 min 3"
+      coolDown     : ""
+      location     : "À la maison"
+
+    [Session 3] Vendredi — Jogging
+      Titre        : "Footing vallonné, côtes en marche"
+      Distance     : 11 km
+      Durée        : 1h11 min
+      Intensité    : Facile
+      targetPace   : 6:28 min/km
+      D+ visé      : 0m
+      warmUp       : ""
+      mainSet      : "53 min sur parcours vallonné. Les montées les plus raides se franchissent en marche active et dynamique (poussée des bras, gainage). Le plat et les descentes douces se courent en endurance fondamental"
+      coolDown     : ""
+      location     : "Forêt de Haye, Nancy"
+
+    [Session 4] Dimanche — Sortie Longue
+      Titre        : "Sortie Longue en Endurance Fondamentale"
+      Distance     : 13 km
+      Durée        : 1h24 min
+      Intensité    : Facile
+      targetPace   : 6:28 min/km
+      D+ visé      : 0m
+      warmUp       : ""
+      mainSet      : "70 min de course en endurance fondamentale (EF) à une allure de 6:28 min/km. Maintiens une allure régulière et confortable, propice à une conversation. Concentre-toi sur la gestion de l'effort sur la "
+      coolDown     : ""
+      location     : "Bords de Meurthe, Nancy"
+
+    📊 Métriques variation :
+      Titres uniques        : 4/4 ✅
+      Types uniques         : 3/4 (varié si ≥2)
+      mainSet uniques       : 4/4
+      Locations uniques     : 4/4
+      Intensités uniques    : 2/4
+      Titres "Footing N"    : 0 ✅
+    Verdict dim 5 : ✅ 
+
+  ━━━ SYNTHÈSE CLIENT ━━━
+    Dim1 Faisabilité   : ✅
+    Dim2 Welcome+msg   : ✅
+    Dim3 Volumes       : ✅
+    Dim4 SL S1         : ✅
+    Dim5 Variation S1  : ✅
+    → VERDICT GLOBAL   : ✅ PLAN PARFAIT  (5✅ / 0⚠️ / 0❌)
+
+
+█████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████
+📧 Armando — arenaarmando@hotmail.com  (recheck patches)
+█████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████
+  UID: rZwYWXDBJbMDbaRmZ2yAVcSLVED2  •  Créé: 2026-05-18T02:37:49.494Z  •  Last login: 2026-05-18T03:21:14.184Z
+  Plans total: 1  •  Plan analysé: 1779071910169  •  createdAt=2026-05-18T02:38:30.169Z  •  full=false  •  premium=undefined  •  preview=true
+
+  ━━━ IDENTITÉ & INPUTS ━━━
+  Prénom: Armando  •  Plan: "Préparation Semi-Marathon en 1h20 — 13 sem."
+  Sexe: Homme  •  Âge: 48  •  Poids: 74 kg  •  Taille: 182 cm  •  IMC: 22.3
+  Niveau: Expert (Performance)  •  VMA: 18.26 km/h (Moyenne 10km en 37min et Semi en 1h20)
+  Objectif: Course sur route (Semi-Marathon)
+  Cible chrono: 1h20  •  Race date: 2026-08-15
+  Durée: 13 sem  •  Fréquence: 6 séances/sem
+  Vol DÉCLARÉ: 80 km/sem  •  Blessures: aucune
+  Chronos récents (PB): distanceHalfMarathon=1h20 • distance10km=37min
+
+  Allures (paces[]) :
+    efPace                           4:54/km
+    eaPace                           4:16/km
+    seuilPace                        3:47/km
+    vmaPace                          3:17/km
+    recoveryPace                     5:29/km
+    allureSpecifique5k               3:28/km
+    allureSpecifique10k              3:39/km
+    allureSpecifiqueSemi             3:47/km
+    allureSpecifiqueMarathon         4:06/km
+
+  ━━━ 1. FAISABILITÉ ━━━
+    feasibility.status   : EXCELLENT
+    feasibility.score    : ?
+    confidenceScore      : 94
+
+    📍 Cohérence chrono cible :
+       semi 21.097km en 1h20 → pace cible = 3:48/km (87%VMA)
+       Attendu 82-90%VMA  →  ✅ cohérent
+    Verdict dim 1 : ✅ 
+
+  ━━━ 2. WELCOME + faisabilité.message + safetyWarning ━━━
+
+    [A] welcomeMessage (845 chars):
+    ────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+    │ Félicitations pour ton engagement dans la préparation de ce Semi-Marathon avec un objectif ambitieux de 1h20 ! Ce programme de 13 semaines est conçu pour t'aider à atteindre cet objectif en construisant une base solide et en développant progressivement tes qualités spécifiques.
+    │ 
+    │ La première phase, dite 'fondamentale', se concentrera sur le développement de ton endurance aérobie, la consolidation de ton volume hebdomadaire et le renforcement musculaire, sans travail intense de vitesse en début de programme. Nous privilégierons la régularité et l'écoute de tes sensations pour une progression saine et durable.
+    │ 
+    │ Nous te recommandons vivement de consulter un médecin avant de débuter ce programme, notamment pour obtenir un certificat médical d'aptitude au sport. À partir de 48 ans, un bilan cardio-vasculaire est particulièrement conseillé.
+    ────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+
+    [B] feasibility.message (180 chars):
+    ────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+    │ Avec ta VMA de 18.3 km/h, ton temps théorique sur semi-marathon est d'environ 1h22min. Ton objectif de 1h20min est cohérent avec ton niveau. C'est un plan réaliste et bien calibré.
+    ────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+
+    [C] safetyWarning (299 chars):
+    ────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+    │ À 48 ans, on te recommande vivement de consulter ton médecin et de réaliser un test d'effort avant de démarrer cette préparation. Un certificat médical d'aptitude est indispensable pour cette distance. Privilégie la récupération (48-72h entre séances intenses), hydrate-toi bien et écoute ton corps.
+    ────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+
+    🔍 Checklist doctrine :
+      Mots interdits poids/IMC dans corps msg : ✅ aucun
+      Titre du plan : "Préparation Semi-Marathon en 1h20 — 13 sem." 
+      Cross-training mentionné : 🔴 velo
+      Nutrition chiffrée : ✅ aucune
+      Bug temps XhYY (YY>59) : ✅ aucun
+      Cohérence welcome ↔ status faisabilité : ✅ cohérent
+    Verdict dim 2 : ❌ (cross-training)
+
+  ━━━ 3. VOLUMES HEBDO ━━━
+
+    📊 Vol DÉCLARÉ : 80 km/sem
+    📊 Vol S1 plan : 80 km
+    ✅ Ratio S1/declared = 100% (Δ +0%)
+    📊 Pic : S2 = 84 km
+    📊 Affûtage final : S13 = 47 km (56% du pic)
+
+    📋 TABLEAU weeklyVolumes COMPLET :
+    Sem | Phase            | km   | bar                                          | Δ%      | Flags
+    ────┼──────────────────┼──────┼──────────────────────────────────────────────┼─────────┼─────────
+    S 1 | fondamental      |   80 | ██████████████████████████████████████·· |    --  | 
+    S 2 | fondamental      |   84 | ████████████████████████████████████████ |     5%  | ★PIC 
+    S 3 | fondamental      |   84 | ████████████████████████████████████████ |     0%  | 
+    S 4 | recuperation     |   75 | ████████████████████████████████████···· |   -11%  | ↓DELOAD 
+    S 5 | developpement    |   84 | ████████████████████████████████████████ |    12%  | 
+    S 6 | developpement    |   84 | ████████████████████████████████████████ |     0%  | 
+    S 7 | developpement    |   84 | ████████████████████████████████████████ |     0%  | 
+    S 8 | recuperation     |   75 | ████████████████████████████████████···· |   -11%  | ↓DELOAD 
+    S 9 | specifique       |   84 | ████████████████████████████████████████ |    12%  | 
+    S10 | specifique       |   84 | ████████████████████████████████████████ |     0%  | 
+    S11 | affutage         |   62 | ██████████████████████████████·········· |   -26%  | 
+    S12 | affutage         |   55 | ██████████████████████████·············· |   -11%  | 
+    S13 | affutage         |   47 | ██████████████████████·················· |   -15%  | 🏁RACE
+
+    📈 Max augmentation : S4→S5 75→84km = +12%  ✅
+    🔄 Semaines décharge : 4, 8
+    Verdict dim 3 : ✅ 
+
+  ━━━ 4. SL S1 ━━━
+    Dimanche: 21 km • 1h 43 min • D+0m • pace 4:54 min/km
+      Titre : "Sortie Longue en endurance fondamentale"
+      mainSet : "2 heures de course en endurance fondamentale à 4:54 min/km, sur un parcours vallonné. L'objectif est de maintenir une allure stable et une aisance respiratoire tout au long de la sortie."
+      location : "Chemins de campagne autour de Livarot (ex: vers Les Moutiers-Hubert)"
+    Ratio SL/Vol hebdo S1 plan : 26% ✅ (cible 25-40%)
+    Ratio SL/Vol DÉCLARÉ user : 26%
+    Référentiel SL pic : semi (16-22 km) → 16-22 km
+    Verdict dim 4 : ✅ 
+
+  ━━━ 5. VARIATION DES SÉANCES S1 (anti-ennui) ━━━
+
+    📋 Tableau sessions S1 :
+    Jour       | Type               | Titre                                        | mainSet (extrait)                    | Location
+    ───────────┼────────────────────┼──────────────────────────────────────────────┼──────────────────────────────────────┼─────────
+    Lundi      | Jogging            | Footing progressif (négative split)          | 32 min en deux moitiés : la 1re très | Les berges de la Vie à Livarot
+    Mardi      | Jogging            | Footing vallonné, côtes en marche            | 37 min sur parcours vallonné. Les mo | Chemins de campagne autour de 
+    Mercredi   | Renforcement       | Renfo Focus A - Quadriceps & Gainage (S1)    | Circuit 3 tours : Squats poids de co | À la maison ou Salle de sport
+    Jeudi      | Jogging            | Footing progressif                           | 40 min de course avec une augmentati | Les berges de la Vie à Livarot
+    Vendredi   | Jogging            | Footing en endurance fondamentale            | 37 min en endurance fondamentale, al | Stade Municipal de Livarot
+    Dimanche   | Sortie Longue      | Sortie Longue en endurance fondamentale      | 2 heures de course en endurance fond | Chemins de campagne autour de 
+
+    📝 Détails complets sessions S1 :
+
+    [Session 1] Lundi — Jogging
+      Titre        : "Footing progressif (négative split)"
+      Distance     : 9 km
+      Durée        : 45 min
+      Intensité    : Facile
+      targetPace   : 4:54 min/km
+      D+ visé      : 0m
+      warmUp       : ""
+      mainSet      : "32 min en deux moitiés : la 1re très tranquille (bas de l'EF), la 2e dans le haut de l'EF autour de 4:54 — toujours conversationnel, jamais essoufflé. Tu termines plus vite que tu n'as commencé. (allu"
+      coolDown     : ""
+      location     : "Les berges de la Vie à Livarot"
+
+    [Session 2] Mardi — Jogging
+      Titre        : "Footing vallonné, côtes en marche"
+      Distance     : 10.3 km
+      Durée        : 49 min
+      Intensité    : Facile
+      targetPace   : 4:54 min/km
+      D+ visé      : 0m
+      warmUp       : ""
+      mainSet      : "37 min sur parcours vallonné. Les montées les plus raides se franchissent en marche active et dynamique (poussée des bras, gainage). Le plat et les descentes douces se courent en endurance fondamental"
+      coolDown     : ""
+      location     : "Chemins de campagne autour de Livarot (ex: direction Saint-Michel-de-Livet)"
+
+    [Session 3] Mercredi — Renforcement
+      Titre        : "Renfo Focus A - Quadriceps & Gainage (S1)"
+      Distance     : ?
+      Durée        : 40-45 min
+      Intensité    : Modéré
+      targetPace   : ?
+      D+ visé      : 0m
+      warmUp       : ""
+      mainSet      : "Circuit 3 tours : Squats poids de corps (3x16), Squat bulgare (3x10/jambe), Fentes avant (3x10/jambe), Gainage ventral (3x31-60s), Dead bug (3x10/côté), Extensions mollets debout (3x21). Repos 1 min 3"
+      coolDown     : ""
+      location     : "À la maison ou Salle de sport"
+
+    [Session 4] Jeudi — Jogging
+      Titre        : "Footing progressif"
+      Distance     : 9.9 km
+      Durée        : 49 min
+      Intensité    : Modéré
+      targetPace   : 4:54 min/km
+      D+ visé      : 0m
+      warmUp       : ""
+      mainSet      : "40 min de course avec une augmentation progressive de l'allure : commence à 5:05 min/km (zone EF basse) et finis à 4:45 min/km (zone EF haute), en restant toujours en endurance fondamentale."
+      coolDown     : ""
+      location     : "Les berges de la Vie à Livarot"
+
+    [Session 5] Vendredi — Jogging
+      Titre        : "Footing en endurance fondamentale"
+      Distance     : 9.9 km
+      Durée        : 49 min
+      Intensité    : Facile
+      targetPace   : 4:54 min/km
+      D+ visé      : 0m
+      warmUp       : ""
+      mainSet      : "37 min en endurance fondamentale, allure régulière et confortable (4:54). Tu dois pouvoir tenir une conversation tout du long. (allure : 4:54 min/km)"
+      coolDown     : ""
+      location     : "Stade Municipal de Livarot"
+
+    [Session 6] Dimanche — Sortie Longue
+      Titre        : "Sortie Longue en endurance fondamentale"
+      Distance     : 21 km
+      Durée        : 1h 43 min
+      Intensité    : Facile
+      targetPace   : 4:54 min/km
+      D+ visé      : 0m
+      warmUp       : ""
+      mainSet      : "2 heures de course en endurance fondamentale à 4:54 min/km, sur un parcours vallonné. L'objectif est de maintenir une allure stable et une aisance respiratoire tout au long de la sortie."
+      coolDown     : ""
+      location     : "Chemins de campagne autour de Livarot (ex: vers Les Moutiers-Hubert)"
+
+    📊 Métriques variation :
+      Titres uniques        : 6/6 ✅
+      Types uniques         : 3/6 (varié si ≥2)
+      mainSet uniques       : 6/6
+      Locations uniques     : 5/6
+      Intensités uniques    : 2/6
+      Titres "Footing N"    : 0 ✅
+    Verdict dim 5 : ✅ 
+
+  ━━━ SYNTHÈSE CLIENT ━━━
+    Dim1 Faisabilité   : ✅
+    Dim2 Welcome+msg   : ❌
+    Dim3 Volumes       : ✅
+    Dim4 SL S1         : ✅
+    Dim5 Variation S1  : ✅
+    → VERDICT GLOBAL   : ❌ Encore des défauts  (4✅ / 0⚠️ / 1❌)
+
+
+════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════
+  📋 TABLEAU SYNTHÈSE GLOBALE — 8 CLIENTS / 5 DIMENSIONS
+════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════
+  Prénom       Goal                   Cible      Niv        S1km  Pic      Faisa       D1  D2  D3  D4  D5  | Verdict
+  ──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+  Edouard      Course sur route (Semi 2h00       Confirmé ( 20    23/S6    RISQUÉ/49   ✅   ✅   ✅   ⚠️  ✅   | ⚠️ Presque parfait
+  Aurore       Maintien en forme      Finisher   Débutant ( 12    14/S6    BON/70      ✅   ✅   ⚠️  ✅   ✅   | ⚠️ Presque parfait
+  Justine      Maintien en forme      Finisher   Confirmé ( 13    15/S6    BON/70      ✅   ⚠️  ⚠️  ✅   ✅   | ⚠️ Presque parfait
+  Alan         Trail  35k             Finisher   Confirmé ( 40    45/S3    RISQUÉ/35   ✅   ❌   ✅   ✅   ✅   | ❌ Encore des défauts
+  sebastien    Course sur route (10 k Finisher   Débutant ( 4     9/S6     AMBITIEUX/60 ✅   ⚠️  ❌   ⚠️  ✅   | ❌ Encore des défauts
+  Antoine      Course sur route (Mara 3h00       Expert (Pe 80    86/S3    EXCELLENT/100 ✅   ❌   ✅   ✅   ⚠️  | ❌ Encore des défauts
+  Annabelle    Course sur route (Semi 1h45       Expert (Pe 40    45/S3    BON/73      ✅   ✅   ✅   ✅   ✅   | ✅ PLAN PARFAIT
+  Armando      Course sur route (Semi 1h20       Expert (Pe 80    84/S2    EXCELLENT/94 ✅   ❌   ✅   ✅   ✅   | ❌ Encore des défauts
+
+  TOTAL : 1 parfaits ✅ / 3 presque ⚠️ / 4 avec défauts ❌

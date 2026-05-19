@@ -1,0 +1,553 @@
+{
+  "name": "projects/coach-running-ia/databases/(default)/documents/plans/1773348934815",
+  "fields": {
+    "sessionsPerWeek": {
+      "integerValue": "3"
+    },
+    "createdAt": {
+      "stringValue": "2026-03-12T20:55:34.815Z"
+    },
+    "name": {
+      "stringValue": "Plan Semi-Marathon 1h50 - 8 semaines"
+    },
+    "goal": {
+      "stringValue": "Course sur route"
+    },
+    "durationWeeks": {
+      "integerValue": "8"
+    },
+    "welcomeMessage": {
+      "stringValue": "Bienvenue dans ce plan de 8 semaines conçu pour t'amener à atteindre ton objectif de 1h50 au semi-marathon. La première semaine sera axée sur le développement fondamental, avec deux séances de course et une séance de renforcement musculaire spécifique pour la course à pied."
+    },
+    "generationContext": {
+      "mapValue": {
+        "fields": {
+          "vmaSource": {
+            "stringValue": "Marathon en 4h25"
+          },
+          "periodizationPlan": {
+            "mapValue": {
+              "fields": {
+                "weeklyVolumes": {
+                  "arrayValue": {
+                    "values": [
+                      {
+                        "integerValue": "25"
+                      },
+                      {
+                        "integerValue": "28"
+                      },
+                      {
+                        "integerValue": "30"
+                      },
+                      {
+                        "integerValue": "23"
+                      },
+                      {
+                        "integerValue": "33"
+                      },
+                      {
+                        "integerValue": "37"
+                      },
+                      {
+                        "integerValue": "25"
+                      },
+                      {
+                        "integerValue": "20"
+                      }
+                    ]
+                  }
+                },
+                "totalWeeks": {
+                  "integerValue": "8"
+                },
+                "recoveryWeeks": {
+                  "arrayValue": {
+                    "values": [
+                      {
+                        "integerValue": "4"
+                      }
+                    ]
+                  }
+                },
+                "weeklyPhases": {
+                  "arrayValue": {
+                    "values": [
+                      {
+                        "stringValue": "fondamental"
+                      },
+                      {
+                        "stringValue": "fondamental"
+                      },
+                      {
+                        "stringValue": "developpement"
+                      },
+                      {
+                        "stringValue": "recuperation"
+                      },
+                      {
+                        "stringValue": "specifique"
+                      },
+                      {
+                        "stringValue": "specifique"
+                      },
+                      {
+                        "stringValue": "affutage"
+                      },
+                      {
+                        "stringValue": "affutage"
+                      }
+                    ]
+                  }
+                }
+              }
+            }
+          },
+          "paces": {
+            "mapValue": {
+              "fields": {
+                "efPace": {
+                  "stringValue": "7:30"
+                },
+                "seuilPace": {
+                  "stringValue": "5:47"
+                },
+                "allureSpecifiqueMarathon": {
+                  "stringValue": "6:17"
+                },
+                "allureSpecifiqueSemi": {
+                  "stringValue": "5:55"
+                },
+                "allureSpecifique5k": {
+                  "stringValue": "5:17"
+                },
+                "vmaPace": {
+                  "stringValue": "5:01"
+                },
+                "allureSpecifique10k": {
+                  "stringValue": "5:35"
+                },
+                "recoveryPace": {
+                  "stringValue": "8:22"
+                },
+                "eaPace": {
+                  "stringValue": "6:32"
+                }
+              }
+            }
+          },
+          "modelUsed": {
+            "stringValue": "gemini-2.0-flash"
+          },
+          "generatedAt": {
+            "stringValue": "2026-03-12T20:55:27.423Z"
+          },
+          "questionnaireSnapshot": {
+            "mapValue": {
+              "fields": {
+                "subGoal": {
+                  "stringValue": "Semi-Marathon"
+                },
+                "startDate": {
+                  "stringValue": "2026-03-12"
+                },
+                "recentRaceTimes": {
+                  "mapValue": {
+                    "fields": {
+                      "distance10km": {
+                        "stringValue": "52"
+                      },
+                      "distanceMarathon": {
+                        "stringValue": "4h25"
+                      }
+                    }
+                  }
+                },
+                "targetTime": {
+                  "stringValue": "1h50"
+                },
+                "currentWeeklyVolume": {
+                  "integerValue": "25"
+                },
+                "goal": {
+                  "stringValue": "Course sur route"
+                },
+                "city": {
+                  "stringValue": "Genève "
+                },
+                "preferredDays": {
+                  "arrayValue": {}
+                },
+                "injuries": {
+                  "mapValue": {
+                    "fields": {
+                      "hasInjury": {
+                        "booleanValue": false
+                      }
+                    }
+                  }
+                },
+                "level": {
+                  "stringValue": "Confirmé (Compétition)"
+                },
+                "email": {
+                  "stringValue": "celiatomato@me.com"
+                },
+                "frequency": {
+                  "integerValue": "3"
+                },
+                "trailDetails": {
+                  "mapValue": {
+                    "fields": {
+                      "elevation": {
+                        "integerValue": "500"
+                      },
+                      "distance": {
+                        "integerValue": "20"
+                      }
+                    }
+                  }
+                },
+                "sex": {
+                  "stringValue": "Femme"
+                },
+                "raceDate": {
+                  "stringValue": "2026-05-10"
+                },
+                "height": {
+                  "integerValue": "163"
+                },
+                "weight": {
+                  "integerValue": "70"
+                }
+              }
+            }
+          },
+          "vma": {
+            "doubleValue": 11.94198113207547
+          }
+        }
+      }
+    },
+    "isPreview": {
+      "booleanValue": true
+    },
+    "vma": {
+      "doubleValue": 11.94198113207547
+    },
+    "userEmail": {
+      "stringValue": "celiatomato@me.com"
+    },
+    "fullPlanGenerated": {
+      "booleanValue": false
+    },
+    "weeks": {
+      "arrayValue": {
+        "values": [
+          {
+            "mapValue": {
+              "fields": {
+                "phase": {
+                  "stringValue": "fondamental"
+                },
+                "theme": {
+                  "stringValue": "Fondamental"
+                },
+                "sessions": {
+                  "arrayValue": {
+                    "values": [
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "id": {
+                              "stringValue": "w1-s1-1773348934815-00o84i8"
+                            },
+                            "title": {
+                              "stringValue": "Footing Léger"
+                            },
+                            "distance": {
+                              "stringValue": "8 km"
+                            },
+                            "mainSet": {
+                              "stringValue": "30 minutes de footing continu à 7:30 min/km"
+                            },
+                            "day": {
+                              "stringValue": "Mardi"
+                            },
+                            "locationSuggestion": {
+                              "stringValue": "Parc La Grange"
+                            },
+                            "warmup": {
+                              "stringValue": "15 minutes de footing à 7:30 min/km"
+                            },
+                            "intensity": {
+                              "stringValue": "Facile"
+                            },
+                            "elevationGain": {
+                              "integerValue": "0"
+                            },
+                            "cooldown": {
+                              "stringValue": "15 minutes de footing très léger à 8:22 min/km"
+                            },
+                            "type": {
+                              "stringValue": "Endurance Fondamentale"
+                            },
+                            "duration": {
+                              "stringValue": "60 minutes"
+                            },
+                            "advice": {
+                              "stringValue": "Profite de ce footing pour te concentrer sur ton posture et ton respiration."
+                            },
+                            "targetPace": {
+                              "stringValue": "7:30 min/km"
+                            }
+                          }
+                        }
+                      },
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "type": {
+                              "stringValue": "Renforcement"
+                            },
+                            "intensity": {
+                              "stringValue": "Modéré"
+                            },
+                            "warmup": {
+                              "stringValue": "5 minutes de marche et quelques étirements dynamiques"
+                            },
+                            "elevationGain": {
+                              "integerValue": "0"
+                            },
+                            "advice": {
+                              "stringValue": "Concentre-toi sur la qualité de l'exécution des mouvements pour éviter les blessures."
+                            },
+                            "duration": {
+                              "stringValue": "40 minutes"
+                            },
+                            "cooldown": {
+                              "stringValue": "5 minutes d'étirements statiques"
+                            },
+                            "id": {
+                              "stringValue": "w1-s2-1773348934815-xvuu0me"
+                            },
+                            "title": {
+                              "stringValue": "Séance de Renforcement Musculaire"
+                            },
+                            "day": {
+                              "stringValue": "Jeudi"
+                            },
+                            "locationSuggestion": {
+                              "stringValue": "À la maison"
+                            },
+                            "mainSet": {
+                              "stringValue": "3 séries de 15 squats, 3 séries de 15 fentes (chaque jambe), 3 séries de 30 secondes de gainage ventral, 3 séries de 15 montées sur pointes de pieds"
+                            }
+                          }
+                        }
+                      },
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "elevationGain": {
+                              "integerValue": "50"
+                            },
+                            "warmup": {
+                              "stringValue": "15 minutes de footing à 7:30 min/km"
+                            },
+                            "intensity": {
+                              "stringValue": "Facile"
+                            },
+                            "mainSet": {
+                              "stringValue": "60 minutes de footing continu à 7:30 min/km"
+                            },
+                            "day": {
+                              "stringValue": "Dimanche"
+                            },
+                            "locationSuggestion": {
+                              "stringValue": "Bois de la Bâtie"
+                            },
+                            "id": {
+                              "stringValue": "w1-s3-1773348934815-4wn627l"
+                            },
+                            "title": {
+                              "stringValue": "Sortie Longue en Endurance Fondamentale"
+                            },
+                            "distance": {
+                              "stringValue": "12 km"
+                            },
+                            "targetPace": {
+                              "stringValue": "7:30 min/km"
+                            },
+                            "duration": {
+                              "stringValue": "90 minutes"
+                            },
+                            "advice": {
+                              "stringValue": "Adapte ton allure en fonction du terrain et des sensations."
+                            },
+                            "type": {
+                              "stringValue": "Sortie Longue"
+                            },
+                            "cooldown": {
+                              "stringValue": "15 minutes de marche et quelques étirements légers"
+                            }
+                          }
+                        }
+                      }
+                    ]
+                  }
+                },
+                "weekNumber": {
+                  "integerValue": "1"
+                }
+              }
+            }
+          }
+        ]
+      }
+    },
+    "location": {
+      "stringValue": "Genève"
+    },
+    "id": {
+      "stringValue": "1773348934815"
+    },
+    "confidenceScore": {
+      "integerValue": "75"
+    },
+    "startDate": {
+      "stringValue": "2026-03-16"
+    },
+    "distance": {
+      "stringValue": "Semi-Marathon"
+    },
+    "targetTime": {
+      "stringValue": "1h50"
+    },
+    "vmaSource": {
+      "stringValue": "Marathon en 4h25"
+    },
+    "calculatedVMA": {
+      "doubleValue": 11.94198113207547
+    },
+    "adaptationLog": {
+      "mapValue": {
+        "fields": {
+          "weekNumber": {
+            "integerValue": "0"
+          },
+          "adaptationHistory": {
+            "arrayValue": {}
+          },
+          "adaptationsThisWeek": {
+            "integerValue": "0"
+          }
+        }
+      }
+    },
+    "userId": {
+      "stringValue": "tYrnNUTl3De1OPL76wfFo4d9dp72"
+    },
+    "feasibility": {
+      "mapValue": {
+        "fields": {
+          "message": {
+            "stringValue": "Ton VMA de 11.9 km/h indique un potentiel théorique de 1h46 au semi-marathon. L'objectif de 1h50 est donc réaliste avec un entraînement adéquat."
+          },
+          "safetyWarning": {
+            "stringValue": "Veille à bien tu hydrater et à adapter l'intensité des séances en fonction de ton état de fatigue."
+          },
+          "status": {
+            "stringValue": "BON"
+          }
+        }
+      }
+    },
+    "suggestedLocations": {
+      "arrayValue": {
+        "values": [
+          {
+            "mapValue": {
+              "fields": {
+                "description": {
+                  "stringValue": "Idéal pour les footings et sorties longues sur route."
+                },
+                "name": {
+                  "stringValue": "Parc La Grange"
+                },
+                "type": {
+                  "stringValue": "PARK"
+                }
+              }
+            }
+          },
+          {
+            "mapValue": {
+              "fields": {
+                "name": {
+                  "stringValue": "Stade du Bout-du-Monde"
+                },
+                "description": {
+                  "stringValue": "Parfait pour les séances de fractionné VMA."
+                },
+                "type": {
+                  "stringValue": "TRACK"
+                }
+              }
+            }
+          },
+          {
+            "mapValue": {
+              "fields": {
+                "description": {
+                  "stringValue": "Adapté aux sorties nature avec un peu de dénivelé."
+                },
+                "name": {
+                  "stringValue": "Bois de la Bâtie"
+                },
+                "type": {
+                  "stringValue": "NATURE"
+                }
+              }
+            }
+          }
+        ]
+      }
+    },
+    "paces": {
+      "mapValue": {
+        "fields": {
+          "allureSpecifique10k": {
+            "stringValue": "5:35"
+          },
+          "vmaPace": {
+            "stringValue": "5:01"
+          },
+          "eaPace": {
+            "stringValue": "6:32"
+          },
+          "recoveryPace": {
+            "stringValue": "8:22"
+          },
+          "efPace": {
+            "stringValue": "7:30"
+          },
+          "seuilPace": {
+            "stringValue": "5:47"
+          },
+          "allureSpecifiqueMarathon": {
+            "stringValue": "6:17"
+          },
+          "allureSpecifique5k": {
+            "stringValue": "5:17"
+          },
+          "allureSpecifiqueSemi": {
+            "stringValue": "5:55"
+          }
+        }
+      }
+    }
+  },
+  "createTime": "2026-03-12T20:55:34.868168Z",
+  "updateTime": "2026-03-18T16:40:17.608301Z"
+}

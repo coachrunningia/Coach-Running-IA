@@ -1,0 +1,228 @@
+{
+  "name": "Préparation Marathon en 4h30 — 24 sem.",
+  "location": "Paris",
+  "suggestedLocations": [
+    {
+      "name": "Bois de Vincennes",
+      "description": "Idéal pour les sorties longues et les footings en nature, offrant des chemins variés et de grandes boucles.",
+      "type": "PARK"
+    },
+    {
+      "type": "PARK",
+      "name": "Parc Montsouris",
+      "description": "Parfait pour des footings plus courts et vallonnés, ou des séances de marche/course avec de légères inclinaisons."
+    },
+    {
+      "type": "NATURE",
+      "name": "Berges de Seine",
+      "description": "Un parcours plat et continu, excellent pour les footings en endurance fondamentale et les sessions de tempo."
+    }
+  ],
+  "id": "1778578676672",
+  "endDate": "2026-10-26",
+  "isPreview": true,
+  "calculatedVMA": 12.631578947368421,
+  "raceDate": "2026-10-23",
+  "targetTime": "4h30",
+  "vmaSource": "5km en 25min",
+  "fullPlanGenerated": false,
+  "createdAt": "2026-05-12T09:37:56.672Z",
+  "weeks": [
+    {
+      "sessions": [
+        {
+          "targetPace": "Course légère : 7:05 min/km, Marche active : 7:55 min/km",
+          "locationSuggestion": "Parc Montsouris",
+          "cooldown": "5 min de marche active (allure : 7:55 min/km).",
+          "distance": "5.7 km",
+          "intensity": "Facile",
+          "type": "Marche/Course",
+          "mainSet": "8 x (1 min course légère (allure : 7:05 min/km) + 2 min marche active (allure : 7:55 min/km)).",
+          "warmup": "5 min de marche active (allure : 7:55 min/km).",
+          "day": "Mercredi",
+          "elevationGain": 0,
+          "advice": "Concentre-toi sur une foulée fluide et une respiration aisée. N'oublie pas de bien t'hydrater avant et après l'effort. Écoute ton corps et ne force pas en cas de douleur.",
+          "title": "Marche/Course : Premiers pas",
+          "duration": "44 min",
+          "id": "w1-s1-1778578676672-p6qbn0i"
+        },
+        {
+          "intensity": "Modéré",
+          "locationSuggestion": "À la maison",
+          "cooldown": "5 min d'étirements : quadriceps, ischio-jambiers, mollets, hanches",
+          "targetPace": "N/A",
+          "distance": "0 km",
+          "warmup": "10 min de mobilité articulaire douce et échauffement progressif (marche rapide, rotations, pas chassés)",
+          "mainSet": "Circuit 2 tours : Squats poids de corps (3x9), Fentes avant (3x6/jambe), Gainage ventral (3x19-60s), Dead bug (3x6/cote), Extensions mollets debout (3x13), Gainage ventral long (2x57-120s). Repos 2 min entre tours.",
+          "type": "Renforcement",
+          "advice": "Ce renforcement est essentiel pour prévenir les blessures et améliorer ta posture de course. Ne te précipite pas et contrôle bien tes mouvements. Écoute ton corps et ne force pas en cas de douleur.",
+          "day": "Jeudi",
+          "elevationGain": 0,
+          "title": "Renfo Focus A - Quadriceps & Gainage (S1)",
+          "id": "w1-s2-1778578676672-b5tidtw",
+          "duration": "35-45 min"
+        },
+        {
+          "warmup": "10 min de marche active (allure : 7:55 min/km).",
+          "mainSet": "10 x (1 min course légère (allure : 7:05 min/km) + 2 min marche active (allure : 7:55 min/km)).",
+          "type": "Marche/Course",
+          "intensity": "Facile",
+          "distance": "6.5 km",
+          "cooldown": "10 min de marche active (allure : 7:55 min/km).",
+          "locationSuggestion": "Bois de Vincennes",
+          "targetPace": "Course légère : 7:05 min/km, Marche active : 7:55 min/km",
+          "id": "w1-s3-1778578676672-jk97o32",
+          "duration": "50 min",
+          "title": "Sortie Longue en Marche/Course",
+          "advice": "Cette séance plus longue vise à augmenter ton endurance en douceur. Profite du cadre et de l'alternance marche/course pour bien récupérer. N'oublie pas ton hydratation. Écoute ton corps et ne force pas en cas de douleur.",
+          "elevationGain": 0,
+          "day": "Dimanche"
+        }
+      ],
+      "weekGoal": "Construction de l'endurance fondamentale",
+      "weekNumber": 1,
+      "phase": "fondamental",
+      "theme": "Construction de l'endurance fondamentale"
+    }
+  ],
+  "vma": 12.631578947368421,
+  "goal": "Course sur route",
+  "sessionsPerWeek": 3,
+  "generationContext": {
+    "vma": 12.631578947368421,
+    "vmaSource": "5km en 25min",
+    "paces": {
+      "seuilPace": "5:28",
+      "efPace": "7:05",
+      "allureSpecifiqueMarathon": "6:24",
+      "allureSpecifique5k": "5:00",
+      "allureSpecifique10k": "5:17",
+      "allureSpecifiqueSemi": "5:35",
+      "vmaPace": "4:45",
+      "recoveryPace": "7:55",
+      "eaPace": "6:10"
+    },
+    "periodizationPlan": {
+      "totalWeeks": 24,
+      "weeklyVolumes": [
+        17,
+        18,
+        19,
+        15,
+        17,
+        20,
+        17,
+        20,
+        23,
+        18,
+        21,
+        24,
+        21,
+        24,
+        28,
+        23,
+        26,
+        28,
+        22,
+        25,
+        28,
+        19,
+        17,
+        15
+      ],
+      "weeklyPhases": [
+        "fondamental",
+        "fondamental",
+        "fondamental",
+        "recuperation",
+        "fondamental",
+        "fondamental",
+        "recuperation",
+        "developpement",
+        "developpement",
+        "recuperation",
+        "developpement",
+        "developpement",
+        "recuperation",
+        "developpement",
+        "developpement",
+        "recuperation",
+        "specifique",
+        "specifique",
+        "recuperation",
+        "specifique",
+        "specifique",
+        "affutage",
+        "affutage",
+        "affutage"
+      ],
+      "recoveryWeeks": [
+        4,
+        7,
+        10,
+        13,
+        16,
+        19
+      ]
+    },
+    "questionnaireSnapshot": {
+      "weight": 88,
+      "email": "liefhwekfhwekfh@mail.com",
+      "recentRaceTimes": {
+        "distance5km": "25min"
+      },
+      "subGoal": "Marathon",
+      "age": 31,
+      "comments": "J'aime bien",
+      "frequency": 3,
+      "injuries": {
+        "hasInjury": false
+      },
+      "vma": 12.631578947368421,
+      "level": "Débutant (0-1 an)",
+      "targetTime": "4h30",
+      "raceDate": "2026-10-23",
+      "startDate": "2026-05-12",
+      "preferredDays": [
+        "Jeudi",
+        "Mercredi"
+      ],
+      "goal": "Course sur route",
+      "currentWeeklyVolume": 0,
+      "city": "Paris",
+      "sex": "Homme",
+      "height": 175,
+      "preferredLongRunDay": "Vendredi"
+    },
+    "modelUsed": "gemini-2.5-flash",
+    "generatedAt": "2026-05-12T09:37:17.098Z"
+  },
+  "welcomeMessage": "Bienvenue dans ton plan d'entraînement Marathon 4h30 ! En tant que coureur débutant, l'objectif principal de cette première phase fondamentale est de construire une base solide d'endurance et de développer une régularité progressive. Nous nous concentrerons sur des séances en alternant marche et course pour habituer ton corps à l'effort, et une séance de renforcement musculaire pour prévenir les blessures. La clé est la constance et l'écoute de ton corps. Nous te recommandons vivement de consulter un médecin avant de débuter ce programme, notamment pour obtenir un certificat médical d'aptitude au sport.",
+  "paces": {
+    "efPace": "7:05",
+    "allureSpecifiqueMarathon": "6:24",
+    "allureSpecifique5k": "5:00",
+    "seuilPace": "5:28",
+    "vmaPace": "4:45",
+    "recoveryPace": "7:55",
+    "eaPace": "6:10",
+    "allureSpecifique10k": "5:17",
+    "allureSpecifiqueSemi": "5:35"
+  },
+  "userId": "tCpVfbRa5vcJmfbMLAWOMhxW2Qi2",
+  "startDate": "2026-05-11",
+  "distance": "Marathon",
+  "feasibility": {
+    "message": "Avec ta VMA de 12.6 km/h, ton temps théorique sur marathon est d'environ 4h11min. Ton objectif de 4h30min est cohérent avec ton niveau. C'est un plan réaliste et bien calibré.",
+    "status": "EXCELLENT",
+    "safetyWarning": "Investis dans de bonnes chaussures avec un bon amorti et privilégie les surfaces souples quand c'est possible. Pense à bien t'hydrater et à écouter ton corps."
+  },
+  "userEmail": "liefhwekfhwekfh@mail.com",
+  "confidenceScore": 85,
+  "durationWeeks": 24,
+  "adaptationLog": {
+    "weekNumber": 0,
+    "adaptationHistory": [],
+    "adaptationsThisWeek": 0
+  }
+}

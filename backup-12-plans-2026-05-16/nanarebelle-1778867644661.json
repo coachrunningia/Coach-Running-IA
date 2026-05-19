@@ -1,0 +1,589 @@
+{
+  "name": "projects/coach-running-ia/databases/(default)/documents/plans/1778867644661",
+  "fields": {
+    "sessionsPerWeek": {
+      "integerValue": "3"
+    },
+    "userId": {
+      "stringValue": "QZg97RxmHYST0wKZFESmWAUjtN03"
+    },
+    "userEmail": {
+      "stringValue": "nanarebelle@hotmail.com"
+    },
+    "generationContext": {
+      "mapValue": {
+        "fields": {
+          "vmaSource": {
+            "stringValue": "Moyenne 5km en 31min et 10km en 1h03"
+          },
+          "generatedAt": {
+            "stringValue": "2026-05-15T17:53:05.835Z"
+          },
+          "paces": {
+            "mapValue": {
+              "fields": {
+                "recoveryPace": {
+                  "stringValue": "9:40"
+                },
+                "efPace": {
+                  "stringValue": "8:39"
+                },
+                "allureSpecifique10k": {
+                  "stringValue": "6:27"
+                },
+                "eaPace": {
+                  "stringValue": "7:32"
+                },
+                "allureSpecifiqueSemi": {
+                  "stringValue": "6:49"
+                },
+                "allureSpecifiqueMarathon": {
+                  "stringValue": "7:15"
+                },
+                "allureSpecifique5k": {
+                  "stringValue": "6:06"
+                },
+                "vmaPace": {
+                  "stringValue": "5:48"
+                },
+                "seuilPace": {
+                  "stringValue": "6:40"
+                }
+              }
+            }
+          },
+          "questionnaireSnapshot": {
+            "mapValue": {
+              "fields": {
+                "level": {
+                  "stringValue": "Confirmé (Compétition)"
+                },
+                "city": {
+                  "stringValue": "Metz"
+                },
+                "startDate": {
+                  "stringValue": "2026-05-15"
+                },
+                "comments": {
+                  "stringValue": "Entre midi "
+                },
+                "weeklyTimeAvailable": {
+                  "stringValue": "2h+"
+                },
+                "sex": {
+                  "stringValue": "Femme"
+                },
+                "recentRaceTimes": {
+                  "mapValue": {
+                    "fields": {
+                      "distance10km": {
+                        "stringValue": "1h03"
+                      },
+                      "distanceHalfMarathon": {
+                        "stringValue": "2h15"
+                      },
+                      "distance5km": {
+                        "stringValue": "31min"
+                      }
+                    }
+                  }
+                },
+                "age": {
+                  "integerValue": "35"
+                },
+                "injuries": {
+                  "mapValue": {
+                    "fields": {
+                      "hasInjury": {
+                        "booleanValue": false
+                      }
+                    }
+                  }
+                },
+                "goal": {
+                  "stringValue": "Perte de poids"
+                },
+                "vma": {
+                  "doubleValue": 10.34485856217605
+                },
+                "preferredDays": {
+                  "arrayValue": {
+                    "values": [
+                      {
+                        "stringValue": "Dimanche"
+                      },
+                      {
+                        "stringValue": "Lundi"
+                      },
+                      {
+                        "stringValue": "Mercredi"
+                      }
+                    ]
+                  }
+                },
+                "frequency": {
+                  "integerValue": "3"
+                },
+                "weight": {
+                  "integerValue": "80"
+                },
+                "height": {
+                  "integerValue": "172"
+                },
+                "email": {
+                  "stringValue": "nanarebelle@hotmail.com"
+                }
+              }
+            }
+          },
+          "modelUsed": {
+            "stringValue": "gemini-2.5-flash"
+          },
+          "vma": {
+            "doubleValue": 10.34485856217605
+          },
+          "periodizationPlan": {
+            "mapValue": {
+              "fields": {
+                "weeklyVolumes": {
+                  "arrayValue": {
+                    "values": [
+                      {
+                        "integerValue": "21"
+                      },
+                      {
+                        "integerValue": "23"
+                      },
+                      {
+                        "integerValue": "24"
+                      },
+                      {
+                        "integerValue": "19"
+                      },
+                      {
+                        "integerValue": "22"
+                      },
+                      {
+                        "integerValue": "25"
+                      },
+                      {
+                        "integerValue": "26"
+                      },
+                      {
+                        "integerValue": "21"
+                      },
+                      {
+                        "integerValue": "24"
+                      },
+                      {
+                        "integerValue": "25"
+                      },
+                      {
+                        "integerValue": "26"
+                      },
+                      {
+                        "integerValue": "25"
+                      }
+                    ]
+                  }
+                },
+                "recoveryWeeks": {
+                  "arrayValue": {
+                    "values": [
+                      {
+                        "integerValue": "4"
+                      },
+                      {
+                        "integerValue": "8"
+                      }
+                    ]
+                  }
+                },
+                "totalWeeks": {
+                  "integerValue": "12"
+                },
+                "weeklyPhases": {
+                  "arrayValue": {
+                    "values": [
+                      {
+                        "stringValue": "fondamental"
+                      },
+                      {
+                        "stringValue": "fondamental"
+                      },
+                      {
+                        "stringValue": "fondamental"
+                      },
+                      {
+                        "stringValue": "recuperation"
+                      },
+                      {
+                        "stringValue": "fondamental"
+                      },
+                      {
+                        "stringValue": "developpement"
+                      },
+                      {
+                        "stringValue": "developpement"
+                      },
+                      {
+                        "stringValue": "recuperation"
+                      },
+                      {
+                        "stringValue": "developpement"
+                      },
+                      {
+                        "stringValue": "developpement"
+                      },
+                      {
+                        "stringValue": "developpement"
+                      },
+                      {
+                        "stringValue": "developpement"
+                      }
+                    ]
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "isPreview": {
+      "booleanValue": true
+    },
+    "adaptationLog": {
+      "mapValue": {
+        "fields": {
+          "adaptationsThisWeek": {
+            "integerValue": "0"
+          },
+          "adaptationHistory": {
+            "arrayValue": {}
+          },
+          "weekNumber": {
+            "integerValue": "0"
+          }
+        }
+      }
+    },
+    "paces": {
+      "mapValue": {
+        "fields": {
+          "eaPace": {
+            "stringValue": "7:32"
+          },
+          "allureSpecifiqueSemi": {
+            "stringValue": "6:49"
+          },
+          "allureSpecifique10k": {
+            "stringValue": "6:27"
+          },
+          "recoveryPace": {
+            "stringValue": "9:40"
+          },
+          "efPace": {
+            "stringValue": "8:39"
+          },
+          "seuilPace": {
+            "stringValue": "6:40"
+          },
+          "allureSpecifiqueMarathon": {
+            "stringValue": "7:15"
+          },
+          "allureSpecifique5k": {
+            "stringValue": "6:06"
+          },
+          "vmaPace": {
+            "stringValue": "5:48"
+          }
+        }
+      }
+    },
+    "goal": {
+      "stringValue": "Perte de poids"
+    },
+    "id": {
+      "stringValue": "1778867644661"
+    },
+    "createdAt": {
+      "stringValue": "2026-05-15T17:54:04.661Z"
+    },
+    "weeks": {
+      "arrayValue": {
+        "values": [
+          {
+            "mapValue": {
+              "fields": {
+                "theme": {
+                  "stringValue": "Initiation à la Marche/Course et Renforcement Fondamental"
+                },
+                "sessions": {
+                  "arrayValue": {
+                    "values": [
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "id": {
+                              "stringValue": "w1-s2-1778867644662-0oonz5u"
+                            },
+                            "distance": {
+                              "stringValue": "0 km"
+                            },
+                            "cooldown": {
+                              "stringValue": "5 min d'étirements : quadriceps, ischio-jambiers, mollets, hanches"
+                            },
+                            "title": {
+                              "stringValue": "Circuit Métabolique Haute Intensité - Bas du corps"
+                            },
+                            "duration": {
+                              "stringValue": "30-35 min"
+                            },
+                            "advice": {
+                              "stringValue": "Le renforcement est la clé pour prévenir les blessures et améliorer ton efficacité. Concentre-toi sur la bonne exécution des mouvements. Cette séance est parfaitement adaptable pour être réalisée 'entre midi'."
+                            },
+                            "warmup": {
+                              "stringValue": "10 min de mobilité articulaire et échauffement dynamique"
+                            },
+                            "type": {
+                              "stringValue": "Renforcement"
+                            },
+                            "day": {
+                              "stringValue": "Lundi"
+                            },
+                            "mainSet": {
+                              "stringValue": "Circuit 4 tours, repos 30s entre exercices, 1 min entre tours : Montées de genoux (3x18), Mountain climbers (3x18), Squats sautés (3x11), Fentes sautées alternées (3x9/jambe), Fentes marchées (3x11/jambe)."
+                            },
+                            "locationSuggestion": {
+                              "stringValue": "À la maison"
+                            },
+                            "intensity": {
+                              "stringValue": "Modéré"
+                            },
+                            "elevationGain": {
+                              "integerValue": "0"
+                            }
+                          }
+                        }
+                      },
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "type": {
+                              "stringValue": "Sortie Longue"
+                            },
+                            "day": {
+                              "stringValue": "Mercredi"
+                            },
+                            "targetPace": {
+                              "stringValue": "9:40"
+                            },
+                            "elevationGain": {
+                              "integerValue": "0"
+                            },
+                            "mainSet": {
+                              "stringValue": "40 cycles de :\n  - 1 min de course légère (Allure EF: 8:39 min/km)\n  - 2 min de marche active (Allure Récupération: 9:40 min/km)\nEffort perçu 4/10 — conversation facile, respiration aisée"
+                            },
+                            "locationSuggestion": {
+                              "stringValue": "Parc de la Seille"
+                            },
+                            "intensity": {
+                              "stringValue": "Facile"
+                            },
+                            "id": {
+                              "stringValue": "w1-s3-1778867644662-gqmjcvl"
+                            },
+                            "cooldown": {
+                              "stringValue": "5 min de marche douce et étirements légers (à 9:40 min/km)"
+                            },
+                            "distance": {
+                              "stringValue": "5.3 km"
+                            },
+                            "warmup": {
+                              "stringValue": "5 min de marche active (Allure Récupération: 9:40 min/km)"
+                            },
+                            "duration": {
+                              "stringValue": "50 min"
+                            },
+                            "advice": {
+                              "stringValue": "Cette séance est plus longue en durée, mais l'alternance marche/course te permettra de maintenir l'effort. C'est une excellente occasion de brûler des calories en douceur. N'oublie pas de bien t'hydrater. Cette séance est idéale pour ton créneau 'entre midi' si tu as le temps."
+                            },
+                            "title": {
+                              "stringValue": "Marche/Course Active au Parc de la Seille"
+                            }
+                          }
+                        }
+                      },
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "distance": {
+                              "stringValue": "5.3 km"
+                            },
+                            "cooldown": {
+                              "stringValue": "5 min de marche douce et étirements légers (à 9:40 min/km)"
+                            },
+                            "id": {
+                              "stringValue": "w1-s1-1778867644662-89bq9t7"
+                            },
+                            "advice": {
+                              "stringValue": "C'est ta première sortie longue, concentre-toi sur le plaisir et les sensations. N'hésite pas à allonger les phases de marche si nécessaire. Si tu ressens une douleur au genou, à la cheville ou au tibia pendant la course, arrête-toi et marche. Ne force jamais sur une douleur articulaire. Les courbatures musculaires sont normales, les douleurs articulaires ne le sont pas."
+                            },
+                            "title": {
+                              "stringValue": "Sortie Longue Plaisir au Plan d'Eau (Marche/Course)"
+                            },
+                            "duration": {
+                              "stringValue": "50 min"
+                            },
+                            "warmup": {
+                              "stringValue": "5 min de marche active (Allure Récupération: 9:40 min/km)"
+                            },
+                            "targetPace": {
+                              "stringValue": "8:39"
+                            },
+                            "type": {
+                              "stringValue": "Sortie Longue"
+                            },
+                            "day": {
+                              "stringValue": "Dimanche"
+                            },
+                            "locationSuggestion": {
+                              "stringValue": "Plan d'eau de la Ville de Metz"
+                            },
+                            "intensity": {
+                              "stringValue": "Facile"
+                            },
+                            "mainSet": {
+                              "stringValue": "20 cycles de :\n  - 1 min de course légère (Allure EF: 8:39 min/km)\n  - 2 min de marche active (Allure Récupération: 9:40 min/km)\nEffort perçu 4/10 — conversation facile, respiration aisée"
+                            },
+                            "elevationGain": {
+                              "integerValue": "0"
+                            }
+                          }
+                        }
+                      }
+                    ]
+                  }
+                },
+                "weekNumber": {
+                  "integerValue": "1"
+                },
+                "weekGoal": {
+                  "stringValue": "Initiation à la Marche/Course et Renforcement Fondamental"
+                },
+                "phase": {
+                  "stringValue": "fondamental"
+                }
+              }
+            }
+          }
+        ]
+      }
+    },
+    "name": {
+      "stringValue": "Programme Perte de Poids — 12 semaines"
+    },
+    "startDate": {
+      "stringValue": "2026-05-11"
+    },
+    "welcomeMessage": {
+      "stringValue": "Bienvenue dans ton plan d'entraînement de 12 semaines pour la perte de poids ! En tant que Coach Running Expert, je t'accompagnerai pour atteindre tes objectifs en toute sécurité et avec plaisir. Ce programme est conçu pour un profil 'Débutant +' axé sur l'endurance et la régularité, en privilégiant l'alternance marche/course pour construire une base solide sans risque de blessure. La clé de la perte de poids est la constance et le maintien d'une intensité faible à modérée. Je te recommande vivement de consulter un médecin avant de débuter ce programme, notamment pour obtenir un certificat médical d'aptitude au sport."
+    },
+    "location": {
+      "stringValue": "Metz"
+    },
+    "confidenceScore": {
+      "integerValue": "80"
+    },
+    "feasibility": {
+      "mapValue": {
+        "fields": {
+          "safetyWarning": {
+            "stringValue": "Investis dans de bonnes chaussures avec un bon amorti et privilégie les surfaces souples quand c'est possible. Pense à bien t'hydrater et à écouter ton corps."
+          },
+          "message": {
+            "stringValue": "Ton programme perte de poids sur 12 semaines est bien calibré pour ton profil. Avec ta VMA de 10.3 km/h, concentre-toi sur la régularité et le plaisir."
+          },
+          "status": {
+            "stringValue": "BON"
+          }
+        }
+      }
+    },
+    "durationWeeks": {
+      "integerValue": "12"
+    },
+    "calculatedVMA": {
+      "doubleValue": 10.34485856217605
+    },
+    "suggestedLocations": {
+      "arrayValue": {
+        "values": [
+          {
+            "mapValue": {
+              "fields": {
+                "type": {
+                  "stringValue": "PARK"
+                },
+                "description": {
+                  "stringValue": "Un parc moderne et plat, idéal pour les séances de marche/course grâce à ses allées larges et bien entretenues. Facile d'accès pour des sessions 'entre midi'."
+                },
+                "name": {
+                  "stringValue": "Parc de la Seille"
+                }
+              }
+            }
+          },
+          {
+            "mapValue": {
+              "fields": {
+                "type": {
+                  "stringValue": "NATURE"
+                },
+                "description": {
+                  "stringValue": "Un parcours plat et agréable le long de l'eau, parfait pour les sorties longues et les sessions d'endurance fondamentale. Cadre apaisant."
+                },
+                "name": {
+                  "stringValue": "Plan d'eau de la Ville de Metz"
+                }
+              }
+            }
+          },
+          {
+            "mapValue": {
+              "fields": {
+                "type": {
+                  "stringValue": "NATURE"
+                },
+                "name": {
+                  "stringValue": "Forêt de Saint-Quentin"
+                },
+                "description": {
+                  "stringValue": "Des sentiers en forêt avec de légères variations de dénivelé, offrant un terrain plus varié et un environnement ressourçant pour des footings doux."
+                }
+              }
+            }
+          }
+        ]
+      }
+    },
+    "vmaSource": {
+      "stringValue": "Moyenne 5km en 31min et 10km en 1h03"
+    },
+    "endDate": {
+      "stringValue": "2026-08-03"
+    },
+    "vma": {
+      "doubleValue": 10.34485856217605
+    },
+    "targetTime": {
+      "stringValue": "Finisher"
+    },
+    "fullPlanGenerated": {
+      "booleanValue": false
+    }
+  },
+  "createTime": "2026-05-15T17:54:18.471440Z",
+  "updateTime": "2026-05-15T17:54:18.471440Z"
+}

@@ -1,0 +1,613 @@
+{
+  "name": "projects/coach-running-ia/databases/(default)/documents/plans/1779029895523",
+  "fields": {
+    "feasibility": {
+      "mapValue": {
+        "fields": {
+          "safetyWarning": {
+            "stringValue": "Plan court (7 sem) pour ton profil mais bien calibré côté volume et D+. Privilégie chaussures avec bon amorti, surfaces souples à l'entraînement. Marche les descentes raides (protège quadriceps et genoux). Hydrate-toi bien, échauffe-toi 10 min avant chaque séance. Consulte ton médecin avant de démarrer. Douleur articulaire persistante → arrête."
+          },
+          "status": {
+            "stringValue": "AMBITIEUX"
+          },
+          "score": {
+            "integerValue": "55"
+          },
+          "message": {
+            "stringValue": "Ton profil est très bien adapté à ce trail de 20km / 1000m D+. Avec ta VMA de 11.1 km/h et 7 semaines de préparation, les conditions sont réunies pour une belle course."
+          }
+        }
+      }
+    },
+    "userId": {
+      "stringValue": "2D1Puvf4oLVeTBjCKHzvb8ZansL2"
+    },
+    "adaptationLog": {
+      "mapValue": {
+        "fields": {
+          "weekNumber": {
+            "integerValue": "0"
+          },
+          "adaptationHistory": {
+            "arrayValue": {}
+          },
+          "adaptationsThisWeek": {
+            "integerValue": "0"
+          }
+        }
+      }
+    },
+    "raceDate": {
+      "stringValue": "2026-07-04"
+    },
+    "paces": {
+      "mapValue": {
+        "fields": {
+          "seuilPace": {
+            "stringValue": "6:12"
+          },
+          "efPace": {
+            "stringValue": "8:04"
+          },
+          "allureSpecifique5k": {
+            "stringValue": "5:41"
+          },
+          "allureSpecifiqueSemi": {
+            "stringValue": "6:21"
+          },
+          "allureSpecifiqueMarathon": {
+            "stringValue": "6:45"
+          },
+          "allureSpecifique10k": {
+            "stringValue": "6:00"
+          },
+          "vmaPace": {
+            "stringValue": "5:24"
+          },
+          "eaPace": {
+            "stringValue": "7:01"
+          },
+          "recoveryPace": {
+            "stringValue": "9:00"
+          }
+        }
+      }
+    },
+    "suggestedLocations": {
+      "arrayValue": {
+        "values": [
+          {
+            "mapValue": {
+              "fields": {
+                "type": {
+                  "stringValue": "PARK"
+                },
+                "name": {
+                  "stringValue": "Parc Borély"
+                },
+                "description": {
+                  "stringValue": "Pour les footings en endurance fondamentale, plat, idéal pour les récupérations."
+                }
+              }
+            }
+          },
+          {
+            "mapValue": {
+              "fields": {
+                "type": {
+                  "stringValue": "NATURE"
+                },
+                "description": {
+                  "stringValue": "Pour les sorties longues trail avec dénivelé, les footings vallonnés et le travail en côte."
+                },
+                "name": {
+                  "stringValue": "Massif de Marseilleveyre"
+                }
+              }
+            }
+          },
+          {
+            "mapValue": {
+              "fields": {
+                "type": {
+                  "stringValue": "TRACK"
+                },
+                "description": {
+                  "stringValue": "Pour les séances de fractionné et de vitesse (à partir des phases de développement)."
+                },
+                "name": {
+                  "stringValue": "Piste d'athlétisme Stade Delort"
+                }
+              }
+            }
+          }
+        ]
+      }
+    },
+    "targetTime": {
+      "stringValue": "Finisher"
+    },
+    "startDate": {
+      "stringValue": "2026-05-11"
+    },
+    "confidenceScore": {
+      "integerValue": "55"
+    },
+    "distance": {
+      "stringValue": "20km D+1000m"
+    },
+    "id": {
+      "stringValue": "1779029895523"
+    },
+    "vmaSource": {
+      "stringValue": "10km en 1h00"
+    },
+    "calculatedVMA": {
+      "doubleValue": 11.11111111111111
+    },
+    "vma": {
+      "doubleValue": 11.11111111111111
+    },
+    "endDate": {
+      "stringValue": "2026-06-29"
+    },
+    "generationContext": {
+      "mapValue": {
+        "fields": {
+          "vmaSource": {
+            "stringValue": "10km en 1h00"
+          },
+          "modelUsed": {
+            "stringValue": "gemini-2.5-flash"
+          },
+          "periodizationPlan": {
+            "mapValue": {
+              "fields": {
+                "recoveryWeeks": {
+                  "arrayValue": {
+                    "values": [
+                      {
+                        "integerValue": "4"
+                      }
+                    ]
+                  }
+                },
+                "weeklyVolumes": {
+                  "arrayValue": {
+                    "values": [
+                      {
+                        "integerValue": "29"
+                      },
+                      {
+                        "integerValue": "30"
+                      },
+                      {
+                        "integerValue": "30"
+                      },
+                      {
+                        "integerValue": "27"
+                      },
+                      {
+                        "integerValue": "30"
+                      },
+                      {
+                        "integerValue": "30"
+                      },
+                      {
+                        "integerValue": "21"
+                      }
+                    ]
+                  }
+                },
+                "totalWeeks": {
+                  "integerValue": "7"
+                },
+                "weeklyPhases": {
+                  "arrayValue": {
+                    "values": [
+                      {
+                        "stringValue": "fondamental"
+                      },
+                      {
+                        "stringValue": "fondamental"
+                      },
+                      {
+                        "stringValue": "developpement"
+                      },
+                      {
+                        "stringValue": "recuperation"
+                      },
+                      {
+                        "stringValue": "specifique"
+                      },
+                      {
+                        "stringValue": "specifique"
+                      },
+                      {
+                        "stringValue": "affutage"
+                      }
+                    ]
+                  }
+                }
+              }
+            }
+          },
+          "paces": {
+            "mapValue": {
+              "fields": {
+                "efPace": {
+                  "stringValue": "8:04"
+                },
+                "seuilPace": {
+                  "stringValue": "6:12"
+                },
+                "allureSpecifiqueMarathon": {
+                  "stringValue": "6:45"
+                },
+                "allureSpecifiqueSemi": {
+                  "stringValue": "6:21"
+                },
+                "allureSpecifique5k": {
+                  "stringValue": "5:41"
+                },
+                "vmaPace": {
+                  "stringValue": "5:24"
+                },
+                "allureSpecifique10k": {
+                  "stringValue": "6:00"
+                },
+                "recoveryPace": {
+                  "stringValue": "9:00"
+                },
+                "eaPace": {
+                  "stringValue": "7:01"
+                }
+              }
+            }
+          },
+          "generatedAt": {
+            "stringValue": "2026-05-17T14:57:55.107Z"
+          },
+          "vma": {
+            "doubleValue": 11.11111111111111
+          },
+          "questionnaireSnapshot": {
+            "mapValue": {
+              "fields": {
+                "vma": {
+                  "doubleValue": 11.11111111111111
+                },
+                "level": {
+                  "stringValue": "Intermédiaire (Régulier)"
+                },
+                "injuries": {
+                  "mapValue": {
+                    "fields": {
+                      "hasInjury": {
+                        "booleanValue": false
+                      }
+                    }
+                  }
+                },
+                "weight": {
+                  "integerValue": "68"
+                },
+                "height": {
+                  "integerValue": "158"
+                },
+                "sex": {
+                  "stringValue": "Femme"
+                },
+                "raceDate": {
+                  "stringValue": "2026-07-04"
+                },
+                "email": {
+                  "stringValue": "valentinemery2004@gmail.com"
+                },
+                "trailDetails": {
+                  "mapValue": {
+                    "fields": {
+                      "distance": {
+                        "integerValue": "20"
+                      },
+                      "elevation": {
+                        "integerValue": "1000"
+                      }
+                    }
+                  }
+                },
+                "frequency": {
+                  "integerValue": "4"
+                },
+                "currentWeeklyElevation": {
+                  "integerValue": "600"
+                },
+                "age": {
+                  "integerValue": "21"
+                },
+                "currentWeeklyVolume": {
+                  "integerValue": "25"
+                },
+                "startDate": {
+                  "stringValue": "2026-05-17"
+                },
+                "recentRaceTimes": {
+                  "mapValue": {
+                    "fields": {
+                      "distance10km": {
+                        "stringValue": "1h00"
+                      }
+                    }
+                  }
+                },
+                "preferredDays": {
+                  "arrayValue": {}
+                },
+                "goal": {
+                  "stringValue": "Trail"
+                },
+                "city": {
+                  "stringValue": "Marseille"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "welcomeMessage": {
+      "stringValue": "Bonjour Valentine,\n\nBienvenue dans ton plan d'entraînement pour ton trail 20 km / 1000 m D+ début juillet.\n\nBonne nouvelle : ton volume actuel (25 km/sem) et ton D+ hebdomadaire (600 m/sem) couvrent largement les exigences de la course. Ton corps connaît déjà le terrain vallonné, c'est ton meilleur atout. Le plan est calibré pour t'amener au pic à environ 25 km/sem et 930 m de D+ hebdo, ce qui correspond aux standards pour ce type de trail.\n\n⚠️ Le point d'attention : 7 semaines de préparation, c'est court. Il y a peu de marge en cas d'imprévu (rhume, petite blessure, semaine ratée). La consolidation des tendons sur les sorties longues vallonnées prend habituellement 8-12 semaines, on est à la limite. Soyons donc particulièrement vigilante sur les sensations dès les premières séances.\n\n🎯 Quelques conseils pour mettre toutes les chances de ton côté :\n- Sois rigoureuse sur les semaines d'endurance fondamentale (S1-S3) : c'est là que se construisent les bases.\n- Marche les descentes raides à l'entraînement comme en course — c'est ce qui protège tes quadriceps et tes genoux.\n- Écoute ton corps : douleur articulaire persistante (genou, cheville) ou tendineuse → arrête immédiatement, repos ou avis kiné.\n- Si une semaine ne se passe pas comme prévu, n'essaie pas de \"rattraper\" — reprends à l'étape précédente, la régularité prime.\n\n🩺 Avant de démarrer : un certificat médical d'aptitude à la course à pied est indispensable. Investis dans de bonnes chaussures de trail avec un bon amorti, privilégie les surfaces souples à l'entraînement.\n\nTu peux y arriver — ton profil le permet. Reste à l'écoute de ton corps et fais-toi confiance.\n\nBonne préparation."
+    },
+    "isPreview": {
+      "booleanValue": true
+    },
+    "weeks": {
+      "arrayValue": {
+        "values": [
+          {
+            "mapValue": {
+              "fields": {
+                "weekNumber": {
+                  "integerValue": "1"
+                },
+                "theme": {
+                  "stringValue": "Mise en place de l'endurance fondamentale et renforcement"
+                },
+                "sessions": {
+                  "arrayValue": {
+                    "values": [
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "id": {
+                              "stringValue": "w1-s1-1779029895524-815mvz6"
+                            },
+                            "title": {
+                              "stringValue": "Footing en endurance fondamentale"
+                            },
+                            "distance": {
+                              "stringValue": "6.0 km"
+                            },
+                            "mainSet": {
+                              "stringValue": "30 min en endurance fondamentale, allure régulière et confortable (8:04). Tu dois pouvoir tenir une conversation tout du long. (allure : 8:04 min/km)"
+                            },
+                            "day": {
+                              "stringValue": "Mardi"
+                            },
+                            "locationSuggestion": {
+                              "stringValue": "Parc Borély"
+                            },
+                            "warmup": {
+                              "stringValue": "5 min de marche active, à 9:00 min/km, puis montée progressive vers l'allure d'endurance fondamentale."
+                            },
+                            "intensity": {
+                              "stringValue": "Facile"
+                            },
+                            "elevationGain": {
+                              "integerValue": "90"
+                            },
+                            "cooldown": {
+                              "stringValue": "5 min de footing très lent puis marche. (à 9:00 min/km)"
+                            },
+                            "type": {
+                              "stringValue": "Jogging"
+                            },
+                            "targetPace": {
+                              "stringValue": "8:04 min/km"
+                            },
+                            "duration": {
+                              "stringValue": "48 min"
+                            },
+                            "advice": {
+                              "stringValue": "C'est la séance qui construit ton moteur aérobie : cœur, capillaires, tendons. La régularité de l'allure est l'objectif, pas la vitesse."
+                            }
+                          }
+                        }
+                      },
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "type": {
+                              "stringValue": "Renforcement"
+                            },
+                            "advice": {
+                              "stringValue": "La qualité de l'exécution prime sur la quantité. Réalise les mouvements lentement et de manière contrôlée. Adapte les exercices si nécessaire et écoute ton corps."
+                            },
+                            "duration": {
+                              "stringValue": "35-40 min"
+                            },
+                            "targetPace": {
+                              "stringValue": "N/A"
+                            },
+                            "cooldown": {
+                              "stringValue": "5 min d'étirements : quadriceps, ischio-jambiers, mollets, hanches"
+                            },
+                            "warmup": {
+                              "stringValue": "10 min de mobilité articulaire et échauffement dynamique"
+                            },
+                            "intensity": {
+                              "stringValue": "Modéré"
+                            },
+                            "elevationGain": {
+                              "integerValue": "0"
+                            },
+                            "id": {
+                              "stringValue": "w1-s2-1779029895524-rm8nzi5"
+                            },
+                            "title": {
+                              "stringValue": "Renfo Trail Focus A - Quadriceps & Excentrique (S1)"
+                            },
+                            "distance": {
+                              "stringValue": "0.0 km"
+                            },
+                            "mainSet": {
+                              "stringValue": "Circuit 3 tours : Squats poids de corps (3x14), Squat bulgare (3x9/jambe), Fentes avant (3x9/jambe), Gainage ventral (3x27-60s), Dead bug (3x9/côté), Extensions mollets debout (3x18), Squat excentrique (descente 4s) (3x9), Step-down excentrique (3x7/jambe), Mollets debout unipodal (3x11/jambe). Repos 1 min 30 entre tours."
+                            },
+                            "day": {
+                              "stringValue": "Jeudi"
+                            },
+                            "locationSuggestion": {
+                              "stringValue": "À la maison"
+                            }
+                          }
+                        }
+                      },
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "elevationGain": {
+                              "integerValue": "120"
+                            },
+                            "warmup": {
+                              "stringValue": "10 min de footing, à 9:00 min/km en endurance fondamentale sur terrain plat ou faux-plat."
+                            },
+                            "intensity": {
+                              "stringValue": "Facile"
+                            },
+                            "mainSet": {
+                              "stringValue": "42 min sur parcours vallonné. Les montées les plus raides se franchissent en marche active et dynamique (poussée des bras, gainage). Le plat et les descentes douces se courent en endurance fondamentale (8:04 en référence). Tu gères l'effort, pas le chrono. (allure : 8:04 min/km)"
+                            },
+                            "locationSuggestion": {
+                              "stringValue": "Massif de Marseilleveyre"
+                            },
+                            "day": {
+                              "stringValue": "Samedi"
+                            },
+                            "title": {
+                              "stringValue": "Footing vallonné, côtes en marche"
+                            },
+                            "id": {
+                              "stringValue": "w1-s3-1779029895524-658nx30"
+                            },
+                            "distance": {
+                              "stringValue": "7.5 km"
+                            },
+                            "duration": {
+                              "stringValue": "60 min"
+                            },
+                            "targetPace": {
+                              "stringValue": "8:04 min/km"
+                            },
+                            "advice": {
+                              "stringValue": "Franchir les montées raides en marche active limite le travail excentrique tout en construisant les chaînes musculaires. Une approche accessible du relief, peu traumatisante."
+                            },
+                            "type": {
+                              "stringValue": "Jogging"
+                            },
+                            "cooldown": {
+                              "stringValue": "5 à 10 min de footing plat puis marche. (à 9:00 min/km)"
+                            }
+                          }
+                        }
+                      },
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "mainSet": {
+                              "stringValue": "45 min de course en endurance fondamentale (allure 8:04 min/km) sur les sentiers du Massif de Marseilleveyre. L'objectif est de s'habituer au temps passé debout et à la variété du terrain. Gère l'effort dans les montées en réduisant l'allure ou en marchant activement."
+                            },
+                            "locationSuggestion": {
+                              "stringValue": "Massif de Marseilleveyre"
+                            },
+                            "day": {
+                              "stringValue": "Dimanche"
+                            },
+                            "title": {
+                              "stringValue": "Sortie longue nature en endurance"
+                            },
+                            "id": {
+                              "stringValue": "w1-s4-1779029895524-1mp4qhg"
+                            },
+                            "distance": {
+                              "stringValue": "8.8 km"
+                            },
+                            "elevationGain": {
+                              "integerValue": "390"
+                            },
+                            "warmup": {
+                              "stringValue": "10 min de marche rapide, à 9:00 min/km et 5 min de course très lente en terrain varié."
+                            },
+                            "intensity": {
+                              "stringValue": "Facile"
+                            },
+                            "cooldown": {
+                              "stringValue": "10 min de marche lente pour relâcher les muscles, suivies d'étirements spécifiques des mollets, quadriceps et ischio-jambiers. (à 9:00 min/km)"
+                            },
+                            "targetPace": {
+                              "stringValue": "8:04 min/km"
+                            },
+                            "duration": {
+                              "stringValue": "1h 10 min"
+                            },
+                            "advice": {
+                              "stringValue": "Cette sortie est la clé pour habituer ton corps à la durée et au terrain du trail. Ne cherche pas la vitesse, mais la régularité et l'aisance. Prends le temps d'admirer le paysage et d'écouter les sensations de ton corps. Hydrate-toi bien avant et après la séance."
+                            },
+                            "type": {
+                              "stringValue": "Sortie Longue"
+                            }
+                          }
+                        }
+                      }
+                    ]
+                  }
+                },
+                "weekGoal": {
+                  "stringValue": "Mise en place de l'endurance fondamentale et renforcement"
+                },
+                "phase": {
+                  "stringValue": "fondamental"
+                }
+              }
+            }
+          }
+        ]
+      }
+    },
+    "location": {
+      "stringValue": "Marseille"
+    },
+    "fullPlanGenerated": {
+      "booleanValue": false
+    },
+    "userEmail": {
+      "stringValue": "valentinemery2004@gmail.com"
+    },
+    "createdAt": {
+      "stringValue": "2026-05-17T14:58:15.523Z"
+    },
+    "sessionsPerWeek": {
+      "integerValue": "4"
+    },
+    "durationWeeks": {
+      "integerValue": "7"
+    },
+    "name": {
+      "stringValue": "Préparation Trail 20km / 1000m D+ — Finisher — 7 sem."
+    },
+    "goal": {
+      "stringValue": "Trail"
+    }
+  },
+  "createTime": "2026-05-17T14:58:32.215639Z",
+  "updateTime": "2026-05-18T18:36:39.750666Z"
+}

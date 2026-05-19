@@ -1,0 +1,640 @@
+{
+  "name": "projects/coach-running-ia/databases/(default)/documents/plans/1778948515911",
+  "fields": {
+    "suggestedLocations": {
+      "arrayValue": {
+        "values": [
+          {
+            "mapValue": {
+              "fields": {
+                "description": {
+                  "stringValue": "Pour les sorties longues et footings vallonnés, offrant des vues magnifiques et du dénivelé progressif."
+                },
+                "name": {
+                  "stringValue": "Les Sentiers du Poët-Laval"
+                },
+                "type": {
+                  "stringValue": "NATURE"
+                }
+              }
+            }
+          },
+          {
+            "mapValue": {
+              "fields": {
+                "name": {
+                  "stringValue": "Chemins de campagne de la Valdaine"
+                },
+                "description": {
+                  "stringValue": "Pour des footings en endurance fondamentale sur des chemins plus roulants et légèrement vallonnés."
+                },
+                "type": {
+                  "stringValue": "NATURE"
+                }
+              }
+            }
+          },
+          {
+            "mapValue": {
+              "fields": {
+                "description": {
+                  "stringValue": "Un site naturel exceptionnel pour des sorties longues plus engagées avec un dénivelé varié."
+                },
+                "name": {
+                  "stringValue": "La Forêt de Saou"
+                },
+                "type": {
+                  "stringValue": "NATURE"
+                }
+              }
+            }
+          }
+        ]
+      }
+    },
+    "feasibilityStatus": {
+      "stringValue": "AMBITIEUX"
+    },
+    "adaptationLog": {
+      "mapValue": {
+        "fields": {
+          "adaptationsThisWeek": {
+            "integerValue": "0"
+          },
+          "weekNumber": {
+            "integerValue": "0"
+          },
+          "adaptationHistory": {
+            "arrayValue": {}
+          }
+        }
+      }
+    },
+    "confidenceScore": {
+      "integerValue": "32"
+    },
+    "vmaSource": {
+      "stringValue": "Estimation niveau Intermédiaire (Régulier)"
+    },
+    "generationContext": {
+      "mapValue": {
+        "fields": {
+          "generatedAt": {
+            "stringValue": "2026-05-16T16:21:18.857Z"
+          },
+          "vma": {
+            "doubleValue": 13.5
+          },
+          "periodizationPlan": {
+            "mapValue": {
+              "fields": {
+                "totalWeeks": {
+                  "integerValue": "17"
+                },
+                "weeklyVolumes": {
+                  "arrayValue": {
+                    "values": [
+                      {
+                        "integerValue": "30"
+                      },
+                      {
+                        "integerValue": "32"
+                      },
+                      {
+                        "integerValue": "35"
+                      },
+                      {
+                        "integerValue": "27"
+                      },
+                      {
+                        "integerValue": "31"
+                      },
+                      {
+                        "integerValue": "36"
+                      },
+                      {
+                        "integerValue": "38"
+                      },
+                      {
+                        "integerValue": "30"
+                      },
+                      {
+                        "integerValue": "35"
+                      },
+                      {
+                        "integerValue": "38"
+                      },
+                      {
+                        "integerValue": "40"
+                      },
+                      {
+                        "integerValue": "31"
+                      },
+                      {
+                        "integerValue": "36"
+                      },
+                      {
+                        "integerValue": "38"
+                      },
+                      {
+                        "integerValue": "40"
+                      },
+                      {
+                        "integerValue": "25"
+                      },
+                      {
+                        "integerValue": "20"
+                      }
+                    ]
+                  }
+                },
+                "recoveryWeeks": {
+                  "arrayValue": {
+                    "values": [
+                      {
+                        "integerValue": "4"
+                      },
+                      {
+                        "integerValue": "8"
+                      },
+                      {
+                        "integerValue": "12"
+                      }
+                    ]
+                  }
+                },
+                "weeklyPhases": {
+                  "arrayValue": {
+                    "values": [
+                      {
+                        "stringValue": "fondamental"
+                      },
+                      {
+                        "stringValue": "fondamental"
+                      },
+                      {
+                        "stringValue": "fondamental"
+                      },
+                      {
+                        "stringValue": "recuperation"
+                      },
+                      {
+                        "stringValue": "fondamental"
+                      },
+                      {
+                        "stringValue": "developpement"
+                      },
+                      {
+                        "stringValue": "developpement"
+                      },
+                      {
+                        "stringValue": "recuperation"
+                      },
+                      {
+                        "stringValue": "developpement"
+                      },
+                      {
+                        "stringValue": "developpement"
+                      },
+                      {
+                        "stringValue": "specifique"
+                      },
+                      {
+                        "stringValue": "recuperation"
+                      },
+                      {
+                        "stringValue": "specifique"
+                      },
+                      {
+                        "stringValue": "specifique"
+                      },
+                      {
+                        "stringValue": "specifique"
+                      },
+                      {
+                        "stringValue": "affutage"
+                      },
+                      {
+                        "stringValue": "affutage"
+                      }
+                    ]
+                  }
+                }
+              }
+            }
+          },
+          "modelUsed": {
+            "stringValue": "gemini-2.5-flash"
+          },
+          "paces": {
+            "mapValue": {
+              "fields": {
+                "allureSpecifique10k": {
+                  "stringValue": "4:56"
+                },
+                "eaPace": {
+                  "stringValue": "5:46"
+                },
+                "allureSpecifiqueMarathon": {
+                  "stringValue": "5:33"
+                },
+                "seuilPace": {
+                  "stringValue": "5:07"
+                },
+                "allureSpecifique5k": {
+                  "stringValue": "4:41"
+                },
+                "efPace": {
+                  "stringValue": "6:38"
+                },
+                "allureSpecifiqueSemi": {
+                  "stringValue": "5:14"
+                },
+                "recoveryPace": {
+                  "stringValue": "7:24"
+                },
+                "vmaPace": {
+                  "stringValue": "4:27"
+                }
+              }
+            }
+          },
+          "questionnaireSnapshot": {
+            "mapValue": {
+              "fields": {
+                "currentWeeklyVolume": {
+                  "integerValue": "35"
+                },
+                "level": {
+                  "stringValue": "Intermédiaire (Régulier)"
+                },
+                "currentWeeklyElevation": {
+                  "integerValue": "130"
+                },
+                "city": {
+                  "stringValue": "Le Poet-Laval "
+                },
+                "trailDetails": {
+                  "mapValue": {
+                    "fields": {
+                      "elevation": {
+                        "integerValue": "490"
+                      },
+                      "distance": {
+                        "integerValue": "15"
+                      }
+                    }
+                  }
+                },
+                "frequency": {
+                  "integerValue": "3"
+                },
+                "vma": {
+                  "doubleValue": 13.5
+                },
+                "email": {
+                  "stringValue": "laurent_elisa26@orange.fr"
+                },
+                "recentRaceTimes": {
+                  "mapValue": {}
+                },
+                "startDate": {
+                  "stringValue": "2026-05-16"
+                },
+                "preferredDays": {
+                  "arrayValue": {}
+                },
+                "weight": {
+                  "integerValue": "58"
+                },
+                "height": {
+                  "integerValue": "173"
+                },
+                "goal": {
+                  "stringValue": "Trail"
+                },
+                "injuries": {
+                  "mapValue": {
+                    "fields": {
+                      "hasInjury": {
+                        "booleanValue": false
+                      }
+                    }
+                  }
+                },
+                "age": {
+                  "integerValue": "46"
+                },
+                "sex": {
+                  "stringValue": "Femme"
+                },
+                "raceDate": {
+                  "stringValue": "2026-09-06"
+                }
+              }
+            }
+          },
+          "vmaSource": {
+            "stringValue": "Estimation niveau Intermédiaire (Régulier)"
+          }
+        }
+      }
+    },
+    "id": {
+      "stringValue": "1778948515911"
+    },
+    "userId": {
+      "stringValue": "pU3EToUQWGgPJA3A8N8fHHm1Xct1"
+    },
+    "durationWeeks": {
+      "integerValue": "17"
+    },
+    "weeks": {
+      "arrayValue": {
+        "values": [
+          {
+            "mapValue": {
+              "fields": {
+                "phase": {
+                  "stringValue": "fondamental"
+                },
+                "weekVolumeTarget": {
+                  "integerValue": "27"
+                },
+                "sessions": {
+                  "arrayValue": {
+                    "values": [
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "duration": {
+                              "stringValue": "1h25"
+                            },
+                            "title": {
+                              "stringValue": "Footing nature modéré + côtes courtes"
+                            },
+                            "pace": {
+                              "stringValue": "6:30 à 6:45"
+                            },
+                            "distance": {
+                              "stringValue": "13 km"
+                            },
+                            "description": {
+                              "stringValue": "Footing en endurance fondamentale sur terrain nature/vallonné. Inclure 4-5 côtes courtes (1 min) en course souple, redescente en marche active pour récupérer. Allure conversationnelle, pas d'effort soutenu."
+                            },
+                            "type": {
+                              "stringValue": "Jogging"
+                            },
+                            "day": {
+                              "stringValue": "Mardi"
+                            }
+                          }
+                        }
+                      },
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "distance": {
+                              "stringValue": "0 km"
+                            },
+                            "description": {
+                              "stringValue": "Renforcement spécifique trail : quadriceps, fessiers, gainage, excentrique mollets. Échauffement 5min + circuit 30min (squats, fentes avants/arrières, descentes contrôlées, gainage planche, pont fessier excentrique)."
+                            },
+                            "day": {
+                              "stringValue": "Jeudi"
+                            },
+                            "type": {
+                              "stringValue": "Renforcement"
+                            },
+                            "duration": {
+                              "stringValue": "35-40 min"
+                            },
+                            "title": {
+                              "stringValue": "Renfo Trail Focus A - Quadriceps & Excentrique (S1)"
+                            }
+                          }
+                        }
+                      },
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "type": {
+                              "stringValue": "Sortie Longue"
+                            },
+                            "day": {
+                              "stringValue": "Dimanche"
+                            },
+                            "pace": {
+                              "stringValue": "6:45 à 7:00"
+                            },
+                            "distance": {
+                              "stringValue": "14 km"
+                            },
+                            "description": {
+                              "stringValue": "Sortie longue en endurance fondamentale sur terrain vallonné (~D+200m). Allure très facile, conversation possible. Marche autorisée dans les montées raides si besoin. C'est la construction de la durée et de l'aisance."
+                            },
+                            "title": {
+                              "stringValue": "Sortie Longue trail en endurance fondamentale"
+                            },
+                            "duration": {
+                              "stringValue": "1h35"
+                            }
+                          }
+                        }
+                      }
+                    ]
+                  }
+                },
+                "weekGoal": {
+                  "stringValue": "Introduction à l'Endurance Fondamentale et au Trail Doux"
+                },
+                "weekNumber": {
+                  "integerValue": "1"
+                },
+                "theme": {
+                  "stringValue": "Introduction à l'Endurance Fondamentale et au Trail Doux"
+                }
+              }
+            }
+          }
+        ]
+      }
+    },
+    "fullPlanGenerated": {
+      "booleanValue": false
+    },
+    "welcomeMessage": {
+      "stringValue": "Bienvenue Elisa ! Ton plan de 17 semaines vise à te faire finir le Trail de 15 km D+490m avec confiance et plaisir.\n\n⚠️ **Alerte calibration** : tu n'as pas saisi de chrono récent (5K, 10K…), donc ta VMA actuelle (13,5 km/h) est estimée par défaut depuis ton niveau Intermédiaire. Les allures du plan (EF 6:38, seuil 5:07, etc.) sont théoriques et peuvent être trop rapides pour toi. **Recommandation : fais un test VMA sur piste ou saisis un chrono récent pour calibrer le plan**. En attendant, prends les allures comme indicatives et ajuste à la sensation (effort modéré = conversation possible).\n\n💡 **Reco fréquence** : tu fais déjà 35 km/sem en 3 séances (2 course + 1 renfo) = environ 17 km par sortie. Passer à **4 séances/sem** (3 course + 1 renfo) répartirait mieux la charge et permettrait d'introduire plus de travail technique (côtes structurées, footing technique). Tu peux le modifier dans ton profil à tout moment.\n\n📈 **L'enjeu principal de ta prépa** : faire monter ton D+ hebdo de 130m actuel vers 500-600m en peak. Le D+ est le vrai challenge sur trail, plus que les km plats. Le plan intègre une progression progressive du dénivelé.\n\nÀ partir de 46 ans, la récupération est plus longue : respecte tes 48h entre 2 sorties intenses. Consulte un médecin avant de débuter pour un certificat médical d'aptitude et un bilan cardio-vasculaire conseillé. Écoute tes signaux : courbatures normales OK, douleur articulaire ou tendinite = STOP et adapte."
+    },
+    "welcomeBlock": {
+      "mapValue": {
+        "fields": {
+          "message": {
+            "stringValue": "Bienvenue Elisa ! Ton plan de 17 semaines vise à te faire finir le Trail de 15 km D+490m avec confiance et plaisir.\n\n⚠️ **Alerte calibration** : tu n'as pas saisi de chrono récent (5K, 10K…), donc ta VMA actuelle (13,5 km/h) est estimée par défaut depuis ton niveau Intermédiaire. Les allures du plan (EF 6:38, seuil 5:07, etc.) sont théoriques et peuvent être trop rapides pour toi. **Recommandation : fais un test VMA sur piste ou saisis un chrono récent pour calibrer le plan**. En attendant, prends les allures comme indicatives et ajuste à la sensation (effort modéré = conversation possible).\n\n💡 **Reco fréquence** : tu fais déjà 35 km/sem en 3 séances (2 course + 1 renfo) = environ 17 km par sortie. Passer à **4 séances/sem** (3 course + 1 renfo) répartirait mieux la charge et permettrait d'introduire plus de travail technique (côtes structurées, footing technique). Tu peux le modifier dans ton profil à tout moment.\n\n📈 **L'enjeu principal de ta prépa** : faire monter ton D+ hebdo de 130m actuel vers 500-600m en peak. Le D+ est le vrai challenge sur trail, plus que les km plats. Le plan intègre une progression progressive du dénivelé.\n\nÀ partir de 46 ans, la récupération est plus longue : respecte tes 48h entre 2 sorties intenses. Consulte un médecin avant de débuter pour un certificat médical d'aptitude et un bilan cardio-vasculaire conseillé. Écoute tes signaux : courbatures normales OK, douleur articulaire ou tendinite = STOP et adapte."
+          }
+        }
+      }
+    },
+    "name": {
+      "stringValue": "Préparation Trail 15km / 490m D+ — Finisher — 17 sem."
+    },
+    "targetTime": {
+      "stringValue": "Finisher"
+    },
+    "_patchedManuallyAt": {
+      "stringValue": "2026-05-16T21:21:53.802Z"
+    },
+    "userEmail": {
+      "stringValue": "laurent_elisa26@orange.fr"
+    },
+    "vma": {
+      "doubleValue": 13.5
+    },
+    "createdAt": {
+      "stringValue": "2026-05-16T16:21:55.911Z"
+    },
+    "feasibility": {
+      "mapValue": {
+        "fields": {
+          "reasons": {
+            "arrayValue": {
+              "values": [
+                {
+                  "mapValue": {
+                    "fields": {
+                      "type": {
+                        "stringValue": "warn"
+                      },
+                      "text": {
+                        "stringValue": "aucun chrono saisi pour calibrer ta VMA — les allures sont estimées depuis ton niveau auto-déclaré (Intermédiaire), donc à valider sur le terrain"
+                      }
+                    }
+                  }
+                },
+                {
+                  "mapValue": {
+                    "fields": {
+                      "text": {
+                        "stringValue": "volume actuel 35 km/sem en 2 sorties course = environ 17 km par sortie : c'est lourd, passer à 3 sorties course (4 séances/sem total) répartirait la charge"
+                      },
+                      "type": {
+                        "stringValue": "warn"
+                      }
+                    }
+                  }
+                },
+                {
+                  "mapValue": {
+                    "fields": {
+                      "text": {
+                        "stringValue": "dénivelé cible 490m vs ton actuel 130m/sem : la progression D+ sera l'enjeu majeur de ta prépa"
+                      },
+                      "type": {
+                        "stringValue": "risk"
+                      }
+                    }
+                  }
+                },
+                {
+                  "mapValue": {
+                    "fields": {
+                      "text": {
+                        "stringValue": "17 semaines de prépa avec volume de base solide (35 km/sem) : tu as une base saine pour ce trail finisher"
+                      },
+                      "type": {
+                        "stringValue": "good"
+                      }
+                    }
+                  }
+                },
+                {
+                  "mapValue": {
+                    "fields": {
+                      "type": {
+                        "stringValue": "good"
+                      },
+                      "text": {
+                        "stringValue": "46 ans avec 0 blessure déclarée : profil sain, mais reste à l'écoute (récupération 48h+ entre sorties intenses)"
+                      }
+                    }
+                  }
+                }
+              ]
+            }
+          },
+          "status": {
+            "stringValue": "AMBITIEUX"
+          },
+          "score": {
+            "integerValue": "32"
+          }
+        }
+      }
+    },
+    "location": {
+      "stringValue": "Le Poet-Laval "
+    },
+    "_patchedReason": {
+      "stringValue": "S1 rééquilibrée (Mardi 13 + Dimanche 14 = 27km au lieu de 29 mal distribués). Score honnête (VMA fictive). Welcome avec 3 alertes : calibration VMA / reco 4 séances / progression D+."
+    },
+    "paces": {
+      "mapValue": {
+        "fields": {
+          "allureSpecifiqueSemi": {
+            "stringValue": "5:14"
+          },
+          "recoveryPace": {
+            "stringValue": "7:24"
+          },
+          "vmaPace": {
+            "stringValue": "4:27"
+          },
+          "eaPace": {
+            "stringValue": "5:46"
+          },
+          "allureSpecifiqueMarathon": {
+            "stringValue": "5:33"
+          },
+          "allureSpecifique10k": {
+            "stringValue": "4:56"
+          },
+          "allureSpecifique5k": {
+            "stringValue": "4:41"
+          },
+          "efPace": {
+            "stringValue": "6:38"
+          },
+          "seuilPace": {
+            "stringValue": "5:07"
+          }
+        }
+      }
+    },
+    "startDate": {
+      "stringValue": "2026-05-11"
+    },
+    "distance": {
+      "stringValue": "15km D+490m"
+    },
+    "goal": {
+      "stringValue": "Trail"
+    },
+    "isPreview": {
+      "booleanValue": true
+    },
+    "raceDate": {
+      "stringValue": "2026-09-06"
+    },
+    "calculatedVMA": {
+      "doubleValue": 13.5
+    },
+    "sessionsPerWeek": {
+      "integerValue": "3"
+    },
+    "endDate": {
+      "stringValue": "2026-09-07"
+    }
+  },
+  "createTime": "2026-05-16T16:22:06.727163Z",
+  "updateTime": "2026-05-16T21:21:53.959686Z"
+}

@@ -1,0 +1,577 @@
+{
+  "name": "projects/coach-running-ia/databases/(default)/documents/plans/1773080065009",
+  "fields": {
+    "feasibility": {
+      "mapValue": {
+        "fields": {
+          "safetyWarning": {
+            "stringValue": "Adapte toujours l'intensité des séances à ton ressenti et hydrate-toi suffisamment, surtout en altitude."
+          },
+          "status": {
+            "stringValue": "BON"
+          },
+          "message": {
+            "stringValue": "Ton VMA de 11.1 km/h indique un potentiel théorique d'environ 1h54 au semi-marathon. Atteindre 1h59 est donc un objectif réaliste avec un entraînement structuré."
+          }
+        }
+      }
+    },
+    "userId": {
+      "stringValue": "qHkaLhRkItWHCIXG7iKy0h1vSv63"
+    },
+    "adaptationLog": {
+      "mapValue": {
+        "fields": {
+          "weekNumber": {
+            "integerValue": "0"
+          },
+          "adaptationsThisWeek": {
+            "integerValue": "0"
+          },
+          "adaptationHistory": {
+            "arrayValue": {}
+          }
+        }
+      }
+    },
+    "paces": {
+      "mapValue": {
+        "fields": {
+          "allureSpecifiqueMarathon": {
+            "stringValue": "6:45"
+          },
+          "allureSpecifique5k": {
+            "stringValue": "5:41"
+          },
+          "allureSpecifiqueSemi": {
+            "stringValue": "6:21"
+          },
+          "efPace": {
+            "stringValue": "8:04"
+          },
+          "seuilPace": {
+            "stringValue": "6:13"
+          },
+          "eaPace": {
+            "stringValue": "7:01"
+          },
+          "recoveryPace": {
+            "stringValue": "9:00"
+          },
+          "allureSpecifique10k": {
+            "stringValue": "6:00"
+          },
+          "vmaPace": {
+            "stringValue": "5:24"
+          }
+        }
+      }
+    },
+    "suggestedLocations": {
+      "arrayValue": {
+        "values": [
+          {
+            "mapValue": {
+              "fields": {
+                "type": {
+                  "stringValue": "PARK"
+                },
+                "name": {
+                  "stringValue": "Parc de Verbier"
+                },
+                "description": {
+                  "stringValue": "Idéal pour les footings de récupération et les sorties longues sur terrain plat."
+                }
+              }
+            }
+          },
+          {
+            "mapValue": {
+              "fields": {
+                "type": {
+                  "stringValue": "TRACK"
+                },
+                "name": {
+                  "stringValue": "Piste d'athlétisme de Bagnes"
+                },
+                "description": {
+                  "stringValue": "Parfait pour les séances de fractionné VMA et les tests de vitesse."
+                }
+              }
+            }
+          },
+          {
+            "mapValue": {
+              "fields": {
+                "name": {
+                  "stringValue": "Sentiers autour du Mont Rogneux"
+                },
+                "description": {
+                  "stringValue": "Adaptés aux sorties longues en nature et aux séances avec dénivelé."
+                },
+                "type": {
+                  "stringValue": "NATURE"
+                }
+              }
+            }
+          }
+        ]
+      }
+    },
+    "targetTime": {
+      "stringValue": "1h59"
+    },
+    "confidenceScore": {
+      "integerValue": "75"
+    },
+    "startDate": {
+      "stringValue": "2026-03-09"
+    },
+    "distance": {
+      "stringValue": "Semi-Marathon"
+    },
+    "id": {
+      "stringValue": "1773080065009"
+    },
+    "vmaSource": {
+      "stringValue": "Moyenne 5km en 28:10 et 10km en 1:00:55"
+    },
+    "calculatedVMA": {
+      "doubleValue": 11.104441341984057
+    },
+    "vma": {
+      "doubleValue": 11.104441341984057
+    },
+    "welcomeMessage": {
+      "stringValue": "Bienvenue dans ce plan de 10 semaines conçu pour atteindre ton objectif de 1h59 au semi-marathon. La première semaine est axée sur la construction d'une base solide avec des séances variées incluant endurance, seuil et renforcement musculaire. Nous allons progresser étape par étape pour atteindre ton but."
+    },
+    "generationContext": {
+      "mapValue": {
+        "fields": {
+          "questionnaireSnapshot": {
+            "mapValue": {
+              "fields": {
+                "goal": {
+                  "stringValue": "Course sur route"
+                },
+                "city": {
+                  "stringValue": "Bagnes"
+                },
+                "preferredDays": {
+                  "arrayValue": {}
+                },
+                "recentRaceTimes": {
+                  "mapValue": {
+                    "fields": {
+                      "distance10km": {
+                        "stringValue": "1:00:55"
+                      },
+                      "distanceHalfMarathon": {
+                        "stringValue": "2:09:43"
+                      },
+                      "distance5km": {
+                        "stringValue": "28:10"
+                      }
+                    }
+                  }
+                },
+                "startDate": {
+                  "stringValue": "2026-03-09"
+                },
+                "subGoal": {
+                  "stringValue": "Semi-Marathon"
+                },
+                "age": {
+                  "integerValue": "48"
+                },
+                "targetTime": {
+                  "stringValue": "1h59"
+                },
+                "currentWeeklyVolume": {
+                  "integerValue": "25"
+                },
+                "trailDetails": {
+                  "mapValue": {
+                    "fields": {
+                      "distance": {
+                        "integerValue": "20"
+                      },
+                      "elevation": {
+                        "integerValue": "500"
+                      }
+                    }
+                  }
+                },
+                "frequency": {
+                  "integerValue": "3"
+                },
+                "email": {
+                  "stringValue": "maximeschaer7@gmail.com"
+                },
+                "weight": {
+                  "integerValue": "58"
+                },
+                "height": {
+                  "integerValue": "164"
+                },
+                "raceDate": {
+                  "stringValue": "2026-05-24"
+                },
+                "sex": {
+                  "stringValue": "Femme"
+                },
+                "injuries": {
+                  "mapValue": {
+                    "fields": {
+                      "hasInjury": {
+                        "booleanValue": false
+                      }
+                    }
+                  }
+                },
+                "level": {
+                  "stringValue": "Confirmé (Compétition)"
+                },
+                "comments": {
+                  "stringValue": "je cours 2 a 3 fois par semaine"
+                }
+              }
+            }
+          },
+          "vma": {
+            "doubleValue": 11.104441341984057
+          },
+          "generatedAt": {
+            "stringValue": "2026-03-09T18:14:16.702Z"
+          },
+          "modelUsed": {
+            "stringValue": "gemini-2.0-flash"
+          },
+          "paces": {
+            "mapValue": {
+              "fields": {
+                "seuilPace": {
+                  "stringValue": "6:13"
+                },
+                "efPace": {
+                  "stringValue": "8:04"
+                },
+                "allureSpecifique5k": {
+                  "stringValue": "5:41"
+                },
+                "allureSpecifiqueSemi": {
+                  "stringValue": "6:21"
+                },
+                "allureSpecifiqueMarathon": {
+                  "stringValue": "6:45"
+                },
+                "allureSpecifique10k": {
+                  "stringValue": "6:00"
+                },
+                "vmaPace": {
+                  "stringValue": "5:24"
+                },
+                "eaPace": {
+                  "stringValue": "7:01"
+                },
+                "recoveryPace": {
+                  "stringValue": "9:00"
+                }
+              }
+            }
+          },
+          "periodizationPlan": {
+            "mapValue": {
+              "fields": {
+                "weeklyPhases": {
+                  "arrayValue": {
+                    "values": [
+                      {
+                        "stringValue": "fondamental"
+                      },
+                      {
+                        "stringValue": "fondamental"
+                      },
+                      {
+                        "stringValue": "fondamental"
+                      },
+                      {
+                        "stringValue": "recuperation"
+                      },
+                      {
+                        "stringValue": "developpement"
+                      },
+                      {
+                        "stringValue": "developpement"
+                      },
+                      {
+                        "stringValue": "specifique"
+                      },
+                      {
+                        "stringValue": "recuperation"
+                      },
+                      {
+                        "stringValue": "affutage"
+                      },
+                      {
+                        "stringValue": "affutage"
+                      }
+                    ]
+                  }
+                },
+                "totalWeeks": {
+                  "integerValue": "10"
+                },
+                "weeklyVolumes": {
+                  "arrayValue": {
+                    "values": [
+                      {
+                        "integerValue": "25"
+                      },
+                      {
+                        "integerValue": "28"
+                      },
+                      {
+                        "integerValue": "30"
+                      },
+                      {
+                        "integerValue": "23"
+                      },
+                      {
+                        "integerValue": "33"
+                      },
+                      {
+                        "integerValue": "37"
+                      },
+                      {
+                        "integerValue": "40"
+                      },
+                      {
+                        "integerValue": "31"
+                      },
+                      {
+                        "integerValue": "28"
+                      },
+                      {
+                        "integerValue": "22"
+                      }
+                    ]
+                  }
+                },
+                "recoveryWeeks": {
+                  "arrayValue": {
+                    "values": [
+                      {
+                        "integerValue": "4"
+                      },
+                      {
+                        "integerValue": "8"
+                      }
+                    ]
+                  }
+                }
+              }
+            }
+          },
+          "vmaSource": {
+            "stringValue": "Moyenne 5km en 28:10 et 10km en 1:00:55"
+          }
+        }
+      }
+    },
+    "isPreview": {
+      "booleanValue": true
+    },
+    "weeks": {
+      "arrayValue": {
+        "values": [
+          {
+            "mapValue": {
+              "fields": {
+                "phase": {
+                  "stringValue": "fondamental"
+                },
+                "theme": {
+                  "stringValue": "Fondamentaux et Reprise"
+                },
+                "sessions": {
+                  "arrayValue": {
+                    "values": [
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "type": {
+                              "stringValue": "Endurance"
+                            },
+                            "duration": {
+                              "stringValue": "45 minutes"
+                            },
+                            "targetPace": {
+                              "stringValue": "8:04 min/km"
+                            },
+                            "advice": {
+                              "stringValue": "Ce footing doit être facile et agréable. Concentre-toi sur ton respiration et ton posture."
+                            },
+                            "cooldown": {
+                              "stringValue": "5 minutes de marche lente et étirements."
+                            },
+                            "intensity": {
+                              "stringValue": "Facile"
+                            },
+                            "warmup": {
+                              "stringValue": "10 minutes de marche rapide et quelques étirements dynamiques."
+                            },
+                            "elevationGain": {
+                              "integerValue": "0"
+                            },
+                            "distance": {
+                              "stringValue": "6 km"
+                            },
+                            "title": {
+                              "stringValue": "Footing Léger"
+                            },
+                            "id": {
+                              "stringValue": "w1-s1-1773080065009-ldtyp1p"
+                            },
+                            "locationSuggestion": {
+                              "stringValue": "Parc de Verbier"
+                            },
+                            "day": {
+                              "stringValue": "Mardi"
+                            },
+                            "mainSet": {
+                              "stringValue": "35 minutes de course continue en endurance fondamentale à 8:04 min/km."
+                            }
+                          }
+                        }
+                      },
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "warmup": {
+                              "stringValue": "5 minutes de cardio léger (sauts, montées de genoux)."
+                            },
+                            "type": {
+                              "stringValue": "Renforcement"
+                            },
+                            "intensity": {
+                              "stringValue": "Modéré"
+                            },
+                            "elevationGain": {
+                              "integerValue": "0"
+                            },
+                            "advice": {
+                              "stringValue": "Exécutez les mouvements lentement et correctement pour éviter les blessures. Contractez bien les abdominaux pendant les exercices."
+                            },
+                            "duration": {
+                              "stringValue": "35 minutes"
+                            },
+                            "id": {
+                              "stringValue": "w1-s2-1773080065009-3ihntk8"
+                            },
+                            "title": {
+                              "stringValue": "Renforcement Musculaire Spécifique"
+                            },
+                            "cooldown": {
+                              "stringValue": "5 minutes d'étirements doux."
+                            },
+                            "mainSet": {
+                              "stringValue": "3 séries de 15 répétitions de squats, fentes avant, mollets. 3 séries de 30 secondes de gainage ventral, latéral et dorsal. 10 répétitions de proprioception sur une jambe."
+                            },
+                            "day": {
+                              "stringValue": "Jeudi"
+                            },
+                            "locationSuggestion": {
+                              "stringValue": "À la maison"
+                            }
+                          }
+                        }
+                      },
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "distance": {
+                              "stringValue": "11 km"
+                            },
+                            "title": {
+                              "stringValue": "Sortie Longue Progressive"
+                            },
+                            "id": {
+                              "stringValue": "w1-s3-1773080065009-j4uxi70"
+                            },
+                            "locationSuggestion": {
+                              "stringValue": "Sentiers autour du Mont Rogneux (partie basse)"
+                            },
+                            "day": {
+                              "stringValue": "Dimanche"
+                            },
+                            "mainSet": {
+                              "stringValue": "1h15 de course progressive : 45 minutes à 8:04 min/km, puis 30 minutes à 7:30 min/km."
+                            },
+                            "intensity": {
+                              "stringValue": "Modéré"
+                            },
+                            "warmup": {
+                              "stringValue": "15 minutes de marche rapide et quelques gammes de course."
+                            },
+                            "elevationGain": {
+                              "integerValue": "50"
+                            },
+                            "cooldown": {
+                              "stringValue": "10 minutes de marche lente et étirements."
+                            },
+                            "type": {
+                              "stringValue": "Sortie Longue"
+                            },
+                            "targetPace": {
+                              "stringValue": "8:04 min/km"
+                            },
+                            "duration": {
+                              "stringValue": "1h30"
+                            },
+                            "advice": {
+                              "stringValue": "Hydrate-toi bien pendant et après la sortie. Adapte l'allure si tu ressens de la fatigue."
+                            }
+                          }
+                        }
+                      }
+                    ]
+                  }
+                },
+                "weekNumber": {
+                  "integerValue": "1"
+                }
+              }
+            }
+          }
+        ]
+      }
+    },
+    "location": {
+      "stringValue": "Bagnes"
+    },
+    "fullPlanGenerated": {
+      "booleanValue": false
+    },
+    "userEmail": {
+      "stringValue": "maximeschaer7@gmail.com"
+    },
+    "createdAt": {
+      "stringValue": "2026-03-09T18:14:25.009Z"
+    },
+    "sessionsPerWeek": {
+      "integerValue": "3"
+    },
+    "durationWeeks": {
+      "integerValue": "10"
+    },
+    "name": {
+      "stringValue": "Plan Semi-Marathon 1h59 - 10 Semaines"
+    },
+    "goal": {
+      "stringValue": "Course sur route"
+    }
+  },
+  "createTime": "2026-03-09T18:14:25.482531Z",
+  "updateTime": "2026-03-18T16:39:58.742649Z"
+}

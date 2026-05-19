@@ -1,0 +1,589 @@
+{
+  "name": "projects/coach-running-ia/databases/(default)/documents/plans/1779124806518",
+  "fields": {
+    "confidenceScore": {
+      "integerValue": "70"
+    },
+    "startDate": {
+      "stringValue": "2026-05-18"
+    },
+    "distance": {
+      "stringValue": "Non définie"
+    },
+    "id": {
+      "stringValue": "1779124806518"
+    },
+    "targetTime": {
+      "stringValue": "Finisher"
+    },
+    "vmaSource": {
+      "stringValue": "Estimation niveau Débutant (0-1 an) (ajustée -15% remise en forme)"
+    },
+    "calculatedVMA": {
+      "doubleValue": 9.4
+    },
+    "adaptationLog": {
+      "mapValue": {
+        "fields": {
+          "adaptationHistory": {
+            "arrayValue": {}
+          },
+          "adaptationsThisWeek": {
+            "integerValue": "0"
+          },
+          "weekNumber": {
+            "integerValue": "0"
+          }
+        }
+      }
+    },
+    "feasibility": {
+      "mapValue": {
+        "fields": {
+          "message": {
+            "stringValue": "Ton programme de remise en forme sur 12 semaines est bien calibré pour ton profil. Avec ta VMA de 9.4 km/h, concentre-toi sur la régularité et le plaisir. VMA estimée (pas de chrono validé) : l'évaluation comporte une marge d'incertitude."
+          },
+          "status": {
+            "stringValue": "BON"
+          },
+          "safetyWarning": {
+            "stringValue": "Pense à consulter un médecin pour un certificat d'aptitude avant de commencer ta préparation."
+          }
+        }
+      }
+    },
+    "userId": {
+      "stringValue": "ym0Uw0z1VveJGAWwmarvQRRzT6G2"
+    },
+    "paces": {
+      "mapValue": {
+        "fields": {
+          "eaPace": {
+            "stringValue": "8:17"
+          },
+          "recoveryPace": {
+            "stringValue": "10:38"
+          },
+          "allureSpecifique10k": {
+            "stringValue": "7:06"
+          },
+          "vmaPace": {
+            "stringValue": "6:23"
+          },
+          "allureSpecifique5k": {
+            "stringValue": "6:43"
+          },
+          "allureSpecifiqueSemi": {
+            "stringValue": "7:31"
+          },
+          "allureSpecifiqueMarathon": {
+            "stringValue": "7:59"
+          },
+          "seuilPace": {
+            "stringValue": "7:20"
+          },
+          "efPace": {
+            "stringValue": "9:32"
+          }
+        }
+      }
+    },
+    "suggestedLocations": {
+      "arrayValue": {
+        "values": [
+          {
+            "mapValue": {
+              "fields": {
+                "type": {
+                  "stringValue": "PARK"
+                },
+                "description": {
+                  "stringValue": "Idéal pour les footings en aisance respiratoire et les séances marche/course sur terrain plat."
+                },
+                "name": {
+                  "stringValue": "Plan d'eau des Ferréols"
+                }
+              }
+            }
+          },
+          {
+            "mapValue": {
+              "fields": {
+                "type": {
+                  "stringValue": "NATURE"
+                },
+                "name": {
+                  "stringValue": "Bords de la Bléone"
+                },
+                "description": {
+                  "stringValue": "Parcours plats le long de la rivière, parfaits pour les séances d'endurance fondamentale ou progressives."
+                }
+              }
+            }
+          },
+          {
+            "mapValue": {
+              "fields": {
+                "type": {
+                  "stringValue": "HILL"
+                },
+                "name": {
+                  "stringValue": "Sentiers du Cousson"
+                },
+                "description": {
+                  "stringValue": "Pour les sorties nature avec du dénivelé, lorsque le programme inclura des montées ou du trail doux."
+                }
+              }
+            }
+          }
+        ]
+      }
+    },
+    "sessionsPerWeek": {
+      "integerValue": "3"
+    },
+    "createdAt": {
+      "stringValue": "2026-05-18T17:20:06.518Z"
+    },
+    "goal": {
+      "stringValue": "Maintien en forme"
+    },
+    "name": {
+      "stringValue": "Programme Remise en Forme — 12 semaines"
+    },
+    "durationWeeks": {
+      "integerValue": "12"
+    },
+    "generationContext": {
+      "mapValue": {
+        "fields": {
+          "vmaSource": {
+            "stringValue": "Estimation niveau Débutant (0-1 an) (ajustée -15% remise en forme)"
+          },
+          "paces": {
+            "mapValue": {
+              "fields": {
+                "efPace": {
+                  "stringValue": "9:32"
+                },
+                "seuilPace": {
+                  "stringValue": "7:20"
+                },
+                "allureSpecifiqueMarathon": {
+                  "stringValue": "7:59"
+                },
+                "allureSpecifiqueSemi": {
+                  "stringValue": "7:31"
+                },
+                "allureSpecifique5k": {
+                  "stringValue": "6:43"
+                },
+                "vmaPace": {
+                  "stringValue": "6:23"
+                },
+                "allureSpecifique10k": {
+                  "stringValue": "7:06"
+                },
+                "recoveryPace": {
+                  "stringValue": "10:38"
+                },
+                "eaPace": {
+                  "stringValue": "8:17"
+                }
+              }
+            }
+          },
+          "periodizationPlan": {
+            "mapValue": {
+              "fields": {
+                "weeklyPhases": {
+                  "arrayValue": {
+                    "values": [
+                      {
+                        "stringValue": "fondamental"
+                      },
+                      {
+                        "stringValue": "fondamental"
+                      },
+                      {
+                        "stringValue": "fondamental"
+                      },
+                      {
+                        "stringValue": "recuperation"
+                      },
+                      {
+                        "stringValue": "fondamental"
+                      },
+                      {
+                        "stringValue": "developpement"
+                      },
+                      {
+                        "stringValue": "recuperation"
+                      },
+                      {
+                        "stringValue": "developpement"
+                      },
+                      {
+                        "stringValue": "developpement"
+                      },
+                      {
+                        "stringValue": "recuperation"
+                      },
+                      {
+                        "stringValue": "developpement"
+                      },
+                      {
+                        "stringValue": "developpement"
+                      }
+                    ]
+                  }
+                },
+                "totalWeeks": {
+                  "integerValue": "12"
+                },
+                "recoveryWeeks": {
+                  "arrayValue": {
+                    "values": [
+                      {
+                        "integerValue": "4"
+                      },
+                      {
+                        "integerValue": "7"
+                      },
+                      {
+                        "integerValue": "10"
+                      }
+                    ]
+                  }
+                },
+                "weeklyVolumes": {
+                  "arrayValue": {
+                    "values": [
+                      {
+                        "integerValue": "10"
+                      },
+                      {
+                        "integerValue": "11"
+                      },
+                      {
+                        "integerValue": "11"
+                      },
+                      {
+                        "integerValue": "9"
+                      },
+                      {
+                        "integerValue": "10"
+                      },
+                      {
+                        "integerValue": "12"
+                      },
+                      {
+                        "integerValue": "10"
+                      },
+                      {
+                        "integerValue": "12"
+                      },
+                      {
+                        "integerValue": "13"
+                      },
+                      {
+                        "integerValue": "10"
+                      },
+                      {
+                        "integerValue": "12"
+                      },
+                      {
+                        "integerValue": "13"
+                      }
+                    ]
+                  }
+                }
+              }
+            }
+          },
+          "modelUsed": {
+            "stringValue": "gemini-2.5-flash"
+          },
+          "generatedAt": {
+            "stringValue": "2026-05-18T17:19:05.522Z"
+          },
+          "questionnaireSnapshot": {
+            "mapValue": {
+              "fields": {
+                "vma": {
+                  "doubleValue": 9.4
+                },
+                "level": {
+                  "stringValue": "Débutant (0-1 an)"
+                },
+                "fitnessSubGoal": {
+                  "stringValue": "20-30min"
+                },
+                "injuries": {
+                  "mapValue": {
+                    "fields": {
+                      "hasInjury": {
+                        "booleanValue": false
+                      }
+                    }
+                  }
+                },
+                "weight": {
+                  "integerValue": "68"
+                },
+                "height": {
+                  "integerValue": "170"
+                },
+                "lastActivity": {
+                  "stringValue": "<3months"
+                },
+                "sex": {
+                  "stringValue": "Femme"
+                },
+                "frequency": {
+                  "integerValue": "3"
+                },
+                "email": {
+                  "stringValue": "auroregervot@yahoo.fr"
+                },
+                "age": {
+                  "integerValue": "30"
+                },
+                "currentWeeklyVolume": {
+                  "integerValue": "12"
+                },
+                "recentRaceTimes": {
+                  "mapValue": {}
+                },
+                "startDate": {
+                  "stringValue": "2026-05-18"
+                },
+                "preferredDays": {
+                  "arrayValue": {
+                    "values": [
+                      {
+                        "stringValue": "Lundi"
+                      },
+                      {
+                        "stringValue": "Jeudi"
+                      },
+                      {
+                        "stringValue": "Samedi"
+                      }
+                    ]
+                  }
+                },
+                "goal": {
+                  "stringValue": "Maintien en forme"
+                },
+                "city": {
+                  "stringValue": "Digne les bains"
+                }
+              }
+            }
+          },
+          "vma": {
+            "doubleValue": 9.4
+          }
+        }
+      }
+    },
+    "isPreview": {
+      "booleanValue": true
+    },
+    "welcomeMessage": {
+      "stringValue": "Bonjour ! Bienvenue dans ton programme de remise en forme de 12 semaines, conçu pour t'aider à atteindre ton objectif de maintien en forme. Ce plan est structuré pour une progression douce et durable, en mettant l'accent sur l'endurance fondamentale et le plaisir de courir, sans pression sur la performance pure ou des allures complexes dès le début. La première semaine sera dédiée à établir une base solide avec des séances de marche/course adaptées à ton niveau débutant.\n\nNous te recommandons de consulter un médecin avant de débuter ce programme, notamment pour obtenir un certificat médical d'aptitude au sport."
+    },
+    "vma": {
+      "doubleValue": 9.4
+    },
+    "endDate": {
+      "stringValue": "2026-08-10"
+    },
+    "fullPlanGenerated": {
+      "booleanValue": false
+    },
+    "userEmail": {
+      "stringValue": "auroregervot@yahoo.fr"
+    },
+    "location": {
+      "stringValue": "Digne les bains"
+    },
+    "weeks": {
+      "arrayValue": {
+        "values": [
+          {
+            "mapValue": {
+              "fields": {
+                "sessions": {
+                  "arrayValue": {
+                    "values": [
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "duration": {
+                              "stringValue": "50 min"
+                            },
+                            "advice": {
+                              "stringValue": "Concentre-toi sur ta respiration, elle doit rester fluide et te permettre de parler sans difficulté. Hydrate-toi bien avant et après la séance. Écoute ton corps et adapte si nécessaire."
+                            },
+                            "targetPace": {
+                              "stringValue": "EF (9:32 min/km) / Récupération (10:38 min/km)"
+                            },
+                            "type": {
+                              "stringValue": "Sortie Longue"
+                            },
+                            "cooldown": {
+                              "stringValue": "5 min de marche douce et étirements légers (à 10:38 min/km)"
+                            },
+                            "elevationGain": {
+                              "integerValue": "0"
+                            },
+                            "intensity": {
+                              "stringValue": "Facile"
+                            },
+                            "warmup": {
+                              "stringValue": "5 min de marche, à 10:38 min/km active (allure récupération)"
+                            },
+                            "locationSuggestion": {
+                              "stringValue": "Plan d'eau des Ferréols"
+                            },
+                            "day": {
+                              "stringValue": "Lundi"
+                            },
+                            "mainSet": {
+                              "stringValue": "11 cycles de (1 min de course légère à allure EF + 2 min de marche active à allure récupération), suivis de 2 min de marche active. (allure : 10:38 min/km)"
+                            },
+                            "distance": {
+                              "stringValue": "4.8 km"
+                            },
+                            "title": {
+                              "stringValue": "Marche/Course en aisance respiratoire"
+                            },
+                            "id": {
+                              "stringValue": "w1-s1-1779124806519-x5w1fin"
+                            }
+                          }
+                        }
+                      },
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "id": {
+                              "stringValue": "w1-s2-1779124806519-c2jkuo4"
+                            },
+                            "title": {
+                              "stringValue": "Renfo Equilibre - Renfo & Stabilite (S1)"
+                            },
+                            "distance": {
+                              "stringValue": "0 km"
+                            },
+                            "mainSet": {
+                              "stringValue": "Circuit 2 tours : Squats poids de corps (3x9), Squat bulgare (3x6/jambe), Gainage ventral (3x19-60s), Dead bug (3x6/côté), Extensions mollets debout (3x13), Étirements dynamiques (2x5/côté). Repos 2 min entre tours."
+                            },
+                            "day": {
+                              "stringValue": "Jeudi"
+                            },
+                            "locationSuggestion": {
+                              "stringValue": "À la maison"
+                            },
+                            "warmup": {
+                              "stringValue": "10 min de mobilité articulaire et échauffement dynamique"
+                            },
+                            "intensity": {
+                              "stringValue": "Modéré"
+                            },
+                            "elevationGain": {
+                              "integerValue": "0"
+                            },
+                            "cooldown": {
+                              "stringValue": "5 min d'étirements : quadriceps, ischio-jambiers, mollets, hanches"
+                            },
+                            "type": {
+                              "stringValue": "Renforcement"
+                            },
+                            "advice": {
+                              "stringValue": "Le renforcement est crucial pour prévenir les blessures et améliorer ton efficacité de course. Privilégie la qualité du mouvement à la quantité. En cas de doute, consulte un tutoriel ou un coach."
+                            },
+                            "duration": {
+                              "stringValue": "30 min"
+                            },
+                            "targetPace": {
+                              "stringValue": "N/A"
+                            }
+                          }
+                        }
+                      },
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "title": {
+                              "stringValue": "Marche/Course progressive pour l'endurance"
+                            },
+                            "id": {
+                              "stringValue": "w1-s3-1779124806519-zlwwp8s"
+                            },
+                            "distance": {
+                              "stringValue": "4.84 km"
+                            },
+                            "mainSet": {
+                              "stringValue": "13 cycles de (1 min de course légère à allure EF + 2 min de marche active à allure récupération), suivis de 1 min de marche active. (allure : 10:38 min/km)"
+                            },
+                            "locationSuggestion": {
+                              "stringValue": "Bords de la Bléone"
+                            },
+                            "day": {
+                              "stringValue": "Samedi"
+                            },
+                            "warmup": {
+                              "stringValue": "5 min de marche, à 10:38 min/km active (allure récupération)"
+                            },
+                            "intensity": {
+                              "stringValue": "Facile"
+                            },
+                            "elevationGain": {
+                              "integerValue": "0"
+                            },
+                            "cooldown": {
+                              "stringValue": "5 min de marche douce et étirements légers (à 10:38 min/km)"
+                            },
+                            "type": {
+                              "stringValue": "Sortie Longue"
+                            },
+                            "advice": {
+                              "stringValue": "Cette séance est un peu plus longue pour développer ton endurance. Garde le même principe d'aisance respiratoire. N'oublie pas des chaussures adaptées et une hydratation régulière."
+                            },
+                            "duration": {
+                              "stringValue": "50 min"
+                            },
+                            "targetPace": {
+                              "stringValue": "EF (9:32 min/km) / Récupération (10:38 min/km)"
+                            }
+                          }
+                        }
+                      }
+                    ]
+                  }
+                },
+                "phase": {
+                  "stringValue": "fondamental"
+                },
+                "weekGoal": {
+                  "stringValue": "Fondation - Redécouverte du mouvement"
+                },
+                "weekNumber": {
+                  "integerValue": "1"
+                },
+                "theme": {
+                  "stringValue": "Fondation - Redécouverte du mouvement"
+                }
+              }
+            }
+          }
+        ]
+      }
+    }
+  },
+  "createTime": "2026-05-18T17:20:19.525545Z",
+  "updateTime": "2026-05-18T17:20:19.525545Z"
+}

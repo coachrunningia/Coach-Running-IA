@@ -1,0 +1,53 @@
+--- /Users/romanemarino/Coach-Running-IA/tests-v1/prompts-AVANT/profil-05-CONFIRME_MARATHON_3H15-preview.txt	2026-05-17 20:59:29
++++ /Users/romanemarino/Coach-Running-IA/tests-v1/prompts-APRES/profil-05-CONFIRME_MARATHON_3H15-preview.txt	2026-05-17 21:01:55
+@@ -8,9 +8,7 @@
+ - Objectif : Course sur route (Marathon)
+ - Temps visé : 3h15
+ - Date de course : 2026-09-06
+-- Fréquence : 5 séances/semaine
+ - Jours : Séances UNIQUEMENT sur : Lundi, Mardi, Jeudi, Vendredi, Dimanche
+-- Jour sortie longue : Dimanche
+ - Localisation : Nantes
+ 
+ 📝 PRÉCISIONS DU COUREUR : "Objectif chrono ferme"
+@@ -45,8 +43,6 @@
+ - Récupération : 5:58 min/km
+ 
+ 
+-⚠️ UTILISE CES ALLURES EXACTES dans chaque séance !
+-
+ ═══════════════════════════════════════════════════════════════
+               PLAN DE PÉRIODISATION PRÉ-CALCULÉ
+ ═══════════════════════════════════════════════════════════════
+@@ -116,7 +112,6 @@
+ 4. Évaluation de faisabilité HONNÊTE avec chiffres
+ 5. OBLIGATOIRE : 1 séance de type "Renforcement" par semaine (comptée dans les 5 séances)
+    - Répartition : 5 séances = 4 running + 1 renfo
+-   - Durée : 30-45 min
+    - Type dans le JSON : "Renforcement"
+    - NE PAS mettre de séance "Repos" dans le plan
+    - NE PAS générer le contenu du mainSet renfo — le code le fera
+@@ -151,7 +146,7 @@
+                     FORMAT JSON
+ ═══════════════════════════════════════════════════════════════
+ {
+-  "name": "Nom du plan incluant objectif",
++  "name": "Préparation Marathon en 3h15 — 16 sem.",
+   "goal": "Course sur route",
+   "startDate": "2026-05-17",
+   "durationWeeks": 16,
+@@ -163,12 +158,8 @@
+     { "name": "Nom réel du lieu", "type": "PARK|TRACK|NATURE|HILL", "description": "Pour quel type de séance" }
+   ],
+   "welcomeMessage": "Message personnalisé orienté OBJECTIF et STRUCTURE du plan (NE PAS mentionner VMA ni allures)",
+-  "confidenceScore": 75,
+-  "feasibility": {
+-    "status": "BON",
+-    "message": "Analyse avec chiffres VMA/temps théorique",
+-    "safetyWarning": "Conseil sécurité"
+-  },
++  "confidenceScore": 0,
++  "feasibility": { "status": "rempli code", "message": "rempli code", "safetyWarning": "rempli code" },
+   "weeks": [
+     {
+       "weekNumber": 1,

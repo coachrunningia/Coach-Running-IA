@@ -1,0 +1,575 @@
+{
+  "isPreview": {
+    "booleanValue": true
+  },
+  "durationWeeks": {
+    "integerValue": "9"
+  },
+  "distance": {
+    "stringValue": "10 km"
+  },
+  "endDate": {
+    "stringValue": "2026-07-13"
+  },
+  "confidenceScore": {
+    "integerValue": "60"
+  },
+  "adaptationLog": {
+    "mapValue": {
+      "fields": {
+        "weekNumber": {
+          "integerValue": "0"
+        },
+        "adaptationsThisWeek": {
+          "integerValue": "0"
+        },
+        "adaptationHistory": {
+          "arrayValue": {}
+        }
+      }
+    }
+  },
+  "welcomeMessage": {
+    "stringValue": "Bienvenue dans ton plan 10 km Finisher sur 9 semaines.\n\n🩺 **Avant tout** : un certificat médical d'aptitude à la course est OBLIGATOIRE. À partir de 48 ans et avec une blessure récente au mollet, consulte ton médecin du sport ET ton kinésithérapeute pour un feu vert clair. Demande un protocole spécifique mollet (étirements quotidiens, renforcement excentrique).\n\n🎯 **Objectif Finisher** : terminer ton 10 km. Pas de chrono cible — on construit progressivement ton endurance via la marche/course alternée. Ton 10 km en 1h47, 5 km en 46min est notre base de calcul.\n\n📋 **Structure** (3 séances/sem : Mar, Sam, Dim) :\n- Mardi : marche/course en aisance — plaisir avant performance\n- Samedi : renforcement musculaire (gainage, fessiers, soutien mollet)\n- Dimanche : sortie longue marche/course progressive\n\n🦵 **Spécifique mollet** :\n- Échauffement TOUJOURS progressif (5 min marche + 5 min trotting léger avant tout)\n- Étirements doux post-séance : mollets soléaires + gastrocnémien (2×30s/jambe)\n- Protocole Stanish (excentrique mollet) recommandé 2-3× par semaine en plus du plan\n- ARRÊT IMMÉDIAT à la moindre tension du mollet, glace + repos\n\n📍 **Tes sorties** seront suggérées autour de **Annezin** — privilégie surfaces souples (chemins, gazon, piste) plutôt que béton.\n\n⚠ **Signal d'alarme** : tension mollet, douleur tibia, essoufflement excessif = ralentir ou marcher. Pas de honte à finir une séance en marchant.\n\nBonne progression — la régularité prime sur la vitesse."
+  },
+  "vma": {
+    "integerValue": "8"
+  },
+  "generationContext": {
+    "mapValue": {
+      "fields": {
+        "vma": {
+          "integerValue": "8"
+        },
+        "modelUsed": {
+          "stringValue": "gemini-2.5-flash"
+        },
+        "vmaSource": {
+          "stringValue": "5km en 46min (corrigé)"
+        },
+        "generatedAt": {
+          "stringValue": "2026-05-12T07:38:51.552Z"
+        },
+        "paces": {
+          "mapValue": {
+            "fields": {
+              "allureSpecifiqueSemi": {
+                "stringValue": "8:49"
+              },
+              "vmaPace": {
+                "stringValue": "7:30"
+              },
+              "efPace": {
+                "stringValue": "11:12"
+              },
+              "allureSpecifique10k": {
+                "stringValue": "8:20"
+              },
+              "allureSpecifique5k": {
+                "stringValue": "7:54"
+              },
+              "eaPace": {
+                "stringValue": "9:44"
+              },
+              "recoveryPace": {
+                "stringValue": "12:30"
+              },
+              "allureSpecifiqueMarathon": {
+                "stringValue": "9:23"
+              },
+              "seuilPace": {
+                "stringValue": "8:37"
+              }
+            }
+          }
+        },
+        "periodizationPlan": {
+          "mapValue": {
+            "fields": {
+              "weeklyPhases": {
+                "arrayValue": {
+                  "values": [
+                    {
+                      "stringValue": "fondamental"
+                    },
+                    {
+                      "stringValue": "fondamental"
+                    },
+                    {
+                      "stringValue": "developpement"
+                    },
+                    {
+                      "stringValue": "recuperation"
+                    },
+                    {
+                      "stringValue": "developpement"
+                    },
+                    {
+                      "stringValue": "specifique"
+                    },
+                    {
+                      "stringValue": "recuperation"
+                    },
+                    {
+                      "stringValue": "specifique"
+                    },
+                    {
+                      "stringValue": "affutage"
+                    }
+                  ]
+                }
+              },
+              "recoveryWeeks": {
+                "arrayValue": {
+                  "values": [
+                    {
+                      "integerValue": "4"
+                    },
+                    {
+                      "integerValue": "7"
+                    }
+                  ]
+                }
+              },
+              "weeklyVolumes": {
+                "arrayValue": {
+                  "values": [
+                    {
+                      "integerValue": "5"
+                    },
+                    {
+                      "integerValue": "5"
+                    },
+                    {
+                      "integerValue": "5"
+                    },
+                    {
+                      "integerValue": "4"
+                    },
+                    {
+                      "integerValue": "5"
+                    },
+                    {
+                      "integerValue": "6"
+                    },
+                    {
+                      "integerValue": "5"
+                    },
+                    {
+                      "integerValue": "6"
+                    },
+                    {
+                      "integerValue": "3"
+                    }
+                  ]
+                }
+              },
+              "totalWeeks": {
+                "integerValue": "9"
+              }
+            }
+          }
+        },
+        "questionnaireSnapshot": {
+          "mapValue": {
+            "fields": {
+              "raceDate": {
+                "stringValue": "2026-07-12"
+              },
+              "weight": {
+                "integerValue": "123"
+              },
+              "sex": {
+                "stringValue": "Homme"
+              },
+              "age": {
+                "integerValue": "48"
+              },
+              "email": {
+                "stringValue": "didier.damiens@gmail.com"
+              },
+              "height": {
+                "integerValue": "187"
+              },
+              "startDate": {
+                "stringValue": "2026-05-12"
+              },
+              "recentRaceTimes": {
+                "mapValue": {
+                  "fields": {
+                    "distance10km": {
+                      "stringValue": "1h47"
+                    },
+                    "distance5km": {
+                      "stringValue": "46min"
+                    }
+                  }
+                }
+              },
+              "frequency": {
+                "integerValue": "3"
+              },
+              "city": {
+                "stringValue": "Annezin"
+              },
+              "goal": {
+                "stringValue": "Course sur route"
+              },
+              "injuries": {
+                "mapValue": {
+                  "fields": {
+                    "hasInjury": {
+                      "booleanValue": true
+                    },
+                    "description": {
+                      "stringValue": "Mollet"
+                    }
+                  }
+                }
+              },
+              "preferredDays": {
+                "arrayValue": {
+                  "values": [
+                    {
+                      "stringValue": "Mardi"
+                    },
+                    {
+                      "stringValue": "Samedi"
+                    },
+                    {
+                      "stringValue": "Jeudi"
+                    }
+                  ]
+                }
+              },
+              "vma": {
+                "integerValue": "8"
+              },
+              "level": {
+                "stringValue": "Débutant (0-1 an)"
+              },
+              "currentWeeklyVolume": {
+                "integerValue": "5"
+              },
+              "subGoal": {
+                "stringValue": "10 km"
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "goal": {
+    "stringValue": "Course sur route"
+  },
+  "suggestedLocations": {
+    "arrayValue": {
+      "values": [
+        {
+          "mapValue": {
+            "fields": {
+              "name": {
+                "stringValue": "Parc de la Boulogne (Béthune)"
+              },
+              "description": {
+                "stringValue": "Idéal pour les sorties en endurance fondamentale sur des surfaces stabilisées et souples (sentiers en terre, herbe). Parfait pour les séances de marche/course."
+              },
+              "type": {
+                "stringValue": "PARK"
+              }
+            }
+          }
+        },
+        {
+          "mapValue": {
+            "fields": {
+              "type": {
+                "stringValue": "NATURE"
+              },
+              "description": {
+                "stringValue": "Les chemins de terre et sentiers agricoles autour d'Annezin offrent un terrain plat et souple, parfait pour les footings en nature ou les sorties longues en endurance fondamentale, tout en évitant le bitume."
+              },
+              "name": {
+                "stringValue": "Chemins de campagne autour d'Annezin"
+              }
+            }
+          }
+        },
+        {
+          "mapValue": {
+            "fields": {
+              "description": {
+                "stringValue": "Un vaste espace vert avec des sentiers forestiers et quelques légères dénivelées, idéal pour varier les plaisirs et habituer le corps aux terrains variés, toujours en souplesse."
+              },
+              "name": {
+                "stringValue": "Parc départemental d'Olhain (Houdain)"
+              },
+              "type": {
+                "stringValue": "NATURE"
+              }
+            }
+          }
+        }
+      ]
+    }
+  },
+  "paces": {
+    "mapValue": {
+      "fields": {
+        "seuilPace": {
+          "stringValue": "8:37"
+        },
+        "allureSpecifiqueMarathon": {
+          "stringValue": "9:23"
+        },
+        "eaPace": {
+          "stringValue": "9:44"
+        },
+        "recoveryPace": {
+          "stringValue": "12:30"
+        },
+        "allureSpecifiqueSemi": {
+          "stringValue": "8:49"
+        },
+        "allureSpecifique5k": {
+          "stringValue": "7:54"
+        },
+        "allureSpecifique10k": {
+          "stringValue": "8:20"
+        },
+        "efPace": {
+          "stringValue": "11:12"
+        },
+        "vmaPace": {
+          "stringValue": "7:30"
+        }
+      }
+    }
+  },
+  "userEmail": {
+    "stringValue": "didier.damiens@gmail.com"
+  },
+  "sessionsPerWeek": {
+    "integerValue": "3"
+  },
+  "fullPlanGenerated": {
+    "booleanValue": false
+  },
+  "startDate": {
+    "stringValue": "2026-05-11"
+  },
+  "name": {
+    "stringValue": "Préparation 10 km — Finisher — 9 sem."
+  },
+  "createdAt": {
+    "stringValue": "2026-05-12T07:39:37.227Z"
+  },
+  "raceDate": {
+    "stringValue": "2026-07-12"
+  },
+  "id": {
+    "stringValue": "1778571577227"
+  },
+  "location": {
+    "stringValue": "Annezin"
+  },
+  "weeks": {
+    "arrayValue": {
+      "values": [
+        {
+          "mapValue": {
+            "fields": {
+              "sessions": {
+                "arrayValue": {
+                  "values": [
+                    {
+                      "mapValue": {
+                        "fields": {
+                          "intensity": {
+                            "stringValue": "Facile"
+                          },
+                          "type": {
+                            "stringValue": "Marche/Course"
+                          },
+                          "mainSet": {
+                            "stringValue": "8 cycles de (1 min course légère @ 11:12 min/km + 2 min marche active @ 12:30 min/km)"
+                          },
+                          "warmup": {
+                            "stringValue": "10 min de marche progressive (allure de Récupération : 12:30 min/km)"
+                          },
+                          "elevationGain": {
+                            "integerValue": "0"
+                          },
+                          "targetPace": {
+                            "stringValue": "mix EF / Récupération"
+                          },
+                          "cooldown": {
+                            "stringValue": "5 min de marche très lente et étirements légers, focus sur la mobilité articulaire des chevilles, genoux et hanches. (à 12:30 min/km)"
+                          },
+                          "advice": {
+                            "stringValue": "Rappel : assure-toi d'avoir consulté ton médecin avant de démarrer. Écoute attentivement les sensations de ton corps. Si tu ressens une douleur thoracique, un essoufflement anormal ou un malaise, arrête-toi immédiatement et consulte un professionnel de santé. L'objectif est de retrouver le plaisir du mouvement sans forcer."
+                          },
+                          "title": {
+                            "stringValue": "Marche/Course : Réveil en douceur du corps"
+                          },
+                          "locationSuggestion": {
+                            "stringValue": "Parc de la Boulogne (Béthune) — autour de Annezin"
+                          },
+                          "day": {
+                            "stringValue": "Mardi"
+                          },
+                          "distance": {
+                            "stringValue": "2.3 km"
+                          },
+                          "id": {
+                            "stringValue": "w1-s1-1778571577229-8pkjwhb"
+                          },
+                          "duration": {
+                            "stringValue": "27 min"
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "mapValue": {
+                        "fields": {
+                          "cooldown": {
+                            "stringValue": "8 min : mobilité cheville (genou au mur 15×2), étirements mollets + soléaire, automassage voûte plantaire (balle)."
+                          },
+                          "title": {
+                            "stringValue": "Renfo Focus A - Quadriceps & Gainage (S1)"
+                          },
+                          "locationSuggestion": {
+                            "stringValue": "À la maison"
+                          },
+                          "day": {
+                            "stringValue": "Samedi"
+                          },
+                          "distance": {
+                            "stringValue": "N/A"
+                          },
+                          "id": {
+                            "stringValue": "w1-s2-1778571577229-ouidcn3"
+                          },
+                          "duration": {
+                            "stringValue": "30 min"
+                          },
+                          "intensity": {
+                            "stringValue": "Modéré"
+                          },
+                          "type": {
+                            "stringValue": "Renforcement"
+                          },
+                          "warmup": {
+                            "stringValue": "10 min de mobilité articulaire douce et échauffement progressif (marche rapide, rotations, pas chassés)"
+                          },
+                          "mainSet": {
+                            "stringValue": "Circuit 2 tours : Squats poids de corps (3x9), Fentes avant (3x6/jambe), Gainage ventral (3x19-60s), Dead bug (3x6/côté), Mobilité cheville (genou au mur) (2x9/pied), Équilibre unipodal yeux fermés (3x13s/pied). Repos 2 min entre tours. ⚠️ Exercices de prévention inclus pour ta blessure — si douleur, arrête immédiatement."
+                          },
+                          "targetPace": {
+                            "stringValue": "N/A"
+                          },
+                          "elevationGain": {
+                            "integerValue": "0"
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "mapValue": {
+                        "fields": {
+                          "mainSet": {
+                            "stringValue": "7 cycles de (1 min course légère @ 11:12 min/km + 2 min marche active @ 12:30 min/km)"
+                          },
+                          "warmup": {
+                            "stringValue": "10 min de marche progressive (allure de Récupération : 12:30 min/km)"
+                          },
+                          "type": {
+                            "stringValue": "Sortie Longue"
+                          },
+                          "intensity": {
+                            "stringValue": "Facile"
+                          },
+                          "targetPace": {
+                            "stringValue": "mix EF / Récupération"
+                          },
+                          "elevationGain": {
+                            "integerValue": "0"
+                          },
+                          "day": {
+                            "stringValue": "Dimanche"
+                          },
+                          "locationSuggestion": {
+                            "stringValue": "Chemins de campagne autour d'Annezin"
+                          },
+                          "title": {
+                            "stringValue": "Sortie Longue Marche/Course : Endurance progressive"
+                          },
+                          "advice": {
+                            "stringValue": "Pense à bien t'hydrater avant, pendant (si besoin) et après la séance. Écoute chaque signal de ton corps. Toute douleur, en particulier au niveau des mollets, doit être un signal d'arrêt immédiat. La régularité est plus importante que la vitesse. Profite du paysage et de cette belle sortie en nature."
+                          },
+                          "cooldown": {
+                            "stringValue": "5 min de marche très lente et étirements doux pour les jambes (quadriceps, ischio-jambiers, mollets), focus sur la mobilité articulaire. (à 12:30 min/km)"
+                          },
+                          "id": {
+                            "stringValue": "w1-s3-1778571577229-7zw9i9p"
+                          },
+                          "duration": {
+                            "stringValue": "35 min"
+                          },
+                          "distance": {
+                            "stringValue": "2.7 km"
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              },
+              "theme": {
+                "stringValue": "Introduction à la Marche/Course et renforcement doux"
+              },
+              "phase": {
+                "stringValue": "fondamental"
+              },
+              "weekNumber": {
+                "integerValue": "1"
+              },
+              "weekGoal": {
+                "stringValue": "Introduction à la Marche/Course et renforcement doux"
+              }
+            }
+          }
+        }
+      ]
+    }
+  },
+  "targetTime": {
+    "stringValue": "Finisher"
+  },
+  "feasibility": {
+    "mapValue": {
+      "fields": {
+        "status": {
+          "stringValue": "AMBITIEUX"
+        },
+        "safetyWarning": {
+          "stringValue": "AVIS MÉDICAL OBLIGATOIRE : tu cumules un IMC élevé et des antécédents de blessure. Consulte impérativement ton médecin et ton kiné avant de démarrer. Privilégie le cross-training, les surfaces souples et des chaussures à amorti maximal."
+        },
+        "message": {
+          "stringValue": "Ce 10km est un beau défi. Avec ta VMA de 8.0 km/h, c'est faisable mais attention : Ton IMC (35.2) indique un risque articulaire élevé — consulte un médecin avant de démarrer, privilégie les surfaces souples et le cross-training (vélo, natation). Blessure déclarée : adapte les séances et consulte un professionnel de santé. Ton volume actuel (5 km/sem) est en dessous du minimum pour ton niveau (8 km/sem) — le plan démarrera légèrement au-dessus. Point positif : ton volume actuel de 5km/sem est une excellente base pour cette distance. Suis le plan avec rigueur et régularité, c'est la clé pour y arriver."
+        }
+      }
+    }
+  },
+  "calculatedVMA": {
+    "integerValue": "8"
+  },
+  "vmaSource": {
+    "stringValue": "5km en 46min (corrigé)"
+  },
+  "userId": {
+    "stringValue": "sanlTI2nOXNCy6y5GjwslUaGcIx2"
+  }
+}

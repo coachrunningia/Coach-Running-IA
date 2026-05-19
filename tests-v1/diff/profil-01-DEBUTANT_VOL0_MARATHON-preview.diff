@@ -1,0 +1,60 @@
+--- /Users/romanemarino/Coach-Running-IA/tests-v1/prompts-AVANT/profil-01-DEBUTANT_VOL0_MARATHON-preview.txt	2026-05-17 20:59:17
++++ /Users/romanemarino/Coach-Running-IA/tests-v1/prompts-APRES/profil-01-DEBUTANT_VOL0_MARATHON-preview.txt	2026-05-17 21:01:43
+@@ -8,15 +8,13 @@
+ - Objectif : Course sur route (Marathon)
+ - Temps visé : Finisher
+ - Date de course : 2026-09-06
+-- Fréquence : 3 séances/semaine
+ - Jours : Séances UNIQUEMENT sur : Mardi, Jeudi, Dimanche
+-- Jour sortie longue : Dimanche
+ - Localisation : Lyon
+ 
+ 📝 PRÉCISIONS DU COUREUR : "Premier marathon, jamais couru plus de 5km"
+ 
+ 
+-🚶‍♂️🏃 IMPORTANT - NIVEAU DÉBUTANT DÉTECTÉ :
++🚶 IMPORTANT - NIVEAU DÉBUTANT DÉTECTÉ :
+ - Type de séance : "Marche/Course" (OBLIGATOIRE pour au moins 2 séances sur 3)
+ - Format semaine 1 : 8-10 x (1 min course légère + 2 min marche active)
+ - Pas de VMA, pas de fractionné intense
+@@ -51,8 +49,6 @@
+ - Récupération : 9:05 min/km
+ 
+ 
+-⚠️ UTILISE CES ALLURES EXACTES dans chaque séance !
+-
+ ═══════════════════════════════════════════════════════════════
+               PLAN DE PÉRIODISATION PRÉ-CALCULÉ
+ ═══════════════════════════════════════════════════════════════
+@@ -125,7 +121,6 @@
+ 4. Évaluation de faisabilité HONNÊTE avec chiffres
+ 5. OBLIGATOIRE : 1 séance de type "Renforcement" par semaine (comptée dans les 3 séances)
+    - Répartition : 3 séances = 2 running + 1 renfo
+-   - Durée : 30-45 min
+    - Type dans le JSON : "Renforcement"
+    - NE PAS mettre de séance "Repos" dans le plan
+    - NE PAS générer le contenu du mainSet renfo — le code le fera
+@@ -167,7 +162,7 @@
+                     FORMAT JSON
+ ═══════════════════════════════════════════════════════════════
+ {
+-  "name": "Nom du plan incluant objectif",
++  "name": "Préparation Marathon en Finisher — 16 sem.",
+   "goal": "Course sur route",
+   "startDate": "2026-05-17",
+   "durationWeeks": 16,
+@@ -179,12 +174,8 @@
+     { "name": "Nom réel du lieu", "type": "PARK|TRACK|NATURE|HILL", "description": "Pour quel type de séance" }
+   ],
+   "welcomeMessage": "Message personnalisé orienté OBJECTIF et STRUCTURE du plan (NE PAS mentionner VMA ni allures)",
+-  "confidenceScore": 75,
+-  "feasibility": {
+-    "status": "BON",
+-    "message": "Analyse avec chiffres VMA/temps théorique",
+-    "safetyWarning": "Conseil sécurité"
+-  },
++  "confidenceScore": 0,
++  "feasibility": { "status": "rempli code", "message": "rempli code", "safetyWarning": "rempli code" },
+   "weeks": [
+     {
+       "weekNumber": 1,

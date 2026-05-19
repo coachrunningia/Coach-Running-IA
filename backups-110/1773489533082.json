@@ -1,0 +1,550 @@
+{
+  "name": "projects/coach-running-ia/databases/(default)/documents/plans/1773489533082",
+  "fields": {
+    "feasibility": {
+      "mapValue": {
+        "fields": {
+          "message": {
+            "stringValue": "Avec une VMA de 10.3 km/h, ton temps théorique sur semi-marathon est d'environ 1h58. L'objectif de 2h est donc réaliste avec un entraînement régulier."
+          },
+          "status": {
+            "stringValue": "BON"
+          },
+          "safetyWarning": {
+            "stringValue": "N'oublie pas de bien t'hydrater et de t'échauffer avant chaque séance. Adapte l'intensité en fonction de ton ressenti."
+          }
+        }
+      }
+    },
+    "userEmail": {
+      "stringValue": "little_little_forest@hotmail.com"
+    },
+    "vma": {
+      "doubleValue": 10.256410256410255
+    },
+    "isPreview": {
+      "booleanValue": true
+    },
+    "distance": {
+      "stringValue": "Semi-Marathon"
+    },
+    "createdAt": {
+      "stringValue": "2026-03-14T11:58:53.082Z"
+    },
+    "durationWeeks": {
+      "integerValue": "14"
+    },
+    "userId": {
+      "stringValue": "l0UAAw8D9jaDjzfISljTB6TX5n93"
+    },
+    "welcomeMessage": {
+      "stringValue": "Bienvenue dans ce plan de 14 semaines conçu pour te préparer à courir un semi-marathon en 2h. Les premières semaines seront axées sur le développement de ton endurance de base. Tu aurez 2 séances par semaine: une séance running et une séance de renforcement musculaire spécifique."
+    },
+    "weeks": {
+      "arrayValue": {
+        "values": [
+          {
+            "mapValue": {
+              "fields": {
+                "theme": {
+                  "stringValue": "Développement de l'endurance fondamentale"
+                },
+                "sessions": {
+                  "arrayValue": {
+                    "values": [
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "title": {
+                              "stringValue": "Footing en endurance fondamentale"
+                            },
+                            "targetPace": {
+                              "stringValue": "8:44 min/km"
+                            },
+                            "type": {
+                              "stringValue": "Running"
+                            },
+                            "advice": {
+                              "stringValue": "Concentre-toi sur ton respiration et ton posture. Si tu sens de la fatigue, ralentis."
+                            },
+                            "duration": {
+                              "stringValue": "1h"
+                            },
+                            "intensity": {
+                              "stringValue": "Facile"
+                            },
+                            "mainSet": {
+                              "stringValue": "30 minutes à 8:44 min/km, puis 15 minutes à 9:15 min/km"
+                            },
+                            "warmup": {
+                              "stringValue": "15 minutes de footing très lent à 9:45 min/km"
+                            },
+                            "locationSuggestion": {
+                              "stringValue": "Bois de Vincennes, pour un parcours plat et agréable"
+                            },
+                            "id": {
+                              "stringValue": "w1-s1-1773489533082-u48g5m9"
+                            },
+                            "day": {
+                              "stringValue": "Mardi"
+                            },
+                            "distance": {
+                              "stringValue": "10.3 km"
+                            },
+                            "elevationGain": {
+                              "integerValue": "0"
+                            },
+                            "cooldown": {
+                              "stringValue": "10 minutes de marche lente"
+                            }
+                          }
+                        }
+                      },
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "intensity": {
+                              "stringValue": "Modéré"
+                            },
+                            "duration": {
+                              "stringValue": "40 minutes"
+                            },
+                            "advice": {
+                              "stringValue": "Exécutez les mouvements lentement et correctement. Privilégiez la qualité à la quantité. Cet entrainement renforce les muscles importants pour la course et contribue à la prévention des blessures."
+                            },
+                            "targetPace": {
+                              "stringValue": "0:00 min/km"
+                            },
+                            "type": {
+                              "stringValue": "Renforcement"
+                            },
+                            "title": {
+                              "stringValue": "Renforcement musculaire spécifique course à pied"
+                            },
+                            "cooldown": {
+                              "stringValue": "5 minutes d'étirements statiques (ischio-jambiers, quadriceps, mollets)"
+                            },
+                            "elevationGain": {
+                              "integerValue": "0"
+                            },
+                            "distance": {
+                              "stringValue": "0 km"
+                            },
+                            "day": {
+                              "stringValue": "Jeudi"
+                            },
+                            "id": {
+                              "stringValue": "w1-s2-1773489533082-1lqnutf"
+                            },
+                            "locationSuggestion": {
+                              "stringValue": "À la maison"
+                            },
+                            "warmup": {
+                              "stringValue": "5 minutes de marche et quelques étirements dynamiques"
+                            },
+                            "mainSet": {
+                              "stringValue": "3 séries de 15 squats, 3 séries de 10 fentes par jambe, 3 séries de 30 secondes de gainage (planche), 3 séries de 20 montées sur pointes de pieds, 10 minutes d'exercices de proprioception (équilibre sur une jambe)"
+                            }
+                          }
+                        }
+                      }
+                    ]
+                  }
+                },
+                "weekNumber": {
+                  "integerValue": "1"
+                },
+                "phase": {
+                  "stringValue": "fondamental"
+                }
+              }
+            }
+          }
+        ]
+      }
+    },
+    "vmaSource": {
+      "stringValue": "10km en 1h05"
+    },
+    "calculatedVMA": {
+      "doubleValue": 10.256410256410255
+    },
+    "fullPlanGenerated": {
+      "booleanValue": false
+    },
+    "suggestedLocations": {
+      "arrayValue": {
+        "values": [
+          {
+            "mapValue": {
+              "fields": {
+                "name": {
+                  "stringValue": "Bois de Vincennes"
+                },
+                "type": {
+                  "stringValue": "PARK"
+                },
+                "description": {
+                  "stringValue": "Idéal pour les sorties longues et l'endurance fondamentale."
+                }
+              }
+            }
+          },
+          {
+            "mapValue": {
+              "fields": {
+                "description": {
+                  "stringValue": "Parfait pour les séances avec dénivelé et le renforcement musculaire."
+                },
+                "type": {
+                  "stringValue": "HILL"
+                },
+                "name": {
+                  "stringValue": "Parc Montsouris"
+                }
+              }
+            }
+          },
+          {
+            "mapValue": {
+              "fields": {
+                "description": {
+                  "stringValue": "Adapté aux séances de fractionné et de VMA."
+                },
+                "name": {
+                  "stringValue": "Stade Charléty"
+                },
+                "type": {
+                  "stringValue": "TRACK"
+                }
+              }
+            }
+          }
+        ]
+      }
+    },
+    "adaptationLog": {
+      "mapValue": {
+        "fields": {
+          "adaptationHistory": {
+            "arrayValue": {}
+          },
+          "adaptationsThisWeek": {
+            "integerValue": "0"
+          },
+          "weekNumber": {
+            "integerValue": "0"
+          }
+        }
+      }
+    },
+    "id": {
+      "stringValue": "1773489533082"
+    },
+    "confidenceScore": {
+      "integerValue": "75"
+    },
+    "targetTime": {
+      "stringValue": "2h"
+    },
+    "location": {
+      "stringValue": "Paris"
+    },
+    "startDate": {
+      "stringValue": "2026-03-16"
+    },
+    "sessionsPerWeek": {
+      "integerValue": "2"
+    },
+    "name": {
+      "stringValue": "Plan Semi-Marathon 2h - Objectif 2026"
+    },
+    "goal": {
+      "stringValue": "Course sur route"
+    },
+    "generationContext": {
+      "mapValue": {
+        "fields": {
+          "vmaSource": {
+            "stringValue": "10km en 1h05"
+          },
+          "paces": {
+            "mapValue": {
+              "fields": {
+                "allureSpecifiqueMarathon": {
+                  "stringValue": "7:19"
+                },
+                "allureSpecifique10k": {
+                  "stringValue": "6:30"
+                },
+                "allureSpecifiqueSemi": {
+                  "stringValue": "6:53"
+                },
+                "eaPace": {
+                  "stringValue": "7:36"
+                },
+                "seuilPace": {
+                  "stringValue": "6:43"
+                },
+                "recoveryPace": {
+                  "stringValue": "9:45"
+                },
+                "efPace": {
+                  "stringValue": "8:44"
+                },
+                "allureSpecifique5k": {
+                  "stringValue": "6:09"
+                },
+                "vmaPace": {
+                  "stringValue": "5:51"
+                }
+              }
+            }
+          },
+          "modelUsed": {
+            "stringValue": "gemini-2.0-flash"
+          },
+          "questionnaireSnapshot": {
+            "mapValue": {
+              "fields": {
+                "targetTime": {
+                  "stringValue": "2h"
+                },
+                "weight": {
+                  "integerValue": "69"
+                },
+                "preferredDays": {
+                  "arrayValue": {}
+                },
+                "subGoal": {
+                  "stringValue": "Semi-Marathon"
+                },
+                "startDate": {
+                  "stringValue": "2026-03-16"
+                },
+                "frequency": {
+                  "integerValue": "2"
+                },
+                "raceDate": {
+                  "stringValue": "2026-06-28"
+                },
+                "injuries": {
+                  "mapValue": {
+                    "fields": {
+                      "hasInjury": {
+                        "booleanValue": false
+                      }
+                    }
+                  }
+                },
+                "level": {
+                  "stringValue": "Intermédiaire (Régulier)"
+                },
+                "city": {
+                  "stringValue": "Paris"
+                },
+                "sex": {
+                  "stringValue": "Femme"
+                },
+                "recentRaceTimes": {
+                  "mapValue": {
+                    "fields": {
+                      "distance10km": {
+                        "stringValue": "1h05"
+                      }
+                    }
+                  }
+                },
+                "trailDetails": {
+                  "mapValue": {
+                    "fields": {
+                      "elevation": {
+                        "integerValue": "500"
+                      },
+                      "distance": {
+                        "integerValue": "20"
+                      }
+                    }
+                  }
+                },
+                "height": {
+                  "integerValue": "169"
+                },
+                "currentWeeklyVolume": {
+                  "doubleValue": "NaN"
+                },
+                "goal": {
+                  "stringValue": "Course sur route"
+                },
+                "email": {
+                  "stringValue": "little_little_forest@hotmail.com"
+                }
+              }
+            }
+          },
+          "generatedAt": {
+            "stringValue": "2026-03-14T11:58:47.019Z"
+          },
+          "periodizationPlan": {
+            "mapValue": {
+              "fields": {
+                "weeklyPhases": {
+                  "arrayValue": {
+                    "values": [
+                      {
+                        "stringValue": "fondamental"
+                      },
+                      {
+                        "stringValue": "fondamental"
+                      },
+                      {
+                        "stringValue": "fondamental"
+                      },
+                      {
+                        "stringValue": "recuperation"
+                      },
+                      {
+                        "stringValue": "developpement"
+                      },
+                      {
+                        "stringValue": "developpement"
+                      },
+                      {
+                        "stringValue": "developpement"
+                      },
+                      {
+                        "stringValue": "recuperation"
+                      },
+                      {
+                        "stringValue": "specifique"
+                      },
+                      {
+                        "stringValue": "specifique"
+                      },
+                      {
+                        "stringValue": "specifique"
+                      },
+                      {
+                        "stringValue": "recuperation"
+                      },
+                      {
+                        "stringValue": "affutage"
+                      },
+                      {
+                        "stringValue": "affutage"
+                      }
+                    ]
+                  }
+                },
+                "totalWeeks": {
+                  "integerValue": "14"
+                },
+                "weeklyVolumes": {
+                  "arrayValue": {
+                    "values": [
+                      {
+                        "integerValue": "30"
+                      },
+                      {
+                        "integerValue": "32"
+                      },
+                      {
+                        "integerValue": "35"
+                      },
+                      {
+                        "integerValue": "26"
+                      },
+                      {
+                        "integerValue": "38"
+                      },
+                      {
+                        "integerValue": "41"
+                      },
+                      {
+                        "integerValue": "44"
+                      },
+                      {
+                        "integerValue": "33"
+                      },
+                      {
+                        "integerValue": "48"
+                      },
+                      {
+                        "integerValue": "51"
+                      },
+                      {
+                        "integerValue": "56"
+                      },
+                      {
+                        "integerValue": "42"
+                      },
+                      {
+                        "integerValue": "35"
+                      },
+                      {
+                        "integerValue": "30"
+                      }
+                    ]
+                  }
+                },
+                "recoveryWeeks": {
+                  "arrayValue": {
+                    "values": [
+                      {
+                        "integerValue": "4"
+                      },
+                      {
+                        "integerValue": "8"
+                      },
+                      {
+                        "integerValue": "12"
+                      }
+                    ]
+                  }
+                }
+              }
+            }
+          },
+          "vma": {
+            "doubleValue": 10.256410256410255
+          }
+        }
+      }
+    },
+    "paces": {
+      "mapValue": {
+        "fields": {
+          "eaPace": {
+            "stringValue": "7:36"
+          },
+          "seuilPace": {
+            "stringValue": "6:43"
+          },
+          "allureSpecifiqueMarathon": {
+            "stringValue": "7:19"
+          },
+          "allureSpecifique10k": {
+            "stringValue": "6:30"
+          },
+          "allureSpecifiqueSemi": {
+            "stringValue": "6:53"
+          },
+          "vmaPace": {
+            "stringValue": "5:51"
+          },
+          "recoveryPace": {
+            "stringValue": "9:45"
+          },
+          "efPace": {
+            "stringValue": "8:44"
+          },
+          "allureSpecifique5k": {
+            "stringValue": "6:09"
+          }
+        }
+      }
+    }
+  },
+  "createTime": "2026-03-14T11:58:53.094867Z",
+  "updateTime": "2026-03-18T16:40:22.638873Z"
+}

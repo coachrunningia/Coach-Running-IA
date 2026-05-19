@@ -1,0 +1,514 @@
+{
+  "name": "projects/coach-running-ia/databases/(default)/documents/plans/1779099564353",
+  "fields": {
+    "distance": {
+      "stringValue": "10 km"
+    },
+    "isPreview": {
+      "booleanValue": true
+    },
+    "vma": {
+      "integerValue": "8"
+    },
+    "feasibility": {
+      "mapValue": {
+        "fields": {
+          "status": {
+            "stringValue": "AMBITIEUX"
+          },
+          "message": {
+            "stringValue": "Tu te lances dans un 10 km en 7 semaines, c'est un beau projet pour démarrer la course à pied. Ton volume actuel est faible — c'est normal quand on débute — et le plan est construit pour t'accompagner en douceur, avec une progression très progressive. Aucune pression sur le chrono : l'objectif est de finir confortablement ton 10 km en ayant pris du plaisir. Marche dès que tu en ressens le besoin, écoute ton corps, respecte les jours de repos."
+          },
+          "safetyWarning": {
+            "stringValue": "Avant de débuter ce plan, un bilan médical complet (cardio + articulations) est fortement recommandé. Adapte les séances à tes sensations, marche dès que nécessaire, et arrête immédiatement en cas de douleur articulaire ou de gêne thoracique. Une montre cardio ou une bonne paire de chaussures running adaptée à ta foulée sont des investissements précieux pour limiter les risques."
+          },
+          "score": {
+            "integerValue": "60"
+          }
+        }
+      }
+    },
+    "userEmail": {
+      "stringValue": "sebastien.sailly@outlook.fr"
+    },
+    "welcomeMessage": {
+      "stringValue": "Bienvenue Sébastien ! Tu te lances dans un 10 km en 7 semaines, c'est un beau projet de démarrage. Ton objectif est tendu pour ce délai court — on construit une progression très progressive pour que ton corps s'adapte sans risque. La marche est autorisée et même recommandée dès que tu en ressens le besoin, que ce soit à l'entraînement ou le jour de la course : un 10 km finisher avec une partie en marche est un succès, pas un échec. Le plan combine 1 séance de course + 1 séance de renforcement par semaine pour protéger tes articulations. Sur ton dernier 10 km tu as couru en 1h30 (allure 9:00/km) — ton plan vise une allure d'entraînement légèrement plus douce à 9:30/km, pour t'entraîner sans risque et garder de la marge pour le jour J. Avant de débuter, un bilan médical complet (cardio + articulations) est fortement recommandé. Écoute ton corps, respecte tes jours de repos, et profite du parcours — le chrono n'a aucune importance, seule la ligne d'arrivée compte."
+    },
+    "userId": {
+      "stringValue": "jZ8E7E1beJeO9GdDAYM6gYwMdVN2"
+    },
+    "raceDate": {
+      "stringValue": "2026-06-30"
+    },
+    "durationWeeks": {
+      "integerValue": "7"
+    },
+    "createdAt": {
+      "stringValue": "2026-05-18T10:19:24.353Z"
+    },
+    "vmaSource": {
+      "stringValue": "10km en 1h30 (corrigé)"
+    },
+    "weeks": {
+      "arrayValue": {
+        "values": [
+          {
+            "mapValue": {
+              "fields": {
+                "theme": {
+                  "stringValue": "Introduction à l'endurance et au renforcement"
+                },
+                "weekNumber": {
+                  "integerValue": "1"
+                },
+                "weekGoal": {
+                  "stringValue": "Introduction à l'endurance et au renforcement"
+                },
+                "sessions": {
+                  "arrayValue": {
+                    "values": [
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "title": {
+                              "stringValue": "Renfo Focus A - Quadriceps & Gainage (S1)"
+                            },
+                            "type": {
+                              "stringValue": "Renforcement"
+                            },
+                            "targetPace": {
+                              "stringValue": "N/A"
+                            },
+                            "advice": {
+                              "stringValue": "Rappel : assure-toi d'avoir consulté ton médecin avant de démarrer. Le renforcement est essentiel pour prévenir les blessures et renforcer tes muscles. Concentre-toi sur la qualité des mouvements. Écoute ton corps et arrête-toi immédiatement en cas de douleur thoracique, essoufflement anormal ou malaise."
+                            },
+                            "duration": {
+                              "stringValue": "30 min"
+                            },
+                            "intensity": {
+                              "stringValue": "Facile"
+                            },
+                            "mainSet": {
+                              "stringValue": "Circuit 2 tours : Squats poids de corps (3x9), Fentes avant (3x6/jambe), Gainage ventral (3x19-60s), Dead bug (3x6/côté), Extensions mollets debout (3x13). Repos 2 min entre tours."
+                            },
+                            "id": {
+                              "stringValue": "w1-s1-1779099564355-fk8885c"
+                            },
+                            "locationSuggestion": {
+                              "stringValue": "À la maison"
+                            },
+                            "warmup": {
+                              "stringValue": "10 min de mobilité articulaire douce et échauffement progressif (marche rapide, rotations, pas chassés)"
+                            },
+                            "day": {
+                              "stringValue": "Vendredi"
+                            },
+                            "distance": {
+                              "stringValue": "0.0 km"
+                            },
+                            "elevationGain": {
+                              "integerValue": "0"
+                            },
+                            "cooldown": {
+                              "stringValue": "5 min d'étirements : quadriceps, ischio-jambiers, mollets, hanches"
+                            }
+                          }
+                        }
+                      },
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "intensity": {
+                              "stringValue": "Facile"
+                            },
+                            "duration": {
+                              "stringValue": "30 min"
+                            },
+                            "type": {
+                              "stringValue": "Sortie Longue"
+                            },
+                            "targetPace": {
+                              "stringValue": "EF : 11:12 min/km (course) / Récupération : 12:30 min/km (marche)"
+                            },
+                            "title": {
+                              "stringValue": "Marche/Course découverte — 30 min en alternance"
+                            },
+                            "advice": {
+                              "stringValue": "Cette première séance est cruciale pour habituer ton corps à l'effort. Concentre-toi sur tes sensations et une respiration aisée. Ne force jamais, l'objectif est de trouver un rythme confortable. Hydrate-toi bien avant et après la séance. Écoute ton corps et arrête-toi immédiatement en cas de douleur thoracique, essoufflement anormal ou malaise. Pense à l'amorti de tes chaussures."
+                            },
+                            "cooldown": {
+                              "stringValue": "5 min marche très lente + 5 min étirements doux des mollets, quadriceps et ischio-jambiers. Focus sur la mobilité articulaire des chevilles et genoux. (à 12:30 min/km)"
+                            },
+                            "elevationGain": {
+                              "integerValue": "0"
+                            },
+                            "mainSet": {
+                              "stringValue": "30 min total — alternance marche/course explicite : **6 répétitions de [2 min de trot à allure très facile + 3 min de marche active]**. Pas d'arrêt complet entre les blocs. Trottiner uniquement quand tu te sens à l'aise — si tu sens essoufflé ou douleur articulaire, marche plus longtemps."
+                            },
+                            "day": {
+                              "stringValue": "Dimanche"
+                            },
+                            "distance": {
+                              "stringValue": "~3 km"
+                            },
+                            "id": {
+                              "stringValue": "w1-s2-1779099564355-160qc6j"
+                            },
+                            "warmup": {
+                              "stringValue": "10 min marche, à 12:30 min/km progressive (passer d'une marche lente à une marche active en fin d'échauffement)."
+                            },
+                            "locationSuggestion": {
+                              "stringValue": "Parc du Vivier, Albert"
+                            }
+                          }
+                        }
+                      }
+                    ]
+                  }
+                },
+                "phase": {
+                  "stringValue": "fondamental"
+                }
+              }
+            }
+          }
+        ]
+      }
+    },
+    "calculatedVMA": {
+      "integerValue": "8"
+    },
+    "confidenceScore": {
+      "integerValue": "60"
+    },
+    "targetTime": {
+      "stringValue": "Finisher"
+    },
+    "adaptationLog": {
+      "mapValue": {
+        "fields": {
+          "adaptationHistory": {
+            "arrayValue": {}
+          },
+          "adaptationsThisWeek": {
+            "integerValue": "0"
+          },
+          "weekNumber": {
+            "integerValue": "0"
+          }
+        }
+      }
+    },
+    "id": {
+      "stringValue": "1779099564353"
+    },
+    "fullPlanGenerated": {
+      "booleanValue": false
+    },
+    "suggestedLocations": {
+      "arrayValue": {
+        "values": [
+          {
+            "mapValue": {
+              "fields": {
+                "description": {
+                  "stringValue": "Idéal pour les footings en aisance respiratoire et les séances de marche/course sur un terrain plat et agréable."
+                },
+                "type": {
+                  "stringValue": "PARK"
+                },
+                "name": {
+                  "stringValue": "Parc du Vivier, Albert"
+                }
+              }
+            }
+          },
+          {
+            "mapValue": {
+              "fields": {
+                "description": {
+                  "stringValue": "Parfait pour les sorties longues et les footings en nature sur des chemins plats et sans circulation."
+                },
+                "name": {
+                  "stringValue": "Chemins de halage le long de la Somme (près d'Albert)"
+                },
+                "type": {
+                  "stringValue": "NATURE"
+                }
+              }
+            }
+          },
+          {
+            "mapValue": {
+              "fields": {
+                "name": {
+                  "stringValue": "Stade Municipal d'Albert"
+                },
+                "type": {
+                  "stringValue": "TRACK"
+                },
+                "description": {
+                  "stringValue": "Convient pour les séances de VMA ou de fractionné court (à utiliser dans les phases ultérieures du plan)."
+                }
+              }
+            }
+          }
+        ]
+      }
+    },
+    "name": {
+      "stringValue": "Préparation 10 km — Finisher — 7 sem."
+    },
+    "sessionsPerWeek": {
+      "integerValue": "2"
+    },
+    "location": {
+      "stringValue": "Albert "
+    },
+    "startDate": {
+      "stringValue": "2026-05-18"
+    },
+    "paces": {
+      "mapValue": {
+        "fields": {
+          "eaPace": {
+            "stringValue": "9:44"
+          },
+          "seuilPace": {
+            "stringValue": "8:37"
+          },
+          "allureSpecifiqueMarathon": {
+            "stringValue": "9:23"
+          },
+          "allureSpecifique10k": {
+            "stringValue": "9:30"
+          },
+          "allureSpecifiqueSemi": {
+            "stringValue": "8:49"
+          },
+          "vmaPace": {
+            "stringValue": "7:30"
+          },
+          "recoveryPace": {
+            "stringValue": "12:30"
+          },
+          "efPace": {
+            "stringValue": "11:12"
+          },
+          "allureSpecifique5k": {
+            "stringValue": "7:54"
+          }
+        }
+      }
+    },
+    "endDate": {
+      "stringValue": "2026-07-06"
+    },
+    "generationContext": {
+      "mapValue": {
+        "fields": {
+          "paces": {
+            "mapValue": {
+              "fields": {
+                "allureSpecifique5k": {
+                  "stringValue": "7:54"
+                },
+                "recoveryPace": {
+                  "stringValue": "12:30"
+                },
+                "efPace": {
+                  "stringValue": "11:12"
+                },
+                "vmaPace": {
+                  "stringValue": "7:30"
+                },
+                "allureSpecifiqueSemi": {
+                  "stringValue": "8:49"
+                },
+                "allureSpecifiqueMarathon": {
+                  "stringValue": "9:23"
+                },
+                "allureSpecifique10k": {
+                  "stringValue": "8:20"
+                },
+                "eaPace": {
+                  "stringValue": "9:44"
+                },
+                "seuilPace": {
+                  "stringValue": "8:37"
+                }
+              }
+            }
+          },
+          "vmaSource": {
+            "stringValue": "10km en 1h30 (corrigé)"
+          },
+          "modelUsed": {
+            "stringValue": "gemini-2.5-flash"
+          },
+          "questionnaireSnapshot": {
+            "mapValue": {
+              "fields": {
+                "sex": {
+                  "stringValue": "Homme"
+                },
+                "city": {
+                  "stringValue": "Albert "
+                },
+                "injuries": {
+                  "mapValue": {
+                    "fields": {
+                      "hasInjury": {
+                        "booleanValue": false
+                      }
+                    }
+                  }
+                },
+                "level": {
+                  "stringValue": "Débutant (0-1 an)"
+                },
+                "recentRaceTimes": {
+                  "mapValue": {
+                    "fields": {
+                      "distance10km": {
+                        "stringValue": "1h30"
+                      }
+                    }
+                  }
+                },
+                "currentWeeklyVolume": {
+                  "integerValue": "5"
+                },
+                "height": {
+                  "integerValue": "180"
+                },
+                "age": {
+                  "integerValue": "45"
+                },
+                "email": {
+                  "stringValue": "sebastien.sailly@outlook.fr"
+                },
+                "goal": {
+                  "stringValue": "Course sur route"
+                },
+                "weight": {
+                  "integerValue": "130"
+                },
+                "vma": {
+                  "integerValue": "8"
+                },
+                "subGoal": {
+                  "stringValue": "10 km"
+                },
+                "preferredDays": {
+                  "arrayValue": {
+                    "values": [
+                      {
+                        "stringValue": "Vendredi"
+                      },
+                      {
+                        "stringValue": "Dimanche"
+                      }
+                    ]
+                  }
+                },
+                "raceDate": {
+                  "stringValue": "2026-06-30"
+                },
+                "frequency": {
+                  "integerValue": "2"
+                },
+                "startDate": {
+                  "stringValue": "2026-05-18"
+                }
+              }
+            }
+          },
+          "generatedAt": {
+            "stringValue": "2026-05-18T10:18:37.252Z"
+          },
+          "periodizationPlan": {
+            "mapValue": {
+              "fields": {
+                "weeklyVolumes": {
+                  "arrayValue": {
+                    "values": [
+                      {
+                        "integerValue": "5"
+                      },
+                      {
+                        "integerValue": "5"
+                      },
+                      {
+                        "integerValue": "6"
+                      },
+                      {
+                        "integerValue": "7"
+                      },
+                      {
+                        "integerValue": "8"
+                      },
+                      {
+                        "integerValue": "9"
+                      },
+                      {
+                        "integerValue": "5"
+                      }
+                    ]
+                  }
+                },
+                "recoveryWeeks": {
+                  "arrayValue": {
+                    "values": [
+                      {
+                        "integerValue": "4"
+                      }
+                    ]
+                  }
+                },
+                "weeklyPhases": {
+                  "arrayValue": {
+                    "values": [
+                      {
+                        "stringValue": "fondamental"
+                      },
+                      {
+                        "stringValue": "fondamental"
+                      },
+                      {
+                        "stringValue": "developpement"
+                      },
+                      {
+                        "stringValue": "recuperation"
+                      },
+                      {
+                        "stringValue": "specifique"
+                      },
+                      {
+                        "stringValue": "specifique"
+                      },
+                      {
+                        "stringValue": "affutage"
+                      }
+                    ]
+                  }
+                },
+                "totalWeeks": {
+                  "integerValue": "7"
+                }
+              }
+            }
+          },
+          "vma": {
+            "integerValue": "8"
+          }
+        }
+      }
+    },
+    "goal": {
+      "stringValue": "Course sur route"
+    }
+  },
+  "createTime": "2026-05-18T10:19:34.431805Z",
+  "updateTime": "2026-05-18T19:29:46.333159Z"
+}

@@ -1,0 +1,616 @@
+{
+  "name": "projects/coach-running-ia/databases/(default)/documents/plans/1774720274716",
+  "fields": {
+    "sessionsPerWeek": {
+      "integerValue": "4"
+    },
+    "userId": {
+      "stringValue": "laKZsFI1itOWW2gfYZdvkg1MJcQ2"
+    },
+    "goal": {
+      "stringValue": "Course sur route"
+    },
+    "createdAt": {
+      "stringValue": "2026-03-28T17:51:14.716Z"
+    },
+    "id": {
+      "stringValue": "1774720274716"
+    },
+    "generationContext": {
+      "mapValue": {
+        "fields": {
+          "questionnaireSnapshot": {
+            "mapValue": {
+              "fields": {
+                "startDate": {
+                  "stringValue": "2026-03-28"
+                },
+                "level": {
+                  "stringValue": "Intermédiaire (Régulier)"
+                },
+                "city": {
+                  "stringValue": "Cadaujac "
+                },
+                "currentWeeklyVolume": {
+                  "integerValue": "30"
+                },
+                "sex": {
+                  "stringValue": "Femme"
+                },
+                "raceDate": {
+                  "stringValue": "2026-05-16"
+                },
+                "subGoal": {
+                  "stringValue": "10 km"
+                },
+                "goal": {
+                  "stringValue": "Course sur route"
+                },
+                "targetTime": {
+                  "stringValue": "1h00"
+                },
+                "vma": {
+                  "doubleValue": 10.585876747203978
+                },
+                "preferredDays": {
+                  "arrayValue": {
+                    "values": [
+                      {
+                        "stringValue": "Mercredi"
+                      },
+                      {
+                        "stringValue": "Vendredi"
+                      },
+                      {
+                        "stringValue": "Dimanche"
+                      }
+                    ]
+                  }
+                },
+                "injuries": {
+                  "mapValue": {
+                    "fields": {
+                      "hasInjury": {
+                        "booleanValue": false
+                      }
+                    }
+                  }
+                },
+                "recentRaceTimes": {
+                  "mapValue": {
+                    "fields": {
+                      "distance5km": {
+                        "stringValue": "29:31"
+                      },
+                      "distance10km": {
+                        "stringValue": "1h04"
+                      }
+                    }
+                  }
+                },
+                "age": {
+                  "integerValue": "43"
+                },
+                "height": {
+                  "integerValue": "163"
+                },
+                "email": {
+                  "stringValue": "helene.eyquem@free.fr"
+                },
+                "weight": {
+                  "integerValue": "65"
+                },
+                "frequency": {
+                  "integerValue": "4"
+                }
+              }
+            }
+          },
+          "vma": {
+            "doubleValue": 10.585876747203978
+          },
+          "periodizationPlan": {
+            "mapValue": {
+              "fields": {
+                "weeklyVolumes": {
+                  "arrayValue": {
+                    "values": [
+                      {
+                        "integerValue": "20"
+                      },
+                      {
+                        "integerValue": "21"
+                      },
+                      {
+                        "integerValue": "23"
+                      },
+                      {
+                        "integerValue": "16"
+                      },
+                      {
+                        "integerValue": "21"
+                      },
+                      {
+                        "integerValue": "24"
+                      },
+                      {
+                        "integerValue": "14"
+                      }
+                    ]
+                  }
+                },
+                "recoveryWeeks": {
+                  "arrayValue": {
+                    "values": [
+                      {
+                        "integerValue": "4"
+                      }
+                    ]
+                  }
+                },
+                "totalWeeks": {
+                  "integerValue": "7"
+                },
+                "weeklyPhases": {
+                  "arrayValue": {
+                    "values": [
+                      {
+                        "stringValue": "fondamental"
+                      },
+                      {
+                        "stringValue": "fondamental"
+                      },
+                      {
+                        "stringValue": "developpement"
+                      },
+                      {
+                        "stringValue": "recuperation"
+                      },
+                      {
+                        "stringValue": "specifique"
+                      },
+                      {
+                        "stringValue": "specifique"
+                      },
+                      {
+                        "stringValue": "affutage"
+                      }
+                    ]
+                  }
+                }
+              }
+            }
+          },
+          "modelUsed": {
+            "stringValue": "gemini-2.5-flash"
+          },
+          "paces": {
+            "mapValue": {
+              "fields": {
+                "allureSpecifiqueSemi": {
+                  "stringValue": "6:40"
+                },
+                "eaPace": {
+                  "stringValue": "7:22"
+                },
+                "allureSpecifique10k": {
+                  "stringValue": "6:18"
+                },
+                "efPace": {
+                  "stringValue": "8:28"
+                },
+                "recoveryPace": {
+                  "stringValue": "9:27"
+                },
+                "seuilPace": {
+                  "stringValue": "6:31"
+                },
+                "allureSpecifique5k": {
+                  "stringValue": "5:58"
+                },
+                "vmaPace": {
+                  "stringValue": "5:40"
+                },
+                "allureSpecifiqueMarathon": {
+                  "stringValue": "7:05"
+                }
+              }
+            }
+          },
+          "generatedAt": {
+            "stringValue": "2026-03-28T17:50:50.683Z"
+          },
+          "vmaSource": {
+            "stringValue": "Moyenne 5km en 29:31 et 10km en 1h04"
+          }
+        }
+      }
+    },
+    "isPreview": {
+      "booleanValue": true
+    },
+    "userEmail": {
+      "stringValue": "helene.eyquem@free.fr"
+    },
+    "adaptationLog": {
+      "mapValue": {
+        "fields": {
+          "weekNumber": {
+            "integerValue": "0"
+          },
+          "adaptationHistory": {
+            "arrayValue": {}
+          },
+          "adaptationsThisWeek": {
+            "integerValue": "0"
+          }
+        }
+      }
+    },
+    "paces": {
+      "mapValue": {
+        "fields": {
+          "allureSpecifiqueMarathon": {
+            "stringValue": "7:05"
+          },
+          "allureSpecifique5k": {
+            "stringValue": "5:58"
+          },
+          "vmaPace": {
+            "stringValue": "5:40"
+          },
+          "seuilPace": {
+            "stringValue": "6:31"
+          },
+          "recoveryPace": {
+            "stringValue": "9:27"
+          },
+          "efPace": {
+            "stringValue": "8:28"
+          },
+          "allureSpecifique10k": {
+            "stringValue": "6:18"
+          },
+          "eaPace": {
+            "stringValue": "7:22"
+          },
+          "allureSpecifiqueSemi": {
+            "stringValue": "6:40"
+          }
+        }
+      }
+    },
+    "startDate": {
+      "stringValue": "2026-03-23"
+    },
+    "welcomeMessage": {
+      "stringValue": "Bienvenue dans ton plan d'entraînement personnalisé pour atteindre ton objectif de 1h00 sur 10 km ! Ce programme, étalé sur 7 semaines, est structuré pour te faire progresser de manière régulière et durable. La semaine 1 se concentre sur le développement de ta base d'endurance, essentielle pour la suite. Chaque semaine est conçue pour optimiser tes performances tout en respectant ton corps. Nous te recommandons de consulter un médecin avant de débuter ce programme, notamment pour obtenir un certificat médical d'aptitude au sport."
+    },
+    "location": {
+      "stringValue": "Cadaujac"
+    },
+    "feasibility": {
+      "mapValue": {
+        "fields": {
+          "safetyWarning": {
+            "stringValue": "Hydrate-toi bien, échauffe-toi avant chaque séance et accorde-toi un vrai temps de récupération."
+          },
+          "message": {
+            "stringValue": "Avec ta VMA de 10.6 km/h, ton temps théorique sur 10km est d'environ 1h03min. Ton objectif de 1h00min est cohérent avec ton niveau. C'est un plan réaliste et bien calibré."
+          },
+          "status": {
+            "stringValue": "EXCELLENT"
+          }
+        }
+      }
+    },
+    "confidenceScore": {
+      "integerValue": "86"
+    },
+    "durationWeeks": {
+      "integerValue": "7"
+    },
+    "name": {
+      "stringValue": "Préparation 10 km en 1h00 — 7 sem."
+    },
+    "raceDate": {
+      "stringValue": "2026-05-16"
+    },
+    "weeks": {
+      "arrayValue": {
+        "values": [
+          {
+            "mapValue": {
+              "fields": {
+                "theme": {
+                  "stringValue": "Développement de la base d'endurance"
+                },
+                "sessions": {
+                  "arrayValue": {
+                    "values": [
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "type": {
+                              "stringValue": "Sortie Longue"
+                            },
+                            "day": {
+                              "stringValue": "Mercredi"
+                            },
+                            "targetPace": {
+                              "stringValue": "8:28 min/km"
+                            },
+                            "elevationGain": {
+                              "integerValue": "0"
+                            },
+                            "mainSet": {
+                              "stringValue": "40 min de course continue à 8:28 min/km (Endurance Fondamentale)"
+                            },
+                            "intensity": {
+                              "stringValue": "Facile"
+                            },
+                            "locationSuggestion": {
+                              "stringValue": "Parc du Château de Cadaujac"
+                            },
+                            "id": {
+                              "stringValue": "w1-s1-1774720274716-p015vm4"
+                            },
+                            "cooldown": {
+                              "stringValue": "5 min de marche et étirements légers statiques (à 9:27 min/km)"
+                            },
+                            "distance": {
+                              "stringValue": "6.5 km"
+                            },
+                            "warmup": {
+                              "stringValue": "10 min de marche active, puis 5 min de footing très lent (9:27 min/km)"
+                            },
+                            "title": {
+                              "stringValue": "Footing en aisance respiratoire"
+                            },
+                            "duration": {
+                              "stringValue": "1h00"
+                            },
+                            "advice": {
+                              "stringValue": "Concentre-toi sur une respiration régulière et une sensation d'effort très facile. Tu devrais pouvoir parler sans essoufflement. Écoute ton corps et ne force pas en cas de douleur."
+                            }
+                          }
+                        }
+                      },
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "warmup": {
+                              "stringValue": "10 min de marche active, puis 5 min de footing très lent (9:27 min/km)"
+                            },
+                            "advice": {
+                              "stringValue": "Cette séance t'habitue à changer de rythme en douceur. Ne cherche pas la vitesse, mais la fluidité. Si tu ressens une gêne, ralentis ou arrête la séance."
+                            },
+                            "duration": {
+                              "stringValue": "1h00"
+                            },
+                            "title": {
+                              "stringValue": "Footing progressif"
+                            },
+                            "id": {
+                              "stringValue": "w1-s2-1774720274716-2fyr8ze"
+                            },
+                            "cooldown": {
+                              "stringValue": "5 min de marche et étirements légers statiques (à 9:27 min/km)"
+                            },
+                            "distance": {
+                              "stringValue": "6.5 km"
+                            },
+                            "elevationGain": {
+                              "integerValue": "0"
+                            },
+                            "mainSet": {
+                              "stringValue": "3 km à 9:27 min/km (Récupération), puis 4 km à 8:28 min/km (Endurance Fondamentale)"
+                            },
+                            "intensity": {
+                              "stringValue": "Modéré"
+                            },
+                            "locationSuggestion": {
+                              "stringValue": "Bords de Garonne (Port de Grimaud, Cadaujac)"
+                            },
+                            "type": {
+                              "stringValue": "Sortie Longue"
+                            },
+                            "day": {
+                              "stringValue": "Vendredi"
+                            },
+                            "targetPace": {
+                              "stringValue": "Variable (Récupération à EF)"
+                            }
+                          }
+                        }
+                      },
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "cooldown": {
+                              "stringValue": "5 min de marche et étirements légers statiques (à 9:27 min/km)"
+                            },
+                            "distance": {
+                              "stringValue": "7 km"
+                            },
+                            "id": {
+                              "stringValue": "w1-s3-1774720274716-rhbd0i3"
+                            },
+                            "warmup": {
+                              "stringValue": "5 min de marche active, puis 5 min de footing très lent (9:27 min/km)"
+                            },
+                            "duration": {
+                              "stringValue": "60 min"
+                            },
+                            "advice": {
+                              "stringValue": "La sortie longue est la clé de l'endurance. Maintiens une allure régulière et confortable. Hydrate-toi bien avant et après. En cas de fatigue intense, écoute ton corps et n'hésite pas à écourter."
+                            },
+                            "title": {
+                              "stringValue": "Sortie Longue - Endurance Fondamentale"
+                            },
+                            "day": {
+                              "stringValue": "Dimanche"
+                            },
+                            "type": {
+                              "stringValue": "Sortie Longue"
+                            },
+                            "targetPace": {
+                              "stringValue": "8:28 min/km"
+                            },
+                            "elevationGain": {
+                              "integerValue": "0"
+                            },
+                            "locationSuggestion": {
+                              "stringValue": "Bords de Garonne (Port de Grimaud, Cadaujac)"
+                            },
+                            "intensity": {
+                              "stringValue": "Facile"
+                            },
+                            "mainSet": {
+                              "stringValue": "50 min de course continue à 8:28 min/km (Endurance Fondamentale)"
+                            }
+                          }
+                        }
+                      },
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "day": {
+                              "stringValue": "Dimanche"
+                            },
+                            "type": {
+                              "stringValue": "Renforcement"
+                            },
+                            "targetPace": {
+                              "stringValue": "N/A"
+                            },
+                            "elevationGain": {
+                              "integerValue": "0"
+                            },
+                            "mainSet": {
+                              "stringValue": "Circuit 3 tours : Squats poids de corps (3x14), Squat bulgare (3x9/jambe), Fentes avant (3x9/jambe), Gainage ventral (3x27-60s), Dead bug (3x9/côté), Extensions mollets debout (3x18). Repos 1 min 30 entre tours."
+                            },
+                            "intensity": {
+                              "stringValue": "Modéré"
+                            },
+                            "locationSuggestion": {
+                              "stringValue": "À la maison"
+                            },
+                            "id": {
+                              "stringValue": "w1-s4-1774720274716-70shety"
+                            },
+                            "distance": {
+                              "stringValue": "0 km"
+                            },
+                            "cooldown": {
+                              "stringValue": "5 min d'étirements : quadriceps, ischio-jambiers, mollets, hanches"
+                            },
+                            "warmup": {
+                              "stringValue": "10 min de mobilité articulaire et échauffement dynamique"
+                            },
+                            "advice": {
+                              "stringValue": "Le renforcement est essentiel pour prévenir les blessures et améliorer ton efficacité de course. Privilégie la qualité à la quantité. Si un exercice provoque une douleur vive, arrête-le immédiatement."
+                            },
+                            "duration": {
+                              "stringValue": "35-40 min"
+                            },
+                            "title": {
+                              "stringValue": "Renfo Focus A - Quadriceps & Gainage (S1)"
+                            }
+                          }
+                        }
+                      }
+                    ]
+                  }
+                },
+                "weekNumber": {
+                  "integerValue": "1"
+                },
+                "weekGoal": {
+                  "stringValue": "Développement de la base d'endurance"
+                },
+                "phase": {
+                  "stringValue": "fondamental"
+                }
+              }
+            }
+          }
+        ]
+      }
+    },
+    "endDate": {
+      "stringValue": "2026-05-10"
+    },
+    "vma": {
+      "doubleValue": 10.585876747203978
+    },
+    "targetTime": {
+      "stringValue": "1h00"
+    },
+    "fullPlanGenerated": {
+      "booleanValue": false
+    },
+    "distance": {
+      "stringValue": "10 km"
+    },
+    "suggestedLocations": {
+      "arrayValue": {
+        "values": [
+          {
+            "mapValue": {
+              "fields": {
+                "type": {
+                  "stringValue": "PARK"
+                },
+                "name": {
+                  "stringValue": "Parc du Château de Cadaujac"
+                },
+                "description": {
+                  "stringValue": "Idéal pour les footings en endurance fondamentale, sur des chemins plats et agréables."
+                }
+              }
+            }
+          },
+          {
+            "mapValue": {
+              "fields": {
+                "type": {
+                  "stringValue": "NATURE"
+                },
+                "description": {
+                  "stringValue": "Parfait pour les sorties longues et les footings progressifs, avec de longues portions plates et une belle vue."
+                },
+                "name": {
+                  "stringValue": "Bords de Garonne (Port de Grimaud, Cadaujac)"
+                }
+              }
+            }
+          },
+          {
+            "mapValue": {
+              "fields": {
+                "type": {
+                  "stringValue": "NATURE"
+                },
+                "name": {
+                  "stringValue": "Sentiers de la Forêt de Thouars (Talence/Gradignan)"
+                },
+                "description": {
+                  "stringValue": "Pour les footings nature ou des séances avec un léger dénivelé, si le programme l'exige."
+                }
+              }
+            }
+          }
+        ]
+      }
+    },
+    "calculatedVMA": {
+      "doubleValue": 10.585876747203978
+    },
+    "vmaSource": {
+      "stringValue": "Moyenne 5km en 29:31 et 10km en 1h04"
+    }
+  },
+  "createTime": "2026-03-28T17:51:22.767584Z",
+  "updateTime": "2026-03-28T17:51:22.767584Z"
+}

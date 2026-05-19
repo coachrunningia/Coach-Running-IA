@@ -1,0 +1,613 @@
+{
+  "name": "projects/coach-running-ia/databases/(default)/documents/plans/1772196520337",
+  "fields": {
+    "confidenceScore": {
+      "integerValue": "75"
+    },
+    "vmaSource": {
+      "stringValue": "Moyenne 10km en 47:35 et Semi en 1h49"
+    },
+    "adaptationLog": {
+      "mapValue": {
+        "fields": {
+          "adaptationHistory": {
+            "arrayValue": {}
+          },
+          "adaptationsThisWeek": {
+            "integerValue": "0"
+          },
+          "weekNumber": {
+            "integerValue": "0"
+          }
+        }
+      }
+    },
+    "suggestedLocations": {
+      "arrayValue": {
+        "values": [
+          {
+            "mapValue": {
+              "fields": {
+                "name": {
+                  "stringValue": "Parc du Château de Bondues"
+                },
+                "description": {
+                  "stringValue": "Idéal pour les séances d'endurance et de récupération."
+                },
+                "type": {
+                  "stringValue": "PARK"
+                }
+              }
+            }
+          },
+          {
+            "mapValue": {
+              "fields": {
+                "description": {
+                  "stringValue": "Parfait pour les séances de VMA et de seuil."
+                },
+                "name": {
+                  "stringValue": "Piste d'athlétisme du Complexe sportif de Bondues"
+                },
+                "type": {
+                  "stringValue": "TRACK"
+                }
+              }
+            }
+          },
+          {
+            "mapValue": {
+              "fields": {
+                "type": {
+                  "stringValue": "NATURE"
+                },
+                "description": {
+                  "stringValue": "Adaptée pour les sorties longues et le renforcement musculaire en nature."
+                },
+                "name": {
+                  "stringValue": "Forêt de la Deûle"
+                }
+              }
+            }
+          }
+        ]
+      }
+    },
+    "targetTime": {
+      "stringValue": "1h45"
+    },
+    "name": {
+      "stringValue": "Plan Semi-Marathon 1h45 - Bondues"
+    },
+    "welcomeMessage": {
+      "stringValue": "Bienvenue dans ce plan de 14 semaines conçu pour atteindre ton objectif de 1h45 au semi-marathon. Cette première semaine est axée sur le développement fondamental de ton endurance, avec un focus sur le volume et la préparation musculaire. Nous allons travailler sur 4 séances hebdomadaires."
+    },
+    "fullPlanGenerated": {
+      "booleanValue": false
+    },
+    "weeks": {
+      "arrayValue": {
+        "values": [
+          {
+            "mapValue": {
+              "fields": {
+                "weekNumber": {
+                  "integerValue": "1"
+                },
+                "theme": {
+                  "stringValue": "Endurance Fondamentale"
+                },
+                "sessions": {
+                  "arrayValue": {
+                    "values": [
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "id": {
+                              "stringValue": "w1-s1-1772196520337-3y3qpim"
+                            },
+                            "day": {
+                              "stringValue": "Mardi"
+                            },
+                            "distance": {
+                              "stringValue": "12.6 km"
+                            },
+                            "title": {
+                              "stringValue": "Sortie Longue en Endurance Fondamentale"
+                            },
+                            "duration": {
+                              "stringValue": "1h21"
+                            },
+                            "mainSet": {
+                              "stringValue": "60 minutes à 6:27 min/km"
+                            },
+                            "advice": {
+                              "stringValue": "Profitez de cette sortie pour découvrir de nouveaux parcours dans la Forêt de la Deûle."
+                            },
+                            "type": {
+                              "stringValue": "Endurance"
+                            },
+                            "targetPace": {
+                              "stringValue": "6:27 min/km"
+                            },
+                            "warmup": {
+                              "stringValue": "15 minutes à 6:27 min/km"
+                            },
+                            "intensity": {
+                              "stringValue": "Facile"
+                            },
+                            "cooldown": {
+                              "stringValue": "15 minutes à 7:13 min/km"
+                            }
+                          }
+                        }
+                      },
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "day": {
+                              "stringValue": "Mercredi"
+                            },
+                            "id": {
+                              "stringValue": "w1-s2-1772196520337-d9o8ntk"
+                            },
+                            "title": {
+                              "stringValue": "Séance de Renforcement Spécifique Course à Pied"
+                            },
+                            "mainSet": {
+                              "stringValue": "3 séries de 15 squats, 3 séries de 12 fentes par jambe, 3 séries de 30 secondes de gainage ventral, 3 séries de 30 secondes de gainage latéral par côté, 3 séries de 20 montées sur pointes de pieds."
+                            },
+                            "duration": {
+                              "stringValue": "40 min"
+                            },
+                            "advice": {
+                              "stringValue": "Concentre-toi sur la qualité de l'exécution des mouvements pour prévenir les blessures. Utilise le poids du corps ou des charges légères."
+                            },
+                            "type": {
+                              "stringValue": "Renforcement"
+                            },
+                            "warmup": {
+                              "stringValue": "5 minutes d'échauffement articulaire"
+                            },
+                            "cooldown": {
+                              "stringValue": "5 minutes d'étirements doux des jambes et du dos."
+                            },
+                            "intensity": {
+                              "stringValue": "Modéré"
+                            }
+                          }
+                        }
+                      },
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "distance": {
+                              "stringValue": "10.8 km"
+                            },
+                            "day": {
+                              "stringValue": "Jeudi"
+                            },
+                            "id": {
+                              "stringValue": "w1-s3-1772196520337-bg8qq3u"
+                            },
+                            "mainSet": {
+                              "stringValue": "3 x 8 minutes à 4:58 min/km avec 2 minutes de récupération à 7:13 min/km entre chaque répétition."
+                            },
+                            "duration": {
+                              "stringValue": "54 min"
+                            },
+                            "title": {
+                              "stringValue": "Séance de Seuil"
+                            },
+                            "warmup": {
+                              "stringValue": "15 minutes à 6:27 min/km"
+                            },
+                            "targetPace": {
+                              "stringValue": "4:58 min/km"
+                            },
+                            "advice": {
+                              "stringValue": "Cette séance est importante pour améliorer ton endurance de vitesse. Contrôle ton allure et ton respiration pendant les portions au seuil."
+                            },
+                            "type": {
+                              "stringValue": "Seuil"
+                            },
+                            "cooldown": {
+                              "stringValue": "15 minutes à 7:13 min/km"
+                            },
+                            "intensity": {
+                              "stringValue": "Modéré"
+                            }
+                          }
+                        }
+                      },
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "type": {
+                              "stringValue": "Endurance"
+                            },
+                            "advice": {
+                              "stringValue": "Cette sortie vise à augmenter progressivement ton vitesse sur une distance donnée. Augmente légèrement ton cadence sur la dernière partie."
+                            },
+                            "warmup": {
+                              "stringValue": "15 minutes à 6:27 min/km"
+                            },
+                            "targetPace": {
+                              "stringValue": "6:27 min/km"
+                            },
+                            "cooldown": {
+                              "stringValue": "15 minutes à 7:13 min/km"
+                            },
+                            "intensity": {
+                              "stringValue": "Facile"
+                            },
+                            "day": {
+                              "stringValue": "Dimanche"
+                            },
+                            "id": {
+                              "stringValue": "w1-s4-1772196520337-ngcbebq"
+                            },
+                            "distance": {
+                              "stringValue": "12.6 km"
+                            },
+                            "title": {
+                              "stringValue": "Sortie en Endurance avec Progressivité"
+                            },
+                            "mainSet": {
+                              "stringValue": "45 minutes à 6:27 min/km, puis 15 minutes à 5:30 min/km"
+                            },
+                            "duration": {
+                              "stringValue": "1h08"
+                            }
+                          }
+                        }
+                      }
+                    ]
+                  }
+                },
+                "phase": {
+                  "stringValue": "fondamental"
+                }
+              }
+            }
+          }
+        ]
+      }
+    },
+    "durationWeeks": {
+      "integerValue": "14"
+    },
+    "id": {
+      "stringValue": "1772196520337"
+    },
+    "generationContext": {
+      "mapValue": {
+        "fields": {
+          "periodizationPlan": {
+            "mapValue": {
+              "fields": {
+                "weeklyVolumes": {
+                  "arrayValue": {
+                    "values": [
+                      {
+                        "integerValue": "40"
+                      },
+                      {
+                        "integerValue": "44"
+                      },
+                      {
+                        "integerValue": "48"
+                      },
+                      {
+                        "integerValue": "37"
+                      },
+                      {
+                        "integerValue": "53"
+                      },
+                      {
+                        "integerValue": "59"
+                      },
+                      {
+                        "integerValue": "64"
+                      },
+                      {
+                        "integerValue": "50"
+                      },
+                      {
+                        "integerValue": "71"
+                      },
+                      {
+                        "integerValue": "78"
+                      },
+                      {
+                        "integerValue": "86"
+                      },
+                      {
+                        "integerValue": "66"
+                      },
+                      {
+                        "integerValue": "55"
+                      },
+                      {
+                        "integerValue": "47"
+                      }
+                    ]
+                  }
+                },
+                "totalWeeks": {
+                  "integerValue": "14"
+                },
+                "recoveryWeeks": {
+                  "arrayValue": {
+                    "values": [
+                      {
+                        "integerValue": "4"
+                      },
+                      {
+                        "integerValue": "8"
+                      },
+                      {
+                        "integerValue": "12"
+                      }
+                    ]
+                  }
+                },
+                "weeklyPhases": {
+                  "arrayValue": {
+                    "values": [
+                      {
+                        "stringValue": "fondamental"
+                      },
+                      {
+                        "stringValue": "fondamental"
+                      },
+                      {
+                        "stringValue": "fondamental"
+                      },
+                      {
+                        "stringValue": "recuperation"
+                      },
+                      {
+                        "stringValue": "developpement"
+                      },
+                      {
+                        "stringValue": "developpement"
+                      },
+                      {
+                        "stringValue": "developpement"
+                      },
+                      {
+                        "stringValue": "recuperation"
+                      },
+                      {
+                        "stringValue": "specifique"
+                      },
+                      {
+                        "stringValue": "specifique"
+                      },
+                      {
+                        "stringValue": "specifique"
+                      },
+                      {
+                        "stringValue": "recuperation"
+                      },
+                      {
+                        "stringValue": "affutage"
+                      },
+                      {
+                        "stringValue": "affutage"
+                      }
+                    ]
+                  }
+                }
+              }
+            }
+          },
+          "modelUsed": {
+            "stringValue": "gemini-2.0-flash"
+          },
+          "vma": {
+            "doubleValue": 13.872035975173501
+          },
+          "generatedAt": {
+            "stringValue": "2026-02-27T12:48:32.074Z"
+          },
+          "vmaSource": {
+            "stringValue": "Moyenne 10km en 47:35 et Semi en 1h49"
+          },
+          "questionnaireSnapshot": {
+            "mapValue": {
+              "fields": {
+                "currentWeeklyVolume": {
+                  "integerValue": "40"
+                },
+                "level": {
+                  "stringValue": "Confirmé (Compétition)"
+                },
+                "city": {
+                  "stringValue": "Bondues"
+                },
+                "trailDetails": {
+                  "mapValue": {
+                    "fields": {
+                      "elevation": {
+                        "integerValue": "500"
+                      },
+                      "distance": {
+                        "integerValue": "20"
+                      }
+                    }
+                  }
+                },
+                "frequency": {
+                  "integerValue": "4"
+                },
+                "email": {
+                  "stringValue": "anais.delaird@gmail.com"
+                },
+                "recentRaceTimes": {
+                  "mapValue": {
+                    "fields": {
+                      "distance10km": {
+                        "stringValue": "47:35"
+                      },
+                      "distanceHalfMarathon": {
+                        "stringValue": "1h49"
+                      }
+                    }
+                  }
+                },
+                "startDate": {
+                  "stringValue": "2026-02-27"
+                },
+                "preferredDays": {
+                  "arrayValue": {}
+                },
+                "goal": {
+                  "stringValue": "Course sur route"
+                },
+                "injuries": {
+                  "mapValue": {
+                    "fields": {
+                      "hasInjury": {
+                        "booleanValue": false
+                      }
+                    }
+                  }
+                },
+                "subGoal": {
+                  "stringValue": "Semi-Marathon"
+                },
+                "sex": {
+                  "stringValue": "Homme"
+                },
+                "targetTime": {
+                  "stringValue": "1h45"
+                },
+                "raceDate": {
+                  "stringValue": "2026-06-11"
+                }
+              }
+            }
+          },
+          "paces": {
+            "mapValue": {
+              "fields": {
+                "allureSpecifique5k": {
+                  "stringValue": "4:33"
+                },
+                "efPace": {
+                  "stringValue": "6:27"
+                },
+                "seuilPace": {
+                  "stringValue": "4:58"
+                },
+                "eaPace": {
+                  "stringValue": "5:37"
+                },
+                "allureSpecifiqueMarathon": {
+                  "stringValue": "5:24"
+                },
+                "allureSpecifique10k": {
+                  "stringValue": "4:48"
+                },
+                "recoveryPace": {
+                  "stringValue": "7:13"
+                },
+                "vmaPace": {
+                  "stringValue": "4:20"
+                },
+                "allureSpecifiqueSemi": {
+                  "stringValue": "5:05"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "userId": {
+      "stringValue": "QwmkZnuVFnNjfbBRdyE4pCdSwhJ2"
+    },
+    "paces": {
+      "mapValue": {
+        "fields": {
+          "vmaPace": {
+            "stringValue": "4:20"
+          },
+          "recoveryPace": {
+            "stringValue": "7:13"
+          },
+          "allureSpecifiqueSemi": {
+            "stringValue": "5:05"
+          },
+          "efPace": {
+            "stringValue": "6:27"
+          },
+          "allureSpecifique5k": {
+            "stringValue": "4:33"
+          },
+          "seuilPace": {
+            "stringValue": "4:58"
+          },
+          "allureSpecifiqueMarathon": {
+            "stringValue": "5:24"
+          },
+          "eaPace": {
+            "stringValue": "5:37"
+          },
+          "allureSpecifique10k": {
+            "stringValue": "4:48"
+          }
+        }
+      }
+    },
+    "startDate": {
+      "stringValue": "2026-02-27"
+    },
+    "location": {
+      "stringValue": "Bondues"
+    },
+    "feasibility": {
+      "mapValue": {
+        "fields": {
+          "message": {
+            "stringValue": "Avec une VMA de 13.9 km/h, ton temps théorique sur semi-marathon est d'environ 1h45, ce qui correspond à ton objectif. Ce plan est conçu pour t'amener progressivement à cet objectif."
+          },
+          "safetyWarning": {
+            "stringValue": "Adapte l'intensité des séances en fonction de ton ressenti et de la météo. N'oublie pas de bien t'hydrater et de t'échauffer avant chaque entraînement."
+          },
+          "status": {
+            "stringValue": "BON"
+          }
+        }
+      }
+    },
+    "userEmail": {
+      "stringValue": "anais.delaird@gmail.com"
+    },
+    "vma": {
+      "doubleValue": 13.872035975173501
+    },
+    "createdAt": {
+      "stringValue": "2026-02-27T12:48:40.337Z"
+    },
+    "sessionsPerWeek": {
+      "integerValue": "4"
+    },
+    "calculatedVMA": {
+      "doubleValue": 13.872035975173501
+    },
+    "isPreview": {
+      "booleanValue": true
+    },
+    "goal": {
+      "stringValue": "Course sur route"
+    },
+    "distance": {
+      "stringValue": "Semi-Marathon"
+    }
+  },
+  "createTime": "2026-02-27T12:48:40.467451Z",
+  "updateTime": "2026-03-18T17:02:36.346391Z"
+}

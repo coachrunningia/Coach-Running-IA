@@ -1,0 +1,3040 @@
+{
+  "name": "projects/coach-running-ia/databases/(default)/documents/plans/1771621613399",
+  "fields": {
+    "targetTime": {
+      "stringValue": "3h45"
+    },
+    "id": {
+      "stringValue": "1771621613399"
+    },
+    "name": {
+      "stringValue": "Plan Marathon 3h45 - Préparation Initiale"
+    },
+    "createdAt": {
+      "stringValue": "2026-02-20T21:06:53.399Z"
+    },
+    "isPreview": {
+      "booleanValue": false
+    },
+    "sessionsPerWeek": {
+      "integerValue": "5"
+    },
+    "fullPlanGenerated": {
+      "booleanValue": true
+    },
+    "vma": {
+      "doubleValue": 13.771170373989811
+    },
+    "distance": {
+      "stringValue": "Marathon"
+    },
+    "welcomeMessage": {
+      "stringValue": "Bienvenue dans ton plan marathon ! Cette première semaine est axée sur la construction d'une base solide d'endurance. Nous allons progressivement augmenter le volume d'entraînement tout en intégrant des séances de renforcement musculaire spécifiques à la course à pied. L'objectif est de préparer ton corps à encaisser les charges plus importantes des semaines à venir."
+    },
+    "feasibility": {
+      "mapValue": {
+        "fields": {
+          "safetyWarning": {
+            "stringValue": "Écoute ton corps et adapte l'entraînement si nécessaire. Ne négligez pas l'hydratation et l'alimentation."
+          },
+          "status": {
+            "stringValue": "BON"
+          },
+          "message": {
+            "stringValue": "Avec une VMA de 13.8 km/h, ton temps théorique sur marathon se situe autour de 3h30. L'objectif de 3h45 est donc réaliste, mais nécessitera une préparation rigoureuse et un respect scrupuleux du plan d'entraînement. Il est essentiel de bien récupérer entre les séances."
+          }
+        }
+      }
+    },
+    "startDate": {
+      "stringValue": "2026-02-20"
+    },
+    "confidenceScore": {
+      "integerValue": "75"
+    },
+    "adaptationLog": {
+      "mapValue": {
+        "fields": {
+          "adaptationHistory": {
+            "arrayValue": {}
+          },
+          "weekNumber": {
+            "integerValue": "0"
+          },
+          "adaptationsThisWeek": {
+            "integerValue": "0"
+          }
+        }
+      }
+    },
+    "goal": {
+      "stringValue": "Course sur route"
+    },
+    "durationWeeks": {
+      "integerValue": "11"
+    },
+    "paces": {
+      "mapValue": {
+        "fields": {
+          "allureSpecifique10k": {
+            "stringValue": "4:50"
+          },
+          "vmaPace": {
+            "stringValue": "4:21"
+          },
+          "efPace": {
+            "stringValue": "6:30"
+          },
+          "allureSpecifique5k": {
+            "stringValue": "4:35"
+          },
+          "allureSpecifiqueSemi": {
+            "stringValue": "5:08"
+          },
+          "recoveryPace": {
+            "stringValue": "7:16"
+          },
+          "allureSpecifiqueMarathon": {
+            "stringValue": "5:27"
+          },
+          "seuilPace": {
+            "stringValue": "5:00"
+          },
+          "eaPace": {
+            "stringValue": "5:40"
+          }
+        }
+      }
+    },
+    "userId": {
+      "stringValue": "4FoYGl7BKJV4PFt5I9waX7h5QWN2"
+    },
+    "generationContext": {
+      "mapValue": {
+        "fields": {
+          "generatedAt": {
+            "stringValue": "2026-02-20T21:06:42.996Z"
+          },
+          "questionnaireSnapshot": {
+            "mapValue": {
+              "fields": {
+                "frequency": {
+                  "integerValue": "5"
+                },
+                "level": {
+                  "stringValue": "Confirmé (Compétition)"
+                },
+                "recentRaceTimes": {
+                  "mapValue": {
+                    "fields": {
+                      "distance5km": {
+                        "stringValue": "23:10"
+                      },
+                      "distance10km": {
+                        "stringValue": "47:41"
+                      }
+                    }
+                  }
+                },
+                "currentWeeklyVolume": {
+                  "integerValue": "30"
+                },
+                "raceDate": {
+                  "stringValue": "2026-05-10"
+                },
+                "weight": {
+                  "integerValue": "61"
+                },
+                "startDate": {
+                  "stringValue": "2026-02-20"
+                },
+                "preferredDays": {
+                  "arrayValue": {}
+                },
+                "height": {
+                  "integerValue": "173"
+                },
+                "targetTime": {
+                  "stringValue": "3h45"
+                },
+                "trailDetails": {
+                  "mapValue": {
+                    "fields": {
+                      "distance": {
+                        "integerValue": "20"
+                      },
+                      "elevation": {
+                        "integerValue": "500"
+                      }
+                    }
+                  }
+                },
+                "subGoal": {
+                  "stringValue": "Marathon"
+                },
+                "goal": {
+                  "stringValue": "Course sur route"
+                },
+                "email": {
+                  "stringValue": "rgna79@gmail.com"
+                },
+                "city": {
+                  "stringValue": "Niort"
+                },
+                "injuries": {
+                  "mapValue": {
+                    "fields": {
+                      "hasInjury": {
+                        "booleanValue": false
+                      }
+                    }
+                  }
+                },
+                "sex": {
+                  "stringValue": "Femme"
+                }
+              }
+            }
+          },
+          "modelUsed": {
+            "stringValue": "gemini-2.0-flash"
+          },
+          "periodizationPlan": {
+            "mapValue": {
+              "fields": {
+                "weeklyVolumes": {
+                  "arrayValue": {
+                    "values": [
+                      {
+                        "integerValue": "30"
+                      },
+                      {
+                        "integerValue": "33"
+                      },
+                      {
+                        "integerValue": "36"
+                      },
+                      {
+                        "integerValue": "28"
+                      },
+                      {
+                        "integerValue": "40"
+                      },
+                      {
+                        "integerValue": "44"
+                      },
+                      {
+                        "integerValue": "48"
+                      },
+                      {
+                        "integerValue": "37"
+                      },
+                      {
+                        "integerValue": "35"
+                      },
+                      {
+                        "integerValue": "31"
+                      },
+                      {
+                        "integerValue": "27"
+                      }
+                    ]
+                  }
+                },
+                "recoveryWeeks": {
+                  "arrayValue": {
+                    "values": [
+                      {
+                        "integerValue": "4"
+                      },
+                      {
+                        "integerValue": "8"
+                      }
+                    ]
+                  }
+                },
+                "weeklyPhases": {
+                  "arrayValue": {
+                    "values": [
+                      {
+                        "stringValue": "fondamental"
+                      },
+                      {
+                        "stringValue": "fondamental"
+                      },
+                      {
+                        "stringValue": "fondamental"
+                      },
+                      {
+                        "stringValue": "recuperation"
+                      },
+                      {
+                        "stringValue": "developpement"
+                      },
+                      {
+                        "stringValue": "developpement"
+                      },
+                      {
+                        "stringValue": "specifique"
+                      },
+                      {
+                        "stringValue": "recuperation"
+                      },
+                      {
+                        "stringValue": "affutage"
+                      },
+                      {
+                        "stringValue": "affutage"
+                      },
+                      {
+                        "stringValue": "affutage"
+                      }
+                    ]
+                  }
+                },
+                "totalWeeks": {
+                  "integerValue": "11"
+                }
+              }
+            }
+          },
+          "paces": {
+            "mapValue": {
+              "fields": {
+                "allureSpecifiqueSemi": {
+                  "stringValue": "5:08"
+                },
+                "eaPace": {
+                  "stringValue": "5:40"
+                },
+                "recoveryPace": {
+                  "stringValue": "7:16"
+                },
+                "allureSpecifiqueMarathon": {
+                  "stringValue": "5:27"
+                },
+                "seuilPace": {
+                  "stringValue": "5:00"
+                },
+                "allureSpecifique10k": {
+                  "stringValue": "4:50"
+                },
+                "vmaPace": {
+                  "stringValue": "4:21"
+                },
+                "efPace": {
+                  "stringValue": "6:30"
+                },
+                "allureSpecifique5k": {
+                  "stringValue": "4:35"
+                }
+              }
+            }
+          },
+          "vmaSource": {
+            "stringValue": "Moyenne 5km en 23:10 et 10km en 47:41"
+          },
+          "vma": {
+            "doubleValue": 13.771170373989811
+          }
+        }
+      }
+    },
+    "weeks": {
+      "arrayValue": {
+        "values": [
+          {
+            "mapValue": {
+              "fields": {
+                "sessions": {
+                  "arrayValue": {
+                    "values": [
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "id": {
+                              "stringValue": "w1-s1-1771621613400-3oyvc11"
+                            },
+                            "duration": {
+                              "stringValue": "1h00"
+                            },
+                            "advice": {
+                              "stringValue": "Profite de cette sortie pour bien t'échauffer et tu concentrer sur ton technique de course."
+                            },
+                            "mainSet": {
+                              "stringValue": "40 minutes à 6:30 min/km"
+                            },
+                            "warmup": {
+                              "stringValue": "10 minutes à 7:16 min/km"
+                            },
+                            "title": {
+                              "stringValue": "Sortie EF tranquille"
+                            },
+                            "cooldown": {
+                              "stringValue": "10 minutes à 7:16 min/km"
+                            },
+                            "day": {
+                              "stringValue": "Mardi"
+                            },
+                            "targetPace": {
+                              "stringValue": "6:30 min/km"
+                            },
+                            "intensity": {
+                              "stringValue": "Facile"
+                            },
+                            "type": {
+                              "stringValue": "Endurance Fondamentale"
+                            },
+                            "distance": {
+                              "stringValue": "9.2 km"
+                            }
+                          }
+                        }
+                      },
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "id": {
+                              "stringValue": "w1-s2-1771621613400-y8ag5cs"
+                            },
+                            "warmup": {
+                              "stringValue": "5 minutes d'échauffement articulaire"
+                            },
+                            "mainSet": {
+                              "stringValue": "3 séries de 15 squats, 3 séries de 10 fentes par jambe, 3 séries de 30 secondes de gainage ventral, 3 séries de 30 secondes de gainage latéral par côté, 3 séries de 20 montées sur pointes de pieds."
+                            },
+                            "title": {
+                              "stringValue": "Séance renforcement musculaire"
+                            },
+                            "advice": {
+                              "stringValue": "Concentre-toi sur la qualité de l'exécution des mouvements pour éviter les blessures."
+                            },
+                            "duration": {
+                              "stringValue": "35 min"
+                            },
+                            "cooldown": {
+                              "stringValue": "5 minutes d'étirements doux"
+                            },
+                            "day": {
+                              "stringValue": "Mercredi"
+                            },
+                            "intensity": {
+                              "stringValue": "Modéré"
+                            },
+                            "type": {
+                              "stringValue": "Renforcement"
+                            }
+                          }
+                        }
+                      },
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "cooldown": {
+                              "stringValue": "10 minutes à 7:16 min/km"
+                            },
+                            "targetPace": {
+                              "stringValue": "6:30 min/km"
+                            },
+                            "day": {
+                              "stringValue": "Jeudi"
+                            },
+                            "intensity": {
+                              "stringValue": "Facile"
+                            },
+                            "type": {
+                              "stringValue": "Endurance Fondamentale"
+                            },
+                            "distance": {
+                              "stringValue": "7 km"
+                            },
+                            "id": {
+                              "stringValue": "w1-s3-1771621613400-23la8tp"
+                            },
+                            "advice": {
+                              "stringValue": "Augmente légèrement le rythme sur la fin de la séance si tu tu sens bien."
+                            },
+                            "duration": {
+                              "stringValue": "45 min"
+                            },
+                            "mainSet": {
+                              "stringValue": "25 minutes à 6:30 min/km"
+                            },
+                            "title": {
+                              "stringValue": "Sortie EF progressive"
+                            },
+                            "warmup": {
+                              "stringValue": "10 minutes à 7:16 min/km"
+                            }
+                          }
+                        }
+                      },
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "id": {
+                              "stringValue": "w1-s4-1771621613400-we849pg"
+                            },
+                            "advice": {
+                              "stringValue": "Travaille ton technique en montée et relâchez bien en descente."
+                            },
+                            "duration": {
+                              "stringValue": "1h15"
+                            },
+                            "warmup": {
+                              "stringValue": "10 minutes à 7:16 min/km"
+                            },
+                            "title": {
+                              "stringValue": "Sortie EF avec côtes"
+                            },
+                            "mainSet": {
+                              "stringValue": "55 minutes à 6:30 min/km en incluant quelques côtes courtes (50-100m) à allure modérée"
+                            },
+                            "intensity": {
+                              "stringValue": "Modéré"
+                            },
+                            "targetPace": {
+                              "stringValue": "6:30 min/km"
+                            },
+                            "day": {
+                              "stringValue": "Samedi"
+                            },
+                            "cooldown": {
+                              "stringValue": "10 minutes à 7:16 min/km"
+                            },
+                            "distance": {
+                              "stringValue": "11.5 km"
+                            },
+                            "type": {
+                              "stringValue": "Endurance Fondamentale"
+                            }
+                          }
+                        }
+                      },
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "distance": {
+                              "stringValue": "13.8 km"
+                            },
+                            "type": {
+                              "stringValue": "Sortie Longue"
+                            },
+                            "intensity": {
+                              "stringValue": "Facile"
+                            },
+                            "targetPace": {
+                              "stringValue": "6:30 min/km"
+                            },
+                            "day": {
+                              "stringValue": "Dimanche"
+                            },
+                            "cooldown": {
+                              "stringValue": "10 minutes à 7:16 min/km"
+                            },
+                            "duration": {
+                              "stringValue": "1h30"
+                            },
+                            "advice": {
+                              "stringValue": "Testez ton matériel et ton alimentation pour les longues distances."
+                            },
+                            "title": {
+                              "stringValue": "Sortie longue en endurance fondamentale"
+                            },
+                            "mainSet": {
+                              "stringValue": "70 minutes à 6:30 min/km"
+                            },
+                            "warmup": {
+                              "stringValue": "10 minutes à 7:16 min/km"
+                            },
+                            "id": {
+                              "stringValue": "w1-s5-1771621613400-k3zv4nd"
+                            }
+                          }
+                        }
+                      }
+                    ]
+                  }
+                },
+                "weekNumber": {
+                  "integerValue": "1"
+                },
+                "theme": {
+                  "stringValue": "Mise en place de l'endurance fondamentale"
+                },
+                "phase": {
+                  "stringValue": "fondamental"
+                }
+              }
+            }
+          },
+          {
+            "mapValue": {
+              "fields": {
+                "theme": {
+                  "stringValue": "Endurance Fondamentale et Préparation Marathon"
+                },
+                "phase": {
+                  "stringValue": "fondamental"
+                },
+                "sessions": {
+                  "arrayValue": {
+                    "values": [
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "intensity": {
+                              "stringValue": "Facile"
+                            },
+                            "targetPace": {
+                              "stringValue": "EF"
+                            },
+                            "title": {
+                              "stringValue": "Sortie EF tranquille"
+                            },
+                            "warmup": {
+                              "stringValue": "10 minutes EF"
+                            },
+                            "advice": {
+                              "stringValue": "Profite de cette sortie pour te concentrer sur ton technique de course."
+                            },
+                            "id": {
+                              "stringValue": "w2-s1-1771881012227-5iwjn12"
+                            },
+                            "distance": {
+                              "stringValue": "10.5 km"
+                            },
+                            "type": {
+                              "stringValue": "EF"
+                            },
+                            "day": {
+                              "stringValue": "Mardi"
+                            },
+                            "cooldown": {
+                              "stringValue": "10 minutes EF"
+                            },
+                            "mainSet": {
+                              "stringValue": "50 minutes EF"
+                            },
+                            "duration": {
+                              "stringValue": "1h08"
+                            },
+                            "feedback": {
+                              "mapValue": {
+                                "fields": {
+                                  "adaptationRequested": {
+                                    "booleanValue": false
+                                  },
+                                  "rpe": {
+                                    "integerValue": "5"
+                                  },
+                                  "completed": {
+                                    "booleanValue": true
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        }
+                      },
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "feedback": {
+                              "mapValue": {
+                                "fields": {
+                                  "adaptationRequested": {
+                                    "booleanValue": false
+                                  },
+                                  "completed": {
+                                    "booleanValue": true
+                                  },
+                                  "rpe": {
+                                    "integerValue": "5"
+                                  }
+                                }
+                              }
+                            },
+                            "id": {
+                              "stringValue": "w2-s2-1771881012227-89fu8qa"
+                            },
+                            "warmup": {
+                              "stringValue": "5 minutes d'échauffement articulaire"
+                            },
+                            "title": {
+                              "stringValue": "Séance renforcement musculaire"
+                            },
+                            "mainSet": {
+                              "stringValue": "3 séries de 12-15 répétitions de squats, fentes, pompes, gainage (planche ventrale et latérale)"
+                            },
+                            "advice": {
+                              "stringValue": "Adapte les exercices à ton niveau et augmente progressivement la difficulté."
+                            },
+                            "duration": {
+                              "stringValue": "40 min"
+                            },
+                            "day": {
+                              "stringValue": "Mercredi"
+                            },
+                            "cooldown": {
+                              "stringValue": "5 minutes d'étirements légers"
+                            },
+                            "intensity": {
+                              "stringValue": "Modéré"
+                            },
+                            "type": {
+                              "stringValue": "Renforcement"
+                            }
+                          }
+                        }
+                      },
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "type": {
+                              "stringValue": "EF"
+                            },
+                            "distance": {
+                              "stringValue": "8.3 km"
+                            },
+                            "day": {
+                              "stringValue": "Jeudi"
+                            },
+                            "cooldown": {
+                              "stringValue": "10 minutes EF"
+                            },
+                            "duration": {
+                              "stringValue": "49 min"
+                            },
+                            "mainSet": {
+                              "stringValue": "30 minutes EF"
+                            },
+                            "feedback": {
+                              "mapValue": {
+                                "fields": {
+                                  "rpe": {
+                                    "integerValue": "5"
+                                  },
+                                  "completed": {
+                                    "booleanValue": true
+                                  },
+                                  "adaptationRequested": {
+                                    "booleanValue": false
+                                  }
+                                }
+                              }
+                            },
+                            "targetPace": {
+                              "stringValue": "EF"
+                            },
+                            "intensity": {
+                              "stringValue": "Facile"
+                            },
+                            "advice": {
+                              "stringValue": "Augmentez légèrement l'allure sur les 10 dernières minutes."
+                            },
+                            "title": {
+                              "stringValue": "Sortie EF progressive"
+                            },
+                            "warmup": {
+                              "stringValue": "10 minutes EF"
+                            },
+                            "id": {
+                              "stringValue": "w2-s3-1771881012227-gy4etas"
+                            }
+                          }
+                        }
+                      },
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "title": {
+                              "stringValue": "Sortie EF avec côtes"
+                            },
+                            "mainSet": {
+                              "stringValue": "Alterner montées de 30-45 secondes à EA avec descentes en EF pendant 50 minutes"
+                            },
+                            "warmup": {
+                              "stringValue": "15 minutes EF"
+                            },
+                            "advice": {
+                              "stringValue": "Choisis des côtes avec une pente modérée et concentre-toi sur ton posture."
+                            },
+                            "duration": {
+                              "stringValue": "1h23"
+                            },
+                            "id": {
+                              "stringValue": "w2-s4-1771881012227-i1zijw1"
+                            },
+                            "type": {
+                              "stringValue": "EF"
+                            },
+                            "distance": {
+                              "stringValue": "13.1 km"
+                            },
+                            "cooldown": {
+                              "stringValue": "20 minutes EF"
+                            },
+                            "day": {
+                              "stringValue": "Samedi"
+                            },
+                            "targetPace": {
+                              "stringValue": "EF"
+                            },
+                            "intensity": {
+                              "stringValue": "Modéré"
+                            }
+                          }
+                        }
+                      },
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "targetPace": {
+                              "stringValue": "EF"
+                            },
+                            "intensity": {
+                              "stringValue": "Facile"
+                            },
+                            "title": {
+                              "stringValue": "Sortie longue en endurance fondamentale"
+                            },
+                            "warmup": {
+                              "stringValue": "15 minutes EF"
+                            },
+                            "advice": {
+                              "stringValue": "Testez ton ravitaillement pour le marathon."
+                            },
+                            "id": {
+                              "stringValue": "w2-s5-1771881012227-uncx1oy"
+                            },
+                            "type": {
+                              "stringValue": "Sortie Longue"
+                            },
+                            "distance": {
+                              "stringValue": "16.1 km"
+                            },
+                            "day": {
+                              "stringValue": "Dimanche"
+                            },
+                            "cooldown": {
+                              "stringValue": "15 minutes EF"
+                            },
+                            "mainSet": {
+                              "stringValue": "1h15 EF"
+                            },
+                            "duration": {
+                              "stringValue": "1h42"
+                            },
+                            "feedback": {
+                              "mapValue": {
+                                "fields": {
+                                  "rpe": {
+                                    "integerValue": "5"
+                                  },
+                                  "completed": {
+                                    "booleanValue": true
+                                  },
+                                  "adaptationRequested": {
+                                    "booleanValue": false
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        }
+                      }
+                    ]
+                  }
+                },
+                "weekNumber": {
+                  "integerValue": "2"
+                },
+                "isRecoveryWeek": {
+                  "booleanValue": false
+                }
+              }
+            }
+          },
+          {
+            "mapValue": {
+              "fields": {
+                "sessions": {
+                  "arrayValue": {
+                    "values": [
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "intensity": {
+                              "stringValue": "Facile"
+                            },
+                            "targetPace": {
+                              "stringValue": "EF"
+                            },
+                            "id": {
+                              "stringValue": "w3-s1-1771881012227-49qul93"
+                            },
+                            "advice": {
+                              "stringValue": "Reste relâché et concentre-toi sur ton respiration."
+                            },
+                            "warmup": {
+                              "stringValue": "10 minutes EF"
+                            },
+                            "title": {
+                              "stringValue": "Sortie EF tranquille"
+                            },
+                            "day": {
+                              "stringValue": "Mardi"
+                            },
+                            "cooldown": {
+                              "stringValue": "10 minutes EF"
+                            },
+                            "distance": {
+                              "stringValue": "11.6 km"
+                            },
+                            "type": {
+                              "stringValue": "EF"
+                            },
+                            "feedback": {
+                              "mapValue": {
+                                "fields": {
+                                  "adaptationRequested": {
+                                    "booleanValue": false
+                                  },
+                                  "notes": {
+                                    "stringValue": ""
+                                  },
+                                  "completed": {
+                                    "booleanValue": true
+                                  },
+                                  "rpe": {
+                                    "integerValue": "5"
+                                  }
+                                }
+                              }
+                            },
+                            "duration": {
+                              "stringValue": "1h15"
+                            },
+                            "mainSet": {
+                              "stringValue": "55 minutes EF"
+                            }
+                          }
+                        }
+                      },
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "id": {
+                              "stringValue": "w3-s2-1771881012227-v51s79q"
+                            },
+                            "duration": {
+                              "stringValue": "29 min"
+                            },
+                            "advice": {
+                              "stringValue": "Maintenez une bonne posture pendant les exercices."
+                            },
+                            "warmup": {
+                              "stringValue": "5 minutes d'échauffement articulaire"
+                            },
+                            "title": {
+                              "stringValue": "Séance renforcement musculaire"
+                            },
+                            "mainSet": {
+                              "stringValue": "3 séries de 15 répétitions de squats, fentes, pompes, gainage (planche ventrale et latérale), chaise"
+                            },
+                            "cooldown": {
+                              "stringValue": "5 minutes d'étirements légers"
+                            },
+                            "day": {
+                              "stringValue": "Mercredi"
+                            },
+                            "intensity": {
+                              "stringValue": "Modéré"
+                            },
+                            "type": {
+                              "stringValue": "Renforcement"
+                            }
+                          }
+                        }
+                      },
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "feedback": {
+                              "mapValue": {
+                                "fields": {
+                                  "notes": {
+                                    "stringValue": ""
+                                  },
+                                  "adaptationRequested": {
+                                    "booleanValue": false
+                                  },
+                                  "rpe": {
+                                    "integerValue": "5"
+                                  },
+                                  "completed": {
+                                    "booleanValue": true
+                                  }
+                                }
+                              }
+                            },
+                            "duration": {
+                              "stringValue": "40 min"
+                            },
+                            "mainSet": {
+                              "stringValue": "35 minutes EA"
+                            },
+                            "day": {
+                              "stringValue": "Jeudi"
+                            },
+                            "cooldown": {
+                              "stringValue": "10 minutes EF"
+                            },
+                            "type": {
+                              "stringValue": "EA"
+                            },
+                            "distance": {
+                              "stringValue": "9.6 km"
+                            },
+                            "id": {
+                              "stringValue": "w3-s3-1771881012227-dndcodu"
+                            },
+                            "advice": {
+                              "stringValue": "Surveillez ton fréquence cardiaque pour rester dans la bonne zone."
+                            },
+                            "title": {
+                              "stringValue": "Sortie en Endurance Active"
+                            },
+                            "warmup": {
+                              "stringValue": "10 minutes EF"
+                            },
+                            "targetPace": {
+                              "stringValue": "EA"
+                            },
+                            "intensity": {
+                              "stringValue": "Modéré"
+                            }
+                          }
+                        }
+                      },
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "id": {
+                              "stringValue": "w3-s4-1771881012227-25ly328"
+                            },
+                            "duration": {
+                              "stringValue": "1h30"
+                            },
+                            "advice": {
+                              "stringValue": "Adapte ton foulée dans les montées et les descentes."
+                            },
+                            "title": {
+                              "stringValue": "Sortie EF avec côtes"
+                            },
+                            "mainSet": {
+                              "stringValue": "Alterner montées de 45 secondes à EA avec descentes en EF pendant 55 minutes"
+                            },
+                            "warmup": {
+                              "stringValue": "15 minutes EF"
+                            },
+                            "cooldown": {
+                              "stringValue": "20 minutes EF"
+                            },
+                            "day": {
+                              "stringValue": "Samedi"
+                            },
+                            "targetPace": {
+                              "stringValue": "EF"
+                            },
+                            "intensity": {
+                              "stringValue": "Modéré"
+                            },
+                            "type": {
+                              "stringValue": "EF"
+                            },
+                            "distance": {
+                              "stringValue": "14.3 km"
+                            }
+                          }
+                        }
+                      },
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "cooldown": {
+                              "stringValue": "15 minutes EF"
+                            },
+                            "targetPace": {
+                              "stringValue": "EF"
+                            },
+                            "day": {
+                              "stringValue": "Dimanche"
+                            },
+                            "intensity": {
+                              "stringValue": "Facile"
+                            },
+                            "type": {
+                              "stringValue": "Sortie Longue"
+                            },
+                            "distance": {
+                              "stringValue": "17.4 km"
+                            },
+                            "id": {
+                              "stringValue": "w3-s5-1771881012227-6iw51s8"
+                            },
+                            "duration": {
+                              "stringValue": "1h50"
+                            },
+                            "advice": {
+                              "stringValue": "Hydrate-toi régulièrement pendant la sortie."
+                            },
+                            "title": {
+                              "stringValue": "Sortie longue en endurance fondamentale"
+                            },
+                            "mainSet": {
+                              "stringValue": "1h20 EF"
+                            },
+                            "warmup": {
+                              "stringValue": "15 minutes EF"
+                            }
+                          }
+                        }
+                      }
+                    ]
+                  }
+                },
+                "weekNumber": {
+                  "integerValue": "3"
+                },
+                "isRecoveryWeek": {
+                  "booleanValue": false
+                },
+                "theme": {
+                  "stringValue": "Augmentation du Volume et Préparation Marathon"
+                },
+                "phase": {
+                  "stringValue": "fondamental"
+                }
+              }
+            }
+          },
+          {
+            "mapValue": {
+              "fields": {
+                "isRecoveryWeek": {
+                  "booleanValue": true
+                },
+                "sessions": {
+                  "arrayValue": {
+                    "values": [
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "id": {
+                              "stringValue": "w4-s1-1771881012227-6lo09m3"
+                            },
+                            "title": {
+                              "stringValue": "Sortie EF très tranquille"
+                            },
+                            "warmup": {
+                              "stringValue": "10 minutes EF"
+                            },
+                            "mainSet": {
+                              "stringValue": "30 minutes EF"
+                            },
+                            "advice": {
+                              "stringValue": "Écoute ton corps et ralentis si nécessaire."
+                            },
+                            "duration": {
+                              "stringValue": "50 min"
+                            },
+                            "day": {
+                              "stringValue": "Mardi"
+                            },
+                            "cooldown": {
+                              "stringValue": "10 minutes EF"
+                            },
+                            "targetPace": {
+                              "stringValue": "EF"
+                            },
+                            "intensity": {
+                              "stringValue": "Facile"
+                            },
+                            "type": {
+                              "stringValue": "EF"
+                            },
+                            "distance": {
+                              "stringValue": "7.7 km"
+                            }
+                          }
+                        }
+                      },
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "type": {
+                              "stringValue": "Renforcement"
+                            },
+                            "day": {
+                              "stringValue": "Mercredi"
+                            },
+                            "cooldown": {
+                              "stringValue": "5 minutes d'étirements légers"
+                            },
+                            "intensity": {
+                              "stringValue": "Facile"
+                            },
+                            "title": {
+                              "stringValue": "Séance légère de renforcement musculaire"
+                            },
+                            "mainSet": {
+                              "stringValue": "2 séries de 10-12 répétitions de squats, fentes, pompes, gainage léger"
+                            },
+                            "warmup": {
+                              "stringValue": "5 minutes d'échauffement articulaire"
+                            },
+                            "advice": {
+                              "stringValue": "Privilégiez la qualité des mouvements à la quantité."
+                            },
+                            "duration": {
+                              "stringValue": "30 min"
+                            },
+                            "id": {
+                              "stringValue": "w4-s2-1771881012227-7qcoqe3"
+                            }
+                          }
+                        }
+                      },
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "id": {
+                              "stringValue": "w4-s3-1771881012227-nzk9rmw"
+                            },
+                            "mainSet": {
+                              "stringValue": "20 minutes EF"
+                            },
+                            "warmup": {
+                              "stringValue": "10 minutes EF"
+                            },
+                            "title": {
+                              "stringValue": "Sortie EF cool"
+                            },
+                            "duration": {
+                              "stringValue": "40 min"
+                            },
+                            "advice": {
+                              "stringValue": "Profite de cette sortie pour te détendre."
+                            },
+                            "targetPace": {
+                              "stringValue": "EF"
+                            },
+                            "day": {
+                              "stringValue": "Jeudi"
+                            },
+                            "cooldown": {
+                              "stringValue": "10 minutes EF"
+                            },
+                            "intensity": {
+                              "stringValue": "Facile"
+                            },
+                            "type": {
+                              "stringValue": "EF"
+                            },
+                            "distance": {
+                              "stringValue": "6.2 km"
+                            }
+                          }
+                        }
+                      },
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "targetPace": {
+                              "stringValue": "EF"
+                            },
+                            "cooldown": {
+                              "stringValue": "15 minutes EF"
+                            },
+                            "day": {
+                              "stringValue": "Samedi"
+                            },
+                            "intensity": {
+                              "stringValue": "Facile"
+                            },
+                            "type": {
+                              "stringValue": "EF"
+                            },
+                            "distance": {
+                              "stringValue": "9.2 km"
+                            },
+                            "id": {
+                              "stringValue": "w4-s4-1771881012227-j0jvy0s"
+                            },
+                            "mainSet": {
+                              "stringValue": "30 minutes EF"
+                            },
+                            "title": {
+                              "stringValue": "Sortie EF facile"
+                            },
+                            "warmup": {
+                              "stringValue": "15 minutes EF"
+                            },
+                            "duration": {
+                              "stringValue": "1h00"
+                            },
+                            "advice": {
+                              "stringValue": "Courez à un rythme très confortable."
+                            }
+                          }
+                        }
+                      },
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "distance": {
+                              "stringValue": "10.8 km"
+                            },
+                            "type": {
+                              "stringValue": "Sortie Longue"
+                            },
+                            "intensity": {
+                              "stringValue": "Facile"
+                            },
+                            "cooldown": {
+                              "stringValue": "15 minutes EF"
+                            },
+                            "targetPace": {
+                              "stringValue": "EF"
+                            },
+                            "day": {
+                              "stringValue": "Dimanche"
+                            },
+                            "title": {
+                              "stringValue": "Sortie longue en endurance fondamentale (légère)"
+                            },
+                            "mainSet": {
+                              "stringValue": "40 minutes EF"
+                            },
+                            "warmup": {
+                              "stringValue": "15 minutes EF"
+                            },
+                            "duration": {
+                              "stringValue": "1h10"
+                            },
+                            "advice": {
+                              "stringValue": "Ne force pas et adapte la distance si tu êtes fatigué."
+                            },
+                            "id": {
+                              "stringValue": "w4-s5-1771881012227-bmmo7ra"
+                            }
+                          }
+                        }
+                      }
+                    ]
+                  }
+                },
+                "weekNumber": {
+                  "integerValue": "4"
+                },
+                "phase": {
+                  "stringValue": "recuperation"
+                },
+                "theme": {
+                  "stringValue": "Récupération Active"
+                }
+              }
+            }
+          },
+          {
+            "mapValue": {
+              "fields": {
+                "isRecoveryWeek": {
+                  "booleanValue": false
+                },
+                "sessions": {
+                  "arrayValue": {
+                    "values": [
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "title": {
+                              "stringValue": "Sortie EF tranquille"
+                            },
+                            "warmup": {
+                              "stringValue": "10 minutes EF"
+                            },
+                            "mainSet": {
+                              "stringValue": "45 minutes EF"
+                            },
+                            "advice": {
+                              "stringValue": "Maintiens une allure confortable."
+                            },
+                            "duration": {
+                              "stringValue": "1h05"
+                            },
+                            "id": {
+                              "stringValue": "w5-s1-1771881026068-0fjf233"
+                            },
+                            "type": {
+                              "stringValue": "EF"
+                            },
+                            "distance": {
+                              "stringValue": "10.8 km"
+                            },
+                            "cooldown": {
+                              "stringValue": "10 minutes EF"
+                            },
+                            "targetPace": {
+                              "stringValue": "EF"
+                            },
+                            "day": {
+                              "stringValue": "Mardi"
+                            },
+                            "intensity": {
+                              "stringValue": "Facile"
+                            }
+                          }
+                        }
+                      },
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "intensity": {
+                              "stringValue": "Modéré"
+                            },
+                            "cooldown": {
+                              "stringValue": "5 minutes d'étirements"
+                            },
+                            "day": {
+                              "stringValue": "Mercredi"
+                            },
+                            "type": {
+                              "stringValue": "Renforcement"
+                            },
+                            "id": {
+                              "stringValue": "w5-s2-1771881026068-bsdunw6"
+                            },
+                            "mainSet": {
+                              "stringValue": "3 séries de 15 répétitions de squats, fentes, pompes, gainage (30 secondes)"
+                            },
+                            "warmup": {
+                              "stringValue": "5 minutes d'échauffement léger"
+                            },
+                            "title": {
+                              "stringValue": "Séance renforcement musculaire"
+                            },
+                            "advice": {
+                              "stringValue": "Concentre-toi sur la qualité de l'exécution."
+                            },
+                            "duration": {
+                              "stringValue": "35 min"
+                            }
+                          }
+                        }
+                      },
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "id": {
+                              "stringValue": "w5-s3-1771881026068-0ptyedz"
+                            },
+                            "advice": {
+                              "stringValue": "Contrôle ta fréquence cardiaque."
+                            },
+                            "duration": {
+                              "stringValue": "50 min"
+                            },
+                            "warmup": {
+                              "stringValue": "10 minutes EF"
+                            },
+                            "title": {
+                              "stringValue": "Sortie en Endurance Active"
+                            },
+                            "mainSet": {
+                              "stringValue": "30 minutes EA"
+                            },
+                            "intensity": {
+                              "stringValue": "Modéré"
+                            },
+                            "day": {
+                              "stringValue": "Jeudi"
+                            },
+                            "targetPace": {
+                              "stringValue": "EA"
+                            },
+                            "cooldown": {
+                              "stringValue": "10 minutes EF"
+                            },
+                            "distance": {
+                              "stringValue": "8.8 km"
+                            },
+                            "type": {
+                              "stringValue": "EA"
+                            }
+                          }
+                        }
+                      },
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "targetPace": {
+                              "stringValue": "EF"
+                            },
+                            "day": {
+                              "stringValue": "Samedi"
+                            },
+                            "cooldown": {
+                              "stringValue": "10 minutes EF"
+                            },
+                            "intensity": {
+                              "stringValue": "Modéré"
+                            },
+                            "type": {
+                              "stringValue": "EF"
+                            },
+                            "distance": {
+                              "stringValue": "12.3 km"
+                            },
+                            "id": {
+                              "stringValue": "w5-s4-1771881026068-ax4bi8u"
+                            },
+                            "advice": {
+                              "stringValue": "Adapte ton allure dans les côtes."
+                            },
+                            "duration": {
+                              "stringValue": "1h20"
+                            },
+                            "warmup": {
+                              "stringValue": "10 minutes EF"
+                            },
+                            "mainSet": {
+                              "stringValue": "60 minutes EF avec 6 côtes de 1 minute (récupération en EF)"
+                            },
+                            "title": {
+                              "stringValue": "Sortie EF avec côtes"
+                            }
+                          }
+                        }
+                      },
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "id": {
+                              "stringValue": "w5-s5-1771881026068-sa59jzn"
+                            },
+                            "advice": {
+                              "stringValue": "Hydrate-toi régulièrement."
+                            },
+                            "duration": {
+                              "stringValue": "1h40"
+                            },
+                            "title": {
+                              "stringValue": "Sortie longue en endurance fondamentale"
+                            },
+                            "mainSet": {
+                              "stringValue": "80 minutes EF"
+                            },
+                            "warmup": {
+                              "stringValue": "10 minutes EF"
+                            },
+                            "cooldown": {
+                              "stringValue": "10 minutes EF"
+                            },
+                            "day": {
+                              "stringValue": "Dimanche"
+                            },
+                            "targetPace": {
+                              "stringValue": "EF"
+                            },
+                            "intensity": {
+                              "stringValue": "Facile"
+                            },
+                            "type": {
+                              "stringValue": "Sortie Longue"
+                            },
+                            "distance": {
+                              "stringValue": "15.4 km"
+                            }
+                          }
+                        }
+                      }
+                    ]
+                  }
+                },
+                "weekNumber": {
+                  "integerValue": "5"
+                },
+                "phase": {
+                  "stringValue": "developpement"
+                },
+                "theme": {
+                  "stringValue": "Augmentation Progressive du Volume"
+                }
+              }
+            }
+          },
+          {
+            "mapValue": {
+              "fields": {
+                "isRecoveryWeek": {
+                  "booleanValue": false
+                },
+                "weekNumber": {
+                  "integerValue": "6"
+                },
+                "sessions": {
+                  "arrayValue": {
+                    "values": [
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "duration": {
+                              "stringValue": "1h10"
+                            },
+                            "advice": {
+                              "stringValue": "Relaxe-toi et profite de la course."
+                            },
+                            "mainSet": {
+                              "stringValue": "50 minutes EF"
+                            },
+                            "title": {
+                              "stringValue": "Sortie EF tranquille"
+                            },
+                            "warmup": {
+                              "stringValue": "10 minutes EF"
+                            },
+                            "id": {
+                              "stringValue": "w6-s1-1771881026068-9gybpnf"
+                            },
+                            "distance": {
+                              "stringValue": "11.5 km"
+                            },
+                            "type": {
+                              "stringValue": "EF"
+                            },
+                            "intensity": {
+                              "stringValue": "Facile"
+                            },
+                            "day": {
+                              "stringValue": "Mardi"
+                            },
+                            "targetPace": {
+                              "stringValue": "EF"
+                            },
+                            "cooldown": {
+                              "stringValue": "10 minutes EF"
+                            }
+                          }
+                        }
+                      },
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "mainSet": {
+                              "stringValue": "3 séries de 15 répétitions de squats, fentes, pompes, gainage (40 secondes)"
+                            },
+                            "title": {
+                              "stringValue": "Séance renforcement musculaire"
+                            },
+                            "warmup": {
+                              "stringValue": "5 minutes d'échauffement léger"
+                            },
+                            "duration": {
+                              "stringValue": "35 min"
+                            },
+                            "advice": {
+                              "stringValue": "Maintiens une bonne posture."
+                            },
+                            "id": {
+                              "stringValue": "w6-s2-1771881026068-vzwraoa"
+                            },
+                            "type": {
+                              "stringValue": "Renforcement"
+                            },
+                            "cooldown": {
+                              "stringValue": "5 minutes d'étirements"
+                            },
+                            "day": {
+                              "stringValue": "Mercredi"
+                            },
+                            "intensity": {
+                              "stringValue": "Modéré"
+                            }
+                          }
+                        }
+                      },
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "advice": {
+                              "stringValue": "Respire profondément."
+                            },
+                            "duration": {
+                              "stringValue": "50 min"
+                            },
+                            "warmup": {
+                              "stringValue": "15 minutes EF"
+                            },
+                            "title": {
+                              "stringValue": "Séance au seuil"
+                            },
+                            "mainSet": {
+                              "stringValue": "2 x 10 minutes au seuil (récupération 3 minutes EF)"
+                            },
+                            "id": {
+                              "stringValue": "w6-s3-1771881026068-bj3p88b"
+                            },
+                            "distance": {
+                              "stringValue": "10 km"
+                            },
+                            "type": {
+                              "stringValue": "Seuil"
+                            },
+                            "intensity": {
+                              "stringValue": "Difficile"
+                            },
+                            "targetPace": {
+                              "stringValue": "Seuil"
+                            },
+                            "day": {
+                              "stringValue": "Jeudi"
+                            },
+                            "cooldown": {
+                              "stringValue": "15 minutes EF"
+                            }
+                          }
+                        }
+                      },
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "intensity": {
+                              "stringValue": "Modéré"
+                            },
+                            "targetPace": {
+                              "stringValue": "EF"
+                            },
+                            "day": {
+                              "stringValue": "Samedi"
+                            },
+                            "cooldown": {
+                              "stringValue": "10 minutes EF"
+                            },
+                            "distance": {
+                              "stringValue": "13.1 km"
+                            },
+                            "type": {
+                              "stringValue": "EF"
+                            },
+                            "id": {
+                              "stringValue": "w6-s4-1771881026068-t303iar"
+                            },
+                            "warmup": {
+                              "stringValue": "10 minutes EF"
+                            },
+                            "mainSet": {
+                              "stringValue": "65 minutes EF avec 8 côtes de 1 minute (récupération en EF)"
+                            },
+                            "title": {
+                              "stringValue": "Sortie EF avec côtes"
+                            },
+                            "duration": {
+                              "stringValue": "1h25"
+                            },
+                            "advice": {
+                              "stringValue": "Gère bien ton effort dans les côtes."
+                            }
+                          }
+                        }
+                      },
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "type": {
+                              "stringValue": "Sortie Longue"
+                            },
+                            "distance": {
+                              "stringValue": "16.3 km"
+                            },
+                            "day": {
+                              "stringValue": "Dimanche"
+                            },
+                            "cooldown": {
+                              "stringValue": "10 minutes EF"
+                            },
+                            "targetPace": {
+                              "stringValue": "EF"
+                            },
+                            "intensity": {
+                              "stringValue": "Facile"
+                            },
+                            "advice": {
+                              "stringValue": "N'oublie pas de t'alimenter."
+                            },
+                            "duration": {
+                              "stringValue": "1h45"
+                            },
+                            "title": {
+                              "stringValue": "Sortie longue en endurance fondamentale"
+                            },
+                            "warmup": {
+                              "stringValue": "10 minutes EF"
+                            },
+                            "mainSet": {
+                              "stringValue": "85 minutes EF"
+                            },
+                            "id": {
+                              "stringValue": "w6-s5-1771881026068-apwbn0r"
+                            }
+                          }
+                        }
+                      }
+                    ]
+                  }
+                },
+                "phase": {
+                  "stringValue": "developpement"
+                },
+                "theme": {
+                  "stringValue": "Consolidation du Volume"
+                }
+              }
+            }
+          },
+          {
+            "mapValue": {
+              "fields": {
+                "isRecoveryWeek": {
+                  "booleanValue": false
+                },
+                "sessions": {
+                  "arrayValue": {
+                    "values": [
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "duration": {
+                              "stringValue": "1h15"
+                            },
+                            "advice": {
+                              "stringValue": "Soigne ta posture et ta foulée."
+                            },
+                            "mainSet": {
+                              "stringValue": "55 minutes EF"
+                            },
+                            "title": {
+                              "stringValue": "Sortie EF tranquille"
+                            },
+                            "warmup": {
+                              "stringValue": "10 minutes EF"
+                            },
+                            "id": {
+                              "stringValue": "w7-s1-1771881026068-vm0jyju"
+                            },
+                            "distance": {
+                              "stringValue": "12.3 km"
+                            },
+                            "type": {
+                              "stringValue": "EF"
+                            },
+                            "intensity": {
+                              "stringValue": "Facile"
+                            },
+                            "cooldown": {
+                              "stringValue": "10 minutes EF"
+                            },
+                            "day": {
+                              "stringValue": "Mardi"
+                            },
+                            "targetPace": {
+                              "stringValue": "EF"
+                            }
+                          }
+                        }
+                      },
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "intensity": {
+                              "stringValue": "Modéré"
+                            },
+                            "cooldown": {
+                              "stringValue": "5 minutes d'étirements"
+                            },
+                            "day": {
+                              "stringValue": "Mercredi"
+                            },
+                            "type": {
+                              "stringValue": "Renforcement"
+                            },
+                            "id": {
+                              "stringValue": "w7-s2-1771881026068-gzlhez3"
+                            },
+                            "warmup": {
+                              "stringValue": "5 minutes d'échauffement léger"
+                            },
+                            "title": {
+                              "stringValue": "Séance renforcement musculaire"
+                            },
+                            "mainSet": {
+                              "stringValue": "3 séries de 15 répétitions de squats, fentes, pompes, gainage (50 secondes)"
+                            },
+                            "duration": {
+                              "stringValue": "35 min"
+                            },
+                            "advice": {
+                              "stringValue": "Varie les exercices pour solliciter tous les muscles."
+                            }
+                          }
+                        }
+                      },
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "mainSet": {
+                              "stringValue": "3 x 8 minutes à allure spé Marathon (récupération 4 minutes EF)"
+                            },
+                            "warmup": {
+                              "stringValue": "15 minutes EF"
+                            },
+                            "title": {
+                              "stringValue": "Séance Allure Spécifique Marathon"
+                            },
+                            "advice": {
+                              "stringValue": "Habitue-toi à l'allure marathon."
+                            },
+                            "duration": {
+                              "stringValue": "1h00"
+                            },
+                            "id": {
+                              "stringValue": "w7-s3-1771881026068-l7b7ybm"
+                            },
+                            "type": {
+                              "stringValue": "Allure Spécifique"
+                            },
+                            "distance": {
+                              "stringValue": "11.5 km"
+                            },
+                            "cooldown": {
+                              "stringValue": "15 minutes EF"
+                            },
+                            "targetPace": {
+                              "stringValue": "Allure spé Marathon"
+                            },
+                            "day": {
+                              "stringValue": "Jeudi"
+                            },
+                            "intensity": {
+                              "stringValue": "Difficile"
+                            }
+                          }
+                        }
+                      },
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "duration": {
+                              "stringValue": "1h30"
+                            },
+                            "advice": {
+                              "stringValue": "Travaille ta puissance dans les côtes."
+                            },
+                            "mainSet": {
+                              "stringValue": "70 minutes EF avec 10 côtes de 1 minute (récupération en EF)"
+                            },
+                            "warmup": {
+                              "stringValue": "10 minutes EF"
+                            },
+                            "title": {
+                              "stringValue": "Sortie EF avec côtes"
+                            },
+                            "id": {
+                              "stringValue": "w7-s4-1771881026068-j2wsrp7"
+                            },
+                            "distance": {
+                              "stringValue": "13.8 km"
+                            },
+                            "type": {
+                              "stringValue": "EF"
+                            },
+                            "intensity": {
+                              "stringValue": "Modéré"
+                            },
+                            "cooldown": {
+                              "stringValue": "10 minutes EF"
+                            },
+                            "day": {
+                              "stringValue": "Samedi"
+                            },
+                            "targetPace": {
+                              "stringValue": "EF"
+                            }
+                          }
+                        }
+                      },
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "targetPace": {
+                              "stringValue": "EF / Allure spé Marathon"
+                            },
+                            "cooldown": {
+                              "stringValue": "0 minutes"
+                            },
+                            "day": {
+                              "stringValue": "Dimanche"
+                            },
+                            "intensity": {
+                              "stringValue": "Modéré"
+                            },
+                            "type": {
+                              "stringValue": "Sortie Longue"
+                            },
+                            "distance": {
+                              "stringValue": "18.4 km"
+                            },
+                            "id": {
+                              "stringValue": "w7-s5-1771881026068-cimw1du"
+                            },
+                            "title": {
+                              "stringValue": "Sortie longue avec allure marathon"
+                            },
+                            "warmup": {
+                              "stringValue": "15 minutes EF"
+                            },
+                            "mainSet": {
+                              "stringValue": "60 minutes EF + 30 minutes à Allure Spé Marathon + 15 minutes EF"
+                            },
+                            "advice": {
+                              "stringValue": "Teste ton ravitaillement pendant la sortie."
+                            },
+                            "duration": {
+                              "stringValue": "2h00"
+                            }
+                          }
+                        }
+                      }
+                    ]
+                  }
+                },
+                "weekNumber": {
+                  "integerValue": "7"
+                },
+                "phase": {
+                  "stringValue": "specifique"
+                },
+                "theme": {
+                  "stringValue": "Spécifique Marathon"
+                }
+              }
+            }
+          },
+          {
+            "mapValue": {
+              "fields": {
+                "phase": {
+                  "stringValue": "recuperation"
+                },
+                "theme": {
+                  "stringValue": "Récupération post-marathon"
+                },
+                "isRecoveryWeek": {
+                  "booleanValue": true
+                },
+                "sessions": {
+                  "arrayValue": {
+                    "values": [
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "warmup": {
+                              "stringValue": "10 minutes EF"
+                            },
+                            "mainSet": {
+                              "stringValue": "35 minutes EF"
+                            },
+                            "title": {
+                              "stringValue": "Sortie EF tranquille"
+                            },
+                            "duration": {
+                              "stringValue": "45 min"
+                            },
+                            "advice": {
+                              "stringValue": "Reprise en douceur après le marathon. Écoute ton corps."
+                            },
+                            "id": {
+                              "stringValue": "w8-s1-1771881038457-dwxcj26"
+                            },
+                            "distance": {
+                              "stringValue": "7 km"
+                            },
+                            "type": {
+                              "stringValue": "EF"
+                            },
+                            "intensity": {
+                              "stringValue": "Facile"
+                            },
+                            "day": {
+                              "stringValue": "Mardi"
+                            },
+                            "cooldown": {
+                              "stringValue": "5 minutes EF"
+                            },
+                            "targetPace": {
+                              "stringValue": "EF"
+                            }
+                          }
+                        }
+                      },
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "day": {
+                              "stringValue": "Mercredi"
+                            },
+                            "targetPace": {
+                              "stringValue": "Récup"
+                            },
+                            "cooldown": {
+                              "stringValue": "Repos"
+                            },
+                            "intensity": {
+                              "stringValue": "Facile"
+                            },
+                            "type": {
+                              "stringValue": "Repos"
+                            },
+                            "distance": {
+                              "stringValue": "0 km"
+                            },
+                            "id": {
+                              "stringValue": "w8-s2-1771881038457-agzsm2d"
+                            },
+                            "duration": {
+                              "stringValue": "30 min"
+                            },
+                            "advice": {
+                              "stringValue": "Marche légère et étirements pour favoriser la récupération musculaire."
+                            },
+                            "title": {
+                              "stringValue": "Repos Actif"
+                            },
+                            "warmup": {
+                              "stringValue": "5 minutes de marche lente"
+                            },
+                            "mainSet": {
+                              "stringValue": "20 minutes de marche rapide suivie de 5 minutes d'étirements doux"
+                            }
+                          }
+                        }
+                      },
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "advice": {
+                              "stringValue": "Continue à augmenter progressivement la durée de tes sorties."
+                            },
+                            "duration": {
+                              "stringValue": "50 min"
+                            },
+                            "title": {
+                              "stringValue": "Sortie EF progressive"
+                            },
+                            "warmup": {
+                              "stringValue": "10 minutes EF"
+                            },
+                            "mainSet": {
+                              "stringValue": "40 minutes EF"
+                            },
+                            "id": {
+                              "stringValue": "w8-s3-1771881038457-afqurhw"
+                            },
+                            "type": {
+                              "stringValue": "EF"
+                            },
+                            "distance": {
+                              "stringValue": "8 km"
+                            },
+                            "day": {
+                              "stringValue": "Jeudi"
+                            },
+                            "cooldown": {
+                              "stringValue": "5 minutes EF"
+                            },
+                            "targetPace": {
+                              "stringValue": "EF"
+                            },
+                            "intensity": {
+                              "stringValue": "Facile"
+                            }
+                          }
+                        }
+                      },
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "id": {
+                              "stringValue": "w8-s4-1771881038457-hgm3kcy"
+                            },
+                            "warmup": {
+                              "stringValue": "10 minutes EF"
+                            },
+                            "title": {
+                              "stringValue": "Sortie EF cool"
+                            },
+                            "mainSet": {
+                              "stringValue": "50 minutes EF"
+                            },
+                            "duration": {
+                              "stringValue": "1h00"
+                            },
+                            "advice": {
+                              "stringValue": "Profite de cette sortie pour te détendre et récupérer pleinement."
+                            },
+                            "intensity": {
+                              "stringValue": "Facile"
+                            },
+                            "cooldown": {
+                              "stringValue": "5 minutes EF"
+                            },
+                            "targetPace": {
+                              "stringValue": "EF"
+                            },
+                            "day": {
+                              "stringValue": "Samedi"
+                            },
+                            "distance": {
+                              "stringValue": "9 km"
+                            },
+                            "type": {
+                              "stringValue": "EF"
+                            }
+                          }
+                        }
+                      },
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "warmup": {
+                              "stringValue": "10 minutes EF"
+                            },
+                            "title": {
+                              "stringValue": "Sortie Longue en EF"
+                            },
+                            "mainSet": {
+                              "stringValue": "1h05 minutes EF"
+                            },
+                            "advice": {
+                              "stringValue": "Dernière sortie longue de récupération, ne force pas l'allure."
+                            },
+                            "duration": {
+                              "stringValue": "1h15"
+                            },
+                            "id": {
+                              "stringValue": "w8-s5-1771881038457-ki2wsru"
+                            },
+                            "type": {
+                              "stringValue": "EF"
+                            },
+                            "distance": {
+                              "stringValue": "11 km"
+                            },
+                            "cooldown": {
+                              "stringValue": "5 minutes EF"
+                            },
+                            "targetPace": {
+                              "stringValue": "EF"
+                            },
+                            "day": {
+                              "stringValue": "Dimanche"
+                            },
+                            "intensity": {
+                              "stringValue": "Facile"
+                            }
+                          }
+                        }
+                      }
+                    ]
+                  }
+                },
+                "weekNumber": {
+                  "integerValue": "8"
+                }
+              }
+            }
+          },
+          {
+            "mapValue": {
+              "fields": {
+                "theme": {
+                  "stringValue": "Affûtage : Retour de la VMA"
+                },
+                "phase": {
+                  "stringValue": "affutage"
+                },
+                "sessions": {
+                  "arrayValue": {
+                    "values": [
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "intensity": {
+                              "stringValue": "Facile"
+                            },
+                            "cooldown": {
+                              "stringValue": "5 minutes EF"
+                            },
+                            "targetPace": {
+                              "stringValue": "EF"
+                            },
+                            "day": {
+                              "stringValue": "Mardi"
+                            },
+                            "distance": {
+                              "stringValue": "7 km"
+                            },
+                            "type": {
+                              "stringValue": "EF"
+                            },
+                            "id": {
+                              "stringValue": "w9-s1-1771881038457-cctkykj"
+                            },
+                            "advice": {
+                              "stringValue": "Préparation à la séance de VMA."
+                            },
+                            "duration": {
+                              "stringValue": "45 min"
+                            },
+                            "title": {
+                              "stringValue": "Sortie EF tranquille"
+                            },
+                            "warmup": {
+                              "stringValue": "10 minutes EF"
+                            },
+                            "mainSet": {
+                              "stringValue": "35 minutes EF"
+                            }
+                          }
+                        }
+                      },
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "advice": {
+                              "stringValue": "Première séance de VMA après la course, sois à l'écoute de ton corps."
+                            },
+                            "duration": {
+                              "stringValue": "40 min"
+                            },
+                            "mainSet": {
+                              "stringValue": "8 x 30 secondes VMA / 30 secondes Récup"
+                            },
+                            "title": {
+                              "stringValue": "Séance VMA courte"
+                            },
+                            "warmup": {
+                              "stringValue": "15 minutes EF"
+                            },
+                            "id": {
+                              "stringValue": "w9-s2-1771881038457-4f59ia1"
+                            },
+                            "type": {
+                              "stringValue": "VMA"
+                            },
+                            "distance": {
+                              "stringValue": "8 km"
+                            },
+                            "targetPace": {
+                              "stringValue": "VMA / Récup"
+                            },
+                            "day": {
+                              "stringValue": "Mercredi"
+                            },
+                            "cooldown": {
+                              "stringValue": "10 minutes EF"
+                            },
+                            "intensity": {
+                              "stringValue": "Difficile"
+                            }
+                          }
+                        }
+                      },
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "title": {
+                              "stringValue": "Sortie EF progressive"
+                            },
+                            "warmup": {
+                              "stringValue": "10 minutes EF"
+                            },
+                            "mainSet": {
+                              "stringValue": "45 minutes EF"
+                            },
+                            "duration": {
+                              "stringValue": "55 min"
+                            },
+                            "advice": {
+                              "stringValue": "Continue d'augmenter progressivement la durée de tes sorties."
+                            },
+                            "id": {
+                              "stringValue": "w9-s3-1771881038457-jw00n4x"
+                            },
+                            "type": {
+                              "stringValue": "EF"
+                            },
+                            "distance": {
+                              "stringValue": "9 km"
+                            },
+                            "cooldown": {
+                              "stringValue": "5 minutes EF"
+                            },
+                            "targetPace": {
+                              "stringValue": "EF"
+                            },
+                            "day": {
+                              "stringValue": "Jeudi"
+                            },
+                            "intensity": {
+                              "stringValue": "Facile"
+                            }
+                          }
+                        }
+                      },
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "title": {
+                              "stringValue": "Sortie EF cool"
+                            },
+                            "mainSet": {
+                              "stringValue": "55 minutes EF"
+                            },
+                            "warmup": {
+                              "stringValue": "10 minutes EF"
+                            },
+                            "advice": {
+                              "stringValue": "Profite de cette sortie pour maintenir la forme."
+                            },
+                            "duration": {
+                              "stringValue": "1h05"
+                            },
+                            "id": {
+                              "stringValue": "w9-s4-1771881038457-kzo4ybe"
+                            },
+                            "type": {
+                              "stringValue": "EF"
+                            },
+                            "distance": {
+                              "stringValue": "10 km"
+                            },
+                            "day": {
+                              "stringValue": "Samedi"
+                            },
+                            "targetPace": {
+                              "stringValue": "EF"
+                            },
+                            "cooldown": {
+                              "stringValue": "5 minutes EF"
+                            },
+                            "intensity": {
+                              "stringValue": "Facile"
+                            }
+                          }
+                        }
+                      },
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "id": {
+                              "stringValue": "w9-s5-1771881038457-cvj4vns"
+                            },
+                            "mainSet": {
+                              "stringValue": "50 minutes EA"
+                            },
+                            "warmup": {
+                              "stringValue": "10 minutes EF"
+                            },
+                            "title": {
+                              "stringValue": "Sortie en endurance active"
+                            },
+                            "advice": {
+                              "stringValue": "Maintien de l'endurance active"
+                            },
+                            "duration": {
+                              "stringValue": "1h00"
+                            },
+                            "cooldown": {
+                              "stringValue": "5 minutes EF"
+                            },
+                            "targetPace": {
+                              "stringValue": "EA"
+                            },
+                            "day": {
+                              "stringValue": "Dimanche"
+                            },
+                            "intensity": {
+                              "stringValue": "Modéré"
+                            },
+                            "type": {
+                              "stringValue": "EA"
+                            },
+                            "distance": {
+                              "stringValue": "11 km"
+                            }
+                          }
+                        }
+                      }
+                    ]
+                  }
+                },
+                "weekNumber": {
+                  "integerValue": "9"
+                },
+                "isRecoveryWeek": {
+                  "booleanValue": false
+                }
+              }
+            }
+          },
+          {
+            "mapValue": {
+              "fields": {
+                "theme": {
+                  "stringValue": "Affûtage : Intensité et récupération"
+                },
+                "phase": {
+                  "stringValue": "affutage"
+                },
+                "weekNumber": {
+                  "integerValue": "10"
+                },
+                "sessions": {
+                  "arrayValue": {
+                    "values": [
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "mainSet": {
+                              "stringValue": "30 minutes EF"
+                            },
+                            "warmup": {
+                              "stringValue": "10 minutes EF"
+                            },
+                            "title": {
+                              "stringValue": "Sortie EF tranquille"
+                            },
+                            "duration": {
+                              "stringValue": "40 min"
+                            },
+                            "advice": {
+                              "stringValue": "Préparation pour la séance de VMA."
+                            },
+                            "id": {
+                              "stringValue": "w10-s1-1771881038457-uv6y1nc"
+                            },
+                            "type": {
+                              "stringValue": "EF"
+                            },
+                            "distance": {
+                              "stringValue": "6 km"
+                            },
+                            "targetPace": {
+                              "stringValue": "EF"
+                            },
+                            "cooldown": {
+                              "stringValue": "5 minutes EF"
+                            },
+                            "day": {
+                              "stringValue": "Mardi"
+                            },
+                            "intensity": {
+                              "stringValue": "Facile"
+                            }
+                          }
+                        }
+                      },
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "distance": {
+                              "stringValue": "9 km"
+                            },
+                            "type": {
+                              "stringValue": "VMA"
+                            },
+                            "intensity": {
+                              "stringValue": "Difficile"
+                            },
+                            "targetPace": {
+                              "stringValue": "VMA / Récup"
+                            },
+                            "cooldown": {
+                              "stringValue": "10 minutes EF"
+                            },
+                            "day": {
+                              "stringValue": "Mercredi"
+                            },
+                            "advice": {
+                              "stringValue": "Plus longue que la semaine précédente, concentration sur la technique."
+                            },
+                            "duration": {
+                              "stringValue": "45 min"
+                            },
+                            "mainSet": {
+                              "stringValue": "6 x 400m VMA (R=1'15) "
+                            },
+                            "title": {
+                              "stringValue": "Séance VMA longue"
+                            },
+                            "warmup": {
+                              "stringValue": "15 minutes EF"
+                            },
+                            "id": {
+                              "stringValue": "w10-s2-1771881038457-n8wpr42"
+                            }
+                          }
+                        }
+                      },
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "intensity": {
+                              "stringValue": "Facile"
+                            },
+                            "cooldown": {
+                              "stringValue": "Repos"
+                            },
+                            "targetPace": {
+                              "stringValue": "Récup"
+                            },
+                            "day": {
+                              "stringValue": "Jeudi"
+                            },
+                            "distance": {
+                              "stringValue": "0 km"
+                            },
+                            "type": {
+                              "stringValue": "Repos"
+                            },
+                            "id": {
+                              "stringValue": "w10-s3-1771881038457-nrq5io0"
+                            },
+                            "advice": {
+                              "stringValue": "Repos bien mérité."
+                            },
+                            "duration": {
+                              "stringValue": "30 minutes"
+                            },
+                            "mainSet": {
+                              "stringValue": "20 minutes de marche rapide et 5 minutes d'étirements"
+                            },
+                            "warmup": {
+                              "stringValue": "5 minutes de marche lente"
+                            },
+                            "title": {
+                              "stringValue": "Repos actif"
+                            }
+                          }
+                        }
+                      },
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "targetPace": {
+                              "stringValue": "EF"
+                            },
+                            "cooldown": {
+                              "stringValue": "5 minutes EF"
+                            },
+                            "day": {
+                              "stringValue": "Samedi"
+                            },
+                            "intensity": {
+                              "stringValue": "Facile"
+                            },
+                            "type": {
+                              "stringValue": "EF"
+                            },
+                            "distance": {
+                              "stringValue": "9 km"
+                            },
+                            "id": {
+                              "stringValue": "w10-s4-1771881038457-hhicocr"
+                            },
+                            "mainSet": {
+                              "stringValue": "50 minutes EF"
+                            },
+                            "title": {
+                              "stringValue": "Sortie EF cool"
+                            },
+                            "warmup": {
+                              "stringValue": "10 minutes EF"
+                            },
+                            "advice": {
+                              "stringValue": "Dernière sortie longue de l'affûtage."
+                            },
+                            "duration": {
+                              "stringValue": "1h00"
+                            }
+                          }
+                        }
+                      },
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "id": {
+                              "stringValue": "w10-s5-1771881038457-3pdp3z7"
+                            },
+                            "advice": {
+                              "stringValue": "Maintenir l'endurance active, dernière séance avant une semaine de repos"
+                            },
+                            "duration": {
+                              "stringValue": "40 min"
+                            },
+                            "warmup": {
+                              "stringValue": "10 minutes EF"
+                            },
+                            "title": {
+                              "stringValue": "Sortie en endurance active"
+                            },
+                            "mainSet": {
+                              "stringValue": "30 minutes EA"
+                            },
+                            "day": {
+                              "stringValue": "Dimanche"
+                            },
+                            "targetPace": {
+                              "stringValue": "EA"
+                            },
+                            "cooldown": {
+                              "stringValue": "5 minutes EF"
+                            },
+                            "intensity": {
+                              "stringValue": "Modéré"
+                            },
+                            "type": {
+                              "stringValue": "EA"
+                            },
+                            "distance": {
+                              "stringValue": "7 km"
+                            }
+                          }
+                        }
+                      }
+                    ]
+                  }
+                },
+                "isRecoveryWeek": {
+                  "booleanValue": false
+                }
+              }
+            }
+          },
+          {
+            "mapValue": {
+              "fields": {
+                "isRecoveryWeek": {
+                  "booleanValue": false
+                },
+                "weekNumber": {
+                  "integerValue": "11"
+                },
+                "sessions": {
+                  "arrayValue": {
+                    "values": [
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "advice": {
+                              "stringValue": "Dernière sortie longue en EF avant le marathon."
+                            },
+                            "duration": {
+                              "stringValue": "50 min"
+                            },
+                            "title": {
+                              "stringValue": "Sortie EF tranquille"
+                            },
+                            "mainSet": {
+                              "stringValue": "30 min EF"
+                            },
+                            "warmup": {
+                              "stringValue": "10 min EF"
+                            },
+                            "id": {
+                              "stringValue": "w11-s1-1771881044288-98xyo57"
+                            },
+                            "distance": {
+                              "stringValue": "7.6 km"
+                            },
+                            "type": {
+                              "stringValue": "Endurance Fondamentale"
+                            },
+                            "intensity": {
+                              "stringValue": "Facile"
+                            },
+                            "day": {
+                              "stringValue": "Mardi"
+                            },
+                            "cooldown": {
+                              "stringValue": "10 min EF"
+                            },
+                            "targetPace": {
+                              "stringValue": "EF"
+                            }
+                          }
+                        }
+                      },
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "distance": {
+                              "stringValue": "6.6 km"
+                            },
+                            "type": {
+                              "stringValue": "VMA"
+                            },
+                            "intensity": {
+                              "stringValue": "Difficile"
+                            },
+                            "targetPace": {
+                              "stringValue": "VMA"
+                            },
+                            "day": {
+                              "stringValue": "Mercredi"
+                            },
+                            "cooldown": {
+                              "stringValue": "15 min EF"
+                            },
+                            "warmup": {
+                              "stringValue": "15 min EF"
+                            },
+                            "title": {
+                              "stringValue": "Séance VMA courte"
+                            },
+                            "mainSet": {
+                              "stringValue": "6 x 30sec VMA / 30sec Récup"
+                            },
+                            "duration": {
+                              "stringValue": "40 min"
+                            },
+                            "advice": {
+                              "stringValue": "Dernière séance de VMA courte pour réveiller les jambes."
+                            },
+                            "id": {
+                              "stringValue": "w11-s2-1771881044288-folna39"
+                            }
+                          }
+                        }
+                      },
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "title": {
+                              "stringValue": "Sortie EF progressive"
+                            },
+                            "warmup": {
+                              "stringValue": "10 min EF"
+                            },
+                            "mainSet": {
+                              "stringValue": "20 min EF"
+                            },
+                            "duration": {
+                              "stringValue": "40 min"
+                            },
+                            "advice": {
+                              "stringValue": "Sortie courte pour maintenir l'activité."
+                            },
+                            "id": {
+                              "stringValue": "w11-s3-1771881044288-hr9v081"
+                            },
+                            "type": {
+                              "stringValue": "Endurance Fondamentale"
+                            },
+                            "distance": {
+                              "stringValue": "6.1 km"
+                            },
+                            "targetPace": {
+                              "stringValue": "EF"
+                            },
+                            "cooldown": {
+                              "stringValue": "10 min EF"
+                            },
+                            "day": {
+                              "stringValue": "Jeudi"
+                            },
+                            "intensity": {
+                              "stringValue": "Facile"
+                            }
+                          }
+                        }
+                      },
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "id": {
+                              "stringValue": "w11-s4-1771881044288-lw0prg9"
+                            },
+                            "advice": {
+                              "stringValue": "Repos avant la course."
+                            },
+                            "duration": {
+                              "stringValue": "35 min"
+                            },
+                            "title": {
+                              "stringValue": "Sortie EF cool"
+                            },
+                            "mainSet": {
+                              "stringValue": "15 min EF"
+                            },
+                            "warmup": {
+                              "stringValue": "10 min EF"
+                            },
+                            "day": {
+                              "stringValue": "Samedi"
+                            },
+                            "targetPace": {
+                              "stringValue": "EF"
+                            },
+                            "cooldown": {
+                              "stringValue": "10 min EF"
+                            },
+                            "intensity": {
+                              "stringValue": "Facile"
+                            },
+                            "type": {
+                              "stringValue": "Endurance Fondamentale"
+                            },
+                            "distance": {
+                              "stringValue": "5.3 km"
+                            }
+                          }
+                        }
+                      },
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "warmup": {
+                              "stringValue": "5 min EF"
+                            },
+                            "mainSet": {
+                              "stringValue": "15 min EF"
+                            },
+                            "title": {
+                              "stringValue": "Sortie en endurance active"
+                            },
+                            "duration": {
+                              "stringValue": "25 min"
+                            },
+                            "advice": {
+                              "stringValue": "Dernier footing avant le marathon, très léger."
+                            },
+                            "id": {
+                              "stringValue": "w11-s5-1771881044288-lxedzlw"
+                            },
+                            "type": {
+                              "stringValue": "Endurance Active"
+                            },
+                            "distance": {
+                              "stringValue": "3.8 km"
+                            },
+                            "day": {
+                              "stringValue": "Dimanche"
+                            },
+                            "cooldown": {
+                              "stringValue": "5 min EF"
+                            },
+                            "targetPace": {
+                              "stringValue": "EF"
+                            },
+                            "intensity": {
+                              "stringValue": "Facile"
+                            }
+                          }
+                        }
+                      }
+                    ]
+                  }
+                },
+                "phase": {
+                  "stringValue": "affutage"
+                },
+                "theme": {
+                  "stringValue": "Affûtage final"
+                }
+              }
+            }
+          }
+        ]
+      }
+    },
+    "userEmail": {
+      "stringValue": "rgna79@gmail.com"
+    },
+    "location": {
+      "stringValue": "Niort"
+    },
+    "suggestedLocations": {
+      "arrayValue": {
+        "values": [
+          {
+            "mapValue": {
+              "fields": {
+                "name": {
+                  "stringValue": "Parc de la Coulée Verte"
+                },
+                "description": {
+                  "stringValue": "Idéal pour les sorties longues et l'endurance fondamentale grâce à son parcours plat et nature."
+                },
+                "type": {
+                  "stringValue": "PARK"
+                }
+              }
+            }
+          },
+          {
+            "mapValue": {
+              "fields": {
+                "type": {
+                  "stringValue": "TRACK"
+                },
+                "description": {
+                  "stringValue": "Parfait pour les séances de VMA et les intervalles grâce à sa piste d'athlétisme."
+                },
+                "name": {
+                  "stringValue": "Stade Espinassou"
+                }
+              }
+            }
+          },
+          {
+            "mapValue": {
+              "fields": {
+                "type": {
+                  "stringValue": "NATURE"
+                },
+                "description": {
+                  "stringValue": "Adaptée aux sorties nature et aux séances de côtes pour varier le terrain et renforcer les muscles."
+                },
+                "name": {
+                  "stringValue": "Forêt de l'Hermitain"
+                }
+              }
+            }
+          }
+        ]
+      }
+    },
+    "calculatedVMA": {
+      "doubleValue": 13.771170373989811
+    },
+    "vmaSource": {
+      "stringValue": "Moyenne 5km en 23:10 et 10km en 47:41"
+    }
+  },
+  "createTime": "2026-02-20T21:06:53.125327Z",
+  "updateTime": "2026-03-18T17:08:49.899674Z"
+}

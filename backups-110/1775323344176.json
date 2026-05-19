@@ -1,0 +1,814 @@
+{
+  "name": "projects/coach-running-ia/databases/(default)/documents/plans/1775323344176",
+  "fields": {
+    "vma": {
+      "doubleValue": 12.598703041144901
+    },
+    "endDate": {
+      "stringValue": "2026-09-28"
+    },
+    "isPreview": {
+      "booleanValue": true
+    },
+    "generationContext": {
+      "mapValue": {
+        "fields": {
+          "generatedAt": {
+            "stringValue": "2026-04-04T17:22:00.372Z"
+          },
+          "questionnaireSnapshot": {
+            "mapValue": {
+              "fields": {
+                "targetTime": {
+                  "stringValue": "3h55"
+                },
+                "currentWeeklyVolume": {
+                  "integerValue": "25"
+                },
+                "age": {
+                  "integerValue": "45"
+                },
+                "subGoal": {
+                  "stringValue": "Marathon"
+                },
+                "recentRaceTimes": {
+                  "mapValue": {
+                    "fields": {
+                      "distance10km": {
+                        "stringValue": "52min"
+                      },
+                      "distanceMarathon": {
+                        "stringValue": "4h18"
+                      }
+                    }
+                  }
+                },
+                "startDate": {
+                  "stringValue": "2026-04-04"
+                },
+                "preferredDays": {
+                  "arrayValue": {
+                    "values": [
+                      {
+                        "stringValue": "Mercredi"
+                      },
+                      {
+                        "stringValue": "Vendredi"
+                      },
+                      {
+                        "stringValue": "Dimanche"
+                      },
+                      {
+                        "stringValue": "Samedi"
+                      },
+                      {
+                        "stringValue": "Mardi"
+                      }
+                    ]
+                  }
+                },
+                "city": {
+                  "stringValue": "37550"
+                },
+                "goal": {
+                  "stringValue": "Course sur route"
+                },
+                "level": {
+                  "stringValue": "Confirmé (Compétition)"
+                },
+                "vma": {
+                  "doubleValue": 12.598703041144901
+                },
+                "injuries": {
+                  "mapValue": {
+                    "fields": {
+                      "hasInjury": {
+                        "booleanValue": false
+                      }
+                    }
+                  }
+                },
+                "raceDate": {
+                  "stringValue": "2026-09-27"
+                },
+                "sex": {
+                  "stringValue": "Homme"
+                },
+                "height": {
+                  "integerValue": "186"
+                },
+                "weight": {
+                  "integerValue": "65"
+                },
+                "frequency": {
+                  "integerValue": "5"
+                },
+                "email": {
+                  "stringValue": "ceceaumont@yahoo.fr"
+                }
+              }
+            }
+          },
+          "vma": {
+            "doubleValue": 12.598703041144901
+          },
+          "vmaSource": {
+            "stringValue": "Moyenne 10km en 52min et Marathon en 4h18"
+          },
+          "modelUsed": {
+            "stringValue": "gemini-2.5-flash"
+          },
+          "paces": {
+            "mapValue": {
+              "fields": {
+                "eaPace": {
+                  "stringValue": "6:11"
+                },
+                "recoveryPace": {
+                  "stringValue": "7:56"
+                },
+                "allureSpecifique10k": {
+                  "stringValue": "5:17"
+                },
+                "vmaPace": {
+                  "stringValue": "4:46"
+                },
+                "allureSpecifique5k": {
+                  "stringValue": "5:01"
+                },
+                "allureSpecifiqueSemi": {
+                  "stringValue": "5:36"
+                },
+                "allureSpecifiqueMarathon": {
+                  "stringValue": "5:57"
+                },
+                "seuilPace": {
+                  "stringValue": "5:28"
+                },
+                "efPace": {
+                  "stringValue": "7:06"
+                }
+              }
+            }
+          },
+          "periodizationPlan": {
+            "mapValue": {
+              "fields": {
+                "totalWeeks": {
+                  "integerValue": "26"
+                },
+                "recoveryWeeks": {
+                  "arrayValue": {
+                    "values": [
+                      {
+                        "integerValue": "4"
+                      },
+                      {
+                        "integerValue": "8"
+                      },
+                      {
+                        "integerValue": "12"
+                      },
+                      {
+                        "integerValue": "16"
+                      },
+                      {
+                        "integerValue": "20"
+                      }
+                    ]
+                  }
+                },
+                "weeklyVolumes": {
+                  "arrayValue": {
+                    "values": [
+                      {
+                        "integerValue": "21"
+                      },
+                      {
+                        "integerValue": "22"
+                      },
+                      {
+                        "integerValue": "24"
+                      },
+                      {
+                        "integerValue": "17"
+                      },
+                      {
+                        "integerValue": "24"
+                      },
+                      {
+                        "integerValue": "28"
+                      },
+                      {
+                        "integerValue": "30"
+                      },
+                      {
+                        "integerValue": "23"
+                      },
+                      {
+                        "integerValue": "30"
+                      },
+                      {
+                        "integerValue": "34"
+                      },
+                      {
+                        "integerValue": "36"
+                      },
+                      {
+                        "integerValue": "27"
+                      },
+                      {
+                        "integerValue": "36"
+                      },
+                      {
+                        "integerValue": "41"
+                      },
+                      {
+                        "integerValue": "45"
+                      },
+                      {
+                        "integerValue": "34"
+                      },
+                      {
+                        "integerValue": "45"
+                      },
+                      {
+                        "integerValue": "46"
+                      },
+                      {
+                        "integerValue": "48"
+                      },
+                      {
+                        "integerValue": "36"
+                      },
+                      {
+                        "integerValue": "48"
+                      },
+                      {
+                        "integerValue": "46"
+                      },
+                      {
+                        "integerValue": "48"
+                      },
+                      {
+                        "integerValue": "32"
+                      },
+                      {
+                        "integerValue": "28"
+                      },
+                      {
+                        "integerValue": "24"
+                      }
+                    ]
+                  }
+                },
+                "weeklyPhases": {
+                  "arrayValue": {
+                    "values": [
+                      {
+                        "stringValue": "fondamental"
+                      },
+                      {
+                        "stringValue": "fondamental"
+                      },
+                      {
+                        "stringValue": "fondamental"
+                      },
+                      {
+                        "stringValue": "recuperation"
+                      },
+                      {
+                        "stringValue": "fondamental"
+                      },
+                      {
+                        "stringValue": "fondamental"
+                      },
+                      {
+                        "stringValue": "fondamental"
+                      },
+                      {
+                        "stringValue": "recuperation"
+                      },
+                      {
+                        "stringValue": "developpement"
+                      },
+                      {
+                        "stringValue": "developpement"
+                      },
+                      {
+                        "stringValue": "developpement"
+                      },
+                      {
+                        "stringValue": "recuperation"
+                      },
+                      {
+                        "stringValue": "developpement"
+                      },
+                      {
+                        "stringValue": "developpement"
+                      },
+                      {
+                        "stringValue": "developpement"
+                      },
+                      {
+                        "stringValue": "recuperation"
+                      },
+                      {
+                        "stringValue": "specifique"
+                      },
+                      {
+                        "stringValue": "specifique"
+                      },
+                      {
+                        "stringValue": "specifique"
+                      },
+                      {
+                        "stringValue": "recuperation"
+                      },
+                      {
+                        "stringValue": "specifique"
+                      },
+                      {
+                        "stringValue": "specifique"
+                      },
+                      {
+                        "stringValue": "specifique"
+                      },
+                      {
+                        "stringValue": "affutage"
+                      },
+                      {
+                        "stringValue": "affutage"
+                      },
+                      {
+                        "stringValue": "affutage"
+                      }
+                    ]
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "welcomeMessage": {
+      "stringValue": "Bonjour et bienvenue dans ton plan d'entraînement pour le Marathon ! Ce programme de 26 semaines est conçu pour te guider vers ton objectif ambitieux de 3h55. La première phase, dite 'fondamentale', vise à construire une base d'endurance solide, essentielle pour la suite de la préparation. Tu effectueras 5 séances par semaine, incluant des footings variés en endurance fondamentale et une séance de renforcement musculaire. Chaque session aura un objectif spécifique pour développer tes capacités progressivement. Nous te recommandons de consulter un médecin avant de débuter ce programme, notamment pour obtenir un certificat médical d'aptitude au sport."
+    },
+    "weeks": {
+      "arrayValue": {
+        "values": [
+          {
+            "mapValue": {
+              "fields": {
+                "sessions": {
+                  "arrayValue": {
+                    "values": [
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "cooldown": {
+                              "stringValue": "5 min de course à 7:06 min/km"
+                            },
+                            "advice": {
+                              "stringValue": "Travaille ta technique en douceur. L'amélioration de la foulée vient avec la répétition et la conscience corporelle, pas la force."
+                            },
+                            "targetPace": {
+                              "stringValue": "7:06 min/km"
+                            },
+                            "duration": {
+                              "stringValue": "36 min"
+                            },
+                            "type": {
+                              "stringValue": "Jogging"
+                            },
+                            "day": {
+                              "stringValue": "Mardi"
+                            },
+                            "locationSuggestion": {
+                              "stringValue": "Parc de Saint-Avertin"
+                            },
+                            "mainSet": {
+                              "stringValue": "15 min de course à 7:06 min/km en te concentrant sur la posture (droit, regard loin), la cadence (petits pas rapides) et une foulée légère. Inclus 4-5 lignes droites de 80m en accélération progressive à la fin du main set (sans forcer)."
+                            },
+                            "distance": {
+                              "stringValue": "4.8 km"
+                            },
+                            "id": {
+                              "stringValue": "w1-s5-1775323344178-xoj4bnd"
+                            },
+                            "title": {
+                              "stringValue": "Footing avec focus sur la technique de course"
+                            },
+                            "elevationGain": {
+                              "integerValue": "0"
+                            },
+                            "intensity": {
+                              "stringValue": "Facile"
+                            },
+                            "warmup": {
+                              "stringValue": "10 min de course à 7:06 min/km"
+                            }
+                          }
+                        }
+                      },
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "mainSet": {
+                              "stringValue": "25 min à 7:06 min/km sur terrain légèrement vallonné, incluant 4-5 accélérations progressives de 30s en montée douce (sans forcer)."
+                            },
+                            "day": {
+                              "stringValue": "Mercredi"
+                            },
+                            "locationSuggestion": {
+                              "stringValue": "Forêt de Larçay"
+                            },
+                            "id": {
+                              "stringValue": "w1-s1-1775323344178-fflevcr"
+                            },
+                            "title": {
+                              "stringValue": "Footing vallonné et renforcement doux"
+                            },
+                            "distance": {
+                              "stringValue": "3.7 km"
+                            },
+                            "elevationGain": {
+                              "integerValue": "0"
+                            },
+                            "warmup": {
+                              "stringValue": "10 min de course à 7:06 min/km"
+                            },
+                            "intensity": {
+                              "stringValue": "Facile"
+                            },
+                            "cooldown": {
+                              "stringValue": "5 min de course à 7:06 min/km"
+                            },
+                            "targetPace": {
+                              "stringValue": "7:06 min/km"
+                            },
+                            "duration": {
+                              "stringValue": "33 min"
+                            },
+                            "advice": {
+                              "stringValue": "Écoute ton corps et adapte l'intensité des accélérations. L'objectif est de ressentir le terrain, pas de produire un effort maximal."
+                            },
+                            "type": {
+                              "stringValue": "Jogging"
+                            }
+                          }
+                        }
+                      },
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "cooldown": {
+                              "stringValue": "5 min de course à 7:06 min/km"
+                            },
+                            "targetPace": {
+                              "stringValue": "7:06 min/km"
+                            },
+                            "advice": {
+                              "stringValue": "Maintiens une allure où tu es parfaitement à l'aise, même si cela te semble lent. C'est la base de ton endurance."
+                            },
+                            "duration": {
+                              "stringValue": "35 min"
+                            },
+                            "type": {
+                              "stringValue": "Jogging"
+                            },
+                            "locationSuggestion": {
+                              "stringValue": "Bords du Cher (Saint-Avertin/Tours)"
+                            },
+                            "day": {
+                              "stringValue": "Vendredi"
+                            },
+                            "mainSet": {
+                              "stringValue": "20 min de course à 7:06 min/km sur terrain plat. Concentre-toi sur une respiration régulière, profonde et ample, capable de tenir une conversation."
+                            },
+                            "distance": {
+                              "stringValue": "4.5 km"
+                            },
+                            "title": {
+                              "stringValue": "Footing en aisance respiratoire"
+                            },
+                            "id": {
+                              "stringValue": "w1-s2-1775323344178-wvun7bo"
+                            },
+                            "elevationGain": {
+                              "integerValue": "0"
+                            },
+                            "intensity": {
+                              "stringValue": "Facile"
+                            },
+                            "warmup": {
+                              "stringValue": "10 min de course à 7:06 min/km"
+                            }
+                          }
+                        }
+                      },
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "warmup": {
+                              "stringValue": "10 min de mobilité articulaire et échauffement dynamique"
+                            },
+                            "intensity": {
+                              "stringValue": "Modéré"
+                            },
+                            "elevationGain": {
+                              "integerValue": "0"
+                            },
+                            "title": {
+                              "stringValue": "Renfo Focus A - Quadriceps & Gainage (S1)"
+                            },
+                            "id": {
+                              "stringValue": "w1-s3-1775323344178-1etcy1y"
+                            },
+                            "distance": {
+                              "stringValue": "N/A"
+                            },
+                            "mainSet": {
+                              "stringValue": "Circuit 3 tours : Squats poids de corps (3x16), Squat bulgare (3x10/jambe), Fentes avant (3x10/jambe), Gainage ventral (3x31-60s), Dead bug (3x10/côte), Extensions mollets debout (3x21), Gainage ventral long (2x93-120s). Repos 1 min 30 entre tours."
+                            },
+                            "locationSuggestion": {
+                              "stringValue": "À la maison"
+                            },
+                            "day": {
+                              "stringValue": "Samedi"
+                            },
+                            "type": {
+                              "stringValue": "Renforcement"
+                            },
+                            "duration": {
+                              "stringValue": "35-45 min"
+                            },
+                            "targetPace": {
+                              "stringValue": "N/A"
+                            },
+                            "advice": {
+                              "stringValue": "Privilégie la qualité du mouvement à la quantité. Si un exercice provoque une douleur, arrête-toi ou adapte-le."
+                            },
+                            "cooldown": {
+                              "stringValue": "5 min d'étirements : quadriceps, ischio-jambiers, mollets, hanches"
+                            }
+                          }
+                        }
+                      },
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "elevationGain": {
+                              "integerValue": "0"
+                            },
+                            "warmup": {
+                              "stringValue": "10 min de course à 7:06 min/km"
+                            },
+                            "intensity": {
+                              "stringValue": "Facile"
+                            },
+                            "mainSet": {
+                              "stringValue": "40 min de course à 7:06 min/km sur terrain plat. Maintiens une allure constante et une conversation facile. L'objectif est d'accumuler du temps de course à faible intensité."
+                            },
+                            "day": {
+                              "stringValue": "Dimanche"
+                            },
+                            "locationSuggestion": {
+                              "stringValue": "Bords du Cher (Saint-Avertin/Tours)"
+                            },
+                            "id": {
+                              "stringValue": "w1-s4-1775323344178-vd2nr4c"
+                            },
+                            "title": {
+                              "stringValue": "Sortie longue en endurance fondamentale"
+                            },
+                            "distance": {
+                              "stringValue": "8 km"
+                            },
+                            "targetPace": {
+                              "stringValue": "7:06 min/km"
+                            },
+                            "duration": {
+                              "stringValue": "57 min"
+                            },
+                            "advice": {
+                              "stringValue": "Hydrate-toi bien avant et après cette sortie. Emporte de l'eau si nécessaire, surtout si le temps est chaud. Ne cherche pas la vitesse, mais la durée."
+                            },
+                            "type": {
+                              "stringValue": "Sortie Longue"
+                            },
+                            "cooldown": {
+                              "stringValue": "7 min de course à 7:06 min/km"
+                            }
+                          }
+                        }
+                      }
+                    ]
+                  }
+                },
+                "weekGoal": {
+                  "stringValue": "Mise en place de la base aérobie"
+                },
+                "phase": {
+                  "stringValue": "fondamental"
+                },
+                "weekNumber": {
+                  "integerValue": "1"
+                },
+                "theme": {
+                  "stringValue": "Mise en place de la base aérobie"
+                }
+              }
+            }
+          }
+        ]
+      }
+    },
+    "location": {
+      "stringValue": "37550"
+    },
+    "fullPlanGenerated": {
+      "booleanValue": false
+    },
+    "userEmail": {
+      "stringValue": "ceceaumont@yahoo.fr"
+    },
+    "createdAt": {
+      "stringValue": "2026-04-04T17:22:24.177Z"
+    },
+    "sessionsPerWeek": {
+      "integerValue": "5"
+    },
+    "durationWeeks": {
+      "integerValue": "26"
+    },
+    "goal": {
+      "stringValue": "Course sur route"
+    },
+    "name": {
+      "stringValue": "Préparation Marathon en 3h55 — 26 sem."
+    },
+    "feasibility": {
+      "mapValue": {
+        "fields": {
+          "message": {
+            "stringValue": "Avec ta VMA de 12.6 km/h, ton temps théorique sur marathon est d'environ 4h11min. Viser 3h55min demande une VMA d'environ 13.5 km/h. C'est un écart significatif par rapport à ton niveau actuel. Ce plan te fera progresser, mais un objectif autour de 4h11min serait plus réaliste pour cette préparation. Ton volume actuel (25 km/sem) est bas pour un marathon. La montée en charge sera progressive mais exigeante."
+          },
+          "recommendation": {
+            "stringValue": "un temps cible de 4h24min"
+          },
+          "safetyWarning": {
+            "stringValue": "Écoute ton corps à chaque séance. Si tu ressens des douleurs inhabituelles, n'hésite pas à adapter ou sauter une séance."
+          },
+          "status": {
+            "stringValue": "AMBITIEUX"
+          }
+        }
+      }
+    },
+    "userId": {
+      "stringValue": "tEUtCzrSbTcJOTKmzCXpsc1kH5T2"
+    },
+    "adaptationLog": {
+      "mapValue": {
+        "fields": {
+          "weekNumber": {
+            "integerValue": "0"
+          },
+          "adaptationsThisWeek": {
+            "integerValue": "0"
+          },
+          "adaptationHistory": {
+            "arrayValue": {}
+          }
+        }
+      }
+    },
+    "raceDate": {
+      "stringValue": "2026-09-27"
+    },
+    "paces": {
+      "mapValue": {
+        "fields": {
+          "vmaPace": {
+            "stringValue": "4:46"
+          },
+          "allureSpecifique10k": {
+            "stringValue": "5:17"
+          },
+          "recoveryPace": {
+            "stringValue": "7:56"
+          },
+          "eaPace": {
+            "stringValue": "6:11"
+          },
+          "efPace": {
+            "stringValue": "7:06"
+          },
+          "seuilPace": {
+            "stringValue": "5:28"
+          },
+          "allureSpecifiqueMarathon": {
+            "stringValue": "5:57"
+          },
+          "allureSpecifiqueSemi": {
+            "stringValue": "5:36"
+          },
+          "allureSpecifique5k": {
+            "stringValue": "5:01"
+          }
+        }
+      }
+    },
+    "suggestedLocations": {
+      "arrayValue": {
+        "values": [
+          {
+            "mapValue": {
+              "fields": {
+                "description": {
+                  "stringValue": "Idéal pour les footings en aisance respiratoire, les sorties longues sur terrain plat et le travail au seuil."
+                },
+                "name": {
+                  "stringValue": "Bords du Cher (Saint-Avertin/Tours)"
+                },
+                "type": {
+                  "stringValue": "NATURE"
+                }
+              }
+            }
+          },
+          {
+            "mapValue": {
+              "fields": {
+                "type": {
+                  "stringValue": "TRACK"
+                },
+                "name": {
+                  "stringValue": "Stade des Brosses (Saint-Avertin)"
+                },
+                "description": {
+                  "stringValue": "Piste d'athlétisme parfaite pour les séances de VMA et le travail de vitesse."
+                }
+              }
+            }
+          },
+          {
+            "mapValue": {
+              "fields": {
+                "type": {
+                  "stringValue": "NATURE"
+                },
+                "name": {
+                  "stringValue": "Forêt de Larçay (Proche Saint-Avertin)"
+                },
+                "description": {
+                  "stringValue": "Parfait pour les footings vallonnés et le renforcement des qualités musculaires en côte."
+                }
+              }
+            }
+          },
+          {
+            "mapValue": {
+              "fields": {
+                "type": {
+                  "stringValue": "PARK"
+                },
+                "name": {
+                  "stringValue": "Parc de Saint-Avertin"
+                },
+                "description": {
+                  "stringValue": "Excellent pour les footings de récupération, les séances techniques ou les départs de sorties longues."
+                }
+              }
+            }
+          }
+        ]
+      }
+    },
+    "targetTime": {
+      "stringValue": "3h55"
+    },
+    "confidenceScore": {
+      "integerValue": "57"
+    },
+    "startDate": {
+      "stringValue": "2026-03-30"
+    },
+    "distance": {
+      "stringValue": "Marathon"
+    },
+    "id": {
+      "stringValue": "1775323344176"
+    },
+    "vmaSource": {
+      "stringValue": "Moyenne 10km en 52min et Marathon en 4h18"
+    },
+    "calculatedVMA": {
+      "doubleValue": 12.598703041144901
+    }
+  },
+  "createTime": "2026-04-04T17:22:41.437356Z",
+  "updateTime": "2026-04-04T17:22:41.437356Z"
+}

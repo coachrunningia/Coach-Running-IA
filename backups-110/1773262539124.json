@@ -1,0 +1,589 @@
+{
+  "name": "projects/coach-running-ia/databases/(default)/documents/plans/1773262539124",
+  "fields": {
+    "feasibility": {
+      "mapValue": {
+        "fields": {
+          "safetyWarning": {
+            "stringValue": "Adapte toujours l'intensité des séances à ton niveau de fatigue et hydrate-toi correctement, surtout pendant les sorties longues."
+          },
+          "status": {
+            "stringValue": "BON"
+          },
+          "message": {
+            "stringValue": "Ton VMA actuelle de 9.1 km/h tu permet d'envisager un temps de 1h09 au 10 km avec un entraînement adapté. L'objectif de 1h10 est donc réaliste. Ton temps actuel de 01h15:45 indique une marge de progression atteignable."
+          }
+        }
+      }
+    },
+    "userEmail": {
+      "stringValue": "juliejwalter@orange.fr"
+    },
+    "vma": {
+      "doubleValue": 9.14828324937757
+    },
+    "isPreview": {
+      "booleanValue": true
+    },
+    "distance": {
+      "stringValue": "10 km"
+    },
+    "createdAt": {
+      "stringValue": "2026-03-11T20:55:39.124Z"
+    },
+    "durationWeeks": {
+      "integerValue": "7"
+    },
+    "userId": {
+      "stringValue": "lwUzeAfu4hetNSDWKxosmIswtWj2"
+    },
+    "welcomeMessage": {
+      "stringValue": "Bienvenue dans ce plan d'entraînement de 7 semaines conçu pour t'aider à atteindre ton objectif de 1h10 au 10 km. Cette première semaine est axée sur la phase fondamentale, avec un volume total de 20 km répartis sur 4 séances, incluant une séance de renforcement musculaire spécifique pour la course à pied."
+    },
+    "weeks": {
+      "arrayValue": {
+        "values": [
+          {
+            "mapValue": {
+              "fields": {
+                "phase": {
+                  "stringValue": "fondamental"
+                },
+                "sessions": {
+                  "arrayValue": {
+                    "values": [
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "intensity": {
+                              "stringValue": "Facile"
+                            },
+                            "duration": {
+                              "stringValue": "38 min"
+                            },
+                            "advice": {
+                              "stringValue": "Concentre-toi sur ton posture et ton foulée. Essaie de maintenir une cadence régulière."
+                            },
+                            "targetPace": {
+                              "stringValue": "9:47 min/km"
+                            },
+                            "type": {
+                              "stringValue": "Endurance Fondamentale"
+                            },
+                            "title": {
+                              "stringValue": "Footing en endurance fondamentale"
+                            },
+                            "cooldown": {
+                              "stringValue": "10 minutes en Endurance Fondamentale (9:47 min/km)"
+                            },
+                            "elevationGain": {
+                              "integerValue": "0"
+                            },
+                            "distance": {
+                              "stringValue": "6 km"
+                            },
+                            "day": {
+                              "stringValue": "Mardi"
+                            },
+                            "warmup": {
+                              "stringValue": "10 minutes en Endurance Fondamentale (9:47 min/km)"
+                            },
+                            "locationSuggestion": {
+                              "stringValue": "Parc de la Mairie"
+                            },
+                            "id": {
+                              "stringValue": "w1-s1-1773262539125-qv5dw1c"
+                            },
+                            "mainSet": {
+                              "stringValue": "25 minutes en Endurance Fondamentale (9:47 min/km)"
+                            }
+                          }
+                        }
+                      },
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "cooldown": {
+                              "stringValue": "5 minutes d'étirements doux"
+                            },
+                            "elevationGain": {
+                              "integerValue": "0"
+                            },
+                            "intensity": {
+                              "stringValue": "Modéré"
+                            },
+                            "duration": {
+                              "stringValue": "35 min"
+                            },
+                            "day": {
+                              "stringValue": "Mercredi"
+                            },
+                            "locationSuggestion": {
+                              "stringValue": "À la maison"
+                            },
+                            "advice": {
+                              "stringValue": "Contractez bien tes abdominaux pendant les exercices de gainage. Privilégie la qualité à la quantité."
+                            },
+                            "warmup": {
+                              "stringValue": "5 minutes d'échauffement articulaire"
+                            },
+                            "id": {
+                              "stringValue": "w1-s2-1773262539125-s3yppej"
+                            },
+                            "type": {
+                              "stringValue": "Renforcement"
+                            },
+                            "title": {
+                              "stringValue": "Séance de renforcement musculaire"
+                            },
+                            "mainSet": {
+                              "stringValue": "3 séries de 15 squats, 3 séries de 15 fentes (chaque jambe), 3 séries de 30 secondes de gainage ventral, 3 séries de 30 secondes de gainage latéral (chaque côté), 3 séries de 20 montées sur pointes de pieds."
+                            }
+                          }
+                        }
+                      },
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "duration": {
+                              "stringValue": "43 min"
+                            },
+                            "intensity": {
+                              "stringValue": "Modéré"
+                            },
+                            "advice": {
+                              "stringValue": "Surveillez ton allure et essaie de la maintenir constante pendant les fractions au seuil. Ne pars pas trop vite."
+                            },
+                            "title": {
+                              "stringValue": "Fractionné au seuil"
+                            },
+                            "targetPace": {
+                              "stringValue": "7:32 min/km"
+                            },
+                            "type": {
+                              "stringValue": "Fractionné seuil"
+                            },
+                            "elevationGain": {
+                              "integerValue": "0"
+                            },
+                            "cooldown": {
+                              "stringValue": "15 minutes en Endurance Fondamentale (9:47 min/km)"
+                            },
+                            "id": {
+                              "stringValue": "w1-s3-1773262539125-pdnwsmb"
+                            },
+                            "locationSuggestion": {
+                              "stringValue": "Berges de Seine"
+                            },
+                            "warmup": {
+                              "stringValue": "15 minutes en Endurance Fondamentale (9:47 min/km)"
+                            },
+                            "distance": {
+                              "stringValue": "6.8 km"
+                            },
+                            "day": {
+                              "stringValue": "Jeudi"
+                            },
+                            "mainSet": {
+                              "stringValue": "3 x 8 minutes au seuil (7:32 min/km) avec 2 minutes de récupération en footing léger (10:56 min/km) entre chaque bloc."
+                            }
+                          }
+                        }
+                      },
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "advice": {
+                              "stringValue": "Profite de cette sortie pour découvrir de nouveaux parcours. Hydrate-toi régulièrement."
+                            },
+                            "targetPace": {
+                              "stringValue": "9:47 min/km"
+                            },
+                            "type": {
+                              "stringValue": "Sortie Longue"
+                            },
+                            "title": {
+                              "stringValue": "Sortie longue en endurance fondamentale"
+                            },
+                            "intensity": {
+                              "stringValue": "Facile"
+                            },
+                            "duration": {
+                              "stringValue": "51 min"
+                            },
+                            "day": {
+                              "stringValue": "Dimanche"
+                            },
+                            "distance": {
+                              "stringValue": "4.3 km"
+                            },
+                            "locationSuggestion": {
+                              "stringValue": "Forêt de Rougeau"
+                            },
+                            "warmup": {
+                              "stringValue": "10 minutes en Endurance Fondamentale (9:47 min/km)"
+                            },
+                            "id": {
+                              "stringValue": "w1-s4-1773262539125-893dmm8"
+                            },
+                            "mainSet": {
+                              "stringValue": "40 minutes en Endurance Fondamentale (9:47 min/km)"
+                            },
+                            "cooldown": {
+                              "stringValue": "10 minutes en Endurance Fondamentale (9:47 min/km)"
+                            },
+                            "elevationGain": {
+                              "integerValue": "0"
+                            }
+                          }
+                        }
+                      }
+                    ]
+                  }
+                },
+                "theme": {
+                  "stringValue": "Phase Fondamentale"
+                },
+                "weekNumber": {
+                  "integerValue": "1"
+                }
+              }
+            }
+          }
+        ]
+      }
+    },
+    "vmaSource": {
+      "stringValue": "Moyenne 5km en 33:40 et 10km en 01:15:45"
+    },
+    "calculatedVMA": {
+      "doubleValue": 9.14828324937757
+    },
+    "fullPlanGenerated": {
+      "booleanValue": false
+    },
+    "suggestedLocations": {
+      "arrayValue": {
+        "values": [
+          {
+            "mapValue": {
+              "fields": {
+                "name": {
+                  "stringValue": "Parc de la Mairie"
+                },
+                "type": {
+                  "stringValue": "PARK"
+                },
+                "description": {
+                  "stringValue": "Footing de récupération, endurance fondamentale"
+                }
+              }
+            }
+          },
+          {
+            "mapValue": {
+              "fields": {
+                "name": {
+                  "stringValue": "Piste d'athlétisme de Saintry-sur-Seine"
+                },
+                "type": {
+                  "stringValue": "TRACK"
+                },
+                "description": {
+                  "stringValue": "Séances de VMA et de fractionné court"
+                }
+              }
+            }
+          },
+          {
+            "mapValue": {
+              "fields": {
+                "type": {
+                  "stringValue": "NATURE"
+                },
+                "name": {
+                  "stringValue": "Forêt de Rougeau"
+                },
+                "description": {
+                  "stringValue": "Sorties longues en nature, séances de côtes"
+                }
+              }
+            }
+          }
+        ]
+      }
+    },
+    "adaptationLog": {
+      "mapValue": {
+        "fields": {
+          "adaptationHistory": {
+            "arrayValue": {}
+          },
+          "adaptationsThisWeek": {
+            "integerValue": "0"
+          },
+          "weekNumber": {
+            "integerValue": "0"
+          }
+        }
+      }
+    },
+    "id": {
+      "stringValue": "1773262539124"
+    },
+    "confidenceScore": {
+      "integerValue": "75"
+    },
+    "targetTime": {
+      "stringValue": "1h10"
+    },
+    "location": {
+      "stringValue": "Saintry-sur-Seine"
+    },
+    "startDate": {
+      "stringValue": "2026-03-11"
+    },
+    "sessionsPerWeek": {
+      "integerValue": "4"
+    },
+    "name": {
+      "stringValue": "Plan 10 km - Objectif 1h10"
+    },
+    "goal": {
+      "stringValue": "Course sur route"
+    },
+    "generationContext": {
+      "mapValue": {
+        "fields": {
+          "periodizationPlan": {
+            "mapValue": {
+              "fields": {
+                "recoveryWeeks": {
+                  "arrayValue": {
+                    "values": [
+                      {
+                        "integerValue": "4"
+                      }
+                    ]
+                  }
+                },
+                "weeklyVolumes": {
+                  "arrayValue": {
+                    "values": [
+                      {
+                        "integerValue": "20"
+                      },
+                      {
+                        "integerValue": "22"
+                      },
+                      {
+                        "integerValue": "24"
+                      },
+                      {
+                        "integerValue": "19"
+                      },
+                      {
+                        "integerValue": "27"
+                      },
+                      {
+                        "integerValue": "29"
+                      },
+                      {
+                        "integerValue": "16"
+                      }
+                    ]
+                  }
+                },
+                "totalWeeks": {
+                  "integerValue": "7"
+                },
+                "weeklyPhases": {
+                  "arrayValue": {
+                    "values": [
+                      {
+                        "stringValue": "fondamental"
+                      },
+                      {
+                        "stringValue": "fondamental"
+                      },
+                      {
+                        "stringValue": "developpement"
+                      },
+                      {
+                        "stringValue": "recuperation"
+                      },
+                      {
+                        "stringValue": "specifique"
+                      },
+                      {
+                        "stringValue": "specifique"
+                      },
+                      {
+                        "stringValue": "affutage"
+                      }
+                    ]
+                  }
+                }
+              }
+            }
+          },
+          "generatedAt": {
+            "stringValue": "2026-03-11T20:55:27.772Z"
+          },
+          "vma": {
+            "doubleValue": 9.14828324937757
+          },
+          "questionnaireSnapshot": {
+            "mapValue": {
+              "fields": {
+                "frequency": {
+                  "integerValue": "4"
+                },
+                "startDate": {
+                  "stringValue": "2026-03-11"
+                },
+                "raceDate": {
+                  "stringValue": "2026-05-01"
+                },
+                "preferredDays": {
+                  "arrayValue": {}
+                },
+                "subGoal": {
+                  "stringValue": "10 km"
+                },
+                "targetTime": {
+                  "stringValue": "1h10"
+                },
+                "goal": {
+                  "stringValue": "Course sur route"
+                },
+                "email": {
+                  "stringValue": "juliejwalter@orange.fr"
+                },
+                "currentWeeklyVolume": {
+                  "integerValue": "20"
+                },
+                "recentRaceTimes": {
+                  "mapValue": {
+                    "fields": {
+                      "distance5km": {
+                        "stringValue": "33:40"
+                      },
+                      "distance10km": {
+                        "stringValue": "01:15:45"
+                      }
+                    }
+                  }
+                },
+                "trailDetails": {
+                  "mapValue": {
+                    "fields": {
+                      "elevation": {
+                        "integerValue": "500"
+                      },
+                      "distance": {
+                        "integerValue": "20"
+                      }
+                    }
+                  }
+                },
+                "sex": {
+                  "stringValue": "Homme"
+                },
+                "injuries": {
+                  "mapValue": {
+                    "fields": {
+                      "hasInjury": {
+                        "booleanValue": false
+                      }
+                    }
+                  }
+                },
+                "city": {
+                  "stringValue": "Saintry-sur-Seine "
+                },
+                "level": {
+                  "stringValue": "Confirmé (Compétition)"
+                }
+              }
+            }
+          },
+          "vmaSource": {
+            "stringValue": "Moyenne 5km en 33:40 et 10km en 01:15:45"
+          },
+          "paces": {
+            "mapValue": {
+              "fields": {
+                "allureSpecifiqueMarathon": {
+                  "stringValue": "8:12"
+                },
+                "allureSpecifique10k": {
+                  "stringValue": "7:17"
+                },
+                "allureSpecifiqueSemi": {
+                  "stringValue": "7:43"
+                },
+                "eaPace": {
+                  "stringValue": "8:31"
+                },
+                "seuilPace": {
+                  "stringValue": "7:32"
+                },
+                "recoveryPace": {
+                  "stringValue": "10:56"
+                },
+                "efPace": {
+                  "stringValue": "9:47"
+                },
+                "allureSpecifique5k": {
+                  "stringValue": "6:54"
+                },
+                "vmaPace": {
+                  "stringValue": "6:34"
+                }
+              }
+            }
+          },
+          "modelUsed": {
+            "stringValue": "gemini-2.0-flash"
+          }
+        }
+      }
+    },
+    "paces": {
+      "mapValue": {
+        "fields": {
+          "efPace": {
+            "stringValue": "9:47"
+          },
+          "recoveryPace": {
+            "stringValue": "10:56"
+          },
+          "allureSpecifique5k": {
+            "stringValue": "6:54"
+          },
+          "vmaPace": {
+            "stringValue": "6:34"
+          },
+          "allureSpecifique10k": {
+            "stringValue": "7:17"
+          },
+          "allureSpecifiqueMarathon": {
+            "stringValue": "8:12"
+          },
+          "allureSpecifiqueSemi": {
+            "stringValue": "7:43"
+          },
+          "seuilPace": {
+            "stringValue": "7:32"
+          },
+          "eaPace": {
+            "stringValue": "8:31"
+          }
+        }
+      }
+    }
+  },
+  "createTime": "2026-03-11T20:55:40.069541Z",
+  "updateTime": "2026-03-18T17:02:54.627736Z"
+}

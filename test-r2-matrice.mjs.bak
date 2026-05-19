@@ -1,0 +1,156 @@
+// ============================================================================
+// Test matrice R2 — profils diversifiés (post-fixes)
+// ============================================================================
+// Niveau × volume actuel × D+ actuel × distance race × D+ race × durée
+// Plus tests doctrine : Débutant 0km, Expert D+ massif, Expert D+ minime, etc.
+// ============================================================================
+
+const R2_GATES_ENABLED = true;
+
+function applyR2Gates(ctx) {
+  if (!R2_GATES_ENABLED) return { scorePenalty: 0, reasons: [] };
+  const reasons = [];
+  let scorePenalty = 0;
+  let irrealisticCap;
+
+  if (ctx.isTrail && ctx.raceDplus > 0 && ctx.distanceKm !== null) {
+    const isCourt = ctx.distanceKm < 30;
+    const isMoyen = ctx.distanceKm >= 30 && ctx.distanceKm < 60;
+    const r1Coef = isCourt ? 0.45 : isMoyen ? 0.55 : 0.50;
+    const r1Min = r1Coef * ctx.raceDplus * ctx.planWeeks;
+    if (ctx.totalDplusCycle > 0 && ctx.totalDplusCycle < r1Min) { irrealisticCap = 10; reasons.push(`gate1: D+ cycle ${ctx.totalDplusCycle}m < ${Math.round(r1Min)}m`); }
+    if (ctx.currentElev > 0) {
+      const ratio = ctx.raceDplus / ctx.currentElev;
+      if (ratio > 40) { irrealisticCap = Math.min(irrealisticCap ?? 100, 10); reasons.push(`gate2: ratio D+ ${ratio.toFixed(0)}×>40`); }
+      else if (ratio > 25) { scorePenalty += 25; reasons.push(`gate2: ratio D+ ${ratio.toFixed(0)}×>25`); }
+      else if (ratio > 15) { scorePenalty += 10; reasons.push(`gate2: ratio D+ ${ratio.toFixed(0)}×>15`); }
+    } else if (ctx.raceDplus >= 500) { scorePenalty += 15; reasons.push(`gate2bis: D+ actuel=0 pour race ${ctx.raceDplus}m`); }
+    if (ctx.currentVolume > 0) {
+      const ratioVol = ctx.currentVolume / ctx.distanceKm;
+      const s = isCourt ? { irr: 0.50, amb: 0.65 } : isMoyen ? { irr: 0.40, amb: 0.50 } : { irr: 0.30, amb: 0.40 };
+      if (ratioVol < s.irr) { irrealisticCap = Math.min(irrealisticCap ?? 100, 10); reasons.push(`gate3: vol ${ctx.currentVolume}<${s.irr}×race`); }
+      else if (ratioVol < s.amb) { scorePenalty += 20; reasons.push(`gate3: vol ${ctx.currentVolume}<${s.amb}×race`); }
+    }
+  }
+  if (ctx.currentVolume > 0 && ctx.s1Volume > 0) {
+    const sautAbs = ctx.s1Volume - ctx.currentVolume;
+    const sautPct = (ctx.s1Volume / ctx.currentVolume) - 1;
+    if (sautPct > 0.50 || sautAbs > 15) { irrealisticCap = Math.min(irrealisticCap ?? 100, 10); reasons.push(`gate4: saut ${ctx.currentVolume}→${ctx.s1Volume} (+${(sautPct*100).toFixed(0)}%, +${sautAbs}km)`); }
+    else if (sautPct > 0.30) { scorePenalty += 10; reasons.push(`gate4: saut +${(sautPct*100).toFixed(0)}%`); }
+  }
+  if (ctx.level.includes('Expert') && !ctx.hasChrono && ctx.currentVolume > 0 && ctx.currentVolume < 40) {
+    scorePenalty += 20;
+    reasons.push(`gate6: Expert sans chrono vol ${ctx.currentVolume}<40`);
+  }
+  return { irrealisticCap, scorePenalty, reasons };
+}
+
+function calculateWeekTargetElevation(weekNumber, totalWeeks, raceElevation, level, currentWeeklyElevation, phase) {
+  if (!raceElevation) return 0;
+  const lvl = level.toLowerCase();
+  const isDeb = lvl.includes('débutant') || lvl.includes('debutant');
+  const isInter = lvl.includes('intermédiaire') || lvl.includes('intermediaire');
+  const isConf = lvl.includes('confirmé') || lvl.includes('confirme') || lvl.includes('compétition');
+  const maxWeekly = isDeb ? Math.min(raceElevation, 800) : isInter ? Math.min(raceElevation, 1500) : isConf ? Math.min(raceElevation, 2500) : Math.min(raceElevation, 3500);
+  const defaultStart = isDeb ? 150 : isInter ? 300 : isConf ? 500 : 800;
+  const maxStart = Math.min(1500, Math.round(maxWeekly * 0.60));
+  const minStart = Math.round(raceElevation * 0.15);
+  const rawStart = currentWeeklyElevation && currentWeeklyElevation > 0 ? Math.min(currentWeeklyElevation, maxStart) : Math.min(defaultStart, maxStart);
+  const startElev = Math.max(rawStart, Math.min(minStart, maxStart));
+  const progress = Math.min(1, (weekNumber - 1) / Math.max(1, totalWeeks - 1));
+  return Math.round(startElev + (maxWeekly - startElev) * progress);
+}
+
+function simulateE2E(p) {
+  const distanceKm = p.distanceKm;
+  const isTrail = p.isTrail;
+  const isMarathon = distanceKm && distanceKm >= 42;
+  const isSemi = distanceKm && distanceKm >= 21 && distanceKm < 42;
+  const peakVolEst = distanceKm ? (isMarathon ? 60 : isSemi ? 45 : isTrail && distanceKm >= 60 ? 70 : isTrail && distanceKm >= 30 ? 55 : 35) : 35;
+  const s1Vol = p.currentVolume > 0 ? Math.round(p.currentVolume * 1.10) : Math.round(peakVolEst * 0.30);
+  let totalDplusCycle = 0;
+  if (isTrail && p.raceDplus) for (let i = 1; i <= p.planWeeks; i++) totalDplusCycle += calculateWeekTargetElevation(i, p.planWeeks, p.raceDplus, p.level, p.currentElev, undefined);
+  return applyR2Gates({
+    isTrail, distanceKm,
+    raceDplus: p.raceDplus ?? 0, planWeeks: p.planWeeks,
+    currentVolume: p.currentVolume ?? 0, currentElev: p.currentElev ?? 0,
+    s1Volume: s1Vol, totalDplusCycle,
+    level: p.level || '', hasChrono: p.hasChrono,
+  });
+}
+
+// ============================================================================
+// MATRICE — Profils diversifiés selon demande user
+// ============================================================================
+const profils = [
+  // ─── DÉBUTANT 0 KM (sédentaire pur) ─── ce sont des cas critiques
+  { cat: 'DÉB 0km', n: 'Déb 0km 5km route 12sem', p: { isTrail:false, distanceKm:5, planWeeks:12, currentVolume:0, currentElev:0, level:'Débutant (0-1 an)', hasChrono:false }, exp: 'PASS R2 (couvert par garde-fou min weeks)' },
+  { cat: 'DÉB 0km', n: 'Déb 0km Marathon 16sem', p: { isTrail:false, distanceKm:42, planWeeks:16, currentVolume:0, currentElev:0, level:'Débutant (0-1 an)', hasChrono:false }, exp: 'PASS R2' },
+  { cat: 'DÉB 0km', n: 'Déb 0km Trail 10/300 8sem', p: { isTrail:true, distanceKm:10, raceDplus:300, planWeeks:8, currentVolume:0, currentElev:0, level:'Débutant (0-1 an)', hasChrono:false }, exp: 'gate2bis (D+ actuel=0 raceDplus<500 → skip)' },
+  { cat: 'DÉB 0km', n: 'Déb 0km Trail 25/1500 16sem', p: { isTrail:true, distanceKm:25, raceDplus:1500, planWeeks:16, currentVolume:0, currentElev:0, level:'Débutant (0-1 an)', hasChrono:false }, exp: 'gate2bis pen-15 (D+actuel=0, raceDplus>=500)' },
+  { cat: 'DÉB 0km', n: 'Déb 0km Trail 50/3000 20sem (irréaliste extrême)', p: { isTrail:true, distanceKm:50, raceDplus:3000, planWeeks:20, currentVolume:0, currentElev:0, level:'Débutant (0-1 an)', hasChrono:false }, exp: 'IRR via gate1 (D+ cycle débutant capé 800/sem)' },
+
+  // ─── EXPERT + D+ IMPORTANT ───
+  { cat: 'EXP D+++', n: 'Exp v50 D1500 Trail 100/5000 24sem chrono', p: { isTrail:true, distanceKm:100, raceDplus:5000, planWeeks:24, currentVolume:50, currentElev:1500, level:'Expert (Performance)', hasChrono:true }, exp: 'PASS (Bug 2 fix coef 0.50 ultra)' },
+  { cat: 'EXP D+++', n: 'Exp v70 D2500 Trail 170/10000 30sem (UTMB)', p: { isTrail:true, distanceKm:170, raceDplus:10000, planWeeks:30, currentVolume:70, currentElev:2500, level:'Expert (Performance)', hasChrono:true }, exp: 'PASS attendu' },
+  { cat: 'EXP D+++', n: 'Exp v30 D500 Trail 80/4000 16sem (vol insuffisant)', p: { isTrail:true, distanceKm:80, raceDplus:4000, planWeeks:16, currentVolume:30, currentElev:500, level:'Expert (Performance)', hasChrono:true }, exp: 'gate2 ratio 8× OK / gate3 vol 30/80=0.37>0.30 OK / probable gate1' },
+  { cat: 'EXP D+++', n: 'Exp v40 D800 Trail 60/3500 18sem', p: { isTrail:true, distanceKm:60, raceDplus:3500, planWeeks:18, currentVolume:40, currentElev:800, level:'Expert (Performance)', hasChrono:true }, exp: 'check ratios' },
+
+  // ─── EXPERT + D+ MINIME (route ou trail très plat) ───
+  { cat: 'EXP D+min', n: 'Exp v50 D0 Marathon 16sem chrono', p: { isTrail:false, distanceKm:42, planWeeks:16, currentVolume:50, currentElev:0, level:'Expert (Performance)', hasChrono:true }, exp: 'PASS (route, gate6 skip vol≥40)' },
+  { cat: 'EXP D+min', n: 'Exp v60 D100 Trail 30/200 12sem chrono', p: { isTrail:true, distanceKm:30, raceDplus:200, planWeeks:12, currentVolume:60, currentElev:100, level:'Expert (Performance)', hasChrono:true }, exp: 'PASS' },
+  { cat: 'EXP D+min', n: 'Exp v40 D50 Trail 15/300 10sem chrono', p: { isTrail:true, distanceKm:15, raceDplus:300, planWeeks:10, currentVolume:40, currentElev:50, level:'Expert (Performance)', hasChrono:true }, exp: 'PASS (ratio D+ 6× OK, vol 2.67× race OK)' },
+
+  // ─── VOLUME KM IMPORTANT (>50 km/sem) ───
+  { cat: 'VOL+++', n: 'Inter v60 D200 Marathon 16sem chrono', p: { isTrail:false, distanceKm:42, planWeeks:16, currentVolume:60, currentElev:200, level:'Intermédiaire (Régulier)', hasChrono:true }, exp: 'PASS' },
+  { cat: 'VOL+++', n: 'Conf v80 D1000 Trail 50/3000 20sem chrono', p: { isTrail:true, distanceKm:50, raceDplus:3000, planWeeks:20, currentVolume:80, currentElev:1000, level:'Confirmé (Compétition)', hasChrono:true }, exp: 'PASS attendu' },
+  { cat: 'VOL+++', n: 'Inter v100 D500 Semi 12sem chrono', p: { isTrail:false, distanceKm:21, planWeeks:12, currentVolume:100, currentElev:500, level:'Intermédiaire (Régulier)', hasChrono:true }, exp: 'PASS' },
+
+  // ─── VOLUME KM FAIBLE (<10 km/sem) ───
+  { cat: 'VOL---', n: 'Inter v5 D0 Marathon 16sem (ambitieux)', p: { isTrail:false, distanceKm:42, planWeeks:16, currentVolume:5, currentElev:0, level:'Intermédiaire (Régulier)', hasChrono:false }, exp: 'gate4 saut 5→5.5 OK / pas dautre gate route' },
+  { cat: 'VOL---', n: 'Inter v8 D100 Trail 20/1500 10sem', p: { isTrail:true, distanceKm:20, raceDplus:1500, planWeeks:10, currentVolume:8, currentElev:100, level:'Intermédiaire (Régulier)', hasChrono:false }, exp: 'gate2 ratio 15× → vigilance / gate3 vol 8/20=0.40<0.50 IRR' },
+  { cat: 'VOL---', n: 'Déb v3 D50 Semi 16sem (vraiment irréaliste)', p: { isTrail:false, distanceKm:21, planWeeks:16, currentVolume:3, currentElev:50, level:'Débutant (0-1 an)', hasChrono:false }, exp: 'gate4 OK petit saut. R2 PASS, autre garde-fou agit.' },
+
+  // ─── COMBINAISONS RISQUE ───
+  { cat: 'COMBO', n: 'Déb v0 D0 Trail 30/2000 12sem (saut massif + Déb)', p: { isTrail:true, distanceKm:30, raceDplus:2000, planWeeks:12, currentVolume:0, currentElev:0, level:'Débutant (0-1 an)', hasChrono:false }, exp: 'gate2bis pen-15 + probable gate1' },
+  { cat: 'COMBO', n: 'Inter v15 D50 Trail 50/3000 11sem (Peterson-like)', p: { isTrail:true, distanceKm:50, raceDplus:3000, planWeeks:11, currentVolume:15, currentElev:50, level:'Intermédiaire (Régulier)', hasChrono:false }, exp: 'IRR gate2 (60×) + gate3 (vol 15/50=0.30<0.40 IRR) ; pas de gate6 car pas Expert' },
+  { cat: 'COMBO', n: 'Conf v20 D200 Trail 80/3500 14sem', p: { isTrail:true, distanceKm:80, raceDplus:3500, planWeeks:14, currentVolume:20, currentElev:200, level:'Confirmé (Compétition)', hasChrono:true }, exp: 'gate2 ratio 17× pen-10 / gate3 vol 0.25<0.30 IRR' },
+
+  // ─── EXPERT NON VALIDÉ (Bug 3 contexts variés) ───
+  { cat: 'EXP_NV', n: 'Expert vol 35 sans chrono semi route', p: { isTrail:false, distanceKm:21, planWeeks:12, currentVolume:35, currentElev:0, level:'Expert (Performance)', hasChrono:false }, exp: 'gate6 pen -20' },
+  { cat: 'EXP_NV', n: 'Expert vol 40 (frontière) sans chrono', p: { isTrail:false, distanceKm:21, planWeeks:12, currentVolume:40, currentElev:0, level:'Expert (Performance)', hasChrono:false }, exp: 'PASS (vol >= 40 → gate6 skip)' },
+  { cat: 'EXP_NV', n: 'Expert vol 35 AVEC chrono', p: { isTrail:false, distanceKm:21, planWeeks:12, currentVolume:35, currentElev:0, level:'Expert (Performance)', hasChrono:true }, exp: 'PASS (gate6 skip car chrono)' },
+
+  // ─── EDGE CASES ───
+  { cat: 'EDGE', n: 'planWeeks=2 trail (très court)', p: { isTrail:true, distanceKm:20, raceDplus:1000, planWeeks:2, currentVolume:25, currentElev:600, level:'Intermédiaire (Régulier)', hasChrono:true }, exp: 'gate1 probable (cycle 2 sem insuffisant)' },
+  { cat: 'EDGE', n: 'level=undefined ne crash pas', p: { isTrail:false, distanceKm:21, planWeeks:12, currentVolume:30, currentElev:0, level:undefined, hasChrono:false }, exp: 'crash possible si level undefined' },
+];
+
+console.log('═'.repeat(140));
+console.log(`  TEST MATRICE R2 — ${profils.length} profils diversifiés`);
+console.log('═'.repeat(140));
+const stats = { pass: 0, irr: 0, pen: 0, crash: 0 };
+let lastCat = '';
+for (const t of profils) {
+  if (t.cat !== lastCat) {
+    console.log(`\n\n── ${t.cat} ──`);
+    lastCat = t.cat;
+  }
+  try {
+    const r = simulateE2E(t.p);
+    const verdict = r.irrealisticCap !== undefined ? `🔴 IRR(${r.irrealisticCap})` : r.scorePenalty > 0 ? `🟡 pen-${r.scorePenalty}` : '✅ PASS';
+    if (r.irrealisticCap !== undefined) stats.irr++;
+    else if (r.scorePenalty > 0) stats.pen++;
+    else stats.pass++;
+    console.log(`  ${verdict.padEnd(15)} ${t.n}`);
+    if (r.reasons.length) console.log(`                 → ${r.reasons.join(' | ')}`);
+    console.log(`                 attendu: ${t.exp}`);
+  } catch (e) {
+    stats.crash++;
+    console.log(`  💥 CRASH        ${t.n}`);
+    console.log(`                 ${e.message}`);
+  }
+}
+console.log(`\n${'═'.repeat(140)}`);
+console.log(`  RÉCAP : ${stats.pass} PASS | ${stats.pen} pen | ${stats.irr} IRR | ${stats.crash} CRASH`);
+console.log('═'.repeat(140));
