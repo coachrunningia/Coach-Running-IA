@@ -36,7 +36,7 @@ export const MARATHON_PATTERNS: DoctrinePattern[] = [
     phase: ['specifique'],
     levels: ['Régulier', 'Confirmé', 'Expert'],
     excludeLevels: ['Débutant'],
-    example: '6 km EF + 26 km @ MP + 2 km récup = 34 km total',
+    example: '6 km EF + 22 km @ MP + 2 km récup = 30 km total',
     maxPerCycle: 3,
     neverConsecutive: true,
     minSpacingWeeks: 2,

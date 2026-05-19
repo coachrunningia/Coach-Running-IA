@@ -52,7 +52,7 @@ export const DISTANCE_5K_PATTERNS: DoctrinePattern[] = [
     maxPerCycle: 99,
   },
   {
-    name: 'STRIDES',
+    name: 'STRIDES-5K',
     description: 'Footing + lignes droites (gammes vitesse).',
     format: 'Footing 30-45 min + 6-10 × 80-100m progressifs en fin',
     distance: { min: 5, max: 9 },

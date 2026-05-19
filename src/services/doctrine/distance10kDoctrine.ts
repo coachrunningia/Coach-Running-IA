@@ -44,7 +44,7 @@ export const DISTANCE_10K_PATTERNS: DoctrinePattern[] = [
     name: 'LR-EF-10K',
     description: 'Long Run EF base aérobie (14-18 km).',
     format: 'Continu en EF stricte',
-    distance: { min: 12, max: 18 },
+    distance: { min: 14, max: 18 },
     paceType: 'EF',
     phase: ['fondamental', 'developpement', 'specifique', 'recuperation'],
     levels: ['Débutant', 'Régulier', 'Confirmé', 'Expert'],
@@ -63,7 +63,7 @@ export const DISTANCE_10K_PATTERNS: DoctrinePattern[] = [
     maxPerCycle: 3,
   },
   {
-    name: '5K-TUNE-UP',
+    name: '5K-TUNE-UP-10K',
     description: 'Course 5 km en préparation 2-3 sem avant.',
     format: 'Échauffement 20 min + 5 km en compétition + retour 10 min',
     distance: { min: 10, max: 12 },

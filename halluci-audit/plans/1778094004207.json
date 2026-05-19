@@ -1,0 +1,2611 @@
+{
+  "name": "projects/coach-running-ia/databases/(default)/documents/plans/1778094004207",
+  "fields": {
+    "userId": {
+      "stringValue": "C0SBsjXvu9dgXLOTkRdRr8fL63z2"
+    },
+    "durationWeeks": {
+      "integerValue": "10"
+    },
+    "generationContext": {
+      "mapValue": {
+        "fields": {
+          "questionnaireSnapshot": {
+            "mapValue": {
+              "fields": {
+                "height": {
+                  "integerValue": "165"
+                },
+                "weight": {
+                  "integerValue": "85"
+                },
+                "startDate": {
+                  "stringValue": "2026-05-06"
+                },
+                "sex": {
+                  "stringValue": "Homme"
+                },
+                "frequency": {
+                  "integerValue": "4"
+                },
+                "email": {
+                  "stringValue": "ch.courtin01@gmail.com"
+                },
+                "age": {
+                  "integerValue": "54"
+                },
+                "trailDetails": {
+                  "mapValue": {
+                    "fields": {
+                      "elevation": {
+                        "integerValue": "400"
+                      },
+                      "distance": {
+                        "integerValue": "13"
+                      }
+                    }
+                  }
+                },
+                "goal": {
+                  "stringValue": "Trail"
+                },
+                "city": {
+                  "stringValue": "Oyonnax "
+                },
+                "raceDate": {
+                  "stringValue": "2026-07-11"
+                },
+                "currentWeeklyElevation": {
+                  "integerValue": "200"
+                },
+                "recentRaceTimes": {
+                  "mapValue": {}
+                },
+                "preferredLongRunDay": {
+                  "stringValue": "Dimanche"
+                },
+                "injuries": {
+                  "mapValue": {
+                    "fields": {
+                      "hasInjury": {
+                        "booleanValue": false
+                      }
+                    }
+                  }
+                },
+                "preferredDays": {
+                  "arrayValue": {
+                    "values": [
+                      {
+                        "stringValue": "Lundi"
+                      },
+                      {
+                        "stringValue": "Mercredi"
+                      },
+                      {
+                        "stringValue": "Vendredi"
+                      }
+                    ]
+                  }
+                },
+                "comments": {
+                  "stringValue": "Je préfère courir le soir "
+                },
+                "level": {
+                  "stringValue": "Intermédiaire (Régulier)"
+                },
+                "vma": {
+                  "doubleValue": 11.8
+                },
+                "currentWeeklyVolume": {
+                  "integerValue": "20"
+                }
+              }
+            }
+          },
+          "vma": {
+            "doubleValue": 11.8
+          },
+          "generatedAt": {
+            "stringValue": "2026-05-06T18:59:36.601Z"
+          },
+          "periodizationPlan": {
+            "mapValue": {
+              "fields": {
+                "recoveryWeeks": {
+                  "arrayValue": {
+                    "values": [
+                      {
+                        "integerValue": "4"
+                      },
+                      {
+                        "integerValue": "8"
+                      }
+                    ]
+                  }
+                },
+                "weeklyPhases": {
+                  "arrayValue": {
+                    "values": [
+                      {
+                        "stringValue": "fondamental"
+                      },
+                      {
+                        "stringValue": "fondamental"
+                      },
+                      {
+                        "stringValue": "fondamental"
+                      },
+                      {
+                        "stringValue": "recuperation"
+                      },
+                      {
+                        "stringValue": "developpement"
+                      },
+                      {
+                        "stringValue": "developpement"
+                      },
+                      {
+                        "stringValue": "specifique"
+                      },
+                      {
+                        "stringValue": "recuperation"
+                      },
+                      {
+                        "stringValue": "affutage"
+                      },
+                      {
+                        "stringValue": "affutage"
+                      }
+                    ]
+                  }
+                },
+                "totalWeeks": {
+                  "integerValue": "10"
+                },
+                "weeklyVolumes": {
+                  "arrayValue": {
+                    "values": [
+                      {
+                        "integerValue": "18"
+                      },
+                      {
+                        "integerValue": "19"
+                      },
+                      {
+                        "integerValue": "21"
+                      },
+                      {
+                        "integerValue": "15"
+                      },
+                      {
+                        "integerValue": "21"
+                      },
+                      {
+                        "integerValue": "25"
+                      },
+                      {
+                        "integerValue": "28"
+                      },
+                      {
+                        "integerValue": "21"
+                      },
+                      {
+                        "integerValue": "18"
+                      },
+                      {
+                        "integerValue": "15"
+                      }
+                    ]
+                  }
+                }
+              }
+            }
+          },
+          "vmaSource": {
+            "stringValue": "Ajustée manuellement : 15.5 → 11.8 km/h"
+          },
+          "modelUsed": {
+            "stringValue": "gemini-2.5-flash"
+          },
+          "paces": {
+            "mapValue": {
+              "fields": {
+                "vma": {
+                  "doubleValue": 11.8
+                },
+                "allureSpecifique10k": {
+                  "stringValue": "5:39"
+                },
+                "vmaKmh": {
+                  "stringValue": "11.8"
+                },
+                "allureSpecifiqueSemi": {
+                  "stringValue": "5:59"
+                },
+                "eaPace": {
+                  "stringValue": "6:36"
+                },
+                "allureSpecifiqueMarathon": {
+                  "stringValue": "6:21"
+                },
+                "recoveryPace": {
+                  "stringValue": "8:28"
+                },
+                "vmaPace": {
+                  "stringValue": "5:05"
+                },
+                "seuilPace": {
+                  "stringValue": "5:51"
+                },
+                "allureSpecifique5k": {
+                  "stringValue": "5:21"
+                },
+                "efPace": {
+                  "stringValue": "7:35"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "isPreview": {
+      "booleanValue": false
+    },
+    "name": {
+      "stringValue": "Préparation Trail 13km / 400m D+ — Finisher — 10 sem."
+    },
+    "guardStats": {
+      "mapValue": {
+        "fields": {
+          "progressionSmoothed": {
+            "integerValue": "0"
+          },
+          "slDurationCapped": {
+            "integerValue": "0"
+          },
+          "affutageCorrected": {
+            "integerValue": "0"
+          },
+          "dplusRedistributed": {
+            "integerValue": "0"
+          },
+          "hardSessionsDowngraded": {
+            "integerValue": "0"
+          },
+          "sessionKmCapped": {
+            "integerValue": "0"
+          },
+          "volumeScaledDown": {
+            "integerValue": "4"
+          },
+          "postValidatorFixes": {
+            "integerValue": "3"
+          },
+          "volumeScaledUp": {
+            "integerValue": "0"
+          }
+        }
+      }
+    },
+    "vmaSource": {
+      "stringValue": "Ajustée manuellement : 15.5 → 11.8 km/h"
+    },
+    "endDate": {
+      "stringValue": "2026-07-13"
+    },
+    "raceDate": {
+      "stringValue": "2026-07-11"
+    },
+    "calculatedVMA": {
+      "doubleValue": 15.5
+    },
+    "suggestedLocations": {
+      "arrayValue": {
+        "values": [
+          {
+            "mapValue": {
+              "fields": {
+                "name": {
+                  "stringValue": "Stade Robert Moiroux"
+                },
+                "description": {
+                  "stringValue": "Piste d'athlétisme, idéale pour les séances de fractionné à plat ou les footings sur surface régulière."
+                },
+                "type": {
+                  "stringValue": "TRACK"
+                }
+              }
+            }
+          },
+          {
+            "mapValue": {
+              "fields": {
+                "description": {
+                  "stringValue": "Parc urbain avec des allées pour des footings faciles et relaxants. Surface souple possible."
+                },
+                "name": {
+                  "stringValue": "Parc de la Grenette / Centre-ville"
+                },
+                "type": {
+                  "stringValue": "PARK"
+                }
+              }
+            }
+          },
+          {
+            "mapValue": {
+              "fields": {
+                "type": {
+                  "stringValue": "HILL"
+                },
+                "description": {
+                  "stringValue": "Secteur vallonné avec des routes et chemins permettant de travailler le dénivelé et la puissance."
+                },
+                "name": {
+                  "stringValue": "Côtes d'Oyonnax (secteur Châtillon)"
+                }
+              }
+            }
+          },
+          {
+            "mapValue": {
+              "fields": {
+                "type": {
+                  "stringValue": "NATURE"
+                },
+                "name": {
+                  "stringValue": "Sentiers du Jura (secteur Mont d'Ouzon)"
+                },
+                "description": {
+                  "stringValue": "Sentiers forestiers et chemins de montagne, parfaits pour les sorties longues trail avec du dénivelé."
+                }
+              }
+            }
+          }
+        ]
+      }
+    },
+    "weeks": {
+      "arrayValue": {
+        "values": [
+          {
+            "mapValue": {
+              "fields": {
+                "weekNumber": {
+                  "integerValue": "1"
+                },
+                "isRecoveryWeek": {
+                  "booleanValue": false
+                },
+                "sessions": {
+                  "arrayValue": {
+                    "values": [
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "cooldown": {
+                              "stringValue": "5 min EF"
+                            },
+                            "title": {
+                              "stringValue": "Footing Léger"
+                            },
+                            "intensity": {
+                              "stringValue": "Facile"
+                            },
+                            "elevationGain": {
+                              "integerValue": "0"
+                            },
+                            "id": {
+                              "stringValue": "w1-s1-fix-1778094351599-nanmpz6"
+                            },
+                            "duration": {
+                              "stringValue": "35 min"
+                            },
+                            "mainSet": {
+                              "stringValue": "25 min EF"
+                            },
+                            "day": {
+                              "stringValue": "Lundi"
+                            },
+                            "type": {
+                              "stringValue": "Footing"
+                            },
+                            "targetPace": {
+                              "stringValue": "7:35"
+                            },
+                            "warmup": {
+                              "stringValue": "5 min EF"
+                            },
+                            "distance": {
+                              "stringValue": "5 km"
+                            },
+                            "advice": {
+                              "stringValue": "Footing de récupération."
+                            }
+                          }
+                        }
+                      },
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "elevationGain": {
+                              "integerValue": "0"
+                            },
+                            "intensity": {
+                              "stringValue": "Modéré"
+                            },
+                            "warmup": {
+                              "stringValue": "5 min d'échauffement articulaire"
+                            },
+                            "id": {
+                              "stringValue": "w1-s2-fix-1778094351599-7dfy8x5"
+                            },
+                            "duration": {
+                              "stringValue": "25-30 min"
+                            },
+                            "advice": {
+                              "stringValue": "Bien s'échauffer et se concentrer sur la qualité des mouvements."
+                            },
+                            "mainSet": {
+                              "stringValue": "3 séries de 15 répétitions de squats, fentes avant, chaise, gainage, pompes (sur les genoux si besoin)."
+                            },
+                            "cooldown": {
+                              "stringValue": "5 min d'étirements"
+                            },
+                            "title": {
+                              "stringValue": "Renforcement musculaire"
+                            },
+                            "day": {
+                              "stringValue": "Mercredi"
+                            },
+                            "type": {
+                              "stringValue": "Renforcement"
+                            }
+                          }
+                        }
+                      },
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "title": {
+                              "stringValue": "Footing Endurance"
+                            },
+                            "cooldown": {
+                              "stringValue": "5 min EF"
+                            },
+                            "elevationGain": {
+                              "integerValue": "0"
+                            },
+                            "intensity": {
+                              "stringValue": "Facile"
+                            },
+                            "id": {
+                              "stringValue": "w1-s3-fix-1778094351599-mov4g4v"
+                            },
+                            "duration": {
+                              "stringValue": "40 min"
+                            },
+                            "mainSet": {
+                              "stringValue": "30 min EF"
+                            },
+                            "day": {
+                              "stringValue": "Vendredi"
+                            },
+                            "type": {
+                              "stringValue": "Footing"
+                            },
+                            "targetPace": {
+                              "stringValue": "7:35"
+                            },
+                            "warmup": {
+                              "stringValue": "5 min EF"
+                            },
+                            "distance": {
+                              "stringValue": "5.5 km"
+                            },
+                            "advice": {
+                              "stringValue": "Maintenir une allure confortable."
+                            }
+                          }
+                        }
+                      },
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "mainSet": {
+                              "stringValue": "50 min EF"
+                            },
+                            "day": {
+                              "stringValue": "Dimanche"
+                            },
+                            "type": {
+                              "stringValue": "Sortie Longue"
+                            },
+                            "warmup": {
+                              "stringValue": "10 min EF"
+                            },
+                            "targetPace": {
+                              "stringValue": "7:35"
+                            },
+                            "distance": {
+                              "stringValue": "7.5 km"
+                            },
+                            "advice": {
+                              "stringValue": "Augmenter progressivement la durée des sorties longues. Inclure un peu de dénivelé."
+                            },
+                            "title": {
+                              "stringValue": "Sortie Longue Progressive"
+                            },
+                            "cooldown": {
+                              "stringValue": "5 min EF"
+                            },
+                            "elevationGain": {
+                              "integerValue": "100"
+                            },
+                            "intensity": {
+                              "stringValue": "Facile"
+                            },
+                            "duration": {
+                              "stringValue": "1h05"
+                            },
+                            "id": {
+                              "stringValue": "w1-s4-fix-1778094351599-a6nvc82"
+                            }
+                          }
+                        }
+                      }
+                    ]
+                  }
+                },
+                "phase": {
+                  "stringValue": "Fondamental"
+                },
+                "theme": {
+                  "stringValue": "Fondamental"
+                }
+              }
+            }
+          },
+          {
+            "mapValue": {
+              "fields": {
+                "theme": {
+                  "stringValue": "Fondamental"
+                },
+                "phase": {
+                  "stringValue": "Fondamental"
+                },
+                "sessions": {
+                  "arrayValue": {
+                    "values": [
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "advice": {
+                              "stringValue": "Footing de récupération."
+                            },
+                            "targetPace": {
+                              "stringValue": "7:35"
+                            },
+                            "warmup": {
+                              "stringValue": "5 min EF"
+                            },
+                            "distance": {
+                              "stringValue": "4.2 km"
+                            },
+                            "day": {
+                              "stringValue": "Lundi"
+                            },
+                            "type": {
+                              "stringValue": "Footing"
+                            },
+                            "mainSet": {
+                              "stringValue": "20 min EF"
+                            },
+                            "intensity": {
+                              "stringValue": "Facile"
+                            },
+                            "elevationGain": {
+                              "integerValue": "0"
+                            },
+                            "duration": {
+                              "stringValue": "30 min"
+                            },
+                            "id": {
+                              "stringValue": "w2-s1-fix-1778094351599-6q41t1n"
+                            },
+                            "title": {
+                              "stringValue": "Footing Léger"
+                            },
+                            "cooldown": {
+                              "stringValue": "5 min EF"
+                            }
+                          }
+                        }
+                      },
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "type": {
+                              "stringValue": "Renforcement"
+                            },
+                            "day": {
+                              "stringValue": "Mercredi"
+                            },
+                            "title": {
+                              "stringValue": "Renforcement Trail"
+                            },
+                            "cooldown": {
+                              "stringValue": "5 min d'étirements"
+                            },
+                            "mainSet": {
+                              "stringValue": "3 séries de 12 répétitions de Squats poids de corps, fentes latérales, montées de genoux, talons-fesses, gainage dynamique (planche avec mouvements)."
+                            },
+                            "advice": {
+                              "stringValue": "Ajout d'exercices de pliométrie pour la préparation trail."
+                            },
+                            "id": {
+                              "stringValue": "w2-s2-fix-1778094351599-a8to707"
+                            },
+                            "duration": {
+                              "stringValue": "30 min"
+                            },
+                            "elevationGain": {
+                              "integerValue": "0"
+                            },
+                            "warmup": {
+                              "stringValue": "5 min d'échauffement articulaire"
+                            },
+                            "intensity": {
+                              "stringValue": "Modéré"
+                            }
+                          }
+                        }
+                      },
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "intensity": {
+                              "stringValue": "Difficile"
+                            },
+                            "elevationGain": {
+                              "integerValue": "0"
+                            },
+                            "warmup": {
+                              "stringValue": "10 min EF"
+                            },
+                            "id": {
+                              "stringValue": "w2-s3-fix-1778094351599-0jg14j9"
+                            },
+                            "duration": {
+                              "stringValue": "35 min"
+                            },
+                            "distance": {
+                              "stringValue": "6 km"
+                            },
+                            "advice": {
+                              "stringValue": "Travail de VMA court pour améliorer la vitesse."
+                            },
+                            "mainSet": {
+                              "stringValue": "6 x (30 sec VMA / 30 sec Récup)"
+                            },
+                            "cooldown": {
+                              "stringValue": "10 min EF"
+                            },
+                            "title": {
+                              "stringValue": "Fractionné Court"
+                            },
+                            "day": {
+                              "stringValue": "Vendredi"
+                            },
+                            "type": {
+                              "stringValue": "Fractionné"
+                            }
+                          }
+                        }
+                      },
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "type": {
+                              "stringValue": "Sortie Longue"
+                            },
+                            "day": {
+                              "stringValue": "Dimanche"
+                            },
+                            "mainSet": {
+                              "stringValue": "55 min EF"
+                            },
+                            "advice": {
+                              "stringValue": "Sortie longue avec dénivelé modéré."
+                            },
+                            "distance": {
+                              "stringValue": "9 km"
+                            },
+                            "warmup": {
+                              "stringValue": "10 min EF"
+                            },
+                            "targetPace": {
+                              "stringValue": "7:35"
+                            },
+                            "cooldown": {
+                              "stringValue": "10 min EF"
+                            },
+                            "title": {
+                              "stringValue": "Sortie Longue Endurance"
+                            },
+                            "id": {
+                              "stringValue": "w2-s4-fix-1778094351599-y05dj3s"
+                            },
+                            "duration": {
+                              "stringValue": "1h15"
+                            },
+                            "elevationGain": {
+                              "integerValue": "150"
+                            },
+                            "intensity": {
+                              "stringValue": "Facile"
+                            }
+                          }
+                        }
+                      }
+                    ]
+                  }
+                },
+                "isRecoveryWeek": {
+                  "booleanValue": false
+                },
+                "weekNumber": {
+                  "integerValue": "2"
+                }
+              }
+            }
+          },
+          {
+            "mapValue": {
+              "fields": {
+                "isRecoveryWeek": {
+                  "booleanValue": false
+                },
+                "sessions": {
+                  "arrayValue": {
+                    "values": [
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "title": {
+                              "stringValue": "Footing Léger"
+                            },
+                            "cooldown": {
+                              "stringValue": "5 min EF"
+                            },
+                            "duration": {
+                              "stringValue": "25 min"
+                            },
+                            "id": {
+                              "stringValue": "w3-s1-fix-1778094351599-gdvaiuf"
+                            },
+                            "intensity": {
+                              "stringValue": "Facile"
+                            },
+                            "elevationGain": {
+                              "integerValue": "0"
+                            },
+                            "type": {
+                              "stringValue": "Footing"
+                            },
+                            "day": {
+                              "stringValue": "Lundi"
+                            },
+                            "mainSet": {
+                              "stringValue": "15 min EF"
+                            },
+                            "advice": {
+                              "stringValue": "Footing de récupération."
+                            },
+                            "distance": {
+                              "stringValue": "3.5 km"
+                            },
+                            "warmup": {
+                              "stringValue": "5 min EF"
+                            },
+                            "targetPace": {
+                              "stringValue": "7:35"
+                            }
+                          }
+                        }
+                      },
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "intensity": {
+                              "stringValue": "Modéré"
+                            },
+                            "elevationGain": {
+                              "integerValue": "0"
+                            },
+                            "warmup": {
+                              "stringValue": "5 min d'échauffement articulaire et cardio"
+                            },
+                            "id": {
+                              "stringValue": "w3-s2-fix-1778094351599-zhrq8q3"
+                            },
+                            "duration": {
+                              "stringValue": "30 min"
+                            },
+                            "advice": {
+                              "stringValue": "Séance spécifique de côtes pour la préparation trail."
+                            },
+                            "mainSet": {
+                              "stringValue": "3 séries de 8 montées de côtes (courtes et raides) + descente en footing léger. Récupération 2 min entre les séries."
+                            },
+                            "cooldown": {
+                              "stringValue": "5 min d'étirements"
+                            },
+                            "title": {
+                              "stringValue": "Renforcement Trail - Côtes"
+                            },
+                            "day": {
+                              "stringValue": "Mercredi"
+                            },
+                            "type": {
+                              "stringValue": "Renforcement"
+                            }
+                          }
+                        }
+                      },
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "type": {
+                              "stringValue": "Footing"
+                            },
+                            "day": {
+                              "stringValue": "Vendredi"
+                            },
+                            "mainSet": {
+                              "stringValue": "10 min EF"
+                            },
+                            "advice": {
+                              "stringValue": "Footing court."
+                            },
+                            "distance": {
+                              "stringValue": "2.8 km"
+                            },
+                            "warmup": {
+                              "stringValue": "5 min EF"
+                            },
+                            "targetPace": {
+                              "stringValue": "7:35"
+                            },
+                            "title": {
+                              "stringValue": "Footing Endurance"
+                            },
+                            "cooldown": {
+                              "stringValue": "5 min EF"
+                            },
+                            "id": {
+                              "stringValue": "w3-s3-fix-1778094351599-ysnnr8x"
+                            },
+                            "duration": {
+                              "stringValue": "20 min"
+                            },
+                            "elevationGain": {
+                              "integerValue": "0"
+                            },
+                            "intensity": {
+                              "stringValue": "Facile"
+                            }
+                          }
+                        }
+                      },
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "advice": {
+                              "stringValue": "Sortie longue avec dénivelé plus important pour simuler les conditions de trail."
+                            },
+                            "distance": {
+                              "stringValue": "10.5 km"
+                            },
+                            "warmup": {
+                              "stringValue": "15 min EF"
+                            },
+                            "targetPace": {
+                              "stringValue": "7:35"
+                            },
+                            "type": {
+                              "stringValue": "Sortie Longue"
+                            },
+                            "day": {
+                              "stringValue": "Dimanche"
+                            },
+                            "mainSet": {
+                              "stringValue": "1h EF avec intégration de côtes (montées/descentes)"
+                            },
+                            "duration": {
+                              "stringValue": "1h30"
+                            },
+                            "id": {
+                              "stringValue": "w3-s4-fix-1778094351599-x2a52x3"
+                            },
+                            "intensity": {
+                              "stringValue": "Facile"
+                            },
+                            "elevationGain": {
+                              "integerValue": "200"
+                            },
+                            "cooldown": {
+                              "stringValue": "15 min EF"
+                            },
+                            "title": {
+                              "stringValue": "Sortie Longue avec Côtes"
+                            }
+                          }
+                        }
+                      }
+                    ]
+                  }
+                },
+                "theme": {
+                  "stringValue": "Fondamental"
+                },
+                "phase": {
+                  "stringValue": "Fondamental"
+                },
+                "weekNumber": {
+                  "integerValue": "3"
+                }
+              }
+            }
+          },
+          {
+            "mapValue": {
+              "fields": {
+                "weekNumber": {
+                  "integerValue": "4"
+                },
+                "theme": {
+                  "stringValue": "Récupération Active"
+                },
+                "phase": {
+                  "stringValue": "recuperation"
+                },
+                "sessions": {
+                  "arrayValue": {
+                    "values": [
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "id": {
+                              "stringValue": "w4-s1-1778094293670-ps6s9sp"
+                            },
+                            "duration": {
+                              "stringValue": "34 min"
+                            },
+                            "locationSuggestion": {
+                              "stringValue": "Chemins autour du Lac Genin, Oyonnax"
+                            },
+                            "elevationGain": {
+                              "integerValue": "147"
+                            },
+                            "intensity": {
+                              "stringValue": "Facile"
+                            },
+                            "cooldown": {
+                              "stringValue": "10 min de marche active, suivies de quelques étirements doux et mobilité articulaire ciblée (ischio-jambiers, mollets, quadriceps). (à 8:28 min/km)"
+                            },
+                            "title": {
+                              "stringValue": "Footing très doux et court"
+                            },
+                            "distance": {
+                              "stringValue": "4.4 km"
+                            },
+                            "targetPace": {
+                              "stringValue": "7:35 min/km"
+                            },
+                            "warmup": {
+                              "stringValue": "10 min de marche progressive puis footing très léger (allure EF à 7:35 min/km)."
+                            },
+                            "advice": {
+                              "stringValue": "Cette semaine est dédiée à la récupération. Écoute ton corps et ne force jamais. L'essentiel est de bouger en douceur pour maintenir la circulation. Écoute toujours ton corps, surtout si tu ressens une douleur thoracique, un essoufflement anormal ou un malaise. Arrête-toi immédiatement si cela se produit et consulte un médecin. Porte une attention particulière à tes genoux, chevilles et hanches, et n'hésite pas à marcher si le besoin s'en fait sentir."
+                            },
+                            "mainSet": {
+                              "stringValue": "20 min de course en très grande aisance respiratoire (allure EF à 7:35 min/km) sur un terrain souple et légèrement vallonné. L'objectif est de relâcher les tensions et de favoriser la récupération active, sans aucune recherche de vitesse."
+                            },
+                            "type": {
+                              "stringValue": "Jogging"
+                            },
+                            "day": {
+                              "stringValue": "Lundi"
+                            }
+                          }
+                        }
+                      },
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "warmup": {
+                              "stringValue": "10 min de marche progressive puis footing très léger (allure EF à 7:35 min/km)."
+                            },
+                            "targetPace": {
+                              "stringValue": "7:35 min/km"
+                            },
+                            "distance": {
+                              "stringValue": "3.4 km"
+                            },
+                            "advice": {
+                              "stringValue": "Concentre-toi sur la fluidité de ta foulée et une respiration profonde et régulière. L'objectif est le bien-être. Écoute toujours ton corps, surtout si tu ressens une douleur thoracique, un essoufflement anormal ou un malaise. Arrête-toi immédiatement si cela se produit et consulte un médecin. Porte une attention particulière à tes genoux, chevilles et hanches, et n'hésite pas à marcher si le besoin s'en fait sentir."
+                            },
+                            "mainSet": {
+                              "stringValue": "20 min de course en endurance fondamentale (allure EF à 7:35 min/km) sur des sentiers faciles et sans difficulté technique en forêt. Profite du calme et de la nature pour te ressourcer."
+                            },
+                            "day": {
+                              "stringValue": "Mercredi"
+                            },
+                            "type": {
+                              "stringValue": "Jogging"
+                            },
+                            "intensity": {
+                              "stringValue": "Facile"
+                            },
+                            "locationSuggestion": {
+                              "stringValue": "Forêt domaniale de l'Oignin, Oyonnax"
+                            },
+                            "elevationGain": {
+                              "integerValue": "0"
+                            },
+                            "id": {
+                              "stringValue": "w4-s2-1778094293670-sz4grg7"
+                            },
+                            "duration": {
+                              "stringValue": "26 min"
+                            },
+                            "title": {
+                              "stringValue": "Footing doux en forêt"
+                            },
+                            "cooldown": {
+                              "stringValue": "10 min de marche active, suivies de quelques étirements doux et mobilité articulaire ciblée (ischio-jambiers, mollets, quadriceps). (à 8:28 min/km)"
+                            }
+                          }
+                        }
+                      },
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "title": {
+                              "stringValue": "Renfo Leger - Recuperation (S4)"
+                            },
+                            "cooldown": {
+                              "stringValue": "5 min d'étirements : quadriceps, ischio-jambiers, mollets, hanches"
+                            },
+                            "intensity": {
+                              "stringValue": "Facile"
+                            },
+                            "elevationGain": {
+                              "integerValue": "0"
+                            },
+                            "locationSuggestion": {
+                              "stringValue": "À la maison"
+                            },
+                            "duration": {
+                              "stringValue": "25-30 min"
+                            },
+                            "id": {
+                              "stringValue": "w4-s3-1778094293670-fxxenq1"
+                            },
+                            "mainSet": {
+                              "stringValue": "Circuit 2 tours : Marche laterale avec elastique (3x6 pas/cote), Fente laterale (3x6/jambe), Bird-dog (3x6/cote), Gainage lateral (3x12-30s/cote), Marche sur talons (2x12m), Equilibre sur coussin instable (3x18s/pied), Equilibre unipodal yeux fermes (3x12-30s/pied), Planche + rotation laterale (3x6/cote), Mollets debout unipodal (3x7/jambe). Repos 1 min 30 entre tours."
+                            },
+                            "day": {
+                              "stringValue": "Vendredi"
+                            },
+                            "type": {
+                              "stringValue": "Renforcement"
+                            },
+                            "warmup": {
+                              "stringValue": "10 min de mobilité articulaire douce et échauffement progressif (marche rapide, rotations, pas chassés)"
+                            },
+                            "targetPace": {
+                              "stringValue": "N/A"
+                            },
+                            "distance": {
+                              "stringValue": "0 km"
+                            },
+                            "advice": {
+                              "stringValue": "Cette séance est axée sur la souplesse et la prévention. Ne cherche pas la performance mais le relâchement et l'amplitude de mouvement. Écoute toujours ton corps, surtout si tu ressens une douleur thoracique, un essoufflement anormal ou un malaise. Arrête-toi immédiatement si cela se produit et consulte un médecin. Porte une attention particulière à tes genoux, chevilles et hanches, et n'hésite pas à modifier les exercices si nécessaire."
+                            }
+                          }
+                        }
+                      },
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "distance": {
+                              "stringValue": "7.0 km"
+                            },
+                            "targetPace": {
+                              "stringValue": "7:35 min/km"
+                            },
+                            "warmup": {
+                              "stringValue": "10 min de marche progressive puis footing très léger (allure EF à 7:35 min/km)."
+                            },
+                            "advice": {
+                              "stringValue": "Malgré le dénivelé, l'objectif est de rester en mode récupération profonde. Ne cherche pas à accélérer, mais à régénérer ton corps. Écoute toujours ton corps, surtout si tu ressens une douleur thoracique, un essoufflement anormal ou un malaise. Arrête-toi immédiatement si cela se produit et consulte un médecin. Porte une attention particulière à tes genoux, chevilles et hanches, et n'hésite pas à marcher si le besoin s'en fait sentir."
+                            },
+                            "mainSet": {
+                              "stringValue": "40 min de course en endurance fondamentale (allure EF à 7:35 min/km) sur un parcours trail légèrement vallonné mais très roulant. L'objectif est de maintenir une allure très confortable et de profiter du paysage sans forcer. N'hésite pas à marcher si le terrain l'exige ou si tu ressens de la fatigue."
+                            },
+                            "type": {
+                              "stringValue": "Sortie Longue"
+                            },
+                            "day": {
+                              "stringValue": "Dimanche"
+                            },
+                            "duration": {
+                              "stringValue": "53 min"
+                            },
+                            "id": {
+                              "stringValue": "w4-s4-1778094293670-tckhuvd"
+                            },
+                            "elevationGain": {
+                              "integerValue": "0"
+                            },
+                            "intensity": {
+                              "stringValue": "Facile"
+                            },
+                            "locationSuggestion": {
+                              "stringValue": "Chemins de la Combe du Val, Oyonnax"
+                            },
+                            "title": {
+                              "stringValue": "Sortie Longue Trail Douce de Récupération"
+                            },
+                            "cooldown": {
+                              "stringValue": "10 min de marche active, suivies de quelques étirements doux et mobilité articulaire ciblée (ischio-jambiers, mollets, quadriceps). (à 8:28 min/km)"
+                            }
+                          }
+                        }
+                      }
+                    ]
+                  }
+                },
+                "weekGoal": {
+                  "stringValue": "Récupération Active"
+                },
+                "isRecoveryWeek": {
+                  "booleanValue": true
+                }
+              }
+            }
+          },
+          {
+            "mapValue": {
+              "fields": {
+                "weekNumber": {
+                  "integerValue": "5"
+                },
+                "weekGoal": {
+                  "stringValue": "Développement - Force et Rythme Trail"
+                },
+                "isRecoveryWeek": {
+                  "booleanValue": false
+                },
+                "phase": {
+                  "stringValue": "developpement"
+                },
+                "theme": {
+                  "stringValue": "Développement - Force et Rythme Trail"
+                },
+                "sessions": {
+                  "arrayValue": {
+                    "values": [
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "distance": {
+                              "stringValue": "5.3 km"
+                            },
+                            "warmup": {
+                              "stringValue": "10 min de marche progressive puis footing très léger (allure EF à 7:35 min/km)."
+                            },
+                            "targetPace": {
+                              "stringValue": "7:35 min/km (EF) / 6:36 min/km (EA)"
+                            },
+                            "advice": {
+                              "stringValue": "Ces accélérations visent à réveiller ton corps et améliorer ta technique de course sur terrain varié. Garde le contrôle et n'alle pas au-delà de tes sensations. Écoute toujours ton corps, surtout si tu ressens une douleur thoracique, un essoufflement anormal ou un malaise. Arrête-toi immédiatement si cela se produit et consulte un médecin. Porte une attention particulière à tes genoux, chevilles et hanches, et n'hésite pas à marcher si le besoin s'en fait sentir."
+                            },
+                            "mainSet": {
+                              "stringValue": "35 min de footing en endurance fondamentale (allure EF à 7:35 min/km) sur des sentiers avec des changements de terrain. Inclue 5 à 6 accélérations progressives de 30 secondes (montée en allure EA à 6:36 min/km) avec 1 min 30 de récupération trottée (allure Récup à 8:28 min/km) après chaque accélération. Concentre-toi sur la fluidité, le placement du pied et une cadence élevée."
+                            },
+                            "type": {
+                              "stringValue": "Jogging"
+                            },
+                            "day": {
+                              "stringValue": "Lundi"
+                            },
+                            "duration": {
+                              "stringValue": "40 min"
+                            },
+                            "id": {
+                              "stringValue": "w5-s1-1778094293670-wft3ify"
+                            },
+                            "intensity": {
+                              "stringValue": "Modéré"
+                            },
+                            "elevationGain": {
+                              "integerValue": "43"
+                            },
+                            "locationSuggestion": {
+                              "stringValue": "Sentiers des Gorges de l'Ain (proche Oyonnax)"
+                            },
+                            "title": {
+                              "stringValue": "Footing technique avec accélérations progressives"
+                            },
+                            "cooldown": {
+                              "stringValue": "10 min de marche active, suivies de quelques étirements doux et mobilité articulaire ciblée (ischio-jambiers, mollets, quadriceps). (à 8:28 min/km)"
+                            }
+                          }
+                        }
+                      },
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "advice": {
+                              "stringValue": "Reprise des exercices de force pour le trail avec une intensité modérée. La régularité est ta meilleure alliée pour la progression. Écoute toujours ton corps, surtout si tu ressens une douleur thoracique, un essoufflement anormal ou un malaise. Arrête-toi immédiatement si cela se produit et consulte un médecin. Porte une attention particulière à tes genoux, chevilles et hanches, et n'hésite pas à modifier les exercices si nécessaire."
+                            },
+                            "targetPace": {
+                              "stringValue": "N/A"
+                            },
+                            "warmup": {
+                              "stringValue": "10 min de mobilité articulaire douce et échauffement progressif (marche rapide, rotations, pas chassés)"
+                            },
+                            "distance": {
+                              "stringValue": "0 km"
+                            },
+                            "day": {
+                              "stringValue": "Mercredi"
+                            },
+                            "type": {
+                              "stringValue": "Renforcement"
+                            },
+                            "mainSet": {
+                              "stringValue": "Circuit 3 tours : Step-up sur marche (3x10/jambe), Chaise murale (3x30-45s), Squats poids de corps (3x15), Gainage ventral (3x30-60s), Dead bug (3x10/cote), Extensions mollets debout (3x20), Squat excentrique (descente 4s) (3x10), Step-down excentrique (3x8/jambe), Mollets assis soleaire (3x15). Repos 1 min 30 entre tours."
+                            },
+                            "locationSuggestion": {
+                              "stringValue": "À la maison"
+                            },
+                            "elevationGain": {
+                              "integerValue": "0"
+                            },
+                            "intensity": {
+                              "stringValue": "Modéré"
+                            },
+                            "duration": {
+                              "stringValue": "35-40 min"
+                            },
+                            "id": {
+                              "stringValue": "w5-s2-1778094293670-8usq03q"
+                            },
+                            "title": {
+                              "stringValue": "Renfo Trail Focus A - Quadriceps & Excentrique (S5)"
+                            },
+                            "cooldown": {
+                              "stringValue": "5 min d'étirements : quadriceps, ischio-jambiers, mollets, hanches"
+                            }
+                          }
+                        }
+                      },
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "intensity": {
+                              "stringValue": "Modéré"
+                            },
+                            "locationSuggestion": {
+                              "stringValue": "Côte de la Sarraz (Arbent), près d'Oyonnax"
+                            },
+                            "elevationGain": {
+                              "integerValue": "0"
+                            },
+                            "duration": {
+                              "stringValue": "41 min"
+                            },
+                            "id": {
+                              "stringValue": "w5-s3-1778094293670-dhfvz6u"
+                            },
+                            "title": {
+                              "stringValue": "Séance de côtes courtes et techniques"
+                            },
+                            "cooldown": {
+                              "stringValue": "10 min de marche active, suivies de quelques étirements doux et mobilité articulaire ciblée (ischio-jambiers, mollets, quadriceps). (à 8:28 min/km)"
+                            },
+                            "advice": {
+                              "stringValue": "Augmente le nombre de répétitions par rapport à la Semaine 3 si tu tu sens bien et que la technique reste propre. L'objectif est de gagner en puissance et en efficacité en côte. Écoute toujours ton corps, surtout si tu ressens une douleur thoracique, un essoufflement anormal ou un malaise. Arrête-toi immédiatement si cela se produit et consulte un médecin. Porte une attention particulière à tes genoux, chevilles et hanches, et n'hésite pas à marcher si le besoin s'en fait sentir."
+                            },
+                            "targetPace": {
+                              "stringValue": "7:35 min/km (EF) / 5:05 min/km (côtes)"
+                            },
+                            "warmup": {
+                              "stringValue": "10 min de marche progressive puis footing très léger (allure EF à 7:35 min/km) sur terrain plat."
+                            },
+                            "distance": {
+                              "stringValue": "5.4 km"
+                            },
+                            "day": {
+                              "stringValue": "Vendredi"
+                            },
+                            "type": {
+                              "stringValue": "Fractionné"
+                            },
+                            "mainSet": {
+                              "stringValue": "20 min de footing en aisance respiratoire (allure EF à 7:35 min/km). Puis, 8 à 10 répétitions de 30 sec de montée en côteà une intensité soutenue (environ VMA à 5:05 min/km), suivies d'une récupération en redescendant au trot léger (allure Récup à 8:28 min/km). Finir par 10 min de footing calme (allure EF à 7:35 min/km)."
+                            }
+                          }
+                        }
+                      },
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "advice": {
+                              "stringValue": "Cette sortie renforce ton capacité à gérer les efforts longs sur terrain varié. Hydrate-toi et alimente-toi si nécessaire. Écoute toujours ton corps, surtout si tu ressens une douleur thoracique, un essoufflement anormal ou un malaise. Arrête-toi immédiatement si cela se produit et consulte un médecin. Porte une attention particulière à tes genoux, chevilles et hanches, et n'hésite pas à marcher si le besoin s'en fait sentir."
+                            },
+                            "targetPace": {
+                              "stringValue": "7:35 min/km"
+                            },
+                            "warmup": {
+                              "stringValue": "10 min de marche progressive puis footing très léger (allure EF à 7:35 min/km)."
+                            },
+                            "distance": {
+                              "stringValue": "6.4 km"
+                            },
+                            "day": {
+                              "stringValue": "Dimanche"
+                            },
+                            "type": {
+                              "stringValue": "Sortie Longue"
+                            },
+                            "mainSet": {
+                              "stringValue": "45 min de course en endurance fondamentale (allure EF à 7:35 min/km) sur des sentiers vallonnés, avec un dénivelé confortable et progressif. Varie les terrains (terre, petites racines, graviers) pour solliciter tes appuis et ton proprioception. Concentre-toi sur l'adaptation au terrain et la régularité de l'effort."
+                            },
+                            "elevationGain": {
+                              "integerValue": "246"
+                            },
+                            "intensity": {
+                              "stringValue": "Facile"
+                            },
+                            "locationSuggestion": {
+                              "stringValue": "Sentiers forestiers des alentours d'Oyonnax (D+ progressif)"
+                            },
+                            "id": {
+                              "stringValue": "w5-s4-1778094293670-d4pfx6d"
+                            },
+                            "duration": {
+                              "stringValue": "48 min"
+                            },
+                            "cooldown": {
+                              "stringValue": "10 min de marche active, suivies de quelques étirements doux et mobilité articulaire ciblée (ischio-jambiers, mollets, quadriceps). (à 8:28 min/km)"
+                            },
+                            "title": {
+                              "stringValue": "Sortie Longue Trail - D+ Confortable"
+                            }
+                          }
+                        }
+                      }
+                    ]
+                  }
+                }
+              }
+            }
+          },
+          {
+            "mapValue": {
+              "fields": {
+                "sessions": {
+                  "arrayValue": {
+                    "values": [
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "title": {
+                              "stringValue": "Footing en nature avec travail de descente"
+                            },
+                            "cooldown": {
+                              "stringValue": "10 min de marche active, suivies de quelques étirements doux et mobilité articulaire ciblée (ischio-jambiers, mollets, quadriceps). (à 8:28 min/km)"
+                            },
+                            "id": {
+                              "stringValue": "w6-s1-1778094293670-o32g92c"
+                            },
+                            "duration": {
+                              "stringValue": "46 min"
+                            },
+                            "elevationGain": {
+                              "integerValue": "62"
+                            },
+                            "locationSuggestion": {
+                              "stringValue": "Chemins autour de Bellignat (avec pentes douces), Oyonnax"
+                            },
+                            "intensity": {
+                              "stringValue": "Facile"
+                            },
+                            "mainSet": {
+                              "stringValue": "40 min de footing en endurance fondamentale (allure EF à 7:35 min/km) sur un parcours avec des descentes douces et modérées. Sur les descentes, concentre-toi sur une foulée courte, une fréquence élevée, et un regard loin devant pour anticiper le terrain. Laisse-toi porter sans freiner excessivement, pour minimiser l'impact."
+                            },
+                            "type": {
+                              "stringValue": "Jogging"
+                            },
+                            "day": {
+                              "stringValue": "Lundi"
+                            },
+                            "distance": {
+                              "stringValue": "6 km"
+                            },
+                            "warmup": {
+                              "stringValue": "10 min de marche progressive puis footing très léger (allure EF à 7:35 min/km)."
+                            },
+                            "targetPace": {
+                              "stringValue": "7:35 min/km"
+                            },
+                            "advice": {
+                              "stringValue": "Le travail de descente est crucial en trail. Commence doucement et augmente la confiance progressivement. Cherche la fluidité et l'équilibre. Écoute toujours ton corps, surtout si tu ressens une douleur thoracique, un essoufflement anormal ou un malaise. Arrête-toi immédiatement si cela se produit et consulte un médecin. Porte une attention particulière à tes genoux, chevilles et hanches, et n'hésite pas à marcher si le besoin s'en fait sentir."
+                            }
+                          }
+                        }
+                      },
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "mainSet": {
+                              "stringValue": "Circuit 3 tours : Equilibre unipodal (2x30s/pied), Hip thrust (3x15), Pont unipodal (3x10/jambe), Bird-dog (3x10/cote), Gainage lateral (3x20-30s/cote), Marche sur talons (2x20m), Equilibre sur coussin instable (3x30s/pied), Equilibre unipodal yeux fermes (3x20-30s/pied), Bird-dog avec rotation (3x10/cote), Protocole Stanish excentrique (3x10). Repos 1 min 30 entre tours."
+                            },
+                            "day": {
+                              "stringValue": "Mercredi"
+                            },
+                            "type": {
+                              "stringValue": "Renforcement"
+                            },
+                            "targetPace": {
+                              "stringValue": "N/A"
+                            },
+                            "warmup": {
+                              "stringValue": "10 min de mobilité articulaire douce et échauffement progressif (marche rapide, rotations, pas chassés)"
+                            },
+                            "distance": {
+                              "stringValue": "0 km"
+                            },
+                            "advice": {
+                              "stringValue": "Maintiens la régularité de ton renforcement pour soutenir l'augmentation du volume de course et la préparation au trail. Écoute toujours ton corps, surtout si tu ressens une douleur thoracique, un essoufflement anormal ou un malaise. Arrête-toi immédiatement si cela se produit et consulte un médecin. Porte une attention particulière à tes genoux, chevilles et hanches, et n'hésite pas à modifier les exercices si nécessaire."
+                            },
+                            "title": {
+                              "stringValue": "Renfo Trail Focus B - Hanches & Proprioception (S6)"
+                            },
+                            "cooldown": {
+                              "stringValue": "5 min d'étirements : quadriceps, ischio-jambiers, mollets, hanches"
+                            },
+                            "locationSuggestion": {
+                              "stringValue": "À la maison"
+                            },
+                            "intensity": {
+                              "stringValue": "Modéré"
+                            },
+                            "elevationGain": {
+                              "integerValue": "0"
+                            },
+                            "duration": {
+                              "stringValue": "35-40 min"
+                            },
+                            "id": {
+                              "stringValue": "w6-s2-1778094293670-e4pv1u2"
+                            }
+                          }
+                        }
+                      },
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "type": {
+                              "stringValue": "Fractionné"
+                            },
+                            "day": {
+                              "stringValue": "Vendredi"
+                            },
+                            "mainSet": {
+                              "stringValue": "25 min de footing en aisance respiratoire (allure EF à 7:35 min/km) sur terrain varié. Puis, alterne librement 6 à 8 séquences d'accélérations de 1 à 2 min à une allure plus dynamique (allure EA à 6:36 min/km) avec des phases de récupération équivalentes en trottinant (allure Récup à 8:28 min/km). Termine par 15 min de footing calme (allure EF à 7:35 min/km)."
+                            },
+                            "advice": {
+                              "stringValue": "Le Fartlek est une excellente manière d'introduire de l'intensité de manière ludique en trail. Laisse-toi guider par les sensations et le terrain, sans regarder la montre pour les accélérations. Écoute toujours ton corps, surtout si tu ressens une douleur thoracique, un essoufflement anormal ou un malaise. Arrête-toi immédiatement si cela se produit et consulte un médecin. Porte une attention particulière à tes genoux, chevilles et hanches, et n'hésite pas à marcher si le besoin s'en fait sentir."
+                            },
+                            "distance": {
+                              "stringValue": "6 km"
+                            },
+                            "warmup": {
+                              "stringValue": "10 min de marche progressive puis footing très léger (allure EF à 7:35 min/km)."
+                            },
+                            "targetPace": {
+                              "stringValue": "7:35 min/km (EF) / 6:36 min/km (EA)"
+                            },
+                            "title": {
+                              "stringValue": "Fartlek en nature"
+                            },
+                            "cooldown": {
+                              "stringValue": "10 min de marche active, suivies de quelques étirements doux et mobilité articulaire ciblée (ischio-jambiers, mollets, quadriceps). (à 8:28 min/km)"
+                            },
+                            "id": {
+                              "stringValue": "w6-s3-1778094293671-nm6nx5v"
+                            },
+                            "duration": {
+                              "stringValue": "46 min"
+                            },
+                            "elevationGain": {
+                              "integerValue": "0"
+                            },
+                            "locationSuggestion": {
+                              "stringValue": "Chemins vallonnés autour de Challes (Oyonnax)"
+                            },
+                            "intensity": {
+                              "stringValue": "Modéré"
+                            }
+                          }
+                        }
+                      },
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "advice": {
+                              "stringValue": "Félicitations pour cette étape importante ! Cette sortie prépare ton corps à l'endurance requise pour le trail. Prends le temps de récupérer après cette séance clé. Écoute toujours ton corps, surtout si tu ressens une douleur thoracique, un essoufflement anormal ou un malaise. Arrête-toi immédiatement si cela se produit et consulte un médecin. Porte une attention particulière à tes genoux, chevilles et hanches, et n'hésite pas à marcher si le besoin s'en fait sentir."
+                            },
+                            "warmup": {
+                              "stringValue": "10 min de marche progressive puis footing très léger (allure EF à 7:35 min/km)."
+                            },
+                            "targetPace": {
+                              "stringValue": "7:35 min/km"
+                            },
+                            "distance": {
+                              "stringValue": "7.9 km"
+                            },
+                            "day": {
+                              "stringValue": "Dimanche"
+                            },
+                            "type": {
+                              "stringValue": "Sortie Longue"
+                            },
+                            "mainSet": {
+                              "stringValue": "60 min de course en endurance fondamentale (allure EF à 7:35 min/km) sur des sentiers vallonnés et techniques. C'est ton plus longue sortie à ce jour, concentre-toi sur la gestion de l'effort, l'hydratation et l'alimentation si nécessaire. L'objectif est de s'habituer à la durée de l'effort et au dénivelé progressif, en alternant marche et course si besoin."
+                            },
+                            "intensity": {
+                              "stringValue": "Facile"
+                            },
+                            "locationSuggestion": {
+                              "stringValue": "Boucles du lac Genin avec les montées environnantes, Oyonnax"
+                            },
+                            "elevationGain": {
+                              "integerValue": "249"
+                            },
+                            "id": {
+                              "stringValue": "w6-s4-1778094293671-d7cmfbe"
+                            },
+                            "duration": {
+                              "stringValue": "1h00"
+                            },
+                            "title": {
+                              "stringValue": "Sortie Longue Trail - Volume max de la phase"
+                            },
+                            "cooldown": {
+                              "stringValue": "10 min de marche active, suivies de quelques étirements doux et mobilité articulaire ciblée (ischio-jambiers, mollets, quadriceps). (à 8:28 min/km)"
+                            }
+                          }
+                        }
+                      }
+                    ]
+                  }
+                },
+                "theme": {
+                  "stringValue": "Développement - Endurance et Résistance Accrue"
+                },
+                "phase": {
+                  "stringValue": "developpement"
+                },
+                "weekGoal": {
+                  "stringValue": "Développement - Endurance et Résistance Accrue"
+                },
+                "isRecoveryWeek": {
+                  "booleanValue": false
+                },
+                "weekNumber": {
+                  "integerValue": "6"
+                }
+              }
+            }
+          },
+          {
+            "mapValue": {
+              "fields": {
+                "weekNumber": {
+                  "integerValue": "7"
+                },
+                "sessions": {
+                  "arrayValue": {
+                    "values": [
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "day": {
+                              "stringValue": "Lundi"
+                            },
+                            "type": {
+                              "stringValue": "Footing"
+                            },
+                            "mainSet": {
+                              "stringValue": "35 min de footing en aisance respiratoire (EF), incluant 3-4 montées de 1 à 2 minutes chacune à une allure légèrement plus soutenue (EA), en gérant l'effort. Récupération en descente et sur plat en EF. Concentre-toi sur une foulée dynamique en montée."
+                            },
+                            "advice": {
+                              "stringValue": "Écoute attentivement ton corps durant les montées et les descentes. Adapte l'intensité si tu ressens une gêne articulaire. N'hésite pas à marcher quelques secondes si le besoin s'en fait sentir. S'arrêter immédiatement en cas de douleur thoracique, essoufflement anormal ou malaise."
+                            },
+                            "warmup": {
+                              "stringValue": "10 min de marche, à 8:28 min/km progressive puis trottée très lente (EF)"
+                            },
+                            "targetPace": {
+                              "stringValue": "7:35 min/km (EF)"
+                            },
+                            "distance": {
+                              "stringValue": "5.6 km"
+                            },
+                            "title": {
+                              "stringValue": "Footing Trail rythmé avec montées douces"
+                            },
+                            "cooldown": {
+                              "stringValue": "5 min de marche très lente, suivies de 10 min d'étirements doux et de mobilité articulaire. (à 8:28 min/km)"
+                            },
+                            "elevationGain": {
+                              "integerValue": "67"
+                            },
+                            "locationSuggestion": {
+                              "stringValue": "Forêt de la Combe du Val, Oyonnax"
+                            },
+                            "intensity": {
+                              "stringValue": "Modéré"
+                            },
+                            "id": {
+                              "stringValue": "w7-s1-1778094335633-bfulvuo"
+                            },
+                            "duration": {
+                              "stringValue": "42 min"
+                            }
+                          }
+                        }
+                      },
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "advice": {
+                              "stringValue": "Le renforcement est clé pour prévenir les blessures en trail. Concentre-toi sur la qualité du mouvement plutôt que la quantité. Écoute ton corps et ajuste l'intensité si nécessaire. S'arrêter immédiatement en cas de douleur thoracique, essoufflement anormal ou malaise."
+                            },
+                            "targetPace": {
+                              "stringValue": "N/A"
+                            },
+                            "warmup": {
+                              "stringValue": "10 min de mobilité articulaire douce et échauffement progressif (marche rapide, rotations, pas chassés)"
+                            },
+                            "distance": {
+                              "stringValue": "0 km"
+                            },
+                            "day": {
+                              "stringValue": "Mercredi"
+                            },
+                            "type": {
+                              "stringValue": "Renforcement"
+                            },
+                            "mainSet": {
+                              "stringValue": "Circuit 3 tours : Squats poids de corps (3x17), Fentes avant (3x11/jambe), Superman (3x13), Pompes (3x11), Extensions mollets debout (3x22), Fente arriere lente (3s) (3x11/jambe), Chaise murale longue (3x50-90s), Mollets debout unipodal (3x13/jambe). Repos 1 min 30 entre tours."
+                            },
+                            "intensity": {
+                              "stringValue": "Modéré"
+                            },
+                            "elevationGain": {
+                              "integerValue": "0"
+                            },
+                            "locationSuggestion": {
+                              "stringValue": "À la maison"
+                            },
+                            "id": {
+                              "stringValue": "w7-s2-1778094335633-2pg6gwz"
+                            },
+                            "duration": {
+                              "stringValue": "35-40 min"
+                            },
+                            "cooldown": {
+                              "stringValue": "5 min d'étirements : quadriceps, ischio-jambiers, mollets, hanches"
+                            },
+                            "title": {
+                              "stringValue": "Renfo Trail Focus A - Quadriceps & Excentrique (S7)"
+                            }
+                          }
+                        }
+                      },
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "cooldown": {
+                              "stringValue": "10 min de footing très léger en EF, suivies de 15 min d'étirements doux et de mobilité articulaire, en insistant sur les muscles sollicités (quadriceps, mollets). (à 8:28 min/km)"
+                            },
+                            "title": {
+                              "stringValue": "Séance de Seuil Trail - Montée et gestion d'effort"
+                            },
+                            "locationSuggestion": {
+                              "stringValue": "Sentiers du Mont Coton, Oyonnax"
+                            },
+                            "intensity": {
+                              "stringValue": "Difficile"
+                            },
+                            "elevationGain": {
+                              "integerValue": "0"
+                            },
+                            "id": {
+                              "stringValue": "w7-s3-1778094335633-lofyg8e"
+                            },
+                            "duration": {
+                              "stringValue": "42 min"
+                            },
+                            "day": {
+                              "stringValue": "Vendredi"
+                            },
+                            "type": {
+                              "stringValue": "Fractionné"
+                            },
+                            "mainSet": {
+                              "stringValue": "2 x (8 min à allure Seuil en montée / 4 min de récupération active en EF). L'objectif est de maintenir un effort soutenu mais contrôlable sur les portions en montée, puis de récupérer activement en descente ou sur plat. La sensation doit être d'une difficulté gérable, pas un sprint."
+                            },
+                            "advice": {
+                              "stringValue": "Cette séance est exigeante, mais elle est cruciale pour développer ton résistance en montée. N'hésite pas à réduire légèrement l'allure si l'effort est trop intense. Il est impératif d'écouter ton corps et de ne pas forcer au-delà de tes limites. S'arrêter immédiatement en cas de douleur thoracique, essoufflement anormal ou malaise."
+                            },
+                            "targetPace": {
+                              "stringValue": "5:51 min/km (Seuil)"
+                            },
+                            "warmup": {
+                              "stringValue": "15 min de footing, à 8:28 min/km progressif en EF sur terrain varié, incluant 3-4 accélérations de 30 sec à EA pour préparer le corps."
+                            },
+                            "distance": {
+                              "stringValue": "5.6 km"
+                            }
+                          }
+                        }
+                      },
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "id": {
+                              "stringValue": "w7-s4-1778094335633-kn4enh9"
+                            },
+                            "duration": {
+                              "stringValue": "1h 29 min"
+                            },
+                            "locationSuggestion": {
+                              "stringValue": "Lac Genin via Sentiers, Oyonnax"
+                            },
+                            "elevationGain": {
+                              "integerValue": "266"
+                            },
+                            "intensity": {
+                              "stringValue": "Facile"
+                            },
+                            "title": {
+                              "stringValue": "Sortie Longue Trail - Gestion de l'effort sur D+ moyen"
+                            },
+                            "cooldown": {
+                              "stringValue": "10 min de marche très lente, suivies de 15 min d'étirements doux et de mobilité articulaire, avec un focus sur les jambes et le bas du dos. (à 8:28 min/km)"
+                            },
+                            "advice": {
+                              "stringValue": "La sortie longue est la pierre angulaire de ta préparation trail. Hydrate-toi et alimente-toi régulièrement. Ton corps tu enverra des signaux, sois attentif à toute douleur inhabituelle, notamment au niveau des articulations. S'arrêter immédiatement en cas de douleur thoracique, essoufflement anormal ou malaise."
+                            },
+                            "distance": {
+                              "stringValue": "11.7 km"
+                            },
+                            "warmup": {
+                              "stringValue": "10 min de marche, à 8:28 min/km progressive puis trottée très lente (EF)."
+                            },
+                            "targetPace": {
+                              "stringValue": "7:35 min/km (EF)"
+                            },
+                            "type": {
+                              "stringValue": "Sortie Longue"
+                            },
+                            "day": {
+                              "stringValue": "Dimanche"
+                            },
+                            "mainSet": {
+                              "stringValue": "1h35 de course en aisance respiratoire (EF) sur des sentiers vallonnés. L'objectif est d'habituer le corps à l'effort prolongé et à la gestion du dénivelé. Marche dans les montées les plus raides pour conserver de l'énergie et pratiquer une bonne technique de marche en côte. Concentre-toi sur une allure confortable et régulière. (allure : 7:35 min/km)"
+                            }
+                          }
+                        }
+                      }
+                    ]
+                  }
+                },
+                "theme": {
+                  "stringValue": "Spécifique Trail - Résistance et Dénivelé"
+                },
+                "phase": {
+                  "stringValue": "specifique"
+                },
+                "weekGoal": {
+                  "stringValue": "Spécifique Trail - Résistance et Dénivelé"
+                },
+                "isRecoveryWeek": {
+                  "booleanValue": false
+                }
+              }
+            }
+          },
+          {
+            "mapValue": {
+              "fields": {
+                "sessions": {
+                  "arrayValue": {
+                    "values": [
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "day": {
+                              "stringValue": "Lundi"
+                            },
+                            "type": {
+                              "stringValue": "Footing"
+                            },
+                            "mainSet": {
+                              "stringValue": "27 min de footing en aisance respiratoire (EF), sur terrain souple et légèrement vallonné. L'objectif est de relâcher les tensions et de favoriser la récupération active. Concentre-toi sur une foulée légère et une respiration profonde."
+                            },
+                            "advice": {
+                              "stringValue": "Cette semaine est dédiée à la récupération. Ne cherche pas la performance, mais le bien-être. Écoute ton corps et ne force jamais. S'arrêter immédiatement en cas de douleur thoracique, essoufflement anormal ou malaise."
+                            },
+                            "warmup": {
+                              "stringValue": "8 min de marche, à 8:28 min/km progressive puis trottée très lente (EF)."
+                            },
+                            "targetPace": {
+                              "stringValue": "7:35 min/km (EF)"
+                            },
+                            "distance": {
+                              "stringValue": "4.6 km"
+                            },
+                            "cooldown": {
+                              "stringValue": "5 min de marche très lente, suivies de 10 min d'étirements doux et de mobilité articulaire. (à 8:28 min/km)"
+                            },
+                            "title": {
+                              "stringValue": "Footing très léger en nature"
+                            },
+                            "locationSuggestion": {
+                              "stringValue": "Parc des Sports, Oyonnax"
+                            },
+                            "intensity": {
+                              "stringValue": "Facile"
+                            },
+                            "elevationGain": {
+                              "integerValue": "0"
+                            },
+                            "id": {
+                              "stringValue": "w8-s1-1778094335634-wdyc48x"
+                            },
+                            "duration": {
+                              "stringValue": "35 min"
+                            }
+                          }
+                        }
+                      },
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "elevationGain": {
+                              "integerValue": "0"
+                            },
+                            "locationSuggestion": {
+                              "stringValue": "À la maison"
+                            },
+                            "intensity": {
+                              "stringValue": "Facile"
+                            },
+                            "duration": {
+                              "stringValue": "25-30 min"
+                            },
+                            "id": {
+                              "stringValue": "w8-s2-1778094335634-kc13arr"
+                            },
+                            "cooldown": {
+                              "stringValue": "5 min d'étirements : quadriceps, ischio-jambiers, mollets, hanches"
+                            },
+                            "title": {
+                              "stringValue": "Renfo Leger - Recuperation (S8)"
+                            },
+                            "advice": {
+                              "stringValue": "Le renforcement léger en semaine de récupération aide à maintenir la tonicité musculaire sans surmener le corps. Écoute ton corps et n'hésite pas à raccourcir la séance si tu ressens de la fatigue. S'arrêter immédiatement en cas de douleur thoracique, essoufflement anormal ou malaise."
+                            },
+                            "warmup": {
+                              "stringValue": "10 min de mobilité articulaire douce et échauffement progressif (marche rapide, rotations, pas chassés)"
+                            },
+                            "targetPace": {
+                              "stringValue": "N/A"
+                            },
+                            "distance": {
+                              "stringValue": "0 km"
+                            },
+                            "day": {
+                              "stringValue": "Mercredi"
+                            },
+                            "type": {
+                              "stringValue": "Renforcement"
+                            },
+                            "mainSet": {
+                              "stringValue": "Circuit 2 tours : Pont unipodal (3x6/jambe), Clamshell avec elastique (3x9/cote), Bird-dog (3x6/cote), Gainage lateral (3x12-30s/cote), Marche sur talons (2x12m), Equilibre sur coussin instable (3x18s/pied), Equilibre unipodal yeux fermes (3x12-30s/pied), Russian twist (3x9/cote), Mollets assis soleaire (3x9). Repos 1 min 30 entre tours."
+                            }
+                          }
+                        }
+                      },
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "locationSuggestion": {
+                              "stringValue": "Plateau de Samognat, Oyonnax"
+                            },
+                            "intensity": {
+                              "stringValue": "Facile"
+                            },
+                            "elevationGain": {
+                              "integerValue": "196"
+                            },
+                            "duration": {
+                              "stringValue": "40 min"
+                            },
+                            "id": {
+                              "stringValue": "w8-s3-1778094335634-2nrd2i1"
+                            },
+                            "title": {
+                              "stringValue": "Footing vallonné doux avec travail de descente légère"
+                            },
+                            "cooldown": {
+                              "stringValue": "5 min de marche très lente, suivies de 10 min d'étirements doux et de mobilité articulaire. (à 8:28 min/km)"
+                            },
+                            "advice": {
+                              "stringValue": "Même en récupération, il est bon de maintenir un contact avec le terrain varié du trail. Sois vigilant sur les appuis en descente, surveille tes articulations. S'arrêter immédiatement en cas de douleur thoracique, essoufflement anormal ou malaise."
+                            },
+                            "targetPace": {
+                              "stringValue": "7:35 min/km (EF)"
+                            },
+                            "warmup": {
+                              "stringValue": "10 min de marche, à 8:28 min/km progressive puis trottée très lente (EF)."
+                            },
+                            "distance": {
+                              "stringValue": "5.3 km"
+                            },
+                            "day": {
+                              "stringValue": "Vendredi"
+                            },
+                            "type": {
+                              "stringValue": "Footing"
+                            },
+                            "mainSet": {
+                              "stringValue": "25 min de footing en EF sur un parcours légèrement vallonné. Profite des petites descentes pour travailler une foulée souple et relâchée, sans chercher la vitesse. L'accent est mis sur le ressenti et la technique douce. Gère l'effort dans les montées douces en marchant si besoin."
+                            }
+                          }
+                        }
+                      },
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "mainSet": {
+                              "stringValue": "1h05 de course en aisance respiratoire (EF) sur des sentiers doux. L'objectif est de maintenir le volume sans générer de fatigue excessive. Marche dans les montées dès que le souffle ou les jambes le demandent. C'est une séance pour se faire plaisir et recharger les batteries. (allure : 7:35 min/km)"
+                            },
+                            "day": {
+                              "stringValue": "Dimanche"
+                            },
+                            "type": {
+                              "stringValue": "Sortie Longue"
+                            },
+                            "warmup": {
+                              "stringValue": "10 min de marche, à 8:28 min/km progressive puis trottée très lente (EF)."
+                            },
+                            "targetPace": {
+                              "stringValue": "7:35 min/km (EF)"
+                            },
+                            "distance": {
+                              "stringValue": "9.9 km"
+                            },
+                            "advice": {
+                              "stringValue": "Cette sortie longue est un test de ton capacité à maintenir une activité sur une durée significative, même en récupération. Reste hydraté et alimenté. Sois à l'écoute de ton corps, en particulier de tes genoux et chevilles. S'arrêter immédiatement en cas de douleur thoracique, essoufflement anormal ou malaise."
+                            },
+                            "cooldown": {
+                              "stringValue": "10 min de marche très lente, suivies de 15 min d'étirements doux et de mobilité articulaire complète. (à 8:28 min/km)"
+                            },
+                            "title": {
+                              "stringValue": "Sortie Longue Trail en récupération active"
+                            },
+                            "intensity": {
+                              "stringValue": "Facile"
+                            },
+                            "elevationGain": {
+                              "integerValue": "0"
+                            },
+                            "locationSuggestion": {
+                              "stringValue": "Sentiers de la Valouse, Oyonnax"
+                            },
+                            "id": {
+                              "stringValue": "w8-s4-1778094335634-tci4hd3"
+                            },
+                            "duration": {
+                              "stringValue": "1h15"
+                            }
+                          }
+                        }
+                      }
+                    ]
+                  }
+                },
+                "phase": {
+                  "stringValue": "recuperation"
+                },
+                "theme": {
+                  "stringValue": "Récupération Active et Douceur"
+                },
+                "weekGoal": {
+                  "stringValue": "Récupération Active et Douceur"
+                },
+                "isRecoveryWeek": {
+                  "booleanValue": true
+                },
+                "weekNumber": {
+                  "integerValue": "8"
+                }
+              }
+            }
+          },
+          {
+            "mapValue": {
+              "fields": {
+                "isRecoveryWeek": {
+                  "booleanValue": false
+                },
+                "weekGoal": {
+                  "stringValue": "Affûtage - Légèreté et Rappels"
+                },
+                "phase": {
+                  "stringValue": "affutage"
+                },
+                "theme": {
+                  "stringValue": "Affûtage - Légèreté et Rappels"
+                },
+                "sessions": {
+                  "arrayValue": {
+                    "values": [
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "mainSet": {
+                              "stringValue": "22 min de footing en aisance respiratoire (EF). Concentre-toi sur la légèreté de la foulée, le relâchement musculaire et une respiration ample. C'est une séance pour délier les jambes."
+                            },
+                            "day": {
+                              "stringValue": "Lundi"
+                            },
+                            "type": {
+                              "stringValue": "Footing"
+                            },
+                            "targetPace": {
+                              "stringValue": "7:35 min/km (EF)"
+                            },
+                            "warmup": {
+                              "stringValue": "8 min de marche, à 8:28 min/km progressive puis trottée très lente (EF)."
+                            },
+                            "distance": {
+                              "stringValue": "4.0 km"
+                            },
+                            "advice": {
+                              "stringValue": "L'affûtage commence, le repos est tout aussi important que l'activité. Écoute ton corps, il doit se sentir frais. S'arrêter immédiatement en cas de douleur thoracique, essoufflement anormal ou malaise."
+                            },
+                            "title": {
+                              "stringValue": "Footing très léger et relâché"
+                            },
+                            "cooldown": {
+                              "stringValue": "5 min de marche très lente, suivies de 10 min d'étirements doux et de mobilité articulaire. (à 8:28 min/km)"
+                            },
+                            "elevationGain": {
+                              "integerValue": "0"
+                            },
+                            "locationSuggestion": {
+                              "stringValue": "Parc des Sports, Oyonnax"
+                            },
+                            "intensity": {
+                              "stringValue": "Facile"
+                            },
+                            "duration": {
+                              "stringValue": "30 min"
+                            },
+                            "id": {
+                              "stringValue": "w9-s1-1778094335634-v5vu3a6"
+                            }
+                          }
+                        }
+                      },
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "warmup": {
+                              "stringValue": "10 min de mobilité articulaire douce et échauffement progressif (marche rapide, rotations, pas chassés)"
+                            },
+                            "targetPace": {
+                              "stringValue": "N/A"
+                            },
+                            "distance": {
+                              "stringValue": "0 km"
+                            },
+                            "advice": {
+                              "stringValue": "Cette séance est un rappel. N'essaie pas de compenser avec l'intensité ce que tu réduis en volume. Concentre-toi sur le contrôle du mouvement. S'arrêter immédiatement en cas de douleur thoracique, essoufflement anormal ou malaise."
+                            },
+                            "mainSet": {
+                              "stringValue": "Circuit 2 tours : Fentes avant (3x7/jambe), Fentes marchees (3x8/jambe), Gainage ventral (3x20-60s), Dead bug (3x7/cote), Extensions mollets debout (3x13), Squat excentrique (descente 4s) (3x7), Step-down excentrique (3x5/jambe), Protocole Stanish excentrique (3x7). Repos 1 min 30 entre tours."
+                            },
+                            "day": {
+                              "stringValue": "Mercredi"
+                            },
+                            "type": {
+                              "stringValue": "Renforcement"
+                            },
+                            "intensity": {
+                              "stringValue": "Facile"
+                            },
+                            "elevationGain": {
+                              "integerValue": "0"
+                            },
+                            "locationSuggestion": {
+                              "stringValue": "À la maison"
+                            },
+                            "id": {
+                              "stringValue": "w9-s2-1778094335634-1g01071"
+                            },
+                            "duration": {
+                              "stringValue": "25-30 min"
+                            },
+                            "cooldown": {
+                              "stringValue": "5 min d'étirements : quadriceps, ischio-jambiers, mollets, hanches"
+                            },
+                            "title": {
+                              "stringValue": "Renfo Maintien Leger - Affutage (S9)"
+                            }
+                          }
+                        }
+                      },
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "advice": {
+                              "stringValue": "Ce petit rappel sert à maintenir la 'vitesse' musculaire. Ne force pas. La sensation doit être agréable et fluide. S'arrêter immédiatement en cas de douleur thoracique, essoufflement anormal ou malaise."
+                            },
+                            "targetPace": {
+                              "stringValue": "6:36 min/km (EA)"
+                            },
+                            "warmup": {
+                              "stringValue": "10 min de footing, à 8:28 min/km progressif en EF sur terrain plat."
+                            },
+                            "distance": {
+                              "stringValue": "4.6 km"
+                            },
+                            "day": {
+                              "stringValue": "Vendredi"
+                            },
+                            "type": {
+                              "stringValue": "Fractionné"
+                            },
+                            "mainSet": {
+                              "stringValue": "20 min incluant : 3-4x (1 min à allure EA / 2 min de récupération active en EF). Ces rappels sont courts et doux, visant à réveiller les sensations sans créer de fatigue. La portion en EA peut être faite dans une petite montée."
+                            },
+                            "intensity": {
+                              "stringValue": "Modéré"
+                            },
+                            "locationSuggestion": {
+                              "stringValue": "Sentier des Crêtes de Bellignat, Oyonnax"
+                            },
+                            "elevationGain": {
+                              "integerValue": "0"
+                            },
+                            "duration": {
+                              "stringValue": "35 min"
+                            },
+                            "id": {
+                              "stringValue": "w9-s3-1778094335634-byx89u5"
+                            },
+                            "cooldown": {
+                              "stringValue": "5 min de footing très léger en EF, suivies de 10 min d'étirements doux et de mobilité articulaire. (à 8:28 min/km)"
+                            },
+                            "title": {
+                              "stringValue": "Rappel rythmé en nature - courtes accélérations"
+                            }
+                          }
+                        }
+                      },
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "mainSet": {
+                              "stringValue": "50 min de course en aisance respiratoire (EF) sur un parcours avec un dénivelé important mais une durée réduite. L'objectif est de conserver le contact avec le terrain exigeant du trail sans générer de fatigue. Marche dans les montées et travaille une descente fluide et sans tension. (allure : 7:35 min/km)"
+                            },
+                            "day": {
+                              "stringValue": "Dimanche"
+                            },
+                            "type": {
+                              "stringValue": "Sortie Longue"
+                            },
+                            "targetPace": {
+                              "stringValue": "7:35 min/km (EF)"
+                            },
+                            "warmup": {
+                              "stringValue": "10 min de marche, à 8:28 min/km progressive puis trottée très lente (EF)."
+                            },
+                            "distance": {
+                              "stringValue": "7.9 km"
+                            },
+                            "advice": {
+                              "stringValue": "Concentre-toi sur tes sensations, sur la fluidité de ta foulée. C'est le moment d'affiner ta technique et de visualiser ton objectif. Surveille tes appuis et les réactions de tes articulations. S'arrêter immédiatement en cas de douleur thoracique, essoufflement anormal ou malaise."
+                            },
+                            "title": {
+                              "stringValue": "Sortie Longue Trail courte et rapide"
+                            },
+                            "cooldown": {
+                              "stringValue": "10 min de marche très lente, suivies de 15 min d'étirements doux et de mobilité articulaire complète. (à 8:28 min/km)"
+                            },
+                            "elevationGain": {
+                              "integerValue": "189"
+                            },
+                            "intensity": {
+                              "stringValue": "Facile"
+                            },
+                            "locationSuggestion": {
+                              "stringValue": "Montée du Mont Chardon, Oyonnax"
+                            },
+                            "duration": {
+                              "stringValue": "1h00"
+                            },
+                            "id": {
+                              "stringValue": "w9-s4-1778094335634-00audqh"
+                            }
+                          }
+                        }
+                      }
+                    ]
+                  }
+                },
+                "weekNumber": {
+                  "integerValue": "9"
+                }
+              }
+            }
+          },
+          {
+            "mapValue": {
+              "fields": {
+                "isRecoveryWeek": {
+                  "booleanValue": false
+                },
+                "weekGoal": {
+                  "stringValue": "Affûtage Final - Repos et Visualisation"
+                },
+                "sessions": {
+                  "arrayValue": {
+                    "values": [
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "id": {
+                              "stringValue": "w10-s1-1778094335634-3xngd8g"
+                            },
+                            "duration": {
+                              "stringValue": "25 min"
+                            },
+                            "locationSuggestion": {
+                              "stringValue": "Autour du lac de Chancia, Oyonnax"
+                            },
+                            "elevationGain": {
+                              "integerValue": "0"
+                            },
+                            "intensity": {
+                              "stringValue": "Facile"
+                            },
+                            "title": {
+                              "stringValue": "Footing très très léger - Visualisation de la course"
+                            },
+                            "cooldown": {
+                              "stringValue": "5 min de marche très lente, suivies de 10 min d'étirements doux et de mobilité articulaire. (à 8:28 min/km)"
+                            },
+                            "advice": {
+                              "stringValue": "La préparation mentale est aussi importante que la préparation physique. Reste positif et confiant. Ton corps doit se reposer un maximum. S'arrêter immédiatement en cas de douleur thoracique, essoufflement anormal ou malaise."
+                            },
+                            "distance": {
+                              "stringValue": "3.3 km"
+                            },
+                            "targetPace": {
+                              "stringValue": "7:35 min/km (EF)"
+                            },
+                            "warmup": {
+                              "stringValue": "8 min de marche, à 8:28 min/km progressive puis trottée très lente (EF)."
+                            },
+                            "type": {
+                              "stringValue": "Footing"
+                            },
+                            "day": {
+                              "stringValue": "Lundi"
+                            },
+                            "mainSet": {
+                              "stringValue": "17 min de footing en aisance respiratoire (EF). Durant cette séance, focalise-toi sur une respiration calme et profonde. Profite-en pour visualiser mentalement le parcours de ton trail, les montées, les descentes, l'arrivée. Imagine-toi fort et serein."
+                            }
+                          }
+                        }
+                      },
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "mainSet": {
+                              "stringValue": "Circuit 2 tours : Marche laterale avec elastique (3x7 pas/cote), Fente laterale (3x7/jambe), Bird-dog (3x7/cote), Gainage lateral (3x13-30s/cote), Marche sur talons (2x13m), Equilibre sur coussin instable (3x20s/pied), Equilibre unipodal yeux fermes (3x13-30s/pied), Planche + rotation laterale (3x7/cote), Mollets debout unipodal (3x8/jambe). Repos 1 min 30 entre tours."
+                            },
+                            "day": {
+                              "stringValue": "Mercredi"
+                            },
+                            "type": {
+                              "stringValue": "Renforcement"
+                            },
+                            "warmup": {
+                              "stringValue": "10 min de mobilité articulaire douce et échauffement progressif (marche rapide, rotations, pas chassés)"
+                            },
+                            "targetPace": {
+                              "stringValue": "N/A"
+                            },
+                            "distance": {
+                              "stringValue": "0 km"
+                            },
+                            "advice": {
+                              "stringValue": "C'est un dernier contact avec le renforcement avant la course. Fais-le en conscience, sans forcer. Le repos est le maître mot. S'arrêter immédiatement en cas de douleur thoracique, essoufflement anormal ou malaise."
+                            },
+                            "cooldown": {
+                              "stringValue": "5 min d'étirements : quadriceps, ischio-jambiers, mollets, hanches"
+                            },
+                            "title": {
+                              "stringValue": "Renfo Maintien Leger - Affutage (S10)"
+                            },
+                            "intensity": {
+                              "stringValue": "Facile"
+                            },
+                            "locationSuggestion": {
+                              "stringValue": "À la maison"
+                            },
+                            "elevationGain": {
+                              "integerValue": "0"
+                            },
+                            "id": {
+                              "stringValue": "w10-s2-1778094335634-alxf36h"
+                            },
+                            "duration": {
+                              "stringValue": "25-30 min"
+                            }
+                          }
+                        }
+                      },
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "id": {
+                              "stringValue": "w10-s3-1778094335634-8ilxfte"
+                            },
+                            "duration": {
+                              "stringValue": "20 min"
+                            },
+                            "elevationGain": {
+                              "integerValue": "0"
+                            },
+                            "locationSuggestion": {
+                              "stringValue": "Montagnes du Jura - petite colline à Oyonnax"
+                            },
+                            "intensity": {
+                              "stringValue": "Facile"
+                            },
+                            "cooldown": {
+                              "stringValue": "5 min de marche très lente, suivies de 10 min d'étirements doux et de mobilité articulaire. (à 8:28 min/km)"
+                            },
+                            "title": {
+                              "stringValue": "Dernière touche - Accélérations douces et légères"
+                            },
+                            "advice": {
+                              "stringValue": "Cette séance est un petit clin d'œil à ton corps pour le préparer doucement. Ne cherche surtout pas la vitesse, juste la sensation de fluidité. S'arrêter immédiatement en cas de douleur thoracique, essoufflement anormal ou malaise."
+                            },
+                            "distance": {
+                              "stringValue": "2.6 km"
+                            },
+                            "warmup": {
+                              "stringValue": "10 min de footing, à 8:28 min/km très léger en EF sur terrain plat."
+                            },
+                            "targetPace": {
+                              "stringValue": "7:35 min/km (EF)"
+                            },
+                            "type": {
+                              "stringValue": "Footing"
+                            },
+                            "day": {
+                              "stringValue": "Vendredi"
+                            },
+                            "mainSet": {
+                              "stringValue": "5 min de footing en EF, puis 2-3x (30 sec d'accélération progressive sans forcer / 1 min de récupération en EF). Ces accélérations sont très légères, juste pour 'dégourdir' les jambes et stimuler le système nerveux. La fin de la séance est en EF."
+                            }
+                          }
+                        }
+                      },
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "title": {
+                              "stringValue": "Sortie Longue Trail très courte et exploratoire"
+                            },
+                            "cooldown": {
+                              "stringValue": "10 min de marche très lente, suivies de 15 min d'étirements doux et de mobilité articulaire complète. (à 8:28 min/km)"
+                            },
+                            "id": {
+                              "stringValue": "w10-s4-1778094335634-0zxj3zs"
+                            },
+                            "duration": {
+                              "stringValue": "50 min"
+                            },
+                            "locationSuggestion": {
+                              "stringValue": "Sentiers du Crêt de la Neige, Oyonnax"
+                            },
+                            "elevationGain": {
+                              "integerValue": "160"
+                            },
+                            "intensity": {
+                              "stringValue": "Facile"
+                            },
+                            "mainSet": {
+                              "stringValue": "40 min de course en aisance respiratoire (EF) sur un terrain avec le maximum de D+ possible pour une durée si courte. C'est l'ultime contact avec les spécificités du trail. Concentre-toi sur la gestion de l'effort en montée, la sécurité en descente et la sensation de bien-être. Marche quand tu le souhaite. (allure : 7:35 min/km)"
+                            },
+                            "type": {
+                              "stringValue": "Sortie Longue"
+                            },
+                            "day": {
+                              "stringValue": "Dimanche"
+                            },
+                            "distance": {
+                              "stringValue": "6.6 km"
+                            },
+                            "targetPace": {
+                              "stringValue": "7:35 min/km (EF)"
+                            },
+                            "warmup": {
+                              "stringValue": "10 min de marche, à 8:28 min/km progressive puis trottée très lente (EF)."
+                            },
+                            "advice": {
+                              "stringValue": "Cette sortie clôture ta préparation. Profite de ce moment en nature. Hydrate-toi bien après, repose-toi et prépare tranquillement ton matériel pour la course. Écoute ton corps, il est prêt pour le défi ! S'arrêter immédiatement en cas de douleur thoracique, essoufflement anormal ou malaise."
+                            }
+                          }
+                        }
+                      }
+                    ]
+                  }
+                },
+                "phase": {
+                  "stringValue": "affutage"
+                },
+                "theme": {
+                  "stringValue": "Affûtage Final - Repos et Visualisation"
+                },
+                "weekNumber": {
+                  "integerValue": "10"
+                }
+              }
+            }
+          }
+        ]
+      }
+    },
+    "userEmail": {
+      "stringValue": "ch.courtin01@gmail.com"
+    },
+    "welcomeMessage": {
+      "stringValue": "⚠️ Avant de commencer ce programme, il est INDISPENSABLE de consulter ton médecin pour obtenir un certificat médical d'aptitude à la pratique de la course à pied. À partir de 54 ans et avec ton profil, un bilan cardio-vasculaire (test d'effort) est fortement recommandé. Ton santé est notre priorité absolue — ce plan est conçu pour t'accompagner en toute sécurité, mais seul un médecin peut confirmer que tu es apte à démarrer.\n\nFélicitations pour ton objectif de devenir Finisher sur ce trail ! Ce plan de 10 semaines est conçu spécifiquement pour te, en tant que coureur confirmé avec un objectif de terminer ta course. Nous allons prioriser l'endurance fondamentale, la régularité et l'adaptation aux terrains variés du trail, tout en respectant tes préférences de courir le soir.\n\nLa première phase se concentre sur la construction d'une base solide en endurance, essentielle pour les longues distances et le dénivelé. Nous allons augmenter progressivement ton volume et inclure des séances sur des terrains variés. N'oublie pas l'importance d'une bonne paire de chaussures avec un amorti renforcé, et n'hésite pas à intégrer du cross-training (vélo, natation) si tu le souhaite, pour compléter ton entraînement tout en ménageant tes articulations.\n\nÉcoute toujours ton corps et adapte les séances si nécessaire. L'objectif est d'arriver en pleine forme le jour J, en toute sécurité !"
+    },
+    "fullPlanGenerated": {
+      "booleanValue": true
+    },
+    "startDate": {
+      "stringValue": "2026-05-04"
+    },
+    "confidenceScore": {
+      "integerValue": "70"
+    },
+    "location": {
+      "stringValue": "Oyonnax"
+    },
+    "goal": {
+      "stringValue": "Trail"
+    },
+    "distance": {
+      "stringValue": "13km D+400m"
+    },
+    "createdAt": {
+      "stringValue": "2026-05-06T19:00:04.208Z"
+    },
+    "feasibility": {
+      "mapValue": {
+        "fields": {
+          "message": {
+            "stringValue": "Ton objectif de finisher sur ce trail de 13km / 400m D+ est tout à fait atteignable. Avec ta VMA de 15.5 km/h, concentre-toi sur la régularité. Ton IMC (31.2) augmente le risque articulaire — consulte un médecin, privilégie un bon amorti et des surfaces souples. Ton volume actuel de 20km/sem est une excellente base pour cette distance."
+          },
+          "status": {
+            "stringValue": "BON"
+          },
+          "safetyWarning": {
+            "stringValue": "On te recommande de consulter ton médecin avant de démarrer. Investis dans de bonnes chaussures avec un amorti renforcé, privilégie les surfaces souples (herbe, terre, chemin), et intègre du cross-training (vélo, natation) pour réduire l'impact sur les articulations."
+          }
+        }
+      }
+    },
+    "adaptationLog": {
+      "mapValue": {
+        "fields": {
+          "adaptationHistory": {
+            "arrayValue": {}
+          },
+          "adaptationsThisWeek": {
+            "integerValue": "0"
+          },
+          "weekNumber": {
+            "integerValue": "0"
+          }
+        }
+      }
+    },
+    "sessionsPerWeek": {
+      "integerValue": "4"
+    },
+    "targetTime": {
+      "stringValue": "Finisher"
+    },
+    "paces": {
+      "mapValue": {
+        "fields": {
+          "allureSpecifique5k": {
+            "stringValue": "5:21"
+          },
+          "efPace": {
+            "stringValue": "7:35"
+          },
+          "allureSpecifique10k": {
+            "stringValue": "5:39"
+          },
+          "allureSpecifiqueSemi": {
+            "stringValue": "5:59"
+          },
+          "eaPace": {
+            "stringValue": "6:36"
+          },
+          "vmaKmh": {
+            "stringValue": "11.8"
+          },
+          "vma": {
+            "doubleValue": 11.8
+          },
+          "seuilPace": {
+            "stringValue": "5:51"
+          },
+          "vmaPace": {
+            "stringValue": "5:05"
+          },
+          "allureSpecifiqueMarathon": {
+            "stringValue": "6:21"
+          },
+          "recoveryPace": {
+            "stringValue": "8:28"
+          }
+        }
+      }
+    },
+    "vma": {
+      "doubleValue": 11.8
+    },
+    "id": {
+      "stringValue": "1778094004207"
+    }
+  },
+  "createTime": "2026-05-06T19:00:22.053515Z",
+  "updateTime": "2026-05-07T17:00:24.051093Z"
+}

@@ -1,0 +1,1969 @@
+{
+  "name": "projects/coach-running-ia/databases/(default)/documents/plans/1775497873913",
+  "fields": {
+    "paces": {
+      "mapValue": {
+        "fields": {
+          "seuilPace": {
+            "stringValue": "4:33"
+          },
+          "efPace": {
+            "stringValue": "5:55"
+          },
+          "allureSpecifiqueSemi": {
+            "stringValue": "4:40"
+          },
+          "allureSpecifique5k": {
+            "stringValue": "4:10"
+          },
+          "allureSpecifiqueMarathon": {
+            "stringValue": "4:57"
+          },
+          "vmaPace": {
+            "stringValue": "3:58"
+          },
+          "allureSpecifique10k": {
+            "stringValue": "4:24"
+          },
+          "recoveryPace": {
+            "stringValue": "6:36"
+          },
+          "eaPace": {
+            "stringValue": "5:09"
+          }
+        }
+      }
+    },
+    "suggestedLocations": {
+      "arrayValue": {
+        "values": [
+          {
+            "mapValue": {
+              "fields": {
+                "name": {
+                  "stringValue": "Les Bords de Rance"
+                },
+                "description": {
+                  "stringValue": "Chemins plats et légèrement vallonnés le long de la rivière Rance, idéal pour les footings et sorties longues trail douces."
+                },
+                "type": {
+                  "stringValue": "NATURE"
+                }
+              }
+            }
+          },
+          {
+            "mapValue": {
+              "fields": {
+                "type": {
+                  "stringValue": "HILL"
+                },
+                "name": {
+                  "stringValue": "Forêt de Coëtquen"
+                },
+                "description": {
+                  "stringValue": "Sentiers forestiers avec du dénivelé significatif, parfait pour le travail des côtes et les sorties longues trail."
+                }
+              }
+            }
+          },
+          {
+            "mapValue": {
+              "fields": {
+                "type": {
+                  "stringValue": "PARK"
+                },
+                "name": {
+                  "stringValue": "Voie Verte Dinan - Léhon"
+                },
+                "description": {
+                  "stringValue": "Chemin plat et agréable, idéal pour les footings en aisance respiratoire ou de récupération active."
+                }
+              }
+            }
+          }
+        ]
+      }
+    },
+    "raceDate": {
+      "stringValue": "2026-06-21"
+    },
+    "adaptationLog": {
+      "mapValue": {
+        "fields": {
+          "adaptationHistory": {
+            "arrayValue": {}
+          },
+          "adaptationsThisWeek": {
+            "integerValue": "0"
+          },
+          "weekNumber": {
+            "integerValue": "0"
+          }
+        }
+      }
+    },
+    "guardStats": {
+      "mapValue": {
+        "fields": {
+          "volumeScaledDown": {
+            "integerValue": "2"
+          },
+          "volumeScaledUp": {
+            "integerValue": "0"
+          },
+          "progressionSmoothed": {
+            "integerValue": "0"
+          },
+          "sessionKmCapped": {
+            "integerValue": "0"
+          },
+          "slDurationCapped": {
+            "integerValue": "0"
+          },
+          "postValidatorFixes": {
+            "integerValue": "3"
+          },
+          "hardSessionsDowngraded": {
+            "integerValue": "0"
+          },
+          "affutageCorrected": {
+            "integerValue": "0"
+          },
+          "dplusRedistributed": {
+            "integerValue": "0"
+          }
+        }
+      }
+    },
+    "feasibility": {
+      "mapValue": {
+        "fields": {
+          "status": {
+            "stringValue": "BON"
+          },
+          "safetyWarning": {
+            "stringValue": "Hydrate-toi bien, échauffe-toi avant chaque séance et accorde-toi un vrai temps de récupération."
+          },
+          "message": {
+            "stringValue": "Avec ta VMA de 15.2 km/h, ton temps théorique sur 25km avec 750m D+ est d'environ 2h41min. Viser 2h30min est un bel objectif. Avec un entraînement régulier, c'est tout à fait atteignable."
+          }
+        }
+      }
+    },
+    "userId": {
+      "stringValue": "2tD1tMwW80dyuQiN5jvlcAKCrXm1"
+    },
+    "calculatedVMA": {
+      "doubleValue": 15.151515151515152
+    },
+    "vmaSource": {
+      "stringValue": "10km en 44min"
+    },
+    "distance": {
+      "stringValue": "25km D+750m"
+    },
+    "startDate": {
+      "stringValue": "2026-05-11"
+    },
+    "confidenceScore": {
+      "integerValue": "82"
+    },
+    "id": {
+      "stringValue": "1775497873913"
+    },
+    "targetTime": {
+      "stringValue": "2h30"
+    },
+    "fullPlanGenerated": {
+      "booleanValue": true
+    },
+    "userEmail": {
+      "stringValue": "annesophie.perret1982@gmail.com"
+    },
+    "location": {
+      "stringValue": "Dinan "
+    },
+    "weeks": {
+      "arrayValue": {
+        "values": [
+          {
+            "mapValue": {
+              "fields": {
+                "phase": {
+                  "stringValue": "developpement"
+                },
+                "sessions": {
+                  "arrayValue": {
+                    "values": [
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "cooldown": {
+                              "stringValue": "10min EF"
+                            },
+                            "id": {
+                              "stringValue": "w1-s1-fix-1775502342404-awasi1o"
+                            },
+                            "title": {
+                              "stringValue": "VMA Court"
+                            },
+                            "day": {
+                              "stringValue": "Lundi"
+                            },
+                            "mainSet": {
+                              "stringValue": "8 x (30sec VMA / 30sec Récup). Récupération 3min EF. 6 x (30sec VMA / 30sec Récup)"
+                            },
+                            "type": {
+                              "stringValue": "Fractionné"
+                            },
+                            "intensity": {
+                              "stringValue": "Difficile"
+                            },
+                            "warmup": {
+                              "stringValue": "20min EF"
+                            },
+                            "elevationGain": {
+                              "integerValue": "0"
+                            },
+                            "advice": {
+                              "stringValue": "Bien s'échauffer avant la séance."
+                            },
+                            "targetPace": {
+                              "stringValue": "VMA"
+                            },
+                            "duration": {
+                              "stringValue": "1h 00 min"
+                            }
+                          }
+                        }
+                      },
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "duration": {
+                              "stringValue": "1h 56 min"
+                            },
+                            "advice": {
+                              "stringValue": "Privilégier le terrain souple."
+                            },
+                            "targetPace": {
+                              "stringValue": "EF"
+                            },
+                            "type": {
+                              "stringValue": "Sortie Longue"
+                            },
+                            "cooldown": {
+                              "stringValue": "10min EF"
+                            },
+                            "elevationGain": {
+                              "integerValue": "200"
+                            },
+                            "warmup": {
+                              "stringValue": "10min EF"
+                            },
+                            "intensity": {
+                              "stringValue": "Facile"
+                            },
+                            "mainSet": {
+                              "stringValue": "1h10 EF sur terrain varié (chemins, sentiers)"
+                            },
+                            "day": {
+                              "stringValue": "Mercredi"
+                            },
+                            "title": {
+                              "stringValue": "Sortie Nature"
+                            },
+                            "id": {
+                              "stringValue": "w1-s2-fix-1775502342404-zew5u14"
+                            },
+                            "distance": {
+                              "stringValue": "19.4 km"
+                            }
+                          }
+                        }
+                      },
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "distance": {
+                              "stringValue": "12.9 km"
+                            },
+                            "id": {
+                              "stringValue": "w1-s3-fix-1775502342404-cb9s7lj"
+                            },
+                            "title": {
+                              "stringValue": "Récupération active"
+                            },
+                            "day": {
+                              "stringValue": "Jeudi"
+                            },
+                            "mainSet": {
+                              "stringValue": "40min EF"
+                            },
+                            "intensity": {
+                              "stringValue": "Facile"
+                            },
+                            "warmup": {
+                              "stringValue": "10min EF"
+                            },
+                            "elevationGain": {
+                              "integerValue": "0"
+                            },
+                            "cooldown": {
+                              "stringValue": "10min EF"
+                            },
+                            "type": {
+                              "stringValue": "Jogging"
+                            },
+                            "targetPace": {
+                              "stringValue": "EF"
+                            },
+                            "advice": {
+                              "stringValue": "Profiter de la nature."
+                            },
+                            "duration": {
+                              "stringValue": "1h 18 min"
+                            }
+                          }
+                        }
+                      },
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "distance": {
+                              "stringValue": "9.7 km"
+                            },
+                            "title": {
+                              "stringValue": "Sortie Cool"
+                            },
+                            "id": {
+                              "stringValue": "w1-s4-fix-1775502342404-t15ltvz"
+                            },
+                            "day": {
+                              "stringValue": "Samedi"
+                            },
+                            "mainSet": {
+                              "stringValue": "25min EF"
+                            },
+                            "intensity": {
+                              "stringValue": "Facile"
+                            },
+                            "warmup": {
+                              "stringValue": "10min EF"
+                            },
+                            "elevationGain": {
+                              "integerValue": "0"
+                            },
+                            "cooldown": {
+                              "stringValue": "10min EF"
+                            },
+                            "type": {
+                              "stringValue": "Jogging"
+                            },
+                            "targetPace": {
+                              "stringValue": "EF"
+                            },
+                            "duration": {
+                              "stringValue": "58 min"
+                            },
+                            "advice": {
+                              "stringValue": "Courir relâché."
+                            }
+                          }
+                        }
+                      },
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "id": {
+                              "stringValue": "w1-s5-fix-1775502342404-hbw8k9z"
+                            },
+                            "title": {
+                              "stringValue": "Renforcement Trail"
+                            },
+                            "cooldown": {
+                              "stringValue": "5 min étirements"
+                            },
+                            "mainSet": {
+                              "stringValue": "3 séries de : 15 squats, 10 fentes avant par jambe, 15 montées sur banc, 30 sec de chaise, 10 pompes. Récupération 1min entre chaque série."
+                            },
+                            "day": {
+                              "stringValue": "Dimanche"
+                            },
+                            "warmup": {
+                              "stringValue": "5 min marche rapide"
+                            },
+                            "type": {
+                              "stringValue": "Renforcement"
+                            },
+                            "intensity": {
+                              "stringValue": "Modéré"
+                            },
+                            "elevationGain": {
+                              "integerValue": "0"
+                            },
+                            "duration": {
+                              "stringValue": "45 min"
+                            },
+                            "advice": {
+                              "stringValue": "Bien s'hydrater."
+                            }
+                          }
+                        }
+                      }
+                    ]
+                  }
+                },
+                "isRecoveryWeek": {
+                  "booleanValue": false
+                },
+                "theme": {
+                  "stringValue": "fondamental"
+                },
+                "weekNumber": {
+                  "integerValue": "1"
+                }
+              }
+            }
+          },
+          {
+            "mapValue": {
+              "fields": {
+                "weekGoal": {
+                  "stringValue": "Développement : Introduction au Travail de Dénivelé"
+                },
+                "phase": {
+                  "stringValue": "developpement"
+                },
+                "sessions": {
+                  "arrayValue": {
+                    "values": [
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "cooldown": {
+                              "stringValue": "15 min en EF (5:55 min/km)"
+                            },
+                            "type": {
+                              "stringValue": "Fractionné"
+                            },
+                            "advice": {
+                              "stringValue": "Écoute toujours ton corps et n'hésite pas à réduire l'intensité ou à tu arrêter en cas de douleur ou de fatigue excessive."
+                            },
+                            "targetPace": {
+                              "stringValue": "VMA : 3:58 min/km"
+                            },
+                            "duration": {
+                              "stringValue": "1h 00 min"
+                            },
+                            "distance": {
+                              "stringValue": "10km"
+                            },
+                            "id": {
+                              "stringValue": "w2-s1-1775502304976-rkrpm4r"
+                            },
+                            "title": {
+                              "stringValue": "Fractionné Côtes Courtes pour le Trail"
+                            },
+                            "day": {
+                              "stringValue": "Lundi"
+                            },
+                            "locationSuggestion": {
+                              "stringValue": "Chemins autour de Léhon (côtes)"
+                            },
+                            "mainSet": {
+                              "stringValue": "8 x (45s effort intense en montée - allure VMA (3:58 min/km) / Récup descente au trot léger (6:36 min/km)). Concentre-toi sur la puissance."
+                            },
+                            "intensity": {
+                              "stringValue": "Difficile"
+                            },
+                            "warmup": {
+                              "stringValue": "20 min en EF (5:55 min/km)"
+                            },
+                            "elevationGain": {
+                              "integerValue": "0"
+                            }
+                          }
+                        }
+                      },
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "type": {
+                              "stringValue": "Sortie Longue"
+                            },
+                            "targetPace": {
+                              "stringValue": "EF : 5:55 min/km"
+                            },
+                            "duration": {
+                              "stringValue": "1h 45 min"
+                            },
+                            "advice": {
+                              "stringValue": "Écoute toujours ton corps et n'hésite pas à réduire l'intensité ou à tu arrêter en cas de douleur ou de fatigue excessive."
+                            },
+                            "cooldown": {
+                              "stringValue": "Non nécessaire, la fin de séance est en EF (à 6:36 min/km)"
+                            },
+                            "warmup": {
+                              "stringValue": "15 min en EF (5:55 min/km)"
+                            },
+                            "intensity": {
+                              "stringValue": "Modéré"
+                            },
+                            "elevationGain": {
+                              "integerValue": "390"
+                            },
+                            "id": {
+                              "stringValue": "w2-s2-1775502304976-qv8l1g5"
+                            },
+                            "title": {
+                              "stringValue": "Sortie Longue Trail Vallonnée"
+                            },
+                            "distance": {
+                              "stringValue": "17.7km"
+                            },
+                            "mainSet": {
+                              "stringValue": "1h 45 min en Endurance Fondamentale (5:55 min/km) sur sentiers vallonnés, avec travail des montées et descentes en aisance et fluidité."
+                            },
+                            "day": {
+                              "stringValue": "Mercredi"
+                            },
+                            "locationSuggestion": {
+                              "stringValue": "Forêt de Coëtquen (sentiers vallonnés)"
+                            }
+                          }
+                        }
+                      },
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "type": {
+                              "stringValue": "Jogging"
+                            },
+                            "advice": {
+                              "stringValue": "Écoute toujours ton corps et n'hésite pas à réduire l'intensité ou à tu arrêter en cas de douleur ou de fatigue excessive."
+                            },
+                            "duration": {
+                              "stringValue": "1h 00 min"
+                            },
+                            "targetPace": {
+                              "stringValue": "EF : 5:55 min/km"
+                            },
+                            "cooldown": {
+                              "stringValue": "Non nécessaire, la fin de séance est en EF (à 6:36 min/km)"
+                            },
+                            "intensity": {
+                              "stringValue": "Facile"
+                            },
+                            "warmup": {
+                              "stringValue": "Non nécessaire (à 6:36 min/km)"
+                            },
+                            "elevationGain": {
+                              "integerValue": "0"
+                            },
+                            "distance": {
+                              "stringValue": "10.1km"
+                            },
+                            "title": {
+                              "stringValue": "Footing en Aisance Respiratoire"
+                            },
+                            "id": {
+                              "stringValue": "w2-s3-1775502304976-rngpfi5"
+                            },
+                            "locationSuggestion": {
+                              "stringValue": "Parc des Grands Jardins (Dinan)"
+                            },
+                            "day": {
+                              "stringValue": "Jeudi"
+                            },
+                            "mainSet": {
+                              "stringValue": "1h 00 min en Endurance Fondamentale (5:55 min/km), en te concentrant sur une respiration calme et profonde."
+                            }
+                          }
+                        }
+                      },
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "day": {
+                              "stringValue": "Samedi"
+                            },
+                            "locationSuggestion": {
+                              "stringValue": "Sentiers du bord de Rance (relief)"
+                            },
+                            "mainSet": {
+                              "stringValue": "30 min alternant EF (5:55 min/km) et 3-4 sections de 2 min de montées progressives (en aisance) avec travail de foulée courte/fréquence en descente. Sois attentif à la pose de pied."
+                            },
+                            "distance": {
+                              "stringValue": "7.6km"
+                            },
+                            "id": {
+                              "stringValue": "w2-s4-1775502304976-pehu3o3"
+                            },
+                            "title": {
+                              "stringValue": "Footing Technique Montées/Descentes"
+                            },
+                            "elevationGain": {
+                              "integerValue": "0"
+                            },
+                            "intensity": {
+                              "stringValue": "Modéré"
+                            },
+                            "warmup": {
+                              "stringValue": "15 min en EF (5:55 min/km)"
+                            },
+                            "cooldown": {
+                              "stringValue": "10 min en EF (5:55 min/km)"
+                            },
+                            "advice": {
+                              "stringValue": "Écoute toujours ton corps et n'hésite pas à réduire l'intensité ou à tu arrêter en cas de douleur ou de fatigue excessive."
+                            },
+                            "duration": {
+                              "stringValue": "45 min"
+                            },
+                            "targetPace": {
+                              "stringValue": "EF : 5:55 min/km"
+                            },
+                            "type": {
+                              "stringValue": "Jogging"
+                            }
+                          }
+                        }
+                      },
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "elevationGain": {
+                              "integerValue": "0"
+                            },
+                            "intensity": {
+                              "stringValue": "Modéré"
+                            },
+                            "warmup": {
+                              "stringValue": "10 min de mobilité articulaire et échauffement dynamique"
+                            },
+                            "day": {
+                              "stringValue": "Dimanche"
+                            },
+                            "locationSuggestion": {
+                              "stringValue": "À la maison"
+                            },
+                            "mainSet": {
+                              "stringValue": "Circuit 4 tours : Pont unipodal (3x13/jambe), Clamshell avec elastique (3x20/cote), Marche laterale avec elastique (3x13 pas/cote), Bird-dog (3x13/cote), Gainage lateral (3x26-30s/cote), Marche sur talons (2x26m), Equilibre sur coussin instable (3x39s/pied), Sauts directionnels (3x10), Russian twist (3x20/cote), Mollets assis soleaire (3x20). Repos 1 min entre tours."
+                            },
+                            "distance": {
+                              "stringValue": "0km"
+                            },
+                            "id": {
+                              "stringValue": "w2-s5-1775502304976-2fv424e"
+                            },
+                            "title": {
+                              "stringValue": "Renfo Trail Focus B - Hanches & Proprioception (S2)"
+                            },
+                            "advice": {
+                              "stringValue": "Écoute toujours ton corps et n'hésite pas à réduire l'intensité ou à tu arrêter en cas de douleur ou de fatigue excessive."
+                            },
+                            "targetPace": {
+                              "stringValue": "N/A"
+                            },
+                            "duration": {
+                              "stringValue": "40-45 min"
+                            },
+                            "type": {
+                              "stringValue": "Renforcement"
+                            },
+                            "cooldown": {
+                              "stringValue": "5 min d'étirements : quadriceps, ischio-jambiers, mollets, hanches"
+                            }
+                          }
+                        }
+                      }
+                    ]
+                  }
+                },
+                "theme": {
+                  "stringValue": "Développement : Introduction au Travail de Dénivelé"
+                },
+                "isRecoveryWeek": {
+                  "booleanValue": false
+                },
+                "weekNumber": {
+                  "integerValue": "2"
+                }
+              }
+            }
+          },
+          {
+            "mapValue": {
+              "fields": {
+                "sessions": {
+                  "arrayValue": {
+                    "values": [
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "cooldown": {
+                              "stringValue": "15 min en EF (5:55 min/km)"
+                            },
+                            "type": {
+                              "stringValue": "Fractionné"
+                            },
+                            "advice": {
+                              "stringValue": "Écoute toujours ton corps et n'hésite pas à réduire l'intensité ou à tu arrêter en cas de douleur ou de fatigue excessive."
+                            },
+                            "targetPace": {
+                              "stringValue": "VMA : 3:58 min/km"
+                            },
+                            "duration": {
+                              "stringValue": "1h 01 min"
+                            },
+                            "title": {
+                              "stringValue": "VMA Courte sur Piste"
+                            },
+                            "id": {
+                              "stringValue": "w3-s1-1775502304976-i6q90bm"
+                            },
+                            "distance": {
+                              "stringValue": "10.3 km"
+                            },
+                            "mainSet": {
+                              "stringValue": "8 x (400m à 100-105% VMA (3:58 min/km) / Récup 200m trot lent (6:36 min/km)). Concentre-toi sur l'efficacité de la foulée."
+                            },
+                            "locationSuggestion": {
+                              "stringValue": "Piste d'athlétisme de Dinan"
+                            },
+                            "day": {
+                              "stringValue": "Lundi"
+                            },
+                            "warmup": {
+                              "stringValue": "20 min en EF (5:55 min/km) avec 2 lignes droites progressives"
+                            },
+                            "intensity": {
+                              "stringValue": "Difficile"
+                            },
+                            "elevationGain": {
+                              "integerValue": "0"
+                            }
+                          }
+                        }
+                      },
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "targetPace": {
+                              "stringValue": "EF : 5:55 min/km"
+                            },
+                            "duration": {
+                              "stringValue": "1h 52 min"
+                            },
+                            "advice": {
+                              "stringValue": "Écoute toujours ton corps et n'hésite pas à réduire l'intensité ou à tu arrêter en cas de douleur ou de fatigue excessive."
+                            },
+                            "type": {
+                              "stringValue": "Sortie Longue"
+                            },
+                            "cooldown": {
+                              "stringValue": "10 min en EF (5:55 min/km)"
+                            },
+                            "elevationGain": {
+                              "integerValue": "0"
+                            },
+                            "intensity": {
+                              "stringValue": "Modéré"
+                            },
+                            "warmup": {
+                              "stringValue": "20 min en EF (5:55 min/km)"
+                            },
+                            "locationSuggestion": {
+                              "stringValue": "Vallée de la Rance (rives escarpées)"
+                            },
+                            "day": {
+                              "stringValue": "Mercredi"
+                            },
+                            "mainSet": {
+                              "stringValue": "1h30 en Endurance Fondamentale (5:55 min/km) sur sentiers vallonnés, incluant 3x (5 min en côte progressive à allure Seuil (4:33 min/km) / 5 min en EF (5:55 min/km))."
+                            },
+                            "distance": {
+                              "stringValue": "18.9 km"
+                            },
+                            "title": {
+                              "stringValue": "Sortie Longue Trail avec D+ Progressif et Seuil en Côte"
+                            },
+                            "id": {
+                              "stringValue": "w3-s2-1775502304976-cj88e6f"
+                            }
+                          }
+                        }
+                      },
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "intensity": {
+                              "stringValue": "Modéré"
+                            },
+                            "warmup": {
+                              "stringValue": "20 min en EF (5:55 min/km)"
+                            },
+                            "elevationGain": {
+                              "integerValue": "480"
+                            },
+                            "distance": {
+                              "stringValue": "11 km"
+                            },
+                            "title": {
+                              "stringValue": "Footing Nature avec Fartlek Libre"
+                            },
+                            "id": {
+                              "stringValue": "w3-s3-1775502304976-klv4g3n"
+                            },
+                            "locationSuggestion": {
+                              "stringValue": "Voie Verte de Dinan à Evran"
+                            },
+                            "day": {
+                              "stringValue": "Jeudi"
+                            },
+                            "mainSet": {
+                              "stringValue": "5-6 accélérations de 30s à allure 10km (4:24 min/km), récup 1min30 trottée (6:36 min/km). Puis 15 min en EF (5:55 min/km)."
+                            },
+                            "type": {
+                              "stringValue": "Jogging"
+                            },
+                            "duration": {
+                              "stringValue": "1h 05 min"
+                            },
+                            "targetPace": {
+                              "stringValue": "EF : 5:55 min/km"
+                            },
+                            "advice": {
+                              "stringValue": "Écoute toujours ton corps et n'hésite pas à réduire l'intensité ou à tu arrêter en cas de douleur ou de fatigue excessive."
+                            },
+                            "cooldown": {
+                              "stringValue": "Non nécessaire, la fin de séance est en EF (à 6:36 min/km)"
+                            }
+                          }
+                        }
+                      },
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "id": {
+                              "stringValue": "w3-s4-1775502304976-hs84od8"
+                            },
+                            "title": {
+                              "stringValue": "Tempo Trail en Montée/Descente"
+                            },
+                            "distance": {
+                              "stringValue": "11.8 km"
+                            },
+                            "mainSet": {
+                              "stringValue": "2 x (15 min à allure spécifique Semi-Marathon (4:40 min/km) sur terrain vallonné avec gestion de l'effort en montée et descente / 5 min EF (5:55 min/km) de récupération)."
+                            },
+                            "day": {
+                              "stringValue": "Samedi"
+                            },
+                            "locationSuggestion": {
+                              "stringValue": "Sentiers de la Forêt de Coëtquen (techniques)"
+                            },
+                            "warmup": {
+                              "stringValue": "20 min EF (5:55 min/km)"
+                            },
+                            "intensity": {
+                              "stringValue": "Difficile"
+                            },
+                            "elevationGain": {
+                              "integerValue": "0"
+                            },
+                            "cooldown": {
+                              "stringValue": "10 min EF (5:55 min/km)"
+                            },
+                            "type": {
+                              "stringValue": "Fractionné"
+                            },
+                            "advice": {
+                              "stringValue": "Écoute toujours ton corps et n'hésite pas à réduire l'intensité ou à tu arrêter en cas de douleur ou de fatigue excessive."
+                            },
+                            "targetPace": {
+                              "stringValue": "Allure spé Semi : 4:40 min/km"
+                            },
+                            "duration": {
+                              "stringValue": "1h 10 min"
+                            }
+                          }
+                        }
+                      },
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "elevationGain": {
+                              "integerValue": "0"
+                            },
+                            "warmup": {
+                              "stringValue": "10 min de mobilité articulaire et échauffement dynamique"
+                            },
+                            "intensity": {
+                              "stringValue": "Modéré"
+                            },
+                            "mainSet": {
+                              "stringValue": "Circuit 4 tours : Fentes avant (3x13/jambe), Fentes marchees (3x16/jambe), Step-up sur marche (3x13/jambe), Superman (3x16), Pompes (3x13), Extensions mollets debout (3x26), Fente arriere lente (3s) (3x13/jambe), Chaise murale longue (3x59-90s), Box jumps ou sauts sur banc (3x10), Protocole Stanish excentrique (3x13). Repos 1 min entre tours."
+                            },
+                            "day": {
+                              "stringValue": "Dimanche"
+                            },
+                            "locationSuggestion": {
+                              "stringValue": "À la maison"
+                            },
+                            "id": {
+                              "stringValue": "w3-s5-1775502304976-gj80jjz"
+                            },
+                            "title": {
+                              "stringValue": "Renfo Trail Focus A - Quadriceps & Excentrique (S3)"
+                            },
+                            "distance": {
+                              "stringValue": "0km"
+                            },
+                            "duration": {
+                              "stringValue": "40-45 min"
+                            },
+                            "targetPace": {
+                              "stringValue": "N/A"
+                            },
+                            "advice": {
+                              "stringValue": "Écoute toujours ton corps et n'hésite pas à réduire l'intensité ou à tu arrêter en cas de douleur ou de fatigue excessive."
+                            },
+                            "type": {
+                              "stringValue": "Renforcement"
+                            },
+                            "cooldown": {
+                              "stringValue": "5 min d'étirements : quadriceps, ischio-jambiers, mollets, hanches"
+                            }
+                          }
+                        }
+                      }
+                    ]
+                  }
+                },
+                "weekGoal": {
+                  "stringValue": "Développement : VMA, Seuil et Spécifique Trail"
+                },
+                "phase": {
+                  "stringValue": "developpement"
+                },
+                "weekNumber": {
+                  "integerValue": "3"
+                },
+                "isRecoveryWeek": {
+                  "booleanValue": false
+                },
+                "theme": {
+                  "stringValue": "Développement : VMA, Seuil et Spécifique Trail"
+                }
+              }
+            }
+          },
+          {
+            "mapValue": {
+              "fields": {
+                "isRecoveryWeek": {
+                  "booleanValue": true
+                },
+                "theme": {
+                  "stringValue": "recuperation"
+                },
+                "weekNumber": {
+                  "integerValue": "4"
+                },
+                "phase": {
+                  "stringValue": "recuperation"
+                },
+                "sessions": {
+                  "arrayValue": {
+                    "values": [
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "advice": {
+                              "stringValue": "Ne pas forcer."
+                            },
+                            "duration": {
+                              "stringValue": "45 min"
+                            },
+                            "targetPace": {
+                              "stringValue": "Seuil"
+                            },
+                            "elevationGain": {
+                              "integerValue": "0"
+                            },
+                            "intensity": {
+                              "stringValue": "Modéré"
+                            },
+                            "type": {
+                              "stringValue": "Fractionné"
+                            },
+                            "warmup": {
+                              "stringValue": "20min EF"
+                            },
+                            "day": {
+                              "stringValue": "Lundi"
+                            },
+                            "mainSet": {
+                              "stringValue": "2 x 8min Seuil avec R:2min EF en montée légère."
+                            },
+                            "cooldown": {
+                              "stringValue": "10min EF"
+                            },
+                            "title": {
+                              "stringValue": "Seuil"
+                            },
+                            "id": {
+                              "stringValue": "w4-s1-fix-1775502342404-vj5y9s5"
+                            }
+                          }
+                        }
+                      },
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "id": {
+                              "stringValue": "w4-s2-fix-1775502342404-vyzw5ad"
+                            },
+                            "title": {
+                              "stringValue": "Sortie Cool"
+                            },
+                            "distance": {
+                              "stringValue": "19.6 km"
+                            },
+                            "mainSet": {
+                              "stringValue": "55min EF"
+                            },
+                            "day": {
+                              "stringValue": "Mercredi"
+                            },
+                            "warmup": {
+                              "stringValue": "10min EF"
+                            },
+                            "intensity": {
+                              "stringValue": "Facile"
+                            },
+                            "elevationGain": {
+                              "integerValue": "250"
+                            },
+                            "cooldown": {
+                              "stringValue": "10min EF"
+                            },
+                            "type": {
+                              "stringValue": "Sortie Longue"
+                            },
+                            "advice": {
+                              "stringValue": "Profiter du paysage."
+                            },
+                            "targetPace": {
+                              "stringValue": "EF"
+                            },
+                            "duration": {
+                              "stringValue": "2h 02 min"
+                            }
+                          }
+                        }
+                      },
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "cooldown": {
+                              "stringValue": "10min EF"
+                            },
+                            "type": {
+                              "stringValue": "Jogging"
+                            },
+                            "duration": {
+                              "stringValue": "1h 13 min"
+                            },
+                            "advice": {
+                              "stringValue": "Courir cool."
+                            },
+                            "targetPace": {
+                              "stringValue": "EF"
+                            },
+                            "title": {
+                              "stringValue": "Récupération active"
+                            },
+                            "id": {
+                              "stringValue": "w4-s3-fix-1775502342404-44yrbvx"
+                            },
+                            "distance": {
+                              "stringValue": "12.2 km"
+                            },
+                            "mainSet": {
+                              "stringValue": "25min EF"
+                            },
+                            "day": {
+                              "stringValue": "Jeudi"
+                            },
+                            "warmup": {
+                              "stringValue": "10min EF"
+                            },
+                            "intensity": {
+                              "stringValue": "Facile"
+                            },
+                            "elevationGain": {
+                              "integerValue": "0"
+                            }
+                          }
+                        }
+                      },
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "title": {
+                              "stringValue": "Footing Léger"
+                            },
+                            "id": {
+                              "stringValue": "w4-s4-fix-1775502342404-i3cdsnu"
+                            },
+                            "distance": {
+                              "stringValue": "8.2 km"
+                            },
+                            "mainSet": {
+                              "stringValue": "10min EF"
+                            },
+                            "day": {
+                              "stringValue": "Samedi"
+                            },
+                            "warmup": {
+                              "stringValue": "10min EF"
+                            },
+                            "intensity": {
+                              "stringValue": "Facile"
+                            },
+                            "elevationGain": {
+                              "integerValue": "0"
+                            },
+                            "cooldown": {
+                              "stringValue": "10min EF"
+                            },
+                            "type": {
+                              "stringValue": "Jogging"
+                            },
+                            "targetPace": {
+                              "stringValue": "EF"
+                            },
+                            "advice": {
+                              "stringValue": "Relâcher les jambes."
+                            },
+                            "duration": {
+                              "stringValue": "49 min"
+                            }
+                          }
+                        }
+                      },
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "advice": {
+                              "stringValue": "Ne pas forcer."
+                            },
+                            "duration": {
+                              "stringValue": "30 min"
+                            },
+                            "elevationGain": {
+                              "integerValue": "0"
+                            },
+                            "intensity": {
+                              "stringValue": "Facile"
+                            },
+                            "type": {
+                              "stringValue": "Renforcement"
+                            },
+                            "warmup": {
+                              "stringValue": "5 min marche"
+                            },
+                            "day": {
+                              "stringValue": "Dimanche"
+                            },
+                            "mainSet": {
+                              "stringValue": "2 séries de : 10 squats, 8 fentes avant par jambe, 10 montées sur banc, 20 sec de chaise, 8 pompes. Récupération 1min30 entre chaque série."
+                            },
+                            "cooldown": {
+                              "stringValue": "5 min étirements"
+                            },
+                            "title": {
+                              "stringValue": "Renforcement Léger"
+                            },
+                            "id": {
+                              "stringValue": "w4-s5-fix-1775502342404-1yxn5j4"
+                            }
+                          }
+                        }
+                      }
+                    ]
+                  }
+                }
+              }
+            }
+          },
+          {
+            "mapValue": {
+              "fields": {
+                "phase": {
+                  "stringValue": "specifique"
+                },
+                "weekGoal": {
+                  "stringValue": "Spécifique Trail : Seuil, Longue et D+ Intensif"
+                },
+                "sessions": {
+                  "arrayValue": {
+                    "values": [
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "intensity": {
+                              "stringValue": "Difficile"
+                            },
+                            "warmup": {
+                              "stringValue": "20 min EF (5:55 min/km)"
+                            },
+                            "elevationGain": {
+                              "integerValue": "0"
+                            },
+                            "distance": {
+                              "stringValue": "10.8 km"
+                            },
+                            "id": {
+                              "stringValue": "w5-s1-1775502304976-0nvaclc"
+                            },
+                            "title": {
+                              "stringValue": "Fractionné Seuil Long"
+                            },
+                            "day": {
+                              "stringValue": "Lundi"
+                            },
+                            "locationSuggestion": {
+                              "stringValue": "Voie Verte de Dinan à Evran (plat)"
+                            },
+                            "mainSet": {
+                              "stringValue": "2 x (15 min à allure Seuil (4:33 min/km) / 5 min EF (5:55 min/km) de récupération). Maintiens un effort régulier et contrôlé."
+                            },
+                            "type": {
+                              "stringValue": "Fractionné"
+                            },
+                            "targetPace": {
+                              "stringValue": "Seuil : 4:33 min/km"
+                            },
+                            "advice": {
+                              "stringValue": "Écoute toujours ton corps et n'hésite pas à réduire l'intensité ou à tu arrêter en cas de douleur ou de fatigue excessive."
+                            },
+                            "duration": {
+                              "stringValue": "1h 03 min"
+                            },
+                            "cooldown": {
+                              "stringValue": "10 min EF (5:55 min/km)"
+                            }
+                          }
+                        }
+                      },
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "targetPace": {
+                              "stringValue": "EF : 5:55 min/km"
+                            },
+                            "advice": {
+                              "stringValue": "Écoute toujours ton corps et n'hésite pas à réduire l'intensité ou à tu arrêter en cas de douleur ou de fatigue excessive."
+                            },
+                            "duration": {
+                              "stringValue": "2h 02 min"
+                            },
+                            "type": {
+                              "stringValue": "Sortie Longue"
+                            },
+                            "cooldown": {
+                              "stringValue": "10 min en EF (5:55 min/km)"
+                            },
+                            "elevationGain": {
+                              "integerValue": "660"
+                            },
+                            "warmup": {
+                              "stringValue": "20 min en EF (5:55 min/km)"
+                            },
+                            "intensity": {
+                              "stringValue": "Modéré"
+                            },
+                            "mainSet": {
+                              "stringValue": "1h45 en Endurance Fondamentale (5:55 min/km) sur sentiers très vallonnés et techniques. Inclure 3x (8 min d'ascension à allure Seuil (4:33 min/km) ou effort soutenu, suivi d'une descente technique rapide et contrôlée). Concentration sur la gestion de l'effort et la technique en descente."
+                            },
+                            "day": {
+                              "stringValue": "Mercredi"
+                            },
+                            "locationSuggestion": {
+                              "stringValue": "Forêt de Coëtquen (sentiers techniques et pentus)"
+                            },
+                            "id": {
+                              "stringValue": "w5-s2-1775502304976-b19wf4e"
+                            },
+                            "title": {
+                              "stringValue": "Sortie Longue Spécifique Trail 25km (D+ intensif)"
+                            },
+                            "distance": {
+                              "stringValue": "20.6 km"
+                            }
+                          }
+                        }
+                      },
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "locationSuggestion": {
+                              "stringValue": "Bords de Rance (chemin plat)"
+                            },
+                            "day": {
+                              "stringValue": "Jeudi"
+                            },
+                            "mainSet": {
+                              "stringValue": "1h 00 min en Endurance Fondamentale (5:55 min/km). Permet d'éliminer les toxines et de relancer la récupération."
+                            },
+                            "distance": {
+                              "stringValue": "9.1 km"
+                            },
+                            "title": {
+                              "stringValue": "Footing de Récupération Active"
+                            },
+                            "id": {
+                              "stringValue": "w5-s3-1775502304976-hjncr9p"
+                            },
+                            "elevationGain": {
+                              "integerValue": "0"
+                            },
+                            "intensity": {
+                              "stringValue": "Facile"
+                            },
+                            "warmup": {
+                              "stringValue": "Non nécessaire (à 6:36 min/km)"
+                            },
+                            "cooldown": {
+                              "stringValue": "Non nécessaire, la fin de séance est en EF (à 6:36 min/km)"
+                            },
+                            "targetPace": {
+                              "stringValue": "EF : 5:55 min/km"
+                            },
+                            "duration": {
+                              "stringValue": "54 min"
+                            },
+                            "advice": {
+                              "stringValue": "Écoute toujours ton corps et n'hésite pas à réduire l'intensité ou à tu arrêter en cas de douleur ou de fatigue excessive."
+                            },
+                            "type": {
+                              "stringValue": "Jogging"
+                            }
+                          }
+                        }
+                      },
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "id": {
+                              "stringValue": "w5-s4-1775502304976-2n35t4x"
+                            },
+                            "title": {
+                              "stringValue": "Travail de Côtes Longues & Descentes Techniques"
+                            },
+                            "distance": {
+                              "stringValue": "11.5 km"
+                            },
+                            "mainSet": {
+                              "stringValue": "4-5 x (4 min d'ascension en côteà effort soutenu (proche allure Seuil (4:33 min/km)) / Récup descente trottée de 2-3 min (6:36 min/km) + 2 min EF (5:55 min/km)). Terminer par 10 min EF (5:55 min/km) avec des gammes de foulée en descente."
+                            },
+                            "day": {
+                              "stringValue": "Samedi"
+                            },
+                            "locationSuggestion": {
+                              "stringValue": "Pentes de la Vallée de la Rance (montées exigeantes)"
+                            },
+                            "warmup": {
+                              "stringValue": "20 min EF (5:55 min/km)"
+                            },
+                            "intensity": {
+                              "stringValue": "Difficile"
+                            },
+                            "elevationGain": {
+                              "integerValue": "0"
+                            },
+                            "cooldown": {
+                              "stringValue": "10 min EF (5:55 min/km)"
+                            },
+                            "type": {
+                              "stringValue": "Fractionné"
+                            },
+                            "duration": {
+                              "stringValue": "1h 08 min"
+                            },
+                            "targetPace": {
+                              "stringValue": "Seuil : 4:33 min/km"
+                            },
+                            "advice": {
+                              "stringValue": "Écoute toujours ton corps et n'hésite pas à réduire l'intensité ou à tu arrêter en cas de douleur ou de fatigue excessive."
+                            }
+                          }
+                        }
+                      },
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "cooldown": {
+                              "stringValue": "5 min d'étirements : quadriceps, ischio-jambiers, mollets, hanches"
+                            },
+                            "duration": {
+                              "stringValue": "40-45 min"
+                            },
+                            "advice": {
+                              "stringValue": "Écoute toujours ton corps et n'hésite pas à réduire l'intensité ou à tu arrêter en cas de douleur ou de fatigue excessive."
+                            },
+                            "targetPace": {
+                              "stringValue": "N/A"
+                            },
+                            "type": {
+                              "stringValue": "Renforcement"
+                            },
+                            "mainSet": {
+                              "stringValue": "Circuit 4 tours : Step-up sur marche (3x14/jambe), Chaise murale (3x43-45s), Squats poids de corps (3x21), Gainage ventral (3x43-60s), Dead bug (3x14/cote), Extensions mollets debout (3x29), Squat excentrique (descente 4s) (3x14), Step-down excentrique (3x11/jambe), Sauts directionnels multi-axes (3x11), Mollets assis soleaire (3x21). Repos 1 min entre tours."
+                            },
+                            "day": {
+                              "stringValue": "Dimanche"
+                            },
+                            "locationSuggestion": {
+                              "stringValue": "À la maison"
+                            },
+                            "id": {
+                              "stringValue": "w5-s5-1775502304976-uyyef1l"
+                            },
+                            "title": {
+                              "stringValue": "Renfo Trail Focus A - Quadriceps & Excentrique (S5)"
+                            },
+                            "distance": {
+                              "stringValue": "0km"
+                            },
+                            "elevationGain": {
+                              "integerValue": "0"
+                            },
+                            "warmup": {
+                              "stringValue": "10 min de mobilité articulaire et échauffement dynamique"
+                            },
+                            "intensity": {
+                              "stringValue": "Modéré"
+                            }
+                          }
+                        }
+                      }
+                    ]
+                  }
+                },
+                "isRecoveryWeek": {
+                  "booleanValue": false
+                },
+                "theme": {
+                  "stringValue": "Spécifique Trail : Seuil, Longue et D+ Intensif"
+                },
+                "weekNumber": {
+                  "integerValue": "5"
+                }
+              }
+            }
+          },
+          {
+            "mapValue": {
+              "fields": {
+                "phase": {
+                  "stringValue": "affutage"
+                },
+                "sessions": {
+                  "arrayValue": {
+                    "values": [
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "warmup": {
+                              "stringValue": "20min EF"
+                            },
+                            "intensity": {
+                              "stringValue": "Difficile"
+                            },
+                            "type": {
+                              "stringValue": "Fractionné"
+                            },
+                            "duration": {
+                              "stringValue": "45 min"
+                            },
+                            "targetPace": {
+                              "stringValue": "VMA"
+                            },
+                            "advice": {
+                              "stringValue": "Bien s'échauffer avant la séance."
+                            },
+                            "elevationGain": {
+                              "integerValue": "0"
+                            },
+                            "title": {
+                              "stringValue": "VMA Court"
+                            },
+                            "id": {
+                              "stringValue": "w6-s1-fix-1775502342404-lah5rxs"
+                            },
+                            "cooldown": {
+                              "stringValue": "10min EF"
+                            },
+                            "mainSet": {
+                              "stringValue": "6 x (30sec VMA / 30sec Récup). Récupération 3min EF. 4 x (30sec VMA / 30sec Récup)"
+                            },
+                            "day": {
+                              "stringValue": "Lundi"
+                            }
+                          }
+                        }
+                      },
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "cooldown": {
+                              "stringValue": "10min EF"
+                            },
+                            "advice": {
+                              "stringValue": "Privilégier le terrain souple."
+                            },
+                            "duration": {
+                              "stringValue": "2h 15 min"
+                            },
+                            "targetPace": {
+                              "stringValue": "EF"
+                            },
+                            "type": {
+                              "stringValue": "Sortie Longue"
+                            },
+                            "mainSet": {
+                              "stringValue": "1h10 EF sur terrain varié (chemins, sentiers)"
+                            },
+                            "day": {
+                              "stringValue": "Mercredi"
+                            },
+                            "title": {
+                              "stringValue": "Sortie Nature"
+                            },
+                            "id": {
+                              "stringValue": "w6-s2-fix-1775502342404-k76v5v5"
+                            },
+                            "distance": {
+                              "stringValue": "18 km"
+                            },
+                            "elevationGain": {
+                              "integerValue": "100"
+                            },
+                            "warmup": {
+                              "stringValue": "10min EF"
+                            },
+                            "intensity": {
+                              "stringValue": "Facile"
+                            }
+                          }
+                        }
+                      },
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "id": {
+                              "stringValue": "w6-s3-fix-1775502342404-4lv0a0c"
+                            },
+                            "title": {
+                              "stringValue": "Récupération active"
+                            },
+                            "distance": {
+                              "stringValue": "8.5 km"
+                            },
+                            "mainSet": {
+                              "stringValue": "10min EF"
+                            },
+                            "day": {
+                              "stringValue": "Jeudi"
+                            },
+                            "warmup": {
+                              "stringValue": "10min EF"
+                            },
+                            "intensity": {
+                              "stringValue": "Facile"
+                            },
+                            "elevationGain": {
+                              "integerValue": "0"
+                            },
+                            "cooldown": {
+                              "stringValue": "10min EF"
+                            },
+                            "type": {
+                              "stringValue": "Jogging"
+                            },
+                            "targetPace": {
+                              "stringValue": "EF"
+                            },
+                            "duration": {
+                              "stringValue": "51 min"
+                            },
+                            "advice": {
+                              "stringValue": "Profiter de la nature."
+                            }
+                          }
+                        }
+                      },
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "intensity": {
+                              "stringValue": "Facile"
+                            },
+                            "warmup": {
+                              "stringValue": "10min EF"
+                            },
+                            "elevationGain": {
+                              "integerValue": "0"
+                            },
+                            "distance": {
+                              "stringValue": "6.5 km"
+                            },
+                            "title": {
+                              "stringValue": "Sortie Cool"
+                            },
+                            "id": {
+                              "stringValue": "w6-s4-fix-1775502342404-x0kyssh"
+                            },
+                            "day": {
+                              "stringValue": "Samedi"
+                            },
+                            "mainSet": {
+                              "stringValue": "10min EF"
+                            },
+                            "type": {
+                              "stringValue": "Jogging"
+                            },
+                            "targetPace": {
+                              "stringValue": "EF"
+                            },
+                            "duration": {
+                              "stringValue": "39 min"
+                            },
+                            "advice": {
+                              "stringValue": "Courir relâché."
+                            },
+                            "cooldown": {
+                              "stringValue": "10min EF"
+                            }
+                          }
+                        }
+                      },
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "day": {
+                              "stringValue": "Dimanche"
+                            },
+                            "mainSet": {
+                              "stringValue": "2 séries de : 15 squats, 10 fentes avant par jambe, 15 montées sur banc, 30 sec de chaise, 10 pompes. Récupération 1min entre chaque série."
+                            },
+                            "cooldown": {
+                              "stringValue": "5 min étirements"
+                            },
+                            "title": {
+                              "stringValue": "Renforcement Trail"
+                            },
+                            "id": {
+                              "stringValue": "w6-s5-fix-1775502342404-hxseeq3"
+                            },
+                            "duration": {
+                              "stringValue": "30 min"
+                            },
+                            "advice": {
+                              "stringValue": "Bien s'hydrater."
+                            },
+                            "elevationGain": {
+                              "integerValue": "0"
+                            },
+                            "intensity": {
+                              "stringValue": "Modéré"
+                            },
+                            "type": {
+                              "stringValue": "Renforcement"
+                            },
+                            "warmup": {
+                              "stringValue": "5 min marche rapide"
+                            }
+                          }
+                        }
+                      }
+                    ]
+                  }
+                },
+                "theme": {
+                  "stringValue": "affutage"
+                },
+                "isRecoveryWeek": {
+                  "booleanValue": false
+                },
+                "weekNumber": {
+                  "integerValue": "6"
+                }
+              }
+            }
+          }
+        ]
+      }
+    },
+    "welcomeMessage": {
+      "stringValue": "Bienvenue dans ton programme d'entraînement de 6 semaines pour le Trail de 25km avec 750m D+, avec un objectif de 2h30 ! Ce plan est structuré pour te préparer spécifiquement aux exigences du trail, en consolidant ta base aérobie et en développant tes capacités spécifiques au fil des phases. La première phase 'fondamentale' est dédiée à la construction de l'endurance, essentielle après ta préparation marathon. Nous te recommandons de consulter un médecin avant de débuter ce programme, notamment pour obtenir un certificat médical d'aptitude au sport."
+    },
+    "generationContext": {
+      "mapValue": {
+        "fields": {
+          "generatedAt": {
+            "stringValue": "2026-04-06T17:50:39.228Z"
+          },
+          "questionnaireSnapshot": {
+            "mapValue": {
+              "fields": {
+                "trailDetails": {
+                  "mapValue": {
+                    "fields": {
+                      "elevation": {
+                        "integerValue": "750"
+                      },
+                      "distance": {
+                        "integerValue": "25"
+                      }
+                    }
+                  }
+                },
+                "frequency": {
+                  "integerValue": "5"
+                },
+                "email": {
+                  "stringValue": "annesophie.perret1982@gmail.com"
+                },
+                "height": {
+                  "integerValue": "170"
+                },
+                "weight": {
+                  "integerValue": "60"
+                },
+                "raceDate": {
+                  "stringValue": "2026-06-21"
+                },
+                "sex": {
+                  "stringValue": "Femme"
+                },
+                "injuries": {
+                  "mapValue": {
+                    "fields": {
+                      "hasInjury": {
+                        "booleanValue": false
+                      }
+                    }
+                  }
+                },
+                "vma": {
+                  "doubleValue": 15.151515151515152
+                },
+                "level": {
+                  "stringValue": "Expert (Performance)"
+                },
+                "comments": {
+                  "stringValue": "Je préfère le fractionné le lundi, la séance EF le jeudi le séance longue le mercredi et samedi séance spécifique \nJe sors d'une préparation marathon qui a lieu le 25 avril "
+                },
+                "city": {
+                  "stringValue": "Dinan "
+                },
+                "goal": {
+                  "stringValue": "Trail"
+                },
+                "preferredDays": {
+                  "arrayValue": {
+                    "values": [
+                      {
+                        "stringValue": "Lundi"
+                      },
+                      {
+                        "stringValue": "Mercredi"
+                      },
+                      {
+                        "stringValue": "Jeudi"
+                      },
+                      {
+                        "stringValue": "Samedi"
+                      },
+                      {
+                        "stringValue": "Dimanche"
+                      }
+                    ]
+                  }
+                },
+                "preferredLongRunDay": {
+                  "stringValue": "Mercredi"
+                },
+                "recentRaceTimes": {
+                  "mapValue": {
+                    "fields": {
+                      "distance10km": {
+                        "stringValue": "44min"
+                      }
+                    }
+                  }
+                },
+                "startDate": {
+                  "stringValue": "2026-05-11"
+                },
+                "age": {
+                  "integerValue": "44"
+                },
+                "currentWeeklyElevation": {
+                  "integerValue": "300"
+                },
+                "currentWeeklyVolume": {
+                  "integerValue": "48"
+                },
+                "targetTime": {
+                  "stringValue": "2h30"
+                }
+              }
+            }
+          },
+          "vma": {
+            "doubleValue": 15.151515151515152
+          },
+          "vmaSource": {
+            "stringValue": "10km en 44min"
+          },
+          "modelUsed": {
+            "stringValue": "gemini-2.5-flash"
+          },
+          "periodizationPlan": {
+            "mapValue": {
+              "fields": {
+                "weeklyPhases": {
+                  "arrayValue": {
+                    "values": [
+                      {
+                        "stringValue": "fondamental"
+                      },
+                      {
+                        "stringValue": "developpement"
+                      },
+                      {
+                        "stringValue": "developpement"
+                      },
+                      {
+                        "stringValue": "recuperation"
+                      },
+                      {
+                        "stringValue": "specifique"
+                      },
+                      {
+                        "stringValue": "affutage"
+                      }
+                    ]
+                  }
+                },
+                "weeklyVolumes": {
+                  "arrayValue": {
+                    "values": [
+                      {
+                        "integerValue": "42"
+                      },
+                      {
+                        "integerValue": "47"
+                      },
+                      {
+                        "integerValue": "53"
+                      },
+                      {
+                        "integerValue": "40"
+                      },
+                      {
+                        "integerValue": "53"
+                      },
+                      {
+                        "integerValue": "33"
+                      }
+                    ]
+                  }
+                },
+                "recoveryWeeks": {
+                  "arrayValue": {
+                    "values": [
+                      {
+                        "integerValue": "4"
+                      }
+                    ]
+                  }
+                },
+                "totalWeeks": {
+                  "integerValue": "6"
+                }
+              }
+            }
+          },
+          "paces": {
+            "mapValue": {
+              "fields": {
+                "allureSpecifiqueSemi": {
+                  "stringValue": "4:40"
+                },
+                "allureSpecifique5k": {
+                  "stringValue": "4:10"
+                },
+                "allureSpecifiqueMarathon": {
+                  "stringValue": "4:57"
+                },
+                "seuilPace": {
+                  "stringValue": "4:33"
+                },
+                "efPace": {
+                  "stringValue": "5:55"
+                },
+                "recoveryPace": {
+                  "stringValue": "6:36"
+                },
+                "eaPace": {
+                  "stringValue": "5:09"
+                },
+                "vmaPace": {
+                  "stringValue": "3:58"
+                },
+                "allureSpecifique10k": {
+                  "stringValue": "4:24"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "isPreview": {
+      "booleanValue": false
+    },
+    "vma": {
+      "doubleValue": 15.151515151515152
+    },
+    "endDate": {
+      "stringValue": "2026-06-22"
+    },
+    "goal": {
+      "stringValue": "Trail"
+    },
+    "name": {
+      "stringValue": "Préparation Trail 25km / 750m D+ en 2h30 — 6 sem."
+    },
+    "durationWeeks": {
+      "integerValue": "6"
+    },
+    "sessionsPerWeek": {
+      "integerValue": "5"
+    },
+    "createdAt": {
+      "stringValue": "2026-04-06T17:51:13.913Z"
+    }
+  },
+  "createTime": "2026-04-06T17:51:26.602755Z",
+  "updateTime": "2026-04-06T19:06:00.820921Z"
+}

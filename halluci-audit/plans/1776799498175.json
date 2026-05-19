@@ -1,0 +1,2164 @@
+{
+  "name": "projects/coach-running-ia/databases/(default)/documents/plans/1776799498175",
+  "fields": {
+    "sessionsPerWeek": {
+      "integerValue": "3"
+    },
+    "location": {
+      "stringValue": "Brix"
+    },
+    "startDate": {
+      "stringValue": "2026-04-20"
+    },
+    "name": {
+      "stringValue": "Préparation Trail 10km / 250m D+ en 1h00 — 10 sem."
+    },
+    "fullPlanGenerated": {
+      "booleanValue": true
+    },
+    "suggestedLocations": {
+      "arrayValue": {
+        "values": [
+          {
+            "mapValue": {
+              "fields": {
+                "description": {
+                  "stringValue": "Idéal pour les sorties longues et les footings vallonnés avec du dénivelé doux, parfait pour la préparation trail."
+                },
+                "type": {
+                  "stringValue": "NATURE"
+                },
+                "name": {
+                  "stringValue": "Forêt de Brix - Circuit des Landes"
+                }
+              }
+            }
+          },
+          {
+            "mapValue": {
+              "fields": {
+                "name": {
+                  "stringValue": "Chemins de campagne de Brix"
+                },
+                "type": {
+                  "stringValue": "NATURE"
+                },
+                "description": {
+                  "stringValue": "Pour les footings en endurance fondamentale, offrant des parcours plats à légèrement vallonnés sur chemins."
+                }
+              }
+            }
+          }
+        ]
+      }
+    },
+    "targetTime": {
+      "stringValue": "1h00"
+    },
+    "confidenceScore": {
+      "integerValue": "65"
+    },
+    "adaptationLog": {
+      "mapValue": {
+        "fields": {
+          "weekNumber": {
+            "integerValue": "0"
+          },
+          "adaptationsThisWeek": {
+            "integerValue": "0"
+          },
+          "adaptationHistory": {
+            "arrayValue": {}
+          }
+        }
+      }
+    },
+    "id": {
+      "stringValue": "1776799498175"
+    },
+    "generationContext": {
+      "mapValue": {
+        "fields": {
+          "vmaSource": {
+            "stringValue": "Ajustée manuellement : 13.5 → 12.5 km/h"
+          },
+          "paces": {
+            "mapValue": {
+              "fields": {
+                "eaPace": {
+                  "stringValue": "6:14"
+                },
+                "seuilPace": {
+                  "stringValue": "5:31"
+                },
+                "allureSpecifiqueMarathon": {
+                  "stringValue": "6:00"
+                },
+                "allureSpecifique10k": {
+                  "stringValue": "5:20"
+                },
+                "allureSpecifiqueSemi": {
+                  "stringValue": "5:39"
+                },
+                "vmaKmh": {
+                  "stringValue": "12.5"
+                },
+                "vmaPace": {
+                  "stringValue": "4:48"
+                },
+                "recoveryPace": {
+                  "stringValue": "8:00"
+                },
+                "efPace": {
+                  "stringValue": "7:10"
+                },
+                "allureSpecifique5k": {
+                  "stringValue": "5:03"
+                },
+                "vma": {
+                  "doubleValue": 12.5
+                }
+              }
+            }
+          },
+          "modelUsed": {
+            "stringValue": "gemini-2.5-flash"
+          },
+          "questionnaireSnapshot": {
+            "mapValue": {
+              "fields": {
+                "preferredDays": {
+                  "arrayValue": {
+                    "values": [
+                      {
+                        "stringValue": "Lundi"
+                      },
+                      {
+                        "stringValue": "Mercredi"
+                      },
+                      {
+                        "stringValue": "Dimanche"
+                      }
+                    ]
+                  }
+                },
+                "raceDate": {
+                  "stringValue": "2026-06-30"
+                },
+                "frequency": {
+                  "integerValue": "3"
+                },
+                "startDate": {
+                  "stringValue": "2026-04-22"
+                },
+                "targetTime": {
+                  "stringValue": "1h00"
+                },
+                "weight": {
+                  "integerValue": "58"
+                },
+                "vma": {
+                  "doubleValue": 12.5
+                },
+                "currentWeeklyVolume": {
+                  "integerValue": "8"
+                },
+                "height": {
+                  "integerValue": "165"
+                },
+                "age": {
+                  "integerValue": "18"
+                },
+                "email": {
+                  "stringValue": "c.lecarpentier175@gmail.com"
+                },
+                "goal": {
+                  "stringValue": "Trail"
+                },
+                "sex": {
+                  "stringValue": "Femme"
+                },
+                "currentWeeklyElevation": {
+                  "integerValue": "150"
+                },
+                "injuries": {
+                  "mapValue": {
+                    "fields": {
+                      "hasInjury": {
+                        "booleanValue": false
+                      }
+                    }
+                  }
+                },
+                "city": {
+                  "stringValue": "Brix"
+                },
+                "level": {
+                  "stringValue": "Intermédiaire (Régulier)"
+                },
+                "trailDetails": {
+                  "mapValue": {
+                    "fields": {
+                      "distance": {
+                        "integerValue": "10"
+                      },
+                      "elevation": {
+                        "integerValue": "250"
+                      }
+                    }
+                  }
+                },
+                "comments": {
+                  "stringValue": "en semaine je préfere courir le soir et le dimanche le matin"
+                },
+                "recentRaceTimes": {
+                  "mapValue": {}
+                }
+              }
+            }
+          },
+          "vma": {
+            "doubleValue": 12.5
+          },
+          "generatedAt": {
+            "stringValue": "2026-04-21T19:24:31.786Z"
+          },
+          "periodizationPlan": {
+            "mapValue": {
+              "fields": {
+                "weeklyPhases": {
+                  "arrayValue": {
+                    "values": [
+                      {
+                        "stringValue": "fondamental"
+                      },
+                      {
+                        "stringValue": "fondamental"
+                      },
+                      {
+                        "stringValue": "fondamental"
+                      },
+                      {
+                        "stringValue": "recuperation"
+                      },
+                      {
+                        "stringValue": "developpement"
+                      },
+                      {
+                        "stringValue": "developpement"
+                      },
+                      {
+                        "stringValue": "specifique"
+                      },
+                      {
+                        "stringValue": "recuperation"
+                      },
+                      {
+                        "stringValue": "specifique"
+                      },
+                      {
+                        "stringValue": "affutage"
+                      }
+                    ]
+                  }
+                },
+                "totalWeeks": {
+                  "integerValue": "10"
+                },
+                "weeklyVolumes": {
+                  "arrayValue": {
+                    "values": [
+                      {
+                        "integerValue": "15"
+                      },
+                      {
+                        "integerValue": "16"
+                      },
+                      {
+                        "integerValue": "17"
+                      },
+                      {
+                        "integerValue": "12"
+                      },
+                      {
+                        "integerValue": "17"
+                      },
+                      {
+                        "integerValue": "20"
+                      },
+                      {
+                        "integerValue": "22"
+                      },
+                      {
+                        "integerValue": "15"
+                      },
+                      {
+                        "integerValue": "22"
+                      },
+                      {
+                        "integerValue": "13"
+                      }
+                    ]
+                  }
+                },
+                "recoveryWeeks": {
+                  "arrayValue": {
+                    "values": [
+                      {
+                        "integerValue": "4"
+                      },
+                      {
+                        "integerValue": "8"
+                      }
+                    ]
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "endDate": {
+      "stringValue": "2026-06-29"
+    },
+    "goal": {
+      "stringValue": "Trail"
+    },
+    "paces": {
+      "mapValue": {
+        "fields": {
+          "allureSpecifique5k": {
+            "stringValue": "5:03"
+          },
+          "vma": {
+            "doubleValue": 12.5
+          },
+          "recoveryPace": {
+            "stringValue": "8:00"
+          },
+          "efPace": {
+            "stringValue": "7:10"
+          },
+          "vmaPace": {
+            "stringValue": "4:48"
+          },
+          "allureSpecifiqueSemi": {
+            "stringValue": "5:39"
+          },
+          "vmaKmh": {
+            "stringValue": "12.5"
+          },
+          "allureSpecifiqueMarathon": {
+            "stringValue": "6:00"
+          },
+          "allureSpecifique10k": {
+            "stringValue": "5:20"
+          },
+          "eaPace": {
+            "stringValue": "6:14"
+          },
+          "seuilPace": {
+            "stringValue": "5:31"
+          }
+        }
+      }
+    },
+    "raceDate": {
+      "stringValue": "2026-06-30"
+    },
+    "createdAt": {
+      "stringValue": "2026-04-21T19:24:58.175Z"
+    },
+    "durationWeeks": {
+      "integerValue": "10"
+    },
+    "guardStats": {
+      "mapValue": {
+        "fields": {
+          "slDurationCapped": {
+            "integerValue": "0"
+          },
+          "dplusRedistributed": {
+            "integerValue": "0"
+          },
+          "volumeScaledDown": {
+            "integerValue": "0"
+          },
+          "volumeScaledUp": {
+            "integerValue": "0"
+          },
+          "hardSessionsDowngraded": {
+            "integerValue": "0"
+          },
+          "sessionKmCapped": {
+            "integerValue": "0"
+          },
+          "postValidatorFixes": {
+            "integerValue": "0"
+          },
+          "progressionSmoothed": {
+            "integerValue": "0"
+          },
+          "affutageCorrected": {
+            "integerValue": "0"
+          }
+        }
+      }
+    },
+    "userId": {
+      "stringValue": "hdxeoGzcTHPIsy6EVLWMxnHklXi1"
+    },
+    "welcomeMessage": {
+      "stringValue": "Bienvenue dans ton plan d'entraînement Trail de 10 semaines, Expert Running ! Cet objectif de 1h00 sur 10km avec 250m D+ est ambitieux et stimulant. Ce programme a été structuré pour développer progressivement ton endurance, **ta force** et **ta spécificité** trail, en respectant ton rythme de 3 séances par semaine. Nous allons démarrer par une phase fondamentale solide pour construire les bases nécessaires. Chaque semaine est pensée pour te faire progresser tout en intégrant des séances de renforcement cruciales pour le trail. Nous te recommandons de consulter un médecin avant de débuter ce programme, notamment pour obtenir un certificat médical d'aptitude au sport."
+    },
+    "vma": {
+      "doubleValue": 12.5
+    },
+    "userEmail": {
+      "stringValue": "c.lecarpentier175@gmail.com"
+    },
+    "feasibility": {
+      "mapValue": {
+        "fields": {
+          "recommendation": {
+            "stringValue": "un temps cible de 1h09min"
+          },
+          "status": {
+            "stringValue": "AMBITIEUX"
+          },
+          "message": {
+            "stringValue": "Avec ta VMA de 13.5 km/h, ton temps théorique sur 10km avec 250m D+ est d'environ 1h05min. Viser 1h00min demande une VMA d'environ 14.7 km/h. C'est un écart significatif par rapport à ton niveau actuel. Ce plan te fera progresser, mais un objectif autour de 1h05min serait plus réaliste pour cette préparation. Note : ta VMA est estimée (pas de chrono de référence), l'évaluation comporte donc une marge d'incertitude. Note : ton volume actuel (8 km/sem) est en dessous du minimum pour ton niveau (15 km/sem). Le plan démarrera légèrement au-dessus pour garantir une progression cohérente. Cette évaluation repose sur une VMA estimée (13.5 km/h) et non sur un chrono validé. Il faudra ajuster le plan au fil des séances selon ton ressenti, ou régénérer un plan en renseignant un chrono de référence (5km, 10km, semi) pour des allures plus précises."
+          },
+          "safetyWarning": {
+            "stringValue": "Écoute ton corps à chaque séance. Si tu ressens des douleurs inhabituelles, n'hésite pas à adapter ou sauter une séance."
+          }
+        }
+      }
+    },
+    "distance": {
+      "stringValue": "10km D+250m"
+    },
+    "isPreview": {
+      "booleanValue": false
+    },
+    "calculatedVMA": {
+      "doubleValue": 13.5
+    },
+    "weeks": {
+      "arrayValue": {
+        "values": [
+          {
+            "mapValue": {
+              "fields": {
+                "weekNumber": {
+                  "integerValue": "1"
+                },
+                "theme": {
+                  "stringValue": "Phase de construction : Endurance fondamentale et adaptation au volume"
+                },
+                "weekGoal": {
+                  "stringValue": "Phase de construction : Endurance fondamentale et adaptation au volume"
+                },
+                "sessions": {
+                  "arrayValue": {
+                    "values": [
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "mainSet": {
+                              "stringValue": "30 min de course en endurance fondamentale (6:38 min/km) sur terrain plat ou légèrement vallonné, en maintenant une conversation facile."
+                            },
+                            "locationSuggestion": {
+                              "stringValue": "Chemins de campagne de Brix"
+                            },
+                            "warmup": {
+                              "stringValue": "10 min d'échauffement en endurance fondamentale (6:38 min/km)"
+                            },
+                            "id": {
+                              "stringValue": "w1-s1-1776799498175-8c7qvsr"
+                            },
+                            "distance": {
+                              "stringValue": "6.8 km"
+                            },
+                            "day": {
+                              "stringValue": "Lundi"
+                            },
+                            "elevationGain": {
+                              "integerValue": "0"
+                            },
+                            "cooldown": {
+                              "stringValue": "5 min de retour au calme en marchant ou en endurance fondamentale légère (7:24 min/km)"
+                            },
+                            "title": {
+                              "stringValue": "Footing en aisance respiratoire"
+                            },
+                            "targetPace": {
+                              "stringValue": "6:38 min/km"
+                            },
+                            "type": {
+                              "stringValue": "Jogging"
+                            },
+                            "advice": {
+                              "stringValue": "Concentre-toi sur ta respiration, elle doit être facile et régulière. N'hésite pas à marcher quelques secondes si le besoin s'en fait sentir. Écoute ton corps et ne force pas en cas de douleur."
+                            },
+                            "duration": {
+                              "stringValue": "45 min"
+                            },
+                            "intensity": {
+                              "stringValue": "Facile"
+                            }
+                          }
+                        }
+                      },
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "cooldown": {
+                              "stringValue": "5 min d'étirements : quadriceps, ischio-jambiers, mollets, hanches"
+                            },
+                            "elevationGain": {
+                              "integerValue": "0"
+                            },
+                            "distance": {
+                              "stringValue": "0 km"
+                            },
+                            "day": {
+                              "stringValue": "Mercredi"
+                            },
+                            "warmup": {
+                              "stringValue": "10 min de mobilité articulaire et échauffement dynamique"
+                            },
+                            "locationSuggestion": {
+                              "stringValue": "À la maison"
+                            },
+                            "id": {
+                              "stringValue": "w1-s2-1776799498176-7xiq38l"
+                            },
+                            "mainSet": {
+                              "stringValue": "Circuit 3 tours : Squats poids de corps (3x14), Squat bulgare (3x9/jambe), Fentes avant (3x9/jambe), Gainage ventral (3x27-60s), Dead bug (3x9/**côté**), Extensions mollets debout (3x18), Squat excentrique (descente 4s) (3x9), Step-down excentrique (3x7/jambe), Mollets debout unipodal (3x11/jambe). Repos 1 min 30 entre tours."
+                            },
+                            "intensity": {
+                              "stringValue": "Modéré"
+                            },
+                            "duration": {
+                              "stringValue": "35-40 min"
+                            },
+                            "advice": {
+                              "stringValue": "Le renforcement est essentiel pour prévenir les blessures et améliorer ton efficacité en trail. Réalise les exercices avec une bonne posture et contrôle tes mouvements. Écoute ton corps et ne force pas en cas de douleur."
+                            },
+                            "type": {
+                              "stringValue": "Renforcement"
+                            },
+                            "title": {
+                              "stringValue": "Renfo Trail Focus A - Quadriceps & Excentrique (S1)"
+                            }
+                          }
+                        }
+                      },
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "distance": {
+                              "stringValue": "8.2 km"
+                            },
+                            "day": {
+                              "stringValue": "Dimanche"
+                            },
+                            "id": {
+                              "stringValue": "w1-s3-1776799498176-wttk2rc"
+                            },
+                            "locationSuggestion": {
+                              "stringValue": "Forêt de Brix - Circuit des Landes"
+                            },
+                            "warmup": {
+                              "stringValue": "10 min d'échauffement en endurance fondamentale (6:38 min/km) sur terrain plat."
+                            },
+                            "mainSet": {
+                              "stringValue": "40 min de course en endurance fondamentale (6:38 min/km) sur des sentiers naturels vallonnés, en intégrant progressivement le dénivelé. Maintiens une aisance respiratoire constante."
+                            },
+                            "cooldown": {
+                              "stringValue": "5 min de retour au calme en marchant ou en endurance fondamentale légère (7:24 min/km)."
+                            },
+                            "elevationGain": {
+                              "integerValue": "150"
+                            },
+                            "advice": {
+                              "stringValue": "Cette sortie vise à **te familiariser** avec le terrain vallonné et à développer ton endurance spécifique au trail. Marche dans les montées raides si nécessaire pour maintenir **ta fréquence** cardiaque basse. Écoute ton corps et ne force pas en cas de douleur."
+                            },
+                            "targetPace": {
+                              "stringValue": "6:38 min/km"
+                            },
+                            "type": {
+                              "stringValue": "Sortie Longue"
+                            },
+                            "title": {
+                              "stringValue": "Sortie longue nature vallonnée"
+                            },
+                            "intensity": {
+                              "stringValue": "Facile"
+                            },
+                            "duration": {
+                              "stringValue": "55 min"
+                            }
+                          }
+                        }
+                      }
+                    ]
+                  }
+                },
+                "phase": {
+                  "stringValue": "fondamental"
+                }
+              }
+            }
+          },
+          {
+            "mapValue": {
+              "fields": {
+                "isRecoveryWeek": {
+                  "booleanValue": false
+                },
+                "phase": {
+                  "stringValue": "fondamental"
+                },
+                "sessions": {
+                  "arrayValue": {
+                    "values": [
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "cooldown": {
+                              "stringValue": "5 min de marche et étirements doux. (à 8:00 min/km)"
+                            },
+                            "elevationGain": {
+                              "integerValue": "0"
+                            },
+                            "distance": {
+                              "stringValue": "6.3 km"
+                            },
+                            "day": {
+                              "stringValue": "Lundi"
+                            },
+                            "id": {
+                              "stringValue": "w2-s1-1776799829055-ac3t23a"
+                            },
+                            "locationSuggestion": {
+                              "stringValue": "Forêt de Brix, sentiers faciles"
+                            },
+                            "warmup": {
+                              "stringValue": "10 min en EF (7:10 min/km) en terrain plat."
+                            },
+                            "mainSet": {
+                              "stringValue": "30 min en EF (7:10 min/km) sur un parcours légèrement vallonné, en maintenant une aisance respiratoire."
+                            },
+                            "intensity": {
+                              "stringValue": "Facile"
+                            },
+                            "duration": {
+                              "stringValue": "45 min"
+                            },
+                            "advice": {
+                              "stringValue": "Écoute ton corps et adapte l'allure. Ne force pas en cas de douleur."
+                            },
+                            "targetPace": {
+                              "stringValue": "7:10 min/km"
+                            },
+                            "type": {
+                              "stringValue": "Jogging"
+                            },
+                            "title": {
+                              "stringValue": "Footing en aisance respiratoire vallonnée"
+                            }
+                          }
+                        }
+                      },
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "cooldown": {
+                              "stringValue": "5 min d'étirements : quadriceps, ischio-jambiers, mollets, hanches"
+                            },
+                            "elevationGain": {
+                              "integerValue": "0"
+                            },
+                            "distance": {
+                              "stringValue": "0 km"
+                            },
+                            "day": {
+                              "stringValue": "Mercredi"
+                            },
+                            "locationSuggestion": {
+                              "stringValue": "À la maison"
+                            },
+                            "warmup": {
+                              "stringValue": "10 min de mobilité articulaire et échauffement dynamique"
+                            },
+                            "id": {
+                              "stringValue": "w2-s2-1776799829055-3wysr6z"
+                            },
+                            "mainSet": {
+                              "stringValue": "Circuit 3 tours : Pont unipodal (3x9/jambe), Clamshell avec elastique (3x14/cote), Marche laterale avec elastique (3x9 pas/cote), Bird-dog (3x9/cote), Gainage lateral (3x18-30s/cote), Marche sur talons (2x18m), Equilibre sur coussin instable (3x27s/pied), Sauts directionnels (3x7), Russian twist (3x14/cote), Mollets assis soleaire (3x14). Repos 1 min 30 entre tours."
+                            },
+                            "intensity": {
+                              "stringValue": "Modéré"
+                            },
+                            "duration": {
+                              "stringValue": "35-40 min"
+                            },
+                            "advice": {
+                              "stringValue": "Concentre-toi sur la qualité du mouvement. Stoppe l'exercice en cas de douleur."
+                            },
+                            "type": {
+                              "stringValue": "Renforcement"
+                            },
+                            "targetPace": {
+                              "stringValue": "N/A"
+                            },
+                            "title": {
+                              "stringValue": "Renfo Trail Focus B - Hanches & Proprioception (S2)"
+                            }
+                          }
+                        }
+                      },
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "cooldown": {
+                              "stringValue": "10 min en EF (7:10 min/km) puis étirements."
+                            },
+                            "elevationGain": {
+                              "integerValue": "161"
+                            },
+                            "day": {
+                              "stringValue": "Dimanche"
+                            },
+                            "distance": {
+                              "stringValue": "9.1 km"
+                            },
+                            "locationSuggestion": {
+                              "stringValue": "Sentiers autour de Brix (ex: Hameau Lecaudey)"
+                            },
+                            "warmup": {
+                              "stringValue": "10 min en EF (7:10 min/km)."
+                            },
+                            "id": {
+                              "stringValue": "w2-s3-1776799829055-vglsdj9"
+                            },
+                            "mainSet": {
+                              "stringValue": "45 min en EF (7:10 min/km) sur sentiers naturels vallonnés, en augmentant progressivement le D+ sur la deuxième moitié."
+                            },
+                            "intensity": {
+                              "stringValue": "Modéré"
+                            },
+                            "duration": {
+                              "stringValue": "65 min"
+                            },
+                            "advice": {
+                              "stringValue": "Hydrate-toi bien avant et pendant ta sortie. Écoute ton corps et ajuste l'intensité."
+                            },
+                            "targetPace": {
+                              "stringValue": "7:10 min/km"
+                            },
+                            "type": {
+                              "stringValue": "Sortie Longue"
+                            },
+                            "title": {
+                              "stringValue": "Sortie longue nature vallonnée"
+                            }
+                          }
+                        }
+                      }
+                    ]
+                  }
+                },
+                "weekGoal": {
+                  "stringValue": "Introduction aux bases du trail et renforcement"
+                },
+                "weekNumber": {
+                  "integerValue": "2"
+                },
+                "theme": {
+                  "stringValue": "Introduction aux bases du trail et renforcement"
+                }
+              }
+            }
+          },
+          {
+            "mapValue": {
+              "fields": {
+                "weekGoal": {
+                  "stringValue": "Volume et technique de course sur sentiers"
+                },
+                "theme": {
+                  "stringValue": "Volume et technique de course sur sentiers"
+                },
+                "weekNumber": {
+                  "integerValue": "3"
+                },
+                "phase": {
+                  "stringValue": "fondamental"
+                },
+                "isRecoveryWeek": {
+                  "booleanValue": false
+                },
+                "sessions": {
+                  "arrayValue": {
+                    "values": [
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "mainSet": {
+                              "stringValue": "33 min en EF (7:10 min/km) sur des sentiers variés pour travailler la pose de pied et l'agilité."
+                            },
+                            "distance": {
+                              "stringValue": "6.7 km"
+                            },
+                            "day": {
+                              "stringValue": "Lundi"
+                            },
+                            "id": {
+                              "stringValue": "w3-s1-1776799829055-yccq6b4"
+                            },
+                            "warmup": {
+                              "stringValue": "10 min en EF (7:10 min/km) sur chemin facile."
+                            },
+                            "locationSuggestion": {
+                              "stringValue": "Chemins de la région de Brix, terrain varié"
+                            },
+                            "cooldown": {
+                              "stringValue": "5 min de marche et étirements. (à 8:00 min/km)"
+                            },
+                            "elevationGain": {
+                              "integerValue": "0"
+                            },
+                            "targetPace": {
+                              "stringValue": "7:10 min/km"
+                            },
+                            "type": {
+                              "stringValue": "Jogging"
+                            },
+                            "title": {
+                              "stringValue": "Footing technique sur sentiers"
+                            },
+                            "advice": {
+                              "stringValue": "Porte attention à ta technique de course sur les passages techniques. Écoute ton corps et ne force pas en cas de douleur."
+                            },
+                            "intensity": {
+                              "stringValue": "Facile"
+                            },
+                            "duration": {
+                              "stringValue": "48 min"
+                            }
+                          }
+                        }
+                      },
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "type": {
+                              "stringValue": "Renforcement"
+                            },
+                            "targetPace": {
+                              "stringValue": "N/A"
+                            },
+                            "title": {
+                              "stringValue": "Renfo Trail Focus A - Quadriceps & Excentrique (S3)"
+                            },
+                            "advice": {
+                              "stringValue": "Le gainage est essentiel en trail pour la stabilité et la prévention des blessures. Maintiens une bonne posture."
+                            },
+                            "intensity": {
+                              "stringValue": "Modéré"
+                            },
+                            "duration": {
+                              "stringValue": "35-40 min"
+                            },
+                            "mainSet": {
+                              "stringValue": "Circuit 3 tours : Fentes avant (3x9/jambe), Fentes marchees (3x11/jambe), Step-up sur marche (3x9/jambe), Superman (3x11), Pompes (3x9), Extensions mollets debout (3x18), Fente arriere lente (3s) (3x9/jambe), Chaise murale longue (3x41-90s), Protocole Stanish excentrique (3x9). Repos 1 min 30 entre tours."
+                            },
+                            "day": {
+                              "stringValue": "Mercredi"
+                            },
+                            "distance": {
+                              "stringValue": "0 km"
+                            },
+                            "id": {
+                              "stringValue": "w3-s2-1776799829055-hwe628g"
+                            },
+                            "warmup": {
+                              "stringValue": "10 min de mobilité articulaire et échauffement dynamique"
+                            },
+                            "locationSuggestion": {
+                              "stringValue": "À la maison"
+                            },
+                            "cooldown": {
+                              "stringValue": "5 min d'étirements : quadriceps, ischio-jambiers, mollets, hanches"
+                            },
+                            "elevationGain": {
+                              "integerValue": "0"
+                            }
+                          }
+                        }
+                      },
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "cooldown": {
+                              "stringValue": "10 min en EF (7:10 min/km) puis étirements."
+                            },
+                            "elevationGain": {
+                              "integerValue": "172"
+                            },
+                            "mainSet": {
+                              "stringValue": "50 min en EF (7:10 min/km) sur un parcours naturel vallonné, avec un D+ progressif concentré en fin de séance."
+                            },
+                            "day": {
+                              "stringValue": "Dimanche"
+                            },
+                            "distance": {
+                              "stringValue": "9.8 km"
+                            },
+                            "warmup": {
+                              "stringValue": "10 min en EF (7:10 min/km)."
+                            },
+                            "locationSuggestion": {
+                              "stringValue": "Bois de la Roche, Brix"
+                            },
+                            "id": {
+                              "stringValue": "w3-s3-1776799829055-c0vy06l"
+                            },
+                            "intensity": {
+                              "stringValue": "Modéré"
+                            },
+                            "duration": {
+                              "stringValue": "70 min"
+                            },
+                            "type": {
+                              "stringValue": "Sortie Longue"
+                            },
+                            "targetPace": {
+                              "stringValue": "7:10 min/km"
+                            },
+                            "title": {
+                              "stringValue": "Sortie longue nature vallonnée progressive"
+                            },
+                            "advice": {
+                              "stringValue": "N'hésite pas à alterner marche et course dans les montées les plus raides. Reste hydraté."
+                            }
+                          }
+                        }
+                      }
+                    ]
+                  }
+                }
+              }
+            }
+          },
+          {
+            "mapValue": {
+              "fields": {
+                "sessions": {
+                  "arrayValue": {
+                    "values": [
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "mainSet": {
+                              "stringValue": "25 min en EF (7:10 min/km), rythme très facile et fluide, focalisé sur la récupération active."
+                            },
+                            "distance": {
+                              "stringValue": "4.9 km"
+                            },
+                            "day": {
+                              "stringValue": "Lundi"
+                            },
+                            "id": {
+                              "stringValue": "w4-s1-1776799829055-5wjrayn"
+                            },
+                            "locationSuggestion": {
+                              "stringValue": "Parc de Brix, parcours légèrement vallonné"
+                            },
+                            "warmup": {
+                              "stringValue": "5 min de marche, à 8:00 min/km active."
+                            },
+                            "cooldown": {
+                              "stringValue": "5 min de marche et étirements doux. (à 8:00 min/km)"
+                            },
+                            "elevationGain": {
+                              "integerValue": "0"
+                            },
+                            "type": {
+                              "stringValue": "Jogging"
+                            },
+                            "targetPace": {
+                              "stringValue": "7:10 min/km"
+                            },
+                            "title": {
+                              "stringValue": "Footing léger de récupération active"
+                            },
+                            "advice": {
+                              "stringValue": "L'objectif est de dérouler les jambes sans aucune contrainte. Écoute ton corps et réduis la durée si nécessaire."
+                            },
+                            "intensity": {
+                              "stringValue": "Facile"
+                            },
+                            "duration": {
+                              "stringValue": "35 min"
+                            }
+                          }
+                        }
+                      },
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "mainSet": {
+                              "stringValue": "Circuit 2 tours : Marche laterale avec elastique (3x6 pas/cote), Fente laterale (3x6/jambe), Bird-dog (3x6/cote), Gainage lateral (3x12-30s/cote), Marche sur talons (2x12m), Corde a sauter (3x1min), Equilibre unipodal yeux fermes (3x12-30s/pied), Planche + rotation laterale (3x6/cote), Mollets debout unipodal (3x7/jambe). Repos 1 min 30 entre tours."
+                            },
+                            "id": {
+                              "stringValue": "w4-s2-1776799829055-hmmzarv"
+                            },
+                            "warmup": {
+                              "stringValue": "10 min de mobilité articulaire et échauffement dynamique"
+                            },
+                            "locationSuggestion": {
+                              "stringValue": "À la maison"
+                            },
+                            "distance": {
+                              "stringValue": "0 km"
+                            },
+                            "day": {
+                              "stringValue": "Mercredi"
+                            },
+                            "elevationGain": {
+                              "integerValue": "0"
+                            },
+                            "cooldown": {
+                              "stringValue": "5 min d'étirements : quadriceps, ischio-jambiers, mollets, hanches"
+                            },
+                            "title": {
+                              "stringValue": "Renfo Leger - Recuperation (S4)"
+                            },
+                            "targetPace": {
+                              "stringValue": "N/A"
+                            },
+                            "type": {
+                              "stringValue": "Renforcement"
+                            },
+                            "advice": {
+                              "stringValue": "Privilégie les étirements dynamiques avant un effort et statiques après. Ne force jamais un mouvement."
+                            },
+                            "duration": {
+                              "stringValue": "25-30 min"
+                            },
+                            "intensity": {
+                              "stringValue": "Facile"
+                            }
+                          }
+                        }
+                      },
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "cooldown": {
+                              "stringValue": "10 min en EF (7:10 min/km) très léger puis étirements."
+                            },
+                            "elevationGain": {
+                              "integerValue": "0"
+                            },
+                            "day": {
+                              "stringValue": "Dimanche"
+                            },
+                            "distance": {
+                              "stringValue": "7.0 km"
+                            },
+                            "locationSuggestion": {
+                              "stringValue": "Sentiers du Val de Saire, Brix"
+                            },
+                            "warmup": {
+                              "stringValue": "10 min en EF (7:10 min/km) très léger."
+                            },
+                            "id": {
+                              "stringValue": "w4-s3-1776799829055-w4f8vxy"
+                            },
+                            "mainSet": {
+                              "stringValue": "30 min en EF (7:10 min/km) sur sentiers faciles, sans forcer, pour une récupération active."
+                            },
+                            "intensity": {
+                              "stringValue": "Facile"
+                            },
+                            "duration": {
+                              "stringValue": "50 min"
+                            },
+                            "advice": {
+                              "stringValue": "Cette sortie vise à maintenir l'habitude de courir sans générer de fatigue supplémentaire. Hydrate-toi bien."
+                            },
+                            "type": {
+                              "stringValue": "Sortie Longue"
+                            },
+                            "targetPace": {
+                              "stringValue": "7:10 min/km"
+                            },
+                            "title": {
+                              "stringValue": "Sortie longue de récupération sur sentiers"
+                            }
+                          }
+                        }
+                      }
+                    ]
+                  }
+                },
+                "isRecoveryWeek": {
+                  "booleanValue": true
+                },
+                "phase": {
+                  "stringValue": "recuperation"
+                },
+                "weekNumber": {
+                  "integerValue": "4"
+                },
+                "theme": {
+                  "stringValue": "Semaine de récupération active"
+                },
+                "weekGoal": {
+                  "stringValue": "Semaine de récupération active"
+                }
+              }
+            }
+          },
+          {
+            "mapValue": {
+              "fields": {
+                "sessions": {
+                  "arrayValue": {
+                    "values": [
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "duration": {
+                              "stringValue": "35 min"
+                            },
+                            "intensity": {
+                              "stringValue": "Facile"
+                            },
+                            "advice": {
+                              "stringValue": "Ces accélérations sont douces et visent à réveiller le corps sans fatiguer. Reste à l'écoute de tes sensations."
+                            },
+                            "title": {
+                              "stringValue": "Footing en progression sur sentiers faciles"
+                            },
+                            "type": {
+                              "stringValue": "Jogging"
+                            },
+                            "targetPace": {
+                              "stringValue": "7:10 min/km"
+                            },
+                            "elevationGain": {
+                              "integerValue": "0"
+                            },
+                            "cooldown": {
+                              "stringValue": "5 min de marche et étirements. (à 8:00 min/km)"
+                            },
+                            "id": {
+                              "stringValue": "w5-s1-1776799829055-965hvft"
+                            },
+                            "warmup": {
+                              "stringValue": "10 min en EF (7:10 min/km)."
+                            },
+                            "locationSuggestion": {
+                              "stringValue": "Sentiers autour de Brix, peu vallonnés"
+                            },
+                            "day": {
+                              "stringValue": "Lundi"
+                            },
+                            "distance": {
+                              "stringValue": "4.9 km"
+                            },
+                            "mainSet": {
+                              "stringValue": "20 min en EF (7:10 min/km) avec quelques légères accélérations ponctuelles (30-45s) si le corps le permet, sur sentiers faciles."
+                            }
+                          }
+                        }
+                      },
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "targetPace": {
+                              "stringValue": "4:48 min/km"
+                            },
+                            "type": {
+                              "stringValue": "Fractionné"
+                            },
+                            "title": {
+                              "stringValue": "Fractionné en côtes courtes"
+                            },
+                            "advice": {
+                              "stringValue": "Concentre-toi sur l'efficacité de la foulée en montée. La récupération est importante pour enchaîner les efforts."
+                            },
+                            "intensity": {
+                              "stringValue": "Difficile"
+                            },
+                            "duration": {
+                              "stringValue": "40 min"
+                            },
+                            "mainSet": {
+                              "stringValue": "8 à 10 répétitions de (30 secondes en allure VMA (4:48 min/km) en côte / 45 secondes de récupération en descente (marche rapide ou EF légère))."
+                            },
+                            "day": {
+                              "stringValue": "Mercredi"
+                            },
+                            "distance": {
+                              "stringValue": "4.5 km"
+                            },
+                            "warmup": {
+                              "stringValue": "20 min en EF (7:10 min/km) avec 3-4 lignes droites actives de 30s."
+                            },
+                            "locationSuggestion": {
+                              "stringValue": "Colline de l'Ermitage, Brix (pente courte)"
+                            },
+                            "id": {
+                              "stringValue": "w5-s2-1776799829055-lyncd1d"
+                            },
+                            "cooldown": {
+                              "stringValue": "10 min en EF (7:10 min/km) puis étirements."
+                            },
+                            "elevationGain": {
+                              "integerValue": "0"
+                            }
+                          }
+                        }
+                      },
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "day": {
+                              "stringValue": "Dimanche"
+                            },
+                            "distance": {
+                              "stringValue": "7.7 km"
+                            },
+                            "id": {
+                              "stringValue": "w5-s3-1776799829055-agdl4he"
+                            },
+                            "locationSuggestion": {
+                              "stringValue": "Forêt domaniale de Brix, sentiers escarpés"
+                            },
+                            "warmup": {
+                              "stringValue": "10 min en EF (7:10 min/km)."
+                            },
+                            "mainSet": {
+                              "stringValue": "35 min en EF (7:10 min/km) sur terrain vallonné, avec des passages techniques courts pour travailler l'agilité et la pose de pied."
+                            },
+                            "cooldown": {
+                              "stringValue": "10 min en EF (7:10 min/km) puis étirements."
+                            },
+                            "elevationGain": {
+                              "integerValue": "194"
+                            },
+                            "advice": {
+                              "stringValue": "Adapte ta vitesse aux sections techniques pour éviter les chutes. Reste bien concentré sur le terrain."
+                            },
+                            "type": {
+                              "stringValue": "Sortie Longue"
+                            },
+                            "targetPace": {
+                              "stringValue": "7:10 min/km"
+                            },
+                            "title": {
+                              "stringValue": "Sortie longue nature vallonnée avec travail technique"
+                            },
+                            "intensity": {
+                              "stringValue": "Modéré"
+                            },
+                            "duration": {
+                              "stringValue": "55 min"
+                            }
+                          }
+                        }
+                      }
+                    ]
+                  }
+                },
+                "isRecoveryWeek": {
+                  "booleanValue": false
+                },
+                "phase": {
+                  "stringValue": "developpement"
+                },
+                "weekNumber": {
+                  "integerValue": "5"
+                },
+                "theme": {
+                  "stringValue": "Développement des qualités de trail : côtes et agilité"
+                },
+                "weekGoal": {
+                  "stringValue": "Développement des qualités de trail : côtes et agilité"
+                }
+              }
+            }
+          },
+          {
+            "mapValue": {
+              "fields": {
+                "phase": {
+                  "stringValue": "developpement"
+                },
+                "isRecoveryWeek": {
+                  "booleanValue": false
+                },
+                "sessions": {
+                  "arrayValue": {
+                    "values": [
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "day": {
+                              "stringValue": "Lundi"
+                            },
+                            "distance": {
+                              "stringValue": "5.6 km"
+                            },
+                            "id": {
+                              "stringValue": "w6-s1-1776799829055-lj682sc"
+                            },
+                            "warmup": {
+                              "stringValue": "10 min en EF (7:10 min/km)."
+                            },
+                            "locationSuggestion": {
+                              "stringValue": "Sentiers du Hameau Lecaudey, Brix"
+                            },
+                            "mainSet": {
+                              "stringValue": "25 min en EF (7:10 min/km) sur sentiers variés (racines, pierres, boue légère) pour améliorer la proprioception et l'équilibre."
+                            },
+                            "cooldown": {
+                              "stringValue": "5 min de marche et étirements. (à 8:00 min/km)"
+                            },
+                            "elevationGain": {
+                              "integerValue": "0"
+                            },
+                            "advice": {
+                              "stringValue": "Ces passages techniques sont une excellente préparation pour la course. Sois attentif à chaque pas."
+                            },
+                            "targetPace": {
+                              "stringValue": "7:10 min/km"
+                            },
+                            "type": {
+                              "stringValue": "Jogging"
+                            },
+                            "title": {
+                              "stringValue": "Footing technique avec passages sur sentiers variés"
+                            },
+                            "intensity": {
+                              "stringValue": "Facile"
+                            },
+                            "duration": {
+                              "stringValue": "40 min"
+                            }
+                          }
+                        }
+                      },
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "warmup": {
+                              "stringValue": "20 min en EF (7:10 min/km) avec 3-4 lignes droites actives de 30s."
+                            },
+                            "locationSuggestion": {
+                              "stringValue": "Côte de la Lande, Brix (pente longue et régulière)"
+                            },
+                            "id": {
+                              "stringValue": "w6-s2-1776799829055-iin4axr"
+                            },
+                            "distance": {
+                              "stringValue": "5.0 km"
+                            },
+                            "day": {
+                              "stringValue": "Mercredi"
+                            },
+                            "mainSet": {
+                              "stringValue": "4 à 5 répétitions de (1 minute 30 secondes en allure Seuil (5:31 min/km) en côte / 1 minute 30 secondes de récupération en EF (7:10 min/km) en descente)."
+                            },
+                            "elevationGain": {
+                              "integerValue": "0"
+                            },
+                            "cooldown": {
+                              "stringValue": "10 min en EF (7:10 min/km) puis étirements."
+                            },
+                            "advice": {
+                              "stringValue": "Maintiens un effort régulier en côte, sans te griller. La récupération active en descente est cruciale."
+                            },
+                            "title": {
+                              "stringValue": "Fractionné en côtes longues"
+                            },
+                            "type": {
+                              "stringValue": "Fractionné"
+                            },
+                            "targetPace": {
+                              "stringValue": "5:31 min/km"
+                            },
+                            "duration": {
+                              "stringValue": "45 min"
+                            },
+                            "intensity": {
+                              "stringValue": "Difficile"
+                            }
+                          }
+                        }
+                      },
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "duration": {
+                              "stringValue": "70 min"
+                            },
+                            "intensity": {
+                              "stringValue": "Modéré"
+                            },
+                            "title": {
+                              "stringValue": "Sortie longue nature vallonnée et technique"
+                            },
+                            "targetPace": {
+                              "stringValue": "7:10 min/km"
+                            },
+                            "type": {
+                              "stringValue": "Sortie Longue"
+                            },
+                            "advice": {
+                              "stringValue": "Simule les conditions de course avec le sac à dos ou le gilet d'hydratation si tu compte l'utiliser le jour J."
+                            },
+                            "elevationGain": {
+                              "integerValue": "206"
+                            },
+                            "cooldown": {
+                              "stringValue": "10 min en EF (7:10 min/km) puis étirements."
+                            },
+                            "mainSet": {
+                              "stringValue": "50 min en EF (7:10 min/km) sur un parcours avec dénivelé significatif et passages techniques (montées, descentes, obstacles naturels)."
+                            },
+                            "id": {
+                              "stringValue": "w6-s3-1776799829055-ycme0ky"
+                            },
+                            "locationSuggestion": {
+                              "stringValue": "Val de Saire, sentiers côtiers ou intérieurs"
+                            },
+                            "warmup": {
+                              "stringValue": "10 min en EF (7:10 min/km)."
+                            },
+                            "distance": {
+                              "stringValue": "9.8 km"
+                            },
+                            "day": {
+                              "stringValue": "Dimanche"
+                            }
+                          }
+                        }
+                      }
+                    ]
+                  }
+                },
+                "weekGoal": {
+                  "stringValue": "Accroissement du volume et des sensations en côtes"
+                },
+                "theme": {
+                  "stringValue": "Accroissement du volume et des sensations en côtes"
+                },
+                "weekNumber": {
+                  "integerValue": "6"
+                }
+              }
+            }
+          },
+          {
+            "mapValue": {
+              "fields": {
+                "weekGoal": {
+                  "stringValue": "Spécificité course : Rythme et gestion du dénivelé"
+                },
+                "weekNumber": {
+                  "integerValue": "7"
+                },
+                "theme": {
+                  "stringValue": "Spécificité course : Rythme et gestion du dénivelé"
+                },
+                "isRecoveryWeek": {
+                  "booleanValue": false
+                },
+                "phase": {
+                  "stringValue": "specifique"
+                },
+                "sessions": {
+                  "arrayValue": {
+                    "values": [
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "cooldown": {
+                              "stringValue": "5 min de marche et étirements. (à 8:00 min/km)"
+                            },
+                            "elevationGain": {
+                              "integerValue": "43"
+                            },
+                            "mainSet": {
+                              "stringValue": "20 min en EF (7:10 min/km), en te concentrant sur une foulée légère et une cadence élevée, surtout dans les montées douces et les plats."
+                            },
+                            "day": {
+                              "stringValue": "Lundi"
+                            },
+                            "distance": {
+                              "stringValue": "4.9 km"
+                            },
+                            "id": {
+                              "stringValue": "w7-s1-1776799829055-tlrzzd0"
+                            },
+                            "locationSuggestion": {
+                              "stringValue": "Chemin plat et large de Brix"
+                            },
+                            "warmup": {
+                              "stringValue": "10 min en EF (7:10 min/km)."
+                            },
+                            "intensity": {
+                              "stringValue": "Facile"
+                            },
+                            "duration": {
+                              "stringValue": "35 min"
+                            },
+                            "targetPace": {
+                              "stringValue": "7:10 min/km"
+                            },
+                            "type": {
+                              "stringValue": "Jogging"
+                            },
+                            "title": {
+                              "stringValue": "Footing en EF avec focus foulée et cadence"
+                            },
+                            "advice": {
+                              "stringValue": "Travailler la cadence permet d'économiser de l'énergie et de réduire l'impact. Écoute ton corps et ne force pas."
+                            }
+                          }
+                        }
+                      },
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "intensity": {
+                              "stringValue": "Difficile"
+                            },
+                            "duration": {
+                              "stringValue": "50 min"
+                            },
+                            "targetPace": {
+                              "stringValue": "6:14 min/km"
+                            },
+                            "type": {
+                              "stringValue": "Fractionné"
+                            },
+                            "title": {
+                              "stringValue": "Séance Spécifique Trail - Allure soutenue et descentes techniques"
+                            },
+                            "advice": {
+                              "stringValue": "Cette séance simule les changements de rythme en trail. Concentre-toi sur la fluidité en descente, regarde loin devant."
+                            },
+                            "cooldown": {
+                              "stringValue": "10 min en EF (7:10 min/km) puis étirements."
+                            },
+                            "elevationGain": {
+                              "integerValue": "0"
+                            },
+                            "mainSet": {
+                              "stringValue": "3 répétitions de (6 minutes en Allure Course Trail (EA : 6:14 min/km) avec légères montées / 3 minutes de récupération en EF (7:10 min/km) en descente active). Intégrer du travail de descente technique entre les blocs."
+                            },
+                            "distance": {
+                              "stringValue": "6.5 km"
+                            },
+                            "day": {
+                              "stringValue": "Mercredi"
+                            },
+                            "locationSuggestion": {
+                              "stringValue": "Sentiers du Mont Etenclin, Brix (mix montées/descentes)"
+                            },
+                            "warmup": {
+                              "stringValue": "20 min en EF (7:10 min/km) incluant des éducatifs de course."
+                            },
+                            "id": {
+                              "stringValue": "w7-s2-1776799829055-z8frj8c"
+                            }
+                          }
+                        }
+                      },
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "intensity": {
+                              "stringValue": "Difficile"
+                            },
+                            "duration": {
+                              "stringValue": "75 min"
+                            },
+                            "advice": {
+                              "stringValue": "Visualise le jour de la course et teste ton équipement. Gère ton effort pour maintenir un rythme soutenu sur la durée."
+                            },
+                            "type": {
+                              "stringValue": "Sortie Longue"
+                            },
+                            "targetPace": {
+                              "stringValue": "7:10 min/km"
+                            },
+                            "title": {
+                              "stringValue": "Sortie longue Spécifique Trail (D+ élevé, rythme soutenu)"
+                            },
+                            "cooldown": {
+                              "stringValue": "10 min en EF (7:10 min/km) puis étirements."
+                            },
+                            "elevationGain": {
+                              "integerValue": "174"
+                            },
+                            "day": {
+                              "stringValue": "Dimanche"
+                            },
+                            "distance": {
+                              "stringValue": "10.5 km"
+                            },
+                            "warmup": {
+                              "stringValue": "10 min en EF (7:10 min/km)."
+                            },
+                            "locationSuggestion": {
+                              "stringValue": "Itinéraire du trail local ou similaire à Brix"
+                            },
+                            "id": {
+                              "stringValue": "w7-s3-1776799829055-8shdzq1"
+                            },
+                            "mainSet": {
+                              "stringValue": "55 min sur un parcours Trail représentatif de l'objectif (D+ élevé), alternant EF (7:10 min/km) et passages en Allure Course Trail (EA : 6:14 min/km) dans les portions roulantes et moins techniques."
+                            }
+                          }
+                        }
+                      }
+                    ]
+                  }
+                }
+              }
+            }
+          },
+          {
+            "mapValue": {
+              "fields": {
+                "weekGoal": {
+                  "stringValue": "Récupération active et maintien de la forme"
+                },
+                "weekNumber": {
+                  "integerValue": "8"
+                },
+                "theme": {
+                  "stringValue": "Récupération active et maintien de la forme"
+                },
+                "isRecoveryWeek": {
+                  "booleanValue": true
+                },
+                "phase": {
+                  "stringValue": "recuperation"
+                },
+                "sessions": {
+                  "arrayValue": {
+                    "values": [
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "type": {
+                              "stringValue": "Jogging"
+                            },
+                            "targetPace": {
+                              "stringValue": "EF : 7:10 min/km"
+                            },
+                            "title": {
+                              "stringValue": "Footing de récupération en nature"
+                            },
+                            "advice": {
+                              "stringValue": "Écoute ton corps et ne force jamais en cas de douleur. Cette semaine est pour récupérer et assimiler les efforts passés."
+                            },
+                            "intensity": {
+                              "stringValue": "Facile"
+                            },
+                            "duration": {
+                              "stringValue": "45 min"
+                            },
+                            "mainSet": {
+                              "stringValue": "45 minutes de course en aisance respiratoire (EF), avec un focus sur la souplesse de la foulée et l'écoute des sensations. D+ 80m. (allure : 7:10 min/km)"
+                            },
+                            "distance": {
+                              "stringValue": "6.3 km"
+                            },
+                            "day": {
+                              "stringValue": "Lundi"
+                            },
+                            "locationSuggestion": {
+                              "stringValue": "Chemins du bois de Brix"
+                            },
+                            "warmup": {
+                              "stringValue": "Départ très lent. (à 8:00 min/km)"
+                            },
+                            "id": {
+                              "stringValue": "w8-s1-1776799865029-tp6xr7m"
+                            },
+                            "cooldown": {
+                              "stringValue": "Étirements légers et hydratation. (à 8:00 min/km)"
+                            },
+                            "elevationGain": {
+                              "integerValue": "0"
+                            }
+                          }
+                        }
+                      },
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "type": {
+                              "stringValue": "Renforcement"
+                            },
+                            "targetPace": {
+                              "stringValue": "N/A"
+                            },
+                            "title": {
+                              "stringValue": "Renfo Leger - Recuperation (S8)"
+                            },
+                            "advice": {
+                              "stringValue": "Concentre-toi sur la qualité du mouvement plutôt que sur la quantité. Stoppe si une douleur apparaît et adapte l'exercice."
+                            },
+                            "intensity": {
+                              "stringValue": "Facile"
+                            },
+                            "duration": {
+                              "stringValue": "25-30 min"
+                            },
+                            "mainSet": {
+                              "stringValue": "Circuit 2 tours : Pont unipodal (3x6/jambe), Clamshell avec elastique (3x9/cote), Bird-dog (3x6/cote), Gainage lateral (3x12-30s/cote), Marche sur talons (2x12m), Corde a sauter (3x1min), Equilibre unipodal yeux fermes (3x12-30s/pied), Russian twist (3x9/cote), Mollets assis soleaire (3x9). Repos 1 min 30 entre tours."
+                            },
+                            "day": {
+                              "stringValue": "Mercredi"
+                            },
+                            "distance": {
+                              "stringValue": "N/A"
+                            },
+                            "id": {
+                              "stringValue": "w8-s2-1776799865029-f75ljrv"
+                            },
+                            "locationSuggestion": {
+                              "stringValue": "À la maison"
+                            },
+                            "warmup": {
+                              "stringValue": "10 min de mobilité articulaire et échauffement dynamique"
+                            },
+                            "cooldown": {
+                              "stringValue": "5 min d'étirements : quadriceps, ischio-jambiers, mollets, hanches"
+                            },
+                            "elevationGain": {
+                              "integerValue": "0"
+                            }
+                          }
+                        }
+                      },
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "day": {
+                              "stringValue": "Dimanche"
+                            },
+                            "distance": {
+                              "stringValue": "9.2 km"
+                            },
+                            "id": {
+                              "stringValue": "w8-s3-1776799865029-aphm8w3"
+                            },
+                            "locationSuggestion": {
+                              "stringValue": "Sentiers vallonnés de la forêt de Brix"
+                            },
+                            "warmup": {
+                              "stringValue": "10 min de marche rapide, à 8:00 min/km pour s'échauffer en douceur."
+                            },
+                            "mainSet": {
+                              "stringValue": "1h05 de course en endurance fondamentale (EF) sur un parcours légèrement vallonné, en maintenant une aisance respiratoire. D+ cible de 125m. (allure : 7:10 min/km)"
+                            },
+                            "cooldown": {
+                              "stringValue": "10 min de retour au calme avec étirements légers et hydratation. (à 8:00 min/km)"
+                            },
+                            "elevationGain": {
+                              "integerValue": "125"
+                            },
+                            "advice": {
+                              "stringValue": "Hydrate-toi bien avant, pendant et après la sortie. Adapte l'allure si le terrain est plus exigeant ou si la fatigue se fait sentir."
+                            },
+                            "type": {
+                              "stringValue": "Sortie Longue"
+                            },
+                            "targetPace": {
+                              "stringValue": "EF : 7:10 min/km"
+                            },
+                            "title": {
+                              "stringValue": "Sortie longue en forêt vallonnée"
+                            },
+                            "intensity": {
+                              "stringValue": "Facile"
+                            },
+                            "duration": {
+                              "stringValue": "1h05"
+                            }
+                          }
+                        }
+                      }
+                    ]
+                  }
+                }
+              }
+            }
+          },
+          {
+            "mapValue": {
+              "fields": {
+                "sessions": {
+                  "arrayValue": {
+                    "values": [
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "advice": {
+                              "stringValue": "Concentre-toi sur ta posture en montée et la fluidité en descente. Si l'allure spécifique est trop difficile, ralentis légèrement. Ne force pas en cas de douleur."
+                            },
+                            "targetPace": {
+                              "stringValue": "Allure spé 10k : 5:20 min/km"
+                            },
+                            "type": {
+                              "stringValue": "Fractionné"
+                            },
+                            "title": {
+                              "stringValue": "Séance Spécifique Trail - Rappel d'allure"
+                            },
+                            "intensity": {
+                              "stringValue": "Modéré"
+                            },
+                            "duration": {
+                              "stringValue": "55 min"
+                            },
+                            "distance": {
+                              "stringValue": "8.5 km"
+                            },
+                            "day": {
+                              "stringValue": "Lundi"
+                            },
+                            "id": {
+                              "stringValue": "w9-s1-1776799865029-ip33qvg"
+                            },
+                            "warmup": {
+                              "stringValue": "20 min d'échauffement en EF (7:10 min/km) sur plat, avec 3 accélérations progressives de 30s."
+                            },
+                            "locationSuggestion": {
+                              "stringValue": "Côte des Belles Croix à Brix"
+                            },
+                            "mainSet": {
+                              "stringValue": "2 x (12 min à Allure spé 10k (5:20 min/km) sur un tronçon montant/plat du parcours trail) avec 3 min de récupération en EF (7:10 min/km) entre les blocs. D+ 85m."
+                            },
+                            "cooldown": {
+                              "stringValue": "10 min de retour au calme en EF (7:10 min/km)."
+                            },
+                            "elevationGain": {
+                              "integerValue": "0"
+                            }
+                          }
+                        }
+                      },
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "advice": {
+                              "stringValue": "La sollicitation des muscles postérieurs de la cuisse est cruciale en trail. Effectue les mouvements avec contrôle pour éviter les blessures et arrête-toi si une gêne apparaît."
+                            },
+                            "title": {
+                              "stringValue": "Renfo Trail Focus A - Quadriceps & Excentrique (S9)"
+                            },
+                            "targetPace": {
+                              "stringValue": "N/A"
+                            },
+                            "type": {
+                              "stringValue": "Renforcement"
+                            },
+                            "duration": {
+                              "stringValue": "35-40 min"
+                            },
+                            "intensity": {
+                              "stringValue": "Modéré"
+                            },
+                            "id": {
+                              "stringValue": "w9-s2-1776799865029-fn8p9g3"
+                            },
+                            "warmup": {
+                              "stringValue": "10 min de mobilité articulaire et échauffement dynamique"
+                            },
+                            "locationSuggestion": {
+                              "stringValue": "À la maison"
+                            },
+                            "distance": {
+                              "stringValue": "N/A"
+                            },
+                            "day": {
+                              "stringValue": "Mercredi"
+                            },
+                            "mainSet": {
+                              "stringValue": "Circuit 3 tours : Fentes avant (3x11/jambe), Fentes marchees (3x13/jambe), Step-up sur marche (3x11/jambe), Gainage ventral (3x33-60s), Dead bug (3x11/cote), Extensions mollets debout (3x22), Squat excentrique (descente 4s) (3x11), Step-down excentrique (3x9/jambe), Protocole Stanish excentrique (3x11). Repos 1 min 30 entre tours."
+                            },
+                            "elevationGain": {
+                              "integerValue": "0"
+                            },
+                            "cooldown": {
+                              "stringValue": "5 min d'étirements : quadriceps, ischio-jambiers, mollets, hanches"
+                            }
+                          }
+                        }
+                      },
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "cooldown": {
+                              "stringValue": "10 min de retour au calme avec étirements. Focus sur les quadriceps et mollets. (à 8:00 min/km)"
+                            },
+                            "elevationGain": {
+                              "integerValue": "239"
+                            },
+                            "mainSet": {
+                              "stringValue": "1h45 de course sur un parcours avec dénivelé significatif. Inclue 2-3 portions de 10-15 min à Allure spé 10k (5:20 min/km) en montée ou sur faux-plat montant. Pratique les descentes techniques. D+ cible de 239m."
+                            },
+                            "day": {
+                              "stringValue": "Dimanche"
+                            },
+                            "distance": {
+                              "stringValue": "13.5 km"
+                            },
+                            "locationSuggestion": {
+                              "stringValue": "Sentiers escarpés des Monts de Brix"
+                            },
+                            "warmup": {
+                              "stringValue": "15 min d'échauffement en EF (7:10 min/km) sur terrain plat."
+                            },
+                            "id": {
+                              "stringValue": "w9-s3-1776799865029-hzzd302"
+                            },
+                            "intensity": {
+                              "stringValue": "Modéré"
+                            },
+                            "duration": {
+                              "stringValue": "1h45"
+                            },
+                            "targetPace": {
+                              "stringValue": "Mixte EF / Allure spé 10k"
+                            },
+                            "type": {
+                              "stringValue": "Sortie Longue"
+                            },
+                            "title": {
+                              "stringValue": "Sortie longue Spécifique Trail - Dénivelé"
+                            },
+                            "advice": {
+                              "stringValue": "Gère ton effort dans les montées et travaille ta technique en descente (foulée courte, fréquence). Garde une réserve pour la fin et hydrate-toi régulièrement. Écoute ton corps en permanence."
+                            }
+                          }
+                        }
+                      }
+                    ]
+                  }
+                },
+                "isRecoveryWeek": {
+                  "booleanValue": false
+                },
+                "phase": {
+                  "stringValue": "specifique"
+                },
+                "weekNumber": {
+                  "integerValue": "9"
+                },
+                "theme": {
+                  "stringValue": "Spécificité trail et adaptation à l'allure course"
+                },
+                "weekGoal": {
+                  "stringValue": "Spécificité trail et adaptation à l'allure course"
+                }
+              }
+            }
+          },
+          {
+            "mapValue": {
+              "fields": {
+                "weekNumber": {
+                  "integerValue": "10"
+                },
+                "theme": {
+                  "stringValue": "Affûtage et préparation à la course"
+                },
+                "weekGoal": {
+                  "stringValue": "Affûtage et préparation à la course"
+                },
+                "sessions": {
+                  "arrayValue": {
+                    "values": [
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "elevationGain": {
+                              "integerValue": "0"
+                            },
+                            "cooldown": {
+                              "stringValue": "5 min de retour au calme et étirements très légers. (à 8:00 min/km)"
+                            },
+                            "mainSet": {
+                              "stringValue": "30 min de course en EF (7:10 min/km), incluant 4-5 accélérations progressives de 30 secondes (sans forcer, juste pour réveiller les sensations). D+ 90m."
+                            },
+                            "id": {
+                              "stringValue": "w10-s1-1776799865029-3sv0n9s"
+                            },
+                            "locationSuggestion": {
+                              "stringValue": "Chemins du parc du Château de Brix"
+                            },
+                            "warmup": {
+                              "stringValue": "15 min d'échauffement en EF (7:10 min/km)."
+                            },
+                            "day": {
+                              "stringValue": "Lundi"
+                            },
+                            "distance": {
+                              "stringValue": "6.3 km"
+                            },
+                            "duration": {
+                              "stringValue": "45 min"
+                            },
+                            "intensity": {
+                              "stringValue": "Facile"
+                            },
+                            "title": {
+                              "stringValue": "Footing d'affûtage avec rappels de rythme"
+                            },
+                            "type": {
+                              "stringValue": "Jogging"
+                            },
+                            "targetPace": {
+                              "stringValue": "EF : 7:10 min/km"
+                            },
+                            "advice": {
+                              "stringValue": "Cette séance doit t'donner de bonnes sensations sans te fatiguer. Sois à l'écoute de ton corps et de tes sensations. Ne force pas en cas de douleur."
+                            }
+                          }
+                        }
+                      },
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "mainSet": {
+                              "stringValue": "Circuit 2 tours : Marche laterale avec elastique (3x7 pas/cote), Fente laterale (3x7/jambe), Bird-dog (3x7/cote), Gainage lateral (3x13-30s/cote), Marche sur talons (2x13m), Equilibre sur coussin instable (3x20s/pied), Sauts directionnels (3x5), Planche + rotation laterale (3x7/cote), Mollets debout unipodal (3x8/jambe). Repos 1 min 30 entre tours."
+                            },
+                            "distance": {
+                              "stringValue": "N/A"
+                            },
+                            "day": {
+                              "stringValue": "Mercredi"
+                            },
+                            "locationSuggestion": {
+                              "stringValue": "À la maison"
+                            },
+                            "warmup": {
+                              "stringValue": "10 min de mobilité articulaire et échauffement dynamique"
+                            },
+                            "id": {
+                              "stringValue": "w10-s2-1776799865029-ikgauy8"
+                            },
+                            "cooldown": {
+                              "stringValue": "5 min d'étirements : quadriceps, ischio-jambiers, mollets, hanches"
+                            },
+                            "elevationGain": {
+                              "integerValue": "0"
+                            },
+                            "targetPace": {
+                              "stringValue": "N/A"
+                            },
+                            "type": {
+                              "stringValue": "Renforcement"
+                            },
+                            "title": {
+                              "stringValue": "Renfo Maintien Leger - Affutage (S10)"
+                            },
+                            "advice": {
+                              "stringValue": "N'ajoute pas de charge et ne cherche pas la performance. C'est une séance d'entretien pour maintenir la force, stoppe si tu ressens une gêne."
+                            },
+                            "intensity": {
+                              "stringValue": "Facile"
+                            },
+                            "duration": {
+                              "stringValue": "25-30 min"
+                            }
+                          }
+                        }
+                      },
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "intensity": {
+                              "stringValue": "Facile"
+                            },
+                            "duration": {
+                              "stringValue": "50 min"
+                            },
+                            "targetPace": {
+                              "stringValue": "EF : 7:10 min/km"
+                            },
+                            "type": {
+                              "stringValue": "Sortie Longue"
+                            },
+                            "title": {
+                              "stringValue": "Dernière sortie avant course - Reconnaissance D+"
+                            },
+                            "advice": {
+                              "stringValue": "L'objectif est de se familiariser une dernière fois avec le dénivelé sans y laisser d'énergie. Repose-toi bien après cette séance et écoute ton corps pour tout signe de fatigue."
+                            },
+                            "cooldown": {
+                              "stringValue": "10 min de marche et étirements très doux. (à 8:00 min/km)"
+                            },
+                            "elevationGain": {
+                              "integerValue": "100"
+                            },
+                            "mainSet": {
+                              "stringValue": "50 minutes de course très facile en EF (7:10 min/km), incluant 2-3 courtes portions du profil de dénivelé de la course si possible, à une allure confortable et sans forcer. D+ cible de 100m."
+                            },
+                            "day": {
+                              "stringValue": "Dimanche"
+                            },
+                            "distance": {
+                              "stringValue": "7.0 km"
+                            },
+                            "id": {
+                              "stringValue": "w10-s3-1776799865029-e1xaps6"
+                            },
+                            "warmup": {
+                              "stringValue": "10 min de marche, à 8:00 min/km/course très lente."
+                            },
+                            "locationSuggestion": {
+                              "stringValue": "Parcours trail reconnu du D+ local de Brix"
+                            }
+                          }
+                        }
+                      }
+                    ]
+                  }
+                },
+                "isRecoveryWeek": {
+                  "booleanValue": false
+                },
+                "phase": {
+                  "stringValue": "affutage"
+                }
+              }
+            }
+          }
+        ]
+      }
+    },
+    "vmaSource": {
+      "stringValue": "Ajustée manuellement : 13.5 → 12.5 km/h"
+    }
+  },
+  "createTime": "2026-04-21T19:25:11.225213Z",
+  "updateTime": "2026-04-21T19:31:24.699042Z"
+}

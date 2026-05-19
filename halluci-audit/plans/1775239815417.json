@@ -1,0 +1,2707 @@
+{
+  "name": "projects/coach-running-ia/databases/(default)/documents/plans/1775239815417",
+  "fields": {
+    "targetTime": {
+      "stringValue": "1h25"
+    },
+    "id": {
+      "stringValue": "1775239815417"
+    },
+    "name": {
+      "stringValue": "Préparation Semi-Marathon en 1h25 — 10 sem."
+    },
+    "createdAt": {
+      "stringValue": "2026-04-03T18:10:15.417Z"
+    },
+    "isPreview": {
+      "booleanValue": false
+    },
+    "sessionsPerWeek": {
+      "integerValue": "4"
+    },
+    "fullPlanGenerated": {
+      "booleanValue": true
+    },
+    "vma": {
+      "doubleValue": 17.927807050377666
+    },
+    "distance": {
+      "stringValue": "Semi-Marathon"
+    },
+    "welcomeMessage": {
+      "stringValue": "Bienvenue dans ton plan d'entraînement pour le Semi-Marathon, visant un objectif ambitieux de 1h25 ! Ce programme de 10 semaines est structuré pour développer progressivement ton endurance et ta vitesse, en commençant par une phase fondamentale solide. Tu bénéficieras de 4 séances par semaine, incluant des footings en endurance, des sorties longues et des sessions de renforcement musculaire, pour optimiser ta performance tout en prévenant les blessures. Nous te recommandons de consulter un médecin avant de débuter ce programme, notamment pour obtenir un certificat médical d'aptitude au sport."
+    },
+    "feasibility": {
+      "mapValue": {
+        "fields": {
+          "message": {
+            "stringValue": "Avec ta VMA de 17.9 km/h, ton temps théorique sur semi-marathon est d'environ 1h23min. Ton objectif de 1h25min est cohérent avec ton niveau. C'est un plan réaliste et bien calibré."
+          },
+          "status": {
+            "stringValue": "EXCELLENT"
+          },
+          "safetyWarning": {
+            "stringValue": "Hydrate-toi bien, échauffe-toi avant chaque séance et accorde-toi un vrai temps de récupération."
+          }
+        }
+      }
+    },
+    "raceDate": {
+      "stringValue": "2026-06-07"
+    },
+    "startDate": {
+      "stringValue": "2026-03-30"
+    },
+    "endDate": {
+      "stringValue": "2026-06-08"
+    },
+    "confidenceScore": {
+      "integerValue": "93"
+    },
+    "adaptationLog": {
+      "mapValue": {
+        "fields": {
+          "adaptationsThisWeek": {
+            "integerValue": "0"
+          },
+          "weekNumber": {
+            "integerValue": "0"
+          },
+          "adaptationHistory": {
+            "arrayValue": {}
+          }
+        }
+      }
+    },
+    "goal": {
+      "stringValue": "Course sur route"
+    },
+    "durationWeeks": {
+      "integerValue": "10"
+    },
+    "paces": {
+      "mapValue": {
+        "fields": {
+          "efPace": {
+            "stringValue": "5:00"
+          },
+          "allureSpecifique5k": {
+            "stringValue": "3:31"
+          },
+          "vmaPace": {
+            "stringValue": "3:21"
+          },
+          "allureSpecifique10k": {
+            "stringValue": "3:43"
+          },
+          "eaPace": {
+            "stringValue": "4:21"
+          },
+          "allureSpecifiqueMarathon": {
+            "stringValue": "4:11"
+          },
+          "seuilPace": {
+            "stringValue": "3:51"
+          },
+          "recoveryPace": {
+            "stringValue": "5:35"
+          },
+          "allureSpecifiqueSemi": {
+            "stringValue": "3:56"
+          }
+        }
+      }
+    },
+    "userId": {
+      "stringValue": "Mxjo3pCfjsdrkyGMmhz1fBCSemz2"
+    },
+    "generationContext": {
+      "mapValue": {
+        "fields": {
+          "periodizationPlan": {
+            "mapValue": {
+              "fields": {
+                "weeklyVolumes": {
+                  "arrayValue": {
+                    "values": [
+                      {
+                        "integerValue": "51"
+                      },
+                      {
+                        "integerValue": "56"
+                      },
+                      {
+                        "integerValue": "61"
+                      },
+                      {
+                        "integerValue": "49"
+                      },
+                      {
+                        "integerValue": "61"
+                      },
+                      {
+                        "integerValue": "64"
+                      },
+                      {
+                        "integerValue": "67"
+                      },
+                      {
+                        "integerValue": "54"
+                      },
+                      {
+                        "integerValue": "42"
+                      },
+                      {
+                        "integerValue": "34"
+                      }
+                    ]
+                  }
+                },
+                "recoveryWeeks": {
+                  "arrayValue": {
+                    "values": [
+                      {
+                        "integerValue": "4"
+                      },
+                      {
+                        "integerValue": "8"
+                      }
+                    ]
+                  }
+                },
+                "weeklyPhases": {
+                  "arrayValue": {
+                    "values": [
+                      {
+                        "stringValue": "fondamental"
+                      },
+                      {
+                        "stringValue": "fondamental"
+                      },
+                      {
+                        "stringValue": "fondamental"
+                      },
+                      {
+                        "stringValue": "recuperation"
+                      },
+                      {
+                        "stringValue": "developpement"
+                      },
+                      {
+                        "stringValue": "developpement"
+                      },
+                      {
+                        "stringValue": "specifique"
+                      },
+                      {
+                        "stringValue": "recuperation"
+                      },
+                      {
+                        "stringValue": "affutage"
+                      },
+                      {
+                        "stringValue": "affutage"
+                      }
+                    ]
+                  }
+                },
+                "totalWeeks": {
+                  "integerValue": "10"
+                }
+              }
+            }
+          },
+          "modelUsed": {
+            "stringValue": "gemini-2.5-flash"
+          },
+          "questionnaireSnapshot": {
+            "mapValue": {
+              "fields": {
+                "raceDate": {
+                  "stringValue": "2026-06-07"
+                },
+                "weight": {
+                  "integerValue": "78"
+                },
+                "startDate": {
+                  "stringValue": "2026-04-03"
+                },
+                "currentWeeklyVolume": {
+                  "integerValue": "60"
+                },
+                "frequency": {
+                  "integerValue": "4"
+                },
+                "vma": {
+                  "doubleValue": 17.927807050377666
+                },
+                "age": {
+                  "integerValue": "42"
+                },
+                "recentRaceTimes": {
+                  "mapValue": {
+                    "fields": {
+                      "distanceHalfMarathon": {
+                        "stringValue": "1h21"
+                      },
+                      "distance10km": {
+                        "stringValue": "37:50"
+                      },
+                      "distanceMarathon": {
+                        "stringValue": "3h14"
+                      }
+                    }
+                  }
+                },
+                "level": {
+                  "stringValue": "Expert (Performance)"
+                },
+                "city": {
+                  "stringValue": "Guéret "
+                },
+                "email": {
+                  "stringValue": "david.millon23000@gmail.com"
+                },
+                "injuries": {
+                  "mapValue": {
+                    "fields": {
+                      "hasInjury": {
+                        "booleanValue": false
+                      }
+                    }
+                  }
+                },
+                "sex": {
+                  "stringValue": "Homme"
+                },
+                "targetTime": {
+                  "stringValue": "1h25"
+                },
+                "height": {
+                  "integerValue": "185"
+                },
+                "preferredDays": {
+                  "arrayValue": {
+                    "values": [
+                      {
+                        "stringValue": "Lundi"
+                      },
+                      {
+                        "stringValue": "Mardi"
+                      },
+                      {
+                        "stringValue": "Jeudi"
+                      },
+                      {
+                        "stringValue": "Dimanche"
+                      }
+                    ]
+                  }
+                },
+                "goal": {
+                  "stringValue": "Course sur route"
+                },
+                "subGoal": {
+                  "stringValue": "Semi-Marathon"
+                }
+              }
+            }
+          },
+          "vmaSource": {
+            "stringValue": "Moyenne 10km en 37:50 et Semi en 1h21"
+          },
+          "paces": {
+            "mapValue": {
+              "fields": {
+                "recoveryPace": {
+                  "stringValue": "5:35"
+                },
+                "seuilPace": {
+                  "stringValue": "3:51"
+                },
+                "allureSpecifiqueMarathon": {
+                  "stringValue": "4:11"
+                },
+                "eaPace": {
+                  "stringValue": "4:21"
+                },
+                "allureSpecifiqueSemi": {
+                  "stringValue": "3:56"
+                },
+                "allureSpecifique5k": {
+                  "stringValue": "3:31"
+                },
+                "efPace": {
+                  "stringValue": "5:00"
+                },
+                "allureSpecifique10k": {
+                  "stringValue": "3:43"
+                },
+                "vmaPace": {
+                  "stringValue": "3:21"
+                }
+              }
+            }
+          },
+          "vma": {
+            "doubleValue": 17.927807050377666
+          },
+          "generatedAt": {
+            "stringValue": "2026-04-03T18:09:43.709Z"
+          }
+        }
+      }
+    },
+    "weeks": {
+      "arrayValue": {
+        "values": [
+          {
+            "mapValue": {
+              "fields": {
+                "weekNumber": {
+                  "integerValue": "1"
+                },
+                "sessions": {
+                  "arrayValue": {
+                    "values": [
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "duration": {
+                              "stringValue": "1h15"
+                            },
+                            "mainSet": {
+                              "stringValue": "65 min d'endurance fondamentale (5:00 min/km) sur terrain plat et roulant, en te concentrant sur une respiration aisée et régulière."
+                            },
+                            "feedback": {
+                              "mapValue": {
+                                "fields": {
+                                  "adaptationRequested": {
+                                    "booleanValue": false
+                                  },
+                                  "completed": {
+                                    "booleanValue": true
+                                  },
+                                  "rpe": {
+                                    "integerValue": "5"
+                                  }
+                                }
+                              }
+                            },
+                            "type": {
+                              "stringValue": "Jogging"
+                            },
+                            "distance": {
+                              "stringValue": "15 km"
+                            },
+                            "day": {
+                              "stringValue": "Lundi"
+                            },
+                            "cooldown": {
+                              "stringValue": "Non requis, la fin de séance est déjà en endurance fondamentale. (à 5:35 min/km)"
+                            },
+                            "advice": {
+                              "stringValue": "Hydrate-toi bien avant et après la séance. Écoute ton corps et ajuste l'allure si tu ressens une gêne. L'objectif est de courir sans forcer."
+                            },
+                            "title": {
+                              "stringValue": "Footing en aisance respiratoire"
+                            },
+                            "warmup": {
+                              "stringValue": "10 min d'échauffement en endurance fondamentale (5:00 min/km)"
+                            },
+                            "locationSuggestion": {
+                              "stringValue": "Lac de la Chaume (Guéret)"
+                            },
+                            "id": {
+                              "stringValue": "w1-s1-1775239815417-9jm366k"
+                            },
+                            "targetPace": {
+                              "stringValue": "5:00 min/km"
+                            },
+                            "intensity": {
+                              "stringValue": "Facile"
+                            },
+                            "elevationGain": {
+                              "integerValue": "0"
+                            }
+                          }
+                        }
+                      },
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "id": {
+                              "stringValue": "w1-s2-1775239815417-fij1xd0"
+                            },
+                            "locationSuggestion": {
+                              "stringValue": "À la maison"
+                            },
+                            "advice": {
+                              "stringValue": "Concentre-toi sur la qualité d'exécution des mouvements plutôt que sur la quantité. Un renforcement régulier est essentiel pour la prévention des blessures et l'amélioration de l'efficacité de la foulée. Écoute ton corps et ne force pas."
+                            },
+                            "title": {
+                              "stringValue": "Renfo Focus A - Quadriceps & Gainage (S1)"
+                            },
+                            "warmup": {
+                              "stringValue": "10 min de mobilité articulaire et échauffement dynamique"
+                            },
+                            "intensity": {
+                              "stringValue": "Modéré"
+                            },
+                            "elevationGain": {
+                              "integerValue": "0"
+                            },
+                            "targetPace": {
+                              "stringValue": "N/A"
+                            },
+                            "feedback": {
+                              "mapValue": {
+                                "fields": {
+                                  "rpe": {
+                                    "integerValue": "5"
+                                  },
+                                  "completed": {
+                                    "booleanValue": true
+                                  },
+                                  "adaptationRequested": {
+                                    "booleanValue": false
+                                  }
+                                }
+                              }
+                            },
+                            "duration": {
+                              "stringValue": "40-45 min"
+                            },
+                            "mainSet": {
+                              "stringValue": "Circuit 4 tours : Squats poids de corps (3x18), Squat bulgare (3x12/jambe), Fentes avant (3x12/jambe), Gainage ventral (3x35-60s), Dead bug (3x12/côté), Extensions mollets debout (3x23). Repos 1 min entre tours."
+                            },
+                            "cooldown": {
+                              "stringValue": "5 min d'étirements : quadriceps, ischio-jambiers, mollets, hanches"
+                            },
+                            "day": {
+                              "stringValue": "Mardi"
+                            },
+                            "distance": {
+                              "stringValue": "0 km"
+                            },
+                            "type": {
+                              "stringValue": "Renforcement"
+                            }
+                          }
+                        }
+                      },
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "locationSuggestion": {
+                              "stringValue": "Forêt de Chabrières (Guéret)"
+                            },
+                            "advice": {
+                              "stringValue": "Les parcours vallonnés renforcent les muscles de manière différente et améliorent l'endurance musculaire. Garde un effort constant même dans les côtes. N'oublie pas d'écouter ton corps et de ne pas forcer en cas de douleur."
+                            },
+                            "warmup": {
+                              "stringValue": "10 min d'échauffement en endurance fondamentale (5:00 min/km)"
+                            },
+                            "title": {
+                              "stringValue": "Footing vallonné en nature"
+                            },
+                            "id": {
+                              "stringValue": "w1-s3-1775239815417-bms4bq5"
+                            },
+                            "elevationGain": {
+                              "integerValue": "0"
+                            },
+                            "intensity": {
+                              "stringValue": "Facile"
+                            },
+                            "targetPace": {
+                              "stringValue": "5:00 min/km"
+                            },
+                            "duration": {
+                              "stringValue": "1h30"
+                            },
+                            "mainSet": {
+                              "stringValue": "80 min d'endurance fondamentale (5:00 min/km) sur un parcours légèrement vallonné en forêt. Maintiens une allure où tu peux parler sans essoufflement, y compris dans les montées."
+                            },
+                            "feedback": {
+                              "mapValue": {
+                                "fields": {
+                                  "rpe": {
+                                    "integerValue": "5"
+                                  },
+                                  "completed": {
+                                    "booleanValue": true
+                                  },
+                                  "adaptationRequested": {
+                                    "booleanValue": false
+                                  }
+                                }
+                              }
+                            },
+                            "distance": {
+                              "stringValue": "18 km"
+                            },
+                            "type": {
+                              "stringValue": "Jogging"
+                            },
+                            "cooldown": {
+                              "stringValue": "Non requis, la fin de séance est déjà en endurance fondamentale. (à 5:35 min/km)"
+                            },
+                            "day": {
+                              "stringValue": "Jeudi"
+                            }
+                          }
+                        }
+                      },
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "distance": {
+                              "stringValue": "20 km"
+                            },
+                            "type": {
+                              "stringValue": "Sortie Longue"
+                            },
+                            "day": {
+                              "stringValue": "Dimanche"
+                            },
+                            "cooldown": {
+                              "stringValue": "Non requis, la fin de séance est déjà en endurance fondamentale. (à 5:35 min/km)"
+                            },
+                            "mainSet": {
+                              "stringValue": "80 min d'endurance fondamentale (5:00 min/km). Maintiens une allure confortable sur ce parcours légèrement vallonné. C'est le moment de construire ta base d'endurance."
+                            },
+                            "duration": {
+                              "stringValue": "1h 40 min"
+                            },
+                            "feedback": {
+                              "mapValue": {
+                                "fields": {
+                                  "completed": {
+                                    "booleanValue": true
+                                  },
+                                  "rpe": {
+                                    "integerValue": "5"
+                                  },
+                                  "adaptationRequested": {
+                                    "booleanValue": false
+                                  }
+                                }
+                              }
+                            },
+                            "intensity": {
+                              "stringValue": "Facile"
+                            },
+                            "elevationGain": {
+                              "integerValue": "0"
+                            },
+                            "targetPace": {
+                              "stringValue": "5:00 min/km"
+                            },
+                            "locationSuggestion": {
+                              "stringValue": "Forêt de Chabrières (Guéret)"
+                            },
+                            "title": {
+                              "stringValue": "Sortie Longue en Endurance Fondamentale"
+                            },
+                            "warmup": {
+                              "stringValue": "10 min d'échauffement en endurance fondamentale (5:00 min/km)"
+                            },
+                            "advice": {
+                              "stringValue": "La sortie longue est la clé pour ton semi-marathon. Gère bien ton effort, hydrate-toi régulièrement et alimente-toi si nécessaire. Écoute toujours ton corps et adapte-toi si besoin."
+                            },
+                            "id": {
+                              "stringValue": "w1-s4-1775239815417-486lb2r"
+                            }
+                          }
+                        }
+                      }
+                    ]
+                  }
+                },
+                "weekGoal": {
+                  "stringValue": "Phase fondamentale - Bâtir l'endurance"
+                },
+                "theme": {
+                  "stringValue": "Phase fondamentale - Bâtir l'endurance"
+                },
+                "phase": {
+                  "stringValue": "fondamental"
+                }
+              }
+            }
+          },
+          {
+            "mapValue": {
+              "fields": {
+                "phase": {
+                  "stringValue": "fondamental"
+                },
+                "theme": {
+                  "stringValue": "Fondamental - Consolidation"
+                },
+                "weekGoal": {
+                  "stringValue": "Fondamental - Consolidation"
+                },
+                "isRecoveryWeek": {
+                  "booleanValue": false
+                },
+                "weekNumber": {
+                  "integerValue": "2"
+                },
+                "sessions": {
+                  "arrayValue": {
+                    "values": [
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "duration": {
+                              "stringValue": "1h20"
+                            },
+                            "mainSet": {
+                              "stringValue": "1h20 en Endurance Fondamentale (5:00 min/km). Concentre-toi sur la respiration et le plaisir de courir dans un environnement naturel."
+                            },
+                            "cooldown": {
+                              "stringValue": "5 min de marche active et quelques étirements légers des ischio-jambiers et quadriceps. (à 5:35 min/km)"
+                            },
+                            "day": {
+                              "stringValue": "Lundi"
+                            },
+                            "type": {
+                              "stringValue": "Jogging"
+                            },
+                            "distance": {
+                              "stringValue": "16.0 km"
+                            },
+                            "id": {
+                              "stringValue": "w2-s1-1775940189208-q4ux57f"
+                            },
+                            "advice": {
+                              "stringValue": "Hydrate-toi bien avant et après la séance. Écoute toujours ton corps et n'hésite pas à réduire l'intensité ou à tu arrêter en cas de douleur. L'objectif est de progresser sans blessure."
+                            },
+                            "warmup": {
+                              "stringValue": "Départ lent, progressif sur les 10 premières minutes. (à 5:35 min/km)"
+                            },
+                            "title": {
+                              "stringValue": "Footing en nature et découverte"
+                            },
+                            "locationSuggestion": {
+                              "stringValue": "Sentiers de la Forêt de Chabrières (Guéret)"
+                            },
+                            "targetPace": {
+                              "stringValue": "5:00 min/km"
+                            },
+                            "elevationGain": {
+                              "integerValue": "0"
+                            },
+                            "intensity": {
+                              "stringValue": "Facile"
+                            }
+                          }
+                        }
+                      },
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "cooldown": {
+                              "stringValue": "5 min d'étirements : quadriceps, ischio-jambiers, mollets, hanches"
+                            },
+                            "day": {
+                              "stringValue": "Mardi"
+                            },
+                            "distance": {
+                              "stringValue": "0.0 km"
+                            },
+                            "type": {
+                              "stringValue": "Renforcement"
+                            },
+                            "duration": {
+                              "stringValue": "40-45 min"
+                            },
+                            "mainSet": {
+                              "stringValue": "Circuit 4 tours : Pont unipodal (3x12/jambe), Clamshell avec elastique (3x18/cote), Marche laterale avec elastique (3x12 pas/cote), Bird-dog (3x12/cote), Gainage lateral (3x23-30s/cote), Marche sur talons (2x23m). Repos 1 min entre tours."
+                            },
+                            "elevationGain": {
+                              "integerValue": "0"
+                            },
+                            "intensity": {
+                              "stringValue": "Modéré"
+                            },
+                            "targetPace": {
+                              "stringValue": "N/A"
+                            },
+                            "id": {
+                              "stringValue": "w2-s2-1775940189208-ih5mc6t"
+                            },
+                            "locationSuggestion": {
+                              "stringValue": "À la maison"
+                            },
+                            "advice": {
+                              "stringValue": "Concentre-toi sur la bonne exécution des mouvements plutôt que sur le volume. Écoute toujours ton corps et n'hésite pas à réduire l'intensité ou à tu arrêter en cas de douleur. L'objectif est de progresser sans blessure."
+                            },
+                            "warmup": {
+                              "stringValue": "10 min de mobilité articulaire et échauffement dynamique"
+                            },
+                            "title": {
+                              "stringValue": "Renfo Focus B - Fessiers/Hanches & Gainage lateral (S2)"
+                            }
+                          }
+                        }
+                      },
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "id": {
+                              "stringValue": "w2-s3-1775940189208-eafafm4"
+                            },
+                            "title": {
+                              "stringValue": "Footing vallonné avec focus technique"
+                            },
+                            "warmup": {
+                              "stringValue": "10 min de footing, à 5:35 min/km très lent pour démarrer en douceur."
+                            },
+                            "advice": {
+                              "stringValue": "Le dénivelé est un excellent moyen de renforcer tes muscles stabilisateurs. Écoute toujours ton corps et n'hésite pas à réduire l'intensité ou à tu arrêter en cas de douleur. L'objectif est de progresser sans blessure."
+                            },
+                            "locationSuggestion": {
+                              "stringValue": "Collines de Saint-Fiel (proche Guéret)"
+                            },
+                            "targetPace": {
+                              "stringValue": "5:00 min/km"
+                            },
+                            "intensity": {
+                              "stringValue": "Facile"
+                            },
+                            "elevationGain": {
+                              "integerValue": "0"
+                            },
+                            "mainSet": {
+                              "stringValue": "1h25 en Endurance Fondamentale (5:00 min/km) sur un parcours légèrement vallonné. Profite des montées pour travailler une foulée courte et dynamique, et des descentes pour la fluidité."
+                            },
+                            "duration": {
+                              "stringValue": "1h25"
+                            },
+                            "day": {
+                              "stringValue": "Jeudi"
+                            },
+                            "cooldown": {
+                              "stringValue": "5 min de marche et étirements des mollets et fessiers. (à 5:35 min/km)"
+                            },
+                            "type": {
+                              "stringValue": "Jogging"
+                            },
+                            "distance": {
+                              "stringValue": "17.0 km"
+                            }
+                          }
+                        }
+                      },
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "duration": {
+                              "stringValue": "2h00"
+                            },
+                            "mainSet": {
+                              "stringValue": "2h00 en Endurance Fondamentale (5:00 min/km) sur un parcours plat et roulant. Maintiens une allure régulière et confortable."
+                            },
+                            "distance": {
+                              "stringValue": "24.0 km"
+                            },
+                            "type": {
+                              "stringValue": "Sortie Longue"
+                            },
+                            "day": {
+                              "stringValue": "Dimanche"
+                            },
+                            "cooldown": {
+                              "stringValue": "10 min de marche et étirements complets. (à 5:35 min/km)"
+                            },
+                            "locationSuggestion": {
+                              "stringValue": "Bords du Lac de Cher du Guéret"
+                            },
+                            "advice": {
+                              "stringValue": "Pense à bien tu hydrater tout au long de la sortie longue et à emporter un ravitaillement si nécessaire. Écoute toujours ton corps et n'hésite pas à réduire l'intensité ou à tu arrêter en cas de douleur. L'objectif est de progresser sans blessure."
+                            },
+                            "title": {
+                              "stringValue": "Sortie Longue découverte du Lac de Cher"
+                            },
+                            "warmup": {
+                              "stringValue": "15 min de footing, à 5:35 min/km très doux."
+                            },
+                            "id": {
+                              "stringValue": "w2-s4-1775940189208-y19snhz"
+                            },
+                            "intensity": {
+                              "stringValue": "Facile"
+                            },
+                            "elevationGain": {
+                              "integerValue": "0"
+                            },
+                            "targetPace": {
+                              "stringValue": "5:00 min/km"
+                            }
+                          }
+                        }
+                      }
+                    ]
+                  }
+                }
+              }
+            }
+          },
+          {
+            "mapValue": {
+              "fields": {
+                "theme": {
+                  "stringValue": "Fondamental - Introduction au rythme"
+                },
+                "weekGoal": {
+                  "stringValue": "Fondamental - Introduction au rythme"
+                },
+                "phase": {
+                  "stringValue": "fondamental"
+                },
+                "sessions": {
+                  "arrayValue": {
+                    "values": [
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "targetPace": {
+                              "stringValue": "5:00 min/km"
+                            },
+                            "elevationGain": {
+                              "integerValue": "0"
+                            },
+                            "intensity": {
+                              "stringValue": "Facile"
+                            },
+                            "advice": {
+                              "stringValue": "Les éducatifs améliorent ta technique et l'efficacité de ta foulée. Concentre-toi sur la qualité du mouvement. Écoute toujours ton corps et n'hésite pas à réduire l'intensité ou à tu arrêter en cas de douleur. L'objectif est de progresser sans blessure."
+                            },
+                            "warmup": {
+                              "stringValue": "15 min EF (5:00 min/km) + 5 min d'échauffement dynamique (talons-fesses, montées de genoux, griffés)."
+                            },
+                            "title": {
+                              "stringValue": "Footing avec éducatifs de course"
+                            },
+                            "locationSuggestion": {
+                              "stringValue": "Parc des Sports de Guéret (surface souple)"
+                            },
+                            "id": {
+                              "stringValue": "w3-s1-1775940189208-7t3w70w"
+                            },
+                            "type": {
+                              "stringValue": "Jogging"
+                            },
+                            "distance": {
+                              "stringValue": "17.0 km"
+                            },
+                            "day": {
+                              "stringValue": "Lundi"
+                            },
+                            "cooldown": {
+                              "stringValue": "5 min EF (5:00 min/km) puis 10 min d'étirements post-course."
+                            },
+                            "duration": {
+                              "stringValue": "1h25"
+                            },
+                            "mainSet": {
+                              "stringValue": "1h00 en Endurance Fondamentale (5:00 min/km), en intégrant 3-4 séries de 2-3 min d'éducatifs de course (skipping, foulées bondissantes légères) toutes les 15-20 minutes. Reprene le footing EF entre les séries."
+                            }
+                          }
+                        }
+                      },
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "type": {
+                              "stringValue": "Renforcement"
+                            },
+                            "distance": {
+                              "stringValue": "0.0 km"
+                            },
+                            "day": {
+                              "stringValue": "Mardi"
+                            },
+                            "cooldown": {
+                              "stringValue": "5 min d'étirements : quadriceps, ischio-jambiers, mollets, hanches"
+                            },
+                            "duration": {
+                              "stringValue": "40-45 min"
+                            },
+                            "mainSet": {
+                              "stringValue": "Circuit 4 tours : Fentes avant (3x12/jambe), Fentes marchees (3x14/jambe), Step-up sur marche (3x12/jambe), Superman (3x14), Pompes (3x12), Extensions mollets debout (3x23). Repos 1 min entre tours."
+                            },
+                            "targetPace": {
+                              "stringValue": "N/A"
+                            },
+                            "elevationGain": {
+                              "integerValue": "0"
+                            },
+                            "intensity": {
+                              "stringValue": "Modéré"
+                            },
+                            "advice": {
+                              "stringValue": "Le renforcement est clé pour prévenir les blessures et améliorer ta puissance. Écoute toujours ton corps et n'hésite pas à réduire l'intensité ou à tu arrêter en cas de douleur. L'objectif est de progresser sans blessure."
+                            },
+                            "warmup": {
+                              "stringValue": "10 min de mobilité articulaire et échauffement dynamique"
+                            },
+                            "title": {
+                              "stringValue": "Renfo Focus A - Quadriceps & Gainage (S3)"
+                            },
+                            "locationSuggestion": {
+                              "stringValue": "À la maison"
+                            },
+                            "id": {
+                              "stringValue": "w3-s2-1775940189208-slgpahl"
+                            }
+                          }
+                        }
+                      },
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "day": {
+                              "stringValue": "Jeudi"
+                            },
+                            "cooldown": {
+                              "stringValue": "5 min de retour au calme en marchant. (à 5:35 min/km)"
+                            },
+                            "type": {
+                              "stringValue": "Jogging"
+                            },
+                            "distance": {
+                              "stringValue": "18.0 km"
+                            },
+                            "mainSet": {
+                              "stringValue": "75 min en Endurance Fondamentale (5:00 min/km)."
+                            },
+                            "duration": {
+                              "stringValue": "1h30"
+                            },
+                            "targetPace": {
+                              "stringValue": "5:00"
+                            },
+                            "elevationGain": {
+                              "integerValue": "0"
+                            },
+                            "intensity": {
+                              "stringValue": "Facile"
+                            },
+                            "id": {
+                              "stringValue": "w3-s3-1775940189208-zpqf9to"
+                            },
+                            "title": {
+                              "stringValue": "Footing d'Endurance Fondamentale"
+                            },
+                            "warmup": {
+                              "stringValue": "10 min de footing léger à 5:35 min/km"
+                            },
+                            "advice": {
+                              "stringValue": "Ces accélérations visent à réveiller ton système cardiovasculaire et musculaire en douceur. Ne cherche pas la performance absolue. Écoute toujours ton corps et n'hésite pas à réduire l'intensité ou à tu arrêter en cas de douleur. L'objectif est de progresser sans blessure."
+                            },
+                            "locationSuggestion": {
+                              "stringValue": "Chemins roulants des Bords de Creuse (Guéret)"
+                            }
+                          }
+                        }
+                      },
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "targetPace": {
+                              "stringValue": "5:00 min/km"
+                            },
+                            "intensity": {
+                              "stringValue": "Facile"
+                            },
+                            "elevationGain": {
+                              "integerValue": "0"
+                            },
+                            "id": {
+                              "stringValue": "w3-s4-1775940189208-8y0cvlk"
+                            },
+                            "warmup": {
+                              "stringValue": "15 min de footing, à 5:35 min/km très lent pour démarrer."
+                            },
+                            "title": {
+                              "stringValue": "Sortie Longue progressive en douceur"
+                            },
+                            "advice": {
+                              "stringValue": "L'objectif est d'accumuler du volume en respectant l'EF. La progression est optionnelle et doit rester très légère. Écoute toujours ton corps et n'hésite pas à réduire l'intensité ou à tu arrêter en cas de douleur. L'objectif est de progresser sans blessure."
+                            },
+                            "locationSuggestion": {
+                              "stringValue": "Grand parc urbain ou sentiers périurbains de Guéret"
+                            },
+                            "cooldown": {
+                              "stringValue": "10 min de marche et étirements complets, en insistant sur les jambes. (à 5:35 min/km)"
+                            },
+                            "day": {
+                              "stringValue": "Dimanche"
+                            },
+                            "type": {
+                              "stringValue": "Sortie Longue"
+                            },
+                            "distance": {
+                              "stringValue": "24 km"
+                            },
+                            "mainSet": {
+                              "stringValue": "2h05 en Endurance Fondamentale (5:00 min/km). tu peux augmenter légèrement l'allure sur les 30 dernières minutes (sans dépasser 4:45 min/km) si tu tu sens bien, restant en aisance respiratoire."
+                            },
+                            "duration": {
+                              "stringValue": "2h00"
+                            }
+                          }
+                        }
+                      }
+                    ]
+                  }
+                },
+                "weekNumber": {
+                  "integerValue": "3"
+                },
+                "isRecoveryWeek": {
+                  "booleanValue": false
+                }
+              }
+            }
+          },
+          {
+            "mapValue": {
+              "fields": {
+                "theme": {
+                  "stringValue": "Récupération Active"
+                },
+                "weekGoal": {
+                  "stringValue": "Récupération Active"
+                },
+                "phase": {
+                  "stringValue": "recuperation"
+                },
+                "weekNumber": {
+                  "integerValue": "4"
+                },
+                "sessions": {
+                  "arrayValue": {
+                    "values": [
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "warmup": {
+                              "stringValue": "Départ très lent, prendre le temps de se mettre en route. (à 5:35 min/km)"
+                            },
+                            "title": {
+                              "stringValue": "Footing léger de récupération"
+                            },
+                            "advice": {
+                              "stringValue": "Cette semaine est dédiée à la récupération. L'objectif est de maintenir le corps en mouvement sans le fatiguer. Écoute toujours ton corps et n'hésite pas à réduire l'intensité ou à tu arrêter en cas de douleur. L'objectif est de progresser sans blessure."
+                            },
+                            "locationSuggestion": {
+                              "stringValue": "Parc de la Sénatorerie (Guéret)"
+                            },
+                            "id": {
+                              "stringValue": "w4-s1-1775940189208-1o3rect"
+                            },
+                            "targetPace": {
+                              "stringValue": "5:00 min/km"
+                            },
+                            "intensity": {
+                              "stringValue": "Facile"
+                            },
+                            "elevationGain": {
+                              "integerValue": "0"
+                            },
+                            "mainSet": {
+                              "stringValue": "1h10 en Endurance Fondamentale (5:00 min/km). Concentre-toi sur la détente et une foulée souple. Aucune recherche de performance."
+                            },
+                            "duration": {
+                              "stringValue": "1h10"
+                            },
+                            "type": {
+                              "stringValue": "Jogging"
+                            },
+                            "distance": {
+                              "stringValue": "14.0 km"
+                            },
+                            "day": {
+                              "stringValue": "Lundi"
+                            },
+                            "cooldown": {
+                              "stringValue": "5 min de marche et étirements doux des muscles sollicités. (à 5:35 min/km)"
+                            }
+                          }
+                        }
+                      },
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "id": {
+                              "stringValue": "w4-s2-1775940189208-hqmmxr9"
+                            },
+                            "advice": {
+                              "stringValue": "La récupération n'est pas l'absence d'activité, mais une activité adaptée. Ce renforcement léger aide à la régénération. Écoute toujours ton corps et n'hésite pas à réduire l'intensité ou à tu arrêter en cas de douleur. L'objectif est de progresser sans blessure."
+                            },
+                            "title": {
+                              "stringValue": "Renfo Leger - Recuperation (S4)"
+                            },
+                            "warmup": {
+                              "stringValue": "10 min de mobilité articulaire et échauffement dynamique"
+                            },
+                            "locationSuggestion": {
+                              "stringValue": "À la maison"
+                            },
+                            "targetPace": {
+                              "stringValue": "N/A"
+                            },
+                            "intensity": {
+                              "stringValue": "Facile"
+                            },
+                            "elevationGain": {
+                              "integerValue": "0"
+                            },
+                            "duration": {
+                              "stringValue": "25-30 min"
+                            },
+                            "mainSet": {
+                              "stringValue": "Circuit 3 tours : Marche laterale avec elastique (3x8 pas/cote), Fente laterale (3x8/jambe), Bird-dog (3x8/cote), Gainage lateral (3x16-30s/cote), Marche sur talons (2x16m). Repos 1 min entre tours."
+                            },
+                            "day": {
+                              "stringValue": "Mardi"
+                            },
+                            "cooldown": {
+                              "stringValue": "5 min d'étirements : quadriceps, ischio-jambiers, mollets, hanches"
+                            },
+                            "type": {
+                              "stringValue": "Renforcement"
+                            },
+                            "distance": {
+                              "stringValue": "0.0 km"
+                            }
+                          }
+                        }
+                      },
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "duration": {
+                              "stringValue": "1h15"
+                            },
+                            "mainSet": {
+                              "stringValue": "1h15 en Endurance Fondamentale (5:00 min/km). Privilégie un sol souple pour ménager tes articulations. Maintiens une allure où la conversation est facile."
+                            },
+                            "cooldown": {
+                              "stringValue": "5 min de marche et auto-massages légers des jambes. (à 5:35 min/km)"
+                            },
+                            "day": {
+                              "stringValue": "Jeudi"
+                            },
+                            "distance": {
+                              "stringValue": "15.0 km"
+                            },
+                            "type": {
+                              "stringValue": "Jogging"
+                            },
+                            "id": {
+                              "stringValue": "w4-s3-1775940189208-iwehjl6"
+                            },
+                            "locationSuggestion": {
+                              "stringValue": "Parc des Sports de Guéret (piste cendrée ou herbe)"
+                            },
+                            "advice": {
+                              "stringValue": "L'objectif est de favoriser la circulation sanguine et l'élimination des toxines sans créer de fatigue supplémentaire. Écoute toujours ton corps et n'hésite pas à réduire l'intensité ou à tu arrêter en cas de douleur. L'objectif est de progresser sans blessure."
+                            },
+                            "warmup": {
+                              "stringValue": "10 min de footing, à 5:35 min/km très lent pour relâcher les tensions."
+                            },
+                            "title": {
+                              "stringValue": "Footing de régénération sur sol souple"
+                            },
+                            "intensity": {
+                              "stringValue": "Facile"
+                            },
+                            "elevationGain": {
+                              "integerValue": "0"
+                            },
+                            "targetPace": {
+                              "stringValue": "5:00 min/km"
+                            }
+                          }
+                        }
+                      },
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "mainSet": {
+                              "stringValue": "1h40 en Endurance Fondamentale (5:00 min/km) sur un parcours plat et facile. C'est une séance pour se vider la tête, pas pour se challenger."
+                            },
+                            "duration": {
+                              "stringValue": "1h40"
+                            },
+                            "distance": {
+                              "stringValue": "20.0 km"
+                            },
+                            "type": {
+                              "stringValue": "Sortie Longue"
+                            },
+                            "day": {
+                              "stringValue": "Dimanche"
+                            },
+                            "cooldown": {
+                              "stringValue": "10 min de marche et étirements complets et prolongés. (à 5:35 min/km)"
+                            },
+                            "locationSuggestion": {
+                              "stringValue": "Voie Verte Guéret-Bourganeuf"
+                            },
+                            "title": {
+                              "stringValue": "Sortie Longue de récupération active"
+                            },
+                            "warmup": {
+                              "stringValue": "15 min de footing, à 5:35 min/km très doux."
+                            },
+                            "advice": {
+                              "stringValue": "C'est l'occasion de recharger tes batteries physiques et mentales. Sois indulgent avec tu-même. Écoute toujours ton corps et n'hésite pas à réduire l'intensité ou à tu arrêter en cas de douleur. L'objectif est de progresser sans blessure."
+                            },
+                            "id": {
+                              "stringValue": "w4-s4-1775940189208-0v32ftq"
+                            },
+                            "elevationGain": {
+                              "integerValue": "0"
+                            },
+                            "intensity": {
+                              "stringValue": "Facile"
+                            },
+                            "targetPace": {
+                              "stringValue": "5:00 min/km"
+                            }
+                          }
+                        }
+                      }
+                    ]
+                  }
+                },
+                "isRecoveryWeek": {
+                  "booleanValue": true
+                }
+              }
+            }
+          },
+          {
+            "mapValue": {
+              "fields": {
+                "phase": {
+                  "stringValue": "developpement"
+                },
+                "weekGoal": {
+                  "stringValue": "Développement - Vitesse Courte"
+                },
+                "theme": {
+                  "stringValue": "Développement - Vitesse Courte"
+                },
+                "isRecoveryWeek": {
+                  "booleanValue": false
+                },
+                "weekNumber": {
+                  "integerValue": "5"
+                },
+                "sessions": {
+                  "arrayValue": {
+                    "values": [
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "locationSuggestion": {
+                              "stringValue": "Chemins et petites routes autour de Guéret"
+                            },
+                            "advice": {
+                              "stringValue": "Cette séance permet de relancer la machine après la semaine de récupération. Pense à l'hydratation. Écoute toujours ton corps et n'hésite pas à réduire l'intensité ou à tu arrêter en cas de douleur. L'objectif est de progresser sans blessure."
+                            },
+                            "title": {
+                              "stringValue": "Footing EF varié et technique"
+                            },
+                            "warmup": {
+                              "stringValue": "15 min de footing, à 5:35 min/km très doux pour bien préparer le corps."
+                            },
+                            "id": {
+                              "stringValue": "w5-s1-1775940189208-vgxbcr6"
+                            },
+                            "elevationGain": {
+                              "integerValue": "0"
+                            },
+                            "intensity": {
+                              "stringValue": "Facile"
+                            },
+                            "targetPace": {
+                              "stringValue": "5:00 min/km"
+                            },
+                            "duration": {
+                              "stringValue": "1h30"
+                            },
+                            "mainSet": {
+                              "stringValue": "1h30 en Endurance Fondamentale (5:00 min/km). Varie les terrains (route, chemin stabilisé) et concentre-toi sur une foulée légère et efficace, en cherchant à \"rouler\"."
+                            },
+                            "distance": {
+                              "stringValue": "18.0 km"
+                            },
+                            "type": {
+                              "stringValue": "Jogging"
+                            },
+                            "cooldown": {
+                              "stringValue": "5 min de marche active et étirements des membres inférieurs. (à 5:35 min/km)"
+                            },
+                            "day": {
+                              "stringValue": "Lundi"
+                            }
+                          }
+                        }
+                      },
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "locationSuggestion": {
+                              "stringValue": "À la maison"
+                            },
+                            "advice": {
+                              "stringValue": "Un bon renforcement des ischio-jambiers est crucial pour la performance et la prévention des blessures. Écoute toujours ton corps et n'hésite pas à réduire l'intensité ou à tu arrêter en cas de douleur. L'objectif est de progresser sans blessure."
+                            },
+                            "title": {
+                              "stringValue": "Renfo Focus A - Quadriceps & Gainage (S5)"
+                            },
+                            "warmup": {
+                              "stringValue": "10 min de mobilité articulaire et échauffement dynamique"
+                            },
+                            "id": {
+                              "stringValue": "w5-s2-1775940189208-fqqbaei"
+                            },
+                            "intensity": {
+                              "stringValue": "Modéré"
+                            },
+                            "elevationGain": {
+                              "integerValue": "0"
+                            },
+                            "targetPace": {
+                              "stringValue": "N/A"
+                            },
+                            "duration": {
+                              "stringValue": "40-45 min"
+                            },
+                            "mainSet": {
+                              "stringValue": "Circuit 4 tours : Step-up sur marche (3x13/jambe), Chaise murale (3x39-45s), Squats poids de corps (3x20), Gainage ventral (3x39-60s), Dead bug (3x13/cote), Extensions mollets debout (3x26). Repos 1 min entre tours."
+                            },
+                            "distance": {
+                              "stringValue": "0.0 km"
+                            },
+                            "type": {
+                              "stringValue": "Renforcement"
+                            },
+                            "day": {
+                              "stringValue": "Mardi"
+                            },
+                            "cooldown": {
+                              "stringValue": "5 min d'étirements : quadriceps, ischio-jambiers, mollets, hanches"
+                            }
+                          }
+                        }
+                      },
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "mainSet": {
+                              "stringValue": "2 séries de 8 x 30s VMA (3:21 min/km) avec 30s Récup (5:35 min/km) entre les répétitions. Récupération de 3 min en Endurance Fondamentale (5:00 min/km) entre les séries."
+                            },
+                            "duration": {
+                              "stringValue": "1h15"
+                            },
+                            "type": {
+                              "stringValue": "Fractionné"
+                            },
+                            "distance": {
+                              "stringValue": "15.0 km"
+                            },
+                            "cooldown": {
+                              "stringValue": "30 min en Endurance Fondamentale (5:00 min/km)."
+                            },
+                            "day": {
+                              "stringValue": "Jeudi"
+                            },
+                            "title": {
+                              "stringValue": "VMA courte sur piste"
+                            },
+                            "warmup": {
+                              "stringValue": "20 min EF (5:00 min/km) + 4-5 accélérations progressives de 100m."
+                            },
+                            "advice": {
+                              "stringValue": "La VMA courte permet d'améliorer ton économie de course et ton capacité à maintenir des allures rapides. Concentre-toi sur une foulée rythmée et relâchée. Écoute toujours ton corps et n'hésite pas à réduire l'intensité ou à tu arrêter en cas de douleur. L'objectif est de progresser sans blessure."
+                            },
+                            "locationSuggestion": {
+                              "stringValue": "Piste d'athlétisme de Guéret"
+                            },
+                            "id": {
+                              "stringValue": "w5-s3-1775940189208-ysgema9"
+                            },
+                            "targetPace": {
+                              "stringValue": "VMA"
+                            },
+                            "intensity": {
+                              "stringValue": "Difficile"
+                            },
+                            "elevationGain": {
+                              "integerValue": "0"
+                            }
+                          }
+                        }
+                      },
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "mainSet": {
+                              "stringValue": "1h40 en Endurance Fondamentale (5:00 min/km), puis 40 min avec 4 x 5 min légèrement plus rapide (autour de 4:45 min/km), entrecoupées de 5 min en EF (5:00 min/km). Le but est de varier l'allure sans forcer."
+                            },
+                            "duration": {
+                              "stringValue": "2h00"
+                            },
+                            "day": {
+                              "stringValue": "Dimanche"
+                            },
+                            "cooldown": {
+                              "stringValue": "5 min de marche et étirements complets. (à 5:35 min/km)"
+                            },
+                            "distance": {
+                              "stringValue": "24 km"
+                            },
+                            "type": {
+                              "stringValue": "Sortie Longue"
+                            },
+                            "id": {
+                              "stringValue": "w5-s4-1775940189208-wy86m4o"
+                            },
+                            "locationSuggestion": {
+                              "stringValue": "Bords du Lac de Cher et chemins environnants (Guéret)"
+                            },
+                            "warmup": {
+                              "stringValue": "15 min de footing, à 5:35 min/km très doux."
+                            },
+                            "title": {
+                              "stringValue": "Sortie Longue avec relances EF"
+                            },
+                            "advice": {
+                              "stringValue": "Cette sortie longue intègre des blocs plus rapides pour simuler les variations de rythme d'une course, tout en restant en aisance. Écoute toujours ton corps et n'hésite pas à réduire l'intensité ou à tu arrêter en cas de douleur. L'objectif est de progresser sans blessure."
+                            },
+                            "intensity": {
+                              "stringValue": "Modéré"
+                            },
+                            "elevationGain": {
+                              "integerValue": "0"
+                            },
+                            "targetPace": {
+                              "stringValue": "Mixte EF"
+                            }
+                          }
+                        }
+                      }
+                    ]
+                  }
+                }
+              }
+            }
+          },
+          {
+            "mapValue": {
+              "fields": {
+                "sessions": {
+                  "arrayValue": {
+                    "values": [
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "title": {
+                              "stringValue": "Footing en terrain varié"
+                            },
+                            "warmup": {
+                              "stringValue": "15 min de footing, à 5:35 min/km très doux pour démarrer."
+                            },
+                            "advice": {
+                              "stringValue": "Courir sur des terrains variés renforce les chevilles et les muscles stabilisateurs. Sois attentif à tes appuis. Écoute toujours ton corps et n'hésite pas à réduire l'intensité ou à tu arrêter en cas de douleur. L'objectif est de progresser sans blessure."
+                            },
+                            "locationSuggestion": {
+                              "stringValue": "Forêt de Chabrières (Guéret), sentiers vallonnés"
+                            },
+                            "id": {
+                              "stringValue": "w6-s1-1775940189208-fpy1k12"
+                            },
+                            "targetPace": {
+                              "stringValue": "5:00 min/km"
+                            },
+                            "intensity": {
+                              "stringValue": "Facile"
+                            },
+                            "elevationGain": {
+                              "integerValue": "0"
+                            },
+                            "mainSet": {
+                              "stringValue": "1h30 en Endurance Fondamentale (5:00 min/km) sur des chemins légèrement vallonnés. Travaille ton adaptabilité au terrain et ton force naturelle."
+                            },
+                            "duration": {
+                              "stringValue": "1h30"
+                            },
+                            "type": {
+                              "stringValue": "Jogging"
+                            },
+                            "distance": {
+                              "stringValue": "18.0 km"
+                            },
+                            "day": {
+                              "stringValue": "Lundi"
+                            },
+                            "cooldown": {
+                              "stringValue": "5 min de marche et étirements doux des mollets et quadriceps. (à 5:35 min/km)"
+                            }
+                          }
+                        }
+                      },
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "locationSuggestion": {
+                              "stringValue": "À la maison"
+                            },
+                            "title": {
+                              "stringValue": "Renfo Focus B - Fessiers/Hanches & Gainage lateral (S6)"
+                            },
+                            "warmup": {
+                              "stringValue": "10 min de mobilité articulaire et échauffement dynamique"
+                            },
+                            "advice": {
+                              "stringValue": "Le renforcement est une séance à part entière qui doit être prise au sérieux pour la progression. Écoute toujours ton corps et n'hésite pas à réduire l'intensité ou à tu arrêter en cas de douleur. L'objectif est de progresser sans blessure."
+                            },
+                            "id": {
+                              "stringValue": "w6-s2-1775940189208-4q3tr34"
+                            },
+                            "intensity": {
+                              "stringValue": "Modéré"
+                            },
+                            "elevationGain": {
+                              "integerValue": "0"
+                            },
+                            "targetPace": {
+                              "stringValue": "N/A"
+                            },
+                            "mainSet": {
+                              "stringValue": "Circuit 4 tours : Equilibre unipodal (2x39s/pied), Hip thrust (3x20), Pont unipodal (3x13/jambe), Bird-dog (3x13/cote), Gainage lateral (3x26-30s/cote), Marche sur talons (2x26m). Repos 1 min entre tours."
+                            },
+                            "duration": {
+                              "stringValue": "40-45 min"
+                            },
+                            "distance": {
+                              "stringValue": "0.0 km"
+                            },
+                            "type": {
+                              "stringValue": "Renforcement"
+                            },
+                            "day": {
+                              "stringValue": "Mardi"
+                            },
+                            "cooldown": {
+                              "stringValue": "5 min d'étirements : quadriceps, ischio-jambiers, mollets, hanches"
+                            }
+                          }
+                        }
+                      },
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "targetPace": {
+                              "stringValue": "Seuil"
+                            },
+                            "intensity": {
+                              "stringValue": "Difficile"
+                            },
+                            "elevationGain": {
+                              "integerValue": "0"
+                            },
+                            "id": {
+                              "stringValue": "w6-s3-1775940189208-tfegdr1"
+                            },
+                            "advice": {
+                              "stringValue": "Le travail au seuil améliore ton résistance à l'effort et est très spécifique à ton objectif semi-marathon. Concentre-toi sur la régularité. Écoute toujours ton corps et n'hésite pas à réduire l'intensité ou à tu arrêter en cas de douleur. L'objectif est de progresser sans blessure."
+                            },
+                            "warmup": {
+                              "stringValue": "20 min EF (5:00 min/km) + 2 lignes droites progressives de 100m."
+                            },
+                            "title": {
+                              "stringValue": "Fractionné au Seuil court"
+                            },
+                            "locationSuggestion": {
+                              "stringValue": "Voie Verte Guéret-Bourganeuf ou chemin plat"
+                            },
+                            "cooldown": {
+                              "stringValue": "15 min en Endurance Fondamentale (5:00 min/km)."
+                            },
+                            "day": {
+                              "stringValue": "Jeudi"
+                            },
+                            "type": {
+                              "stringValue": "Fractionné"
+                            },
+                            "distance": {
+                              "stringValue": "18.0 km"
+                            },
+                            "duration": {
+                              "stringValue": "1h20"
+                            },
+                            "mainSet": {
+                              "stringValue": "3 x (12 min Seuil (3:51 min/km)) avec 4 min Récup (5:35 min/km) trottée entre les répétitions. Maintiens une allure régulière et soutenable."
+                            }
+                          }
+                        }
+                      },
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "mainSet": {
+                              "stringValue": "1h00 EF (5:00 min/km), puis 30 min Allure spé Semi (3:56 min/km), puis 40 min EF (5:00 min/km), puis 10 min Allure spé Semi (3:56 min/km), puis 15 min EF (5:00 min/km)."
+                            },
+                            "duration": {
+                              "stringValue": "2h00"
+                            },
+                            "cooldown": {
+                              "stringValue": "5 min de marche et étirements complets. (à 5:35 min/km)"
+                            },
+                            "day": {
+                              "stringValue": "Dimanche"
+                            },
+                            "type": {
+                              "stringValue": "Sortie Longue"
+                            },
+                            "distance": {
+                              "stringValue": "24 km"
+                            },
+                            "id": {
+                              "stringValue": "w6-s4-1775940189208-eqg2ix1"
+                            },
+                            "title": {
+                              "stringValue": "Sortie Longue avec allure spécifique Semi intégrée"
+                            },
+                            "warmup": {
+                              "stringValue": "20 min EF (5:00 min/km)."
+                            },
+                            "advice": {
+                              "stringValue": "Cette sortie longue est un excellent test pour ton capacité à tenir l'allure spécifique Semi. Hydrate-toi et ravitaille-toi comme en course. Écoute toujours ton corps et n'hésite pas à réduire l'intensité ou à tu arrêter en cas de douleur. L'objectif est de progresser sans blessure."
+                            },
+                            "locationSuggestion": {
+                              "stringValue": "Grandes boucles roulantes autour du Lac de Cher (Guéret)"
+                            },
+                            "targetPace": {
+                              "stringValue": "Mixte EF/Semi"
+                            },
+                            "intensity": {
+                              "stringValue": "Modéré"
+                            },
+                            "elevationGain": {
+                              "integerValue": "0"
+                            }
+                          }
+                        }
+                      }
+                    ]
+                  }
+                },
+                "weekNumber": {
+                  "integerValue": "6"
+                },
+                "isRecoveryWeek": {
+                  "booleanValue": false
+                },
+                "weekGoal": {
+                  "stringValue": "Développement - Seuil & Résistance"
+                },
+                "theme": {
+                  "stringValue": "Développement - Seuil & Résistance"
+                },
+                "phase": {
+                  "stringValue": "developpement"
+                }
+              }
+            }
+          },
+          {
+            "mapValue": {
+              "fields": {
+                "weekGoal": {
+                  "stringValue": "Spécifique Semi-Marathon & Résistance"
+                },
+                "theme": {
+                  "stringValue": "Spécifique Semi-Marathon & Résistance"
+                },
+                "phase": {
+                  "stringValue": "specifique"
+                },
+                "sessions": {
+                  "arrayValue": {
+                    "values": [
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "intensity": {
+                              "stringValue": "Facile"
+                            },
+                            "elevationGain": {
+                              "integerValue": "0"
+                            },
+                            "targetPace": {
+                              "stringValue": "5:00 min/km vers 4:21 min/km"
+                            },
+                            "id": {
+                              "stringValue": "w7-s1-1775940253975-k9dooh5"
+                            },
+                            "locationSuggestion": {
+                              "stringValue": "Parc des Chapelles, Guéret"
+                            },
+                            "advice": {
+                              "stringValue": "Écoute toujours ton corps et n'hésite pas à réduire l'intensité ou la durée si tu ressens une douleur ou une fatigue excessive."
+                            },
+                            "title": {
+                              "stringValue": "Footing en aisance respiratoire progressif"
+                            },
+                            "warmup": {
+                              "stringValue": "15 min en Endurance Fondamentale (5:00 min/km)."
+                            },
+                            "day": {
+                              "stringValue": "Lundi"
+                            },
+                            "cooldown": {
+                              "stringValue": "15 min en Endurance Fondamentale (5:00 min/km) très douce."
+                            },
+                            "distance": {
+                              "stringValue": "17km"
+                            },
+                            "type": {
+                              "stringValue": "Jogging"
+                            },
+                            "duration": {
+                              "stringValue": "1h25"
+                            },
+                            "mainSet": {
+                              "stringValue": "55 min en Endurance Fondamentale (5:00 min/km), avec une accélération progressive sur les 15 dernières minutes pour atteindre l'allure d'Endurance Active (4:21 min/km) sur les 5 dernières minutes."
+                            }
+                          }
+                        }
+                      },
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "day": {
+                              "stringValue": "Mardi"
+                            },
+                            "cooldown": {
+                              "stringValue": "5 min d'étirements : quadriceps, ischio-jambiers, mollets, hanches"
+                            },
+                            "distance": {
+                              "stringValue": "0km"
+                            },
+                            "type": {
+                              "stringValue": "Renforcement"
+                            },
+                            "mainSet": {
+                              "stringValue": "Circuit 4 tours : Squats poids de corps (3x21), Squat bulgare (3x14/jambe), Fentes avant (3x14/jambe), Superman (3x17), Pompes (3x14), Extensions mollets debout (3x29). Repos 1 min entre tours."
+                            },
+                            "duration": {
+                              "stringValue": "40-45 min"
+                            },
+                            "elevationGain": {
+                              "integerValue": "0"
+                            },
+                            "intensity": {
+                              "stringValue": "Modéré"
+                            },
+                            "targetPace": {
+                              "stringValue": "N/A"
+                            },
+                            "id": {
+                              "stringValue": "w7-s2-1775940253975-3tuyi43"
+                            },
+                            "locationSuggestion": {
+                              "stringValue": "À la maison"
+                            },
+                            "title": {
+                              "stringValue": "Renfo Focus A - Quadriceps & Gainage (S7)"
+                            },
+                            "warmup": {
+                              "stringValue": "10 min de mobilité articulaire et échauffement dynamique"
+                            },
+                            "advice": {
+                              "stringValue": "Concentre-toi sur la qualité d'exécution des mouvements plutôt que sur la quantité. Ne force pas en cas de douleur."
+                            }
+                          }
+                        }
+                      },
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "type": {
+                              "stringValue": "Fractionné"
+                            },
+                            "distance": {
+                              "stringValue": "16km"
+                            },
+                            "day": {
+                              "stringValue": "Jeudi"
+                            },
+                            "cooldown": {
+                              "stringValue": "15 min en Endurance Fondamentale (5:00 min/km)."
+                            },
+                            "mainSet": {
+                              "stringValue": "3 x 18 min au Seuil (3:51 min/km) avec 3 min de récupération active en Endurance Fondamentale (5:00 min/km) entre chaque bloc."
+                            },
+                            "duration": {
+                              "stringValue": "1h20"
+                            },
+                            "targetPace": {
+                              "stringValue": "3:51 min/km"
+                            },
+                            "intensity": {
+                              "stringValue": "Difficile"
+                            },
+                            "elevationGain": {
+                              "integerValue": "0"
+                            },
+                            "title": {
+                              "stringValue": "Fractionné au Seuil Long"
+                            },
+                            "warmup": {
+                              "stringValue": "25 min en Endurance Fondamentale (5:00 min/km) + 4 lignes droites actives de 100m."
+                            },
+                            "advice": {
+                              "stringValue": "Cette séance est exigeante. Garde une allure stable et gérable pour pouvoir maintenir le seuil sur toute la durée. Si la fatigue est trop importante, n'hésite pas à écourter une répétition."
+                            },
+                            "locationSuggestion": {
+                              "stringValue": "Voie Verte des Combrailles, Guéret"
+                            },
+                            "id": {
+                              "stringValue": "w7-s3-1775940253975-h9ynybe"
+                            }
+                          }
+                        }
+                      },
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "duration": {
+                              "stringValue": "2h00"
+                            },
+                            "mainSet": {
+                              "stringValue": "1h10 en Allure Spécifique Semi-Marathon (3:56 min/km) puis 35 min en Endurance Fondamentale (5:00 min/km)."
+                            },
+                            "cooldown": {
+                              "stringValue": "Terminer par 10 min de marche et des étirements doux. (à 5:35 min/km)"
+                            },
+                            "day": {
+                              "stringValue": "Dimanche"
+                            },
+                            "type": {
+                              "stringValue": "Sortie Longue"
+                            },
+                            "distance": {
+                              "stringValue": "27.2 km"
+                            },
+                            "id": {
+                              "stringValue": "w7-s4-1775940253975-szw5ssv"
+                            },
+                            "advice": {
+                              "stringValue": "Hydrate-toi et ravitaille-toi régulièrement pendant cette sortie longue. C'est une excellente répétition pour la course, écoute tes sensations et ajuste si nécessaire."
+                            },
+                            "title": {
+                              "stringValue": "Sortie Longue Spécifique Semi-Marathon"
+                            },
+                            "warmup": {
+                              "stringValue": "45 min en Endurance Fondamentale (5:00 min/km)."
+                            },
+                            "locationSuggestion": {
+                              "stringValue": "Les Berges du Creuse, Guéret"
+                            },
+                            "targetPace": {
+                              "stringValue": "5:00 min/km vers 3:56 min/km"
+                            },
+                            "elevationGain": {
+                              "integerValue": "0"
+                            },
+                            "intensity": {
+                              "stringValue": "Modéré"
+                            }
+                          }
+                        }
+                      }
+                    ]
+                  }
+                },
+                "weekNumber": {
+                  "integerValue": "7"
+                },
+                "isRecoveryWeek": {
+                  "booleanValue": false
+                }
+              }
+            }
+          },
+          {
+            "mapValue": {
+              "fields": {
+                "phase": {
+                  "stringValue": "recuperation"
+                },
+                "theme": {
+                  "stringValue": "Récupération Active & Rechargement"
+                },
+                "weekGoal": {
+                  "stringValue": "Récupération Active & Rechargement"
+                },
+                "isRecoveryWeek": {
+                  "booleanValue": true
+                },
+                "weekNumber": {
+                  "integerValue": "8"
+                },
+                "sessions": {
+                  "arrayValue": {
+                    "values": [
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "day": {
+                              "stringValue": "Lundi"
+                            },
+                            "cooldown": {
+                              "stringValue": "5 min de marche et d'étirements très légers. (à 5:35 min/km)"
+                            },
+                            "type": {
+                              "stringValue": "Jogging"
+                            },
+                            "distance": {
+                              "stringValue": "16km"
+                            },
+                            "mainSet": {
+                              "stringValue": "1h20 en Endurance Fondamentale (5:00 min/km). Maintiens une aisance respiratoire totale."
+                            },
+                            "duration": {
+                              "stringValue": "1h20"
+                            },
+                            "targetPace": {
+                              "stringValue": "5:00 min/km"
+                            },
+                            "intensity": {
+                              "stringValue": "Facile"
+                            },
+                            "elevationGain": {
+                              "integerValue": "0"
+                            },
+                            "id": {
+                              "stringValue": "w8-s1-1775940253975-mevpemd"
+                            },
+                            "title": {
+                              "stringValue": "Footing de récupération actif"
+                            },
+                            "warmup": {
+                              "stringValue": "1h20 en Endurance Fondamentale (5:00 min/km)."
+                            },
+                            "advice": {
+                              "stringValue": "Cette séance est pour la récupération. Ne cherche absolument pas la vitesse, mais plutôt à délier les jambes. Si tu tu sens fatigué, réduis la durée."
+                            },
+                            "locationSuggestion": {
+                              "stringValue": "Bois de Planioles, Guéret (sol souple)"
+                            }
+                          }
+                        }
+                      },
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "cooldown": {
+                              "stringValue": "5 min d'étirements : quadriceps, ischio-jambiers, mollets, hanches"
+                            },
+                            "day": {
+                              "stringValue": "Mardi"
+                            },
+                            "distance": {
+                              "stringValue": "0km"
+                            },
+                            "type": {
+                              "stringValue": "Renforcement"
+                            },
+                            "duration": {
+                              "stringValue": "25-30 min"
+                            },
+                            "mainSet": {
+                              "stringValue": "Circuit 3 tours : Pont unipodal (3x8/jambe), Clamshell avec elastique (3x12/cote), Bird-dog (3x8/cote), Gainage lateral (3x16-30s/cote), Marche sur talons (2x16m). Repos 1 min entre tours."
+                            },
+                            "intensity": {
+                              "stringValue": "Facile"
+                            },
+                            "elevationGain": {
+                              "integerValue": "0"
+                            },
+                            "targetPace": {
+                              "stringValue": "N/A"
+                            },
+                            "id": {
+                              "stringValue": "w8-s2-1775940253975-mn39ffv"
+                            },
+                            "locationSuggestion": {
+                              "stringValue": "À la maison"
+                            },
+                            "advice": {
+                              "stringValue": "Privilégie les mouvements doux et contrôlés. Le but est d'améliorer la souplesse et de renforcer le caisson abdominal sans créer de fatigue musculaire."
+                            },
+                            "title": {
+                              "stringValue": "Renfo Leger - Recuperation (S8)"
+                            },
+                            "warmup": {
+                              "stringValue": "10 min de mobilité articulaire et échauffement dynamique"
+                            }
+                          }
+                        }
+                      },
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "id": {
+                              "stringValue": "w8-s3-1775940253975-6l9u3dd"
+                            },
+                            "locationSuggestion": {
+                              "stringValue": "Lac de Chercolmont, Guéret"
+                            },
+                            "advice": {
+                              "stringValue": "Maintiens une allure où tu peux parler sans essoufflement. C'est crucial pour une bonne récupération et pour assimiler le travail des semaines précédentes."
+                            },
+                            "warmup": {
+                              "stringValue": "1h10 en Endurance Fondamentale (5:00 min/km)."
+                            },
+                            "title": {
+                              "stringValue": "Footing en EF décontracté"
+                            },
+                            "elevationGain": {
+                              "integerValue": "0"
+                            },
+                            "intensity": {
+                              "stringValue": "Facile"
+                            },
+                            "targetPace": {
+                              "stringValue": "5:00 min/km"
+                            },
+                            "duration": {
+                              "stringValue": "1h10"
+                            },
+                            "mainSet": {
+                              "stringValue": "1h10 en Endurance Fondamentale (5:00 min/km). Profite du paysage et relâche-toi."
+                            },
+                            "day": {
+                              "stringValue": "Jeudi"
+                            },
+                            "cooldown": {
+                              "stringValue": "Quelques minutes de marche. (à 5:35 min/km)"
+                            },
+                            "distance": {
+                              "stringValue": "14km"
+                            },
+                            "type": {
+                              "stringValue": "Jogging"
+                            }
+                          }
+                        }
+                      },
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "id": {
+                              "stringValue": "w8-s4-1775940253975-kacsl0n"
+                            },
+                            "locationSuggestion": {
+                              "stringValue": "Circuit des 3 lacs, Guéret"
+                            },
+                            "advice": {
+                              "stringValue": "Malgré la durée, cette sortie doit rester facile. L'objectif est de maintenir le volume sans ajouter de stress intense. Écoute ton corps et ne pousse pas l'allure."
+                            },
+                            "title": {
+                              "stringValue": "Sortie Longue en Endurance Fondamentale"
+                            },
+                            "warmup": {
+                              "stringValue": "2h00 en Endurance Fondamentale (5:00 min/km)."
+                            },
+                            "intensity": {
+                              "stringValue": "Facile"
+                            },
+                            "elevationGain": {
+                              "integerValue": "0"
+                            },
+                            "targetPace": {
+                              "stringValue": "5:00 min/km"
+                            },
+                            "duration": {
+                              "stringValue": "2h00"
+                            },
+                            "mainSet": {
+                              "stringValue": "2h00 en Endurance Fondamentale (5:00 min/km). Garde un rythme constant et facile du début à la fin."
+                            },
+                            "cooldown": {
+                              "stringValue": "5-10 min de marche et étirements doux. (à 5:35 min/km)"
+                            },
+                            "day": {
+                              "stringValue": "Dimanche"
+                            },
+                            "distance": {
+                              "stringValue": "24km"
+                            },
+                            "type": {
+                              "stringValue": "Sortie Longue"
+                            }
+                          }
+                        }
+                      }
+                    ]
+                  }
+                }
+              }
+            }
+          },
+          {
+            "mapValue": {
+              "fields": {
+                "isRecoveryWeek": {
+                  "booleanValue": false
+                },
+                "sessions": {
+                  "arrayValue": {
+                    "values": [
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "elevationGain": {
+                              "integerValue": "0"
+                            },
+                            "intensity": {
+                              "stringValue": "Modéré"
+                            },
+                            "targetPace": {
+                              "stringValue": "5:00 min/km"
+                            },
+                            "id": {
+                              "stringValue": "w9-s1-1775940253975-14k73yb"
+                            },
+                            "locationSuggestion": {
+                              "stringValue": "Parc des Chapelles, Guéret"
+                            },
+                            "advice": {
+                              "stringValue": "Ces accélérations sont des rappels de vitesse pour réveiller les fibres musculaires, sans chercher à créer de la fatigue. Écoute ton corps et adapte si besoin."
+                            },
+                            "title": {
+                              "stringValue": "Footing EF avec accélérations courtes"
+                            },
+                            "warmup": {
+                              "stringValue": "20 min en Endurance Fondamentale (5:00 min/km)."
+                            },
+                            "day": {
+                              "stringValue": "Lundi"
+                            },
+                            "cooldown": {
+                              "stringValue": "10 min en Endurance Fondamentale (5:00 min/km)."
+                            },
+                            "distance": {
+                              "stringValue": "13km"
+                            },
+                            "type": {
+                              "stringValue": "Jogging"
+                            },
+                            "duration": {
+                              "stringValue": "1h05"
+                            },
+                            "mainSet": {
+                              "stringValue": "35 min en Endurance Fondamentale (5:00 min/km) incluant 5 x (30s rapide à sensation proche Allure 10km, avec 1min30 de récupération trottée à 5:35 min/km)."
+                            }
+                          }
+                        }
+                      },
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "type": {
+                              "stringValue": "Renforcement"
+                            },
+                            "distance": {
+                              "stringValue": "0km"
+                            },
+                            "cooldown": {
+                              "stringValue": "5 min d'étirements : quadriceps, ischio-jambiers, mollets, hanches"
+                            },
+                            "day": {
+                              "stringValue": "Mardi"
+                            },
+                            "duration": {
+                              "stringValue": "25-30 min"
+                            },
+                            "mainSet": {
+                              "stringValue": "Circuit 3 tours : Fentes avant (3x8/jambe), Fentes marchees (3x10/jambe), Gainage ventral (3x25-60s), Dead bug (3x8/cote), Extensions mollets debout (3x17). Repos 1 min entre tours."
+                            },
+                            "targetPace": {
+                              "stringValue": "N/A"
+                            },
+                            "intensity": {
+                              "stringValue": "Facile"
+                            },
+                            "elevationGain": {
+                              "integerValue": "0"
+                            },
+                            "advice": {
+                              "stringValue": "Ce renforcement aide à maintenir une bonne posture de course et prévenir les déséquilibres. N'alle jamais jusqu'à la douleur et écoute tes sensations."
+                            },
+                            "title": {
+                              "stringValue": "Renfo Maintien Leger - Affutage (S9)"
+                            },
+                            "warmup": {
+                              "stringValue": "10 min de mobilité articulaire et échauffement dynamique"
+                            },
+                            "locationSuggestion": {
+                              "stringValue": "À la maison"
+                            },
+                            "id": {
+                              "stringValue": "w9-s2-1775940253975-coelkay"
+                            }
+                          }
+                        }
+                      },
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "cooldown": {
+                              "stringValue": "10 min en Endurance Fondamentale (5:00 min/km)."
+                            },
+                            "day": {
+                              "stringValue": "Jeudi"
+                            },
+                            "distance": {
+                              "stringValue": "12km"
+                            },
+                            "type": {
+                              "stringValue": "Fractionné"
+                            },
+                            "duration": {
+                              "stringValue": "1h00"
+                            },
+                            "mainSet": {
+                              "stringValue": "2 x 10 min en Allure Spécifique Semi-Marathon (3:56 min/km) avec 3 min de récupération active en Endurance Fondamentale (5:00 min/km) entre les blocs."
+                            },
+                            "intensity": {
+                              "stringValue": "Difficile"
+                            },
+                            "elevationGain": {
+                              "integerValue": "0"
+                            },
+                            "targetPace": {
+                              "stringValue": "3:56 min/km"
+                            },
+                            "id": {
+                              "stringValue": "w9-s3-1775940253975-rdelokh"
+                            },
+                            "locationSuggestion": {
+                              "stringValue": "Voie Verte des Combrailles, Guéret"
+                            },
+                            "advice": {
+                              "stringValue": "C'est la dernière grosse séance à allure spécifique avant la course. Concentre-toi sur la sensation de l'allure et la technique de course. Ne te mets pas dans le rouge."
+                            },
+                            "warmup": {
+                              "stringValue": "20 min en Endurance Fondamentale (5:00 min/km) + 2 lignes droites actives."
+                            },
+                            "title": {
+                              "stringValue": "Rappel Allure Spécifique Semi-Marathon"
+                            }
+                          }
+                        }
+                      },
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "targetPace": {
+                              "stringValue": "5:00 min/km"
+                            },
+                            "elevationGain": {
+                              "integerValue": "0"
+                            },
+                            "intensity": {
+                              "stringValue": "Facile"
+                            },
+                            "id": {
+                              "stringValue": "w9-s4-1775940253975-9pg74nr"
+                            },
+                            "title": {
+                              "stringValue": "Sortie Longue d'Affûtage"
+                            },
+                            "warmup": {
+                              "stringValue": "1h25 en Endurance Fondamentale (5:00 min/km)."
+                            },
+                            "advice": {
+                              "stringValue": "L'objectif est de maintenir les jambes actives sans accumuler de fatigue. Garde le rythme facile et profite de cette sortie pour te détendre."
+                            },
+                            "locationSuggestion": {
+                              "stringValue": "Chemin de Halage de la Creuse, Guéret"
+                            },
+                            "day": {
+                              "stringValue": "Dimanche"
+                            },
+                            "cooldown": {
+                              "stringValue": "Quelques étirements doux et de la marche. (à 5:35 min/km)"
+                            },
+                            "type": {
+                              "stringValue": "Sortie Longue"
+                            },
+                            "distance": {
+                              "stringValue": "17km"
+                            },
+                            "mainSet": {
+                              "stringValue": "1h25 en Endurance Fondamentale (5:00 min/km). Maintiens une allure confortable."
+                            },
+                            "duration": {
+                              "stringValue": "1h25"
+                            }
+                          }
+                        }
+                      }
+                    ]
+                  }
+                },
+                "weekNumber": {
+                  "integerValue": "9"
+                },
+                "phase": {
+                  "stringValue": "affutage"
+                },
+                "weekGoal": {
+                  "stringValue": "Affûtage - Rappel Spécifique"
+                },
+                "theme": {
+                  "stringValue": "Affûtage - Rappel Spécifique"
+                }
+              }
+            }
+          },
+          {
+            "mapValue": {
+              "fields": {
+                "isRecoveryWeek": {
+                  "booleanValue": false
+                },
+                "sessions": {
+                  "arrayValue": {
+                    "values": [
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "mainSet": {
+                              "stringValue": "1h00 en Endurance Fondamentale (5:00 min/km). Concentre-toi sur des sensations de légèreté et de fluidité."
+                            },
+                            "duration": {
+                              "stringValue": "1h00"
+                            },
+                            "distance": {
+                              "stringValue": "12km"
+                            },
+                            "type": {
+                              "stringValue": "Jogging"
+                            },
+                            "cooldown": {
+                              "stringValue": "Quelques minutes de marche. (à 5:35 min/km)"
+                            },
+                            "day": {
+                              "stringValue": "Lundi"
+                            },
+                            "locationSuggestion": {
+                              "stringValue": "Parc de Pommeix, Guéret"
+                            },
+                            "title": {
+                              "stringValue": "Footing très léger d'activation"
+                            },
+                            "warmup": {
+                              "stringValue": "1h00 en Endurance Fondamentale (5:00 min/km)."
+                            },
+                            "advice": {
+                              "stringValue": "Cette séance est courte et facile, elle sert à réveiller le corps en douceur avant la course. Pas de précipitation, juste du plaisir."
+                            },
+                            "id": {
+                              "stringValue": "w10-s1-1775940253975-x85iv9w"
+                            },
+                            "intensity": {
+                              "stringValue": "Facile"
+                            },
+                            "elevationGain": {
+                              "integerValue": "0"
+                            },
+                            "targetPace": {
+                              "stringValue": "5:00 min/km"
+                            }
+                          }
+                        }
+                      },
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "advice": {
+                              "stringValue": "Le renforcement avant une course doit être très doux et axé sur la souplesse et le réveil musculaire. Ne fais rien qui puisse tu fatiguer ou tu blesser."
+                            },
+                            "warmup": {
+                              "stringValue": "10 min de mobilité articulaire et échauffement dynamique"
+                            },
+                            "title": {
+                              "stringValue": "Renfo Maintien Leger - Affutage (S10)"
+                            },
+                            "locationSuggestion": {
+                              "stringValue": "À la maison"
+                            },
+                            "id": {
+                              "stringValue": "w10-s2-1775940253975-g880yjm"
+                            },
+                            "targetPace": {
+                              "stringValue": "N/A"
+                            },
+                            "intensity": {
+                              "stringValue": "Facile"
+                            },
+                            "elevationGain": {
+                              "integerValue": "0"
+                            },
+                            "duration": {
+                              "stringValue": "25-30 min"
+                            },
+                            "mainSet": {
+                              "stringValue": "Circuit 3 tours : Marche laterale avec elastique (3x8 pas/cote), Fente laterale (3x8/jambe), Bird-dog (3x8/cote), Gainage lateral (3x17-30s/cote), Marche sur talons (2x17m). Repos 1 min entre tours."
+                            },
+                            "type": {
+                              "stringValue": "Renforcement"
+                            },
+                            "distance": {
+                              "stringValue": "0km"
+                            },
+                            "cooldown": {
+                              "stringValue": "5 min d'étirements : quadriceps, ischio-jambiers, mollets, hanches"
+                            },
+                            "day": {
+                              "stringValue": "Mardi"
+                            }
+                          }
+                        }
+                      },
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "duration": {
+                              "stringValue": "40 min"
+                            },
+                            "mainSet": {
+                              "stringValue": "4 x (1 min en Allure Spécifique Semi 3:56 min/km + 1 min de récupération trottée à 5:35 min/km) + 4 x (30s en Allure Spécifique 5km 3:31 min/km avec 1 min de récupération trottée à 5:35 min/km)."
+                            },
+                            "distance": {
+                              "stringValue": "8km"
+                            },
+                            "type": {
+                              "stringValue": "Jogging"
+                            },
+                            "cooldown": {
+                              "stringValue": "5 min en Endurance Fondamentale (5:00 min/km)."
+                            },
+                            "day": {
+                              "stringValue": "Jeudi"
+                            },
+                            "locationSuggestion": {
+                              "stringValue": "Piste d'athlétisme, Guéret"
+                            },
+                            "advice": {
+                              "stringValue": "Cette séance est un dernier réveil musculaire pour 'ouvrir' les poumons et stimuler les muscles sans accumuler de fatigue. Alle-y avec sensation, sans forcer."
+                            },
+                            "warmup": {
+                              "stringValue": "20 min en Endurance Fondamentale (5:00 min/km)."
+                            },
+                            "title": {
+                              "stringValue": "Activation pré-course"
+                            },
+                            "id": {
+                              "stringValue": "w10-s3-1775940253975-ujjztgt"
+                            },
+                            "intensity": {
+                              "stringValue": "Modéré"
+                            },
+                            "elevationGain": {
+                              "integerValue": "0"
+                            },
+                            "targetPace": {
+                              "stringValue": "5:00 min/km vers 3:31 min/km"
+                            }
+                          }
+                        }
+                      },
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "targetPace": {
+                              "stringValue": "5:00 min/km"
+                            },
+                            "elevationGain": {
+                              "integerValue": "0"
+                            },
+                            "intensity": {
+                              "stringValue": "Facile"
+                            },
+                            "id": {
+                              "stringValue": "w10-s4-1775940253975-ofqs3pb"
+                            },
+                            "warmup": {
+                              "stringValue": "1h00 en Endurance Fondamentale (5:00 min/km)."
+                            },
+                            "title": {
+                              "stringValue": "Réveil musculaire / Jour de course"
+                            },
+                            "advice": {
+                              "stringValue": "Cette séance très légère vise à activer ton corps sans le fatiguer pour la course du lendemain ou du jour même. Écoute attentivement ton corps et ne pousse pas."
+                            },
+                            "locationSuggestion": {
+                              "stringValue": "Bois de Chantemerle, Guéret (ou directement sur le site de la course si possible)"
+                            },
+                            "day": {
+                              "stringValue": "Dimanche"
+                            },
+                            "cooldown": {
+                              "stringValue": "Quelques minutes de marche et de la visualisation de la course. (à 5:35 min/km)"
+                            },
+                            "type": {
+                              "stringValue": "Sortie Longue"
+                            },
+                            "distance": {
+                              "stringValue": "14 km"
+                            },
+                            "mainSet": {
+                              "stringValue": "1h00 en Endurance Fondamentale (5:00 min/km). Maintiens une allure très facile pour un réveil musculaire optimal."
+                            },
+                            "duration": {
+                              "stringValue": "1h 10 min"
+                            }
+                          }
+                        }
+                      }
+                    ]
+                  }
+                },
+                "weekNumber": {
+                  "integerValue": "10"
+                },
+                "phase": {
+                  "stringValue": "affutage"
+                },
+                "weekGoal": {
+                  "stringValue": "Affûtage Final & Activation Pré-Course"
+                },
+                "theme": {
+                  "stringValue": "Affûtage Final & Activation Pré-Course"
+                }
+              }
+            }
+          }
+        ]
+      }
+    },
+    "userEmail": {
+      "stringValue": "david.millon23000@gmail.com"
+    },
+    "location": {
+      "stringValue": "Guéret"
+    },
+    "calculatedVMA": {
+      "doubleValue": 17.927807050377666
+    },
+    "suggestedLocations": {
+      "arrayValue": {
+        "values": [
+          {
+            "mapValue": {
+              "fields": {
+                "name": {
+                  "stringValue": "Stade Léo Lagrange (Guéret)"
+                },
+                "description": {
+                  "stringValue": "Idéal pour les séances de VMA, de vitesse et les entraînements sur piste grâce à sa surface plane et mesurée."
+                },
+                "type": {
+                  "stringValue": "TRACK"
+                }
+              }
+            }
+          },
+          {
+            "mapValue": {
+              "fields": {
+                "type": {
+                  "stringValue": "NATURE/HILL"
+                },
+                "name": {
+                  "stringValue": "Forêt de Chabrières (Guéret)"
+                },
+                "description": {
+                  "stringValue": "Parfait pour les sorties longues avec du dénivelé, les footings vallonnés et les séances de côtes, offrant des sentiers variés et des paysages agréables."
+                }
+              }
+            }
+          },
+          {
+            "mapValue": {
+              "fields": {
+                "type": {
+                  "stringValue": "PARK/NATURE"
+                },
+                "description": {
+                  "stringValue": "Adapté pour les footings en endurance fondamentale, les sorties longues sur des chemins roulants et pour profiter d'un cadre lacustre."
+                },
+                "name": {
+                  "stringValue": "Lac de la Chaume (Guéret)"
+                }
+              }
+            }
+          }
+        ]
+      }
+    },
+    "guardStats": {
+      "mapValue": {
+        "fields": {
+          "volumeScaledUp": {
+            "integerValue": "1"
+          },
+          "volumeScaledDown": {
+            "integerValue": "4"
+          },
+          "hardSessionsDowngraded": {
+            "integerValue": "0"
+          },
+          "dplusRedistributed": {
+            "integerValue": "0"
+          },
+          "sessionKmCapped": {
+            "integerValue": "0"
+          },
+          "postValidatorFixes": {
+            "integerValue": "0"
+          },
+          "affutageCorrected": {
+            "integerValue": "0"
+          },
+          "slDurationCapped": {
+            "integerValue": "0"
+          },
+          "progressionSmoothed": {
+            "integerValue": "0"
+          }
+        }
+      }
+    },
+    "vmaSource": {
+      "stringValue": "Moyenne 10km en 37:50 et Semi en 1h21"
+    }
+  },
+  "createTime": "2026-04-03T18:10:25.318801Z",
+  "updateTime": "2026-04-11T20:44:32.352041Z"
+}

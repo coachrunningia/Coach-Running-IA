@@ -1,0 +1,2902 @@
+{
+  "name": "projects/coach-running-ia/databases/(default)/documents/plans/1775202027706",
+  "fields": {
+    "vmaSource": {
+      "stringValue": "Estimation niveau Confirmé (Compétition)"
+    },
+    "goal": {
+      "stringValue": "Trail"
+    },
+    "durationWeeks": {
+      "integerValue": "11"
+    },
+    "guardStats": {
+      "mapValue": {
+        "fields": {
+          "affutageCorrected": {
+            "integerValue": "0"
+          },
+          "progressionSmoothed": {
+            "integerValue": "0"
+          },
+          "hardSessionsDowngraded": {
+            "integerValue": "0"
+          },
+          "postValidatorFixes": {
+            "integerValue": "0"
+          },
+          "sessionKmCapped": {
+            "integerValue": "0"
+          },
+          "slDurationCapped": {
+            "integerValue": "0"
+          },
+          "volumeScaledUp": {
+            "integerValue": "2"
+          },
+          "volumeScaledDown": {
+            "integerValue": "1"
+          },
+          "dplusRedistributed": {
+            "integerValue": "0"
+          }
+        }
+      }
+    },
+    "adaptationLog": {
+      "mapValue": {
+        "fields": {
+          "adaptationsThisWeek": {
+            "integerValue": "0"
+          },
+          "adaptationHistory": {
+            "arrayValue": {}
+          },
+          "weekNumber": {
+            "integerValue": "0"
+          }
+        }
+      }
+    },
+    "userId": {
+      "stringValue": "mABTVkJhTXPeDa9dC5D8zjpiS8D2"
+    },
+    "isPreview": {
+      "booleanValue": false
+    },
+    "paces": {
+      "mapValue": {
+        "fields": {
+          "recoveryPace": {
+            "stringValue": "6:27"
+          },
+          "allureSpecifique10k": {
+            "stringValue": "4:18"
+          },
+          "allureSpecifiqueSemi": {
+            "stringValue": "4:33"
+          },
+          "vmaPace": {
+            "stringValue": "3:52"
+          },
+          "seuilPace": {
+            "stringValue": "4:27"
+          },
+          "allureSpecifique5k": {
+            "stringValue": "4:04"
+          },
+          "allureSpecifiqueMarathon": {
+            "stringValue": "4:50"
+          },
+          "eaPace": {
+            "stringValue": "5:02"
+          },
+          "efPace": {
+            "stringValue": "5:47"
+          }
+        }
+      }
+    },
+    "raceDate": {
+      "stringValue": "2026-06-13"
+    },
+    "endDate": {
+      "stringValue": "2026-06-15"
+    },
+    "generationContext": {
+      "mapValue": {
+        "fields": {
+          "periodizationPlan": {
+            "mapValue": {
+              "fields": {
+                "totalWeeks": {
+                  "integerValue": "11"
+                },
+                "recoveryWeeks": {
+                  "arrayValue": {
+                    "values": [
+                      {
+                        "integerValue": "4"
+                      },
+                      {
+                        "integerValue": "8"
+                      }
+                    ]
+                  }
+                },
+                "weeklyVolumes": {
+                  "arrayValue": {
+                    "values": [
+                      {
+                        "integerValue": "34"
+                      },
+                      {
+                        "integerValue": "37"
+                      },
+                      {
+                        "integerValue": "41"
+                      },
+                      {
+                        "integerValue": "31"
+                      },
+                      {
+                        "integerValue": "41"
+                      },
+                      {
+                        "integerValue": "47"
+                      },
+                      {
+                        "integerValue": "53"
+                      },
+                      {
+                        "integerValue": "40"
+                      },
+                      {
+                        "integerValue": "53"
+                      },
+                      {
+                        "integerValue": "33"
+                      },
+                      {
+                        "integerValue": "27"
+                      }
+                    ]
+                  }
+                },
+                "weeklyPhases": {
+                  "arrayValue": {
+                    "values": [
+                      {
+                        "stringValue": "fondamental"
+                      },
+                      {
+                        "stringValue": "fondamental"
+                      },
+                      {
+                        "stringValue": "fondamental"
+                      },
+                      {
+                        "stringValue": "recuperation"
+                      },
+                      {
+                        "stringValue": "developpement"
+                      },
+                      {
+                        "stringValue": "developpement"
+                      },
+                      {
+                        "stringValue": "specifique"
+                      },
+                      {
+                        "stringValue": "recuperation"
+                      },
+                      {
+                        "stringValue": "specifique"
+                      },
+                      {
+                        "stringValue": "affutage"
+                      },
+                      {
+                        "stringValue": "affutage"
+                      }
+                    ]
+                  }
+                }
+              }
+            }
+          },
+          "modelUsed": {
+            "stringValue": "gemini-2.5-flash"
+          },
+          "paces": {
+            "mapValue": {
+              "fields": {
+                "seuilPace": {
+                  "stringValue": "4:27"
+                },
+                "vmaPace": {
+                  "stringValue": "3:52"
+                },
+                "efPace": {
+                  "stringValue": "5:47"
+                },
+                "eaPace": {
+                  "stringValue": "5:02"
+                },
+                "allureSpecifique5k": {
+                  "stringValue": "4:04"
+                },
+                "allureSpecifiqueMarathon": {
+                  "stringValue": "4:50"
+                },
+                "recoveryPace": {
+                  "stringValue": "6:27"
+                },
+                "allureSpecifiqueSemi": {
+                  "stringValue": "4:33"
+                },
+                "allureSpecifique10k": {
+                  "stringValue": "4:18"
+                }
+              }
+            }
+          },
+          "vmaSource": {
+            "stringValue": "Estimation niveau Confirmé (Compétition)"
+          },
+          "vma": {
+            "doubleValue": 15.5
+          },
+          "questionnaireSnapshot": {
+            "mapValue": {
+              "fields": {
+                "preferredDays": {
+                  "arrayValue": {
+                    "values": [
+                      {
+                        "stringValue": "Lundi"
+                      },
+                      {
+                        "stringValue": "Mercredi"
+                      },
+                      {
+                        "stringValue": "Vendredi"
+                      },
+                      {
+                        "stringValue": "Dimanche"
+                      }
+                    ]
+                  }
+                },
+                "recentRaceTimes": {
+                  "mapValue": {}
+                },
+                "sex": {
+                  "stringValue": "Homme"
+                },
+                "vma": {
+                  "doubleValue": 15.5
+                },
+                "currentWeeklyVolume": {
+                  "integerValue": "40"
+                },
+                "age": {
+                  "integerValue": "52"
+                },
+                "injuries": {
+                  "mapValue": {
+                    "fields": {
+                      "hasInjury": {
+                        "booleanValue": false
+                      }
+                    }
+                  }
+                },
+                "raceDate": {
+                  "stringValue": "2026-06-13"
+                },
+                "email": {
+                  "stringValue": "cyril.carriere4@gmail.com"
+                },
+                "startDate": {
+                  "stringValue": "2026-04-03"
+                },
+                "city": {
+                  "stringValue": "Aurillac "
+                },
+                "weight": {
+                  "integerValue": "75"
+                },
+                "goal": {
+                  "stringValue": "Trail"
+                },
+                "frequency": {
+                  "integerValue": "4"
+                },
+                "height": {
+                  "integerValue": "173"
+                },
+                "currentWeeklyElevation": {
+                  "integerValue": "600"
+                },
+                "level": {
+                  "stringValue": "Confirmé (Compétition)"
+                },
+                "trailDetails": {
+                  "mapValue": {
+                    "fields": {
+                      "distance": {
+                        "integerValue": "50"
+                      },
+                      "elevation": {
+                        "integerValue": "1800"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "generatedAt": {
+            "stringValue": "2026-04-03T07:39:57.373Z"
+          }
+        }
+      }
+    },
+    "sessionsPerWeek": {
+      "integerValue": "4"
+    },
+    "feasibility": {
+      "mapValue": {
+        "fields": {
+          "message": {
+            "stringValue": "Ce trail de 50km / 1800m D+ est un beau défi. Avec ta VMA de 15.5 km/h, c'est faisable mais attention : 11 semaines pour un trail de 50km, c'est court — 16 à 20 semaines idéalement. Avec un IMC de 25.1, investis dans de bonnes chaussures avec amorti pour cette distance. VMA estimée (pas de chrono validé) : l'évaluation comporte une marge d'incertitude. Point positif : ton volume actuel de 40km/sem est une excellente base pour cette distance. Suis le plan avec rigueur et régularité, c'est la clé pour y arriver."
+          },
+          "status": {
+            "stringValue": "AMBITIEUX"
+          },
+          "safetyWarning": {
+            "stringValue": "À 52 ans, on te recommande vivement de consulter ton médecin et de réaliser un test d'effort avant de démarrer cette préparation. Un certificat médical d'aptitude est indispensable pour cette distance. Privilégie la récupération (48-72h entre séances intenses), hydrate-toi bien et écoute ton corps."
+          }
+        }
+      }
+    },
+    "suggestedLocations": {
+      "arrayValue": {
+        "values": [
+          {
+            "mapValue": {
+              "fields": {
+                "description": {
+                  "stringValue": "Sentiers plats et agréables le long de la rivière, idéal pour les footings en endurance fondamentale."
+                },
+                "name": {
+                  "stringValue": "Bords de la Jordanne"
+                },
+                "type": {
+                  "stringValue": "NATURE"
+                }
+              }
+            }
+          },
+          {
+            "mapValue": {
+              "fields": {
+                "type": {
+                  "stringValue": "PARK"
+                },
+                "description": {
+                  "stringValue": "Parc urbain avec des zones vallonnées et des sentiers, parfait pour les footings avec un léger dénivelé et le travail de foulée."
+                },
+                "name": {
+                  "stringValue": "Parc Hélitas"
+                }
+              }
+            }
+          },
+          {
+            "mapValue": {
+              "fields": {
+                "type": {
+                  "stringValue": "NATURE"
+                },
+                "description": {
+                  "stringValue": "Réseau de chemins et sentiers en campagne, offrant du dénivelé pour les sorties longues et les entraînements spécifiques trail."
+                },
+                "name": {
+                  "stringValue": "Les chemins autour de Jussac/Teilhede"
+                }
+              }
+            }
+          }
+        ]
+      }
+    },
+    "name": {
+      "stringValue": "Préparation Trail 50km / 1800m D+ — Finisher — 11 sem."
+    },
+    "confidenceScore": {
+      "integerValue": "60"
+    },
+    "weeks": {
+      "arrayValue": {
+        "values": [
+          {
+            "mapValue": {
+              "fields": {
+                "sessions": {
+                  "arrayValue": {
+                    "values": [
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "advice": {
+                              "stringValue": "Hydrate-toi bien avant et après la séance. Sois attentif aux signaux de ton corps et n'hésite pas à ralentir si tu ressens une douleur. Surveille particulièrement tes genoux et chevilles."
+                            },
+                            "mainSet": {
+                              "stringValue": "40 min de course en endurance fondamentale à 5:47 min/km sur terrain plat ou très légèrement vallonné, en maintenant une aisance respiratoire permettant de parler."
+                            },
+                            "locationSuggestion": {
+                              "stringValue": "Bords de la Jordanne"
+                            },
+                            "id": {
+                              "stringValue": "w1-s1-1775202027707-zq82p69"
+                            },
+                            "day": {
+                              "stringValue": "Lundi"
+                            },
+                            "type": {
+                              "stringValue": "Jogging"
+                            },
+                            "targetPace": {
+                              "stringValue": "5:47 min/km"
+                            },
+                            "elevationGain": {
+                              "integerValue": "120"
+                            },
+                            "intensity": {
+                              "stringValue": "Facile"
+                            },
+                            "distance": {
+                              "stringValue": "12.5 km"
+                            },
+                            "title": {
+                              "stringValue": "Footing en aisance respiratoire"
+                            },
+                            "cooldown": {
+                              "stringValue": "10 min de marche active, suivies de 5-10 min d'étirements doux et de mobilité articulaire, en insistant sur les jambes et le bas du dos. (à 6:27 min/km)"
+                            },
+                            "warmup": {
+                              "stringValue": "15 min d'échauffement progressif, terminant à l'allure EF. (à 6:27 min/km)"
+                            },
+                            "duration": {
+                              "stringValue": "1h 14 min"
+                            }
+                          }
+                        }
+                      },
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "locationSuggestion": {
+                              "stringValue": "À la maison"
+                            },
+                            "id": {
+                              "stringValue": "w1-s2-1775202027707-mhcqh0f"
+                            },
+                            "mainSet": {
+                              "stringValue": "Circuit 3 tours : Squats poids de corps (3x16), Squat bulgare (3x10/jambe), Fentes avant (3x10/jambe), Gainage ventral (3x31-60s), Dead bug (3x10/côté), Extensions mollets debout (3x21), Squat excentrique (descente 4s) (3x10), Step-down excentrique (3x8/jambe), Sauts directionnels multi-axes (3x8), Mollets debout unipodal (3x12/jambe). Repos 1 min 30 entre tours."
+                            },
+                            "advice": {
+                              "stringValue": "Concentre-toi sur la qualité et la précision des mouvements plutôt que sur la quantité. Respire profondément. Écoute ton corps et adapte les exercices si nécessaire. Un bon renforcement prévient les blessures et améliore l'efficacité en trail."
+                            },
+                            "intensity": {
+                              "stringValue": "Modéré"
+                            },
+                            "distance": {
+                              "stringValue": "0 km"
+                            },
+                            "day": {
+                              "stringValue": "Mercredi"
+                            },
+                            "targetPace": {
+                              "stringValue": "N/A"
+                            },
+                            "elevationGain": {
+                              "integerValue": "0"
+                            },
+                            "type": {
+                              "stringValue": "Renforcement"
+                            },
+                            "title": {
+                              "stringValue": "Renfo Trail Focus A - Quadriceps & Excentrique (S1)"
+                            },
+                            "warmup": {
+                              "stringValue": "10 min de mobilité articulaire et échauffement dynamique"
+                            },
+                            "cooldown": {
+                              "stringValue": "5 min d'étirements : quadriceps, ischio-jambiers, mollets, hanches"
+                            },
+                            "duration": {
+                              "stringValue": "40-45 min"
+                            }
+                          }
+                        }
+                      },
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "duration": {
+                              "stringValue": "56 min"
+                            },
+                            "cooldown": {
+                              "stringValue": "10 min de marche active sur sol souple, suivies de 5-10 min d'étirements doux et de mobilité articulaire, en ciblant les muscles sollicités par le trail (mollets, ischios, quadriceps). (à 6:27 min/km)"
+                            },
+                            "warmup": {
+                              "stringValue": "15 min d'échauffement progressif sur terrain varié, en se concentrant sur les sensations d'appui. (à 6:27 min/km)"
+                            },
+                            "title": {
+                              "stringValue": "Footing nature et technique de foulée"
+                            },
+                            "feedback": {
+                              "mapValue": {
+                                "fields": {
+                                  "rpe": {
+                                    "integerValue": "5"
+                                  },
+                                  "completed": {
+                                    "booleanValue": true
+                                  },
+                                  "adaptationRequested": {
+                                    "booleanValue": false
+                                  }
+                                }
+                              }
+                            },
+                            "distance": {
+                              "stringValue": "9.5 km"
+                            },
+                            "intensity": {
+                              "stringValue": "Facile"
+                            },
+                            "type": {
+                              "stringValue": "Jogging"
+                            },
+                            "targetPace": {
+                              "stringValue": "5:47 min/km"
+                            },
+                            "elevationGain": {
+                              "integerValue": "90"
+                            },
+                            "day": {
+                              "stringValue": "Vendredi"
+                            },
+                            "id": {
+                              "stringValue": "w1-s3-1775202027707-y53dvzd"
+                            },
+                            "locationSuggestion": {
+                              "stringValue": "Parc Hélitas"
+                            },
+                            "advice": {
+                              "stringValue": "Prêt'attention à tes appuis et à l'équilibre sur les sentiers. Une bonne technique de foulée réduit l'impact sur les articulations. Écoute ton corps et ne force pas en cas de fatigue. Surveille l'état de tes chevilles et genoux."
+                            },
+                            "mainSet": {
+                              "stringValue": "40 min de course en endurance fondamentale à 5:47 min/km sur sentiers, avec de légères variations de terrain. Profite-en pour travailler la fluidité de la foulée et l'adaptation aux changements de surface."
+                            }
+                          }
+                        }
+                      },
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "feedback": {
+                              "mapValue": {
+                                "fields": {
+                                  "adaptationRequested": {
+                                    "booleanValue": false
+                                  },
+                                  "completed": {
+                                    "booleanValue": true
+                                  },
+                                  "rpe": {
+                                    "integerValue": "5"
+                                  }
+                                }
+                              }
+                            },
+                            "title": {
+                              "stringValue": "Sortie Longue Trail en Endurance Fondamentale"
+                            },
+                            "duration": {
+                              "stringValue": "1h 24 min"
+                            },
+                            "cooldown": {
+                              "stringValue": "15 min de marche active pour permettre une transition douce, suivies de 10 min d'étirements profonds et de mobilité articulaire, en insistant sur les hanches, les fessiers et les ischio-jambiers. (à 6:27 min/km)"
+                            },
+                            "warmup": {
+                              "stringValue": "15 min d'échauffement progressif en marchant puis trottinant doucement sur terrain varié. (à 6:27 min/km)"
+                            },
+                            "mainSet": {
+                              "stringValue": "40 min de course en endurance fondamentale à 5:47 min/km sur un parcours de trail vallonné, avec des montées et descentes douces. L'objectif est de s'habituer à la durée et au terrain spécifique du trail, tout en conservant une allure très confortable. N'hésite pas à marcher dans les montées raides."
+                            },
+                            "advice": {
+                              "stringValue": "C'est la séance clé pour construire ton endurance. Gère ton effort sur la durée, ne cherche pas la vitesse. Pense à l'hydratation et à une petite collation facile à digérer si tu en ressens le besoin. Écoute attentivement ton corps, en particulier tes articulations, et ajuste ton allure ou marche si nécessaire."
+                            },
+                            "id": {
+                              "stringValue": "w1-s4-1775202027707-u2s6mt9"
+                            },
+                            "locationSuggestion": {
+                              "stringValue": "Les chemins autour de Jussac/Teilhede"
+                            },
+                            "elevationGain": {
+                              "integerValue": "390"
+                            },
+                            "targetPace": {
+                              "stringValue": "5:47 min/km"
+                            },
+                            "type": {
+                              "stringValue": "Sortie Longue"
+                            },
+                            "day": {
+                              "stringValue": "Dimanche"
+                            },
+                            "distance": {
+                              "stringValue": "14.4 km"
+                            },
+                            "intensity": {
+                              "stringValue": "Facile"
+                            }
+                          }
+                        }
+                      }
+                    ]
+                  }
+                },
+                "theme": {
+                  "stringValue": "Introduction à l'Endurance Fondamentale et au Terrain Trail"
+                },
+                "weekNumber": {
+                  "integerValue": "1"
+                },
+                "phase": {
+                  "stringValue": "fondamental"
+                },
+                "weekGoal": {
+                  "stringValue": "Introduction à l'Endurance Fondamentale et au Terrain Trail"
+                }
+              }
+            }
+          },
+          {
+            "mapValue": {
+              "fields": {
+                "theme": {
+                  "stringValue": "Découverte des sentiers et consolidation de l'endurance fondamentale"
+                },
+                "phase": {
+                  "stringValue": "fondamental"
+                },
+                "weekNumber": {
+                  "integerValue": "2"
+                },
+                "weekGoal": {
+                  "stringValue": "Découverte des sentiers et consolidation de l'endurance fondamentale"
+                },
+                "isRecoveryWeek": {
+                  "booleanValue": false
+                },
+                "sessions": {
+                  "arrayValue": {
+                    "values": [
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "intensity": {
+                              "stringValue": "Facile"
+                            },
+                            "distance": {
+                              "stringValue": "10.5 km"
+                            },
+                            "day": {
+                              "stringValue": "Lundi"
+                            },
+                            "type": {
+                              "stringValue": "Jogging"
+                            },
+                            "elevationGain": {
+                              "integerValue": "144"
+                            },
+                            "targetPace": {
+                              "stringValue": "5:47 min/km"
+                            },
+                            "locationSuggestion": {
+                              "stringValue": "Sentiers vallonnés des Gorges de la Cère, Aurillac"
+                            },
+                            "id": {
+                              "stringValue": "w2-s1-1775209633264-xoko4bq"
+                            },
+                            "advice": {
+                              "stringValue": "Écoute attentivement ton corps, surtout les articulations (genoux, chevilles) lors des passages vallonnés. Ne force pas en cas de douleur. Hydrate-toi bien avant et après la séance. Nous te recommandons vivement de consulter un médecin avant de débuter ce programme, notamment pour obtenir un certificat médical d'aptitude au sport. À partir de 52 ans, un bilan cardio-vasculaire est particulièrement conseillé."
+                            },
+                            "mainSet": {
+                              "stringValue": "45 min d'Endurance Fondamentale (EF - 5:47 min/km) sur un parcours avec un léger dénivelé. Concentre-toi sur l'aisance respiratoire et une foulée légère en montée et descente."
+                            },
+                            "warmup": {
+                              "stringValue": "15 min d'échauffement progressif en Endurance Fondamentale (EF - 5:47 min/km)."
+                            },
+                            "cooldown": {
+                              "stringValue": "5 min de marche active, suivies de 5 min d'étirements doux et de mobilité articulaire (chevilles, genoux, hanches). (à 6:27 min/km)"
+                            },
+                            "duration": {
+                              "stringValue": "1h 00 min"
+                            },
+                            "title": {
+                              "stringValue": "Footing nature vallonné"
+                            },
+                            "feedback": {
+                              "mapValue": {
+                                "fields": {
+                                  "completed": {
+                                    "booleanValue": true
+                                  },
+                                  "adaptationRequested": {
+                                    "booleanValue": false
+                                  },
+                                  "rpe": {
+                                    "integerValue": "5"
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        }
+                      },
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "duration": {
+                              "stringValue": "40-45 min"
+                            },
+                            "warmup": {
+                              "stringValue": "10 min de mobilité articulaire et échauffement dynamique"
+                            },
+                            "cooldown": {
+                              "stringValue": "5 min d'étirements : quadriceps, ischio-jambiers, mollets, hanches"
+                            },
+                            "title": {
+                              "stringValue": "Renfo Trail Focus B - Hanches & Proprioception (S2)"
+                            },
+                            "distance": {
+                              "stringValue": "0 km"
+                            },
+                            "intensity": {
+                              "stringValue": "Modéré"
+                            },
+                            "targetPace": {
+                              "stringValue": "N/A"
+                            },
+                            "elevationGain": {
+                              "integerValue": "0"
+                            },
+                            "type": {
+                              "stringValue": "Renforcement"
+                            },
+                            "day": {
+                              "stringValue": "Mercredi"
+                            },
+                            "id": {
+                              "stringValue": "w2-s2-1775209633264-ycivghl"
+                            },
+                            "locationSuggestion": {
+                              "stringValue": "À la maison"
+                            },
+                            "mainSet": {
+                              "stringValue": "Circuit 3 tours : Pont unipodal (3x10/jambe), Clamshell avec elastique (3x16/cote), Marche laterale avec elastique (3x10 pas/cote), Bird-dog (3x10/cote), Gainage lateral (3x21-30s/cote), Marche sur talons (2x21m), Equilibre sur coussin instable (3x31s/pied), Sauts directionnels (3x8), Russian twist (3x16/cote), Mollets assis soleaire (3x16). Repos 1 min 30 entre tours."
+                            },
+                            "advice": {
+                              "stringValue": "Concentre-toi sur la qualité d'exécution des mouvements. Adapte l'intensité si nécessaire. Pense à l'hydratation et à l'écoute de ton corps pour éviter toute fatigue excessive."
+                            }
+                          }
+                        }
+                      },
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "mainSet": {
+                              "stringValue": "40 min d'Endurance Fondamentale (EF - 5:47 min/km). Commence à une allure très douce et augmente très légèrement le rythme sur les 10 dernières minutes, sans dépasser le confort de l'EF."
+                            },
+                            "advice": {
+                              "stringValue": "Même sur un footing 'progressif', l'objectif reste l'aisance respiratoire. Ne te mets pas dans le rouge. L'écoute de ton corps est primordiale, en particulier à 52 ans."
+                            },
+                            "id": {
+                              "stringValue": "w2-s3-1775209633264-5vgggxf"
+                            },
+                            "locationSuggestion": {
+                              "stringValue": "Parc Hélitas, Aurillac"
+                            },
+                            "targetPace": {
+                              "stringValue": "5:47 min/km"
+                            },
+                            "elevationGain": {
+                              "integerValue": "108"
+                            },
+                            "type": {
+                              "stringValue": "Jogging"
+                            },
+                            "day": {
+                              "stringValue": "Vendredi"
+                            },
+                            "distance": {
+                              "stringValue": "9 km"
+                            },
+                            "intensity": {
+                              "stringValue": "Facile"
+                            },
+                            "feedback": {
+                              "mapValue": {
+                                "fields": {
+                                  "completed": {
+                                    "booleanValue": true
+                                  },
+                                  "adaptationRequested": {
+                                    "booleanValue": false
+                                  },
+                                  "rpe": {
+                                    "integerValue": "5"
+                                  }
+                                }
+                              }
+                            },
+                            "title": {
+                              "stringValue": "Footing progressif en nature"
+                            },
+                            "duration": {
+                              "stringValue": "50 min"
+                            },
+                            "warmup": {
+                              "stringValue": "10 min d'échauffement progressif en Endurance Fondamentale (EF - 5:47 min/km)."
+                            },
+                            "cooldown": {
+                              "stringValue": "5 min de marche, suivies d'étirements des membres inférieurs et du dos. (à 6:27 min/km)"
+                            }
+                          }
+                        }
+                      },
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "cooldown": {
+                              "stringValue": "5 min de marche, suivies de 10 min d'étirements complets et de mobilité (notamment hanches, genoux, chevilles) pour favoriser la récupération. (à 6:27 min/km)"
+                            },
+                            "warmup": {
+                              "stringValue": "15 min d'échauffement en Endurance Fondamentale (EF - 5:47 min/km) sur terrain plat ou faux-plat. Prépare tes articulations à l'effort prolongé."
+                            },
+                            "duration": {
+                              "stringValue": "1h 35 min"
+                            },
+                            "title": {
+                              "stringValue": "Sortie Longue Trail en EF (D+ léger)"
+                            },
+                            "feedback": {
+                              "mapValue": {
+                                "fields": {
+                                  "rpe": {
+                                    "integerValue": "5"
+                                  },
+                                  "completed": {
+                                    "booleanValue": true
+                                  },
+                                  "adaptationRequested": {
+                                    "booleanValue": false
+                                  }
+                                }
+                              }
+                            },
+                            "intensity": {
+                              "stringValue": "Facile"
+                            },
+                            "distance": {
+                              "stringValue": "17 km"
+                            },
+                            "day": {
+                              "stringValue": "Dimanche"
+                            },
+                            "type": {
+                              "stringValue": "Sortie Longue"
+                            },
+                            "targetPace": {
+                              "stringValue": "5:47 min/km"
+                            },
+                            "elevationGain": {
+                              "integerValue": "468"
+                            },
+                            "locationSuggestion": {
+                              "stringValue": "Massif de la Jordanne, Aurillac"
+                            },
+                            "id": {
+                              "stringValue": "w2-s4-1775209633264-1074ojt"
+                            },
+                            "advice": {
+                              "stringValue": "Cette sortie longue est la clé pour construire ton endurance. L'objectif est de tenir la durée à une intensité confortable. N'hésite pas à marcher en côte pour ne pas t'épuiser. Surveille l'état de tes genoux et chevilles après la séance."
+                            },
+                            "mainSet": {
+                              "stringValue": "1h 15 min d'Endurance Fondamentale (EF - 5:47 min/km) sur sentiers avec un dénivelé modéré (D+ cible de 468m). Marche dans les montées les plus raides si nécessaire pour maintenir l'aisance respiratoire. Simule un ravitaillement léger (eau, barres) à mi-parcours. Entraîne-toi avec ton sac de trail."
+                            }
+                          }
+                        }
+                      }
+                    ]
+                  }
+                }
+              }
+            }
+          },
+          {
+            "mapValue": {
+              "fields": {
+                "isRecoveryWeek": {
+                  "booleanValue": false
+                },
+                "sessions": {
+                  "arrayValue": {
+                    "values": [
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "cooldown": {
+                              "stringValue": "5 min de retour au calme en marchant. (à 6:27 min/km)"
+                            },
+                            "warmup": {
+                              "stringValue": "10 min de footing léger à 6:27 min/km"
+                            },
+                            "duration": {
+                              "stringValue": "1h 05 min"
+                            },
+                            "title": {
+                              "stringValue": "Footing d'Endurance Fondamentale"
+                            },
+                            "day": {
+                              "stringValue": "Lundi"
+                            },
+                            "type": {
+                              "stringValue": "Jogging"
+                            },
+                            "elevationGain": {
+                              "integerValue": "168"
+                            },
+                            "targetPace": {
+                              "stringValue": "5:47"
+                            },
+                            "intensity": {
+                              "stringValue": "Facile"
+                            },
+                            "distance": {
+                              "stringValue": "11.5 km"
+                            },
+                            "advice": {
+                              "stringValue": "C'est ta première séance avec de l'intensité. L'objectif est de réveiller la fibre musculaire sans créer de fatigue excessive. Ne cherche pas à sprinter en côte, mais à maintenir un effort régulier et puissant. Sois attentif à tes sensations, en particulier aux mollets."
+                            },
+                            "mainSet": {
+                              "stringValue": "50 min en Endurance Fondamentale (5:47 min/km)."
+                            },
+                            "locationSuggestion": {
+                              "stringValue": "Côtes de Tronquie, Aurillac"
+                            },
+                            "id": {
+                              "stringValue": "w3-s1-1775209633264-ywb4rf1"
+                            }
+                          }
+                        }
+                      },
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "duration": {
+                              "stringValue": "40-45 min"
+                            },
+                            "cooldown": {
+                              "stringValue": "5 min d'étirements : quadriceps, ischio-jambiers, mollets, hanches"
+                            },
+                            "warmup": {
+                              "stringValue": "10 min de mobilité articulaire et échauffement dynamique"
+                            },
+                            "title": {
+                              "stringValue": "Renfo Trail Focus A - Quadriceps & Excentrique (S3)"
+                            },
+                            "targetPace": {
+                              "stringValue": "N/A"
+                            },
+                            "elevationGain": {
+                              "integerValue": "0"
+                            },
+                            "type": {
+                              "stringValue": "Renforcement"
+                            },
+                            "day": {
+                              "stringValue": "Mercredi"
+                            },
+                            "distance": {
+                              "stringValue": "0 km"
+                            },
+                            "intensity": {
+                              "stringValue": "Modéré"
+                            },
+                            "mainSet": {
+                              "stringValue": "Circuit 3 tours : Fentes avant (3x10/jambe), Fentes marchees (3x12/jambe), Step-up sur marche (3x10/jambe), Superman (3x12), Pompes (3x10), Extensions mollets debout (3x21), Fente arriere lente (3s) (3x10/jambe), Chaise murale longue (3x47-90s), Box jumps ou sauts sur banc (3x8), Protocole Stanish excentrique (3x10). Repos 1 min 30 entre tours."
+                            },
+                            "advice": {
+                              "stringValue": "Le gainage est essentiel pour la stabilité en trail et la prévention des blessures. Concentre-toi sur la tenue des postures. Pense à tes hanches et ton dos."
+                            },
+                            "id": {
+                              "stringValue": "w3-s2-1775209633264-mnhrhq5"
+                            },
+                            "locationSuggestion": {
+                              "stringValue": "À la maison"
+                            }
+                          }
+                        }
+                      },
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "distance": {
+                              "stringValue": "10 km"
+                            },
+                            "intensity": {
+                              "stringValue": "Facile"
+                            },
+                            "elevationGain": {
+                              "integerValue": "126"
+                            },
+                            "targetPace": {
+                              "stringValue": "5:47 min/km"
+                            },
+                            "type": {
+                              "stringValue": "Jogging"
+                            },
+                            "day": {
+                              "stringValue": "Vendredi"
+                            },
+                            "id": {
+                              "stringValue": "w3-s3-1775209633264-whh9b78"
+                            },
+                            "locationSuggestion": {
+                              "stringValue": "Sentier de la Cère, Aurillac"
+                            },
+                            "mainSet": {
+                              "stringValue": "45 min d'Endurance Fondamentale (EF - 5:47 min/km) sur sentiers variés. Concentre-toi par intermittence sur une foulée plus légère et réactive, en essayant de poser le pied sous le centre de gravité, surtout dans les petites descentes."
+                            },
+                            "advice": {
+                              "stringValue": "Le travail technique se fait à l'aise. N'essaie pas de changer drastiquement ta foulée, juste de prendre conscience des sensations. Écoute ton corps, particulièrement tes chevilles sur les terrains irréguliers."
+                            },
+                            "duration": {
+                              "stringValue": "55 min"
+                            },
+                            "warmup": {
+                              "stringValue": "10 min d'échauffement progressif en Endurance Fondamentale (EF - 5:47 min/km)."
+                            },
+                            "cooldown": {
+                              "stringValue": "5 min de marche, suivies d'étirements des ischio-jambiers et des quadriceps, ainsi que des exercices de mobilité des chevilles. (à 6:27 min/km)"
+                            },
+                            "title": {
+                              "stringValue": "Footing nature et technique de foulée"
+                            }
+                          }
+                        }
+                      },
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "intensity": {
+                              "stringValue": "Facile"
+                            },
+                            "distance": {
+                              "stringValue": "20 km"
+                            },
+                            "day": {
+                              "stringValue": "Dimanche"
+                            },
+                            "type": {
+                              "stringValue": "Sortie Longue"
+                            },
+                            "targetPace": {
+                              "stringValue": "5:47 min/km"
+                            },
+                            "elevationGain": {
+                              "integerValue": "546"
+                            },
+                            "locationSuggestion": {
+                              "stringValue": "Forêt du Puy Mary, Aurillac (départ proche)"
+                            },
+                            "id": {
+                              "stringValue": "w3-s4-1775209633264-go4kzuw"
+                            },
+                            "advice": {
+                              "stringValue": "La sortie longue est cruciale pour habituer ton corps à l'effort prolongé. Maintiens l'EF comme allure de base et gère les montées avec intelligence. Surveille toute douleur inhabituelle aux articulations, en particulier les genoux lors des descentes."
+                            },
+                            "mainSet": {
+                              "stringValue": "1h 30 min d'Endurance Fondamentale (EF - 5:47 min/km) sur un parcours vallonné (D+ cible de 546m). Intègre deux pauses de 5 minutes pour simuler un ravitaillement complet (liquide + solide). Porte ton matériel de course (sac, gourdes). N'hésite pas à marcher en montées raides."
+                            },
+                            "cooldown": {
+                              "stringValue": "5 min de marche, suivies de 10 min d'étirements complets, insistant sur les muscles sollicités par le dénivelé (quadriceps, mollets, fessiers). (à 6:27 min/km)"
+                            },
+                            "warmup": {
+                              "stringValue": "15 min d'échauffement en Endurance Fondamentale (EF - 5:47 min/km) sur terrain souple."
+                            },
+                            "duration": {
+                              "stringValue": "1h 50 min"
+                            },
+                            "title": {
+                              "stringValue": "Sortie Longue Trail en EF (D+ modéré)"
+                            }
+                          }
+                        }
+                      }
+                    ]
+                  }
+                },
+                "phase": {
+                  "stringValue": "fondamental"
+                },
+                "weekNumber": {
+                  "integerValue": "3"
+                },
+                "theme": {
+                  "stringValue": "Renforcement de l'endurance et introduction au travail de côtes courtes"
+                },
+                "weekGoal": {
+                  "stringValue": "Renforcement de l'endurance et introduction au travail de côtes courtes"
+                }
+              }
+            }
+          },
+          {
+            "mapValue": {
+              "fields": {
+                "weekNumber": {
+                  "integerValue": "4"
+                },
+                "phase": {
+                  "stringValue": "recuperation"
+                },
+                "theme": {
+                  "stringValue": "Récupération active et maintien de la base d'endurance"
+                },
+                "weekGoal": {
+                  "stringValue": "Récupération active et maintien de la base d'endurance"
+                },
+                "sessions": {
+                  "arrayValue": {
+                    "values": [
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "mainSet": {
+                              "stringValue": "30 min d'Endurance Fondamentale (EF - 5:47 min/km) sur un parcours très facile, légèrement vallonné. Concentre-toi sur la détente et l'aisance. Il s'agit de relancer la circulation sans effort."
+                            },
+                            "advice": {
+                              "stringValue": "Cette séance est là pour t'aider à récupérer. Ne cherche absolument pas la performance. L'écoute du corps est plus importante que jamais. Toute douleur est un signal d'alarme. Privilégie l'hydratation."
+                            },
+                            "locationSuggestion": {
+                              "stringValue": "Lac des Graves, Aurillac"
+                            },
+                            "id": {
+                              "stringValue": "w4-s1-1775209633264-hay9fbm"
+                            },
+                            "day": {
+                              "stringValue": "Lundi"
+                            },
+                            "elevationGain": {
+                              "integerValue": "0"
+                            },
+                            "targetPace": {
+                              "stringValue": "5:47 min/km"
+                            },
+                            "type": {
+                              "stringValue": "Jogging"
+                            },
+                            "intensity": {
+                              "stringValue": "Facile"
+                            },
+                            "distance": {
+                              "stringValue": "9.1 km"
+                            },
+                            "title": {
+                              "stringValue": "Footing de récupération active"
+                            },
+                            "warmup": {
+                              "stringValue": "10 min d'échauffement très doux en marchant, puis en trottinant tranquillement. (à 6:27 min/km)"
+                            },
+                            "cooldown": {
+                              "stringValue": "5 min de marche, suivies de 5 min d'étirements très doux et de balancements articulaires (hanches, genoux). (à 6:27 min/km)"
+                            },
+                            "duration": {
+                              "stringValue": "51 min"
+                            }
+                          }
+                        }
+                      },
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "day": {
+                              "stringValue": "Mercredi"
+                            },
+                            "targetPace": {
+                              "stringValue": "N/A"
+                            },
+                            "elevationGain": {
+                              "integerValue": "0"
+                            },
+                            "type": {
+                              "stringValue": "Renforcement"
+                            },
+                            "intensity": {
+                              "stringValue": "Facile"
+                            },
+                            "distance": {
+                              "stringValue": "0 km"
+                            },
+                            "mainSet": {
+                              "stringValue": "Circuit 2 tours : Marche laterale avec elastique (3x7 pas/cote), Fente laterale (3x7/jambe), Bird-dog (3x7/cote), Gainage lateral (3x14-30s/cote), Marche sur talons (2x14m), Corde a sauter (3x1min), Equilibre unipodal yeux fermes (3x14-30s/pied), Planche + rotation laterale (3x7/cote), Mollets debout unipodal (3x8/jambe). Repos 1 min 30 entre tours."
+                            },
+                            "advice": {
+                              "stringValue": "C'est une semaine pour recharger. Ce renforcement doux vise à maintenir ton mobilité et à soulager les tensions. Ne force aucune position. Pense à tes articulations."
+                            },
+                            "locationSuggestion": {
+                              "stringValue": "À la maison"
+                            },
+                            "id": {
+                              "stringValue": "w4-s2-1775209633264-1apmhao"
+                            },
+                            "warmup": {
+                              "stringValue": "10 min de mobilité articulaire et échauffement dynamique"
+                            },
+                            "cooldown": {
+                              "stringValue": "5 min d'étirements : quadriceps, ischio-jambiers, mollets, hanches"
+                            },
+                            "duration": {
+                              "stringValue": "25-30 min"
+                            },
+                            "title": {
+                              "stringValue": "Renfo Leger - Recuperation (S4)"
+                            }
+                          }
+                        }
+                      },
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "type": {
+                              "stringValue": "Jogging"
+                            },
+                            "elevationGain": {
+                              "integerValue": "0"
+                            },
+                            "targetPace": {
+                              "stringValue": "5:47 min/km"
+                            },
+                            "day": {
+                              "stringValue": "Vendredi"
+                            },
+                            "distance": {
+                              "stringValue": "6.9 km"
+                            },
+                            "intensity": {
+                              "stringValue": "Facile"
+                            },
+                            "advice": {
+                              "stringValue": "Continue à prioriser la récupération. L'objectif est de se vider la têt'et d'activer la circulation, pas de 'performer'. La fatigue s'accumule avec l'âge, écoute les signaux de ton corps."
+                            },
+                            "mainSet": {
+                              "stringValue": "30 min d'Endurance Fondamentale (EF - 5:47 min/km) sur un parcours majoritairement plat avec de légers faux-plats. Garde un rythme très confortable, presque 'flâneur'."
+                            },
+                            "id": {
+                              "stringValue": "w4-s3-1775209633264-qeoqdr5"
+                            },
+                            "locationSuggestion": {
+                              "stringValue": "Bords de la Jordanne, Aurillac"
+                            },
+                            "duration": {
+                              "stringValue": "39 min"
+                            },
+                            "warmup": {
+                              "stringValue": "10 min d'échauffement très léger, en marchant puis en trottinant doucement. (à 6:27 min/km)"
+                            },
+                            "cooldown": {
+                              "stringValue": "5 min de marche, suivies de 5 min d'étirements post-course classiques. (à 6:27 min/km)"
+                            },
+                            "title": {
+                              "stringValue": "Footing de récupération actif en ville"
+                            }
+                          }
+                        }
+                      },
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "title": {
+                              "stringValue": "Sortie Longue Trail en EF (Récupération et D+)"
+                            },
+                            "cooldown": {
+                              "stringValue": "5 min de marche, suivies de 10 min d'étirements complets et de mobilité articulaire, en insistant sur la décompression des genoux et des hanches. (à 6:27 min/km)"
+                            },
+                            "warmup": {
+                              "stringValue": "15 min d'échauffement très doux en Endurance Fondamentale (EF - 5:47 min/km) sur le plat, pour préparer les muscles et les articulations au dénivelé."
+                            },
+                            "duration": {
+                              "stringValue": "1h 20 min"
+                            },
+                            "locationSuggestion": {
+                              "stringValue": "Puy de Pauliac, Aurillac"
+                            },
+                            "id": {
+                              "stringValue": "w4-s4-1775209633265-z06ra0v"
+                            },
+                            "advice": {
+                              "stringValue": "Même en récupération, cette sortie prépare ton corps au dénivelé. La marche est ton alliée en côte. Hydrate-toi régulièrement. Ne prends aucun risque, si la fatigue est trop présente, écourte la séance."
+                            },
+                            "mainSet": {
+                              "stringValue": "1h 00 min d'Endurance Fondamentale (EF - 5:47 min/km) sur sentiers vallonnés (D+ 800m). Marche dans toutes les montées qui te semblent trop intenses. L'objectif est de s'habituer au dénivelé sans forcer, en mode 'randonnée rapide'."
+                            },
+                            "intensity": {
+                              "stringValue": "Facile"
+                            },
+                            "distance": {
+                              "stringValue": "15 km"
+                            },
+                            "day": {
+                              "stringValue": "Dimanche"
+                            },
+                            "type": {
+                              "stringValue": "Sortie Longue"
+                            },
+                            "targetPace": {
+                              "stringValue": "5:47 min/km"
+                            },
+                            "elevationGain": {
+                              "integerValue": "0"
+                            }
+                          }
+                        }
+                      }
+                    ]
+                  }
+                },
+                "isRecoveryWeek": {
+                  "booleanValue": true
+                }
+              }
+            }
+          },
+          {
+            "mapValue": {
+              "fields": {
+                "sessions": {
+                  "arrayValue": {
+                    "values": [
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "duration": {
+                              "stringValue": "1h 00 min"
+                            },
+                            "cooldown": {
+                              "stringValue": "5 min de marche, suivies de 5 min d'étirements des quadriceps, fessiers et mollets, et de mobilisation des articulations sollicitées. (à 6:27 min/km)"
+                            },
+                            "warmup": {
+                              "stringValue": "15 min d'échauffement progressif en Endurance Fondamentale (EF - 5:47 min/km) avec 2-3 accélérations légères de 30s sur faux-plat."
+                            },
+                            "title": {
+                              "stringValue": "Séance de côtes longues et force"
+                            },
+                            "distance": {
+                              "stringValue": "11 km"
+                            },
+                            "intensity": {
+                              "stringValue": "Difficile"
+                            },
+                            "type": {
+                              "stringValue": "Fractionné"
+                            },
+                            "targetPace": {
+                              "stringValue": "5:47 min/km"
+                            },
+                            "elevationGain": {
+                              "integerValue": "0"
+                            },
+                            "day": {
+                              "stringValue": "Lundi"
+                            },
+                            "id": {
+                              "stringValue": "w5-s1-1775209633265-5ven0sf"
+                            },
+                            "locationSuggestion": {
+                              "stringValue": "Colline de Saint-Simon, Aurillac"
+                            },
+                            "advice": {
+                              "stringValue": "Cette séance est exigeante pour développer ta puissance en montée. Gère ton effort pour maintenir l'allure sur la durée de la montée, sans 'exploser'. Une bonne récupération entre les efforts est essentielle. Écoute tes genoux et tes hanches, qui seront fortement sollicités."
+                            },
+                            "mainSet": {
+                              "stringValue": "40 min de travail spécifique: 3 répétitions de 3 minutes en côte (montée régulière, effort soutenu proche du Seuil - 4:27 min/km), avec une récupération active en descente (Récup - 6:27 min/km) égale à la durée de la montée. Entre chaque bloc de côtes, réalise 5 min d'Endurance Fondamentale (EF - 5:47 min/km) sur plat. L'objectif est de travailler la force musculaire."
+                            }
+                          }
+                        }
+                      },
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "warmup": {
+                              "stringValue": "10 min de mobilité articulaire et échauffement dynamique"
+                            },
+                            "cooldown": {
+                              "stringValue": "5 min d'étirements : quadriceps, ischio-jambiers, mollets, hanches"
+                            },
+                            "duration": {
+                              "stringValue": "40-45 min"
+                            },
+                            "title": {
+                              "stringValue": "Renfo Trail Focus A - Quadriceps & Excentrique (S5)"
+                            },
+                            "day": {
+                              "stringValue": "Mercredi"
+                            },
+                            "type": {
+                              "stringValue": "Renforcement"
+                            },
+                            "elevationGain": {
+                              "integerValue": "0"
+                            },
+                            "targetPace": {
+                              "stringValue": "N/A"
+                            },
+                            "intensity": {
+                              "stringValue": "Modéré"
+                            },
+                            "distance": {
+                              "stringValue": "0 km"
+                            },
+                            "advice": {
+                              "stringValue": "La pliométrie et la stabilité sont clés pour la réactivité et la prévention des entorses en trail. Adapte l'intensité des sauts si tes articulations (chevilles, genoux) sont sensibles. La qualité prime sur la quantité."
+                            },
+                            "mainSet": {
+                              "stringValue": "Circuit 3 tours : Step-up sur marche (3x12/jambe), Chaise murale (3x35-45s), Squats poids de corps (3x17), Gainage ventral (3x35-60s), Dead bug (3x12/cote), Extensions mollets debout (3x23), Squat excentrique (descente 4s) (3x12), Step-down excentrique (3x9/jambe), Sauts directionnels multi-axes (3x9), Mollets assis soleaire (3x17). Repos 1 min 30 entre tours."
+                            },
+                            "locationSuggestion": {
+                              "stringValue": "À la maison"
+                            },
+                            "id": {
+                              "stringValue": "w5-s2-1775209633265-41xqaqm"
+                            }
+                          }
+                        }
+                      },
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "id": {
+                              "stringValue": "w5-s3-1775209633265-cq2qj7q"
+                            },
+                            "locationSuggestion": {
+                              "stringValue": "Sentiers de Laroquevieille, proche Aurillac"
+                            },
+                            "advice": {
+                              "stringValue": "Ce footing permet de travailler ton aisance sur terrain technique sans forcer. Écoute tes sensations sur les passages glissants ou irréguliers. Pense à tes appuis pour prévenir les torsions de chevilles."
+                            },
+                            "mainSet": {
+                              "stringValue": "40 min d'Endurance Fondamentale (EF - 5:47 min/km) sur un parcours varié en sous-bois, avec de petites montées et descentes. Concentre-toi sur l'agilité et l'adaptation du pas au terrain."
+                            },
+                            "distance": {
+                              "stringValue": "9 km"
+                            },
+                            "intensity": {
+                              "stringValue": "Facile"
+                            },
+                            "type": {
+                              "stringValue": "Jogging"
+                            },
+                            "targetPace": {
+                              "stringValue": "5:47 min/km"
+                            },
+                            "elevationGain": {
+                              "integerValue": "162"
+                            },
+                            "day": {
+                              "stringValue": "Vendredi"
+                            },
+                            "title": {
+                              "stringValue": "Footing en forêt vallonné"
+                            },
+                            "duration": {
+                              "stringValue": "50 min"
+                            },
+                            "warmup": {
+                              "stringValue": "10 min d'échauffement en Endurance Fondamentale (EF - 5:47 min/km) sur terrain facile."
+                            },
+                            "cooldown": {
+                              "stringValue": "5 min de marche, suivies d'étirements légers et de mobilité des chevilles. (à 6:27 min/km)"
+                            }
+                          }
+                        }
+                      },
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "title": {
+                              "stringValue": "Sortie Longue Trail préparatoire avec D+ important"
+                            },
+                            "cooldown": {
+                              "stringValue": "5 min de marche, suivies de 10 min d'étirements très complets des membres inférieurs, du dos et des hanches, avec des exercices de relaxation. (à 6:27 min/km)"
+                            },
+                            "warmup": {
+                              "stringValue": "15 min d'échauffement en Endurance Fondamentale (EF - 5:47 min/km) sur le plat, avec quelques flexions et extensions douces pour préparer les jambes au dénivelé."
+                            },
+                            "duration": {
+                              "stringValue": "2h 00 min"
+                            },
+                            "mainSet": {
+                              "stringValue": "1h 40 min d'Endurance Fondamentale (EF - 5:47 min/km) sur un parcours trail exigeant (D+ cible de 702m). Gère ton allure en marchant énergiquement dans les montées raides. Prévoye de simuler 2 ravitaillements complets et utilise ton matériel de course (sac, bâtons si utilisés en course)."
+                            },
+                            "advice": {
+                              "stringValue": "Cette sortie est une étape majeure. L'objectif est de t'habituer à la durée et à l'ampleur du dénivelé. Écoute attentivement les signaux de fatigue et n'hésite pas à adapter. Surveille particulièrement l'état de tes genoux et de ton dos après cette séance."
+                            },
+                            "locationSuggestion": {
+                              "stringValue": "Puy Courny, Aurillac"
+                            },
+                            "id": {
+                              "stringValue": "w5-s4-1775209633265-sitt7ye"
+                            },
+                            "day": {
+                              "stringValue": "Dimanche"
+                            },
+                            "elevationGain": {
+                              "integerValue": "918"
+                            },
+                            "targetPace": {
+                              "stringValue": "5:47 min/km"
+                            },
+                            "type": {
+                              "stringValue": "Sortie Longue"
+                            },
+                            "intensity": {
+                              "stringValue": "Facile"
+                            },
+                            "distance": {
+                              "stringValue": "22 km"
+                            }
+                          }
+                        }
+                      }
+                    ]
+                  }
+                },
+                "isRecoveryWeek": {
+                  "booleanValue": false
+                },
+                "theme": {
+                  "stringValue": "Développement de la force trail et de l'endurance spécifique"
+                },
+                "phase": {
+                  "stringValue": "developpement"
+                },
+                "weekNumber": {
+                  "integerValue": "5"
+                },
+                "weekGoal": {
+                  "stringValue": "Développement de la force trail et de l'endurance spécifique"
+                }
+              }
+            }
+          },
+          {
+            "mapValue": {
+              "fields": {
+                "weekNumber": {
+                  "integerValue": "6"
+                },
+                "phase": {
+                  "stringValue": "developpement"
+                },
+                "theme": {
+                  "stringValue": "Affinement des capacités et augmentation du volume en préparation"
+                },
+                "weekGoal": {
+                  "stringValue": "Affinement des capacités et augmentation du volume en préparation"
+                },
+                "sessions": {
+                  "arrayValue": {
+                    "values": [
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "intensity": {
+                              "stringValue": "Difficile"
+                            },
+                            "distance": {
+                              "stringValue": "11.5 km"
+                            },
+                            "day": {
+                              "stringValue": "Lundi"
+                            },
+                            "type": {
+                              "stringValue": "Fractionné"
+                            },
+                            "elevationGain": {
+                              "integerValue": "0"
+                            },
+                            "targetPace": {
+                              "stringValue": "5:47 min/km"
+                            },
+                            "locationSuggestion": {
+                              "stringValue": "Piste d'athlétisme, Stade Jean Alric, Aurillac"
+                            },
+                            "id": {
+                              "stringValue": "w6-s1-1775209633265-9kmr2ei"
+                            },
+                            "advice": {
+                              "stringValue": "Bien que ce soit une séance de 'piste', elle prépare tes muscles à des changements de rythme et à la relance en trail. La récupération est aussi importante que l'effort. Écoute tes sensations musculaires, ne force pas en cas de tension."
+                            },
+                            "mainSet": {
+                              "stringValue": "40 min de travail spécifique: 8 répétitions de 30 secondes à allure VMA (3:52 min/km, effort intense mais contrôlé) avec 1 minute 30 secondes de récupération trottée (Récup - 6:27 min/km) entre chaque répétition. L'objectif est d'améliorer ton vélocité et ton capacité à relancer. Terminer par 10 min d'Endurance Fondamentale (EF - 5:47 min/km)."
+                            },
+                            "cooldown": {
+                              "stringValue": "5 min de marche, suivies de 5 min d'étirements dynamiques et de mobilité articulaire (chevilles, hanches). (à 6:27 min/km)"
+                            },
+                            "warmup": {
+                              "stringValue": "15 min d'échauffement progressif en Endurance Fondamentale (EF - 5:47 min/km) avec 3-4 accélérations progressives de 30s pour réveiller les fibres musculaires."
+                            },
+                            "duration": {
+                              "stringValue": "1h 05 min"
+                            },
+                            "title": {
+                              "stringValue": "Séance de VMA courte et vélocité"
+                            }
+                          }
+                        }
+                      },
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "title": {
+                              "stringValue": "Renfo Trail Focus B - Hanches & Proprioception (S6)"
+                            },
+                            "duration": {
+                              "stringValue": "40-45 min"
+                            },
+                            "warmup": {
+                              "stringValue": "10 min de mobilité articulaire et échauffement dynamique"
+                            },
+                            "cooldown": {
+                              "stringValue": "5 min d'étirements : quadriceps, ischio-jambiers, mollets, hanches"
+                            },
+                            "advice": {
+                              "stringValue": "Un 'core' fort est indispensable pour le maintien de la posture et la prévention des blessures en trail. Travaille ton équilibre en douceur, sans à-coups. Pense à l'alignement de ton corps."
+                            },
+                            "mainSet": {
+                              "stringValue": "Circuit 3 tours : Equilibre unipodal (2x35s/pied), Hip thrust (3x17), Pont unipodal (3x12/jambe), Bird-dog (3x12/cote), Gainage lateral (3x23-30s/cote), Marche sur talons (2x23m), Equilibre sur coussin instable (3x35s/pied), Sauts directionnels (3x9), Bird-dog avec rotation (3x12/cote), Protocole Stanish excentrique (3x12). Repos 1 min 30 entre tours."
+                            },
+                            "id": {
+                              "stringValue": "w6-s2-1775209633265-dpnowus"
+                            },
+                            "locationSuggestion": {
+                              "stringValue": "À la maison"
+                            },
+                            "type": {
+                              "stringValue": "Renforcement"
+                            },
+                            "elevationGain": {
+                              "integerValue": "0"
+                            },
+                            "targetPace": {
+                              "stringValue": "N/A"
+                            },
+                            "day": {
+                              "stringValue": "Mercredi"
+                            },
+                            "distance": {
+                              "stringValue": "0 km"
+                            },
+                            "intensity": {
+                              "stringValue": "Modéré"
+                            }
+                          }
+                        }
+                      },
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "title": {
+                              "stringValue": "Footing en forêt avec travail de descente"
+                            },
+                            "warmup": {
+                              "stringValue": "10 min d'échauffement en Endurance Fondamentale (EF - 5:47 min/km)."
+                            },
+                            "cooldown": {
+                              "stringValue": "5 min de marche, suivies d'étirements ciblés sur les quadriceps et les chevilles, et de mobilisations. (à 6:27 min/km)"
+                            },
+                            "duration": {
+                              "stringValue": "1h 00 min"
+                            },
+                            "locationSuggestion": {
+                              "stringValue": "Bois de Teissières, Aurillac"
+                            },
+                            "id": {
+                              "stringValue": "w6-s3-1775209633265-tqeaqwa"
+                            },
+                            "mainSet": {
+                              "stringValue": "45 min d'Endurance Fondamentale (EF - 5:47 min/km) sur sentiers avec quelques belles descentes. Concentre-toi sur la technique de descente : buste droit, regard loin devant, foulée courte et fréquence élevée, bras écartés pour l'équilibre. Ne force pas la vitesse."
+                            },
+                            "advice": {
+                              "stringValue": "Le travail en descente est technique et peut être traumatisant s'il est mal exécuté. Priorise la fluidité et la sécurité plutôt que la vitesse. Sois vigilant à l'impact sur tes genoux et tes articulations. Écoute ton corps."
+                            },
+                            "intensity": {
+                              "stringValue": "Facile"
+                            },
+                            "distance": {
+                              "stringValue": "11 km"
+                            },
+                            "day": {
+                              "stringValue": "Vendredi"
+                            },
+                            "elevationGain": {
+                              "integerValue": "240"
+                            },
+                            "targetPace": {
+                              "stringValue": "5:47 min/km"
+                            },
+                            "type": {
+                              "stringValue": "Jogging"
+                            }
+                          }
+                        }
+                      },
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "cooldown": {
+                              "stringValue": "5 min de marche, suivies de 10-15 min d'étirements très complets, de mobilisations articulaires (genoux, hanches, chevilles) et d'auto-massages si besoin. Favorise la récupération active. (à 6:27 min/km)"
+                            },
+                            "warmup": {
+                              "stringValue": "15 min d'échauffement en Endurance Fondamentale (EF - 5:47 min/km) sur plat ou faux-plat. Prépare mentalement et physiquement ton corps à cette longue sortie."
+                            },
+                            "duration": {
+                              "stringValue": "2h 20 min"
+                            },
+                            "title": {
+                              "stringValue": "Sortie Longue Trail avec gros dénivelé et préparation course"
+                            },
+                            "intensity": {
+                              "stringValue": "Facile"
+                            },
+                            "distance": {
+                              "stringValue": "25.5 km"
+                            },
+                            "day": {
+                              "stringValue": "Dimanche"
+                            },
+                            "type": {
+                              "stringValue": "Sortie Longue"
+                            },
+                            "targetPace": {
+                              "stringValue": "5:47 min/km"
+                            },
+                            "elevationGain": {
+                              "integerValue": "960"
+                            },
+                            "locationSuggestion": {
+                              "stringValue": "Sentiers du Cirque de Mallet, proche Aurillac"
+                            },
+                            "id": {
+                              "stringValue": "w6-s4-1775209633265-yfjdyyo"
+                            },
+                            "advice": {
+                              "stringValue": "Félicitations pour cette étape majeure ! Cette sortie est une répétition générale. Écoute ton corps, gère ton énergie et tes ravitaillements. La fatigue est normale, mais toute douleur aiguë doit t'alerter. Une récupération sérieuse est désormais essentielle."
+                            },
+                            "mainSet": {
+                              "stringValue": "2h 00 min d'Endurance Fondamentale (EF - 5:47 min/km) sur un parcours de trail avec un dénivelé important (D+ cible de 960m). C'est ta sortie la plus longue de ce cycle, prépare-toi comme pour une partie de ta course : tenue, alimentation, hydratation (ravitaillements réguliers). Marche systématiquement dans les montées les plus exigeantes."
+                            }
+                          }
+                        }
+                      }
+                    ]
+                  }
+                },
+                "isRecoveryWeek": {
+                  "booleanValue": false
+                }
+              }
+            }
+          },
+          {
+            "mapValue": {
+              "fields": {
+                "isRecoveryWeek": {
+                  "booleanValue": false
+                },
+                "sessions": {
+                  "arrayValue": {
+                    "values": [
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "id": {
+                              "stringValue": "w7-s1-1775209693396-y8vsz6e"
+                            },
+                            "locationSuggestion": {
+                              "stringValue": "Forêt de Marmiers, Aurillac"
+                            },
+                            "advice": {
+                              "stringValue": "Écoute attentivement ton corps, surtout après la sortie longue intense. Ne force pas en descente si la technique n'est pas fluide, la sécurité prime. Hydrate-toi bien. Pense à l'état de tes genoux et chevilles."
+                            },
+                            "mainSet": {
+                              "stringValue": "45 min en Endurance Fondamentale (5:47 min/km) sur terrain légèrement vallonné, suivi de 10 min de travail spécifique sur une descente peu technique : focus sur la cadence rapide, la foulée courte et le regard loin. Récupération active en remontant en EF. Répéter 2-3 fois."
+                            },
+                            "distance": {
+                              "stringValue": "12 km"
+                            },
+                            "intensity": {
+                              "stringValue": "Facile"
+                            },
+                            "type": {
+                              "stringValue": "Jogging"
+                            },
+                            "targetPace": {
+                              "stringValue": "EF"
+                            },
+                            "elevationGain": {
+                              "integerValue": "198"
+                            },
+                            "day": {
+                              "stringValue": "Lundi"
+                            },
+                            "title": {
+                              "stringValue": "Footing de transition et technique de descente"
+                            },
+                            "duration": {
+                              "stringValue": "1h10"
+                            },
+                            "cooldown": {
+                              "stringValue": "10 min de retour au calme en marchant, puis étirements doux et mobilité articulaire ciblée sur les quadriceps et ischio-jambiers. (à 6:27 min/km)"
+                            },
+                            "warmup": {
+                              "stringValue": "15 min d'échauffement progressif en EF (5:47 min/km), incluant des mobilisations articulaires douces."
+                            }
+                          }
+                        }
+                      },
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "day": {
+                              "stringValue": "Mercredi"
+                            },
+                            "type": {
+                              "stringValue": "Renforcement"
+                            },
+                            "elevationGain": {
+                              "integerValue": "0"
+                            },
+                            "targetPace": {
+                              "stringValue": "N/A"
+                            },
+                            "intensity": {
+                              "stringValue": "Modéré"
+                            },
+                            "distance": {
+                              "stringValue": "0 km"
+                            },
+                            "advice": {
+                              "stringValue": "Concentre-toi sur la qualité de l'exécution plutôt que la quantité. Un gainage solide protège ton dos et améliore ton efficacité en trail. Adapte la difficulté si besoin, la régularité est la clé. Sois attentif aux signaux de ton corps."
+                            },
+                            "mainSet": {
+                              "stringValue": "Circuit 3 tours : Squats poids de corps (3x19), Squat bulgare (3x13/jambe), Fentes avant (3x13/jambe), Superman (3x15), Pompes (3x13), Extensions mollets debout (3x25), Fente arriere lente (3s) (3x13/jambe), Chaise murale longue (3x57-90s), Box jumps ou sauts sur banc (3x10), Mollets debout unipodal (3x15/jambe). Repos 1 min 30 entre tours."
+                            },
+                            "locationSuggestion": {
+                              "stringValue": "À la maison"
+                            },
+                            "id": {
+                              "stringValue": "w7-s2-1775209693396-damgirh"
+                            },
+                            "warmup": {
+                              "stringValue": "10 min de mobilité articulaire et échauffement dynamique"
+                            },
+                            "cooldown": {
+                              "stringValue": "5 min d'étirements : quadriceps, ischio-jambiers, mollets, hanches"
+                            },
+                            "duration": {
+                              "stringValue": "40-45 min"
+                            },
+                            "title": {
+                              "stringValue": "Renfo Trail Focus A - Quadriceps & Excentrique (S7)"
+                            }
+                          }
+                        }
+                      },
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "day": {
+                              "stringValue": "Vendredi"
+                            },
+                            "targetPace": {
+                              "stringValue": "Seuil"
+                            },
+                            "elevationGain": {
+                              "integerValue": "0"
+                            },
+                            "type": {
+                              "stringValue": "Fractionné"
+                            },
+                            "intensity": {
+                              "stringValue": "Difficile"
+                            },
+                            "distance": {
+                              "stringValue": "11 km"
+                            },
+                            "mainSet": {
+                              "stringValue": "Corps de séance : 4 x (6 min de montée régulière à allure Seuil (4:27 min/km) en maintenant une cadence élevée et une bonne poussée, suivi de 4 min de récupération active en descente ou sur le plat en EF (5:47 min/km)). S'assurer d'une bonne récupération entre chaque bloc."
+                            },
+                            "advice": {
+                              "stringValue": "Cette séance est exigeante. Gère ton effort pour tenir l'allure Seuil sur toute la durée des montées. Écoute ton corps : si la douleur apparaît, diminue l'intensité ou arrête. Une bonne hydratation avant et pendant est cruciale. Attention aux articulations des genoux en descente."
+                            },
+                            "locationSuggestion": {
+                              "stringValue": "Côtes de Tronquière, Aurillac"
+                            },
+                            "id": {
+                              "stringValue": "w7-s3-1775209693396-flzthjb"
+                            },
+                            "warmup": {
+                              "stringValue": "15 min d'échauffement progressif en EF (5:47 min/km) sur terrain plat puis en faux-plat, suivi de 3 accélérations progressives de 30s et 2-3 montées très courtes et progressives pour préparer les muscles."
+                            },
+                            "cooldown": {
+                              "stringValue": "10 min de retour au calme en trottinant très doucement en EF (5:47 min/km) sur terrain plat, puis étirements passifs et mobilité articulaire, en particulier pour les mollets et quadriceps."
+                            },
+                            "duration": {
+                              "stringValue": "1h15"
+                            },
+                            "title": {
+                              "stringValue": "Séance de seuil en côte : puissance et endurance"
+                            }
+                          }
+                        }
+                      },
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "locationSuggestion": {
+                              "stringValue": "Puy Griou - Le Lioran, Massif Cantalien"
+                            },
+                            "id": {
+                              "stringValue": "w7-s4-1775209693396-glx7qap"
+                            },
+                            "mainSet": {
+                              "stringValue": "Sortie longue de 3h00 en Endurance Fondamentale (5:47 min/km) sur sentiers vallonnés avec des passages techniques. Intègre 20 min de marche active en montée sur les sections les plus raides. Simule ton ravitaillement de course (boisson, gels, barres) toutes les 45-60 min. Cours avec ton sac de course pour t'y habituer. D+ cible pour cette sortie : 900m."
+                            },
+                            "advice": {
+                              "stringValue": "C'est une séance clé pour tester ton matériel, ton nutrition et ton hydratation. L'objectif est de gérer ton effort sur la durée, pas de courir vite. Écoute ton corps et n'hésite pas à marcher dans les montées si tu le sens nécessaire. Porte une attention particulière à tes genoux et chevilles sur les terrains accidentés."
+                            },
+                            "intensity": {
+                              "stringValue": "Modéré"
+                            },
+                            "distance": {
+                              "stringValue": "26 km"
+                            },
+                            "day": {
+                              "stringValue": "Dimanche"
+                            },
+                            "elevationGain": {
+                              "integerValue": "1122"
+                            },
+                            "targetPace": {
+                              "stringValue": "EF"
+                            },
+                            "type": {
+                              "stringValue": "Sortie Longue"
+                            },
+                            "title": {
+                              "stringValue": "Sortie Longue Trail spécifique avec gestion d'effort"
+                            },
+                            "warmup": {
+                              "stringValue": "15 min d'échauffement progressif en EF (5:47 min/km) sur sentier facile, incluant des mouvements de grande amplitude."
+                            },
+                            "cooldown": {
+                              "stringValue": "15 min de retour au calme en marchant. Étirements passifs longs (15-20s par muscle) pour tout le corps, insistant sur les jambes, le dos et les hanches. Douche chaude et repas équilibré. (à 6:27 min/km)"
+                            },
+                            "duration": {
+                              "stringValue": "3h00"
+                            }
+                          }
+                        }
+                      }
+                    ]
+                  }
+                },
+                "phase": {
+                  "stringValue": "specifique"
+                },
+                "theme": {
+                  "stringValue": "Développement de la force trail et endurance spécifique"
+                },
+                "weekNumber": {
+                  "integerValue": "7"
+                },
+                "weekGoal": {
+                  "stringValue": "Développement de la force trail et endurance spécifique"
+                }
+              }
+            }
+          },
+          {
+            "mapValue": {
+              "fields": {
+                "theme": {
+                  "stringValue": "Semaine de récupération active et régénération"
+                },
+                "weekNumber": {
+                  "integerValue": "8"
+                },
+                "phase": {
+                  "stringValue": "recuperation"
+                },
+                "weekGoal": {
+                  "stringValue": "Semaine de récupération active et régénération"
+                },
+                "isRecoveryWeek": {
+                  "booleanValue": true
+                },
+                "sessions": {
+                  "arrayValue": {
+                    "values": [
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "title": {
+                              "stringValue": "Footing très léger de régénération"
+                            },
+                            "duration": {
+                              "stringValue": "50 min"
+                            },
+                            "warmup": {
+                              "stringValue": "10 min d'échauffement très doux en marchant puis en trottinant, avec des mobilisations articulaires lentes. (à 6:27 min/km)"
+                            },
+                            "cooldown": {
+                              "stringValue": "10 min de marche lente, suivies d'étirements très légers et de grande mobilité articulaire, en particulier pour les hanches et le bas du dos. Massages doux des jambes si possible. (à 6:27 min/km)"
+                            },
+                            "mainSet": {
+                              "stringValue": "40 min en Endurance Fondamentale (5:47 min/km) à un rythme très conservateur. L'objectif est de stimuler la circulation sanguine et de relâcher les tensions musculaires accumulées sans générer de fatigue supplémentaire."
+                            },
+                            "advice": {
+                              "stringValue": "Cette séance est entièrement dédiée à la récupération. Zéro performance, écoute les moindres signaux de fatigue. Si tu ressens une douleur anormale, n'hésite pas à marcher ou à arrêter. L'hydratation post-séance est primordiale."
+                            },
+                            "id": {
+                              "stringValue": "w8-s1-1775209693396-o0dtruc"
+                            },
+                            "locationSuggestion": {
+                              "stringValue": "Parc de la Ponétie, Aurillac"
+                            },
+                            "elevationGain": {
+                              "integerValue": "0"
+                            },
+                            "targetPace": {
+                              "stringValue": "EF"
+                            },
+                            "type": {
+                              "stringValue": "Jogging"
+                            },
+                            "day": {
+                              "stringValue": "Lundi"
+                            },
+                            "distance": {
+                              "stringValue": "8.5 km"
+                            },
+                            "intensity": {
+                              "stringValue": "Facile"
+                            }
+                          }
+                        }
+                      },
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "title": {
+                              "stringValue": "Renfo Leger - Recuperation (S8)"
+                            },
+                            "duration": {
+                              "stringValue": "25-30 min"
+                            },
+                            "cooldown": {
+                              "stringValue": "5 min d'étirements : quadriceps, ischio-jambiers, mollets, hanches"
+                            },
+                            "warmup": {
+                              "stringValue": "10 min de mobilité articulaire et échauffement dynamique"
+                            },
+                            "advice": {
+                              "stringValue": "C'est une séance de maintien et non de progression. L'objectif est de garder une activation musculaire sans fatiguer. N'hésite pas à adapter la durée ou le nombre de répétitions si tu tu sens fatigué. Écoute ton corps, c'est une semaine de récupération."
+                            },
+                            "mainSet": {
+                              "stringValue": "Circuit 2 tours : Pont unipodal (3x7/jambe), Clamshell avec elastique (3x10/cote), Bird-dog (3x7/cote), Gainage lateral (3x14-30s/cote), Marche sur talons (2x14m), Corde a sauter (3x1min), Equilibre unipodal yeux fermes (3x14-30s/pied), Russian twist (3x10/cote), Mollets assis soleaire (3x10). Repos 1 min 30 entre tours."
+                            },
+                            "id": {
+                              "stringValue": "w8-s2-1775209693396-f1wkkyf"
+                            },
+                            "locationSuggestion": {
+                              "stringValue": "À la maison"
+                            },
+                            "type": {
+                              "stringValue": "Renforcement"
+                            },
+                            "elevationGain": {
+                              "integerValue": "0"
+                            },
+                            "targetPace": {
+                              "stringValue": "N/A"
+                            },
+                            "day": {
+                              "stringValue": "Mercredi"
+                            },
+                            "distance": {
+                              "stringValue": "0 km"
+                            },
+                            "intensity": {
+                              "stringValue": "Facile"
+                            }
+                          }
+                        }
+                      },
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "duration": {
+                              "stringValue": "1h00"
+                            },
+                            "cooldown": {
+                              "stringValue": "10 min de marche et étirements doux des adducteurs, fessiers et mollets. Priorise la souplesse et la relaxation. (à 6:27 min/km)"
+                            },
+                            "warmup": {
+                              "stringValue": "10 min d'échauffement progressif en EF (5:47 min/km) sur sentier souple."
+                            },
+                            "title": {
+                              "stringValue": "Footing nature et exercices de mobilité"
+                            },
+                            "type": {
+                              "stringValue": "Jogging"
+                            },
+                            "elevationGain": {
+                              "integerValue": "540"
+                            },
+                            "targetPace": {
+                              "stringValue": "EF"
+                            },
+                            "day": {
+                              "stringValue": "Vendredi"
+                            },
+                            "distance": {
+                              "stringValue": "10 km"
+                            },
+                            "intensity": {
+                              "stringValue": "Facile"
+                            },
+                            "advice": {
+                              "stringValue": "Profite de cette séance pour te reconnecter avec les sensations de course fluides. La mobilité est essentielle pour prévenir les blessures en trail. Ne force aucune amplitude, travaille dans le confort. Hydrate-toi régulièrement. Surveille tes articulations, notamment les hanches."
+                            },
+                            "mainSet": {
+                              "stringValue": "40 min en Endurance Fondamentale (5:47 min/km) sur un parcours légèrement vallonné. Intercale 10 min d'exercices de mobilité articulaire dynamique (rotations de hanches, balanciers de jambes, cercles de chevilles) sur une zone plane et dégagée. "
+                            },
+                            "id": {
+                              "stringValue": "w8-s3-1775209693396-hdu73dh"
+                            },
+                            "locationSuggestion": {
+                              "stringValue": "Sentiers autour de Naucelles"
+                            }
+                          }
+                        }
+                      },
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "title": {
+                              "stringValue": "Sortie Longue Trail douce de régénération"
+                            },
+                            "duration": {
+                              "stringValue": "2h30"
+                            },
+                            "warmup": {
+                              "stringValue": "15 min d'échauffement progressif en EF (5:47 min/km) sur terrain facile, avec des mouvements d'ouverture des hanches."
+                            },
+                            "cooldown": {
+                              "stringValue": "15 min de retour au calme en marchant, puis étirements passifs prolongés (au moins 20-30s par groupe musculaire), avec une attention particulière aux ischio-jambiers et au psoas. Préfère des étirements doux et réparateurs. (à 6:27 min/km)"
+                            },
+                            "id": {
+                              "stringValue": "w8-s4-1775209693396-dot54ra"
+                            },
+                            "locationSuggestion": {
+                              "stringValue": "Sentiers forestiers de Roannes-Saint-Mary"
+                            },
+                            "advice": {
+                              "stringValue": "Cette sortie est une opportunité de se ressourcer mentalement et physiquement. Ne regarde pas ton montre pour le rythme, fie-toi uniquement à tes sensations de confort. C'est une semaine pour recharger les batteries. Assure-toi d'avoir une bonne hydratation et un apport énergétique léger pour la durée."
+                            },
+                            "mainSet": {
+                              "stringValue": "Sortie longue de 2h30 en Endurance Fondamentale (5:47 min/km) sur des sentiers roulants et avec des montées douces. L'objectif est d'accumuler du temps de course sans forcer l'allure ni l'intensité. Concentre-toi sur la fluidité de la foulée et la régularité du rythme respiratoire. Marche sur toutes les montées si tu en ressens le besoin."
+                            },
+                            "distance": {
+                              "stringValue": "21 km"
+                            },
+                            "intensity": {
+                              "stringValue": "Facile"
+                            },
+                            "type": {
+                              "stringValue": "Sortie Longue"
+                            },
+                            "targetPace": {
+                              "stringValue": "EF"
+                            },
+                            "elevationGain": {
+                              "integerValue": "0"
+                            },
+                            "day": {
+                              "stringValue": "Dimanche"
+                            }
+                          }
+                        }
+                      }
+                    ]
+                  }
+                }
+              }
+            }
+          },
+          {
+            "mapValue": {
+              "fields": {
+                "sessions": {
+                  "arrayValue": {
+                    "values": [
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "duration": {
+                              "stringValue": "1h 07 min"
+                            },
+                            "warmup": {
+                              "stringValue": "15 min d'échauffement progressif en EF (5:47 min/km) sur terrain légèrement vallonné, avec quelques montées et descentes douces."
+                            },
+                            "cooldown": {
+                              "stringValue": "10 min de retour au calme en EF (5:47 min/km) très léger, puis étirements et mobilité articulaire ciblés sur les mollets et les hanches."
+                            },
+                            "title": {
+                              "stringValue": "Footing actif et rappels d'allures trail"
+                            },
+                            "type": {
+                              "stringValue": "Jogging"
+                            },
+                            "elevationGain": {
+                              "integerValue": "234"
+                            },
+                            "targetPace": {
+                              "stringValue": "EF"
+                            },
+                            "day": {
+                              "stringValue": "Lundi"
+                            },
+                            "distance": {
+                              "stringValue": "10.9 km"
+                            },
+                            "intensity": {
+                              "stringValue": "Modéré"
+                            },
+                            "advice": {
+                              "stringValue": "Après la semaine de récupération, réintroduise de l'intensité progressivement. Les rappels d'allure doivent être contrôlés et non à pleine vitesse. Écoute ton corps et ajuste l'effort si nécessaire. Prêt'attention à tes sensations articulaires."
+                            },
+                            "mainSet": {
+                              "stringValue": "50 min en Endurance Fondamentale (5:47 min/km), suivi de 5 x 1 min à allure EA (5:02 min/km) sur un faux-plat montant, avec 2 min de récupération en EF (5:47 min/km) sur le plat ou en légère descente. Ces rappels visent à réactiver la filière aérobie sans fatiguer."
+                            },
+                            "id": {
+                              "stringValue": "w9-s1-1775209693396-pvq70tl"
+                            },
+                            "locationSuggestion": {
+                              "stringValue": "Chemins forestiers de Jussac"
+                            }
+                          }
+                        }
+                      },
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "title": {
+                              "stringValue": "Renfo Trail Focus A - Quadriceps & Excentrique (S9)"
+                            },
+                            "duration": {
+                              "stringValue": "40-45 min"
+                            },
+                            "warmup": {
+                              "stringValue": "10 min de mobilité articulaire et échauffement dynamique"
+                            },
+                            "cooldown": {
+                              "stringValue": "5 min d'étirements : quadriceps, ischio-jambiers, mollets, hanches"
+                            },
+                            "id": {
+                              "stringValue": "w9-s2-1775209693396-twlnstz"
+                            },
+                            "locationSuggestion": {
+                              "stringValue": "À la maison"
+                            },
+                            "advice": {
+                              "stringValue": "Un haut du corps et un dos forts sont essentiels en trail, notamment pour l'utilisation des bâtons et le maintien d'une bonne posture. Contrôle chaque mouvement. Ne cherche pas à soulever lourd, la technique est primordiale. Sois attentif à ta posture pendant les exercices."
+                            },
+                            "mainSet": {
+                              "stringValue": "Circuit 3 tours : Fentes avant (3x13/jambe), Fentes marchees (3x15/jambe), Step-up sur marche (3x13/jambe), Gainage ventral (3x38-60s), Dead bug (3x13/cote), Extensions mollets debout (3x25), Squat excentrique (descente 4s) (3x13), Step-down excentrique (3x10/jambe), Sauts directionnels multi-axes (3x10), Protocole Stanish excentrique (3x13). Repos 1 min 30 entre tours."
+                            },
+                            "distance": {
+                              "stringValue": "0 km"
+                            },
+                            "intensity": {
+                              "stringValue": "Modéré"
+                            },
+                            "type": {
+                              "stringValue": "Renforcement"
+                            },
+                            "targetPace": {
+                              "stringValue": "N/A"
+                            },
+                            "elevationGain": {
+                              "integerValue": "0"
+                            },
+                            "day": {
+                              "stringValue": "Mercredi"
+                            }
+                          }
+                        }
+                      },
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "id": {
+                              "stringValue": "w9-s3-1775209693396-n06ihbj"
+                            },
+                            "locationSuggestion": {
+                              "stringValue": "Collines de Sansac-de-Marmiesse"
+                            },
+                            "advice": {
+                              "stringValue": "Cette séance combine l'intensité en montée et la technicité en descente. Concentre-toi sur la qualité de la foulée. En descente, lâche-toi si le terrain le permet mais toujours avec un bon contrôle. N'hésite pas à marcher si la descente est trop technique. Une bonne absorption des chocs est clé pour la santé de tes genoux."
+                            },
+                            "mainSet": {
+                              "stringValue": "Corps de séance : 5 x (4 min de montée à allure Seuil (4:27 min/km) en se concentrant sur la puissance et la technique de pas, suivie de 3 min de récupération active en descente EF (5:47 min/km) et 3 min de travail technique spécifique de descente (foulée courte, regard anticipé, légèreté)). Récupération complèt'entre les blocs si nécessaire."
+                            },
+                            "distance": {
+                              "stringValue": "10.5 km"
+                            },
+                            "intensity": {
+                              "stringValue": "Difficile"
+                            },
+                            "type": {
+                              "stringValue": "Fractionné"
+                            },
+                            "targetPace": {
+                              "stringValue": "Seuil"
+                            },
+                            "elevationGain": {
+                              "integerValue": "0"
+                            },
+                            "day": {
+                              "stringValue": "Vendredi"
+                            },
+                            "title": {
+                              "stringValue": "Séance de montées/descentes techniques et renforcement"
+                            },
+                            "duration": {
+                              "stringValue": "1h 11 min"
+                            },
+                            "cooldown": {
+                              "stringValue": "10 min de retour au calme en EF (5:47 min/km) sur terrain plat. Étirements passifs longs des quadriceps, fessiers, et mollets. Travail de mobilité des chevilles."
+                            },
+                            "warmup": {
+                              "stringValue": "15 min d'échauffement progressif en EF (5:47 min/km) sur terrain plat et vallonné, suivi de 3-4 montées très courtes (30s) pour activer la chaîne postérieure et 2-3 descentes techniques douces."
+                            }
+                          }
+                        }
+                      },
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "intensity": {
+                              "stringValue": "Modéré"
+                            },
+                            "distance": {
+                              "stringValue": "27.6 km"
+                            },
+                            "day": {
+                              "stringValue": "Dimanche"
+                            },
+                            "type": {
+                              "stringValue": "Sortie Longue"
+                            },
+                            "targetPace": {
+                              "stringValue": "EF"
+                            },
+                            "elevationGain": {
+                              "integerValue": "1326"
+                            },
+                            "locationSuggestion": {
+                              "stringValue": "Massif du Puy Griou, Le Lioran"
+                            },
+                            "id": {
+                              "stringValue": "w9-s4-1775209693396-76epp88"
+                            },
+                            "advice": {
+                              "stringValue": "C'est une sortie cruciale pour ton confiance et ta préparation. Concentre-toi sur la gestion de ton énergie et ton capacité à maintenir un effort confortable sur la durée. L'objectif n'est pas la vitesse, mais la résistance et l'adaptation au terrain. Écoute tes sensations, surtout au niveau des articulations (genoux, chevilles) sur les terrains plus difficiles."
+                            },
+                            "mainSet": {
+                              "stringValue": "Sortie longue de 3h15 en Endurance Fondamentale (5:47 min/km) sur un parcours avec un D+ significatif (environ 1000m). Intègre des sections de marche rapide en montée sur les portions les plus raides (20-25% du temps total de montée). Continue à simuler tes ravitaillements de course toutes les 45-60 min. Teste différents types de gels/barres si nécessaire. D+ cible pour cette sortie : 1000m."
+                            },
+                            "warmup": {
+                              "stringValue": "15 min d'échauffement progressif en EF (5:47 min/km) sur sentier facile, avec des mouvements de préparation à la course en côte."
+                            },
+                            "cooldown": {
+                              "stringValue": "15 min de marche pour la transition, suivies d'étirements passifs prolongés et de grande mobilité articulaire pour l'ensemble du corps. Prends le temps de te réhydrater et de t'alimenter correctement. (à 6:27 min/km)"
+                            },
+                            "duration": {
+                              "stringValue": "3h 06 min"
+                            },
+                            "title": {
+                              "stringValue": "Sortie Longue Trail préparatoire - Gestion de l'effort et terrain"
+                            }
+                          }
+                        }
+                      }
+                    ]
+                  }
+                },
+                "isRecoveryWeek": {
+                  "booleanValue": false
+                },
+                "weekGoal": {
+                  "stringValue": "Accélération spécifique trail et renforcement des qualités"
+                },
+                "weekNumber": {
+                  "integerValue": "9"
+                },
+                "theme": {
+                  "stringValue": "Accélération spécifique trail et renforcement des qualités"
+                },
+                "phase": {
+                  "stringValue": "specifique"
+                }
+              }
+            }
+          },
+          {
+            "mapValue": {
+              "fields": {
+                "sessions": {
+                  "arrayValue": {
+                    "values": [
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "duration": {
+                              "stringValue": "45 min"
+                            },
+                            "cooldown": {
+                              "stringValue": "10 min EF"
+                            },
+                            "warmup": {
+                              "stringValue": "10 min EF"
+                            },
+                            "title": {
+                              "stringValue": "Footing Léger"
+                            },
+                            "type": {
+                              "stringValue": "Jogging"
+                            },
+                            "targetPace": {
+                              "stringValue": "EF"
+                            },
+                            "elevationGain": {
+                              "integerValue": "50"
+                            },
+                            "day": {
+                              "stringValue": "Lundi"
+                            },
+                            "distance": {
+                              "stringValue": "8 km"
+                            },
+                            "intensity": {
+                              "stringValue": "Facile"
+                            },
+                            "advice": {
+                              "stringValue": "Footing de récupération pour préparer la semaine."
+                            },
+                            "mainSet": {
+                              "stringValue": "25 min EF"
+                            },
+                            "id": {
+                              "stringValue": "w10-s1-fix-1775209703384-volh8pu"
+                            }
+                          }
+                        }
+                      },
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "warmup": {
+                              "stringValue": "5 min d'échauffement articulaire"
+                            },
+                            "cooldown": {
+                              "stringValue": "5 min d'étirements"
+                            },
+                            "intensity": {
+                              "stringValue": "Modéré"
+                            },
+                            "duration": {
+                              "stringValue": "30 min"
+                            },
+                            "day": {
+                              "stringValue": "Mercredi"
+                            },
+                            "elevationGain": {
+                              "integerValue": "0"
+                            },
+                            "type": {
+                              "stringValue": "Renforcement"
+                            },
+                            "title": {
+                              "stringValue": "Renforcement musculaire"
+                            },
+                            "id": {
+                              "stringValue": "w10-s2-fix-1775209703384-jek9xsx"
+                            },
+                            "mainSet": {
+                              "stringValue": "3 séries de 10 répétitions de squats, fentes, pompes, gainage"
+                            },
+                            "advice": {
+                              "stringValue": "Séance courte mais intense pour maintenir la force."
+                            }
+                          }
+                        }
+                      },
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "day": {
+                              "stringValue": "Vendredi"
+                            },
+                            "type": {
+                              "stringValue": "Fractionné"
+                            },
+                            "targetPace": {
+                              "stringValue": "VMA"
+                            },
+                            "elevationGain": {
+                              "integerValue": "0"
+                            },
+                            "intensity": {
+                              "stringValue": "Difficile"
+                            },
+                            "distance": {
+                              "stringValue": "7 km"
+                            },
+                            "advice": {
+                              "stringValue": "Dernière séance de fractionné avant la compétition."
+                            },
+                            "mainSet": {
+                              "stringValue": "8 x 30sec VMA / 30sec récup EF"
+                            },
+                            "id": {
+                              "stringValue": "w10-s3-fix-1775209703384-g650jsb"
+                            },
+                            "cooldown": {
+                              "stringValue": "15 min EF"
+                            },
+                            "warmup": {
+                              "stringValue": "15 min EF"
+                            },
+                            "duration": {
+                              "stringValue": "45 min"
+                            },
+                            "title": {
+                              "stringValue": "Séance VMA courte"
+                            }
+                          }
+                        }
+                      },
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "distance": {
+                              "stringValue": "17 km"
+                            },
+                            "intensity": {
+                              "stringValue": "Modéré"
+                            },
+                            "type": {
+                              "stringValue": "Sortie Longue"
+                            },
+                            "elevationGain": {
+                              "integerValue": "200"
+                            },
+                            "targetPace": {
+                              "stringValue": "EF + quelques portions allure Seuil"
+                            },
+                            "day": {
+                              "stringValue": "Dimanche"
+                            },
+                            "id": {
+                              "stringValue": "w10-s4-fix-1775209703384-9e1n95y"
+                            },
+                            "advice": {
+                              "stringValue": "Intégration de quelques côtes légères pour la spécificité trail."
+                            },
+                            "mainSet": {
+                              "stringValue": "1h15 en EF avec 2 x 10 min allure Seuil (récup 5 min EF entre les portions)"
+                            },
+                            "duration": {
+                              "stringValue": "1h45"
+                            },
+                            "warmup": {
+                              "stringValue": "15 min EF"
+                            },
+                            "cooldown": {
+                              "stringValue": "15 min EF"
+                            },
+                            "title": {
+                              "stringValue": "Sortie longue progressive"
+                            }
+                          }
+                        }
+                      }
+                    ]
+                  }
+                },
+                "isRecoveryWeek": {
+                  "booleanValue": false
+                },
+                "theme": {
+                  "stringValue": "affutage"
+                },
+                "phase": {
+                  "stringValue": "specifique"
+                },
+                "weekNumber": {
+                  "integerValue": "10"
+                }
+              }
+            }
+          },
+          {
+            "mapValue": {
+              "fields": {
+                "phase": {
+                  "stringValue": "specifique"
+                },
+                "theme": {
+                  "stringValue": "affutage"
+                },
+                "weekNumber": {
+                  "integerValue": "11"
+                },
+                "sessions": {
+                  "arrayValue": {
+                    "values": [
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "id": {
+                              "stringValue": "w11-s1-fix-1775209703384-5c3ak0k"
+                            },
+                            "mainSet": {
+                              "stringValue": "Échauffement 15 min EF, puis 4 × 5 min en montée (effort seuil) / descente technique, puis 10 min retour au calme."
+                            },
+                            "advice": {
+                              "stringValue": "Séance spécifique Trail : travaille la montée au seuil et la technique de descente. Gère ton effort en côte."
+                            },
+                            "intensity": {
+                              "stringValue": "Difficile"
+                            },
+                            "distance": {
+                              "stringValue": "5 km"
+                            },
+                            "day": {
+                              "stringValue": "Lundi"
+                            },
+                            "elevationGain": {
+                              "integerValue": "30"
+                            },
+                            "targetPace": {
+                              "stringValue": "EF"
+                            },
+                            "type": {
+                              "stringValue": "Fractionné"
+                            },
+                            "title": {
+                              "stringValue": "Fractionné Spécifique Trail"
+                            },
+                            "warmup": {
+                              "stringValue": "15 min de footing progressif + gammes éducatives"
+                            },
+                            "cooldown": {
+                              "stringValue": "10 min de retour au calme en trottinant + étirements"
+                            },
+                            "duration": {
+                              "stringValue": "30 min"
+                            }
+                          }
+                        }
+                      },
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "mainSet": {
+                              "stringValue": "2 séries de 10 répétitions de squats, fentes, gainage léger"
+                            },
+                            "advice": {
+                              "stringValue": "Renforcement très léger pour la récupération."
+                            },
+                            "title": {
+                              "stringValue": "Renforcement léger"
+                            },
+                            "id": {
+                              "stringValue": "w11-s2-fix-1775209703384-iy3u6td"
+                            },
+                            "day": {
+                              "stringValue": "Mercredi"
+                            },
+                            "elevationGain": {
+                              "integerValue": "0"
+                            },
+                            "type": {
+                              "stringValue": "Renforcement"
+                            },
+                            "intensity": {
+                              "stringValue": "Facile"
+                            },
+                            "cooldown": {
+                              "stringValue": "5 min d'étirements"
+                            },
+                            "warmup": {
+                              "stringValue": "5 min d'échauffement articulaire"
+                            },
+                            "duration": {
+                              "stringValue": "20 min"
+                            }
+                          }
+                        }
+                      },
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "type": {
+                              "stringValue": "Jogging"
+                            },
+                            "targetPace": {
+                              "stringValue": "EF"
+                            },
+                            "elevationGain": {
+                              "integerValue": "0"
+                            },
+                            "day": {
+                              "stringValue": "Vendredi"
+                            },
+                            "distance": {
+                              "stringValue": "8 km"
+                            },
+                            "intensity": {
+                              "stringValue": "Facile"
+                            },
+                            "advice": {
+                              "stringValue": "Footing de récupération."
+                            },
+                            "mainSet": {
+                              "stringValue": "25 min EF"
+                            },
+                            "id": {
+                              "stringValue": "w11-s3-fix-1775209703384-9d3k4ow"
+                            },
+                            "duration": {
+                              "stringValue": "45 min"
+                            },
+                            "cooldown": {
+                              "stringValue": "10 min EF"
+                            },
+                            "warmup": {
+                              "stringValue": "10 min EF"
+                            },
+                            "title": {
+                              "stringValue": "Footing de récupération"
+                            }
+                          }
+                        }
+                      },
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "title": {
+                              "stringValue": "Sortie longue très légère"
+                            },
+                            "warmup": {
+                              "stringValue": "15 min EF"
+                            },
+                            "cooldown": {
+                              "stringValue": "15 min EF"
+                            },
+                            "duration": {
+                              "stringValue": "1h30"
+                            },
+                            "mainSet": {
+                              "stringValue": "1h00 en EF"
+                            },
+                            "advice": {
+                              "stringValue": "Sortie longue de récupération, très facile."
+                            },
+                            "id": {
+                              "stringValue": "w11-s4-fix-1775209703384-d4xbexc"
+                            },
+                            "day": {
+                              "stringValue": "Dimanche"
+                            },
+                            "elevationGain": {
+                              "integerValue": "200"
+                            },
+                            "targetPace": {
+                              "stringValue": "EF"
+                            },
+                            "type": {
+                              "stringValue": "Sortie Longue"
+                            },
+                            "intensity": {
+                              "stringValue": "Facile"
+                            },
+                            "distance": {
+                              "stringValue": "14 km"
+                            }
+                          }
+                        }
+                      }
+                    ]
+                  }
+                },
+                "isRecoveryWeek": {
+                  "booleanValue": false
+                }
+              }
+            }
+          }
+        ]
+      }
+    },
+    "id": {
+      "stringValue": "1775202027706"
+    },
+    "targetTime": {
+      "stringValue": "Finisher"
+    },
+    "vma": {
+      "doubleValue": 15.5
+    },
+    "createdAt": {
+      "stringValue": "2026-04-03T07:40:27.706Z"
+    },
+    "userEmail": {
+      "stringValue": "cyril.carriere4@gmail.com"
+    },
+    "startDate": {
+      "stringValue": "2026-03-30"
+    },
+    "location": {
+      "stringValue": "Aurillac"
+    },
+    "calculatedVMA": {
+      "doubleValue": 15.5
+    },
+    "fullPlanGenerated": {
+      "booleanValue": true
+    },
+    "distance": {
+      "stringValue": "50km D+1800m"
+    },
+    "welcomeMessage": {
+      "stringValue": "Bienvenue dans ton plan d'entraînement Trail Finisher de 11 semaines ! Cet objectif de 50km avec 1800m de dénivelé positif est un magnifique défi. Ce programme est conçu pour t'emmener à la ligne d'arrivée en toute confiance, en priorisant la construction de ton endurance fondamentale et la régularité. La structure du plan est axée sur l'adaptation progressive à la distance et au terrain de trail, avec une attention particulière à la récupération et à la prévention des blessures. Nous te recommandons vivement de consulter un médecin avant de débuter ce programme, notamment pour obtenir un certificat médical d'aptitude au sport. À partir de 52 ans, un bilan cardio-vasculaire est particulièrement conseillé."
+    }
+  },
+  "createTime": "2026-04-03T07:40:39.912647Z",
+  "updateTime": "2026-04-13T12:02:44.577583Z"
+}

@@ -98,14 +98,38 @@ function checkMainsetDurationMismatch(session: Session): string | null {
   if (/fractionn|tempo|seuil|vma|c[ôo]te|hyrox|renfo/i.test(title)) return null;
 
   // ─── Check duration ↔ "X min" en début de mainSet ───
+  //
+  // Convention LLM observée (audit 28 séances, voir
+  // INVESTIGATION-DURATION-MAINSET-CONVENTION.md) :
+  //   - `duration` = temps total de la séance (wu + mainSet + cooldown),
+  //     cohérent avec `distance × targetPace` (86% des cas)
+  //   - Le préfixe "X min" du mainSet décrit le BLOC PRINCIPAL SEUL,
+  //     donc systématiquement < duration (de wu+cooldown). Sur Jogging,
+  //     l'ancien check (drift symétrique > 20 %) flagait 15/17 séances
+  //     correctes du mini-batch comme faux positifs.
+  //
+  // Nouvelle règle : on n'alerte que si la durée du mainSet est
+  // INCOHÉRENTE par rapport au total séance :
+  //   (a) mainSetMin > duration × 1.10  → mainSet décrit plus long que
+  //       la séance entière (impossible — cas steph-fanny 116min/60min)
+  //   (b) mainSetMin < (duration - warmup - cooldown) × 0.5 → mainSet
+  //       beaucoup trop court même en tenant compte de wu+cool (séance
+  //       presque vide). Garde la détection des cas pathologiques.
   const durMatch = mainSet.match(/^\s*(\d+)\s*min\b/i);
   const sessionMin = parseDurationMin(session.duration || '');
   if (durMatch && sessionMin > 0) {
     const mainSetMin = parseInt(durMatch[1], 10);
     if (mainSetMin > 0) {
-      const drift = Math.abs(mainSetMin - sessionMin) / sessionMin;
-      if (drift > 0.20) {
-        return `Session "${title || session.type}": mainSet ${mainSetMin}min ≠ duration ${sessionMin}min (écart ${(drift * 100).toFixed(0)}%, seuil 20%).`;
+      const wuMin = parseDurationMin(session.warmup || '');
+      const coolMin = parseDurationMin(session.cooldown || '');
+      const expectedMainMin = Math.max(0, sessionMin - wuMin - coolMin);
+      const mainOver = mainSetMin > sessionMin * 1.10;
+      const mainUnder = expectedMainMin > 0 && mainSetMin < expectedMainMin * 0.5;
+      if (mainOver) {
+        return `Session "${title || session.type}": mainSet ${mainSetMin}min > duration ${sessionMin}min (mainSet plus long que la séance entière).`;
+      }
+      if (mainUnder) {
+        return `Session "${title || session.type}": mainSet ${mainSetMin}min trop court vs duration ${sessionMin}min - wu ${wuMin}min - cool ${coolMin}min = ${expectedMainMin}min attendu.`;
       }
     }
   }

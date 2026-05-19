@@ -1,0 +1,2440 @@
+{
+  "name": "projects/coach-running-ia/databases/(default)/documents/plans/1778262981697",
+  "fields": {
+    "confidenceScore": {
+      "integerValue": "80"
+    },
+    "startDate": {
+      "stringValue": "2026-05-04"
+    },
+    "id": {
+      "stringValue": "1778262981697"
+    },
+    "calculatedVMA": {
+      "doubleValue": 8.5
+    },
+    "vmaSource": {
+      "stringValue": "Ajustée manuellement : 8.5 → 11.5 km/h"
+    },
+    "guardStats": {
+      "mapValue": {
+        "fields": {
+          "dplusRedistributed": {
+            "integerValue": "0"
+          },
+          "hardSessionsDowngraded": {
+            "integerValue": "0"
+          },
+          "affutageCorrected": {
+            "integerValue": "0"
+          },
+          "postValidatorFixes": {
+            "integerValue": "2"
+          },
+          "sessionKmCapped": {
+            "integerValue": "0"
+          },
+          "slDurationCapped": {
+            "integerValue": "0"
+          },
+          "volumeScaledDown": {
+            "integerValue": "6"
+          },
+          "progressionSmoothed": {
+            "integerValue": "0"
+          },
+          "volumeScaledUp": {
+            "integerValue": "1"
+          }
+        }
+      }
+    },
+    "feasibility": {
+      "mapValue": {
+        "fields": {
+          "message": {
+            "stringValue": "Ton programme de remise en forme sur 12 semaines est bien calibré pour ton profil. Avec ta VMA de 8.5 km/h, concentre-toi sur la régularité et le plaisir."
+          },
+          "status": {
+            "stringValue": "BON"
+          },
+          "safetyWarning": {
+            "stringValue": "Hydrate-toi bien, échauffe-toi avant chaque séance et accorde-toi un vrai temps de récupération."
+          }
+        }
+      }
+    },
+    "userId": {
+      "stringValue": "UdV8UqPcf2VKtCPDb2y8x5lIvqG3"
+    },
+    "adaptationLog": {
+      "mapValue": {
+        "fields": {
+          "adaptationHistory": {
+            "arrayValue": {}
+          },
+          "adaptationsThisWeek": {
+            "integerValue": "0"
+          },
+          "weekNumber": {
+            "integerValue": "0"
+          }
+        }
+      }
+    },
+    "paces": {
+      "mapValue": {
+        "fields": {
+          "allureSpecifique10k": {
+            "stringValue": "5:48"
+          },
+          "vmaPace": {
+            "stringValue": "5:13"
+          },
+          "eaPace": {
+            "stringValue": "6:47"
+          },
+          "recoveryPace": {
+            "stringValue": "8:42"
+          },
+          "efPace": {
+            "stringValue": "7:47"
+          },
+          "vma": {
+            "doubleValue": 11.5
+          },
+          "seuilPace": {
+            "stringValue": "6:00"
+          },
+          "allureSpecifiqueMarathon": {
+            "stringValue": "6:31"
+          },
+          "allureSpecifique5k": {
+            "stringValue": "5:30"
+          },
+          "allureSpecifiqueSemi": {
+            "stringValue": "6:08"
+          },
+          "vmaKmh": {
+            "stringValue": "11.5"
+          }
+        }
+      }
+    },
+    "suggestedLocations": {
+      "arrayValue": {
+        "values": [
+          {
+            "mapValue": {
+              "fields": {
+                "name": {
+                  "stringValue": "Stade Marcel Lefèvre, Merville"
+                },
+                "description": {
+                  "stringValue": "Pour des séances rythmées, de vitesse ou de VMA (non utilisées cette semaine)."
+                },
+                "type": {
+                  "stringValue": "TRACK"
+                }
+              }
+            }
+          },
+          {
+            "mapValue": {
+              "fields": {
+                "type": {
+                  "stringValue": "NATURE"
+                },
+                "description": {
+                  "stringValue": "Idéale pour les sorties longues en nature, avec des sentiers variés et un environnement calme."
+                },
+                "name": {
+                  "stringValue": "Forêt Domaniale de Nieppe (accès Merville)"
+                }
+              }
+            }
+          },
+          {
+            "mapValue": {
+              "fields": {
+                "name": {
+                  "stringValue": "Parc des Prés du Hem (Armentières)"
+                },
+                "description": {
+                  "stringValue": "Parfait pour les footings en endurance fondamentale, les séances de marche/course sur un terrain plat et agréable."
+                },
+                "type": {
+                  "stringValue": "PARK"
+                }
+              }
+            }
+          }
+        ]
+      }
+    },
+    "createdAt": {
+      "stringValue": "2026-05-08T17:56:21.697Z"
+    },
+    "sessionsPerWeek": {
+      "integerValue": "3"
+    },
+    "durationWeeks": {
+      "integerValue": "12"
+    },
+    "name": {
+      "stringValue": "Programme Remise en Forme — 12 semaines"
+    },
+    "goal": {
+      "stringValue": "Maintien en forme"
+    },
+    "vma": {
+      "doubleValue": 11.5
+    },
+    "endDate": {
+      "stringValue": "2026-07-27"
+    },
+    "generationContext": {
+      "mapValue": {
+        "fields": {
+          "vma": {
+            "doubleValue": 11.5
+          },
+          "questionnaireSnapshot": {
+            "mapValue": {
+              "fields": {
+                "injuries": {
+                  "mapValue": {
+                    "fields": {
+                      "hasInjury": {
+                        "booleanValue": false
+                      }
+                    }
+                  }
+                },
+                "vma": {
+                  "doubleValue": 11.5
+                },
+                "level": {
+                  "stringValue": "Intermédiaire (Régulier)"
+                },
+                "fitnessSubGoal": {
+                  "stringValue": "general"
+                },
+                "frequency": {
+                  "integerValue": "3"
+                },
+                "email": {
+                  "stringValue": "tieffryguillaume@hotmail.fr"
+                },
+                "weight": {
+                  "integerValue": "73"
+                },
+                "height": {
+                  "integerValue": "169"
+                },
+                "lastActivity": {
+                  "stringValue": "<3months"
+                },
+                "sex": {
+                  "stringValue": "Femme"
+                },
+                "recentRaceTimes": {
+                  "mapValue": {
+                    "fields": {
+                      "distance5km": {
+                        "stringValue": "32min"
+                      },
+                      "distance10km": {
+                        "stringValue": "1h06"
+                      }
+                    }
+                  }
+                },
+                "startDate": {
+                  "stringValue": "2026-05-08"
+                },
+                "age": {
+                  "integerValue": "44"
+                },
+                "city": {
+                  "stringValue": "Merville "
+                },
+                "goal": {
+                  "stringValue": "Maintien en forme"
+                },
+                "preferredDays": {
+                  "arrayValue": {
+                    "values": [
+                      {
+                        "stringValue": "Dimanche"
+                      },
+                      {
+                        "stringValue": "Lundi"
+                      },
+                      {
+                        "stringValue": "Mercredi"
+                      }
+                    ]
+                  }
+                }
+              }
+            }
+          },
+          "generatedAt": {
+            "stringValue": "2026-05-08T17:55:32.403Z"
+          },
+          "modelUsed": {
+            "stringValue": "gemini-2.5-flash"
+          },
+          "paces": {
+            "mapValue": {
+              "fields": {
+                "seuilPace": {
+                  "stringValue": "6:00"
+                },
+                "vma": {
+                  "doubleValue": 11.5
+                },
+                "efPace": {
+                  "stringValue": "7:47"
+                },
+                "allureSpecifique5k": {
+                  "stringValue": "5:30"
+                },
+                "vmaKmh": {
+                  "stringValue": "11.5"
+                },
+                "allureSpecifiqueSemi": {
+                  "stringValue": "6:08"
+                },
+                "allureSpecifiqueMarathon": {
+                  "stringValue": "6:31"
+                },
+                "allureSpecifique10k": {
+                  "stringValue": "5:48"
+                },
+                "vmaPace": {
+                  "stringValue": "5:13"
+                },
+                "eaPace": {
+                  "stringValue": "6:47"
+                },
+                "recoveryPace": {
+                  "stringValue": "8:42"
+                }
+              }
+            }
+          },
+          "periodizationPlan": {
+            "mapValue": {
+              "fields": {
+                "weeklyPhases": {
+                  "arrayValue": {
+                    "values": [
+                      {
+                        "stringValue": "fondamental"
+                      },
+                      {
+                        "stringValue": "fondamental"
+                      },
+                      {
+                        "stringValue": "fondamental"
+                      },
+                      {
+                        "stringValue": "recuperation"
+                      },
+                      {
+                        "stringValue": "fondamental"
+                      },
+                      {
+                        "stringValue": "developpement"
+                      },
+                      {
+                        "stringValue": "recuperation"
+                      },
+                      {
+                        "stringValue": "developpement"
+                      },
+                      {
+                        "stringValue": "developpement"
+                      },
+                      {
+                        "stringValue": "recuperation"
+                      },
+                      {
+                        "stringValue": "developpement"
+                      },
+                      {
+                        "stringValue": "developpement"
+                      }
+                    ]
+                  }
+                },
+                "weeklyVolumes": {
+                  "arrayValue": {
+                    "values": [
+                      {
+                        "integerValue": "13"
+                      },
+                      {
+                        "integerValue": "14"
+                      },
+                      {
+                        "integerValue": "14"
+                      },
+                      {
+                        "integerValue": "11"
+                      },
+                      {
+                        "integerValue": "13"
+                      },
+                      {
+                        "integerValue": "15"
+                      },
+                      {
+                        "integerValue": "13"
+                      },
+                      {
+                        "integerValue": "15"
+                      },
+                      {
+                        "integerValue": "16"
+                      },
+                      {
+                        "integerValue": "13"
+                      },
+                      {
+                        "integerValue": "15"
+                      },
+                      {
+                        "integerValue": "16"
+                      }
+                    ]
+                  }
+                },
+                "totalWeeks": {
+                  "integerValue": "12"
+                },
+                "recoveryWeeks": {
+                  "arrayValue": {
+                    "values": [
+                      {
+                        "integerValue": "4"
+                      },
+                      {
+                        "integerValue": "7"
+                      },
+                      {
+                        "integerValue": "10"
+                      }
+                    ]
+                  }
+                }
+              }
+            }
+          },
+          "vmaSource": {
+            "stringValue": "Ajustée manuellement : 8.5 → 11.5 km/h"
+          }
+        }
+      }
+    },
+    "isPreview": {
+      "booleanValue": false
+    },
+    "welcomeMessage": {
+      "stringValue": "Bonjour ! Ce plan d'entraînement de 12 semaines est conçu pour t'aider à maintenir ta forme et à progresser en course à pied, avec un objectif de finisher. La semaine 1 se concentre sur une reprise douce et la pose des fondations de ton endurance. Nous te recommandons vivement de consulter un médecin avant de débuter ce programme, notamment pour obtenir un certificat médical d'aptitude au sport."
+    },
+    "location": {
+      "stringValue": "Merville "
+    },
+    "weeks": {
+      "arrayValue": {
+        "values": [
+          {
+            "mapValue": {
+              "fields": {
+                "weekNumber": {
+                  "integerValue": "1"
+                },
+                "theme": {
+                  "stringValue": "Reprise douce et fondations"
+                },
+                "sessions": {
+                  "arrayValue": {
+                    "values": [
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "elevationGain": {
+                              "integerValue": "0"
+                            },
+                            "warmup": {
+                              "stringValue": "10 min de mobilité articulaire et échauffement dynamique"
+                            },
+                            "intensity": {
+                              "stringValue": "Modéré"
+                            },
+                            "mainSet": {
+                              "stringValue": "Circuit 3 tours : Squats au poids de corps (3x14), Squat bulgare (3x9/jambe), Gainage ventral (3x27-60s), Dead bug (3x9/côté), Extensions mollets debout (3x18), Étirements dynamiques (2x7/côté). Repos 1 min 30 entre tours."
+                            },
+                            "day": {
+                              "stringValue": "Lundi"
+                            },
+                            "locationSuggestion": {
+                              "stringValue": "À la maison"
+                            },
+                            "id": {
+                              "stringValue": "w1-s2-1778262981697-6u1h6l2"
+                            },
+                            "title": {
+                              "stringValue": "Renfo Equilibre - Renfo & Stabilite (S1)"
+                            },
+                            "distance": {
+                              "stringValue": "0 km"
+                            },
+                            "advice": {
+                              "stringValue": "Concentre-toi sur la qualité du mouvement plutôt que sur la quantité. Si un exercice provoque une douleur, arrête-toi ou adapte-le."
+                            },
+                            "duration": {
+                              "stringValue": "35-40 min"
+                            },
+                            "type": {
+                              "stringValue": "Renforcement"
+                            },
+                            "cooldown": {
+                              "stringValue": "5 min d'étirements : quadriceps, ischio-jambiers, mollets, hanches"
+                            }
+                          }
+                        }
+                      },
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "locationSuggestion": {
+                              "stringValue": "Parc des Prés du Hem (Armentières)"
+                            },
+                            "day": {
+                              "stringValue": "Mercredi"
+                            },
+                            "mainSet": {
+                              "stringValue": "8 cycles de (1 min de course légère à 10:32 min/km suivie de 2 min de marche active à 11:46 min/km)"
+                            },
+                            "distance": {
+                              "stringValue": "4.3 km"
+                            },
+                            "title": {
+                              "stringValue": "Marche/Course : Aisance et reprise"
+                            },
+                            "id": {
+                              "stringValue": "w1-s3-1778262981697-ehshe80"
+                            },
+                            "elevationGain": {
+                              "integerValue": "0"
+                            },
+                            "intensity": {
+                              "stringValue": "Facile"
+                            },
+                            "warmup": {
+                              "stringValue": "7 min de marche active à 11:46 min/km"
+                            },
+                            "cooldown": {
+                              "stringValue": "4 min de marche lente à 11:46 min/km"
+                            },
+                            "advice": {
+                              "stringValue": "Cette séance est dédiée à l'adaptation de ton corps à l'effort. N'hésite pas à marcher plus si la fatigue se fait sentir. Le plaisir avant tout !"
+                            },
+                            "duration": {
+                              "stringValue": "50 min"
+                            },
+                            "targetPace": {
+                              "stringValue": "10:32 min/km (course) / 11:46 min/km (marche)"
+                            },
+                            "type": {
+                              "stringValue": "Marche/Course"
+                            }
+                          }
+                        }
+                      },
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "warmup": {
+                              "stringValue": "10 min de marche active à 11:46 min/km"
+                            },
+                            "intensity": {
+                              "stringValue": "Facile"
+                            },
+                            "elevationGain": {
+                              "integerValue": "0"
+                            },
+                            "title": {
+                              "stringValue": "Sortie Longue Marche/Course progressive"
+                            },
+                            "id": {
+                              "stringValue": "w1-s1-1778262981697-nbtmgf5"
+                            },
+                            "distance": {
+                              "stringValue": "4.4 km"
+                            },
+                            "mainSet": {
+                              "stringValue": "10 cycles de (1 min de course légère à 10:32 min/km suivie de 2 min de marche active à 11:46 min/km)"
+                            },
+                            "locationSuggestion": {
+                              "stringValue": "Forêt Domaniale de Nieppe (accès Merville)"
+                            },
+                            "day": {
+                              "stringValue": "Dimanche"
+                            },
+                            "type": {
+                              "stringValue": "Sortie Longue"
+                            },
+                            "advice": {
+                              "stringValue": "Écoute attentivement ton corps pendant cette sortie longue. Ne force jamais en cas de douleur. L'objectif est de maintenir une aisance respiratoire tout au long de la séance."
+                            },
+                            "duration": {
+                              "stringValue": "50 min"
+                            },
+                            "targetPace": {
+                              "stringValue": "10:32 min/km (course) / 11:46 min/km (marche)"
+                            },
+                            "cooldown": {
+                              "stringValue": "5 min de marche lente à 11:46 min/km"
+                            }
+                          }
+                        }
+                      }
+                    ]
+                  }
+                },
+                "phase": {
+                  "stringValue": "fondamental"
+                },
+                "weekGoal": {
+                  "stringValue": "Reprise douce et fondations"
+                }
+              }
+            }
+          },
+          {
+            "mapValue": {
+              "fields": {
+                "theme": {
+                  "stringValue": "fondamental"
+                },
+                "isRecoveryWeek": {
+                  "booleanValue": false
+                },
+                "weekNumber": {
+                  "integerValue": "2"
+                },
+                "phase": {
+                  "stringValue": "fondamental"
+                },
+                "sessions": {
+                  "arrayValue": {
+                    "values": [
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "cooldown": {
+                              "stringValue": "5 min EF"
+                            },
+                            "targetPace": {
+                              "stringValue": "7:37"
+                            },
+                            "duration": {
+                              "stringValue": "32 min"
+                            },
+                            "advice": {
+                              "stringValue": "Sentez progressivement l'allure et l'échauffement du corps. Commencez doucement."
+                            },
+                            "type": {
+                              "stringValue": "Footing"
+                            },
+                            "day": {
+                              "stringValue": "Lundi"
+                            },
+                            "mainSet": {
+                              "stringValue": "35 min EF"
+                            },
+                            "distance": {
+                              "stringValue": "4.2 km"
+                            },
+                            "title": {
+                              "stringValue": "Footing EF - Sensation progressive"
+                            },
+                            "id": {
+                              "stringValue": "w2-s1-fix-1778306643644-ij4r4g5"
+                            },
+                            "elevationGain": {
+                              "integerValue": "0"
+                            },
+                            "intensity": {
+                              "stringValue": "Facile"
+                            },
+                            "warmup": {
+                              "stringValue": "10 min EF"
+                            }
+                          }
+                        }
+                      },
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "cooldown": {
+                              "stringValue": "10 min EF"
+                            },
+                            "duration": {
+                              "stringValue": "35 min"
+                            },
+                            "advice": {
+                              "stringValue": "Augmentez progressivement votre vitesse sur les portions au seuil."
+                            },
+                            "targetPace": {
+                              "stringValue": "6:00"
+                            },
+                            "type": {
+                              "stringValue": "Seuil"
+                            },
+                            "mainSet": {
+                              "stringValue": "2 x 10 min au seuil avec 5 min EF de récup"
+                            },
+                            "day": {
+                              "stringValue": "Mercredi"
+                            },
+                            "title": {
+                              "stringValue": "Seuil - Augmentation progressive"
+                            },
+                            "id": {
+                              "stringValue": "w2-s2-fix-1778306643644-ppfbh9u"
+                            },
+                            "distance": {
+                              "stringValue": "5.8 km"
+                            },
+                            "elevationGain": {
+                              "integerValue": "0"
+                            },
+                            "warmup": {
+                              "stringValue": "15 min EF"
+                            },
+                            "intensity": {
+                              "stringValue": "Modéré"
+                            }
+                          }
+                        }
+                      },
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "advice": {
+                              "stringValue": "Concentrez-vous sur la qualité d'exécution des mouvements."
+                            },
+                            "duration": {
+                              "stringValue": "35-40 min"
+                            },
+                            "elevationGain": {
+                              "integerValue": "0"
+                            },
+                            "warmup": {
+                              "stringValue": "5 min d'échauffement articulaire"
+                            },
+                            "intensity": {
+                              "stringValue": "Modéré"
+                            },
+                            "type": {
+                              "stringValue": "Renforcement"
+                            },
+                            "mainSet": {
+                              "stringValue": "3 séries de 15 répétitions de squats, fentes, pompes, et gainage (30 secondes par position)"
+                            },
+                            "day": {
+                              "stringValue": "Dimanche"
+                            },
+                            "title": {
+                              "stringValue": "Renforcement musculaire"
+                            },
+                            "id": {
+                              "stringValue": "w2-s3-fix-1778306643644-fhn5goy"
+                            },
+                            "cooldown": {
+                              "stringValue": "5 min d'étirements"
+                            }
+                          }
+                        }
+                      }
+                    ]
+                  }
+                }
+              }
+            }
+          },
+          {
+            "mapValue": {
+              "fields": {
+                "theme": {
+                  "stringValue": "fondamental"
+                },
+                "isRecoveryWeek": {
+                  "booleanValue": false
+                },
+                "weekNumber": {
+                  "integerValue": "3"
+                },
+                "phase": {
+                  "stringValue": "fondamental"
+                },
+                "sessions": {
+                  "arrayValue": {
+                    "values": [
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "day": {
+                              "stringValue": "Lundi"
+                            },
+                            "mainSet": {
+                              "stringValue": "35 min EF sur terrain légèrement vallonné"
+                            },
+                            "distance": {
+                              "stringValue": "5.9 km"
+                            },
+                            "id": {
+                              "stringValue": "w3-s1-fix-1778306643644-70l239j"
+                            },
+                            "title": {
+                              "stringValue": "Footing EF - Léger Vallonné"
+                            },
+                            "elevationGain": {
+                              "integerValue": "50"
+                            },
+                            "intensity": {
+                              "stringValue": "Facile"
+                            },
+                            "warmup": {
+                              "stringValue": "10 min EF"
+                            },
+                            "cooldown": {
+                              "stringValue": "5 min EF"
+                            },
+                            "targetPace": {
+                              "stringValue": "7:37"
+                            },
+                            "duration": {
+                              "stringValue": "45 min"
+                            },
+                            "advice": {
+                              "stringValue": "Gérez l'effort dans les montées, relâchez dans les descentes."
+                            },
+                            "type": {
+                              "stringValue": "Footing"
+                            }
+                          }
+                        }
+                      },
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "title": {
+                              "stringValue": "VMA courte"
+                            },
+                            "id": {
+                              "stringValue": "w3-s2-fix-1778306643644-b14vewz"
+                            },
+                            "distance": {
+                              "stringValue": "6.8 km"
+                            },
+                            "mainSet": {
+                              "stringValue": "8 x 30sec VMA / 30sec récup"
+                            },
+                            "day": {
+                              "stringValue": "Mercredi"
+                            },
+                            "warmup": {
+                              "stringValue": "15 min EF"
+                            },
+                            "intensity": {
+                              "stringValue": "Difficile"
+                            },
+                            "elevationGain": {
+                              "integerValue": "0"
+                            },
+                            "cooldown": {
+                              "stringValue": "15 min EF"
+                            },
+                            "type": {
+                              "stringValue": "VMA"
+                            },
+                            "targetPace": {
+                              "stringValue": "5:13"
+                            },
+                            "advice": {
+                              "stringValue": "Ne pas partir trop vite, bien récupérer entre les accélérations."
+                            },
+                            "duration": {
+                              "stringValue": "45 min"
+                            }
+                          }
+                        }
+                      },
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "cooldown": {
+                              "stringValue": "5 min d'étirements"
+                            },
+                            "id": {
+                              "stringValue": "w3-s3-fix-1778306643644-q7g7cak"
+                            },
+                            "title": {
+                              "stringValue": "Renforcement musculaire"
+                            },
+                            "day": {
+                              "stringValue": "Dimanche"
+                            },
+                            "mainSet": {
+                              "stringValue": "3 séries de 15 répétitions de squats, fentes, pompes, et gainage (30 secondes par position)"
+                            },
+                            "type": {
+                              "stringValue": "Renforcement"
+                            },
+                            "intensity": {
+                              "stringValue": "Modéré"
+                            },
+                            "warmup": {
+                              "stringValue": "5 min d'échauffement articulaire"
+                            },
+                            "elevationGain": {
+                              "integerValue": "0"
+                            },
+                            "advice": {
+                              "stringValue": "Pensez à bien vous hydrater et à respirer pendant l'effort."
+                            },
+                            "duration": {
+                              "stringValue": "35-40 min"
+                            }
+                          }
+                        }
+                      }
+                    ]
+                  }
+                }
+              }
+            }
+          },
+          {
+            "mapValue": {
+              "fields": {
+                "phase": {
+                  "stringValue": "recuperation"
+                },
+                "weekGoal": {
+                  "stringValue": "Récupération Active"
+                },
+                "sessions": {
+                  "arrayValue": {
+                    "values": [
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "duration": {
+                              "stringValue": "39 min"
+                            },
+                            "targetPace": {
+                              "stringValue": "7:47 min/km"
+                            },
+                            "advice": {
+                              "stringValue": "Cette séance est dédiée à la récupération. Laisse tes muscles se régénérer sans forcer. Écoute ton corps."
+                            },
+                            "type": {
+                              "stringValue": "Jogging"
+                            },
+                            "cooldown": {
+                              "stringValue": "5 min de marche et quelques étirements légers. (à 8:42 min/km)"
+                            },
+                            "elevationGain": {
+                              "integerValue": "0"
+                            },
+                            "intensity": {
+                              "stringValue": "Facile"
+                            },
+                            "warmup": {
+                              "stringValue": "5 min de marche, à 8:42 min/km douce."
+                            },
+                            "day": {
+                              "stringValue": "Lundi"
+                            },
+                            "locationSuggestion": {
+                              "stringValue": "Parc des sports de Merville"
+                            },
+                            "mainSet": {
+                              "stringValue": "45 min de course très facile à allure EF (7:47 min/km), en se concentrant sur la fluidité et le confort."
+                            },
+                            "distance": {
+                              "stringValue": "5 km"
+                            },
+                            "id": {
+                              "stringValue": "w4-s2-1778306593665-gzjrm5j"
+                            },
+                            "title": {
+                              "stringValue": "Footing EF - Douceur et Aisance"
+                            }
+                          }
+                        }
+                      },
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "warmup": {
+                              "stringValue": "10 min de mobilité articulaire et échauffement dynamique"
+                            },
+                            "intensity": {
+                              "stringValue": "Facile"
+                            },
+                            "elevationGain": {
+                              "integerValue": "0"
+                            },
+                            "id": {
+                              "stringValue": "w4-s1-1778306593665-6r77sde"
+                            },
+                            "title": {
+                              "stringValue": "Renfo Equilibre - Mobilite & Gainage (S4)"
+                            },
+                            "distance": {
+                              "stringValue": "0 km"
+                            },
+                            "mainSet": {
+                              "stringValue": "Circuit 2 tours : Marche laterale avec elastique (3x6 pas/cote), Fente laterale (3x6/jambe), Bird-dog (3x6/cote), Gainage lateral (3x12-30s/cote), Marche sur talons (2x12m), Fente + rotation tronc (2x5/cote). Repos 1 min 30 entre tours."
+                            },
+                            "day": {
+                              "stringValue": "Mercredi"
+                            },
+                            "locationSuggestion": {
+                              "stringValue": "À la maison"
+                            },
+                            "type": {
+                              "stringValue": "Renforcement"
+                            },
+                            "advice": {
+                              "stringValue": "L'objectif est la récupération et la mobilité, pas la performance. Écoute ton corps et ne force pas."
+                            },
+                            "targetPace": {
+                              "stringValue": "N/A"
+                            },
+                            "duration": {
+                              "stringValue": "35-40 min"
+                            },
+                            "cooldown": {
+                              "stringValue": "5 min d'étirements : quadriceps, ischio-jambiers, mollets, hanches"
+                            }
+                          }
+                        }
+                      },
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "duration": {
+                              "stringValue": "46 min"
+                            },
+                            "advice": {
+                              "stringValue": "Garde une allure très basse, proche de la marche si besoin. L'important est de bouger sans effort. Écoute ton corps."
+                            },
+                            "targetPace": {
+                              "stringValue": "7:47 min/km"
+                            },
+                            "type": {
+                              "stringValue": "Sortie Longue"
+                            },
+                            "cooldown": {
+                              "stringValue": "2 min de marche et étirements doux. (à 8:42 min/km)"
+                            },
+                            "elevationGain": {
+                              "integerValue": "0"
+                            },
+                            "intensity": {
+                              "stringValue": "Facile"
+                            },
+                            "warmup": {
+                              "stringValue": "3 min de marche, à 8:42 min/km."
+                            },
+                            "locationSuggestion": {
+                              "stringValue": "Voie verte de Merville"
+                            },
+                            "day": {
+                              "stringValue": "Dimanche"
+                            },
+                            "mainSet": {
+                              "stringValue": "30 min de course très lente à allure EF (7:47 min/km), pour favoriser la circulation sanguine et la récupération."
+                            },
+                            "distance": {
+                              "stringValue": "6 km"
+                            },
+                            "title": {
+                              "stringValue": "Sortie Longue EF - Récupération"
+                            },
+                            "id": {
+                              "stringValue": "w4-s3-1778306593665-ys8ywto"
+                            }
+                          }
+                        }
+                      }
+                    ]
+                  }
+                },
+                "isRecoveryWeek": {
+                  "booleanValue": true
+                },
+                "theme": {
+                  "stringValue": "Récupération Active"
+                },
+                "weekNumber": {
+                  "integerValue": "4"
+                }
+              }
+            }
+          },
+          {
+            "mapValue": {
+              "fields": {
+                "sessions": {
+                  "arrayValue": {
+                    "values": [
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "targetPace": {
+                              "stringValue": "7:37"
+                            },
+                            "duration": {
+                              "stringValue": "45 min"
+                            },
+                            "advice": {
+                              "stringValue": "Essayez d'améliorer votre efficacité de course."
+                            },
+                            "type": {
+                              "stringValue": "Footing"
+                            },
+                            "cooldown": {
+                              "stringValue": "5 min EF"
+                            },
+                            "elevationGain": {
+                              "integerValue": "0"
+                            },
+                            "intensity": {
+                              "stringValue": "Facile"
+                            },
+                            "warmup": {
+                              "stringValue": "10 min EF"
+                            },
+                            "day": {
+                              "stringValue": "Lundi"
+                            },
+                            "mainSet": {
+                              "stringValue": "35 min EF en se concentrant sur la pose du pied, la posture et le mouvement des bras"
+                            },
+                            "distance": {
+                              "stringValue": "5.9 km"
+                            },
+                            "id": {
+                              "stringValue": "w5-s1-fix-1778306643644-kr3n857"
+                            },
+                            "title": {
+                              "stringValue": "Footing EF - Technique de course"
+                            }
+                          }
+                        }
+                      },
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "elevationGain": {
+                              "integerValue": "0"
+                            },
+                            "warmup": {
+                              "stringValue": "10 min EF"
+                            },
+                            "intensity": {
+                              "stringValue": "Facile"
+                            },
+                            "mainSet": {
+                              "stringValue": "50 min EF à allure régulière"
+                            },
+                            "day": {
+                              "stringValue": "Mercredi"
+                            },
+                            "id": {
+                              "stringValue": "w5-s2-fix-1778306643644-jblx89l"
+                            },
+                            "title": {
+                              "stringValue": "Sortie Longue EF - Rythme régulier"
+                            },
+                            "distance": {
+                              "stringValue": "7.8 km"
+                            },
+                            "duration": {
+                              "stringValue": "60 min"
+                            },
+                            "targetPace": {
+                              "stringValue": "7:41"
+                            },
+                            "advice": {
+                              "stringValue": "Conservez une allure confortable tout au long de la sortie."
+                            },
+                            "type": {
+                              "stringValue": "Sortie Longue"
+                            },
+                            "cooldown": {
+                              "stringValue": "5 min EF"
+                            }
+                          }
+                        }
+                      },
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "cooldown": {
+                              "stringValue": "5 min d'étirements"
+                            },
+                            "title": {
+                              "stringValue": "Renforcement musculaire"
+                            },
+                            "id": {
+                              "stringValue": "w5-s3-fix-1778306643644-ehfqign"
+                            },
+                            "day": {
+                              "stringValue": "Dimanche"
+                            },
+                            "mainSet": {
+                              "stringValue": "3 séries de 15 répétitions de squats, fentes, pompes, et gainage (30 secondes par position)"
+                            },
+                            "intensity": {
+                              "stringValue": "Modéré"
+                            },
+                            "type": {
+                              "stringValue": "Renforcement"
+                            },
+                            "warmup": {
+                              "stringValue": "5 min d'échauffement articulaire"
+                            },
+                            "advice": {
+                              "stringValue": "Ne négligez pas l'échauffement et les étirements."
+                            },
+                            "duration": {
+                              "stringValue": "35-40 min"
+                            },
+                            "elevationGain": {
+                              "integerValue": "0"
+                            }
+                          }
+                        }
+                      }
+                    ]
+                  }
+                },
+                "phase": {
+                  "stringValue": "fondamental"
+                },
+                "weekNumber": {
+                  "integerValue": "5"
+                },
+                "isRecoveryWeek": {
+                  "booleanValue": false
+                },
+                "theme": {
+                  "stringValue": "fondamental"
+                }
+              }
+            }
+          },
+          {
+            "mapValue": {
+              "fields": {
+                "sessions": {
+                  "arrayValue": {
+                    "values": [
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "advice": {
+                              "stringValue": "L'allure Seuil doit être difficile mais maintenable. Ne pars pas trop vite. Écoute ton corps et interrompe si la douleur apparaît."
+                            },
+                            "targetPace": {
+                              "stringValue": "6:00 min/km"
+                            },
+                            "duration": {
+                              "stringValue": "44 min"
+                            },
+                            "type": {
+                              "stringValue": "Fractionné"
+                            },
+                            "cooldown": {
+                              "stringValue": "15 min de jogging EF (7:47 min/km) très lent et étirements."
+                            },
+                            "elevationGain": {
+                              "integerValue": "0"
+                            },
+                            "warmup": {
+                              "stringValue": "20 min de jogging EF (7:47 min/km), incluant 2-3 accélérations progressives de 30 sec."
+                            },
+                            "intensity": {
+                              "stringValue": "Difficile"
+                            },
+                            "mainSet": {
+                              "stringValue": "2 x (10 min à allure Seuil (6:00 min/km) / 5 min de récupération active EF (7:47 min/km))."
+                            },
+                            "day": {
+                              "stringValue": "Lundi"
+                            },
+                            "locationSuggestion": {
+                              "stringValue": "Chemin plat le long du canal de Merville"
+                            },
+                            "id": {
+                              "stringValue": "w6-s2-1778306593667-et8gdga"
+                            },
+                            "title": {
+                              "stringValue": "Séance Seuil Court - Travail de Résistance"
+                            },
+                            "distance": {
+                              "stringValue": "7.4 km"
+                            }
+                          }
+                        }
+                      },
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "id": {
+                              "stringValue": "w6-s1-1778306593667-svad5xj"
+                            },
+                            "title": {
+                              "stringValue": "Renfo Equilibre - Mobilite & Gainage (S6)"
+                            },
+                            "distance": {
+                              "stringValue": "0 km"
+                            },
+                            "mainSet": {
+                              "stringValue": "Circuit 3 tours : Equilibre unipodal (2x30s/pied), Hip thrust (3x15), Bird-dog (3x10/cote), Gainage lateral (3x20-30s/cote), Marche sur talons (2x20m), Mobilite hanche (cercles) (2x10/cote). Repos 1 min 30 entre tours."
+                            },
+                            "day": {
+                              "stringValue": "Mercredi"
+                            },
+                            "locationSuggestion": {
+                              "stringValue": "À la maison"
+                            },
+                            "warmup": {
+                              "stringValue": "10 min de mobilité articulaire et échauffement dynamique"
+                            },
+                            "intensity": {
+                              "stringValue": "Modéré"
+                            },
+                            "elevationGain": {
+                              "integerValue": "0"
+                            },
+                            "cooldown": {
+                              "stringValue": "5 min d'étirements : quadriceps, ischio-jambiers, mollets, hanches"
+                            },
+                            "type": {
+                              "stringValue": "Renforcement"
+                            },
+                            "duration": {
+                              "stringValue": "35-40 min"
+                            },
+                            "advice": {
+                              "stringValue": "C'est une semaine de développement, mais garde le contrôle des mouvements. Écoute ton corps et ne force pas les douleurs."
+                            },
+                            "targetPace": {
+                              "stringValue": "N/A"
+                            }
+                          }
+                        }
+                      },
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "warmup": {
+                              "stringValue": "5 min de marche rapide, à 8:42 min/km."
+                            },
+                            "intensity": {
+                              "stringValue": "Facile"
+                            },
+                            "elevationGain": {
+                              "integerValue": "0"
+                            },
+                            "id": {
+                              "stringValue": "w6-s3-1778306593667-627uhhc"
+                            },
+                            "title": {
+                              "stringValue": "Sortie Longue EF - Maintien du Volume"
+                            },
+                            "distance": {
+                              "stringValue": "6.6 km"
+                            },
+                            "mainSet": {
+                              "stringValue": "40 min de course continue à allure EF (7:47 min/km) pour consolider l'endurance de base."
+                            },
+                            "day": {
+                              "stringValue": "Dimanche"
+                            },
+                            "locationSuggestion": {
+                              "stringValue": "Berges aménagées de Merville"
+                            },
+                            "type": {
+                              "stringValue": "Sortie Longue"
+                            },
+                            "advice": {
+                              "stringValue": "Récupère de la séance de Seuil en gardant une allure très facile. L'objectif est l'endurance. Écoute ton corps et ne force pas."
+                            },
+                            "duration": {
+                              "stringValue": "52 min"
+                            },
+                            "targetPace": {
+                              "stringValue": "7:47 min/km"
+                            },
+                            "cooldown": {
+                              "stringValue": "7 min de marche et étirements doux des jambes. (à 8:42 min/km)"
+                            }
+                          }
+                        }
+                      }
+                    ]
+                  }
+                },
+                "phase": {
+                  "stringValue": "developpement"
+                },
+                "weekGoal": {
+                  "stringValue": "Développement - Introduction au Seuil"
+                },
+                "weekNumber": {
+                  "integerValue": "6"
+                },
+                "isRecoveryWeek": {
+                  "booleanValue": false
+                },
+                "theme": {
+                  "stringValue": "Développement - Introduction au Seuil"
+                }
+              }
+            }
+          },
+          {
+            "mapValue": {
+              "fields": {
+                "sessions": {
+                  "arrayValue": {
+                    "values": [
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "distance": {
+                              "stringValue": "5.6 km"
+                            },
+                            "title": {
+                              "stringValue": "Footing EF - Détente"
+                            },
+                            "id": {
+                              "stringValue": "w7-s1-fix-1778306643644-odghw3r"
+                            },
+                            "day": {
+                              "stringValue": "Lundi"
+                            },
+                            "mainSet": {
+                              "stringValue": "25 min EF"
+                            },
+                            "intensity": {
+                              "stringValue": "Facile"
+                            },
+                            "warmup": {
+                              "stringValue": "5 min EF"
+                            },
+                            "elevationGain": {
+                              "integerValue": "0"
+                            },
+                            "cooldown": {
+                              "stringValue": "5 min EF"
+                            },
+                            "type": {
+                              "stringValue": "Footing"
+                            },
+                            "duration": {
+                              "stringValue": "43 min"
+                            },
+                            "advice": {
+                              "stringValue": "Sortie courte pour favoriser la récupération."
+                            },
+                            "targetPace": {
+                              "stringValue": "7:37"
+                            }
+                          }
+                        }
+                      },
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "distance": {
+                              "stringValue": "6.9 km"
+                            },
+                            "id": {
+                              "stringValue": "w7-s2-fix-1778306643644-1txoj5l"
+                            },
+                            "title": {
+                              "stringValue": "Footing EF - Douceur"
+                            },
+                            "day": {
+                              "stringValue": "Mercredi"
+                            },
+                            "mainSet": {
+                              "stringValue": "30 min EF"
+                            },
+                            "intensity": {
+                              "stringValue": "Facile"
+                            },
+                            "warmup": {
+                              "stringValue": "10 min EF"
+                            },
+                            "elevationGain": {
+                              "integerValue": "0"
+                            },
+                            "cooldown": {
+                              "stringValue": "5 min EF"
+                            },
+                            "type": {
+                              "stringValue": "Footing"
+                            },
+                            "advice": {
+                              "stringValue": "Privilégiez une allure très confortable et relâchée."
+                            },
+                            "targetPace": {
+                              "stringValue": "7:41"
+                            },
+                            "duration": {
+                              "stringValue": "53 min"
+                            }
+                          }
+                        }
+                      },
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "mainSet": {
+                              "stringValue": "2 séries de 12 répétitions de squats, fentes, pompes, et gainage (30 secondes par position)"
+                            },
+                            "day": {
+                              "stringValue": "Dimanche"
+                            },
+                            "title": {
+                              "stringValue": "Renforcement musculaire"
+                            },
+                            "id": {
+                              "stringValue": "w7-s3-fix-1778306643644-1rr60zj"
+                            },
+                            "cooldown": {
+                              "stringValue": "5 min d'étirements"
+                            },
+                            "duration": {
+                              "stringValue": "35-40 min"
+                            },
+                            "advice": {
+                              "stringValue": "Diminuez légèrement l'intensité du renforcement."
+                            },
+                            "elevationGain": {
+                              "integerValue": "0"
+                            },
+                            "warmup": {
+                              "stringValue": "5 min d'échauffement articulaire"
+                            },
+                            "intensity": {
+                              "stringValue": "Modéré"
+                            },
+                            "type": {
+                              "stringValue": "Renforcement"
+                            }
+                          }
+                        }
+                      }
+                    ]
+                  }
+                },
+                "phase": {
+                  "stringValue": "recuperation"
+                },
+                "weekNumber": {
+                  "integerValue": "7"
+                },
+                "theme": {
+                  "stringValue": "recuperation"
+                },
+                "isRecoveryWeek": {
+                  "booleanValue": true
+                }
+              }
+            }
+          },
+          {
+            "mapValue": {
+              "fields": {
+                "theme": {
+                  "stringValue": "Développement - Introduction au Seuil"
+                },
+                "isRecoveryWeek": {
+                  "booleanValue": false
+                },
+                "weekNumber": {
+                  "integerValue": "8"
+                },
+                "phase": {
+                  "stringValue": "developpement"
+                },
+                "weekGoal": {
+                  "stringValue": "Développement - Introduction au Seuil"
+                },
+                "sessions": {
+                  "arrayValue": {
+                    "values": [
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "duration": {
+                              "stringValue": "49 min"
+                            },
+                            "targetPace": {
+                              "stringValue": "Seuil: 6:00 min/km, EF: 7:47 min/km"
+                            },
+                            "advice": {
+                              "stringValue": "Le seuil doit être une allure soutenue, où tu peux encore parler par phrases courtes. Ne force pas au-delà de tes sensations."
+                            },
+                            "type": {
+                              "stringValue": "Course à pied"
+                            },
+                            "cooldown": {
+                              "stringValue": "10 min EF (7:47 min/km)"
+                            },
+                            "elevationGain": {
+                              "integerValue": "0"
+                            },
+                            "intensity": {
+                              "stringValue": "Difficile"
+                            },
+                            "warmup": {
+                              "stringValue": "20 min EF (7:47 min/km)"
+                            },
+                            "locationSuggestion": {
+                              "stringValue": "Voie verte de Merville"
+                            },
+                            "day": {
+                              "stringValue": "Lundi"
+                            },
+                            "mainSet": {
+                              "stringValue": "2x (8 min Seuil (6:00 min/km) / 3 min EF (7:47 min/km))"
+                            },
+                            "distance": {
+                              "stringValue": "6.7 km"
+                            },
+                            "title": {
+                              "stringValue": "Séance Seuil - Résistance Améliorée"
+                            },
+                            "id": {
+                              "stringValue": "w8-s2-1778306628052-vvoec6m"
+                            }
+                          }
+                        }
+                      },
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "mainSet": {
+                              "stringValue": "60 min EF (7:47 min/km)"
+                            },
+                            "day": {
+                              "stringValue": "Mercredi"
+                            },
+                            "locationSuggestion": {
+                              "stringValue": "Parc de Merville"
+                            },
+                            "id": {
+                              "stringValue": "w8-s3-1778306628052-q6q9822"
+                            },
+                            "title": {
+                              "stringValue": "Sortie Longue EF - Exploration Urbaine"
+                            },
+                            "distance": {
+                              "stringValue": "7.3 km"
+                            },
+                            "elevationGain": {
+                              "integerValue": "0"
+                            },
+                            "warmup": {
+                              "stringValue": "10 min de footing léger à 8:42 min/km + gammes éducatives"
+                            },
+                            "intensity": {
+                              "stringValue": "Facile"
+                            },
+                            "cooldown": {
+                              "stringValue": "5 min étirements doux (à 8:42 min/km)"
+                            },
+                            "duration": {
+                              "stringValue": "56 min"
+                            },
+                            "targetPace": {
+                              "stringValue": "EF: 7:47 min/km"
+                            },
+                            "advice": {
+                              "stringValue": "C'est une sortie pour accumuler du volume sans forcer. Profite du paysage et maintiens une allure très confortable. Nous te recommandons vivement de consulter un médecin avant de débuter ce programme, notamment pour obtenir un certificat médical d'aptitude au sport."
+                            },
+                            "type": {
+                              "stringValue": "Sortie Longue"
+                            }
+                          }
+                        }
+                      },
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "mainSet": {
+                              "stringValue": "Circuit 3 tours : Pont unipodal (3x10/jambe), Clamshell avec elastique (3x15/cote), Bird-dog (3x10/cote), Gainage lateral (3x20-30s/cote), Marche sur talons (2x20m), Fente + rotation tronc (2x8/cote). Repos 1 min 30 entre tours."
+                            },
+                            "locationSuggestion": {
+                              "stringValue": "À la maison"
+                            },
+                            "day": {
+                              "stringValue": "Dimanche"
+                            },
+                            "title": {
+                              "stringValue": "Renfo Equilibre - Mobilite & Gainage (S8)"
+                            },
+                            "id": {
+                              "stringValue": "w8-s1-1778306628052-41cr925"
+                            },
+                            "distance": {
+                              "stringValue": "N/A"
+                            },
+                            "elevationGain": {
+                              "integerValue": "0"
+                            },
+                            "warmup": {
+                              "stringValue": "10 min de mobilité articulaire et échauffement dynamique"
+                            },
+                            "intensity": {
+                              "stringValue": "Modéré"
+                            },
+                            "cooldown": {
+                              "stringValue": "5 min d'étirements : quadriceps, ischio-jambiers, mollets, hanches"
+                            },
+                            "advice": {
+                              "stringValue": "Écoute ton corps attentivement. Si une douleur apparaît, arrête l'exercice ou modifie-le. La régularité prime sur l'intensité."
+                            },
+                            "duration": {
+                              "stringValue": "35-40 min"
+                            },
+                            "targetPace": {
+                              "stringValue": "N/A"
+                            },
+                            "type": {
+                              "stringValue": "Renforcement"
+                            }
+                          }
+                        }
+                      }
+                    ]
+                  }
+                }
+              }
+            }
+          },
+          {
+            "mapValue": {
+              "fields": {
+                "sessions": {
+                  "arrayValue": {
+                    "values": [
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "type": {
+                              "stringValue": "Course à pied"
+                            },
+                            "targetPace": {
+                              "stringValue": "VMA: 5:13 min/km, Récup: 8:42 min/km, EF: 7:47 min/km"
+                            },
+                            "duration": {
+                              "stringValue": "44 min"
+                            },
+                            "advice": {
+                              "stringValue": "Les 30 secondes à VMA doivent être rapides mais contrôlées. Concentre-toi sur ta foulée et ta respiration. N'hésite pas à adapter le nombre de répétitions si la fatigue se fait sentir."
+                            },
+                            "cooldown": {
+                              "stringValue": "10 min EF (7:47 min/km)"
+                            },
+                            "intensity": {
+                              "stringValue": "Difficile"
+                            },
+                            "warmup": {
+                              "stringValue": "20 min EF (7:47 min/km) avec 3-4 accélérations progressives de 30s"
+                            },
+                            "elevationGain": {
+                              "integerValue": "0"
+                            },
+                            "distance": {
+                              "stringValue": "~5.8 km"
+                            },
+                            "id": {
+                              "stringValue": "w9-s2-1778306628052-ymbzwm4"
+                            },
+                            "title": {
+                              "stringValue": "Fractionné VMA Courte - Accélération"
+                            },
+                            "day": {
+                              "stringValue": "Lundi"
+                            },
+                            "locationSuggestion": {
+                              "stringValue": "Piste d'athlétisme de Merville"
+                            },
+                            "mainSet": {
+                              "stringValue": "2 séries de 5x (30s VMA (5:13 min/km) / 30s Récup (8:42 min/km)), avec 4 min de récupération active EF (7:47 min/km) entre les séries."
+                            }
+                          }
+                        }
+                      },
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "cooldown": {
+                              "stringValue": "5 min étirements doux (à 8:42 min/km)"
+                            },
+                            "advice": {
+                              "stringValue": "Cette sortie est l'occasion d'allonger ton endurance. Maintiens une allure où tu es parfaitement à l'aise et capable de converser sans essoufflement."
+                            },
+                            "duration": {
+                              "stringValue": "1h 10 min"
+                            },
+                            "targetPace": {
+                              "stringValue": "EF: 7:47 min/km"
+                            },
+                            "type": {
+                              "stringValue": "Sortie Longue"
+                            },
+                            "mainSet": {
+                              "stringValue": "79 min EF (7:47 min/km)"
+                            },
+                            "locationSuggestion": {
+                              "stringValue": "Le grand parc boisé de Merville"
+                            },
+                            "day": {
+                              "stringValue": "Mercredi"
+                            },
+                            "title": {
+                              "stringValue": "Sortie Longue EF - Parcs et Jardins"
+                            },
+                            "id": {
+                              "stringValue": "w9-s3-1778306628052-8y6w1y1"
+                            },
+                            "distance": {
+                              "stringValue": "9 km"
+                            },
+                            "elevationGain": {
+                              "integerValue": "0"
+                            },
+                            "warmup": {
+                              "stringValue": "10 min de footing léger à 8:42 min/km + gammes éducatives"
+                            },
+                            "intensity": {
+                              "stringValue": "Facile"
+                            }
+                          }
+                        }
+                      },
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "distance": {
+                              "stringValue": "N/A"
+                            },
+                            "title": {
+                              "stringValue": "Renfo Equilibre - Renfo & Stabilite (S9)"
+                            },
+                            "id": {
+                              "stringValue": "w9-s1-1778306628052-6zng3ae"
+                            },
+                            "locationSuggestion": {
+                              "stringValue": "À la maison"
+                            },
+                            "day": {
+                              "stringValue": "Dimanche"
+                            },
+                            "mainSet": {
+                              "stringValue": "Circuit 3 tours : Fentes avant (3x10/jambe), Fentes marchees (3x12/jambe), Gainage ventral (3x30-60s), Dead bug (3x10/cote), Extensions mollets debout (3x20), Etirements dynamiques (2x8/cote). Repos 1 min 30 entre tours."
+                            },
+                            "intensity": {
+                              "stringValue": "Modéré"
+                            },
+                            "warmup": {
+                              "stringValue": "10 min de mobilité articulaire et échauffement dynamique"
+                            },
+                            "elevationGain": {
+                              "integerValue": "0"
+                            },
+                            "cooldown": {
+                              "stringValue": "5 min d'étirements : quadriceps, ischio-jambiers, mollets, hanches"
+                            },
+                            "type": {
+                              "stringValue": "Renforcement"
+                            },
+                            "duration": {
+                              "stringValue": "35-40 min"
+                            },
+                            "advice": {
+                              "stringValue": "Concentre-toi sur la qualité de l'exécution des mouvements plutôt que sur la quantité. Écoute ton corps et ne force pas."
+                            },
+                            "targetPace": {
+                              "stringValue": "N/A"
+                            }
+                          }
+                        }
+                      }
+                    ]
+                  }
+                },
+                "weekGoal": {
+                  "stringValue": "Développement - Introduction VMA Courte"
+                },
+                "phase": {
+                  "stringValue": "developpement"
+                },
+                "weekNumber": {
+                  "integerValue": "9"
+                },
+                "theme": {
+                  "stringValue": "Développement - Introduction VMA Courte"
+                },
+                "isRecoveryWeek": {
+                  "booleanValue": false
+                }
+              }
+            }
+          },
+          {
+            "mapValue": {
+              "fields": {
+                "phase": {
+                  "stringValue": "recuperation"
+                },
+                "weekGoal": {
+                  "stringValue": "Récupération - Assimilation"
+                },
+                "sessions": {
+                  "arrayValue": {
+                    "values": [
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "cooldown": {
+                              "stringValue": "5 min étirements doux (à 8:42 min/km)"
+                            },
+                            "advice": {
+                              "stringValue": "L'objectif est de relancer la circulation sanguine et d'éliminer les toxines. Cours à une allure très douce, sans aucune contrainte. Si tu ressens une fatigue anormale, n'hésite pas à raccourcir la séance."
+                            },
+                            "targetPace": {
+                              "stringValue": "EF: 7:47 min/km"
+                            },
+                            "duration": {
+                              "stringValue": "45 min"
+                            },
+                            "type": {
+                              "stringValue": "Course à pied"
+                            },
+                            "mainSet": {
+                              "stringValue": "45 min EF (7:47 min/km)"
+                            },
+                            "locationSuggestion": {
+                              "stringValue": "Chemins plats des bords de Merville"
+                            },
+                            "day": {
+                              "stringValue": "Lundi"
+                            },
+                            "title": {
+                              "stringValue": "Footing EF - Détente et Relâchement"
+                            },
+                            "id": {
+                              "stringValue": "w10-s2-1778306628052-uuahupq"
+                            },
+                            "distance": {
+                              "stringValue": "~5.8 km"
+                            },
+                            "elevationGain": {
+                              "integerValue": "0"
+                            },
+                            "warmup": {
+                              "stringValue": "10 min de footing léger à 8:42 min/km + gammes éducatives"
+                            },
+                            "intensity": {
+                              "stringValue": "Facile"
+                            }
+                          }
+                        }
+                      },
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "warmup": {
+                              "stringValue": "10 min de footing léger à 8:42 min/km + gammes éducatives"
+                            },
+                            "intensity": {
+                              "stringValue": "Facile"
+                            },
+                            "elevationGain": {
+                              "integerValue": "0"
+                            },
+                            "title": {
+                              "stringValue": "Sortie Longue EF - Régénération Douce"
+                            },
+                            "id": {
+                              "stringValue": "w10-s3-1778306628052-rcg0u93"
+                            },
+                            "distance": {
+                              "stringValue": "6.8 km"
+                            },
+                            "mainSet": {
+                              "stringValue": "56 min EF (7:47 min/km)"
+                            },
+                            "locationSuggestion": {
+                              "stringValue": "Parc urbain de Merville"
+                            },
+                            "day": {
+                              "stringValue": "Mercredi"
+                            },
+                            "type": {
+                              "stringValue": "Course à pied"
+                            },
+                            "targetPace": {
+                              "stringValue": "EF: 7:47 min/km"
+                            },
+                            "duration": {
+                              "stringValue": "53 min"
+                            },
+                            "advice": {
+                              "stringValue": "Une sortie longue en douceur pour consolider les acquis sans puiser dans les réserves. Profite du moment pour te vider l'esprit."
+                            },
+                            "cooldown": {
+                              "stringValue": "5 min étirements doux (à 8:42 min/km)"
+                            }
+                          }
+                        }
+                      },
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "elevationGain": {
+                              "integerValue": "0"
+                            },
+                            "warmup": {
+                              "stringValue": "10 min de mobilité articulaire et échauffement dynamique"
+                            },
+                            "intensity": {
+                              "stringValue": "Facile"
+                            },
+                            "mainSet": {
+                              "stringValue": "Circuit 2 tours : Marche laterale avec elastique (3x6 pas/cote), Fente laterale (3x6/jambe), Bird-dog (3x6/cote), Gainage lateral (3x12-30s/cote), Marche sur talons (2x12m), Mobilite hanche (cercles) (2x6/cote). Repos 1 min 30 entre tours."
+                            },
+                            "day": {
+                              "stringValue": "Dimanche"
+                            },
+                            "locationSuggestion": {
+                              "stringValue": "À la maison"
+                            },
+                            "id": {
+                              "stringValue": "w10-s1-1778306628052-tjjsijl"
+                            },
+                            "title": {
+                              "stringValue": "Renfo Equilibre - Mobilite & Gainage (S10)"
+                            },
+                            "distance": {
+                              "stringValue": "N/A"
+                            },
+                            "targetPace": {
+                              "stringValue": "N/A"
+                            },
+                            "advice": {
+                              "stringValue": "Cette séance est dédiée à la récupération. Écoute attentivement ton corps, ne force absolument pas et concentre-toi sur la détente musculaire."
+                            },
+                            "duration": {
+                              "stringValue": "35-40 min"
+                            },
+                            "type": {
+                              "stringValue": "Renforcement"
+                            },
+                            "cooldown": {
+                              "stringValue": "5 min d'étirements : quadriceps, ischio-jambiers, mollets, hanches"
+                            }
+                          }
+                        }
+                      }
+                    ]
+                  }
+                },
+                "isRecoveryWeek": {
+                  "booleanValue": true
+                },
+                "theme": {
+                  "stringValue": "Récupération - Assimilation"
+                },
+                "weekNumber": {
+                  "integerValue": "10"
+                }
+              }
+            }
+          },
+          {
+            "mapValue": {
+              "fields": {
+                "sessions": {
+                  "arrayValue": {
+                    "values": [
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "advice": {
+                              "stringValue": "Essaie de maintenir l'allure seuil la plus régulière possible. C'est un effort intense, mais tu deve sentir que tu peux le tenir. Si c'est trop difficile, réduis légèrement l'allure."
+                            },
+                            "duration": {
+                              "stringValue": "53 min"
+                            },
+                            "targetPace": {
+                              "stringValue": "Seuil: 6:00 min/km, EF: 7:47 min/km"
+                            },
+                            "type": {
+                              "stringValue": "Course à pied"
+                            },
+                            "cooldown": {
+                              "stringValue": "10 min EF (7:47 min/km)"
+                            },
+                            "elevationGain": {
+                              "integerValue": "0"
+                            },
+                            "warmup": {
+                              "stringValue": "20 min EF (7:47 min/km)"
+                            },
+                            "intensity": {
+                              "stringValue": "Difficile"
+                            },
+                            "mainSet": {
+                              "stringValue": "2x (10 min Seuil (6:00 min/km) / 3 min EF (7:47 min/km))"
+                            },
+                            "day": {
+                              "stringValue": "Lundi"
+                            },
+                            "locationSuggestion": {
+                              "stringValue": "Pistes cyclables le long du canal de Merville"
+                            },
+                            "id": {
+                              "stringValue": "w11-s2-1778306628052-arcu6l8"
+                            },
+                            "title": {
+                              "stringValue": "Séance Seuil - Tenue d'Allure"
+                            },
+                            "distance": {
+                              "stringValue": "7.5 km"
+                            }
+                          }
+                        }
+                      },
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "elevationGain": {
+                              "integerValue": "0"
+                            },
+                            "intensity": {
+                              "stringValue": "Facile"
+                            },
+                            "warmup": {
+                              "stringValue": "10 min de footing léger à 8:42 min/km + gammes éducatives"
+                            },
+                            "locationSuggestion": {
+                              "stringValue": "Bois de Merville avec quelques faux-plats"
+                            },
+                            "day": {
+                              "stringValue": "Mercredi"
+                            },
+                            "mainSet": {
+                              "stringValue": "55 min EF (7:47 min/km) avec 3-4 passages en montée douce (1-2 min) en fin de parcours."
+                            },
+                            "distance": {
+                              "stringValue": "8.1 km"
+                            },
+                            "title": {
+                              "stringValue": "Sortie Longue EF - Montées et Descentes douces"
+                            },
+                            "id": {
+                              "stringValue": "w11-s3-1778306628052-6rkbgfx"
+                            },
+                            "duration": {
+                              "stringValue": "1h 03 min"
+                            },
+                            "advice": {
+                              "stringValue": "Introduire des montées douces permet de travailler ton force musculaire. Ne cherche pas la vitesse, mais un effort régulier et contrôlé en montée. Sois vigilant sur la manière dont ton corps réagit à ce nouveau type d'effort."
+                            },
+                            "targetPace": {
+                              "stringValue": "EF: 7:47 min/km"
+                            },
+                            "type": {
+                              "stringValue": "Sortie Longue"
+                            },
+                            "cooldown": {
+                              "stringValue": "5 min étirements doux (à 8:42 min/km)"
+                            }
+                          }
+                        }
+                      },
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "cooldown": {
+                              "stringValue": "5 min d'étirements : quadriceps, ischio-jambiers, mollets, hanches"
+                            },
+                            "type": {
+                              "stringValue": "Renforcement"
+                            },
+                            "advice": {
+                              "stringValue": "Le renforcement est clé pour prévenir les blessures. Exécute chaque mouvement avec contrôle. C'est en étant à l'écoute de ton corps que tu progressere durablement."
+                            },
+                            "targetPace": {
+                              "stringValue": "N/A"
+                            },
+                            "duration": {
+                              "stringValue": "35-40 min"
+                            },
+                            "id": {
+                              "stringValue": "w11-s1-1778306628052-xzv4ywb"
+                            },
+                            "title": {
+                              "stringValue": "Renfo Equilibre - Renfo & Stabilite (S11)"
+                            },
+                            "distance": {
+                              "stringValue": "N/A"
+                            },
+                            "mainSet": {
+                              "stringValue": "Circuit 3 tours : Step-up sur marche (3x10/jambe), Chaise murale (3x30-45s), Superman (3x12), Pompes (3x10), Extensions mollets debout (3x20), Chat-vache (mobilite dos) (2x10). Repos 1 min 30 entre tours."
+                            },
+                            "day": {
+                              "stringValue": "Dimanche"
+                            },
+                            "locationSuggestion": {
+                              "stringValue": "À la maison"
+                            },
+                            "warmup": {
+                              "stringValue": "10 min de mobilité articulaire et échauffement dynamique"
+                            },
+                            "intensity": {
+                              "stringValue": "Modéré"
+                            },
+                            "elevationGain": {
+                              "integerValue": "0"
+                            }
+                          }
+                        }
+                      }
+                    ]
+                  }
+                },
+                "phase": {
+                  "stringValue": "developpement"
+                },
+                "weekGoal": {
+                  "stringValue": "Développement - Consolidation Seuil"
+                },
+                "weekNumber": {
+                  "integerValue": "11"
+                },
+                "theme": {
+                  "stringValue": "Développement - Consolidation Seuil"
+                },
+                "isRecoveryWeek": {
+                  "booleanValue": false
+                }
+              }
+            }
+          },
+          {
+            "mapValue": {
+              "fields": {
+                "isRecoveryWeek": {
+                  "booleanValue": false
+                },
+                "theme": {
+                  "stringValue": "Développement - Force et Puissance"
+                },
+                "weekNumber": {
+                  "integerValue": "12"
+                },
+                "weekGoal": {
+                  "stringValue": "Développement - Force et Puissance"
+                },
+                "phase": {
+                  "stringValue": "developpement"
+                },
+                "sessions": {
+                  "arrayValue": {
+                    "values": [
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "duration": {
+                              "stringValue": "53 min"
+                            },
+                            "advice": {
+                              "stringValue": "Les côtes sont excellentes pour développer la force musculaire. Concentre-toi sur une foulée active et une bonne posture. La récupération en descente est essentielle pour être prêt pour la prochaine répétition."
+                            },
+                            "targetPace": {
+                              "stringValue": "EF: 7:47 min/km, EA: 6:47 min/km, Montée: effort intense, Descente: récup libre"
+                            },
+                            "type": {
+                              "stringValue": "Course à pied"
+                            },
+                            "cooldown": {
+                              "stringValue": "10 min EF (7:47 min/km)"
+                            },
+                            "elevationGain": {
+                              "integerValue": "0"
+                            },
+                            "warmup": {
+                              "stringValue": "20 min EF (7:47 min/km) + 5 min EA (6:47 min/km)"
+                            },
+                            "intensity": {
+                              "stringValue": "Difficile"
+                            },
+                            "mainSet": {
+                              "stringValue": "8x (45s Montée forte (effort ~90% VMA) / Récupération en descente marche ou trottoir)"
+                            },
+                            "locationSuggestion": {
+                              "stringValue": "Colline de Merville (petit dénivelé)"
+                            },
+                            "day": {
+                              "stringValue": "Lundi"
+                            },
+                            "title": {
+                              "stringValue": "Cotes Courtes - Force et Puissance"
+                            },
+                            "id": {
+                              "stringValue": "w12-s2-1778306628052-ch8rxfj"
+                            },
+                            "distance": {
+                              "stringValue": "~7.2 km"
+                            }
+                          }
+                        }
+                      },
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "title": {
+                              "stringValue": "Sortie Longue EF - Parcours Varié"
+                            },
+                            "id": {
+                              "stringValue": "w12-s3-1778306628052-t4lejjc"
+                            },
+                            "distance": {
+                              "stringValue": "~8.8 km"
+                            },
+                            "mainSet": {
+                              "stringValue": "68 min EF (7:47 min/km) avec quelques accélérations progressives de 30 secondes en fin de parcours."
+                            },
+                            "locationSuggestion": {
+                              "stringValue": "Chemins de halage et sentiers de Merville"
+                            },
+                            "day": {
+                              "stringValue": "Mercredi"
+                            },
+                            "warmup": {
+                              "stringValue": "10 min de footing léger à 8:42 min/km + gammes éducatives"
+                            },
+                            "intensity": {
+                              "stringValue": "Facile"
+                            },
+                            "elevationGain": {
+                              "integerValue": "0"
+                            },
+                            "cooldown": {
+                              "stringValue": "5 min étirements doux (à 8:42 min/km)"
+                            },
+                            "type": {
+                              "stringValue": "Sortie Longue"
+                            },
+                            "advice": {
+                              "stringValue": "Cette sortie longue doit rester agréable. Les accélérations progressives sont là pour maintenir un peu de dynamisme sans générer de fatigue excessive. Pense à bien tu hydrater."
+                            },
+                            "targetPace": {
+                              "stringValue": "EF: 7:47 min/km"
+                            },
+                            "duration": {
+                              "stringValue": "68 min"
+                            }
+                          }
+                        }
+                      },
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "advice": {
+                              "stringValue": "Le renforcement prépare tes muscles aux efforts intenses. Sois rigoureux sur la technique et n'oublie pas d'écouter ton corps. Toute douleur est un signal pour ralentir ou modifier l'exercice."
+                            },
+                            "duration": {
+                              "stringValue": "35-40 min"
+                            },
+                            "targetPace": {
+                              "stringValue": "N/A"
+                            },
+                            "type": {
+                              "stringValue": "Renforcement"
+                            },
+                            "cooldown": {
+                              "stringValue": "5 min d'étirements : quadriceps, ischio-jambiers, mollets, hanches"
+                            },
+                            "elevationGain": {
+                              "integerValue": "0"
+                            },
+                            "warmup": {
+                              "stringValue": "10 min de mobilité articulaire et échauffement dynamique"
+                            },
+                            "intensity": {
+                              "stringValue": "Modéré"
+                            },
+                            "mainSet": {
+                              "stringValue": "Circuit 3 tours : Equilibre unipodal (2x30s/pied), Hip thrust (3x15), Bird-dog (3x10/cote), Gainage lateral (3x20-30s/cote), Marche sur talons (2x20m), Fente + rotation tronc (2x8/cote). Repos 1 min 30 entre tours."
+                            },
+                            "locationSuggestion": {
+                              "stringValue": "À la maison"
+                            },
+                            "day": {
+                              "stringValue": "Dimanche"
+                            },
+                            "title": {
+                              "stringValue": "Renfo Equilibre - Mobilite & Gainage (S12)"
+                            },
+                            "id": {
+                              "stringValue": "w12-s1-1778306628052-6v8ro18"
+                            },
+                            "distance": {
+                              "stringValue": "N/A"
+                            }
+                          }
+                        }
+                      }
+                    ]
+                  }
+                }
+              }
+            }
+          }
+        ]
+      }
+    },
+    "fullPlanGenerated": {
+      "booleanValue": true
+    },
+    "userEmail": {
+      "stringValue": "tieffryguillaume@hotmail.fr"
+    }
+  },
+  "createTime": "2026-05-08T17:56:30.509099Z",
+  "updateTime": "2026-05-09T06:13:25.206854Z"
+}

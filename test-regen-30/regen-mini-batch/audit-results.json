@@ -1,0 +1,498 @@
+[
+  {
+    "id": "P01",
+    "label": "mxjulien02 Semi 2h00 Inter VMA10.8",
+    "c1": {
+      "c1_1": true,
+      "c1_2": true,
+      "c1_3": true,
+      "c1_4": true,
+      "c1_5": true,
+      "details": [
+        "C1.3 (validator faux positif, OK sémantique): \"Footing progressif (négative split)\" mainSet=57min wu=5 cd=5 total=67 vs duration=75min | \"Footing en endurance fondamentale\" mainSet=39min wu=5 cd=5 total=49 vs duration=57min"
+      ],
+      "mainsetBugReal": [],
+      "mainsetValidatorFP": [
+        "\"Footing progressif (négative split)\" mainSet=57min wu=5 cd=5 total=67 vs duration=75min",
+        "\"Footing en endurance fondamentale\" mainSet=39min wu=5 cd=5 total=49 vs duration=57min"
+      ],
+      "mainsetUnknown": []
+    },
+    "c2": {
+      "c2_1": true,
+      "c2_2": "N/A_status_alarme",
+      "c2_3": "N/A",
+      "c2_4": true,
+      "c2_5": true,
+      "c2_6": true,
+      "c2_7": true,
+      "c2_8": true,
+      "c2_9": "N/A",
+      "c2_10": "N/A",
+      "details": [
+        "C2.2 (informatif, status=IRRÉALISTE → allure cible préservée doctrine): allureSemi=5:41 (98% VMA, attendu 80-92%)"
+      ]
+    },
+    "feasibilityStatus": "IRRÉALISTE",
+    "weeklyVolume0": 25,
+    "paces": {
+      "efPace": "8:17",
+      "eaPace": "7:13",
+      "seuilPace": "6:23",
+      "vmaPace": "5:33",
+      "recoveryPace": "9:15",
+      "allureSpecifique5k": "5:51",
+      "allureSpecifique10k": "6:10",
+      "allureSpecifiqueSemi": "5:41",
+      "allureSpecifiqueMarathon": "6:56"
+    },
+    "welcomeMessage": "Bienvenue dans ta préparation pour le semi-marathon ! Ce plan de 19 semaines est structuré pour construire une base aérobie solide avant d'aborder les phases de développement. Compte tenu de ton travail de nuit, la gestion de ton sommeil et de ta récupération sera le facteur clé de ton succès. Nous te recommandons vivement de consulter un médecin avant de débuter ce programme, notamment pour obtenir un certificat médical d'aptitude au sport. Ton objectif de 2h00 est très ambitieux au regard de tes bases actuelles ; nous allons donc travailler avec progressivité pour sécuriser ta progression.",
+    "effectiveVMA": 10.807321333637123,
+    "vmaSource": "Moyenne 5km en 28min et 10km en 1h06",
+    "verdict": "CLEAN"
+  },
+  {
+    "id": "P02",
+    "label": "steph-fanny 10K Finisher 60ans VMA8",
+    "c1": {
+      "c1_1": true,
+      "c1_2": true,
+      "c1_3": true,
+      "c1_4": true,
+      "c1_5": true,
+      "details": [],
+      "mainsetBugReal": [],
+      "mainsetValidatorFP": [],
+      "mainsetUnknown": []
+    },
+    "c2": {
+      "c2_1": true,
+      "c2_2": true,
+      "c2_3": "N/A",
+      "c2_4": true,
+      "c2_5": true,
+      "c2_6": "N/A",
+      "c2_7": "N/A",
+      "c2_8": "N/A",
+      "c2_9": "N/A",
+      "c2_10": true,
+      "details": []
+    },
+    "feasibilityStatus": "BON",
+    "weeklyVolume0": 20,
+    "paces": {
+      "efPace": "11:12",
+      "eaPace": "9:44",
+      "seuilPace": "8:37",
+      "vmaPace": "7:30",
+      "recoveryPace": "12:30",
+      "allureSpecifique5k": "7:54",
+      "allureSpecifique10k": "8:20",
+      "allureSpecifiqueSemi": "8:49",
+      "allureSpecifiqueMarathon": "9:23"
+    },
+    "welcomeMessage": "Bienvenue dans ton programme de préparation pour le 10 km de Reims. Cet accompagnement de 21 semaines est conçu pour t'amener à franchir la ligne d'arrivée en toute sérénité. La structure privilégie l'endurance fondamentale pour renforcer ta base aérobie sans brusquer ton organisme. Nous te recommandons vivement de consulter un médecin avant de débuter ce programme, notamment pour obtenir un certificat médical d'aptitude au sport. À partir de 60 ans, un bilan cardio-vasculaire est particulièrement conseillé.",
+    "effectiveVMA": 8,
+    "vmaSource": "5km en 46min (corrigé)",
+    "verdict": "CLEAN"
+  },
+  {
+    "id": "P03",
+    "label": "wozniak Hyrox 1h30 + blessure",
+    "c1": {
+      "c1_1": true,
+      "c1_2": true,
+      "c1_3": true,
+      "c1_4": true,
+      "c1_5": true,
+      "details": [
+        "C1.3 mismatch sans warmup/cd clair: \"Footing en endurance fondamentale\" mainSet=22min wu=5 cd=5 total=32 vs duration=40min"
+      ],
+      "mainsetBugReal": [],
+      "mainsetValidatorFP": [],
+      "mainsetUnknown": [
+        "\"Footing en endurance fondamentale\" mainSet=22min wu=5 cd=5 total=32 vs duration=40min"
+      ]
+    },
+    "c2": {
+      "c2_1": true,
+      "c2_2": true,
+      "c2_3": "N/A",
+      "c2_4": "N/A",
+      "c2_5": true,
+      "c2_6": "N/A",
+      "c2_7": "N/A",
+      "c2_8": "N/A_no_subgoal",
+      "c2_9": true,
+      "c2_10": "N/A",
+      "details": []
+    },
+    "feasibilityStatus": "BON",
+    "weeklyVolume0": 10,
+    "paces": {
+      "efPace": "8:30",
+      "eaPace": "7:24",
+      "seuilPace": "6:33",
+      "vmaPace": "5:42",
+      "recoveryPace": "9:30",
+      "allureSpecifique5k": "6:00",
+      "allureSpecifique10k": "6:20",
+      "allureSpecifiqueSemi": "6:42",
+      "allureSpecifiqueMarathon": "7:07"
+    },
+    "welcomeMessage": "Ce plan cible exclusivement ta préparation running pour l'Hyrox, tes entraînements fonctionnels devront être gérés en parallèle. Pour ta première semaine, nous débutons ta roadmap : les semaines 1 à 3 se concentrent sur ta base aérobie et ta technique, suivies des semaines 4 à 6 pour l'introduction au fartlek, avant d'attaquer dès la semaine 7 les simulations Hyrox progressives (4×1km à 8×1km) et enfin l'affûtage. Le plan tient compte de tes douleurs aux genoux et aux ménisques en proposant une progression très douce du volume et des allures ; privilégie le tapis de course ou les surfaces souples pour limiter les impacts. Avant de te lancer, valide avec ton médecin que tu peux reprendre une activité de course progressive. Nous te recommandons de consulter un médecin avant de débuter ce programme, notamment pour obtenir un certificat médical d'aptitude au sport. Prépare-toi à devenir une machine d'endurance pour franchir la ligne d'arrivée en 1h30 !",
+    "effectiveVMA": 10.526315789473685,
+    "vmaSource": "5km en 30min",
+    "verdict": "CLEAN"
+  },
+  {
+    "id": "P04",
+    "label": "rauroy Trail 110km/12000D+",
+    "c1": {
+      "c1_1": true,
+      "c1_2": true,
+      "c1_3": true,
+      "c1_4": true,
+      "c1_5": true,
+      "details": [
+        "C1.3 (validator faux positif, OK sémantique): \"Footing sur sentier roulant\" mainSet=43min wu=10 cd=10 total=63 vs duration=61min | \"Footing de Récupération\" mainSet=25min wu=10 cd=5 total=40 vs duration=45min"
+      ],
+      "mainsetBugReal": [],
+      "mainsetValidatorFP": [
+        "\"Footing sur sentier roulant\" mainSet=43min wu=10 cd=10 total=63 vs duration=61min",
+        "\"Footing de Récupération\" mainSet=25min wu=10 cd=5 total=40 vs duration=45min"
+      ],
+      "mainsetUnknown": []
+    },
+    "c2": {
+      "c2_1": true,
+      "c2_2": "N/A_status_alarme",
+      "c2_3": true,
+      "c2_4": "N/A",
+      "c2_5": true,
+      "c2_6": "N/A",
+      "c2_7": "N/A",
+      "c2_8": "N/A",
+      "c2_9": "N/A",
+      "c2_10": true,
+      "details": []
+    },
+    "feasibilityStatus": "IRRÉALISTE",
+    "weeklyVolume0": 60,
+    "paces": {
+      "efPace": "5:06",
+      "eaPace": "4:26",
+      "seuilPace": "3:55",
+      "vmaPace": "3:25",
+      "recoveryPace": "5:41",
+      "allureSpecifique5k": "3:36",
+      "allureSpecifique10k": "3:48",
+      "allureSpecifiqueSemi": "4:01",
+      "allureSpecifiqueMarathon": "4:16"
+    },
+    "welcomeMessage": "Bienvenue dans ta préparation pour cet ultra-trail hors normes de 110km et 12000m de D+. Cet objectif est extrêmement ambitieux et comporte des risques réels compte tenu du dénivelé colossal par rapport au délai de 13 semaines. Nous allons structurer ce plan sur l'endurance fondamentale et la résistance musculaire pour te permettre de franchir la ligne d'arrivée. Compte tenu de ton âge (55 ans), une attention particulière sera portée à la récupération et à la progressivité. Nous te recommandons vivement de consulter un médecin avant de débuter ce programme, notamment pour obtenir un certificat médical d'aptitude au sport. À partir de 55 ans, un bilan cardio-vasculaire est particulièrement conseillé.",
+    "effectiveVMA": 17.58125,
+    "vmaSource": "Marathon en 3h00",
+    "verdict": "CLEAN"
+  },
+  {
+    "id": "P05",
+    "label": "georgeslor1 senior Marathon VMA10.7",
+    "c1": {
+      "c1_1": true,
+      "c1_2": true,
+      "c1_3": true,
+      "c1_4": true,
+      "c1_5": true,
+      "details": [
+        "C1.3 (validator faux positif, OK sémantique): \"Footing vallonné\" mainSet=54min wu=10 cd=10 total=74 vs duration=72min",
+        "C1.3 mismatch sans warmup/cd clair: \"Footing + lignes droites\" mainSet=43min wu=5 cd=5 total=53 vs duration=69min"
+      ],
+      "mainsetBugReal": [],
+      "mainsetValidatorFP": [
+        "\"Footing vallonné\" mainSet=54min wu=10 cd=10 total=74 vs duration=72min"
+      ],
+      "mainsetUnknown": [
+        "\"Footing + lignes droites\" mainSet=43min wu=5 cd=5 total=53 vs duration=69min"
+      ]
+    },
+    "c2": {
+      "c2_1": true,
+      "c2_2": "N/A_status_alarme",
+      "c2_3": "N/A",
+      "c2_4": "N/A",
+      "c2_5": true,
+      "c2_6": "N/A",
+      "c2_7": true,
+      "c2_8": true,
+      "c2_9": "N/A",
+      "c2_10": true,
+      "details": []
+    },
+    "feasibilityStatus": "AMBITIEUX",
+    "weeklyVolume0": 45,
+    "paces": {
+      "efPace": "8:23",
+      "eaPace": "7:18",
+      "seuilPace": "6:27",
+      "vmaPace": "5:37",
+      "recoveryPace": "9:22",
+      "allureSpecifique5k": "5:55",
+      "allureSpecifique10k": "6:14",
+      "allureSpecifiqueSemi": "6:36",
+      "allureSpecifiqueMarathon": "6:45"
+    },
+    "welcomeMessage": "Bienvenue dans ta préparation marathon. Nous visons un objectif de 4h45 le 18 octobre 2026. Ce programme est structuré pour développer ton endurance de manière sécurisée et progressive. Nous te recommandons vivement de consulter un médecin avant de débuter ce programme, notamment pour obtenir un certificat médical d'aptitude au sport. À 57 ans, un bilan cardio-vasculaire est particulièrement conseillé pour s'assurer que ton cœur est prêt pour cet effort de longue durée. Cette première phase est consacrée au développement de ta base foncière en endurance fondamentale.",
+    "effectiveVMA": 10.685238095238095,
+    "vmaSource": "Moyenne 10km en 1h00 et Marathon en 5h15",
+    "verdict": "CLEAN"
+  },
+  {
+    "id": "S01",
+    "label": "Inter Semi bas vol (cas Romane)",
+    "c1": {
+      "c1_1": true,
+      "c1_2": true,
+      "c1_3": false,
+      "c1_4": true,
+      "c1_5": true,
+      "details": [
+        "C1.3 BUG mainSet > duration: \"Footing au ressenti (fartlek doux)\" mainSet=20min wu=10 cd=5 total=35 vs duration=15min"
+      ],
+      "mainsetBugReal": [
+        "\"Footing au ressenti (fartlek doux)\" mainSet=20min wu=10 cd=5 total=35 vs duration=15min"
+      ],
+      "mainsetValidatorFP": [],
+      "mainsetUnknown": []
+    },
+    "c2": {
+      "c2_1": true,
+      "c2_2": true,
+      "c2_3": "N/A",
+      "c2_4": "N/A",
+      "c2_5": true,
+      "c2_6": true,
+      "c2_7": true,
+      "c2_8": true,
+      "c2_9": "N/A",
+      "c2_10": true,
+      "details": []
+    },
+    "feasibilityStatus": "BON",
+    "weeklyVolume0": 8,
+    "paces": {
+      "efPace": "7:23",
+      "eaPace": "6:26",
+      "seuilPace": "5:41",
+      "vmaPace": "4:57",
+      "recoveryPace": "8:15",
+      "allureSpecifique5k": "5:13",
+      "allureSpecifique10k": "5:30",
+      "allureSpecifiqueSemi": "5:41",
+      "allureSpecifiqueMarathon": "6:11"
+    },
+    "welcomeMessage": "Bienvenue dans ton programme vers l'objectif de 2h00 au semi-marathon ! Tu nous as indiqué 5 km/semaine actuels. On calibre ta première semaine à 8 km — c'est un peu plus que ton volume actuel mais reste progressif pour atteindre ton objectif. Tu peux ajuster ton volume dans ton profil si tu cours en réalité plus que ça. Nous te recommandons vivement de consulter un médecin avant de débuter ce programme, notamment pour obtenir un certificat médical d'aptitude au sport. À partir de 60 ans, un bilan cardio-vasculaire est particulièrement conseillé.",
+    "effectiveVMA": 12.12121212121212,
+    "vmaSource": "10km en 55min",
+    "verdict": "SUSPECT"
+  },
+  {
+    "id": "S02",
+    "label": "Inter 10K très bas vol",
+    "c1": {
+      "c1_1": true,
+      "c1_2": true,
+      "c1_3": true,
+      "c1_4": true,
+      "c1_5": true,
+      "details": [
+        "C1.3 (validator faux positif, OK sémantique): \"Footing progressif (négative split)\" mainSet=20min wu=5 cd=5 total=30 vs duration=30min"
+      ],
+      "mainsetBugReal": [],
+      "mainsetValidatorFP": [
+        "\"Footing progressif (négative split)\" mainSet=20min wu=5 cd=5 total=30 vs duration=30min"
+      ],
+      "mainsetUnknown": []
+    },
+    "c2": {
+      "c2_1": true,
+      "c2_2": "N/A_status_alarme",
+      "c2_3": "N/A",
+      "c2_4": true,
+      "c2_5": true,
+      "c2_6": "N/A",
+      "c2_7": "N/A",
+      "c2_8": true,
+      "c2_9": "N/A",
+      "c2_10": "N/A",
+      "details": [
+        "C2.2 (informatif, status=IRRÉALISTE → allure cible préservée doctrine): allure10k=5:00 (99% VMA, attendu 86-98%)"
+      ]
+    },
+    "feasibilityStatus": "IRRÉALISTE",
+    "weeklyVolume0": 5,
+    "paces": {
+      "efPace": "7:22",
+      "eaPace": "6:25",
+      "seuilPace": "5:41",
+      "vmaPace": "4:56",
+      "recoveryPace": "8:14",
+      "allureSpecifique5k": "5:12",
+      "allureSpecifique10k": "5:00",
+      "allureSpecifiqueSemi": "5:49",
+      "allureSpecifiqueMarathon": "6:10"
+    },
+    "welcomeMessage": "Tu nous as indiqué 3 km/semaine actuels. On calibre ta première semaine à 5 km — c'est un peu plus que ton volume actuel mais reste progressif pour atteindre ton objectif. Tu peux ajuster ton volume dans ton profil si tu cours en réalité plus que ça. Nous te recommandons vivement de consulter un médecin avant de débuter ce programme, notamment pour obtenir un certificat médical d'aptitude au sport. À partir de 45 ans, un bilan cardio-vasculaire est particulièrement conseillé.",
+    "effectiveVMA": 12.145748987854251,
+    "vmaSource": "5km en 26min",
+    "verdict": "CLEAN"
+  },
+  {
+    "id": "S03",
+    "label": "Débutant Marathon Finisher",
+    "c1": {
+      "c1_1": true,
+      "c1_2": true,
+      "c1_3": true,
+      "c1_4": true,
+      "c1_5": true,
+      "details": [],
+      "mainsetBugReal": [],
+      "mainsetValidatorFP": [],
+      "mainsetUnknown": []
+    },
+    "c2": {
+      "c2_1": true,
+      "c2_2": "N/A_status_alarme",
+      "c2_3": "N/A",
+      "c2_4": "N/A",
+      "c2_5": true,
+      "c2_6": "N/A",
+      "c2_7": true,
+      "c2_8": "N/A",
+      "c2_9": "N/A",
+      "c2_10": "N/A",
+      "details": []
+    },
+    "feasibilityStatus": "AMBITIEUX",
+    "weeklyVolume0": 9,
+    "paces": {
+      "efPace": "9:04",
+      "eaPace": "7:54",
+      "seuilPace": "6:59",
+      "vmaPace": "6:05",
+      "recoveryPace": "10:08",
+      "allureSpecifique5k": "6:24",
+      "allureSpecifique10k": "6:45",
+      "allureSpecifiqueSemi": "7:09",
+      "allureSpecifiqueMarathon": "7:36"
+    },
+    "welcomeMessage": "Bienvenue dans ta préparation marathon. Ce plan de 20 semaines est structuré pour t'accompagner progressivement vers ton objectif de 'Finisher'. Nous allons alterner marche et course pour construire ton endurance fondamentale sans brûler les étapes. Nous te recommandons de consulter un médecin avant de débuter ce programme, notamment pour obtenir un certificat médical d'aptitude au sport.",
+    "effectiveVMA": 9.868421052631579,
+    "vmaSource": "5km en 32min",
+    "verdict": "CLEAN"
+  },
+  {
+    "id": "S04",
+    "label": "Semi Inter normal VMA14",
+    "c1": {
+      "c1_1": true,
+      "c1_2": true,
+      "c1_3": true,
+      "c1_4": true,
+      "c1_5": true,
+      "details": [
+        "C1.3 mismatch sans warmup/cd clair: \"Footing + lignes droites\" mainSet=34min wu=5 cd=5 total=44 vs duration=60min | \"Footing + gammes athlétiques\" mainSet=37min wu=5 cd=5 total=47 vs duration=65min"
+      ],
+      "mainsetBugReal": [],
+      "mainsetValidatorFP": [],
+      "mainsetUnknown": [
+        "\"Footing + lignes droites\" mainSet=34min wu=5 cd=5 total=44 vs duration=60min",
+        "\"Footing + gammes athlétiques\" mainSet=37min wu=5 cd=5 total=47 vs duration=65min"
+      ]
+    },
+    "c2": {
+      "c2_1": true,
+      "c2_2": true,
+      "c2_3": "N/A",
+      "c2_4": true,
+      "c2_5": true,
+      "c2_6": true,
+      "c2_7": true,
+      "c2_8": true,
+      "c2_9": "N/A",
+      "c2_10": "N/A",
+      "details": []
+    },
+    "feasibilityStatus": "EXCELLENT",
+    "weeklyVolume0": 30,
+    "paces": {
+      "efPace": "6:19",
+      "eaPace": "5:30",
+      "seuilPace": "4:52",
+      "vmaPace": "4:14",
+      "recoveryPace": "7:03",
+      "allureSpecifique5k": "4:27",
+      "allureSpecifique10k": "4:42",
+      "allureSpecifiqueSemi": "4:59",
+      "allureSpecifiqueMarathon": "5:17"
+    },
+    "welcomeMessage": "Bienvenue dans ton programme de préparation pour le semi-marathon en 1h45. Ce plan de 14 semaines est structuré pour construire une base aérobie solide avant d'aborder les intensités spécifiques. Nous allons privilégier la progressivité pour sécuriser ta progression vers ton objectif. Nous te recommandons de consulter un médecin avant de débuter ce programme, notamment pour obtenir un certificat médical d'aptitude au sport.",
+    "effectiveVMA": 14.184397163120567,
+    "vmaSource": "10km en 47min",
+    "verdict": "CLEAN"
+  },
+  {
+    "id": "S05",
+    "label": "Marathon Confirmé VMA15",
+    "c1": {
+      "c1_1": true,
+      "c1_2": true,
+      "c1_3": true,
+      "c1_4": true,
+      "c1_5": true,
+      "details": [
+        "C1.3 (validator faux positif, OK sémantique): \"Footing en endurance fondamentale\" mainSet=49min wu=5 cd=5 total=59 vs duration=67min | \"Footing vallonné\" mainSet=33min wu=10 cd=10 total=53 vs duration=51min",
+        "C1.3 mismatch sans warmup/cd clair: \"Footing + gammes athlétiques\" mainSet=31min wu=5 cd=5 total=41 vs duration=59min"
+      ],
+      "mainsetBugReal": [],
+      "mainsetValidatorFP": [
+        "\"Footing en endurance fondamentale\" mainSet=49min wu=5 cd=5 total=59 vs duration=67min",
+        "\"Footing vallonné\" mainSet=33min wu=10 cd=10 total=53 vs duration=51min"
+      ],
+      "mainsetUnknown": [
+        "\"Footing + gammes athlétiques\" mainSet=31min wu=5 cd=5 total=41 vs duration=59min"
+      ]
+    },
+    "c2": {
+      "c2_1": true,
+      "c2_2": true,
+      "c2_3": "N/A",
+      "c2_4": true,
+      "c2_5": true,
+      "c2_6": "N/A",
+      "c2_7": true,
+      "c2_8": true,
+      "c2_9": "N/A",
+      "c2_10": "N/A",
+      "details": []
+    },
+    "feasibilityStatus": "EXCELLENT",
+    "weeklyVolume0": 45,
+    "paces": {
+      "efPace": "5:55",
+      "eaPace": "5:09",
+      "seuilPace": "4:33",
+      "vmaPace": "3:58",
+      "recoveryPace": "6:36",
+      "allureSpecifique5k": "4:10",
+      "allureSpecifique10k": "4:24",
+      "allureSpecifiqueSemi": "4:40",
+      "allureSpecifiqueMarathon": "4:59"
+    },
+    "welcomeMessage": "Bonjour ! Ce plan d'entraînement de 18 semaines est structuré pour t'accompagner vers ton objectif de 3h30 au marathon avec progressivité. Nous débutons par une phase fondamentale pour stabiliser ta base aérobie et préparer ton corps aux sollicitations futures. Nous te recommandons de consulter un médecin avant de débuter ce programme, notamment pour obtenir un certificat médical d'aptitude au sport.",
+    "effectiveVMA": 15.151515151515152,
+    "vmaSource": "10km en 44min",
+    "verdict": "CLEAN"
+  }
+]
