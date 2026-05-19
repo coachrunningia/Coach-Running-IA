@@ -6,6 +6,7 @@ import { buildRenfoMainSet } from './renfoService';
 import { buildFootingVariant, detectFootingFlags } from './footingVariants';
 import { parseDurationMin, parseKm, calculateWeekTargetElevation } from './planUtils';
 import { applySessionScale, isMainSetSyncable } from './sessionScale';
+import { injectRaceSession } from './raceDayInject';
 
 // --- UTILITAIRES DE CALCUL DES ALLURES ---
 
@@ -142,7 +143,7 @@ const calculateVMAFromTime = (distance: number, timeSeconds: number): number => 
 /**
  * Calcule toutes les allures d'entraînement à partir de la VMA
  */
-interface TrainingPaces {
+export interface TrainingPaces {
   vma: number; // km/h
   vmaKmh: string;
   vmaPace: string; // min/km
@@ -852,8 +853,15 @@ const LEVEL_LABEL: Record<'deb' | 'inter' | 'conf' | 'expert', string> = {
  * Cas Clément : Mardi 12.2km SL + Dimanche 7.5km SL → garde la plus longue (12.2km) comme SL officielle,
  * retype les autres en Jogging avec flag _dedupedFromSL.
  */
-const enforceSLDay = (week: any, preferredLongRunDay: string, logPrefix = ''): boolean => {
+export const enforceSLDay = (week: any, preferredLongRunDay: string, logPrefix = ''): boolean => {
   if (!week?.sessions || !Array.isArray(week.sessions)) return false;
+
+  // Race-day guard (Sprint Marathon 2026-05-19) : si la semaine contient une
+  // séance race-day injectée par raceDayInject (Course officielle le jour J),
+  // on ne touche pas à cette semaine — la course remplace la SL et c'est voulu.
+  if (week.sessions.find((s: any) => s._raceDay === true)) {
+    return false;
+  }
 
   // 1. Trouve TOUTES les séances étiquetées Sortie Longue
   const allSL = week.sessions.filter((s: any) =>
@@ -1843,7 +1851,7 @@ export const enforceWeekConstraints = (
  * 2. Progression : max +15% d'une semaine à l'autre (hors post-récup)
  * 3. Re-cap sessions après lissage
  */
-const enforceFullPlanConstraints = (
+export const enforceFullPlanConstraints = (
   weeks: any[],
   weeklyVolumes: number[],
   questionnaireData: any,
@@ -1858,6 +1866,9 @@ const enforceFullPlanConstraints = (
   const getWeekKm = (week: any): number => {
     return (week.sessions || []).reduce((sum: number, s: any) => {
       if (s.type === 'Renforcement' || s.type === 'Repos') return sum;
+      // Race-day skip : la course officielle ne compte pas dans le volume
+      // d'entraînement (sinon le cap affûtage essaie de réduire la séance course).
+      if (s._raceDay === true) return sum;
       const km = parseKm(s.distance);
       return sum + (km > 0 ? km : 0);
     }, 0);
@@ -1869,6 +1880,8 @@ const enforceFullPlanConstraints = (
     const factor = targetKm / currentKm;
     (week.sessions || []).forEach((s: any) => {
       if (s.type === 'Renforcement' || s.type === 'Repos') return;
+      // Race-day : on ne touche PAS la séance course officielle (distance officielle fixe).
+      if (s._raceDay === true) return;
       const km = parseKm(s.distance);
       if (km > 0) {
         const newKm = Math.min(Math.round(km * factor * 10) / 10, maxKm);
@@ -1934,6 +1947,8 @@ const enforceFullPlanConstraints = (
     weeks.forEach((w: any) => {
       (w.sessions || []).forEach((s: any) => {
         if (s.type === 'Renforcement' || s.type === 'Repos') return;
+        // Race-day skip : la séance course officielle ne doit jamais être cap.
+        if (s._raceDay === true) return;
         const km = parseKm(s.distance);
         if (km > maxKm) {
           const factor = maxKm / km;
@@ -3229,6 +3244,18 @@ const ULTRA_NIGHT_RUN_BULLETS = `- SORTIE NUIT obligatoire en phase développeme
   • Objectif : habituer le cerveau à l'effort de nuit (perception altérée, fatigue ressentie x1.5)
   • Idéalement intégrer 1 sortie nuit dans un week-end back-to-back (Sam jour + Sam nuit = simulation cumul fatigue)`;
 
+// Sprint Marathon 2026-05-19 — race-day injection.
+// Constante factorisée injectée dans previewPrompt + batchPrompt pour que le LLM
+// SACHE que la dernière séance du raceDate sera REMPLACÉE par la course officielle
+// post-génération. Évite ainsi qu'il "consomme" cette case avec une SL EF redondante
+// (bug Thomas Weill : LLM mettait SL EF 20 km le jour de la course Marathon).
+const RACE_DAY_INSTRUCTION = `🏁 JOUR DE COURSE — règle déterministe post-génération :
+La dernière séance positionnée sur la DATE de COURSE (raceDate) sera REMPLACÉE automatiquement
+par la séance "Course officielle" générée par le code (distance officielle, allure cible,
+mainSet sécurité pacing/ravitos). Tu n'as PAS à inventer cette séance toi-même : laisse une
+SL d'affûtage courte ou un footing léger ce jour-là — le système écrasera ce slot. NE PAS
+forcer une SL longue ni un fractionné le jour de la course (la course EST la séance).`;
+
 // ═══════════════════════════════════════════════════════════════════════════
 // Sprint 5 — responseSchema natif Gemini (remplace le bloc FORMAT JSON texte)
 // ═══════════════════════════════════════════════════════════════════════════
@@ -3751,8 +3778,10 @@ ${(isVKPreview || isTrailSteepPreview) ? `   - fondamental : Jogging (footing EF
        NE PAS répéter le même intitulé ou le même format deux fois dans la même semaine.
    - developpement : + Fractionné (VMA courte, côtes), seuil court possible.
    - specifique : + Seuil long, allure spécifique course, fractionné seuil.
-   - affutage : Jogging, Sortie Longue courte, Renforcement + 1 rappel fractionné court.
+   - affutage : Jogging court à modéré, Renforcement allégé + 1 rappel fractionné court (200-400m). PAS de Sortie Longue volumineuse (la course remplace la SL la semaine du raceDate).
    - recuperation : Jogging (footing EF) uniquement + Renforcement léger. PAS d'intensité.`}
+
+${data.raceDate ? RACE_DAY_INSTRUCTION : ''}
 
 ${goal.includes('Perte') ? (() => {
   const pdpVma = vmaEstimate?.vma || data.vma || 12;
@@ -4212,6 +4241,14 @@ Valeurs à remplir :
       });
       // Guard cross-semaines (affûtage, progression, re-cap)
       enforceFullPlanConstraints(plan.weeks, generationContext.periodizationPlan.weeklyVolumes, data);
+
+      // Sprint Marathon 2026-05-19 — race-day injection (preview).
+      // Cas plan court (raceDate tombe dans S1) : on remplace la séance du jour J
+      // par la course officielle. Le cap affûtage est désactivé pour _raceDay.
+      const injectedIdx = injectRaceSession(plan, data, paces);
+      if (injectedIdx >= 0) {
+        console.log(`[Race-Day Preview] Course officielle injectée S${injectedIdx + 1}`);
+      }
     }
 
     // === Injection des variantes de footing (Preview) — phase fondamentale/récupération ===
@@ -4631,8 +4668,10 @@ ${(isVKRemaining || isTrailSteepRemaining) ? `   - fondamental : Jogging (footin
      VARIÉTÉ OBLIGATOIRE : chaque footing doit avoir un thème DIFFÉRENT (progressif, vallonné, technique, nature...).
    - developpement : + Fractionné (VMA courte, côtes), seuil court possible.
    - specifique : + Seuil long, allure spécifique course, fractionné seuil.
-   - affutage : Jogging, Sortie Longue courte, Renforcement + 1 rappel fractionné court.
+   - affutage : Jogging court à modéré, Renforcement allégé + 1 rappel fractionné court (200-400m). PAS de Sortie Longue volumineuse (la course remplace la SL la semaine du raceDate).
    - recuperation : Jogging (footing EF) uniquement + Renforcement léger. PAS d'intensité.`}
+
+${data.raceDate ? RACE_DAY_INSTRUCTION : ''}
 
 ${isPertePoidsProg ? (() => {
   const pdpVmaR = ctxVma || 12;
@@ -4993,6 +5032,24 @@ Retourne UNIQUEMENT un tableau JSON des semaines ${startWeek} à ${endWeek} :
       // Pass 2 : Guard cross-semaines
       enforceFullPlanConstraints(fullPlan.weeks, ctx.periodizationPlan.weeklyVolumes, data);
 
+      // Sprint Marathon 2026-05-19 — race-day injection (plan complet).
+      // CRITIQUE : sur tous les plans avec raceDate (Marathon, Semi, 10K, 5K, Trail,
+      // Hyrox), on force la dernière séance du raceDate à être la course officielle.
+      // Bug avant fix : LLM mettait souvent SL EF redondante le jour J (Thomas Weill).
+      const fullInjectedIdx = injectRaceSession(fullPlan, data, savedPaces);
+      if (fullInjectedIdx >= 0) {
+        console.log(`[Race-Day Full] Course officielle injectée S${fullInjectedIdx + 1}`);
+        // Resync weeklyVolumes pour la semaine concernée (la course est inclus dans
+        // la somme, donc weeklyVolumes[idx] reflète maintenant la distance officielle).
+        const w = fullPlan.weeks[fullInjectedIdx];
+        if (w && Array.isArray(w.sessions) && ctx.periodizationPlan.weeklyVolumes) {
+          const sumKm = w.sessions
+            .filter((s: any) => s.type !== 'Renforcement' && s.type !== 'Repos')
+            .reduce((sum: number, s: any) => sum + (parseKm(s.distance) || 0), 0);
+          ctx.periodizationPlan.weeklyVolumes[fullInjectedIdx] = Math.round(sumKm);
+        }
+      }
+
       // Compter les corrections
       const afterVolumes = fullPlan.weeks.map(_weekKm);
       beforeVolumes.forEach((bv, i) => {
@@ -5021,9 +5078,18 @@ Retourne UNIQUEMENT un tableau JSON des semaines ${startWeek} à ${endWeek} :
           const targetVol = ctx.periodizationPlan.weeklyVolumes[idx] || 0;
           enforceWeekConstraints(week, targetVol, data, ctx.periodizationPlan.weeklyVolumes, idx);
           // Re-forcer jour SL APRÈS enforce (Layer 3 peut avoir régénéré la semaine avec mauvais jour)
+          // enforceSLDay skip automatiquement les semaines contenant un _raceDay.
           enforceSLDay(week, slDayFinal, '[Post-Layer3] ');
         });
         enforceFullPlanConstraints(fullPlan.weeks, ctx.periodizationPlan.weeklyVolumes, data);
+
+        // Sprint Marathon 2026-05-19 — race-day re-injection post-Layer3 (résilience).
+        // Layer3 peut régénérer la semaine course → on doit re-forcer la séance course.
+        const reInjectedIdx = injectRaceSession(fullPlan, data, savedPaces);
+        if (reInjectedIdx >= 0) {
+          console.log(`[Race-Day Post-L3] Course officielle re-forcée S${reInjectedIdx + 1}`);
+        }
+
         const postL3Volumes = fullPlan.weeks.map(_weekKm);
         preL3Volumes.forEach((bv, i) => {
           if (Math.abs(bv - postL3Volumes[i]) > 0.5) guardStats.postValidatorFixes++;
