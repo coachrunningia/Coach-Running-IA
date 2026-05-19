@@ -441,6 +441,58 @@ export function calculateFeasibility(params: FeasibilityParams): FeasibilityResu
     };
   }
 
+  // ─────────────────────────────────────────────────────────────────────────
+  // Fix C — Seuils %VMA tenu sur distance (Daniels VDOT + Pfitzinger seuil
+  // lactique). Cause racine bug mxjulien02 : la gate `vmaRatioPercent >= 130`
+  // ci-dessus est asymétrique (utilise getVmaFactor) — un Semi à 97.7% VMA
+  // tenu passait à travers (114.9% du ratio) alors qu'il est physiologiquement
+  // IRRÉALISTE de tenir 97.7% VMA sur 21 km.
+  //
+  // Seuils absolus validés coach 15 ans (VALIDATION-COACH-AVANT-DEPLOY.md
+  // élément C) :
+  //   Distance    AMBITIEUX >   IRRÉALISTE >
+  //   5K          93% VMA       98% VMA
+  //   10K         90%           95%
+  //   Semi        88%           93%
+  //   Marathon    83%           88%
+  //   Ultra       78%           85%
+  //
+  // - IRRÉALISTE (strict) : retour anticipé avec message %VMA tenu explicite.
+  // - AMBITIEUX : on retient un cap score 60 appliqué APRÈS les pénalités,
+  //   juste avant le clamp final (cf. ligne ~720).
+  // ─────────────────────────────────────────────────────────────────────────
+  const requiredSpeedKmh = effectiveDistanceKm / (targetMinutes / 60);
+  const pctVmaTenu = requiredSpeedKmh / vma;
+  const distanceThresholds = (() => {
+    const d = effectiveDistanceKm;
+    if (d <= 5.5)   return { ambitious: 0.93, unrealistic: 0.98, label: '5 km' };
+    if (d <= 11)    return { ambitious: 0.90, unrealistic: 0.95, label: '10 km' };
+    if (d <= 22)    return { ambitious: 0.88, unrealistic: 0.93, label: 'semi-marathon' };
+    if (d <= 43)    return { ambitious: 0.83, unrealistic: 0.88, label: 'marathon' };
+    // Ultra (> 43 km) : seuils plus conservatifs
+    return { ambitious: 0.78, unrealistic: 0.85, label: `${Math.round(d)} km` };
+  })();
+
+  if (pctVmaTenu > distanceThresholds.unrealistic) {
+    const theoFormatted = formatTime(theoMinutes);
+    const realisticMinutes = theoMinutes * 1.05;
+    const alternativeTarget = formatTime(realisticMinutes);
+    const pctVmaPercent = Math.round(pctVmaTenu * 100);
+    const seuilUnreal = Math.round(distanceThresholds.unrealistic * 100);
+    const safetyWarning = buildSafetyWarning(beginner, isMarathon, isSemi, hasInjury, 'IRRÉALISTE', params.weight, params.height, params.age, isTrail, isMarathon || isSemi || (distanceKm !== null && distanceKm >= 21));
+    return {
+      score: 5,
+      status: 'IRRÉALISTE',
+      message: `Ton objectif de ${formatTime(targetMinutes)} sur ${distance} demande de tenir ${pctVmaPercent}% de ta VMA (${vma.toFixed(1)} km/h) pendant toute la course. Sur ${distanceThresholds.label}, le seuil physiologiquement soutenable est d'environ ${seuilUnreal}% VMA (référence Daniels VDOT + Pfitzinger). Au-delà, même un coureur entraîné ne peut maintenir cette intensité. Ton temps théorique est de ${theoFormatted}. Un objectif réaliste serait autour de ${alternativeTarget}.`,
+      safetyWarning,
+      alternativeTarget,
+      recommendation: `un temps cible de ${alternativeTarget}`,
+    };
+  }
+
+  // Cap "AMBITIEUX" — retenu et appliqué après les autres pénalités, avant le clamp final.
+  const vmaThresholdAmbitiousCap = pctVmaTenu > distanceThresholds.ambitious ? 60 : undefined;
+
   let score: number;
   let status: FeasibilityResult['status'];
 
@@ -709,6 +761,15 @@ export function calculateFeasibility(params: FeasibilityParams): FeasibilityResu
   score -= r2.scorePenalty;
   if (r2.irrealisticCap !== undefined) {
     score = Math.min(score, r2.irrealisticCap);
+  }
+
+  // ─── Fix C — Cap AMBITIEUX %VMA tenu (cf. bloc seuils ci-dessus) ───
+  // Appliqué APRÈS toutes les pénalités, JUSTE avant le clamp final.
+  // Force le status à AMBITIEUX (cap 60) si l'objectif demande de tenir une
+  // intensité au-dessus du seuil "ambitious" mais en-dessous du seuil
+  // "unrealistic" pour la distance. Ne JAMAIS remonter un score plus bas.
+  if (vmaThresholdAmbitiousCap !== undefined) {
+    score = Math.min(score, vmaThresholdAmbitiousCap);
   }
 
   // Clamp final

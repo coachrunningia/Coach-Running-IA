@@ -5,6 +5,7 @@ import { calculateFeasibility } from './feasibilityService';
 import { buildRenfoMainSet } from './renfoService';
 import { buildFootingVariant, detectFootingFlags } from './footingVariants';
 import { parseDurationMin, parseKm, calculateWeekTargetElevation } from './planUtils';
+import { applySessionScale, isMainSetSyncable } from './sessionScale';
 
 // --- UTILITAIRES DE CALCUL DES ALLURES ---
 
@@ -1867,6 +1868,32 @@ export const enforceWeekConstraints = (
       console.log(`[Enforce] S${week.weekNumber}: Footing variation ${km0}/${km1}km → ${parseKm(footings[0].distance)}/${parseKm(footings[1].distance)}km`);
     }
   }
+
+  // ─── Fix D — Sync mainSet sur les types whitelistés ───────────────────
+  // Cause racine (INVESTIGATION-MAINSET-DURATION-DESYNC.md) : les 10+ caps
+  // ci-dessus mutent `duration`/`distance` mais NE réécrivent JAMAIS le
+  // `mainSet`. Conséquence : 51 séances en base avec mainSet "116 min" vs
+  // duration officielle "60 min" (cas steph-fanny).
+  //
+  // Stratégie validée coach (VALIDATION-COACH-AVANT-DEPLOY.md élément D) :
+  //   - WHITELIST stricte (Sortie Longue, Jogging, Footing) où sync = sûr ;
+  //   - BLACKLIST explicite (Fractionné, Tempo, Côtes, Renforcement, Hyrox,
+  //     Marche-Course, ...) où on ne touche JAMAIS le mainSet (le contenu
+  //     est structuré : "6 × 800 m", "Squats 3×9", etc).
+  //   - Idempotent : peut être ré-appelé sans drift (pattern d'ancrage
+  //     "^X min" + premier "X km" non fractionné).
+  week.sessions.forEach((s: any) => {
+    if (!s || !s.mainSet) return;
+    if (!isMainSetSyncable(s.type, s.mainSet)) return;
+    const durMin = parseDurationMin(s.duration);
+    const km = parseKm(s.distance);
+    if (durMin <= 0 && km <= 0) return;
+    const before = s.mainSet;
+    applySessionScale(s, s.duration || '', s.distance || '');
+    if (s.mainSet !== before) {
+      console.log(`[Enforce] mainSet sync (${s.type}) S${week.weekNumber} ${s.day}: dur=${durMin}min km=${km}`);
+    }
+  });
 };
 
 /**
@@ -4091,8 +4118,25 @@ ${buildSafetyInstructions(data, (data.level || '').includes('Débutant'))}
       });
     }
 
+    // === Post-processing qualité séances (Preview) ===
+    if (plan.weeks && Array.isArray(plan.weeks)) {
+      const trailDist = data.goal === 'Trail' && data.trailDetails?.distance ? data.trailDetails.distance : 0;
+      plan.weeks.forEach((week: any) => postProcessWeekQuality(week, paces, 'Première semaine — mise en route progressive', data.goal, trailDist));
+      // Enforcement volumes/durées/caps déterministe
+      plan.weeks.forEach((week: any, idx: number) => {
+        const targetVol = generationContext.periodizationPlan.weeklyVolumes[idx] || 0;
+        enforceWeekConstraints(week, targetVol, data);
+      });
+      // Guard cross-semaines (affûtage, progression, re-cap)
+      enforceFullPlanConstraints(plan.weeks, generationContext.periodizationPlan.weeklyVolumes, data);
+    }
+
     // === Injection des variantes de footing (Preview) — phase fondamentale/récupération ===
     // Casse la monotonie : varie la FORME des footings EF sans changer l'intensité.
+    // Fix D 2026-05-19 — DÉPLACÉ APRÈS enforceWeekConstraints pour que la
+    // variante construise son mainSet avec la duration FINALE (post-cap).
+    // Cas bug : Gemini sort 1h30, enforce cape à 60min, variant avait déjà
+    // écrit "90 min en EF..." → 51 séances en base désync (steph-fanny).
     if (plan.weeks && plan.weeks[0]?.sessions) {
       const w1 = plan.weeks[0];
       const phaseLc = (w1.phase || 'fondamental').toLowerCase();
@@ -4122,19 +4166,6 @@ ${buildSafetyInstructions(data, (data.level || '').includes('Débutant'))}
           }
         });
       }
-    }
-
-    // === Post-processing qualité séances (Preview) ===
-    if (plan.weeks && Array.isArray(plan.weeks)) {
-      const trailDist = data.goal === 'Trail' && data.trailDetails?.distance ? data.trailDetails.distance : 0;
-      plan.weeks.forEach((week: any) => postProcessWeekQuality(week, paces, 'Première semaine — mise en route progressive', data.goal, trailDist));
-      // Enforcement volumes/durées/caps déterministe
-      plan.weeks.forEach((week: any, idx: number) => {
-        const targetVol = generationContext.periodizationPlan.weeklyVolumes[idx] || 0;
-        enforceWeekConstraints(week, targetVol, data);
-      });
-      // Guard cross-semaines (affûtage, progression, re-cap)
-      enforceFullPlanConstraints(plan.weeks, generationContext.periodizationPlan.weeklyVolumes, data);
     }
 
     // Forcer le nom du plan + tutoiement sur les champs globaux

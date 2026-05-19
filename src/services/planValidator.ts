@@ -9,6 +9,7 @@ import { GoogleGenerativeAI } from '@google/generative-ai';
 import { TrainingPlan, Week, Session, QuestionnaireData } from '../types';
 import { buildRenfoMainSet } from './renfoService';
 import { parseDurationMin, parseKm } from './planUtils';
+import { MAINSET_RISKY_TYPES } from './sessionScale';
 
 const GEMINI_API_KEY = import.meta.env.VITE_GEMINI_API_KEY || '';
 const genAI = new GoogleGenerativeAI(GEMINI_API_KEY);
@@ -68,6 +69,62 @@ const isConsecutiveDay = (day1: string, day2: string): boolean => {
   if (i1 < 0 || i2 < 0) return false;
   return Math.abs(i1 - i2) === 1 || (i1 === 0 && i2 === 6) || (i1 === 6 && i2 === 0);
 };
+
+// ---------------------------------------------------------------------------
+// Helper Fix D — détection mismatch mainSet ↔ duration/distance
+// ---------------------------------------------------------------------------
+/**
+ * Détecte les séances où le mainSet annonce "X min" / "Y km" mais que
+ * `duration` / `distance` officiels diffèrent de plus de 20%. Skip les
+ * types risqués (Fractionné, Tempo, Renforcement, ...) car leur mainSet
+ * contient des éléments structurés non comparables au total séance.
+ *
+ * Pattern fractionné "X × Y km" → on ne tente PAS de matcher distance.
+ *
+ * Retourne le message d'issue, ou null si pas de mismatch.
+ */
+const FRACTIONAL_PATTERN_VALIDATOR_RE = /\d+\s*[x×]\s*\d/i;
+function checkMainsetDurationMismatch(session: Session): string | null {
+  if (!session || !session.mainSet) return null;
+  // Skip types risqués (mainSet structuré non comparable)
+  if (session.type && MAINSET_RISKY_TYPES.has(session.type)) return null;
+
+  const title = session.title || '';
+  const mainSet = session.mainSet;
+
+  // Skip aussi si le titre / mainSet évoque clairement du fractionné
+  // (cas où Gemini a mal typé une séance en "Jogging")
+  if (FRACTIONAL_PATTERN_VALIDATOR_RE.test(mainSet)) return null;
+  if (/fractionn|tempo|seuil|vma|c[ôo]te|hyrox|renfo/i.test(title)) return null;
+
+  // ─── Check duration ↔ "X min" en début de mainSet ───
+  const durMatch = mainSet.match(/^\s*(\d+)\s*min\b/i);
+  const sessionMin = parseDurationMin(session.duration || '');
+  if (durMatch && sessionMin > 0) {
+    const mainSetMin = parseInt(durMatch[1], 10);
+    if (mainSetMin > 0) {
+      const drift = Math.abs(mainSetMin - sessionMin) / sessionMin;
+      if (drift > 0.20) {
+        return `Session "${title || session.type}": mainSet ${mainSetMin}min ≠ duration ${sessionMin}min (écart ${(drift * 100).toFixed(0)}%, seuil 20%).`;
+      }
+    }
+  }
+
+  // ─── Check distance ↔ "X km" (premier non-fractionné) ───
+  const kmMatch = mainSet.match(/(\d+(?:[.,]\d+)?)\s*km\b/);
+  const sessionKm = parseKm(session.distance || '');
+  if (kmMatch && sessionKm > 0) {
+    const mainSetKm = parseFloat(kmMatch[1].replace(',', '.'));
+    if (mainSetKm > 0) {
+      const drift = Math.abs(mainSetKm - sessionKm) / sessionKm;
+      if (drift > 0.20) {
+        return `Session "${title || session.type}": mainSet ${mainSetKm}km ≠ distance ${sessionKm}km (écart ${(drift * 100).toFixed(0)}%, seuil 20%).`;
+      }
+    }
+  }
+
+  return null;
+}
 
 // ---------------------------------------------------------------------------
 // LAYER 1 — Rule-based validation (free)
@@ -727,6 +784,28 @@ export const validatePlanRules = (
         rule: 'multiple_sl',
         message: `${slCount} Sorties Longues dans la même semaine — max 1 recommandée.`,
       });
+    }
+  }
+
+  // --- Rule 14: mainSet ↔ duration/distance mismatch (Fix D sprint 2) ---
+  // Détecte les séances où le mainSet annonce une durée / distance très
+  // différente du `duration` / `distance` officiel. Cause racine : 24 sites
+  // de geminiService mutent dur/km sans réécrire mainSet (steph-fanny 116min
+  // vs 60min). On skip les types risqués (Fractionné/Tempo/Renforcement/...)
+  // car leur mainSet contient des éléments structurés ("6 × 800 m") non
+  // comparables à la duration/distance totales.
+  for (const week of weeks) {
+    const wn = week.weekNumber || 1;
+    for (const session of week.sessions) {
+      const mismatch = checkMainsetDurationMismatch(session);
+      if (mismatch) {
+        issues.push({
+          weekNumber: wn,
+          severity: 'warning',
+          rule: 'mainset_duration_mismatch',
+          message: mismatch,
+        });
+      }
     }
   }
 
