@@ -118,11 +118,16 @@ export const calculateWeekTargetElevation = (
   const isDeb = lvl === 'deb' || lvl.includes('débutant') || lvl.includes('debutant');
   const isInter = lvl === 'inter' || lvl.includes('intermédiaire') || lvl.includes('intermediaire');
   const isConf = lvl === 'conf' || lvl.includes('confirmé') || lvl.includes('confirme') || lvl.includes('compétition');
+  // Fix #1 (2026-05-19) — Caps niveaux ultra Master/Expert.
+  // Avant : Expert cap 3500 → Rich (race D+ 12000m) plafonné à 3500/sem (29% race) = sous-entraîné.
+  // Après : Expert cap 6500 (Balducci 2024, Master Expert ultra alpin pic D+ 50-65% race) →
+  // 6500 = 54% pour race 12000m. Pour race ≤ 6500, raceElevation prime (Math.min).
+  // Non-Expert cap 4500 (au lieu de 2500) pour Confirmé ultra alpin (ex : UTMB CCC 6000m).
   const maxWeeklyElevation =
     isDeb ? Math.min(raceElevation, 800) :
     isInter ? Math.min(raceElevation, 1500) :
-    isConf ? Math.min(raceElevation, 2500) :
-    Math.min(raceElevation, 3500);
+    isConf ? Math.min(raceElevation, 4500) :
+    Math.min(raceElevation, 6500);
 
   const defaultStart =
     isDeb ? 150
@@ -130,13 +135,24 @@ export const calculateWeekTargetElevation = (
     : isConf ? 500
     : 800;
 
-  // Cap startElevation à 60% du max + plancher minimum 15% D+ course
-  const maxStart = Math.min(1500, Math.round(maxWeeklyElevation * 0.60));
+  // Fix #2 (2026-05-19) — Floor 100% du currentWeeklyElevation user (doctrine
+  // feedback_input_client_obligatoire : "Allures et dates fournies par user respectées telles
+  // quelles ; on commente seulement dans message d'accueil, jamais on écrase").
+  // Avant : `Math.min(currentWeeklyElevation, maxStart)` écrasait Rich (3000+/sem déclaré)
+  // à 1500 (hard cap). Après : on prend MAX(current declared, ideal capped) — on ne baisse
+  // JAMAIS sous le D+ hebdo current du user.
+  // Maxstart plafond passé 1500 → 3500 pour permettre Expert ultra alpin de progresser.
+  const maxStart = Math.min(3500, Math.round(maxWeeklyElevation * 0.60));
   const minStartElevation = Math.round(raceElevation * 0.15);
-  const rawStart = currentWeeklyElevation && currentWeeklyElevation > 0
-    ? Math.min(currentWeeklyElevation, maxStart)
-    : Math.min(defaultStart, maxStart);
-  const startElevation = Math.max(rawStart, Math.min(minStartElevation, maxStart));
+  const idealStart = currentWeeklyElevation && currentWeeklyElevation > 0
+    ? currentWeeklyElevation
+    : defaultStart;
+  // Plancher = currentWeeklyElevation declared (jamais écrasé). Plafond = idealStart clampé
+  // par maxStart pour ne pas dépasser 60% du max hebdo.
+  const startElevation = Math.max(
+    idealStart,
+    Math.min(minStartElevation, maxStart),
+  );
 
   const progress = Math.min(1, (weekNumber - 1) / Math.max(1, totalWeeks - 1));
   let target = Math.round(startElevation + (maxWeeklyElevation - startElevation) * progress);

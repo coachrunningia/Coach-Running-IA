@@ -16,6 +16,15 @@ const timeToSeconds = (time: string, contextDistance?: number): number => {
   if (!time) return 0;
   const t = time.trim().toLowerCase();
 
+  // Fix #6 (2026-05-19) : rejet inputs pollués qui contiennent une distance "km"
+  // Ex : "50km (6h50)" saisi dans recentRaceTimes.distance10km → input invalide
+  // Retourner 0 plutôt que parser n'importe comment (ex : matcher "6h50" et ignorer "50km")
+  // qui produit des chronos incohérents (cas Jeremy détecté lors investigation cascade).
+  if (/\d+\s*km/i.test(t)) {
+    console.warn(`[timeToSeconds] "${time}" contient "km" — input pollué (distance dans champ chrono), retourne 0`);
+    return 0;
+  }
+
   // Format "Xh" ou "XhYY" ou "Xh:YY" (ex: 4h, 4h30, 4h:30, 2h08)
   const hMatch = t.match(/^(\d+)h:?(\d{0,2})/);
   if (hMatch) {
@@ -1173,6 +1182,18 @@ function classifyByChrono(seconds: number, dist: '10K' | '5K', isFemale: boolean
 /** Détecte le niveau normalisé — chronos > VMA > déclaratif (avec override sécurité à la baisse) */
 export const detectLevelFromData = (data: any): string => {
   const declared = labelToLevelKey(data.level);
+
+  // Fix #5a (2026-05-19) — Préserver niveau déclaré pour senior ≥55 ans.
+  // Cas georgeslor1 : Expert 57 ans déclare 10K 1h00 → code rétrogradait à "deb"
+  // (10K 1h00 = critère Débutant pour homme jeune). Mais 10K 1h00 à 57 ans = niveau Expert.
+  // Les chronos lents en senior reflètent l'âge (déclin VO2max -10%/décennie après 35),
+  // PAS le niveau d'entraînement. Si user a coché un niveau ≥ Intermédiaire ET âge ≥ 55,
+  // on lui fait confiance. Source : Hammond 2018 "lifelong endurance Masters" + Tanaka 2008.
+  const age = data.age || 0;
+  if (age >= 55 && declared && declared !== 'deb') {
+    console.log(`[detectLevelFromData] Senior ${age}ans niveau déclaré "${declared}" préservé (fix #5a)`);
+    return declared;
+  }
 
   // === Override CHRONO : les chronos saisis priment sur déclaratif + VMA estimée ===
   const isFemale = data.sex === 'Femme';
@@ -3188,6 +3209,17 @@ const ULTRA70_BACK_TO_BACK_BULLETS = `- BACK-TO-BACK OBLIGATOIRE en phase spéci
   • Placer 2 à 3 week-ends back-to-back en phase spécifique (PAS en semaine de récupération)
   • Après chaque back-to-back : lundi repos ou récupération très légère`;
 
+// Fix #4b (2026-05-19) — Sortie nuit pour ultras dont la course passe la nuit (≥ 80 km typique).
+// Sources : UTMB Academy 2024 (préparation nuit obligatoire pour ultras nocturnes),
+// Hammond 2018 "lifelong endurance Masters" (adaptation cognitive à l'effort de nuit).
+// Validé par Coach FFA + Expert Trail. Activation : trailDetails.distance >= 80.
+const ULTRA_NIGHT_RUN_BULLETS = `- SORTIE NUIT obligatoire en phase développement/spécifique :
+  • Placer 1 à 2 sorties nuit (départ 22h-23h, durée 1h30-2h30) sur la phase préparatoire
+  • Lampe frontale obligatoire (matériel imposé en course)
+  • Préférer terrain connu pour la 1ère sortie nuit (sécurité)
+  • Objectif : habituer le cerveau à l'effort de nuit (perception altérée, fatigue ressentie x1.5)
+  • Idéalement intégrer 1 sortie nuit dans un week-end back-to-back (Sam jour + Sam nuit = simulation cumul fatigue)`;
+
 interface DplusBlockOpts {
   weekIdx: number;                          // 0-indexed (S1=0)
   weeklyElevationTarget?: number[];
@@ -3456,7 +3488,8 @@ VMA : ${paces.vmaKmh} km/h (${vmaSource})
 🏔️ ULTRA-TRAIL 100km+ : ${data.trailDetails.distance} km, D+ ${data.trailDetails.elevation} m
 ⚠️ FORMAT ULTRA LONG — Règles spécifiques :
 - La SORTIE LONGUE est la séance CLÉ. Elle doit progresser vers 50-65km ou 6-8h au pic d'entraînement.
-- BACK-TO-BACK OBLIGATOIRE en phase spécifique : SL samedi (longue) + sortie dimanche (modérée en fatigue). Le back-to-back simule la fatigue cumulée de l'ultra.
+${ULTRA70_BACK_TO_BACK_BULLETS}
+${ULTRA_NIGHT_RUN_BULLETS}
 - MARCHE EN CÔTE (power hiking) : intégrer des sections de marche rapide en montée dans les SL. Sur un ultra, on marche 30-50% du temps.
 ${NUTRITION_SL_BLOCK}
 - MATÉRIEL : s'entraîner avec le sac, les bâtons, le matériel obligatoire dès la phase développement.
@@ -3467,7 +3500,7 @@ ${buildDplusPromptBlock({ weekIdx: 0, weeklyElevationTarget: generationContext.p
 🏔️ ULTRA-TRAIL 70km+ : ${data.trailDetails.distance} km, D+ ${data.trailDetails.elevation} m
 ⚠️ FORMAT ULTRA — Règles spécifiques :
 ${ULTRA70_BACK_TO_BACK_BULLETS}
-- SL pic doit atteindre 4h30-6h au pic d'entraînement
+${data.trailDetails.distance >= 80 ? ULTRA_NIGHT_RUN_BULLETS + '\n' : ''}- SL pic doit atteindre 4h30-6h au pic d'entraînement
 - MARCHE EN CÔTE (power hiking) : sections de marche rapide en montée dans les SL ≥ 2h30
 ${NUTRITION_SL_BLOCK}
 - MATÉRIEL : s'entraîner avec sac et bâtons dès la phase développement
@@ -4332,13 +4365,15 @@ Séances spécifiques trail :
 
 
 ${data.trailDetails!.distance >= 42 ? '- Sorties longues avec ravitaillement simulé\n- Entraînement avec le matériel de course (sac, bâtons)' : ''}
-${data.trailDetails!.distance >= 100 ? `- 🔴 ULTRA 100km+ : BACK-TO-BACK OBLIGATOIRE en phase spécifique (SL samedi + sortie dimanche en fatigue)
+${data.trailDetails!.distance >= 100 ? `- 🔴 ULTRA 100km+ :
+${ULTRA70_BACK_TO_BACK_BULLETS}
+${ULTRA_NIGHT_RUN_BULLETS}
 - Marche en côte (power hiking) intégrée dans les SL — sur un ultra on marche 30-50% du temps
 - SL pic doit atteindre 50-65km ou 6-8h minimum
 - Allure ultra PLUS LENTE que EF (7:00-8:00 min/km)
 ${NUTRITION_SL_BLOCK}` : data.trailDetails!.distance >= 70 ? `- 🔴 ULTRA-TRAIL 70km+ :
 ${ULTRA70_BACK_TO_BACK_BULLETS}
-- SL pic doit atteindre 4h30-6h au pic d'entraînement (semaine de volume max)
+${data.trailDetails!.distance >= 80 ? ULTRA_NIGHT_RUN_BULLETS + '\n' : ''}- SL pic doit atteindre 4h30-6h au pic d'entraînement (semaine de volume max)
 - MARCHE EN CÔTE (power hiking) : intégrer des sections de marche rapide en montée dans les SL ≥ 2h30
 ${NUTRITION_SL_BLOCK}
 - MATÉRIEL : s'entraîner avec le sac et les bâtons dès la phase développement
