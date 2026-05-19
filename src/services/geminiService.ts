@@ -2622,9 +2622,19 @@ export const calculatePeriodizationPlan = (
     // AUDIT-5-PLANS-TEMPLATE-V2.md pattern #1.
     const currentVolumeFloor = currentVolume; // 100% (au lieu de × 0.85)
     startVolume = Math.max(startVolume, currentVolumeFloor);
-    // Plafond S1 : on ne dépasse pas le volume courant NI 65% du pic...
-    // ...SAUF si le volume courant est inférieur au minimum viable par niveau
-    const volumeCap = Math.max(currentVolume, minStartVolume);
+    // ─── Sprint 6 (2026-05-19) — volumeCap = +60% MAX sur S1 (audit Romane) ───
+    // Avant : volumeCap = max(currentVolume, minStartVolume) → écrasait le déclaré
+    //   par minStartVolume du niveau (Inter cv=5 → cap=15 → S1=14, +180% non sûr).
+    //   Cf. AUDIT-PLAN-ROMANE-TEST.md + INVESTIGATION-MIN-START-VOLUME.md.
+    // Après : on RESPECTE le declared user (doctrine feedback_input_client_obligatoire)
+    //   avec un garde-fou de progression S1 ≤ currentVolume × 1.6.
+    //   +60% = compromis Coach 15 ans (Daniels +1mi/sem strict serait trop bas,
+    //   ACSM "max +10%/sem hors S1" trop bas aussi ; on parie qu'un Inter habitué
+    //   qui déclare une semaine faible (5km) est en réalité à 6-8km de baseline).
+    //   Validation Romane verbatim : "max +60% vu que la personne se declare
+    //   intermediaire et donc habitué. Si jamais elle fait une faible semaine à 5
+    //   on peut quand même monter à +60% et pas +50."
+    const volumeCap = Math.round(currentVolume * 1.6);
     startVolume = Math.min(startVolume, volumeCap, maxVolume * 0.65);
     // Re-appliquer le hard floor — il prime sur la règle des 65% du peak
     // La règle des 65% garantit de la progression, mais on ne peut pas
@@ -3657,7 +3667,17 @@ ${pacesSection}
 ═══════════════════════════════════════════════════════════════
 Durée totale : ${planDurationWeeks} semaines
 Semaine 1 : Phase "${generationContext.periodizationPlan.weeklyPhases[0]}"
-Volume semaine 1 : ${generationContext.periodizationPlan.weeklyVolumes[0]} km
+Volume actuel déclaré par l'utilisateur : ${data.currentWeeklyVolume !== undefined && data.currentWeeklyVolume !== null && data.currentWeeklyVolume > 0 ? `${data.currentWeeklyVolume} km/semaine` : 'non précisé'}
+Volume semaine 1 calibré : ${generationContext.periodizationPlan.weeklyVolumes[0]} km
+
+⚠️ TRANSPARENCE CALIBRAGE — RÈGLE OBLIGATOIRE pour welcomeMessage :
+Si l'utilisateur a déclaré un volume actuel > 0 ET que le ratio (S1 calibrée / volume déclaré) > 1.5
+(c'est-à-dire : on propose plus de +50 % par rapport à sa baseline), tu DOIS expliquer ce calibrage
+dans le welcomeMessage de manière transparente et bienveillante. Modèle :
+"Tu nous as indiqué [X] km/semaine actuels. On calibre ta première semaine à [Y] km — c'est un peu
+plus que ton volume actuel mais reste progressif pour atteindre ton objectif. Tu peux ajuster ton
+volume dans ton profil si tu cours en réalité plus que ça."
+Ton : honnête, jamais commercial, jamais culpabilisant. Si le ratio ≤ 1.5, pas besoin de l'évoquer.
 
 Phases du plan :
 ${generationContext.periodizationPlan.weeklyPhases.map((p, i) => `S${i + 1}: ${p} (${generationContext.periodizationPlan.weeklyVolumes[i]}km)`).join('\n')}
