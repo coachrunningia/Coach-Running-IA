@@ -514,6 +514,8 @@ ${recentRPEs.length > 0 ? recentRPEs.slice(-8).join('\n') : 'Premier feedback �
         weight: q.weight,
         height: q.height,
         frequency: q.frequency || plan.sessionsPerWeek,
+        // Sprint 3 — cross-check VMA vs PB déclarés (path Finisher steph-fanny)
+        recentRaceTimes: q.recentRaceTimes,
       });
     } catch (e) {
       console.error('[PlanView] Erreur recalcul faisabilité:', e);

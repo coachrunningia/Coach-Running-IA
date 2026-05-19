@@ -37,6 +37,15 @@ export interface FeasibilityParams {
   weight?: number;
   height?: number;
   frequency?: number;       // séances par semaine
+  // Sprint 3 — Cross-check VMA vs PB déclarés sur path Finisher.
+  // Cas steph-fanny : VMA 8 "corrigée" basée sur 5K en 46 min (PB peu compétitif).
+  // Si %VMA tenu sur PB > seuil distance → VMA optimiste → cap status BON.
+  recentRaceTimes?: {
+    distance5km?: string;
+    distance10km?: string;
+    distanceHalfMarathon?: string;
+    distanceMarathon?: string;
+  };
 }
 
 // ---------------------------------------------------------------------------
@@ -843,6 +852,131 @@ export function calculateFeasibility(params: FeasibilityParams): FeasibilityResu
 }
 
 // ---------------------------------------------------------------------------
+// Sprint 3 — Détection VMA optimiste depuis PB déclarés (path Finisher)
+// Cas steph-fanny : VMA 8 "corrigée" basée sur 5K en 46 min (9:12/km).
+// VDOT Daniels sur ce PB donne VMA réelle ~6.5-7 km/h. La VMA "corrigée"
+// est ~15-25% trop haute, ce qui faussait l'évaluation feasibility EXCELLENT.
+//
+// Heuristique : on calcule le %VMA qu'il faudrait tenir sur le PB déclaré
+// pour le vrai. Si > seuil typique de la distance → VMA déclarée est sur-évaluée
+// (le coureur ne pourrait pas physiologiquement tenir le PB indiqué avec la
+// VMA déclarée), donc la VMA déclarée vient probablement d'une "correction"
+// optimiste à éviter pour le scoring Finisher.
+//
+// Référentiel : seuils %VMA tenable par distance (Daniels VDOT + Pfitzinger),
+// alignés sur les seuils du path chrono (Fix C Sprint 2, calculateFeasibility) :
+//   5K : ≤ 95 % VMA | 10K : ≤ 90 % | Semi : ≤ 85 % | Marathon : ≤ 80 %
+// On utilise ces seuils MOYENS (pas les seuils "irréalistes") pour détecter
+// l'optimisme : si %VMA tenu sur PB > seuil typique, on flag.
+// ---------------------------------------------------------------------------
+
+interface PbVmaCheck {
+  isOptimistic: boolean;
+  pctVmaOnPb: number;        // % VMA tenu sur le PB déclaré
+  threshold: number;          // seuil typique pour la distance du PB
+  pbDistance: number;         // distance du PB utilisé (km)
+  pbPaceMinPerKm: number;     // pace PB (min/km)
+  source: string;             // ex. "5K en 46min"
+}
+
+/**
+ * Parse un chrono PB (formats : "46min", "46:00", "1h30", "1:30:00", "00:46:00")
+ * vers des secondes. Retourne 0 si parsing échoue.
+ * Helper minimal local : on évite la dépendance à geminiService pour garder
+ * feasibilityService autonome (pas d'import circulaire potentiel).
+ */
+function parsePbToSeconds(time: string | undefined, distanceKm: number): number {
+  if (!time) return 0;
+  const t = time.trim().toLowerCase();
+  // Input pollué : contient "km" (cf. fix #6 timeToSeconds geminiService)
+  if (/\d+\s*km/i.test(t)) return 0;
+
+  // Format "Xh" / "XhYY" / "Xh:YY"
+  const hMatch = t.match(/^(\d+)h:?(\d{0,2})/);
+  if (hMatch) {
+    const hours = parseInt(hMatch[1], 10);
+    const mins = hMatch[2] ? parseInt(hMatch[2], 10) : 0;
+    const asHours = hours * 3600 + mins * 60;
+    // Garde-fou plausibilité (cf. timeToSeconds) : "50h54" sur 10K = 50min54s
+    const maxPlausibleSec =
+      distanceKm <= 5 ? 90 * 60 :
+      distanceKm <= 10 ? 150 * 60 :
+      distanceKm <= 21.5 ? 4 * 3600 :
+      distanceKm <= 43 ? 8 * 3600 :
+      Math.max(30, distanceKm * 0.5) * 3600;
+    if (asHours > maxPlausibleSec) {
+      return hours * 60 + mins;
+    }
+    return asHours;
+  }
+
+  // "XX min" ou "XXmin"
+  const minMatch = t.match(/^(\d+)\s*min/);
+  if (minMatch) return parseInt(minMatch[1], 10) * 60;
+
+  // hh:mm:ss
+  const parts = t.split(':').map(Number);
+  if (parts.length === 3 && parts.every(n => !isNaN(n))) {
+    return parts[0] * 3600 + parts[1] * 60 + parts[2];
+  }
+  // mm:ss ou h:mm (heuristique alignée timeToSeconds)
+  if (parts.length === 2 && parts.every(n => !isNaN(n))) {
+    if (distanceKm >= 21) return parts[0] * 3600 + parts[1] * 60; // semi/marathon
+    if (distanceKm >= 5 && parts[0] <= 3) return parts[0] * 3600 + parts[1] * 60; // ex "1:13" = 1h13
+    return parts[0] * 60 + parts[1]; // sinon mm:ss
+  }
+
+  return 0;
+}
+
+/**
+ * Vérifie si la VMA déclarée est optimiste par rapport aux PB déclarés.
+ * Retourne le check le plus défavorable (PB le plus "tendu" en %VMA).
+ *
+ * Logique : pour chaque PB déclaré, calcule la vitesse moyenne soutenue,
+ * puis le %VMA. Si ce % dépasse le seuil typique tenable sur cette distance
+ * → la VMA déclarée est sur-évaluée (le coureur n'aurait pas pu tenir ce PB
+ * avec la VMA déclarée s'il n'était pas "Élite hors-norme").
+ */
+function checkPbVmaOptimism(
+  vma: number,
+  recentRaceTimes?: FeasibilityParams['recentRaceTimes'],
+): PbVmaCheck | null {
+  if (!recentRaceTimes || !vma || vma <= 0) return null;
+
+  const pbs: { dist: number; label: string; time?: string; threshold: number }[] = [
+    { dist: 5,       label: '5K',       time: recentRaceTimes.distance5km,         threshold: 0.95 },
+    { dist: 10,      label: '10K',      time: recentRaceTimes.distance10km,        threshold: 0.90 },
+    { dist: 21.1,    label: 'Semi',     time: recentRaceTimes.distanceHalfMarathon,threshold: 0.85 },
+    { dist: 42.195,  label: 'Marathon', time: recentRaceTimes.distanceMarathon,    threshold: 0.80 },
+  ];
+
+  let worst: PbVmaCheck | null = null;
+  for (const pb of pbs) {
+    if (!pb.time) continue;
+    const sec = parsePbToSeconds(pb.time, pb.dist);
+    if (sec <= 0) continue;
+    const speedKmh = pb.dist / (sec / 3600);
+    if (speedKmh <= 0) continue;
+    const pctVmaOnPb = speedKmh / vma;
+    const isOptimistic = pctVmaOnPb > pb.threshold;
+    // On retient le check le plus contraignant : PB qui exigerait le plus haut %VMA
+    // (= signal le plus fort que la VMA déclarée est sur-évaluée)
+    if (!worst || pctVmaOnPb > worst.pctVmaOnPb) {
+      worst = {
+        isOptimistic,
+        pctVmaOnPb,
+        threshold: pb.threshold,
+        pbDistance: pb.dist,
+        pbPaceMinPerKm: (sec / 60) / pb.dist,
+        source: `${pb.label} en ${pb.time}`,
+      };
+    }
+  }
+  return worst;
+}
+
+// ---------------------------------------------------------------------------
 // Évaluation "finisher" (pas de temps cible ou distance non standard)
 // ---------------------------------------------------------------------------
 
@@ -1161,6 +1295,65 @@ function buildFinisherFeasibility(
   score -= r2.scorePenalty;
   if (r2.irrealisticCap !== undefined) {
     score = Math.min(score, r2.irrealisticCap);
+  }
+
+  // ─────────────────────────────────────────────────────────────────────────
+  // Sprint 3 — Caps "max BON" path Finisher (cas steph-fanny)
+  //
+  // Cause racine bug : `buildFinisherFeasibility` partait à score 80 (BON), puis
+  // pouvait remonter à 95 (EXCELLENT) via les bonus volume (currentVolume >=
+  // 50% distance → +15). Aucun garde-fou pour 60+ ans / VMA "corrigée" depuis
+  // PB peu compétitif / BMI élevé. Résultat : EXCELLENT 95 affiché à une
+  // femme 60 ans Finisher 10K avec VMA 8 corrigée d'un 5K à 46 min — embellissement
+  // contraire à `feedback_securite_avant_conversion`.
+  //
+  // Doctrine appliquée (validation coach 15 ans — VALIDATION-COACH-AVANT-DEPLOY
+  // élément B) : on cap le score à 84 (= max BON) si l'un des signaux suivants
+  // est présent. On NE downgrade PAS plus bas (BON reste réaliste pour la
+  // plupart de ces profils ; seul AMBITIEUX/RISQUÉ serait stigmatisant).
+  //
+  // - Sprint 3a : âge ≥ 55 ET distance ≥ 10K (course route OU trail)
+  //   → senior + distance d'endurance = sécurité cardio + récup ralentie
+  //     interdit l'EXCELLENT par défaut. Reste BON honnête.
+  // - Sprint 3b : BMI ≥ 27 (vigilance articulaire renforcée)
+  //   → même logique : EXCELLENT contradictoire avec une vigilance affichée.
+  //     Note : BMI ≥ 30 est déjà pénalisé -15 plus haut, mais 25-29.9 ne l'est
+  //     que sur Marathon/Trail long. On rajoute ici un cap doux pour 27+ sur
+  //     Finisher (route ou trail) toutes distances.
+  // - Sprint 3c : VMA déclarée optimiste (PB déclaré exigerait %VMA > seuil
+  //     tenable typique → la VMA "corrigée" est sur-évaluée). Cf. checkPbVmaOptimism.
+  //
+  // Ces caps n'écrasent JAMAIS un score DÉJÀ inférieur à 84 (Math.min). Ils
+  // empêchent juste l'EXCELLENT optimiste. Aucun effet sur AMBITIEUX/RISQUÉ.
+  // ─────────────────────────────────────────────────────────────────────────
+  const isSenior = params.age !== undefined && params.age >= 55;
+  const isMidLongDistance = distanceKm !== null && distanceKm >= 10;
+  if (isSenior && isMidLongDistance) {
+    if (score > 84) {
+      score = 84;
+      reasons.push({ type: 'warn', text: `à ${params.age} ans sur cette distance, on garde une marge prudente (vigilance cardio + récupération)` });
+    }
+  }
+
+  if (params.weight && params.height && params.height > 0) {
+    const bmiFin = params.weight / ((params.height / 100) ** 2);
+    if (bmiFin >= 27 && score > 84) {
+      score = 84;
+      // pas de reason ajoutée ici : le bloc BMI précédent (lignes ~1046) a déjà
+      // poussé un message articulaire si besoin (BMI ≥ 25 sur marathon/trail).
+      // On évite la duplication de messages BMI.
+    }
+  }
+
+  const pbCheck = checkPbVmaOptimism(vma, params.recentRaceTimes);
+  if (pbCheck && pbCheck.isOptimistic && score > 84) {
+    score = 84;
+    const pctRound = Math.round(pbCheck.pctVmaOnPb * 100);
+    const seuilRound = Math.round(pbCheck.threshold * 100);
+    reasons.push({
+      type: 'warn',
+      text: `VMA déclarée ${vma.toFixed(1)} km/h optimiste vu ton ${pbCheck.source} (${pctRound}% VMA tenu sur ce PB, au-delà du seuil typique ${seuilRound}% pour la distance) — on garde une marge prudente sur l'évaluation`,
+    });
   }
 
   score = clamp(score, 10, 100);

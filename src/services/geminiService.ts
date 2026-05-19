@@ -3562,6 +3562,8 @@ ${buildDplusPromptBlock({ weekIdx: 0, weeklyElevationTarget: generationContext.p
       weight: data.weight,
       height: data.height,
       frequency: data.frequency,
+      // Sprint 3 — cross-check VMA vs PB déclarés (path Finisher steph-fanny)
+      recentRaceTimes: data.recentRaceTimes,
     });
     const feasibilityTextPreview = `Score : ${feasibilityResultPreview.score}/100 | Statut : ${feasibilityResultPreview.status}
 ${feasibilityResultPreview.message}

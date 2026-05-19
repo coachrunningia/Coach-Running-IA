@@ -1225,6 +1225,10 @@ const ADMIN_EMAILS = ["programme@coachrunningia.fr"];
             injuryDescription: q.injuries?.description,
             hasChrono: !!(q.recentRaceTimes?.distance5km || q.recentRaceTimes?.distance10km),
             age: q.age,
+            // Sprint 3 — cross-check VMA vs PB déclarés (path Finisher steph-fanny)
+            weight: q.weight,
+            height: q.height,
+            recentRaceTimes: q.recentRaceTimes,
           });
           if (newFeasibility.status === 'RISQUÉ' || newFeasibility.status === 'IRRÉALISTE') {
             feasibilityWarning = ` ⚠️ Attention : avec cette VMA, ton objectif de ${plan.targetTime} devient ${newFeasibility.status.toLowerCase()}. ${newFeasibility.alternativeTarget ? `Un objectif plus réaliste serait ${newFeasibility.alternativeTarget}.` : 'Envisage de revoir ton objectif temps.'}`;
