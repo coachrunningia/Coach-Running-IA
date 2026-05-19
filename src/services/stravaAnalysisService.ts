@@ -184,7 +184,9 @@ export const analyzeActivitiesWithGemini = async (activities: any[], userId: str
     if (!apiKey) throw new Error("No Gemini Key");
 
     const genAI = new GoogleGenerativeAI(apiKey);
-    const model = genAI.getGenerativeModel({ model: "gemini-2.5-flash" });
+    const MODEL_ID = "gemini-3-flash";
+    const model = genAI.getGenerativeModel({ model: MODEL_ID });
+    console.log(`[Gemini Strava] model=${MODEL_ID}`);
 
     // Convert m/s to min/km format (e.g. 3.0 m/s → "5:33 min/km")
     const msToMinKm = (ms: number): string => {

@@ -874,18 +874,38 @@ flaggedWeeks : semaines avec un score critère < 6 qui nécessitent une correcti
 Sois STRICT et HONNÊTE. Un plan trop facile pour un expert est aussi mauvais qu'un plan trop dur pour un débutant.`;
 
   try {
-    const model = genAI.getGenerativeModel({ model: 'gemini-2.0-flash' });
-    const result = await model.generateContent({
+    // Sprint 4 : upgrade 2.0-flash → 3-pro pour audit qualitatif (+800 ELO).
+    // Pro est plus lent (P95 ~25-30s) mais cet appel tourne en background
+    // post-generateRemainingWeeks, non sur le chemin critique UX.
+    const MODEL_ID = 'gemini-3-pro';
+    const model = genAI.getGenerativeModel({ model: MODEL_ID });
+    console.log(`[PlanValidator AI Review] model=${MODEL_ID}`);
+
+    // Sprint 4 : timeout 30s + fallback skip-on-timeout pour ne pas bloquer la
+    // génération si Pro est trop lent ou indisponible. Garde la doctrine
+    // "background OK, jamais bloquant".
+    const generatePromise = model.generateContent({
       contents: [{ role: 'user', parts: [{ text: reviewPrompt }] }],
       generationConfig: { responseMimeType: 'application/json', maxOutputTokens: 2048 },
     });
+    const timeoutPromise = new Promise<never>((_, reject) =>
+      setTimeout(() => reject(new Error('AI review timeout 30s')), 30000)
+    );
+    const result = (await Promise.race([generatePromise, timeoutPromise])) as Awaited<typeof generatePromise>;
 
-    const text = result.response.text();
-    const review = JSON.parse(text) as AIReviewResult;
+    // Sprint 4 : parse JSON robuste — gemini-3-pro a tendance à wrapper le JSON
+    // dans des fences markdown ```json ... ``` malgré responseMimeType, alors que
+    // 2.0-flash retournait du JSON brut. Strip défensif avant JSON.parse.
+    let cleanedText = result.response.text();
+    const codeBlockMatch = cleanedText.match(/```(?:json)?\s*([\s\S]*?)```/);
+    if (codeBlockMatch) {
+      cleanedText = codeBlockMatch[1];
+    }
+    const review = JSON.parse(cleanedText.trim()) as AIReviewResult;
     console.log(`[PlanValidator] AI Review: score=${review.overallScore}, flagged=${review.flaggedWeeks.join(',')}`);
     return review;
   } catch (error) {
-    console.error('[PlanValidator] AI Review failed:', error);
+    console.error('[PlanValidator] AI Review failed (skip, plan accepté tel quel):', error);
     // Return neutral review if AI fails — don't block the flow
     return {
       overallScore: 70,
@@ -908,7 +928,10 @@ export const generateCorrectedWeeks = async (
 ): Promise<Week[]> => {
   if (flaggedWeeks.length === 0) return [];
 
-  const model = genAI.getGenerativeModel({ model: 'gemini-2.0-flash' });
+  // Sprint 4 : migration 2.0-flash → 3-flash (catch up modèle ancien).
+  const MODEL_ID = 'gemini-3-flash';
+  const model = genAI.getGenerativeModel({ model: MODEL_ID });
+  console.log(`[PlanValidator CorrectedWeeks] model=${MODEL_ID}`);
   const paces = (plan as any).paces;
 
   // Build issue summary for the prompt

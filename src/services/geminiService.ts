@@ -486,117 +486,27 @@ const forceTutoiement = (text: string): string => {
   return result;
 };
 
-/**
- * Passe de correction français par IA.
- * Un seul appel Gemini léger : corrige grammaire, tutoiement, accords genre/nombre.
- * Ne touche PAS au contenu sportif ni aux allures.
- */
-const correctFrenchWithAI = async (plan: any): Promise<void> => {
-  try {
-    const apiKey = getApiKey();
-    const { GoogleGenerativeAI } = await import('@google/generative-ai');
-    const genAI = new GoogleGenerativeAI(apiKey);
-    const model = genAI.getGenerativeModel({ model: 'gemini-2.5-flash' });
-
-    // Collecter tous les champs textuels à corriger
-    const textsToFix: { path: string; text: string }[] = [];
-
-    if (plan.welcomeMessage) textsToFix.push({ path: 'welcomeMessage', text: plan.welcomeMessage });
-    if (plan.feasibility?.message) textsToFix.push({ path: 'feasibility.message', text: plan.feasibility.message });
-
-    (plan.weeks || []).forEach((w: any, wi: number) => {
-      if (w.weekGoal) textsToFix.push({ path: `weeks[${wi}].weekGoal`, text: w.weekGoal });
-      (w.sessions || []).forEach((s: any, si: number) => {
-        const prefix = `weeks[${wi}].sessions[${si}]`;
-        if (s.warmup) textsToFix.push({ path: `${prefix}.warmup`, text: s.warmup });
-        if (s.mainSet) textsToFix.push({ path: `${prefix}.mainSet`, text: s.mainSet });
-        if (s.cooldown) textsToFix.push({ path: `${prefix}.cooldown`, text: s.cooldown });
-        if (s.advice) textsToFix.push({ path: `${prefix}.advice`, text: s.advice });
-      });
-    });
-
-    if (textsToFix.length === 0) return;
-
-    // Construire le payload compact : index → texte
-    const payload = textsToFix.map((t, i) => `[${i}] ${t.text}`).join('\n---\n');
-
-    const prompt = `Tu es un correcteur de français. Corrige UNIQUEMENT la grammaire, l'orthographe et les accords dans les textes ci-dessous.
-
-RÈGLES STRICTES :
-1. TUTOIEMENT obligatoire partout (tu, ton, ta, tes — jamais vous/votre/vos)
-2. Accords genre/nombre : "ta sortie" (pas "ton sortie"), "ta forme" (pas "ton forme"), "ta vitesse", "ta progression", "ta base", "ta foulée"
-3. Conjugaison tutoiement : "tu dois" (pas "tu devez"), "tu peux" (pas "tu pouvez"), "ne te préoccupe pas" (pas "ne tu préoccupez pas")
-4. Élision devant voyelle : "t'initie" (pas "tu initie"), "t'aide", "t'amène", "t'alerter"
-5. NE CHANGE PAS le contenu sportif, les allures (min/km), les distances, les durées, les noms d'exercices
-
-Réponds UNIQUEMENT avec un JSON : {"corrections": {"0": "texte corrigé", "3": "texte corrigé"}}
-N'inclus que les textes qui ont été modifiés. Si rien à corriger, réponds {"corrections": {}}.
-
-TEXTES :
-${payload}`;
-
-    const result = await model.generateContent({
-      contents: [{ role: 'user', parts: [{ text: prompt }] }],
-      generationConfig: { temperature: 0.1, maxOutputTokens: 4096 },
-    });
-
-    const responseText = result.response.text();
-    // Extraire le JSON de la réponse
-    const jsonMatch = responseText.match(/\{[\s\S]*\}/);
-    if (!jsonMatch) {
-      console.warn('[FrenchAI] Pas de JSON dans la réponse');
-      return;
-    }
-
-    const parsed = JSON.parse(jsonMatch[0]);
-    const corrections = parsed.corrections || {};
-    const correctionCount = Object.keys(corrections).length;
-
-    if (correctionCount === 0) {
-      console.log('[FrenchAI] ✅ Aucune correction nécessaire');
-      return;
-    }
-
-    // Appliquer les corrections
-    for (const [indexStr, correctedText] of Object.entries(corrections)) {
-      const idx = parseInt(indexStr);
-      if (idx < 0 || idx >= textsToFix.length) continue;
-      const entry = textsToFix[idx];
-
-      // Vérifier que le texte corrigé ne supprime pas d'allures (safety check)
-      const originalPaces = (entry.text.match(/\d+:\d+\s*min\/km/g) || []);
-      const correctedPaces = ((correctedText as string).match(/\d+:\d+\s*min\/km/g) || []);
-      if (originalPaces.length > 0 && correctedPaces.length < originalPaces.length) {
-        console.warn(`[FrenchAI] ⚠️ Skip ${entry.path}: allures supprimées`);
-        continue;
-      }
-
-      // Appliquer via le path
-      const parts = entry.path.split('.');
-      let obj: any = plan;
-      for (let i = 0; i < parts.length - 1; i++) {
-        const match = parts[i].match(/(\w+)\[(\d+)\]/);
-        if (match) {
-          obj = obj[match[1]][parseInt(match[2])];
-        } else {
-          obj = obj[parts[i]];
-        }
-      }
-      const lastKey = parts[parts.length - 1];
-      const lastMatch = lastKey.match(/(\w+)\[(\d+)\]/);
-      if (lastMatch) {
-        obj[lastMatch[1]][parseInt(lastMatch[2])] = correctedText;
-      } else {
-        obj[lastKey] = correctedText;
-      }
-    }
-
-    console.log(`[FrenchAI] ✅ ${correctionCount} texte(s) corrigé(s)`);
-  } catch (err) {
-    // Non-bloquant : si la correction échoue, on garde les textes originaux
-    console.warn('[FrenchAI] Correction échouée (non-bloquant):', err);
-  }
-};
+// ─── correctFrenchWithAI : SUPPRIMÉE Sprint 4 (2026-05-19) ───────────────────
+// Pourquoi cette fonction existait : passe finale LLM (gemini-2.5-flash) pour
+// rattraper les fautes de français/tutoiement que les regex déterministes
+// auraient ratées. Patchait welcomeMessage, feasibility.message, weeks[].weekGoal,
+// et pour chaque session : warmup, mainSet, cooldown, advice. Coût : ~7-10s P95
+// supplémentaires sur le chemin critique UX preview + 1 appel LLM additionnel.
+//
+// Pourquoi on la supprime :
+// 1. `forceTutoiement` (L308-487) fait DÉJÀ 90% du boulot en regex déterministes
+//    (180L : impératifs, accords féminins, élisions, conjugaisons hybrides cassées,
+//    formes négatives). Appliqué exhaustivement dans postProcessWeekQuality sur
+//    chaque mainSet/advice/warmup/cooldown + welcomeMessage/feasibility (L4175-4177).
+// 2. Sur 27 profils audités (Sprint 1+2+3) : 1 seule faute observée
+//    (AUDIT-WOZNIAKMAEVA.md:233 "Tu introduire" = conjugaison futur). Pas dans
+//    le scope du prompt LLM de correctFrench (qui ciblait accords/tutoiement/élision).
+// 3. 3-flash > 2.5-flash en français natif (+60 ELO) → moins de fautes générées
+//    en amont, donc moins de rattrapages nécessaires.
+// 4. Gain latence preview : -7 à -10s P95 sur le chemin critique UX.
+// 5. Gain coût : marginal ($1.05/mois sur 100 plans).
+//
+// Cf AUDIT-UTILITE-7-APPELS-LLM.md §#3 pour le détail complet.
 
 /**
  * Recalcule la distance d'une séance à partir de la durée et du targetPace.
@@ -2977,7 +2887,7 @@ const createGenerationContext = (
     },
     questionnaireSnapshot: { ...data, vma },
     generatedAt: new Date().toISOString(),
-    modelUsed: 'gemini-2.5-flash',
+    modelUsed: 'gemini-3-flash',
   };
 };
 
@@ -3335,7 +3245,9 @@ export const generatePreviewPlan = async (data: QuestionnaireData): Promise<Trai
   try {
     const apiKey = getApiKey();
     const genAI = new GoogleGenerativeAI(apiKey);
-    const model = genAI.getGenerativeModel({ model: "gemini-2.5-flash" });
+    const MODEL_ID = "gemini-3-flash";
+    const model = genAI.getGenerativeModel({ model: MODEL_ID });
+    console.log(`[Gemini Preview] model=${MODEL_ID}`);
 
     // === CALCUL DES ALLURES (IDENTIQUE au plan complet) ===
     let vmaEstimate = getBestVMAEstimate(data.recentRaceTimes);
@@ -3953,7 +3865,7 @@ ${buildSafetyInstructions(data, (data.level || '').includes('Débutant'))}
     console.log('[Gemini Preview] Envoi prompt optimisé...');
     const result = await model.generateContent({
       contents: [{ role: "user", parts: [{ text: previewPrompt }] }],
-      generationConfig: { responseMimeType: "application/json" }
+      generationConfig: { responseMimeType: "application/json", maxOutputTokens: 8192 }
     });
 
     const response = await result.response;
@@ -4227,8 +4139,13 @@ ${buildSafetyInstructions(data, (data.level || '').includes('Débutant'))}
       validation.issues.forEach((i: any) => console.log(`  [${i.severity}] S${i.weekNumber}: ${i.message}`));
     }
 
-    // ─── Correction français par IA (non-bloquant) ───
-    await correctFrenchWithAI(plan);
+    // ─── Correction français : supprimée Sprint 4 (correctFrenchWithAI)
+    // Le LLM correcteur était redondant avec forceTutoiement (180L regex déterministes,
+    // L308-487) qui couvre déjà tutoiement, accords féminins, élisions, conjugaisons
+    // hybrides cassées. Sur 27 profils Sprint 1+2+3 audités : 1 seule faute observée
+    // (AUDIT-WOZNIAKMAEVA "tu introduire") non couverte par le prompt du LLM. Gain :
+    // -7 à -10s P95 sur le chemin critique UX preview. forceTutoiement reste appliqué
+    // exhaustivement dans postProcessWeekQuality + welcomeMessage/feasibility.
 
     // Nettoyer les markers internes (_dedupedFromSL) avant retour
     plan.weeks?.forEach((w: any) => w.sessions?.forEach((s: any) => delete s._dedupedFromSL));
@@ -4456,7 +4373,9 @@ ${buildDplusPromptBlock({ weekIdx: 0, weeklyElevationTarget: ctx.periodizationPl
   try {
     const apiKey = getApiKey();
     const genAI = new GoogleGenerativeAI(apiKey);
-    const model = genAI.getGenerativeModel({ model: "gemini-2.5-flash" });
+    const MODEL_ID = "gemini-3-flash";
+    const model = genAI.getGenerativeModel({ model: MODEL_ID });
+    console.log(`[Gemini RemainingWeeks] model=${MODEL_ID}`);
 
     // Générer chaque lot séquentiellement
     for (let batchIndex = 0; batchIndex < batches.length; batchIndex++) {
@@ -4971,8 +4890,9 @@ Retourne UNIQUEMENT un tableau JSON des semaines ${startWeek} à ${endWeek} :
     // Stocker les stats sur le plan pour monitoring
     (fullPlan as any).guardStats = guardStats;
 
-    // ─── Correction français par IA (non-bloquant) ───
-    await correctFrenchWithAI(fullPlan);
+    // ─── Correction français : supprimée Sprint 4 (correctFrenchWithAI) ───
+    // Cf justification site #1 (generatePreviewPlan). forceTutoiement déjà appliqué
+    // dans postProcessWeekQuality sur chaque session générée.
 
     // Nettoyer les markers internes avant retour
     fullPlan.weeks?.forEach((w: any) => w.sessions?.forEach((s: any) => delete s._dedupedFromSL));
@@ -5323,7 +5243,9 @@ export const adaptPlanFromFeedback = async (
   try {
     const apiKey = getApiKey();
     const genAI = new GoogleGenerativeAI(apiKey);
-    const model = genAI.getGenerativeModel({ model: "gemini-2.5-flash" });
+    const MODEL_ID = "gemini-3-flash";
+    const model = genAI.getGenerativeModel({ model: MODEL_ID });
+    console.log(`[Gemini Adapt] model=${MODEL_ID}`);
 
     // === RECALCUL DES ALLURES ===
     let vmaEstimate = getBestVMAEstimate(questionnaireData.recentRaceTimes);
@@ -5793,7 +5715,7 @@ ${upcomingSessions.length > 12 ? `\n... et ${upcomingSessions.length - 12} autre
     // Passer le system instruction comme systemInstruction (pas en user content)
     // pour que Gemini le traite comme instructions prioritaires
     const adaptationModel = genAI.getGenerativeModel({
-      model: "gemini-2.5-flash",
+      model: MODEL_ID,
       systemInstruction: systemWithContext,
     });
 

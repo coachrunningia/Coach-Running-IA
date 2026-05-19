@@ -296,7 +296,7 @@ export interface GenerationContext {
 
   // Métadonnées de génération
   generatedAt: string;
-  modelUsed: string; // "gemini-2.0-flash"
+  modelUsed: string; // "gemini-3-flash"
 }
 
 // --- BLOG TYPES ---
