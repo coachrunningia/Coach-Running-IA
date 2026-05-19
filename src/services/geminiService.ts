@@ -7,6 +7,7 @@ import { buildFootingVariant, detectFootingFlags } from './footingVariants';
 import { parseDurationMin, parseKm, calculateWeekTargetElevation } from './planUtils';
 import { applySessionScale, isMainSetSyncable } from './sessionScale';
 import { injectRaceSession } from './raceDayInject';
+import { buildDisciplineBlock } from './doctrine/buildDisciplineBlock';
 
 // --- UTILITAIRES DE CALCUL DES ALLURES ---
 
@@ -1959,6 +1960,49 @@ export const enforceFullPlanConstraints = (
       });
     });
   }
+
+  // --- 4. Anti-monotonie inter-semaines Marathon (Sprint Marathon 2026-05-20) ---
+  // Bug Thomas Weill : 3 SL @ allure Marathon (MP-LR) consécutives sur S13-15 →
+  // surentraînement (Pfitzinger Advanced Marathoning 3rd ed. : minSpacing = 2 sem).
+  // Guard objectif strict : ne s'applique qu'aux plans subGoal "marathon" (PAS semi,
+  // PAS trail, PAS perte de poids). Cf. feedback_scope_strict.
+  const subGoalLc = (questionnaireData?.subGoal || '').toLowerCase();
+  const isMarathonPlan = subGoalLc.includes('marathon') && !subGoalLc.includes('semi');
+  if (isMarathonPlan) {
+    // Détecte les SL "AS Marathon" (titre/mainSet contient "marathon" + allure spé + > 24 km).
+    const isMpLrPattern = (s: any): boolean => {
+      if (!s) return false;
+      if (s._raceDay === true) return false; // la course finale n'est jamais un MP-LR
+      if (s.type !== 'Sortie Longue') return false;
+      const km = parseKm(s.distance);
+      if (km < 24) return false; // MP-LR canonique = ≥ 24 km
+      const text = `${s.title || ''} ${s.mainSet || ''} ${s.intensity || ''}`.toLowerCase();
+      // Heuristiques : titre mention "marathon" / "AS Marathon" / "allure marathon"
+      // OU mainSet contient un % significatif d'allure MP (> 4 km @ allure spé).
+      return /allure\s*marathon|as\s*marathon|allure\s*sp[ée]cifique\s*marathon|@\s*mp\b|marathon[- ]pace/i.test(text);
+    };
+
+    let retypedCount = 0;
+    for (let i = 1; i < weeks.length; i++) {
+      const slPrev = (weeks[i - 1].sessions || []).find((s: any) =>
+        s.type === 'Sortie Longue' && isMpLrPattern(s)
+      );
+      const slCurr = (weeks[i].sessions || []).find((s: any) =>
+        s.type === 'Sortie Longue' && isMpLrPattern(s)
+      );
+      if (slPrev && slCurr) {
+        // Retyper slCurr en LR-EF (récupération MP).
+        slCurr.title = 'Sortie Longue EF (récupération entre 2 MP-LR)';
+        slCurr.mainSet = `${parseKm(slCurr.distance) || 24} km en endurance fondamentale continue, conversation possible. Pas de bloc allure marathon cette semaine — récupération active entre 2 séances qualité MP-LR.`;
+        slCurr.intensity = 'Facile';
+        retypedCount++;
+        console.log(`[Guard Anti-Monotonie Marathon] S${weeks[i].weekNumber} MP-LR consécutive détectée → retypée en LR-EF`);
+      }
+    }
+    if (retypedCount > 0) {
+      console.log(`[Guard Anti-Monotonie Marathon] ${retypedCount} séance(s) retypée(s)`);
+    }
+  }
 };
 
 /**
@@ -3783,6 +3827,8 @@ ${(isVKPreview || isTrailSteepPreview) ? `   - fondamental : Jogging (footing EF
 
 ${data.raceDate ? RACE_DAY_INSTRUCTION : ''}
 
+${buildDisciplineBlock(data.subGoal, data, paces)}
+
 ${goal.includes('Perte') ? (() => {
   const pdpVma = vmaEstimate?.vma || data.vma || 12;
   const pdpEfPace = paces?.efPace || '8:00';
@@ -4672,6 +4718,8 @@ ${(isVKRemaining || isTrailSteepRemaining) ? `   - fondamental : Jogging (footin
    - recuperation : Jogging (footing EF) uniquement + Renforcement léger. PAS d'intensité.`}
 
 ${data.raceDate ? RACE_DAY_INSTRUCTION : ''}
+
+${buildDisciplineBlock(data.subGoal, data, paces)}
 
 ${isPertePoidsProg ? (() => {
   const pdpVmaR = ctxVma || 12;
