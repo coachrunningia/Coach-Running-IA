@@ -580,10 +580,46 @@ const forceTutoiement = (text: string): string => {
 // Cf AUDIT-UTILITE-7-APPELS-LLM.md §#3 pour le détail complet.
 
 /**
+ * P1f (audit fin 2026-05-20) — Extrait le ratio "course / total" d'un mainSet
+ * Marche/Course (ex : "8 × (2 min course + 1 min marche)" → 2/3 = 0.667).
+ *
+ * Retourne null si pas de pattern détecté (fallback ratio par défaut côté caller).
+ * Le pattern accepte course/marche dans n'importe quel ordre.
+ */
+export const extractRunRatio = (mainSet: string): number | null => {
+  if (!mainSet || typeof mainSet !== 'string') return null;
+  // Pattern principal : "X min course + Y min marche" ou "X min marche + Y min course"
+  const m1 = mainSet.match(/(\d+)\s*min\s*course\s*[+\-/]\s*(\d+)\s*min\s*marche/i);
+  if (m1) {
+    const run = parseInt(m1[1]);
+    const walk = parseInt(m1[2]);
+    if (run > 0 && walk > 0) return run / (run + walk);
+  }
+  const m2 = mainSet.match(/(\d+)\s*min\s*marche\s*[+\-/]\s*(\d+)\s*min\s*course/i);
+  if (m2) {
+    const walk = parseInt(m2[1]);
+    const run = parseInt(m2[2]);
+    if (run > 0 && walk > 0) return run / (run + walk);
+  }
+  // Pattern alternatif (séparateur "/" sans "+") : "2 min / 1 min"
+  const m3 = mainSet.match(/(\d+)\s*min\s*(?:course|run)[^,.;]*?\/[^,.;]*?(\d+)\s*min\s*(?:marche|walk)/i);
+  if (m3) {
+    const run = parseInt(m3[1]);
+    const walk = parseInt(m3[2]);
+    if (run > 0 && walk > 0) return run / (run + walk);
+  }
+  return null;
+};
+
+/**
  * Recalcule la distance d'une séance à partir de la durée et du targetPace.
  * Corrige les erreurs fréquentes de Gemini sur les distances (surtout à pace lent).
+ *
+ * P1f (2026-05-20) : pour les séances Marche/Course, la distance "réelle" courue
+ * doit être pondérée par le ratio temps couru / temps total (sinon on affiche
+ * 6.6 km comme Lilian alors que seulement ~4 km étaient effectivement courus).
  */
-const recalculateSessionDistance = (session: any): void => {
+export const recalculateSessionDistance = (session: any): void => {
   if (session.type === 'Renforcement') return;
   if (!session.duration || !session.targetPace) return;
 
@@ -611,15 +647,29 @@ const recalculateSessionDistance = (session: any): void => {
   }
   if (paceMinPerKm <= 0) return;
 
-  // Calculer la distance correcte
-  const calculatedKm = durationMinutes / paceMinPerKm;
+  // ─── P1f : Ratio run/walk pour Marche/Course ───
+  // Sans pondération, une séance "60 min en alternant 2min course + 1min marche"
+  // affichait 60 / pace = 6.6 km, alors que la distance courue réelle ≈ 40 / pace = 4.4 km.
+  // Bug observé chez Lilian (10K Débutant cv=0) : "6.6 km / 1h00" affiché vs ~4 km réel.
+  // Pour Marche/Course, on pondère la distance par le ratio course/total extrait du mainSet.
+  // Si pattern non détecté → ratio par défaut 0.6 (heuristique conservatrice :
+  // les séances marche-course typiques sont ~2/3 course en moyenne).
+  let runRatio = 1; // par défaut : 100% couru
+  if (session.type === 'Marche/Course') {
+    const extracted = extractRunRatio(session.mainSet || '');
+    runRatio = extracted !== null ? extracted : 0.6;
+  }
+
+  // Calculer la distance correcte (pondérée par run ratio si Marche/Course)
+  const calculatedKm = (durationMinutes / paceMinPerKm) * runRatio;
   const currentKm = parseKm(session.distance);
 
   // Patch D: tolérance abaissée 20% → 10% pour forcer la cohérence dist × pace = duration
   // (les écarts >10% étaient massifs sur les plans audités, jusqu'à +78%)
   if (currentKm > 0 && Math.abs(calculatedKm - currentKm) / calculatedKm > 0.10) {
     const corrected = Math.round(calculatedKm * 10) / 10;
-    console.log(`[PostProcess] Distance corrigée (tol 10%): "${session.title}" ${currentKm}km → ${corrected}km (${durationMinutes}min à ${paceStr}/km)`);
+    const ctx = session.type === 'Marche/Course' ? ` [Marche/Course ratio ${runRatio.toFixed(2)}]` : '';
+    console.log(`[PostProcess] Distance corrigée (tol 10%): "${session.title}" ${currentKm}km → ${corrected}km (${durationMinutes}min à ${paceStr}/km)${ctx}`);
     session.distance = `${corrected} km`;
   } else if (!currentKm || currentKm === 0) {
     session.distance = `${Math.round(calculatedKm * 10) / 10} km`;
