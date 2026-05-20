@@ -29,12 +29,17 @@ import {
 } from 'lucide-react';
 
 // ─────────────────────────────────────────────────────────────────────────────
-// HELPERS DE CALCUL — NUTRITION TRAIL (inline, monolithique)
-// Sources : ACSM 2024, Jeukendrup 2014/2017, Tiller (ISSN 2019 Ultra),
+// HELPERS DE CALCUL — NUTRITION TRAIL V2 (inline, monolithique)
+// REFONTE V2 — audit 3 experts indépendants (mai 2026)
+//   Expert #1 : coach trail performance 20 ans (ISSN/ITRA/UTMB Academy)
+//   Expert #2 : nutrition clinique sport (SFNS/IOC, sécurité EAH/GI)
+//   Expert #3 : trail elite terrain 25 ans (UTMB/Tor/Hardrock)
+// Sources : ACSM 2024, Jeukendrup 2014/2017, Tiller JISSN 2019 (Ultra),
 // Hew-Butler 2015 (EAH), Minetti 2002 (coût énergétique pentes),
 // Vernillo 2017 (biomécanique trail), Costa 2017 (gut training),
 // ITRA Performance Index (D équivalente), Spriet 2014 / Grgic 2020 (caféine),
-// Pfeiffer 2012 (lassitude gustative), Stuempfle & Hoffman 2015 (GI ultra).
+// Pfeiffer 2012 (lassitude gustative), Stuempfle & Hoffman 2015 (GI ultra),
+// Lipman 2013 (MAM), Devries 2016 / Sims 2018 (oxydation glucidique femme).
 // ─────────────────────────────────────────────────────────────────────────────
 
 type Sexe = 'H' | 'F';
@@ -45,15 +50,188 @@ type Sudation = 'Faible' | 'Modéré' | 'Élevé' | 'Salty sweater';
 type Cafeine = 'Aucune' | '1-2 cafés/j' | '3+ cafés/j';
 type Altitude = 'Mer/<500m' | '500-1500m' | '1500-2500m' | '>2500m';
 
+// ─── V2 — 5 paliers durée (vs 7 précédemment) ───
+// Court <2h / Moyen 2-5h / Long 5-8h / TrèsLong 8-18h / Ultra >18h
+// Reformulation expert #1+#2 : alignement physiologique digestion + lassitude.
+type DurationPalier = 'court' | 'moyen' | 'long' | 'tresLong' | 'ultra';
+
+const getDurationPalier = (durationHours: number): DurationPalier => {
+  if (durationHours < 2) return 'court';
+  if (durationHours < 5) return 'moyen';
+  if (durationHours < 8) return 'long';
+  if (durationHours < 18) return 'tresLong';
+  return 'ultra';
+};
+
+const palierLabel = (p: DurationPalier): string => {
+  switch (p) {
+    case 'court': return 'Court (<2 h)';
+    case 'moyen': return 'Moyen (2-5 h)';
+    case 'long': return 'Long (5-8 h)';
+    case 'tresLong': return 'Très long (8-18 h)';
+    case 'ultra': return 'Ultra (>18 h)';
+  }
+};
+
+// ─── Cibles glucides g/h V2 (expert #1+#2) ───
+// Réduction vs V1 : la cible 2-3h passe de 70 à 60 g/h, la cible 12-24h passe
+// de 70 à 75 g/h (besoin reste élevé tant qu'on est en TrèsLong/Ultra +
+// digestion entraînée). Logique : durée prime, gut training rentre dans cible.
+const CARBS_TARGET_BY_PALIER: Record<DurationPalier, { min: number; target: number; max: number }> = {
+  court:    { min: 30, target: 40, max: 50 },
+  moyen:    { min: 50, target: 60, max: 75 },
+  long:     { min: 60, target: 70, max: 80 },
+  tresLong: { min: 65, target: 75, max: 80 },
+  ultra:    { min: 65, target: 75, max: 80 },
+};
+
+// ─── Apport boisson glucides g/h par palier (NEW V2) ───
+// La V1 ignorait l'apport boisson dans le décompte gels → 14 gels sur 27 km.
+// V2 : déduit l'apport isotonique (≈22-28 g/h) du besoin gels.
+const DRINK_CARBS_BY_PALIER: Record<DurationPalier, number> = {
+  court: 25, moyen: 22, long: 28, tresLong: 28, ultra: 28,
+};
+
+// ─── Hydratation plage mL/h V2 par palier (expert #2 — sécurité EAH) ───
+// Cap absolu 1000 mL/h conservé. Plafond 850 si F<65kg. Plafond 750 si F<55kg + climat frais.
+const HYDRATION_RANGE_BY_PALIER: Record<DurationPalier, { min: number; max: number }> = {
+  court:    { min: 350, max: 500 },
+  moyen:    { min: 400, max: 650 },
+  long:     { min: 450, max: 750 },
+  tresLong: { min: 500, max: 800 },
+  ultra:    { min: 500, max: 850 },
+};
+
+// ─── Ration sodium mg/h V2 par palier (NEW expert #2 — critique EAH) ───
+// V1 ne donnait que mg/L. V2 explicite la cible mg/h : c'est la métrique
+// physiologiquement pertinente pour éviter l'EAH (Hew-Butler 2015).
+const SODIUM_RANGE_BY_PALIER: Record<DurationPalier, { min: number; max: number }> = {
+  court:    { min: 300, max: 500 },
+  moyen:    { min: 400, max: 700 },
+  long:     { min: 500, max: 1000 },
+  tresLong: { min: 500, max: 1000 },
+  ultra:    { min: 500, max: 1000 },
+};
+// Si chaleur >25°C → cible borne haute du palier.
+// Si sweat-salty heavy (crampes + traces blanches) → 1000-1400 mg/h palier Long+.
+
+// ─── Cap gels par palier V2 (expert #1 + tests 11 profils) ───
+// Hard cap absolu 1 gel / 45 min (= 1.33 gel/h max).
+// Cap supplémentaire : TrèsLong 18-20 gels max, Ultra 30+ acceptable.
+const GEL_PALIER_CAP: Record<DurationPalier, number> = {
+  court: 4, moyen: 8, long: 14, tresLong: 20, ultra: 40,
+};
+const GEL_HOURLY_CAP = 1.33; // 1 gel / 45 min
+
+// ─── Solides listes V2 (expert #1+#3 — liste élargie) ───
+const SOLIDES_OK_H3_PLUS: string[] = [
+  'Pommes de terre cuites salées',
+  'Crackers simples (type TUC, pas fromage)',
+  'Pain blanc (idéal demi-sandwich miel/confiture)',
+  'Riz cuit salé',
+  'Bouillon (~500 mg Na/portion)',
+  'Banane mûre',
+  'Pâte de fruits',
+  'Compote',
+  'Gnocchis nature/sel',
+  'Boudoirs / biscuits secs sucrés',
+  'Fruits secs moelleux (abricot, datte)',
+];
+
+const SOLIDES_OK_H6_PLUS: string[] = [
+  ...SOLIDES_OK_H3_PLUS,
+  'Demi-sandwich jambon maigre OU miel',
+  'Coca dégazé (clé ultra >6 h)',
+  'Soupe instantanée (miso, poulet vermicelles)',
+];
+
+const SOLIDES_BV_ONLY: string[] = [
+  ...SOLIDES_OK_H6_PLUS,
+  'Saucisson (1-2 tranches fines MAX)',
+  'Fromage de chèvre/comté petite quantité',
+  'Œuf dur (BV réfrigérée UNIQUEMENT)',
+  'Fromage frais (BV réfrigérée UNIQUEMENT)',
+];
+
+const SOLIDES_INTERDITS_H_INF_6: string[] = [
+  'Saucisson, charcuterie sèche',
+  'Fromage gras (camembert, brie, gruyère)',
+  'Noix, oléagineux gras',
+  'Chocolat noir >70%',
+  'Barres protéinées industrielles (alcools de sucre)',
+];
+
+// ─── Solides max par palier V2 (NEW) ───
+// Plafond raisonnable pour éviter sur-charge GI. base/hauteMontagne.
+const SOLIDES_MAX_BY_PALIER: Record<DurationPalier, { base: number; hauteMontagne: number }> = {
+  court:    { base: 0, hauteMontagne: 0 },
+  moyen:    { base: 1, hauteMontagne: 2 },
+  long:     { base: 2, hauteMontagne: 3 },
+  tresLong: { base: 4, hauteMontagne: 7 },
+  ultra:    { base: 5, hauteMontagne: 8 },
+};
+
+// ─── Protéines détaillées par palier V2 (expert #3) ───
+// Reformulation clé : protéines = CONCENTRÉ en BV (pas en continu).
+// Continu 2-3 g/h max via boisson/gel mixte entre BV.
+type ProteinsConfig = {
+  required: boolean;
+  optional: boolean;
+  gPerHourAverage: number;
+  gPerBV: number;
+  sources: string[];
+  uxMessage: string;
+};
+
+const PROTEINS_BY_PALIER: Record<DurationPalier, ProteinsConfig> = {
+  court: {
+    required: false, optional: false, gPerHourAverage: 0, gPerBV: 0,
+    sources: [],
+    uxMessage: 'Pas de protéines en course <5 h.',
+  },
+  moyen: {
+    required: false, optional: false, gPerHourAverage: 0, gPerBV: 0,
+    sources: [],
+    uxMessage: 'Pas de protéines en course <5 h.',
+  },
+  long: {
+    required: false, optional: true, gPerHourAverage: 5, gPerBV: 15,
+    sources: ['BCAA dans boisson', 'Whey isolate si toléré'],
+    uxMessage: 'Protéines optionnelles dès 5 h. Apport principalement en base de vie (15-20 g), pas en continu.',
+  },
+  tresLong: {
+    required: true, optional: false, gPerHourAverage: 7, gPerBV: 25,
+    sources: ['Poulet émietté en BV', 'Blanc de dinde tranche fine en BV', 'Jambon maigre en BV', 'Shake protéiné digeste'],
+    uxMessage: 'Apport protéines = concentré en base de vie (25 g/BV), pas en continu. Entre BV : 2-3 g/h tolérés via boisson/gel mixte.',
+  },
+  ultra: {
+    required: true, optional: false, gPerHourAverage: 8.5, gPerBV: 30,
+    sources: ['Jambon maigre + Bouillon protéiné en BV', 'Poulet émietté en BV', 'Œuf dur + fromage frais (BV réfrigérée uniquement)'],
+    uxMessage: 'Concentré en base de vie (30 g/BV). Œuf dur + fromage frais autorisés UNIQUEMENT en BV réfrigérée (risque salmonella/listeria sinon).',
+  },
+};
+
+// ─── Bases de vie seuils V2 (NEW — ajustement tests 11 profils) ───
+const getNbBVRecommande = (durationHours: number, denivelePos: number): number => {
+  if (durationHours < 4) return 0;
+  if (durationHours < 8) return 1;
+  if (durationHours < 14) return denivelePos > 2500 ? 2 : 1;
+  if (durationHours < 20) return denivelePos > 4500 ? 3 : 2;
+  return Math.min(6, Math.floor(durationHours / 5));
+};
+
 interface CalcResult {
   // Course
   distanceKm: number;
   dPlus: number;
   dMinus: number;
-  distanceEquivalenteITRA: number;   // km équivalent ITRA
+  distanceEquivalenteITRA: number;
   durationSec: number;
   durationLabel: string;
   durationHours: number;
+  // V2 — palier détecté
+  durationPalier: DurationPalier;
+  durationPalierLabel: string;
   // Énergie
   kcalPerHour: number;
   totalKcal: number;
@@ -63,30 +241,39 @@ interface CalcResult {
   // Hydratation
   hydrationPerHour: number;
   totalHydration: number;
+  hydrationRange: { min: number; max: number }; // V2 plage palier
   // Sodium
   sodiumPerLiter: number;
   totalSodium: number;
+  sodiumRange: { min: number; max: number };    // V2 mg/h palier
+  sodiumPerHour: number;                          // V2 cible mg/h
   // Caféine
   caffeinePreRace: number;
-  caffeineInRaceMgPerDose: number;     // dose par prise toutes les 2-3 h
+  caffeineInRaceMgPerDose: number;
   caffeineDoseMgPerKgTotal: number;
-  // Protéines (>4 h)
-  proteinsPerHour: number;             // 0 si effort court
+  // Protéines
+  proteinsPerHour: number;
   totalProteins: number;
+  proteinsConfig: ProteinsConfig;                 // V2 détail palier
   // Pack
   nbGels: number;
   nbBidons: number;
   nbCapsSel: number;
+  nbSolides: number;                              // V2 solides recommandés
+  solidesList: string[];                          // V2 selon palier
   // Mode / warnings
   premierMode: boolean;
+  isPremierUltra: boolean;                        // V2 checkbox dédiée
   warnings: string[];
+  clinicalWarnings: string[];                     // V2 warnings cliniques séparés
   // Timeline
   timeline: { window: string; instruction: string; tone: 'normal' | 'warning' | 'highlight' }[];
   // Conditionnels
   basesDeVie: number;
-  showPlanB: boolean;        // effort >6 h
-  showLassitude: boolean;    // effort >8 h
-  showProteins: boolean;     // effort >4 h
+  basesDeVieRecommande: number;                   // V2 reco selon palier+D+
+  showPlanB: boolean;
+  showLassitude: boolean;
+  showProteins: boolean;
 }
 
 // hh:mm:ss → secondes
@@ -110,26 +297,21 @@ const distanceEquivalenteITRA = (distanceKm: number, dPlus: number, dMinus: numb
   return Math.round((distanceKm + dPlus / 100 + dMinus / 400) * 10) / 10;
 };
 
-// Glucides g/h trail — plages par durée d'effort (ACSM 2024, Jeukendrup 2014/2017,
-// Tiller JISSN 2019 ultra, Costa 2017).
-// Plages plus larges que marathon — l'intensité trail (55-70% VO2max) est plus basse
-// mais la durée prend le relais comme driver des besoins glucidiques.
-// Conserver une cible réaliste (borne basse-médiane) — éviter le mythe "120 g/h pour tous".
+// ─── Glucides g/h trail V2 — plages par palier durée (5 paliers expert #1+#2) ───
+// Signature historique conservée (compat tests). En interne : map → palier.
+// V1 utilisait 7 buckets, V2 = 5 paliers cohérents avec physiologie digestion.
 const carbsByTrailDuration = (durationSec: number): { min: number; max: number; target: number } => {
   const h = durationSec / 3600;
   if (h < 1) return { min: 0, max: 30, target: 15 };
-  if (h < 2) return { min: 30, max: 60, target: 45 };
-  if (h < 3) return { min: 60, max: 90, target: 70 };
-  if (h < 6) return { min: 60, max: 90, target: 75 };
-  if (h < 12) return { min: 70, max: 100, target: 80 };    // lassitude possible mais besoin élevé
-  if (h < 24) return { min: 60, max: 90, target: 70 };     // digestion saturée
-  return { min: 50, max: 80, target: 60 };                 // 24h+ : aliments vrais dominants
+  const palier = getDurationPalier(h);
+  return CARBS_TARGET_BY_PALIER[palier];
 };
 
-// Matrice hydratation mL/h trail × T° (Sawka 2007 + Hew-Butler 2015).
-// Identique base marathon, ajustée altitude/humidité ensuite.
-// Pondération poids ±0.5%/kg autour 70 kg, capé 0.85-1.25×.
-// Cap absolu hyponatrémie d'effort : 1000 mL/h (Hew-Butler 2015).
+// ─── Hydratation mL/h trail V2 — plages par palier ───
+// Conserve la signature historique (compat tests). On combine palier + sudation × T°
+// pour rester réactif aux conditions, tout en respectant les plages V2 par palier.
+// Cap absolu 1000 mL/h conservé (Hew-Butler 2015 EAH).
+// La pondération poids reste ±0.5 %/kg autour 70 kg, capée 0.85-1.25×.
 const hydrationByProfil = (
   sudation: Sudation,
   tempC: number,
@@ -150,7 +332,9 @@ const hydrationByProfil = (
   return ml;
 };
 
-// Sodium mg/L selon profil sudation
+// ─── Sodium mg/L selon profil sudation (conservé) ───
+// Note V2 : la métrique pertinente est mg/h (voir SODIUM_RANGE_BY_PALIER ci-dessus),
+// mais la concentration mg/L reste utile pour formuler la boisson.
 const sodiumByProfil = (sudation: Sudation): number => {
   const table: Record<Sudation, number> = {
     Faible: 400,
@@ -208,7 +392,9 @@ const kcalPerHourTrail = (
   return Math.min(KCAL_PER_HOUR_TRAIL_CAP, Math.max(0, Math.round(kcal)));
 };
 
-// Calcul principal
+// ─── Calcul principal V2 (refonte 22 ajustements 3 experts) ───
+// Bug corrigé V1 → V2 : 27 km / 4 h donnait 14 gels (formule ignorait apport
+// boisson isotonique). V2 : formule gels déduit boisson + solides + BV.
 const computeNutrition = (params: {
   sexe: Sexe;
   poidsKg: number;
@@ -225,26 +411,27 @@ const computeNutrition = (params: {
   expNutrition: ExpNutrition;
   sudation: Sudation;
   cafeineHabit: Cafeine;
+  isPremierUltra?: boolean; // V2 — checkbox dédiée mode "Premier ultra"
 }): CalcResult => {
   const {
     sexe, poidsKg, premierMode, distanceKm, dPlus, dMinus, durationSec,
     tempC, hygrometrie, altitude, basesDeVie,
     expNutrition, sudation, cafeineHabit,
   } = params;
+  const isPremierUltra = params.isPremierUltra ?? false;
 
   const warnings: string[] = [];
+  const clinicalWarnings: string[] = [];
   const durationHours = durationSec / 3600;
   const dEq = distanceEquivalenteITRA(distanceKm, dPlus, dMinus);
+  const palier = getDurationPalier(durationHours);
 
-  // ─── B12 : effort exceptionnel >30 h ───
-  // La validation autorise jusqu'à 50 h (Hardrock, Tor des Géants en marge) mais
-  // au-delà de 30 h, l'outil ne couvre pas correctement sommeil/MAM/dépression
-  // nutritionnelle → on oriente explicitement vers un diététicien spécialisé.
+  // ─── Effort exceptionnel >30 h ───
   if (durationHours > 30) {
     warnings.push("Effort exceptionnel (>30 h) : cet outil donne des estimations indicatives mais ne couvre pas le sommeil, la dépression nutritionnelle et la gestion temporelle (jour/nuit). Pour ce type de course, considère une approche personnalisée avec un diététicien-nutritionniste du sport spécialisé ultra.");
   }
 
-  // ─── Glucides ───
+  // ─── Glucides V2 — table par palier (5 paliers) ───
   const carbsBase = carbsByTrailDuration(durationSec);
   let target = carbsBase.target;
   let carbsMin = carbsBase.min;
@@ -254,12 +441,10 @@ const computeNutrition = (params: {
     target = Math.max(30, Math.round(target * 0.8));
     carbsMin = Math.max(20, Math.round(carbsMin * 0.8));
     carbsMax = Math.max(carbsMin + 5, Math.round(carbsMax * 0.8));
-    warnings.push("Cible glucides réduite de 20% car aucune expérience nutrition en course. Sur trail long, un abandon GI est plus probable qu'une perte de chrono — progresse graduellement (Costa 2017).");
+    warnings.push("Cible glucides réduite de 20 % car aucune expérience nutrition en course. Sur trail long, un abandon GI est plus probable qu'une perte de chrono — progresse graduellement (Costa 2017).");
   }
 
-  // ─── B11 : différenciation H/F glucides (Devries 2016, Sims 2018) ───
-  // Femmes oxydent ~10 % moins de glucides exogènes en moyenne. On applique -10%
-  // uniquement si la cible est >0 (pas sur les mouth rinse <1h).
+  // ─── Différenciation H/F glucides (Devries 2016, Sims 2018) ───
   if (sexe === 'F' && target > 0) {
     target = Math.max(15, Math.round(target * 0.9));
     carbsMin = Math.max(10, Math.round(carbsMin * 0.9));
@@ -267,9 +452,7 @@ const computeNutrition = (params: {
     warnings.push("Cible glucides ajustée pour profil femme (-10 %) — capacité d'oxydation glucidique exogène en moyenne plus basse que chez l'homme (Devries 2016, Sims 2018). Adapte selon ton ressenti et ton gut training.");
   }
 
-  // ─── B3 : Mode Premier ultra — cap à 60 g/h max (peu importe la durée) ───
-  // On garde une plage utile 50-60 g/h (au lieu de min=max=60 qui faisait perdre
-  // toute fourchette au user) pour rester informatif tout en plafonnant la cible.
+  // ─── Mode Premier (générique) cap 60 g/h max + plage 50-60 ───
   if (premierMode && target > 60) {
     target = 60;
     carbsMax = 60;
@@ -277,36 +460,67 @@ const computeNutrition = (params: {
     warnings.push("Mode Premier trail/ultra : cible glucides plafonnée à 60 g/h (plage 50-60) pour limiter le risque GI distress. Première priorité : finir, pas optimiser.");
   }
 
-  if (target >= 60) {
-    warnings.push("Cible ≥ 60 g/h : tes gels DOIVENT contenir un mélange glucose:fructose (ratio 2:1 ou 1:0.8, mention sur l'étiquette). Sinon plafond physiologique 60 g/h via SGLT1 seul (Jeukendrup 2014).");
+  // ─── V2 — Mode "Premier ultra" dédié (expert #3 ajustement #22) ───
+  // Cap auto 60 g/h sur TrèsLong/Ultra, force solides H2, hydratation borne haute.
+  if (isPremierUltra && (palier === 'tresLong' || palier === 'ultra')) {
+    if (target > 60) {
+      target = 60;
+      carbsMax = 60;
+      carbsMin = 50;
+    }
+    warnings.push("Premier ultra : objectif = FINIR, pas optimiser. Ne pas dépasser 60 g/h. Force solides dès H2, hydratation borne haute du palier. Tag : First-timer friendly.");
   }
+
+  // ─── Warning ratio glucose:fructose 2:1 si target ≥ 60 g/h (expert #2) ───
+  // UX traduit jargon : "maltodextrine + fructose" sur étiquette.
+  if (target >= 60) {
+    warnings.push("Cible ≥ 60 g/h : tes gels DOIVENT contenir un mélange glucose:fructose (ratio 2:1 ou 1:0.8, mention sur l'étiquette — chercher 'maltodextrine + fructose'). Sinon plafond physiologique 60 g/h via SGLT1 seul (Jeukendrup 2014).");
+    clinicalWarnings.push("Choisir gels mentionnant 'maltodextrine + fructose' sur l'étiquette (ratio 2:1). Sans ce mélange, plafond physiologique 60 g/h via SGLT1.");
+  }
+
+  // ─── Warning gut training si target > 60 g/h (expert #2 — Costa 2017) ───
+  if (target > 60) {
+    clinicalWarnings.push("Cible >60 g/h nécessite gut training : 4-6 semaines min, 8-10 semaines pour ultra >12 h (Costa 2017).");
+  }
+
   const carbsPerHour = { min: carbsMin, max: carbsMax, target };
   const totalCarbs = Math.round((target * durationSec) / 3600);
 
-  // ─── Hydratation ───
+  // ─── Hydratation V2 — plage palier + sudation × T° ───
   let hydrationPerHour = hydrationByProfil(sudation, tempC, poidsKg);
   if (hygrometrie === 'Humide') hydrationPerHour = Math.round(hydrationPerHour * 1.1);
   if (hygrometrie === 'Sec') hydrationPerHour = Math.round(hydrationPerHour * 0.95);
-  // Ajustement altitude — Péronnet : +10% besoins hydratation au-delà 1500 m
   if (altitude === '1500-2500m') {
     hydrationPerHour = Math.round(hydrationPerHour * 1.1);
-    warnings.push("Altitude 1500-2500 m : besoins hydratation +10% (moins si tu es acclimaté >2 sem). Surveille soif + couleur urine.");
+    warnings.push("Altitude 1500-2500 m : besoins hydratation +10 % (moins si tu es acclimaté >2 sem). Surveille soif + couleur urine.");
   }
   if (altitude === '>2500m') {
     hydrationPerHour = Math.round(hydrationPerHour * 1.15);
-    warnings.push("Altitude >2500 m : besoins hydratation +15%, oxydation glucidique majorée. Si tu n'es pas acclimaté ≥2 semaines, l'effort sera nettement plus dur.");
-    // ─── B10 : warning MAM si altitude >2500m (Lipman 2013) ───
+    warnings.push("Altitude >2500 m : besoins hydratation +15 %, oxydation glucidique majorée. Si tu n'es pas acclimaté ≥2 semaines, l'effort sera nettement plus dur.");
     warnings.push("⚠️ Altitude >2500 m : risque de Mal Aigu des Montagnes (MAM). Symptômes : maux de tête, nausées, insomnie, perte d'appétit. Acclimatation 2 semaines préalable recommandée. Si symptômes pendant la course : redescendre immédiatement. Source : Lipman 2013.");
   }
-  if (hydrationPerHour > 1000) hydrationPerHour = 1000;
+
+  // ─── V2 — Plafonds femme légère / climat frais (expert #3) ───
+  // Cap absolu 1000 mL/h conservé.
+  // F<65kg → plafond 850 mL/h. F<55kg + climat frais (T<18) → plafond 750 mL/h.
+  let hydrationCap = 1000;
+  if (sexe === 'F') {
+    if (poidsKg < 55 && tempC < 18) {
+      hydrationCap = Math.min(hydrationCap, 750);
+      clinicalWarnings.push("Femme <55 kg climat frais/pluvieux : plafond 750 mL/h. Risque EAH amplifié (sueur réduite, soif stable, surdose eau possible).");
+    } else if (poidsKg < 65) {
+      hydrationCap = Math.min(hydrationCap, 850);
+    }
+  }
+  if (hydrationPerHour > hydrationCap) hydrationPerHour = hydrationCap;
   if (hydrationPerHour > 800) {
     warnings.push("Hydratation > 800 mL/h : surveille les signes d'hyponatrémie (nausées, confusion, gonflement doigts). Cap absolu 1000 mL/h — boire à la soif est ta meilleure boussole.");
   }
   if (tempC >= 25) {
-    warnings.push("Trail par >25°C : ralentis ton allure de 15-20%. Surveille l'épuisement thermique (frissons paradoxaux, désorientation).");
+    warnings.push("Trail par >25°C : ralentis ton allure de 15-20 %. Surveille l'épuisement thermique (frissons paradoxaux, désorientation).");
   }
   if (tempC >= 25 && cafeineHabit !== 'Aucune') {
-    warnings.push("Chaleur + caféine = thermogenèse accrue. Réduis ta dose pré-course de 30%.");
+    warnings.push("Chaleur + caféine = thermogenèse accrue. Réduis ta dose pré-course de 30 %.");
   }
   if (tempC <= 8) {
     warnings.push("Par temps froid, la soif est trompeuse (Kenefick 2004). Bois selon ton plan chronométré, pas selon la soif uniquement.");
@@ -315,29 +529,38 @@ const computeNutrition = (params: {
     warnings.push("Effort >4 h : risque hyponatrémie d'effort (EAH) plus élevé, surtout pour les femmes et coureurs lents. Ne dépasse JAMAIS 1 L/h. Urine claire abondante = signe de SUR-hydratation.");
   }
 
-  // ─── B5 : Total hydratation — pondération pauses sur ultra >12 h ───
-  // Le cap horaire 1000 mL/h × durée brute donnait des totaux anxiogènes (28 L sur
-  // 28 h, profil Diagonale) qui sont pro-EAH. Réalité Hoffman 2014 : moyenne réelle
-  // 400-600 mL/h sur ultra car bases de vie + cap horaire jamais maintenu 100 % du
-  // temps. On pondère par 0.85 au-delà de 12 h pour refléter ce comportement réel.
+  // ─── V2 — Mode Premier ultra : forcer borne haute hydratation du palier ───
+  if (isPremierUltra && (palier === 'tresLong' || palier === 'ultra')) {
+    const targetHaute = Math.min(hydrationCap, HYDRATION_RANGE_BY_PALIER[palier].max);
+    if (hydrationPerHour < targetHaute) hydrationPerHour = targetHaute;
+  }
+
   const hydrationPauseFactor = durationHours > 12 ? 0.85 : 1;
   const totalHydration = Math.round((hydrationPerHour * durationSec / 3600) * hydrationPauseFactor);
   if (durationHours > 12) {
     warnings.push("Total hydratation estimé sur la base d'un débit moyen réel (cap horaire pondéré -15 % pour bases de vie + variations d'effort) — c'est une estimation pédagogique, pas un objectif strict. La règle d'or reste : bois à la soif.");
   }
 
-  // ─── Sodium ───
+  // ─── Sodium V2 — mg/L (concentration boisson) + mg/h (palier expert #2) ───
   let sodiumPerLiter = sodiumByProfil(sudation);
   if (premierMode && sodiumPerLiter > 1300) sodiumPerLiter = 1300;
   const totalSodium = Math.round((sodiumPerLiter * totalHydration) / 1000);
 
-  // ─── Caféine ───
-  // ─── B1 : cap dur 6 mg/kg/24 h (Grgic 2020) ───
-  // Avant : on calculait la dose totale puis on affichait juste un warning si dépassement
-  // → un coureur novice pouvait suivre 16 mg/kg. Maintenant on cape RÉELLEMENT le nombre
-  // de prises en course pour ne jamais dépasser 6 mg/kg/24 h, et on signale le cap.
+  // V2 : mg/h cible par palier (vraie métrique anti-EAH). Borne haute si chaud.
+  const sodiumRange = SODIUM_RANGE_BY_PALIER[palier];
+  let sodiumPerHour = Math.round((sodiumRange.min + sodiumRange.max) / 2);
+  if (tempC >= 25) sodiumPerHour = sodiumRange.max;
+  if (sudation === 'Salty sweater') {
+    // Heavy sweater : possibilité 1000-1400 mg/h sur Long+
+    if (palier === 'long' || palier === 'tresLong' || palier === 'ultra') {
+      sodiumPerHour = Math.max(sodiumPerHour, 1000);
+      clinicalWarnings.push("Sweat-salty heavy + palier Long+ : possibilité d'aller à 1000-1400 mg/h. Si crampes récurrentes + taches blanches vêtements → test sweat sodium recommandé.");
+    }
+  }
+
+  // ─── Caféine — cap dur 6 mg/kg/24 h (Grgic 2020) ───
   let { preRaceMg: caffeinePreRace, inRaceMgPerDose: caffeineInRaceMgPerDose, mgPerKgTotal } =
-    caffeineDose(poidsKg, cafeineHabit, premierMode, durationSec);
+    caffeineDose(poidsKg, cafeineHabit, premierMode || isPremierUltra, durationSec);
   const CAFFEINE_HARD_CAP_MG_PER_KG = 6;
   const maxTotalMg = poidsKg * CAFFEINE_HARD_CAP_MG_PER_KG;
   if (caffeineInRaceMgPerDose > 0 && durationHours >= 3) {
@@ -353,21 +576,25 @@ const computeNutrition = (params: {
       }
     }
   } else if (mgPerKgTotal > CAFFEINE_HARD_CAP_MG_PER_KG) {
-    // Effort court : on cape la dose pré-course
     const cappedPre = Math.round((maxTotalMg) / 5) * 5;
     caffeinePreRace = Math.min(caffeinePreRace, cappedPre);
     mgPerKgTotal = Math.round((caffeinePreRace / poidsKg) * 10) / 10;
     warnings.push("Dose caféine plafonnée à 6 mg/kg/24 h (Grgic 2020).");
   }
 
-  // ─── Protéines (>4 h) ───
-  const showProteins = durationHours >= 4;
-  const proteinsPerHour = showProteins ? 7 : 0;     // 5-10 g/h cible mid-range (Tiller 2019)
+  // ─── V2 — Cap caféine 400 mg/24 h cumulé (expert #3) ───
+  if (caffeinePreRace > 0 || caffeineInRaceMgPerDose > 0) {
+    clinicalWarnings.push("Cap caféine : 400 mg / 24 h cumulé. Compter gels caféinés (~50-100 mg/gel) + Coca (~30 mg/canette) + boisson énergétique.");
+  }
+
+  // ─── Protéines V2 — par palier (expert #3 reformulation BV-centric) ───
+  const proteinsConfig = PROTEINS_BY_PALIER[palier];
+  const showProteins = proteinsConfig.required || proteinsConfig.optional;
+  const proteinsPerHour = proteinsConfig.gPerHourAverage;
   const totalProteins = Math.round(proteinsPerHour * Math.max(0, durationHours - 3));
 
   // ─── Énergie (Minetti) ───
   const kcalPerHour = kcalPerHourTrail(poidsKg, dPlus, dMinus, durationSec);
-  // ─── B2 : warning si cap kcal/h appliqué (formule Minetti diverge VK / D+ raides) ───
   if (kcalPerHour >= KCAL_PER_HOUR_TRAIL_CAP) {
     const mGrimpesParH = dPlus / Math.max(0.01, durationHours);
     if (mGrimpesParH > 800) {
@@ -376,9 +603,47 @@ const computeNutrition = (params: {
   }
   const totalKcal = Math.round((kcalPerHour * durationSec) / 3600);
 
-  // ─── Pack ───
+  // ─── V2 — Solides recommandés selon palier + D+ (expert #1+#3) ───
+  const hauteMontagne = dPlus > 4500;
+  const solidesMax = hauteMontagne
+    ? SOLIDES_MAX_BY_PALIER[palier].hauteMontagne
+    : SOLIDES_MAX_BY_PALIER[palier].base;
+  // Si "Premier ultra" force solides dès H2 → ajouter +1 sur palier moyen+
+  let nbSolides = solidesMax;
+  if (isPremierUltra && (palier === 'moyen' || palier === 'long')) {
+    nbSolides = Math.max(nbSolides, 2);
+  }
+  // Liste solides selon durée
+  let solidesList: string[] = [];
+  if (durationHours >= 6) {
+    solidesList = SOLIDES_OK_H6_PLUS;
+  } else if (durationHours >= 3) {
+    solidesList = SOLIDES_OK_H3_PLUS;
+  }
+
+  // ─── V2 — Bases de vie reco selon palier + D+ ───
+  const basesDeVieRecommande = getNbBVRecommande(durationHours, dPlus);
+
+  // ─── V2 — Pack — Formule gels CORRIGÉE (déduit boisson + solides + BV) ───
+  // V1 : `(totalCarbs - 30 - basesDeVie * 40) / 25`
+  //   → 27 km / 4 h : (75*4 - 30 - 0) / 25 = 270/25 = 11 (+1 ceil = 11-12)
+  //   → réalité : on a ~22 g/h boisson * 4h = 88 g de boisson, + 1 solide = 15 g
+  //   → besoin gels = (270 - 88 - 15) / 25 ≈ 7 gels (vs 11 V1)
+  // V2 :
+  const drinkCarbsPerH = DRINK_CARBS_BY_PALIER[palier];
+  const apportBoisson = Math.round(drinkCarbsPerH * durationHours);
+  // 1 solide ~15 g toutes 1 h après H2 (max nbSolides)
+  const solidesPotentiel = Math.max(0, Math.floor(durationHours - 2));
+  const nbSolidesEffectif = Math.min(nbSolides, solidesPotentiel);
+  const apportSolides = nbSolidesEffectif * 15;
+  const apportBV = basesDeVie * 40;
   const carbsPerGel = 25;
-  const nbGels = Math.max(0, Math.ceil((totalCarbs - 30 - basesDeVie * 40) / carbsPerGel));
+  const gelsCarbsNeeded = Math.max(0, totalCarbs - apportBoisson - apportSolides - apportBV);
+  const nbGelsRaw = Math.ceil(gelsCarbsNeeded / carbsPerGel);
+  const palierGelMax = GEL_PALIER_CAP[palier];
+  const hourlyCap = Math.floor(durationHours * GEL_HOURLY_CAP);
+  const nbGels = Math.min(nbGelsRaw, hourlyCap, palierGelMax);
+
   const bidonMl = 500;
   const nbBidons = Math.max(1, Math.ceil(totalHydration / bidonMl / Math.max(1, basesDeVie + 1)));
   const sodiumPerCap = 500;
@@ -386,13 +651,21 @@ const computeNutrition = (params: {
     ? Math.max(1, Math.ceil((totalSodium - sodiumPerLiter * (totalHydration / 1000) * 0.7) / sodiumPerCap))
     : 0;
 
+  // ─── V2 — Warnings cliniques (expert #2) ───
+  clinicalWarnings.push("1 gel = 100-150 mL eau dans les 5 min, JAMAIS à sec. Règle clinique #1 anti-GI.");
+  clinicalWarnings.push("Sodium TOUJOURS dans/avec boisson glucidique. Pastilles sel pures = inefficaces seules.");
+  clinicalWarnings.push("Dernier gel >60 min AVANT départ OU au top départ, JAMAIS entre (risque rebound hypoglycémique).");
+  if (durationHours >= 3) {
+    clinicalWarnings.push("Anti-métronome : 1 gel par repère mémorable (sommet, refuge, base de vie) + 1 toutes les 40-50 min idéalement. Backup alarme montre 30-40 min en complément. Bois aux passages roulants/faciles, gorgées toutes les 15-20 min.");
+  }
+
   // ─── Timeline ───
   const timeline: { window: string; instruction: string; tone: 'normal' | 'warning' | 'highlight' }[] = [];
   timeline.push({
     window: 'H-30 → H-0',
     instruction: caffeinePreRace > 0
       ? `Hydratation 200-400 mL eau plate. Caféine : ${caffeinePreRace} mg (≈ ${Math.round(caffeinePreRace / 80)} expressos ou 1 gélule) 45-60 min avant le départ.`
-      : `Hydratation 200-400 mL d'eau plate. ${premierMode ? 'Pas de caféine sur premier trail/ultra (trop d\'inconnues GI).' : 'Pas de caféine.'}`,
+      : `Hydratation 200-400 mL d'eau plate. ${(premierMode || isPremierUltra) ? 'Pas de caféine sur premier trail/ultra (trop d\'inconnues GI).' : 'Pas de caféine.'}`,
     tone: 'highlight',
   });
   timeline.push({
@@ -410,30 +683,36 @@ const computeNutrition = (params: {
   if (durationHours >= 1) {
     timeline.push({
       window: 'H1 → H3',
-      instruction: `1 gel toutes les ~25-35 min (cible ${carbsPerHour.target} g/h). Boisson Na+ ${sodiumPerLiter} mg/L en relais. Démarre l'alternance liquide/solide léger dès H2.`,
+      instruction: `1 gel toutes les ~40-50 min (cible ${carbsPerHour.target} g/h, max 1 gel / 45 min). Boisson Na+ ${sodiumPerLiter} mg/L en relais. Démarre l'alternance liquide/solide léger dès H2.`,
       tone: 'normal',
     });
   }
   if (durationHours >= 3) {
-    timeline.push({
-      window: 'H3+',
-      instruction: showProteins
-        ? `Démarre les PROTÉINES : ${proteinsPerHour} g/h en continu (gel protéiné OU 30 g saucisson sec OU 1 part fromage). Bolus 15-25 g aux bases de vie.`
-        : `Maintiens le rythme glucides ${carbsPerHour.target} g/h. Alterne arômes pour limiter la lassitude.`,
-      tone: 'highlight',
-    });
+    if (proteinsConfig.required || proteinsConfig.optional) {
+      timeline.push({
+        window: 'H3+',
+        instruction: `${proteinsConfig.uxMessage} Maintiens glucides ${carbsPerHour.target} g/h. Alterne arômes pour limiter la lassitude.`,
+        tone: 'highlight',
+      });
+    } else {
+      timeline.push({
+        window: 'H3+',
+        instruction: `Maintiens le rythme glucides ${carbsPerHour.target} g/h. Alterne arômes pour limiter la lassitude.`,
+        tone: 'highlight',
+      });
+    }
   }
   if (durationHours >= 6) {
     timeline.push({
       window: 'H6+',
-      instruction: "Bascule progressive vers SALÉ dominant (saucisson, fromage, crackers, soupe). Le sucré devient écœurant (Pfeiffer 2012). Bouillon chaud = reset gustatif efficace.",
+      instruction: "Bascule progressive vers SALÉ dominant (saucisson 1-2 tranches fines en BV, fromage petite portion, crackers, soupe miso, Coca dégazé). Le sucré devient écœurant (Pfeiffer 2012). Bouillon chaud = reset gustatif efficace.",
       tone: 'normal',
     });
   }
   if (durationHours >= 8) {
     timeline.push({
       window: 'H8+',
-      instruction: "Lassitude gustative quasi certaine. Aliments « vrais » prioritaires : bouillon, soupe miso, riz salé, omelette, gnocchis beurre. Sucré minoritaire en relais.",
+      instruction: "Lassitude gustative quasi certaine. Aliments « vrais » prioritaires : bouillon, soupe miso, riz salé, gnocchis nature/sel, Coca dégazé. Sucré minoritaire en relais.",
       tone: 'normal',
     });
   }
@@ -447,7 +726,7 @@ const computeNutrition = (params: {
   if (caffeineInRaceMgPerDose > 0 && durationHours >= 3) {
     timeline.push({
       window: `Toutes les 2-3 h après H3`,
-      instruction: `Caféine en relais : ${caffeineInRaceMgPerDose} mg/prise (gel caféiné, capsule, cola plate). Plafond 6 mg/kg/24 h cumulés.`,
+      instruction: `Caféine en relais : ${caffeineInRaceMgPerDose} mg/prise (gel caféiné, capsule, Coca dégazé). Plafond 6 mg/kg/24 h cumulés et 400 mg/24 h absolu.`,
       tone: 'highlight',
     });
   }
@@ -463,26 +742,37 @@ const computeNutrition = (params: {
     durationSec,
     durationLabel: formatDuration(durationSec),
     durationHours,
+    durationPalier: palier,
+    durationPalierLabel: palierLabel(palier),
     kcalPerHour,
     totalKcal,
     carbsPerHour,
     totalCarbs,
     hydrationPerHour,
     totalHydration,
+    hydrationRange: HYDRATION_RANGE_BY_PALIER[palier],
     sodiumPerLiter,
     totalSodium,
+    sodiumRange,
+    sodiumPerHour,
     caffeinePreRace,
     caffeineInRaceMgPerDose,
     caffeineDoseMgPerKgTotal: mgPerKgTotal,
     proteinsPerHour,
     totalProteins,
+    proteinsConfig,
     nbGels,
     nbBidons,
     nbCapsSel,
+    nbSolides: nbSolidesEffectif,
+    solidesList,
     premierMode,
+    isPremierUltra,
     warnings,
+    clinicalWarnings,
     timeline,
     basesDeVie,
+    basesDeVieRecommande,
     showPlanB,
     showLassitude,
     showProteins,
@@ -510,6 +800,8 @@ const NutritionTrailPage: React.FC = () => {
   const [poids, setPoids] = useState<string>('');
   const [niveau, setNiveau] = useState<Niveau>('Régulier');
   const [premierMode, setPremierMode] = useState<boolean>(false);
+  // V2 — checkbox "Premier ultra" dédiée (expert #3 ajustement #22)
+  const [isPremierUltra, setIsPremierUltra] = useState<boolean>(false);
 
   const [distanceKm, setDistanceKm] = useState<string>('30');
   const [dPlus, setDPlus] = useState<string>('1500');
@@ -613,6 +905,7 @@ const NutritionTrailPage: React.FC = () => {
       expNutrition,
       sudation,
       cafeineHabit,
+      isPremierUltra,
     });
     setResult(r);
     trackEvent('nutrition_trail_calculate', {
@@ -621,6 +914,7 @@ const NutritionTrailPage: React.FC = () => {
       duree: r.durationLabel,
       niveau,
       premier_mode: premierMode,
+      premier_ultra: isPremierUltra,
       temp: tempNum,
     });
     setTimeout(() => {
@@ -935,6 +1229,28 @@ const NutritionTrailPage: React.FC = () => {
                     </label>
                   </div>
                 </div>
+
+                {/* V2 — Checkbox "Premier ultra" dédié (expert #3 ajustement #22) */}
+                <div className="mt-4">
+                  <label
+                    className={`flex items-center gap-3 p-4 border-2 rounded-xl cursor-pointer hover:border-emerald-500/50 ${
+                      isPremierUltra ? 'border-emerald-500 bg-emerald-50/40' : 'border-slate-200'
+                    }`}
+                  >
+                    <input
+                      type="checkbox"
+                      checked={isPremierUltra}
+                      onChange={(e) => setIsPremierUltra(e.target.checked)}
+                      className="w-5 h-5 accent-emerald-600"
+                    />
+                    <span className="text-sm text-slate-700">
+                      <strong>Premier ultra ({'>'}8 h)</strong> <span className="text-emerald-700 text-xs font-semibold ml-1">First-timer friendly</span>
+                      <span className="block text-xs text-slate-500 mt-0.5">
+                        Mode prudent : cap auto 60 g/h, solides dès H2, hydratation borne haute. Objectif = finir, pas optimiser.
+                      </span>
+                    </span>
+                  </label>
+                </div>
               </div>
 
               {/* SECTION 2 — Course (Trail) */}
@@ -1172,6 +1488,51 @@ const NutritionTrailPage: React.FC = () => {
                 </div>
               )}
 
+              {/* V2 — Mode "Premier ultra" dédié (palier TrèsLong/Ultra) */}
+              {result.isPremierUltra && (result.durationPalier === 'tresLong' || result.durationPalier === 'ultra') && (
+                <div className="bg-emerald-50 border-l-4 border-emerald-500 p-4 rounded-r-xl">
+                  <p className="text-sm text-emerald-900">
+                    <strong>Premier ultra (First-timer friendly) :</strong> objectif = FINIR, pas optimiser.
+                    Cap auto 60 g/h, solides forcés dès H2, hydratation borne haute du palier, zéro caféine.
+                  </p>
+                </div>
+              )}
+
+              {/* V2 — Panneau Palier détecté (expert #3 ajustement #17) */}
+              <div className="bg-white rounded-2xl shadow-md p-6 border-l-4 border-accent">
+                <div className="flex items-start gap-3">
+                  <div className="p-2 bg-accent/10 rounded-lg flex-shrink-0">
+                    <Target className="w-5 h-5 text-accent" />
+                  </div>
+                  <div className="flex-1">
+                    <div className="text-xs text-slate-500 uppercase tracking-wider font-semibold">Palier détecté</div>
+                    <div className="text-lg font-bold text-slate-900 mt-0.5">{result.durationPalierLabel}</div>
+                    <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mt-3 text-xs">
+                      <div className="p-2 bg-orange-50 rounded">
+                        <div className="text-slate-500">Glucides</div>
+                        <div className="font-bold text-orange-700">{result.carbsPerHour.target} g/h</div>
+                        <div className="text-slate-400 text-[10px]">plage {result.carbsPerHour.min}-{result.carbsPerHour.max}</div>
+                      </div>
+                      <div className="p-2 bg-blue-50 rounded">
+                        <div className="text-slate-500">Hydratation</div>
+                        <div className="font-bold text-blue-700">{result.hydrationPerHour} mL/h</div>
+                        <div className="text-slate-400 text-[10px]">plage palier {result.hydrationRange.min}-{result.hydrationRange.max}</div>
+                      </div>
+                      <div className="p-2 bg-emerald-50 rounded">
+                        <div className="text-slate-500">Sodium</div>
+                        <div className="font-bold text-emerald-700">{result.sodiumPerHour} mg/h</div>
+                        <div className="text-slate-400 text-[10px]">plage {result.sodiumRange.min}-{result.sodiumRange.max}</div>
+                      </div>
+                      <div className="p-2 bg-rose-50 rounded">
+                        <div className="text-slate-500">Bases de vie reco</div>
+                        <div className="font-bold text-rose-700">{result.basesDeVieRecommande}</div>
+                        <div className="text-slate-400 text-[10px]">selon palier + D+</div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
               {/* Soft warnings */}
               {result.warnings.length > 0 && (
                 <div className="space-y-2">
@@ -1181,6 +1542,58 @@ const NutritionTrailPage: React.FC = () => {
                       <span>{w}</span>
                     </div>
                   ))}
+                </div>
+              )}
+
+              {/* V2 — Warnings cliniques (expert #2 sécurité GI/EAH) */}
+              {result.clinicalWarnings.length > 0 && (
+                <div className="bg-white rounded-2xl shadow-md p-6 border-l-4 border-red-400">
+                  <div className="flex items-start gap-3 mb-3">
+                    <div className="p-2 bg-red-50 rounded-lg flex-shrink-0">
+                      <Shield className="w-5 h-5 text-red-600" />
+                    </div>
+                    <div>
+                      <h3 className="text-sm font-bold text-slate-900 uppercase tracking-wider">Règles cliniques (sécurité)</h3>
+                      <p className="text-xs text-slate-500 mt-0.5">Sources : Costa 2017 (GI), Hew-Butler 2015 (EAH), Jeukendrup 2014.</p>
+                    </div>
+                  </div>
+                  <ul className="space-y-2">
+                    {result.clinicalWarnings.map((w, idx) => (
+                      <li key={idx} className="flex gap-2 text-sm text-slate-700">
+                        <CheckCircle2 className="w-4 h-4 text-red-500 flex-shrink-0 mt-0.5" />
+                        <span>{w}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              )}
+
+              {/* V2 — Solides recommandés selon palier (expert #1+#3) */}
+              {result.solidesList.length > 0 && (
+                <div className="bg-white rounded-2xl shadow-md p-6 border-l-4 border-amber-400">
+                  <div className="flex items-start gap-3 mb-3">
+                    <div className="p-2 bg-amber-50 rounded-lg flex-shrink-0">
+                      <Utensils className="w-5 h-5 text-amber-600" />
+                    </div>
+                    <div>
+                      <h3 className="text-sm font-bold text-slate-900 uppercase tracking-wider">Solides recommandés ({result.durationHours >= 6 ? 'H≥6 h' : 'H≥3 h'})</h3>
+                      <p className="text-xs text-slate-500 mt-0.5">Cible : {result.nbSolides} solide{result.nbSolides > 1 ? 's' : ''} sur la course (palier {result.durationPalierLabel.toLowerCase()}).</p>
+                    </div>
+                  </div>
+                  <ul className="grid sm:grid-cols-2 gap-2">
+                    {result.solidesList.map((s, idx) => (
+                      <li key={idx} className="flex gap-2 text-sm text-slate-700 p-2 bg-amber-50/40 rounded">
+                        <CheckCircle2 className="w-4 h-4 text-amber-600 flex-shrink-0 mt-0.5" />
+                        <span>{s}</span>
+                      </li>
+                    ))}
+                  </ul>
+                  {result.durationHours >= 6 && (
+                    <p className="text-xs text-slate-500 italic mt-3">
+                      Saucisson, fromage de chèvre/comté, œuf dur et fromage frais : <strong>en base de vie uniquement</strong>.
+                      Œuf dur + fromage frais nécessitent une BV réfrigérée (risque salmonella/listeria sinon).
+                    </p>
+                  )}
                 </div>
               )}
 
