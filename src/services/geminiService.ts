@@ -2683,6 +2683,18 @@ export const calculatePeriodizationPlan = (
     console.log(`[Periodization] Marathon pic hard floor: ${minPeakVolume} → 32 km`);
     minPeakVolume = 32;
   }
+  // P1a — Étendre hard floor à 10K et 5K (audit fin Lilian 10K pic 17 km bloqué) :
+  // - 10K ≥ 18 km : sous Pfitzinger novice (25-30), doctrine charge allégée respectée
+  // - 5K ≥ 15 km : sous référentiel (20-25), couvre ratio ~3× la distance de course
+  // Anti-bug Lilian : 10K pic 17 km stagnait malgré progression, faisabilité insuffisante.
+  if (objectiveKey === '10K' && minPeakVolume < 18) {
+    console.log(`[Periodization] 10K pic hard floor: ${minPeakVolume} → 18 km (anti-bug Lilian)`);
+    minPeakVolume = 18;
+  }
+  if (objectiveKey === '5K' && minPeakVolume < 15) {
+    console.log(`[Periodization] 5K pic hard floor: ${minPeakVolume} → 15 km`);
+    minPeakVolume = 15;
+  }
 
   if (maxVolume < minPeakVolume) {
     console.log(`[Periodization] maxVolume ${maxVolume}km < min peak (${minPeakVolume}km, raw=${rawMinPeakVolume}, cap=${absoluteCap}) → raised`);

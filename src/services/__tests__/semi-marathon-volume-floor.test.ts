@@ -121,14 +121,14 @@ describe('Hard floor Semi 22 / Marathon 32 + runningSessions Semi/Marathon freq 
   // NON-RÉGRESSION : autres distances NON impactées par le hard floor
   // ════════════════════════════════════════════════════════════════
 
-  it('6. 10K Inter VMA 12 freq=3 → pas de hard floor 10K (comportement préservé)', () => {
+  it('6. 10K Inter VMA 12 freq=3 → hard floor 10K ≥ 18 (P1a)', () => {
+    // P1a (audit fin 2026-05-20) : hard floor 10K ≥ 18 km (anti-bug Lilian).
     const { peak } = plan({
       level: 'Intermédiaire (Régulier)', currentVolume: 15, subGoal: '10K',
       vma: 12, sessionsPerWeek: 3, totalWeeks: 10,
     });
-    // 10K : pas de hard floor (raceDistance × 1.5 = 15 km, plancher viable suffit).
+    expect(peak).toBeGreaterThanOrEqual(18); // hard floor 10K P1a
     expect(peak).toBeLessThanOrEqual(30); // pas d'explosion
-    expect(peak).toBeGreaterThanOrEqual(15);
   });
 
   it('7. Trail 50km Inter cv=25 → pas impacté par hard floor Semi/Marathon', () => {
@@ -264,5 +264,48 @@ describe('Hard floor Semi 22 / Marathon 32 + runningSessions Semi/Marathon freq 
     });
     expect(peak).toBeGreaterThanOrEqual(60);
     expect(peak).toBeLessThanOrEqual(75);
+  });
+
+  // ════════════════════════════════════════════════════════════════
+  // P1a (2026-05-20) — Hard floor 10K + 5K (audit fin Lilian/Margaux/floggyz)
+  // ════════════════════════════════════════════════════════════════
+
+  it('P1a-1. 10K Inter VMA 11 cv=15 freq=3 → pic ≥ 18 km (hard floor)', () => {
+    // Cas Lilian-like : Inter freq=3 VMA modérée, le pic 10K stagnait
+    // ridiculement bas (~14-17 km) malgré progression. P1a force pic ≥ 18 km.
+    const { peak } = plan({
+      level: 'Intermédiaire (Régulier)', currentVolume: 15, subGoal: '10K',
+      vma: 11, sessionsPerWeek: 3, totalWeeks: 10,
+    });
+    expect(peak).toBeGreaterThanOrEqual(18);
+  });
+
+  it('P1a-2. 10K Inter VMA 11 cv=10 freq=4 plan 12 sem → pic ≥ 18 km (hard floor + progression)', () => {
+    // Cas Inter avec un peu plus de marge (cv=10, freq=4, 12 sem) :
+    // le hard floor 18 km doit être effectivement atteint à plein régime.
+    // (cv=5 Déb 10 sem est un cas limite où le lissage post-récup + cap × 1.6
+    // empêche d'atteindre exactement 18, traité au cas par cas par le calibrage Débutant.)
+    const { peak } = plan({
+      level: 'Intermédiaire (Régulier)', currentVolume: 10, subGoal: '10K',
+      vma: 11, sessionsPerWeek: 4, totalWeeks: 12,
+    });
+    expect(peak).toBeGreaterThanOrEqual(18);
+  });
+
+  it('P1a-3. 5K Inter VMA 12 cv=10 freq=3 → pic ≥ 15 km (hard floor)', () => {
+    const { peak } = plan({
+      level: 'Intermédiaire (Régulier)', currentVolume: 10, subGoal: '5K',
+      vma: 12, sessionsPerWeek: 3, totalWeeks: 8,
+    });
+    expect(peak).toBeGreaterThanOrEqual(15);
+  });
+
+  it('P1a-4. 10K Confirmé VMA 15 cv=35 freq=5 → non-régression (déjà au-dessus de 18)', () => {
+    // Profil confirmé : pic naturellement ≥ 30, hard floor 18 inactif.
+    const { peak } = plan({
+      level: 'Confirmé (Compétition)', currentVolume: 35, subGoal: '10K',
+      vma: 15, sessionsPerWeek: 5, totalWeeks: 10,
+    });
+    expect(peak).toBeGreaterThanOrEqual(30); // baseline préservée
   });
 });
