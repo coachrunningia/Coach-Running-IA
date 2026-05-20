@@ -2454,9 +2454,29 @@ export const calculatePeriodizationPlan = (
     // Ex: 3 séances = 2 running + 1 renfo, 2 séances = 1 running + 1 renfo
     const runningSessions = Math.max(1, sessionsPerWeek - 1);
     // 1 SL at slMaxDur + remaining running sessions at nonSlMaxDur
-    // Utiliser 70% des durées max (réaliste : Gemini ne génère pas des sessions à durée max chaque semaine)
-    const realisticFactor = 0.70;
-    const slMaxKm = (slMaxDur * realisticFactor / 60) * efSpeedKmH;
+    // realisticFactor = facteur de calibration durée réaliste vs durée max théorique.
+    // 0.70 pour 5K/10K/Trail/Hyrox (intensité-driven, le volume n'est pas le driver #1).
+    // 0.85 pour Semi/Marathon (volume = driver #1 d'adaptation aérobie, le 0.70 plafonnait
+    // trop bas — cf. INVESTIGATION-PLANCHER-VOLUME-SEMI.md + validation coach 20 ans).
+    // Garde-fous SL spécifiques Débutant ajoutés en aval (cf. plus bas).
+    const realisticFactor = (objectiveKey === 'Semi' || objectiveKey === 'Marathon') ? 0.85 : 0.70;
+    let slMaxKm = (slMaxDur * realisticFactor / 60) * efSpeedKmH;
+
+    // Garde-fou cap SL pour profils Débutants tendus (validation coach 20 ans 2026-05-20).
+    // Évite le ratio SL/volume hebdo > 55% qui crée un risque blessure tendineuse (Hanson).
+    // Ces 2 caps NE TOUCHENT PAS aux inputs user (level/cv/freq préservés), ils plafonnent
+    // uniquement la SL maximale possible en construction du plan.
+    if (objectiveKey === 'Semi' && level === 'Débutant (0-1 an)' && currentVolume < 10) {
+      // Tissus conjonctifs non préparés : cap SL à 12 km (vs 14+ projeté sans cap)
+      slMaxKm = Math.min(slMaxKm, 12);
+    }
+    if (objectiveKey === 'Marathon' && level === 'Débutant (0-1 an)' && currentVolume < 20 && (sessionsPerWeek ?? 3) <= 3) {
+      // Marathon Déb 3× avec cv bas : SL pleine 22 km = 60% volume hebdo = zone rouge.
+      // Cap SL à 18 km maintient ratio sain (Hanson <30% recommandation, on accepte plus
+      // mais on plafonne pour ne pas mettre la SL au-delà de la limite tissulaire débutant).
+      slMaxKm = Math.min(slMaxKm, 18);
+    }
+
     const otherMaxKm = ((runningSessions - 1) * nonSlMaxDur * realisticFactor / 60) * efSpeedKmH;
     const vmaBasedMaxVolume = Math.round(slMaxKm + otherMaxKm);
 

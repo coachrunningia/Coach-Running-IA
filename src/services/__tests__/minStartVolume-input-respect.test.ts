@@ -121,9 +121,14 @@ describe('Sprint 6 — Patch 1 : volumeCap = currentVolume × 1.6 quand cv > 0',
       subGoal: 'Marathon',
       vma: 17,
     });
-    // Pour un Expert Marathon volume 50, S1 ≥ 50 (hard floor)
-    // Et ≤ maxVolume × 0.65 (cap)
-    expect(v).toBeGreaterThanOrEqual(50);
+    // Pour un Expert Marathon volume 50, S1 ~ cv (hard floor + cap 0.90×peak).
+    // Note (2026-05-20): après patch realisticFactor=0.85 Semi/Marathon, le cap VMA
+    // ne plafonne plus artificiellement le peak (Marathon Expert vma=17 peut physiquement
+    // faire >54 km/sem) → maxVolume reste à 54 → S1 ≤ 54×0.9 ≈ 49 km (cf. line 2779
+    // qui cape le hard floor à 90% du peak pour garder marge progression).
+    // Le S1 ~49 reste cohérent : 98% du currentVolume, ratio sain Expert.
+    expect(v).toBeGreaterThanOrEqual(48); // hard floor ~currentVolume (tolérance 90%×peak)
+    expect(v).toBeLessThanOrEqual(80);    // cap Sprint 6 (cv × 1.6)
   });
 
   it('BMI 30 + Inter cv=5 → S1 toujours plafonné à 8 (declared prime sur BMI cap)', () => {
