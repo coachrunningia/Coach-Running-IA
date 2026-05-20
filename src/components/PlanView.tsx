@@ -521,6 +521,10 @@ ${recentRPEs.length > 0 ? recentRPEs.slice(-8).join('\n') : 'Premier feedback �
         frequency: q.frequency || plan.sessionsPerWeek,
         // Sprint 3 — cross-check VMA vs PB déclarés (path Finisher steph-fanny)
         recentRaceTimes: q.recentRaceTimes,
+        // P0c — garde-fou rampe pic/cv > 2.0 (Coach 20 ans 2026-05-20)
+        peakVolume: ctx.periodizationPlan?.weeklyVolumes
+          ? Math.max(...ctx.periodizationPlan.weeklyVolumes)
+          : undefined,
       });
     } catch (e) {
       console.error('[PlanView] Erreur recalcul faisabilité:', e);

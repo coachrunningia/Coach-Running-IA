@@ -2501,17 +2501,24 @@ export const calculatePeriodizationPlan = (
     // → seules les sessions running contribuent au volume kilométrique
     // Ex: 3 séances = 2 running + 1 renfo, 2 séances = 1 running + 1 renfo
     //
-    // EXCEPTION Semi/Marathon freq ≤ 3 (audit 2026-05-20 Margaux/Bertrand) :
-    // Le renfo "vole" 1 slot running entier dans le cap VMA-durée → maxVolume
-    // chute en dessous du plancher (cas Margaux Inter VMA 10.9 freq 3 :
-    // runningSessions=2 → vmaCap ≈ 21 km, neutralise le plancher Sprint Semi=32
-    // → pic réel 18 km, ridicule pour préparer 21.1 km). Pour Semi/Marathon
-    // freq ≤ 3, le renfo (20-30 min) ne devrait pas amputer un slot running
-    // dans ce calcul théorique (il reste fait à côté). On garde l'amputation
-    // pour toutes les autres distances et fréquences (comportement préexistant).
-    const runningSessions = (objectiveKey === 'Semi' || objectiveKey === 'Marathon') && sessionsPerWeek <= 3
-      ? sessionsPerWeek
-      : Math.max(1, sessionsPerWeek - 1);
+    // P0c (2026-05-20, validation Coach 20 ans Pfitzinger Lab) :
+    // La doctrine project_coach_running_ia_frequence est IMPÉRATIVE :
+    //   freq=3 = 2 course + 1 renfo (TOUJOURS). On ne génère JAMAIS 3 séances
+    //   course quand freq=3. → runningSessions reste = sessionsPerWeek - 1.
+    //
+    // MAIS pour Semi/Marathon freq ≤ 3, le cap VMA-durée plafonnait sous le
+    // plancher distance (Margaux Inter VMA 10.9 cv=17 freq=3 → vmaCap 21 km
+    // vs plancher Semi 22 km). Pour densifier les 2 séances course (SL plus
+    // longue + footing plus dense), on calcule le CAP VOLUME comme si on
+    // disposait de 3 slots running — sans changer le nombre réel de séances
+    // course (qui reste = sessionsPerWeek - 1, doctrine).
+    const runningSessions = Math.max(1, sessionsPerWeek - 1);
+    // volumeCapSessions : utilisé UNIQUEMENT dans le calcul vmaBasedMaxVolume
+    // pour relever le plafond théorique Semi/Marathon freq ≤ 3, sans amputer
+    // la séance renfo. Pour tous les autres cas : identique à runningSessions.
+    const volumeCapSessions = (objectiveKey === 'Semi' || objectiveKey === 'Marathon') && sessionsPerWeek <= 3
+      ? Math.max(runningSessions, sessionsPerWeek)
+      : runningSessions;
     // 1 SL at slMaxDur + remaining running sessions at nonSlMaxDur
     // realisticFactor = facteur de calibration durée réaliste vs durée max théorique.
     // 0.70 pour 5K/10K/Trail/Hyrox (intensité-driven, le volume n'est pas le driver #1).
@@ -2536,7 +2543,10 @@ export const calculatePeriodizationPlan = (
       slMaxKm = Math.min(slMaxKm, 18);
     }
 
-    const otherMaxKm = ((runningSessions - 1) * nonSlMaxDur * realisticFactor / 60) * efSpeedKmH;
+    // P0c : volumeCapSessions remplace runningSessions UNIQUEMENT dans le calcul
+    // du cap volume théorique. Pour Semi/Marathon freq ≤ 3, on densifie les 2
+    // séances course (SL plus longue + footing plus dense) sans en ajouter une 3e.
+    const otherMaxKm = ((volumeCapSessions - 1) * nonSlMaxDur * realisticFactor / 60) * efSpeedKmH;
     const vmaBasedMaxVolume = Math.round(slMaxKm + otherMaxKm);
 
     if (vmaBasedMaxVolume < maxVolume) {
@@ -2547,14 +2557,15 @@ export const calculatePeriodizationPlan = (
       let safeVmaCap = vmaBasedMaxVolume;
       if (currentVolume > 0 && currentVolume > vmaBasedMaxVolume) {
         const generousEfSpeed = vma * 0.85;
-        const maxAchievable = runningSessions === 1
+        // Cohérence cap théorique : utiliser volumeCapSessions (densifie Semi/Marathon freq ≤ 3)
+        const maxAchievable = volumeCapSessions === 1
           ? Math.round((slMaxDur / 60) * generousEfSpeed)
-          : Math.round((slMaxDur / 60) * generousEfSpeed + ((runningSessions - 1) * nonSlMaxDur / 60) * generousEfSpeed);
+          : Math.round((slMaxDur / 60) * generousEfSpeed + ((volumeCapSessions - 1) * nonSlMaxDur / 60) * generousEfSpeed);
         safeVmaCap = Math.max(vmaBasedMaxVolume, Math.min(currentVolume, maxAchievable));
         console.log(`[Periodization] VMA-duration cap: raw=${vmaBasedMaxVolume}km, currentVol=${currentVolume}km, achievable@85%VMA=${maxAchievable}km → safe=${safeVmaCap}km`);
       }
       if (safeVmaCap < maxVolume) {
-        console.log(`[Periodization] VMA-duration cap: VMA=${vma}, ${runningSessions} running sess, SL≤${slMaxDur}min, EF=${efSpeedKmH.toFixed(1)}km/h → max ${safeVmaCap}km (was ${maxVolume}km)`);
+        console.log(`[Periodization] VMA-duration cap: VMA=${vma}, running=${runningSessions} volumeCap=${volumeCapSessions} sess, SL≤${slMaxDur}min, EF=${efSpeedKmH.toFixed(1)}km/h → max ${safeVmaCap}km (was ${maxVolume}km)`);
         maxVolume = safeVmaCap;
       }
     }
@@ -3351,6 +3362,32 @@ TOUJOURS formulation factuelle centrée sur le plan : "le plan tient compte de..
   // Cible irréaliste — préventif sur faisabilité haute
   // (Note : le blocage IRRÉALISTE est géré ailleurs avec décharge explicite)
 
+  // === P0c (2026-05-20, validation Coach 20 ans Pfitzinger Lab) ===
+  // Warning Marathon freq ≤ 3 + currentWeeklyVolume < 25 km/sem :
+  // Configuration tendue (ratio Gabbett pic/cv > 1.5, seuil documenté de risque
+  // blessure dans la littérature ACWR — overuse, tendinopathies, stress fracture).
+  // Le plan est livré (objectif finisher prioritaire, hard floor distance préservé),
+  // MAIS le welcomeMessage doit prévenir explicitement : préparation a minima,
+  // vigilance mur 30e km, rampe progression ≤ 10%/sem.
+  // Reste sécurité-bienveillant (doctrine feedback_securite_avant_conversion +
+  // feedback_jamais_baisser_allure_cible : on ne dégrade pas l'objectif user).
+  const cv = data.currentWeeklyVolume;
+  const isMarathonSubGoal = (data.subGoal || '').toLowerCase() === 'marathon';
+  if (
+    isMarathonSubGoal &&
+    (data.frequency ?? 0) <= 3 &&
+    typeof cv === 'number' &&
+    cv > 0 &&
+    cv < 25
+  ) {
+    parts.push(`⚠️ MARATHON CONFIGURATION TENDUE (freq=${data.frequency}, volume actuel ${cv} km/sem) — MENTION OBLIGATOIRE dans le welcomeMessage :
+- Préciser : "Tu te prépares pour un Marathon avec ${data.frequency} séances/semaine et un volume actuel sous 25 km/sem. Le plan est calibré en mode 'préparation a minima' — objectif finisher prioritaire."
+- Vigilance accrue sur le risque du mur au kilomètre 30 (déplétion glycogène accentuée chez les volumes hebdo bas).
+- Insister sur le respect strict de la rampe de progression hebdomadaire (pas plus de +10%/sem) — éviter à tout prix les sauts de volume.
+- Tonalité : bienveillante, transparente, jamais culpabilisante. On ne dégrade PAS l'objectif marathon de l'utilisateur, on l'informe du contexte.
+- NE PAS recommander de cross-training (vélo/natation) en substitution — doctrine plan course UNIQUEMENT.`);
+  }
+
   // === Sprint 5 — règles globales consolidées (injectées 1× max, doctrine inchangée) ===
   // Avant Sprint 5 : ces 2 règles étaient répétées 3-4× au sein des blocs IMC/Perte/RED-S.
   // Après Sprint 5 : on les flag puis on les injecte 1× en fin → gain ~250 tokens cumulés
@@ -3854,6 +3891,8 @@ ${buildDplusPromptBlock({ weekIdx: 0, weeklyElevationTarget: generationContext.p
       frequency: data.frequency,
       // Sprint 3 — cross-check VMA vs PB déclarés (path Finisher steph-fanny)
       recentRaceTimes: data.recentRaceTimes,
+      // P0c — garde-fou rampe pic/cv > 2.0 (Coach 20 ans 2026-05-20)
+      peakVolume: Math.max(...generationContext.periodizationPlan.weeklyVolumes),
     });
     const feasibilityTextPreview = `Score : ${feasibilityResultPreview.score}/100 | Statut : ${feasibilityResultPreview.status}
 ${feasibilityResultPreview.message}

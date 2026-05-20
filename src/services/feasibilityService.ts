@@ -46,6 +46,10 @@ export interface FeasibilityParams {
     distanceHalfMarathon?: string;
     distanceMarathon?: string;
   };
+  // P0c (2026-05-20) — pic volume calculé par calculatePeriodizationPlan, optionnel.
+  // Sert au garde-fou ratio pic/cv > 2.0 (Marathon cv=10 freq=3 pic 32 = ratio 3.2
+  // = rampe progression absurde, risque blessure overuse / tendinopathie / stress fracture).
+  peakVolume?: number;
 }
 
 // ---------------------------------------------------------------------------
@@ -791,6 +795,19 @@ export function calculateFeasibility(params: FeasibilityParams): FeasibilityResu
     score = Math.min(score, vmaThresholdAmbitiousCap);
   }
 
+  // ─── P0c — Garde-fou rampe de progression pic / cv > 2.0 ───
+  // Validation Coach 20 ans Pfitzinger Lab (2026-05-20). Cas extrême Marathon
+  // cv=10 freq=3 → pic 32 km = ratio 3.2× : rampe absurde, risque blessure
+  // significatif (overuse, tendinopathies, stress fracture). Seuil Gabbett
+  // peak/cv standard = 1.5 ; on cap à 2.0 (compromis : on conserve
+  // le hard floor distance pour préparer la course, on dégrade le statut).
+  if (params.peakVolume && params.peakVolume > 0 && currentVolume !== undefined && currentVolume > 0) {
+    const peakToCvRatio = params.peakVolume / currentVolume;
+    if (peakToCvRatio > 2.0) {
+      score = Math.min(score, 50); // force RISQUÉ ou AMBITIEUX (cap < seuil 55 AMBITIEUX)
+    }
+  }
+
   // Clamp final
   score = clamp(score, 10, 100);
   status = resolveStatus(score);
@@ -1364,6 +1381,22 @@ function buildFinisherFeasibility(
       type: 'warn',
       text: `VMA déclarée ${vma.toFixed(1)} km/h optimiste vu ton ${pbCheck.source} (${pctRound}% VMA tenu sur ce PB, au-delà du seuil typique ${seuilRound}% pour la distance) — on garde une marge prudente sur l'évaluation`,
     });
+  }
+
+  // ─── P0c — Garde-fou rampe de progression pic / cv > 2.0 ───
+  // Validation Coach 20 ans Pfitzinger Lab (2026-05-20). Cas extrême Marathon
+  // cv=10 freq=3 → pic 32 km = ratio 3.2× : rampe absurde, risque blessure
+  // significatif (overuse, tendinopathies, stress fracture). On cap le score
+  // à 50 (= RISQUÉ ou AMBITIEUX max) + raison explicite.
+  if (params.peakVolume && params.peakVolume > 0 && currentVolume !== undefined && currentVolume > 0) {
+    const peakToCvRatio = params.peakVolume / currentVolume;
+    if (peakToCvRatio > 2.0) {
+      score = Math.min(score, 50);
+      reasons.push({
+        type: 'risk',
+        text: `pic d'entraînement (${params.peakVolume}km) plus de 2× ton volume actuel (${currentVolume}km) — rampe très exigeante, risque blessure significatif (overuse, tendinopathies)`,
+      });
+    }
   }
 
   score = clamp(score, 10, 100);

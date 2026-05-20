@@ -175,23 +175,27 @@ describe('Hard floor Semi 22 / Marathon 32 + runningSessions Semi/Marathon freq 
     expect(peak).toBeGreaterThan(18);
   });
 
-  it('11. runningSessions Semi freq=3 = 3 (pas amputé pour renfo)', () => {
-    // Validation indirecte : pic Semi freq=3 inter VMA 10.9 doit dépasser
-    // ce qui serait calculable avec runningSessions=2. Avec sessions=3,
-    // vmaCap remonte → pic > 18.
+  it('11. volumeCapSessions Semi freq=3 = 3 (doctrine P0c: densifie cap, runningSessions reste 2)', () => {
+    // P0c (2026-05-20, validation Coach 20 ans Pfitzinger Lab) :
+    //   doctrine project_coach_running_ia_frequence respectée → runningSessions
+    //   = sessionsPerWeek - 1 TOUJOURS (freq=3 → 2 course + 1 renfo).
+    //   Pour Semi/Marathon freq ≤ 3 : volumeCapSessions = 3 dans le calcul
+    //   du cap VMA-durée théorique → densifie les 2 séances course sans
+    //   ajouter un 3e slot.
+    // Validation indirecte : le pic Semi freq=3 inter VMA 10.9 doit toujours ≥ 22
+    // (hard floor + cap théorique densifié).
     const { peak } = plan({
       level: 'Intermédiaire (Régulier)', currentVolume: 17, subGoal: 'Semi',
       vma: 10.9, sessionsPerWeek: 3, targetTime: '2h20', totalWeeks: 12,
     });
-    // Pré-patch : pic 18 (runningSessions=2). Post-patch : pic ≥ 22.
+    // Pré-P0b : pic 18 (runningSessions=2, vmaCap bridé). P0b/P0c : pic ≥ 22.
     expect(peak).toBeGreaterThanOrEqual(22);
   });
 
-  it('12. runningSessions Semi freq=4 = 3 (amputation conservée, freq > 3)', () => {
-    // freq=4 → runningSessions = 4-1 = 3 (comportement préexistant conservé).
-    // Le fix runningSessions ne s'applique QUE pour Semi/Marathon freq ≤ 3.
-    // Ce profil Semi Régulier cv=25 4× doit rester ≥ 35 (baseline test #3
-    // de realistic-factor-semi-marathon.test.ts).
+  it('12. volumeCapSessions Semi freq=4 = 3 (comportement préexistant, freq > 3)', () => {
+    // freq=4 → runningSessions = 4-1 = 3, volumeCapSessions = 3 (égalité).
+    // Le découplage P0c ne s'applique QUE pour Semi/Marathon freq ≤ 3.
+    // Ce profil Semi Régulier cv=25 4× doit rester ≥ 35.
     const { peak } = plan({
       level: 'Intermédiaire (Régulier)', currentVolume: 25, subGoal: 'Semi',
       vma: 14, sessionsPerWeek: 4, totalWeeks: 12,
@@ -210,5 +214,55 @@ describe('Hard floor Semi 22 / Marathon 32 + runningSessions Semi/Marathon freq 
     // Si runningSessions avait été 3, vmaCap aurait grimpé. On vérifie que ce
     // n'est pas le cas (pic 10K reste dans la plage baseline).
     expect(peak).toBeLessThanOrEqual(30);
+  });
+
+  // ════════════════════════════════════════════════════════════════
+  // P0c (2026-05-20) — Ajustements coach 20 ans Pfitzinger Lab
+  // ════════════════════════════════════════════════════════════════
+
+  it('P0c-1. Marathon Inter VMA 11 cv=20 freq=3 : pic ≥ 32 (hard floor + volumeCap densifié)', () => {
+    // Doctrine P0c : runningSessions = 2 (freq=3 → 2 course + 1 renfo),
+    // volumeCapSessions = 3 → cap théorique Marathon densifié → pic ≥ 32.
+    const { peak } = plan({
+      level: 'Intermédiaire (Régulier)', currentVolume: 20, subGoal: 'Marathon',
+      vma: 11, sessionsPerWeek: 3, totalWeeks: 16,
+    });
+    expect(peak).toBeGreaterThanOrEqual(32);
+  });
+
+  it('P0c-2. Marathon Inter VMA 11 cv=10 freq=3 : pic ≥ 32 (cas garde-fou pic/cv > 2.0)', () => {
+    // Cas extrême : ratio pic/cv > 3.0 attendu. Le périodisation garde le hard
+    // floor 32 km (préparer le marathon prioritaire) ; le garde-fou pic/cv > 2.0
+    // est porté par feasibilityService (cap score à 50), pas par la périodisation.
+    const { peak } = plan({
+      level: 'Intermédiaire (Régulier)', currentVolume: 10, subGoal: 'Marathon',
+      vma: 11, sessionsPerWeek: 3, totalWeeks: 16,
+    });
+    expect(peak).toBeGreaterThanOrEqual(32);
+    // Ratio pic/cv attendu > 2.0 (déclenche garde-fou feasibility en aval).
+    expect(peak / 10).toBeGreaterThan(2.0);
+  });
+
+  it('P0c-3. Semi Inter cv=17 freq=2 : volumeCapSessions=2, runningSessions=1', () => {
+    // freq=2 → runningSessions=1 (Math.max(1, 2-1)=1), volumeCapSessions=2
+    // (Semi/Marathon freq ≤ 3). On vérifie que le pic est plausible (hard floor
+    // Semi 22 actif + cap théorique densifié sur 2 slots).
+    const { peak } = plan({
+      level: 'Intermédiaire (Régulier)', currentVolume: 17, subGoal: 'Semi',
+      vma: 10.9, sessionsPerWeek: 2, targetTime: '2h20', totalWeeks: 12,
+    });
+    // Hard floor 22 actif même en freq=2 (préparation à minima du Semi).
+    expect(peak).toBeGreaterThanOrEqual(22);
+  });
+
+  it('P0c-4. Marathon Confirmé VMA 16 cv=50 freq=5 : non-régression (P0c neutre hors freq≤3)', () => {
+    // freq=5 → volumeCapSessions = runningSessions = 4. Le découplage P0c
+    // est inactif. Comportement strictement préservé.
+    const { peak } = plan({
+      level: 'Confirmé (Compétition)', currentVolume: 50, subGoal: 'Marathon',
+      vma: 16, sessionsPerWeek: 5, totalWeeks: 16,
+    });
+    expect(peak).toBeGreaterThanOrEqual(60);
+    expect(peak).toBeLessThanOrEqual(75);
   });
 });

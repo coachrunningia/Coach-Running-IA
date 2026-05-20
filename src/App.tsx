@@ -1229,6 +1229,10 @@ const ADMIN_EMAILS = ["programme@coachrunningia.fr"];
             weight: q.weight,
             height: q.height,
             recentRaceTimes: q.recentRaceTimes,
+            // P0c — garde-fou rampe pic/cv > 2.0 (Coach 20 ans 2026-05-20)
+            peakVolume: plan.generationContext.periodizationPlan?.weeklyVolumes
+              ? Math.max(...plan.generationContext.periodizationPlan.weeklyVolumes)
+              : undefined,
           });
           if (newFeasibility.status === 'RISQUÉ' || newFeasibility.status === 'IRRÉALISTE') {
             feasibilityWarning = ` ⚠️ Attention : avec cette VMA, ton objectif de ${plan.targetTime} devient ${newFeasibility.status.toLowerCase()}. ${newFeasibility.alternativeTarget ? `Un objectif plus réaliste serait ${newFeasibility.alternativeTarget}.` : 'Envisage de revoir ton objectif temps.'}`;
