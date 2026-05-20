@@ -12,6 +12,54 @@ import { buildDisciplineBlock } from './doctrine/buildDisciplineBlock';
 // --- UTILITAIRES DE CALCUL DES ALLURES ---
 
 /**
+ * Écrasement déterministe de plan.distance — anti-hallucination LLM.
+ *
+ * Bug audit 2026-05-20 : pour les plans route (5K/10K/Semi/Marathon),
+ * le LLM hallucinait la distance affichée (Margaux Semi "16 km",
+ * Bertrand Semi "14 km", floggyz 10K "36 km"). Seul Trail bénéficiait
+ * d'un écrasement déterministe (`{distance}km D+{elevation}m`).
+ *
+ * Source de vérité : `data.subGoal` (input user, sacré).
+ * Cf. [[feedback_input_client_obligatoire]].
+ *
+ * - Trail : `{trailDistance}km D+{trailElevation}m` (comportement préexistant)
+ * - 5 km / 5km → "5 km"
+ * - 10 km / 10km → "10 km"
+ * - Semi-Marathon / Semi-marathon → "21.1 km (Semi-Marathon)"
+ * - Marathon → "42.2 km (Marathon)"
+ * - subGoal inconnu / undefined → on ne touche pas (fallback safe)
+ */
+export const applyDistanceOverride = (
+  plan: { distance?: string },
+  data: { goal?: string; subGoal?: string; trailDetails?: { distance?: number; elevation?: number } }
+): void => {
+  // 1. Trail : libellé déterministe distance + dénivelé (préservé)
+  if (data.goal === 'Trail' && data.trailDetails?.distance && data.trailDetails?.elevation) {
+    plan.distance = `${data.trailDetails.distance}km D+${data.trailDetails.elevation}m`;
+    return;
+  }
+
+  // 2. Route : mapping subGoal → libellé standardisé
+  if (data.subGoal) {
+    const subGoalMap: Record<string, string> = {
+      '5 km': '5 km',
+      '5km': '5 km',
+      '10 km': '10 km',
+      '10km': '10 km',
+      'Semi-Marathon': '21.1 km (Semi-Marathon)',
+      'Semi-marathon': '21.1 km (Semi-Marathon)',
+      'Marathon': '42.2 km (Marathon)',
+    };
+    const mapped = subGoalMap[data.subGoal];
+    if (mapped) {
+      plan.distance = mapped;
+    }
+    // subGoal inconnu (Hyrox, PdP, etc.) : on laisse plan.distance tel quel
+  }
+  // subGoal undefined : pas d'écrasement (cas Maintien/PertePoids sans subGoal)
+};
+
+/**
  * Convertit un temps en secondes - gère tous les formats
  * Formats: "mm:ss", "hh:mm:ss", "Xh", "XhYY", "XX min"
  */
@@ -4180,11 +4228,12 @@ Valeurs à remplir :
 
     const plan = JSON.parse(text);
 
-    // === ÉCRASEMENT DÉTERMINISTE : distance trail (anti-hallucination LLM) ===
-    // Le LLM peut altérer les chiffres D+ dans le template. On force la valeur saisie.
-    if (data.goal === 'Trail' && data.trailDetails?.distance && data.trailDetails?.elevation) {
-      plan.distance = `${data.trailDetails.distance}km D+${data.trailDetails.elevation}m`;
-    }
+    // === ÉCRASEMENT DÉTERMINISTE : distance (anti-hallucination LLM) ===
+    // Le LLM peut altérer la distance affichée (cas audit 2026-05-20 :
+    //   Margaux Semi "16 km", Bertrand Semi "14 km", floggyz 10K "36 km").
+    // On force la valeur depuis l'input user — source de vérité.
+    // Cf. [[feedback_input_client_obligatoire]].
+    applyDistanceOverride(plan, data);
 
     // === ENRICHISSEMENT DU PLAN ===
     plan.id = Date.now().toString();
