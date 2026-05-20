@@ -677,6 +677,46 @@ export const recalculateSessionDistance = (session: any): void => {
 };
 
 /**
+ * Audit Lilian (2026-05-21) — Force `type = 'Marche/Course'` quand le mainSet
+ * décrit une alternance run/walk (Galloway Run-Walk-Run) mais que le LLM a
+ * laissé le type initial ('Sortie Longue', 'Footing', etc.). L'UI affichait
+ * alors le mauvais label.
+ *
+ * Patterns acceptés (très permissifs pour couvrir aussi Galloway court 30s/30s) :
+ *   - "1 min course / 2 min marche", "2 min course + 1 min marche"
+ *   - "30s course / 30s marche", "30 sec course / 30 sec marche"
+ *   - "alternance course/marche" (texte libre)
+ *   - "run/walk", "run-walk" (anglais si LLM mélange)
+ *
+ * Idempotent : ne re-log pas si type déjà 'Marche/Course'.
+ */
+const RUN_WALK_PATTERNS: RegExp[] = [
+  // X min/sec course (... ) Y min/sec marche  — séparateur libre (/, +, -, "puis", virgule, espaces)
+  /\d+\s*(?:min|sec|s)\s*course[\s\S]{0,40}?\d+\s*(?:min|sec|s)\s*marche/i,
+  // X min/sec marche (... ) Y min/sec course — ordre inversé
+  /\d+\s*(?:min|sec|s)\s*marche[\s\S]{0,40}?\d+\s*(?:min|sec|s)\s*course/i,
+  // Texte libre : "alternance course/marche", "alternance marche/course"
+  /alternance[\s\S]{0,20}?(?:course[\s\S]{0,10}?marche|marche[\s\S]{0,10}?course)/i,
+  // Anglais (Galloway natif) : "run/walk", "run-walk", "run walk"
+  /run[\s/\-]+walk/i,
+];
+
+export const applyMarcheCourseRouting = (week: any): void => {
+  if (!week || !Array.isArray(week.sessions)) return;
+  for (const session of week.sessions) {
+    if (!session || !session.mainSet || typeof session.mainSet !== 'string') continue;
+    if (session.type === 'Marche/Course') continue; // idempotent
+    const matches = RUN_WALK_PATTERNS.some((re) => re.test(session.mainSet));
+    if (matches) {
+      console.log(
+        `[Routing] Force type Marche/Course pour session "${session.title || '(sans titre)'}" (mainSet contient pattern run/walk, type initial="${session.type}")`,
+      );
+      session.type = 'Marche/Course';
+    }
+  }
+};
+
+/**
  * Post-processing qualité complet pour une semaine.
  * Applique : warmup/cooldown allure, distance, tutoiement, weekGoal.
  */
@@ -4542,6 +4582,10 @@ Valeurs à remplir :
         const targetVol = generationContext.periodizationPlan.weeklyVolumes[idx] || 0;
         enforceWeekConstraints(week, targetVol, data, generationContext.periodizationPlan.weeklyVolumes, idx);
       });
+      // Routing label Marche/Course (audit Lilian 2026-05-21) : si mainSet contient
+      // un pattern run/walk, forcer le type. Doit tourner APRÈS enforceWeekConstraints
+      // (qui peut réécrire le mainSet) et AVANT le guard cross-semaines.
+      plan.weeks.forEach((week: any) => applyMarcheCourseRouting(week));
       // Guard cross-semaines (affûtage, progression, re-cap)
       enforceFullPlanConstraints(plan.weeks, generationContext.periodizationPlan.weeklyVolumes, data);
 
@@ -5336,6 +5380,9 @@ Retourne UNIQUEMENT un tableau JSON des semaines ${startWeek} à ${endWeek} :
         enforceWeekConstraints(week, targetVol, data, ctx.periodizationPlan.weeklyVolumes, idx);
       });
 
+      // Routing label Marche/Course (audit Lilian 2026-05-21)
+      fullPlan.weeks.forEach((week: any) => applyMarcheCourseRouting(week));
+
       // Pass 2 : Guard cross-semaines
       enforceFullPlanConstraints(fullPlan.weeks, ctx.periodizationPlan.weeklyVolumes, data);
 
@@ -5387,6 +5434,8 @@ Retourne UNIQUEMENT un tableau JSON des semaines ${startWeek} à ${endWeek} :
           // Re-forcer jour SL APRÈS enforce (Layer 3 peut avoir régénéré la semaine avec mauvais jour)
           // enforceSLDay skip automatiquement les semaines contenant un _raceDay.
           enforceSLDay(week, slDayFinal, '[Post-Layer3] ');
+          // Routing label Marche/Course (audit Lilian 2026-05-21) — re-check post-Layer3
+          applyMarcheCourseRouting(week);
         });
         enforceFullPlanConstraints(fullPlan.weeks, ctx.periodizationPlan.weeklyVolumes, data);
 
