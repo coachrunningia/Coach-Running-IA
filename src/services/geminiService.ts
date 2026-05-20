@@ -2881,6 +2881,23 @@ export const calculatePeriodizationPlan = (
     startVolume = Math.min(startVolume, maxVolume * 0.65);
   }
 
+  // ─── P1d (audit fin 2026-05-20) — Mode "absolute beginner" cv=0 ───
+  // Bug Lilian : 10K Débutant cv=0 → saut 0→13 km en S1, beaucoup trop dur.
+  // Pour un vrai débutant absolu (cv=0 ET niveau Débutant), il faut un démarrage
+  // ULTRA prudent : cap S1 à 10 km max (vs 13+ projeté sans cap) pour permettre
+  // une adaptation tissulaire progressive. Le mode marche-course du LLM (déjà
+  // actif pour Déb) gère la modalité d'exécution ; ici on cape la quantité.
+  // Cohérent doctrine [[project_coach_running_ia_frequence]] + ACSM "max 10%/sem
+  // hors S1" appliqué dès le démarrage.
+  const isAbsoluteBeginner = currentVolume === 0 && level === 'Débutant (0-1 an)';
+  if (isAbsoluteBeginner) {
+    const cappedS1 = Math.min(startVolume, 10);
+    if (cappedS1 < startVolume) {
+      console.log(`[Periodization] Mode absolute beginner (cv=0, Déb): S1 ${Math.round(startVolume)}km → ${cappedS1}km (anti-bug Lilian)`);
+      startVolume = cappedS1;
+    }
+  }
+
   // ══════════════════════════════════════════════════════════════
   // RATE ADAPTATIF : pour les plans longs, réduire le taux pour que
   // le pic arrive vers 65-70% du plan (pas trop tôt → pas de plateau)
