@@ -2500,7 +2500,18 @@ export const calculatePeriodizationPlan = (
     // 1 séance est toujours du renforcement (obligatoire dans le prompt)
     // → seules les sessions running contribuent au volume kilométrique
     // Ex: 3 séances = 2 running + 1 renfo, 2 séances = 1 running + 1 renfo
-    const runningSessions = Math.max(1, sessionsPerWeek - 1);
+    //
+    // EXCEPTION Semi/Marathon freq ≤ 3 (audit 2026-05-20 Margaux/Bertrand) :
+    // Le renfo "vole" 1 slot running entier dans le cap VMA-durée → maxVolume
+    // chute en dessous du plancher (cas Margaux Inter VMA 10.9 freq 3 :
+    // runningSessions=2 → vmaCap ≈ 21 km, neutralise le plancher Sprint Semi=32
+    // → pic réel 18 km, ridicule pour préparer 21.1 km). Pour Semi/Marathon
+    // freq ≤ 3, le renfo (20-30 min) ne devrait pas amputer un slot running
+    // dans ce calcul théorique (il reste fait à côté). On garde l'amputation
+    // pour toutes les autres distances et fréquences (comportement préexistant).
+    const runningSessions = (objectiveKey === 'Semi' || objectiveKey === 'Marathon') && sessionsPerWeek <= 3
+      ? sessionsPerWeek
+      : Math.max(1, sessionsPerWeek - 1);
     // 1 SL at slMaxDur + remaining running sessions at nonSlMaxDur
     // realisticFactor = facteur de calibration durée réaliste vs durée max théorique.
     // 0.70 pour 5K/10K/Trail/Hyrox (intensité-driven, le volume n'est pas le driver #1).
@@ -2644,7 +2655,23 @@ export const calculatePeriodizationPlan = (
     isMarathon ? 'Marathon' : isSemi ? 'Semi' : is10k ? '10K' : isPertePoids ? 'PertePoids' :
     isMaintien ? 'Maintien' : '5K';
   const absoluteCap = MAX_WEEKLY_VOLUME[objectiveKey]?.expert || 100;
-  const minPeakVolume = Math.min(rawMinPeakVolume, absoluteCap, effectiveVmaCap);
+  let minPeakVolume = Math.min(rawMinPeakVolume, absoluteCap, effectiveVmaCap);
+
+  // Hard floor minPeakVolume Semi/Marathon (audit 2026-05-20 Margaux/Bertrand) :
+  // le cap VMA-durée (effectiveVmaCap) pouvait neutraliser le plancher Sprint pour
+  // Inter/Confirmé VMA modérée + freq 3 → pic Semi 18 km (Margaux) ou 16 km (Bertrand),
+  // ridicule pour préparer une course de 21.1 km.
+  // On garantit un plancher minimal Semi ≥ 22 km / Marathon ≥ 32 km, indépendamment
+  // du cap VMA-durée. Sous Pfitzinger (référentiel 36/55 km) mais pas ridicule.
+  // Cohérent doctrine [[feedback_courte_duree_charge_allegee]] : on plafonne raisonnable.
+  if (objectiveKey === 'Semi' && minPeakVolume < 22) {
+    console.log(`[Periodization] Semi pic hard floor: ${minPeakVolume} → 22 km (anti-bug Margaux/Bertrand)`);
+    minPeakVolume = 22;
+  }
+  if (objectiveKey === 'Marathon' && minPeakVolume < 32) {
+    console.log(`[Periodization] Marathon pic hard floor: ${minPeakVolume} → 32 km`);
+    minPeakVolume = 32;
+  }
 
   if (maxVolume < minPeakVolume) {
     console.log(`[Periodization] maxVolume ${maxVolume}km < min peak (${minPeakVolume}km, raw=${rawMinPeakVolume}, cap=${absoluteCap}) → raised`);

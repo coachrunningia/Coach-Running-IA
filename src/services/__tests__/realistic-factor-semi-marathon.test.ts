@@ -210,6 +210,12 @@ describe('realisticFactor 0.85 Semi/Marathon — pic relevé vs baseline 0.70', 
   it('14. Garde-fou Marathon désactivé : Marathon Déb cv=10 freq=4 → pas cap SL (freq>3)', () => {
     // Cv=10<20 MAIS freq=4 > 3 → cap SL Marathon N'EST PAS appliqué.
     // (cap SL Marathon réservé aux profils Déb 3× avec cv bas, le cas le plus tendu).
+    //
+    // Note 2026-05-20 (Sprint Fix P0b) : depuis le hard floor minPeakVolume
+    // Marathon ≥ 32 km, les deux fréquences sont remontées au même plancher
+    // dans le calcul interne. Après lissage, les pics convergent (≥).
+    // L'assertion reste valide : freq=4 ne doit PAS être STRICTEMENT inférieure
+    // à freq=3 (ce serait le signe d'un cap SL appliqué à tort).
     const { peak: peakFreq4 } = plan({
       level: 'Débutant (0-1 an)', currentVolume: 10, subGoal: 'Marathon',
       vma: 13, sessionsPerWeek: 4, totalWeeks: 16,
@@ -218,7 +224,7 @@ describe('realisticFactor 0.85 Semi/Marathon — pic relevé vs baseline 0.70', 
       level: 'Débutant (0-1 an)', currentVolume: 10, subGoal: 'Marathon',
       vma: 13, sessionsPerWeek: 3, totalWeeks: 16,
     });
-    // freq=4 sans cap → peak strictement > freq=3 avec cap (volume additionnel + SL non contrainte)
-    expect(peakFreq4).toBeGreaterThan(peakFreq3);
+    // freq=4 sans cap → peak ≥ freq=3 (lissage post-calcul équilibre les deux).
+    expect(peakFreq4).toBeGreaterThanOrEqual(peakFreq3);
   });
 });
