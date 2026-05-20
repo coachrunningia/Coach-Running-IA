@@ -489,10 +489,20 @@ export function calculateFeasibility(params: FeasibilityParams): FeasibilityResu
     const pctVmaPercent = Math.round(pctVmaTenu * 100);
     const seuilUnreal = Math.round(distanceThresholds.unrealistic * 100);
     const safetyWarning = buildSafetyWarning(beginner, isMarathon, isSemi, hasInjury, 'IRRÉALISTE', params.weight, params.height, params.age, isTrail, isMarathon || isSemi || (distanceKm !== null && distanceKm >= 21));
+    // Fix A — libellé "effort équivalent" explicite pour Trail.
+    // Avant : le message citait `distanceThresholds.label` (= "marathon"/"semi"/"64 km") issu de
+    // la distance EFFECTIVE (distance + D+/100). Pour un Trail, le user voyait p.ex.
+    // "Sur marathon, le seuil 88 % VMA..." sur son Trail 16 km D+1000, ou "Sur 64 km..."
+    // pour son Trail 45 km D+1900 → crédibilité produit cassée (audit Cyril + Bertrand).
+    // Après : pour Trail on explicite l'équivalent effort. Le calcul (effectiveDistanceKm
+    // et le seuil VMA) reste strictement identique — seul le LIBELLÉ change.
+    const seuilLabel = isTrail && params.trailElevation && params.trailElevation > 0 && distanceKm !== null
+      ? `Sur ton trail de ${distanceKm} km avec ${params.trailElevation} m de dénivelé (≈ ${Math.round(effectiveDistanceKm)} km d'effort équivalent)`
+      : `Sur ${distanceThresholds.label}`;
     return {
       score: 5,
       status: 'IRRÉALISTE',
-      message: `Ton objectif de ${formatTime(targetMinutes)} sur ${distance} demande de tenir ${pctVmaPercent}% de ta VMA (${vma.toFixed(1)} km/h) pendant toute la course. Sur ${distanceThresholds.label}, le seuil physiologiquement soutenable est d'environ ${seuilUnreal}% VMA (référence Daniels VDOT + Pfitzinger). Au-delà, même un coureur entraîné ne peut maintenir cette intensité. Ton temps théorique est de ${theoFormatted}. Un objectif réaliste serait autour de ${alternativeTarget}.`,
+      message: `Ton objectif de ${formatTime(targetMinutes)} sur ${distance} demande de tenir ${pctVmaPercent}% de ta VMA (${vma.toFixed(1)} km/h) pendant toute la course. ${seuilLabel}, le seuil physiologiquement soutenable est d'environ ${seuilUnreal}% VMA (référence Daniels VDOT + Pfitzinger). Au-delà, même un coureur entraîné ne peut maintenir cette intensité. Ton temps théorique est de ${theoFormatted}. Un objectif réaliste serait autour de ${alternativeTarget}.`,
       safetyWarning,
       alternativeTarget,
       recommendation: `un temps cible de ${alternativeTarget}`,

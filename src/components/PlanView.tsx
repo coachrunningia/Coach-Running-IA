@@ -589,7 +589,39 @@ ${recentRPEs.length > 0 ? recentRPEs.slice(-8).join('\n') : 'Premier feedback �
       'recuperation': 'Récupération'
     };
 
-    const previewWeeksList: { weekNumber: number; theme: string; volume: number; phase: string; sessionsCount: number }[] = [];
+    const previewWeeksList: { weekNumber: number; theme: string; volume: number; phase: string; sessionsCount: number; isRaceWeek?: boolean; raceDistanceKm?: number }[] = [];
+
+    // Fix B — signaler la semaine course en preview.
+    // Cause : `weeklyVolumes[raceWeekIdx]` est le volume d'ENTRAÎNEMENT (post
+    // injectRaceSession, le `_raceDay` est skip par `getWeekKm`). En preview, la
+    // course officielle n'est pas encore injectée → user voit p.ex. "S8 — 44 km"
+    // sans signe de son 45 km. Cyril : "où est mon 45 km ?".
+    // Fix : on calcule raceWeekIdx ici + on ajoute un flag visuel non-métier.
+    // `weeklyVolumes` reste inchangé (zéro impact sur la projection).
+    const q = plan.generationContext.questionnaireSnapshot;
+    const rawRaceDate = plan.raceDate || q?.raceDate;
+    let raceWeekIdx: number | null = null;
+    let raceDistanceKm: number | undefined;
+    if (rawRaceDate && plan.startDate) {
+      const raceDt = new Date(rawRaceDate);
+      const rawStart = new Date(plan.startDate);
+      const startDow = rawStart.getDay();
+      const daysToMon = startDow === 0 ? -6 : 1 - startDow;
+      const monday = new Date(rawStart);
+      monday.setDate(rawStart.getDate() + daysToMon);
+      const diffDays = Math.floor((raceDt.getTime() - monday.getTime()) / (24 * 60 * 60 * 1000));
+      if (diffDays >= 0) {
+        raceWeekIdx = Math.floor(diffDays / 7); // 0-indexed
+      }
+      // Distance officielle : trail prioritaire sinon plan.distance ("21 km" etc.)
+      const trailDist = q?.trailDetails?.distance;
+      if (typeof trailDist === 'number' && trailDist > 0) {
+        raceDistanceKm = trailDist;
+      } else if (plan.distance) {
+        const m = String(plan.distance).match(/(\d+(?:[.,]\d+)?)/);
+        if (m) raceDistanceKm = parseFloat(m[1].replace(',', '.'));
+      }
+    }
 
     for (let i = 0; i < totalWeeks; i++) {
       const weekNum = i + 1;
@@ -598,13 +630,16 @@ ${recentRPEs.length > 0 ? recentRPEs.slice(-8).join('\n') : 'Premier feedback �
         const volume = weeklyVolumes[i] || 0;
         // Estimer le nombre de séances basé sur le questionnaire
         const sessionsPerWeek = plan.generationContext.questionnaireSnapshot?.frequency || 3;
+        const isRaceWeek = raceWeekIdx !== null && i === raceWeekIdx;
 
         previewWeeksList.push({
           weekNumber: weekNum,
           theme: `${phaseThemes[phase] || phase} - S${weekNum}`,
           volume,
           phase,
-          sessionsCount: sessionsPerWeek
+          sessionsCount: sessionsPerWeek,
+          isRaceWeek,
+          raceDistanceKm: isRaceWeek ? raceDistanceKm : undefined,
         });
       }
     }
@@ -1752,10 +1787,15 @@ ${recentRPEs.length > 0 ? recentRPEs.slice(-8).join('\n') : 'Premier feedback �
                           </div>
 
                           {/* Infos volume */}
-                          <div className="flex items-center gap-4 mt-2 text-sm text-slate-500">
+                          <div className="flex items-center gap-4 mt-2 text-sm text-slate-500 flex-wrap">
                             <span className="flex items-center gap-1">
                               <Activity size={14} />
                               ~{previewWeek.volume} km
+                              {previewWeek.isRaceWeek && previewWeek.raceDistanceKm ? (
+                                <span className="ml-1 text-slate-700 font-medium">
+                                  + <span aria-hidden="true">🏁</span> Course officielle {previewWeek.raceDistanceKm} km
+                                </span>
+                              ) : null}
                             </span>
                             <span className="flex items-center gap-1">
                               <Clock size={14} />
