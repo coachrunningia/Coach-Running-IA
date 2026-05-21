@@ -588,21 +588,23 @@ const forceTutoiement = (text: string): string => {
  */
 export const extractRunRatio = (mainSet: string): number | null => {
   if (!mainSet || typeof mainSet !== 'string') return null;
-  // Pattern principal : "X min course + Y min marche" ou "X min marche + Y min course"
-  const m1 = mainSet.match(/(\d+)\s*min\s*course\s*[+\-/]\s*(\d+)\s*min\s*marche/i);
+  // Pattern principal : "X min [de|en] course + Y min [de|en] marche" ou inversé
+  // Fix B (2026-05-21) : (?:de\s+|en\s+)? optionnel pour matcher "1 min de course / 2 min de marche"
+  // + tolérer texte intermédiaire (allure "à 9:15", parenthèse) entre course et séparateur via [^,.;\n]*?
+  const m1 = mainSet.match(/(\d+)\s*min\s+(?:de\s+|en\s+)?course[^,.;\n]*?[+\-/][^,.;\n]*?(\d+)\s*min\s+(?:de\s+|en\s+)?marche/i);
   if (m1) {
     const run = parseInt(m1[1]);
     const walk = parseInt(m1[2]);
     if (run > 0 && walk > 0) return run / (run + walk);
   }
-  const m2 = mainSet.match(/(\d+)\s*min\s*marche\s*[+\-/]\s*(\d+)\s*min\s*course/i);
+  const m2 = mainSet.match(/(\d+)\s*min\s+(?:de\s+|en\s+)?marche[^,.;\n]*?[+\-/][^,.;\n]*?(\d+)\s*min\s+(?:de\s+|en\s+)?course/i);
   if (m2) {
     const walk = parseInt(m2[1]);
     const run = parseInt(m2[2]);
     if (run > 0 && walk > 0) return run / (run + walk);
   }
   // Pattern alternatif (séparateur "/" sans "+") : "2 min / 1 min"
-  const m3 = mainSet.match(/(\d+)\s*min\s*(?:course|run)[^,.;]*?\/[^,.;]*?(\d+)\s*min\s*(?:marche|walk)/i);
+  const m3 = mainSet.match(/(\d+)\s*min\s+(?:de\s+|en\s+)?(?:course|run)[^,.;]*?\/[^,.;]*?(\d+)\s*min\s+(?:de\s+|en\s+)?(?:marche|walk)/i);
   if (m3) {
     const run = parseInt(m3[1]);
     const walk = parseInt(m3[2]);
@@ -619,7 +621,7 @@ export const extractRunRatio = (mainSet: string): number | null => {
  * doit être pondérée par le ratio temps couru / temps total (sinon on affiche
  * 6.6 km comme Lilian alors que seulement ~4 km étaient effectivement courus).
  */
-export const recalculateSessionDistance = (session: any): void => {
+export const recalculateSessionDistance = (session: any, bmi?: number | null): void => {
   if (session.type === 'Renforcement') return;
   if (!session.duration || !session.targetPace) return;
 
@@ -658,6 +660,13 @@ export const recalculateSessionDistance = (session: any): void => {
   if (session.type === 'Marche/Course') {
     const extracted = extractRunRatio(session.mainSet || '');
     runRatio = extracted !== null ? extracted : 0.6;
+    // Fix B (2026-05-21) — Sécurité coach 20 ans : profil obèse classe II (BMI > 35),
+    // capper runRatio à 0.5 max (proportion de course ≤ 50%). Évite que Gemini
+    // génère un 3/1 course/marche pour un débutant >100 kg → risque blessure articulaire.
+    if (bmi && bmi > 35 && runRatio > 0.5) {
+      console.log(`[PostProcess] BMI ${bmi.toFixed(1)} > 35 → runRatio capé ${runRatio.toFixed(2)} → 0.5 ("${session.title}")`);
+      runRatio = 0.5;
+    }
   }
 
   // Calculer la distance correcte (pondérée par run ratio si Marche/Course)
@@ -691,10 +700,12 @@ export const recalculateSessionDistance = (session: any): void => {
  * Idempotent : ne re-log pas si type déjà 'Marche/Course'.
  */
 const RUN_WALK_PATTERNS: RegExp[] = [
-  // X min/sec course (... ) Y min/sec marche  — séparateur libre (/, +, -, "puis", virgule, espaces)
-  /\d+\s*(?:min|sec|s)\s*course[\s\S]{0,40}?\d+\s*(?:min|sec|s)\s*marche/i,
-  // X min/sec marche (... ) Y min/sec course — ordre inversé
-  /\d+\s*(?:min|sec|s)\s*marche[\s\S]{0,40}?\d+\s*(?:min|sec|s)\s*course/i,
+  // X min/sec [de|en] course (... ) Y min/sec [de|en] marche  — séparateur libre (/, +, -, "puis", virgule, espaces)
+  // Fix B (2026-05-21) : assouplir pour matcher "1 min de course / 2 min de marche" (cas Lilian/Alexandre Hyrox).
+  // Gemini écrit naturellement le mot "de" intercalé entre l'unité et le verbe.
+  /\d+\s*(?:min|sec|s)\s+(?:de\s+|en\s+)?course[\s\S]{0,60}?\d+\s*(?:min|sec|s)\s+(?:de\s+|en\s+)?marche/i,
+  // X min/sec [de|en] marche (... ) Y min/sec [de|en] course — ordre inversé
+  /\d+\s*(?:min|sec|s)\s+(?:de\s+|en\s+)?marche[\s\S]{0,60}?\d+\s*(?:min|sec|s)\s+(?:de\s+|en\s+)?course/i,
   // Texte libre : "alternance course/marche", "alternance marche/course"
   /alternance[\s\S]{0,20}?(?:course[\s\S]{0,10}?marche|marche[\s\S]{0,10}?course)/i,
   // Anglais (Galloway natif) : "run/walk", "run-walk", "run walk"
@@ -726,6 +737,7 @@ const postProcessWeekQuality = (
   defaultWeekGoal?: string,
   planGoal?: string,
   trailDistance?: number,
+  bmi?: number | null,
 ): void => {
   // weekGoal
   if (!week.weekGoal && week.theme) week.weekGoal = week.theme;
@@ -858,7 +870,7 @@ const postProcessWeekQuality = (
     }
 
     // Distance : recalculer si incohérente
-    recalculateSessionDistance(session);
+    recalculateSessionDistance(session, bmi);
 
   });
 
@@ -889,7 +901,7 @@ const postProcessWeekQuality = (
       const maxBackToBackDur = Math.min(Math.round(longerDur * 0.6), 150); // Cap absolu 2h30
       if (shorterDur > maxBackToBackDur) {
         shorter.duration = maxBackToBackDur >= 60 ? `${Math.floor(maxBackToBackDur / 60)}h${maxBackToBackDur % 60 > 0 ? (maxBackToBackDur % 60).toString().padStart(2, '0') : ''}` : `${maxBackToBackDur} min`;
-        recalculateSessionDistance(shorter);
+        recalculateSessionDistance(shorter, bmi);
         console.log(`[PostProcess] Back-to-back ultra: 2e SL cappée à ${maxBackToBackDur}min (60% de la 1ère ou 2h30 max)`);
       }
       // La 2e sortie doit être en intensité Facile/Modéré (pas Difficile)
@@ -919,7 +931,7 @@ const postProcessWeekQuality = (
           }
         }
         if (pacesObj) extra.targetPace = pacesObj.efPace;
-        recalculateSessionDistance(extra);
+        recalculateSessionDistance(extra, bmi);
       }
     }
   }
@@ -950,7 +962,7 @@ const postProcessWeekQuality = (
           shorter.mainSet = `25 min de footing très léger à ${pacesObj.recoveryPace} min/km`;
         }
         shorter.elevationGain = 0;
-        recalculateSessionDistance(shorter);
+        recalculateSessionDistance(shorter, bmi);
       }
     }
   }
@@ -4621,7 +4633,9 @@ Valeurs à remplir :
     // === Post-processing qualité séances (Preview) ===
     if (plan.weeks && Array.isArray(plan.weeks)) {
       const trailDist = data.goal === 'Trail' && data.trailDetails?.distance ? data.trailDetails.distance : 0;
-      plan.weeks.forEach((week: any) => postProcessWeekQuality(week, paces, 'Première semaine — mise en route progressive', data.goal, trailDist));
+      // Fix B (2026-05-21) — BMI passé pour clamp runRatio à 0.5 si > 35 (sécurité débutant obèse classe II)
+      const bmiPreview = (data.weight && data.height && data.height > 0) ? data.weight / ((data.height / 100) ** 2) : null;
+      plan.weeks.forEach((week: any) => postProcessWeekQuality(week, paces, 'Première semaine — mise en route progressive', data.goal, trailDist, bmiPreview));
       // Enforcement volumes/durées/caps déterministe
       plan.weeks.forEach((week: any, idx: number) => {
         const targetVol = generationContext.periodizationPlan.weeklyVolumes[idx] || 0;
@@ -5414,7 +5428,9 @@ Retourne UNIQUEMENT un tableau JSON des semaines ${startWeek} à ${endWeek} :
 
     if (fullPlan.weeks && Array.isArray(fullPlan.weeks) && savedPaces) {
       const trailDistFull = data.goal === 'Trail' && data.trailDetails?.distance ? data.trailDetails.distance : 0;
-      fullPlan.weeks.forEach((week: any) => postProcessWeekQuality(week, savedPaces, undefined, data.goal, trailDistFull));
+      // Fix B (2026-05-21) — BMI passé pour clamp runRatio à 0.5 si > 35
+      const bmiFull = (data.weight && data.height && data.height > 0) ? data.weight / ((data.height / 100) ** 2) : null;
+      fullPlan.weeks.forEach((week: any) => postProcessWeekQuality(week, savedPaces, undefined, data.goal, trailDistFull, bmiFull));
 
       // Snapshot volumes AVANT guard pour mesurer l'impact
       const beforeVolumes = fullPlan.weeks.map(_weekKm);
