@@ -4376,7 +4376,8 @@ Exemples (à adapter, ne pas copier) :
 La mention "ce plan = running uniquement, fonctionnel à côté" doit aller UNE SEULE FOIS dans le welcomeMessage.
 
 WELCOMEMESSAGE HYROX (obligatoirement) :
-1. UNE phrase qui clarifie : ce plan couvre la partie course à pied de la prépa Hyrox. L'athlète gère son fonctionnel à côté.
+1. Inclure EXACTEMENT cette phrase (mot pour mot, ne pas reformuler) en début ou tout début du welcomeMessage :
+   "Ce programme est spécifiquement conçu pour la partie course à pied (8x1km) de ton futur Hyrox ; tes entraînements fonctionnels doivent être réalisés en parallèle."
 2. Mini-roadmap des phases sur ${planDurationWeeks} semaines pour donner de la perspective dès la S1 :
    - "Semaines 1-3 : base aérobie + technique (tu y es)"
    - "Semaines 4-6 : introduction fartlek + accélérations courtes"
