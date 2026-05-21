@@ -986,6 +986,60 @@ export const isFinisherTarget = (t?: string): boolean => {
   return !/\d/.test(trimmed);
 };
 
+/**
+ * P1-7 (2026-05-21, bug floggyz 30 sem 10K) — Cap planDurationWeeks par objectif.
+ *
+ * Avant : `planDurationWeeks = max(4, min(30, diffWeeks))` global.
+ * Floggyz 10K Finisher Expert raceDate +30 sem → plan 30 sem (excessif pour 10K).
+ *
+ * Après : table de caps par distance route :
+ *   5K       → 10 sem max
+ *   10K      → 16 sem max
+ *   Semi     → 20 sem max
+ *   Marathon → 24 sem max
+ *   Trail / Hyrox / Perte de poids / Maintien : conservent 30 sem (inchangé).
+ *
+ * Si `diffWeeks > cap`, on décale le startDate pour que le plan finisse à la course.
+ */
+export interface ComputePlanDurationParams {
+  subGoal?: string;
+  raceDate?: string;
+  startDate?: string;
+}
+export interface ComputePlanDurationResult {
+  planDurationWeeks: number;
+  cap: number;
+  diffWeeks: number;
+  adjustedStartDate?: string;
+}
+
+const PLAN_DURATION_MAX_WEEKS_BY_GOAL: Record<string, number> = {
+  '5 km': 10,
+  '10 km': 16,
+  'Semi-Marathon': 20,
+  'Marathon': 24,
+};
+const PLAN_DURATION_DEFAULT_CAP = 30;
+
+export const computePlanDurationWeeks = (params: ComputePlanDurationParams): ComputePlanDurationResult => {
+  const cap = (params.subGoal && PLAN_DURATION_MAX_WEEKS_BY_GOAL[params.subGoal]) ?? PLAN_DURATION_DEFAULT_CAP;
+  if (!params.raceDate) {
+    return { planDurationWeeks: 12, cap, diffWeeks: 0 };
+  }
+  const raceDate = new Date(params.raceDate);
+  const startDate = params.startDate ? new Date(params.startDate) : new Date();
+  const diffTime = raceDate.getTime() - startDate.getTime();
+  const diffDays = diffTime / (1000 * 60 * 60 * 24);
+  const diffWeeks = Math.ceil(diffDays / 7); // ceil pour ne jamais couper la dernière semaine
+  const planDurationWeeks = Math.max(4, Math.min(cap, diffWeeks));
+  let adjustedStartDate: string | undefined;
+  if (diffWeeks > cap) {
+    const newStartDate = new Date(raceDate.getTime() - cap * 7 * 24 * 60 * 60 * 1000);
+    adjustedStartDate = newStartDate.toISOString().split('T')[0];
+  }
+  return { planDurationWeeks, cap, diffWeeks, adjustedStartDate };
+};
+
 /** Convertit un label niveau libre en clé canonique. Tolère casse, accents, espaces. */
 const labelToLevelKey = (label?: string): 'deb' | 'inter' | 'conf' | 'expert' => {
   const l = (label || '').toLowerCase();
@@ -3845,25 +3899,16 @@ export const generatePreviewPlan = async (data: QuestionnaireData): Promise<Trai
       data.frequency = 3;
     }
 
-    // Calcul durée du plan
-    // Cap à 30 semaines max (plans longs pour marathon/ultra/objectifs distants)
-    // Si > 20 semaines, on décale le début pour que le plan finisse à la course
-    let planDurationWeeks = 12;
-    if (data.raceDate) {
-      const raceDate = new Date(data.raceDate);
-      const startDate = data.startDate ? new Date(data.startDate) : new Date();
-      const diffTime = raceDate.getTime() - startDate.getTime();
-      const diffDays = diffTime / (1000 * 60 * 60 * 24);
-      const diffWeeks = Math.ceil(diffDays / 7); // ceil pour ne jamais couper la dernière semaine
-      // Cap à 30 semaines — si la course est plus loin, on décale le startDate
-      const maxWeeks = 30;
-      planDurationWeeks = Math.max(4, Math.min(maxWeeks, diffWeeks));
-      if (diffWeeks > maxWeeks) {
-        // Décaler le startDate pour que le plan finisse à la course
-        const newStartDate = new Date(raceDate.getTime() - maxWeeks * 7 * 24 * 60 * 60 * 1000);
-        data.startDate = newStartDate.toISOString().split('T')[0];
-        console.log(`[Plan Duration] Course dans ${diffWeeks} semaines > cap ${maxWeeks} → startDate décalé au ${data.startDate}`);
-      }
+    // Calcul durée du plan — délégué à computePlanDurationWeeks (testable).
+    const durationResult = computePlanDurationWeeks({
+      subGoal: data.subGoal,
+      raceDate: data.raceDate,
+      startDate: data.startDate,
+    });
+    let planDurationWeeks = durationResult.planDurationWeeks;
+    if (durationResult.adjustedStartDate) {
+      data.startDate = durationResult.adjustedStartDate;
+      console.log(`[Plan Duration] Course dans ${durationResult.diffWeeks} sem > cap ${durationResult.cap} (objectif ${data.subGoal || 'défaut'}) → startDate décalé au ${data.startDate}`);
     }
 
     // === Injecter la VMA calculée dans data pour que detectLevelFromData puisse override ===
