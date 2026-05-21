@@ -1117,6 +1117,43 @@ const ADMIN_EMAILS = ["programme@coachrunningia.fr"];
 
       console.log(`[VMA Recalc] ${oldVMA.toFixed(1)} → ${newVMA.toFixed(1)} km/h | ${weeksWithFeedback.length} semaines conservées, ${plan.weeks.length - weeksWithFeedback.length} à régénérer`);
 
+      // Recalculer la faisabilité avec la nouvelle VMA (bug Julian Jobert 2026-05-20)
+      // AVANT le savePlan, sinon feasibility.message reste obsolète en base.
+      let newFeasibility: any = null;
+      let feasibilityWarning = '';
+      if (plan.targetTime && plan.generationContext?.questionnaireSnapshot) {
+        try {
+          const { calculateFeasibility } = await import('./services/feasibilityService');
+          const q = plan.generationContext.questionnaireSnapshot;
+          newFeasibility = calculateFeasibility({
+            vma: newVMA,
+            targetTime: q.targetTime || plan.targetTime,
+            distance: q.subGoal || plan.distance || '',
+            goal: q.goal || plan.goal || '',
+            level: q.level || '',
+            planWeeks: plan.generationContext.periodizationPlan?.totalWeeks || plan.weeks.length,
+            currentVolume: q.currentWeeklyVolume,
+            hasInjury: q.injuries?.hasInjury || false,
+            injuryDescription: q.injuries?.description,
+            hasChrono: !!(q.recentRaceTimes?.distance5km || q.recentRaceTimes?.distance10km),
+            age: q.age,
+            weight: q.weight,
+            height: q.height,
+            recentRaceTimes: q.recentRaceTimes,
+            peakVolume: plan.generationContext.periodizationPlan?.weeklyVolumes
+              ? Math.max(...plan.generationContext.periodizationPlan.weeklyVolumes)
+              : undefined,
+          });
+          if (newFeasibility.status === 'RISQUÉ' || newFeasibility.status === 'IRRÉALISTE') {
+            feasibilityWarning = ` ⚠️ Attention : avec cette VMA, ton objectif de ${plan.targetTime} devient ${newFeasibility.status.toLowerCase()}. ${newFeasibility.alternativeTarget ? `Un objectif plus réaliste serait ${newFeasibility.alternativeTarget}.` : 'Envisage de revoir ton objectif temps.'}`;
+          } else if (newFeasibility.status === 'AMBITIEUX') {
+            feasibilityWarning = ` ℹ️ Ton objectif de ${plan.targetTime} est maintenant ambitieux avec cette VMA. C'est faisable avec un entraînement rigoureux.`;
+          }
+        } catch (e) {
+          console.warn('[VMA Recalc] Feasibility check failed:', e);
+        }
+      }
+
       if (firstUntouchedWeekIdx >= 0 && firstUntouchedWeekIdx < plan.weeks.length) {
         setAdaptationMessage(`Recalcul VMA ${oldVMA.toFixed(1)} → ${newVMA.toFixed(1)} km/h... Régénération des semaines ${firstUntouchedWeekIdx + 1} à ${plan.weeks.length}.`);
 
@@ -1191,6 +1228,7 @@ const ADMIN_EMAILS = ["programme@coachrunningia.fr"];
         fullPlan.generationContext = updatedContext;
         fullPlan.isPreview = false;
         fullPlan.fullPlanGenerated = true;
+        if (newFeasibility) fullPlan.feasibility = newFeasibility;
 
         await savePlan(fullPlan);
         setPlan(fullPlan);
@@ -1202,46 +1240,10 @@ const ADMIN_EMAILS = ["programme@coachrunningia.fr"];
           vmaSource: updatedContext.vmaSource,
           paces: newPaces,
           generationContext: updatedContext,
+          ...(newFeasibility ? { feasibility: newFeasibility } : {}),
         };
         await savePlan(updatedPlan);
         setPlan(updatedPlan);
-      }
-
-      // Recalculer la faisabilité avec la nouvelle VMA pour avertir si l'objectif devient plus dur
-      let feasibilityWarning = '';
-      if (plan.targetTime && plan.generationContext?.questionnaireSnapshot) {
-        try {
-          const { calculateFeasibility } = await import('./services/feasibilityService');
-          const q = plan.generationContext.questionnaireSnapshot;
-          const newFeasibility = calculateFeasibility({
-            vma: newVMA,
-            targetTime: q.targetTime || plan.targetTime,
-            distance: q.subGoal || plan.distance || '',
-            goal: q.goal || plan.goal || '',
-            level: q.level || '',
-            planWeeks: plan.generationContext.periodizationPlan?.totalWeeks || plan.weeks.length,
-            currentVolume: q.currentWeeklyVolume,
-            hasInjury: q.injuries?.hasInjury || false,
-            injuryDescription: q.injuries?.description,
-            hasChrono: !!(q.recentRaceTimes?.distance5km || q.recentRaceTimes?.distance10km),
-            age: q.age,
-            // Sprint 3 — cross-check VMA vs PB déclarés (path Finisher steph-fanny)
-            weight: q.weight,
-            height: q.height,
-            recentRaceTimes: q.recentRaceTimes,
-            // P0c — garde-fou rampe pic/cv > 2.0 (Coach 20 ans 2026-05-20)
-            peakVolume: plan.generationContext.periodizationPlan?.weeklyVolumes
-              ? Math.max(...plan.generationContext.periodizationPlan.weeklyVolumes)
-              : undefined,
-          });
-          if (newFeasibility.status === 'RISQUÉ' || newFeasibility.status === 'IRRÉALISTE') {
-            feasibilityWarning = ` ⚠️ Attention : avec cette VMA, ton objectif de ${plan.targetTime} devient ${newFeasibility.status.toLowerCase()}. ${newFeasibility.alternativeTarget ? `Un objectif plus réaliste serait ${newFeasibility.alternativeTarget}.` : 'Envisage de revoir ton objectif temps.'}`;
-          } else if (newFeasibility.status === 'AMBITIEUX') {
-            feasibilityWarning = ` ℹ️ Ton objectif de ${plan.targetTime} est maintenant ambitieux avec cette VMA. C'est faisable avec un entraînement rigoureux.`;
-          }
-        } catch (e) {
-          console.warn('[VMA Recalc] Feasibility check failed:', e);
-        }
       }
 
       // Warning adapté selon la direction et l'amplitude du changement
