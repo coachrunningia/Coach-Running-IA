@@ -1244,9 +1244,13 @@ function buildFinisherFeasibility(
   }
 
   // Avertissement fréquence insuffisante pour un plan long
+  // P1-6 (2026-05-21, bug Bertrand) : conditionner sur volume effectif par séance.
+  // Bertrand 15 km/sem 3 séances = 5 km/séance = PAS chargé → ne pas warn.
+  // Cas légitime : volume élevé + freq basse → séances saturées.
   const frequency = params.frequency;
-  if (frequency && planWeeks && planWeeks > 16 && frequency <= 3) {
-    reasons.push({ type: 'warn', text: `avec ${frequency} séances/semaine sur ${planWeeks} semaines, chaque séance sera très chargée en volume — passer à 4 séances rendrait le plan plus équilibré` });
+  const kmParSeance = currentVolume && frequency ? currentVolume / frequency : 0;
+  if (frequency && planWeeks && planWeeks > 16 && frequency <= 3 && kmParSeance >= 10) {
+    reasons.push({ type: 'warn', text: `avec ${frequency} séances/semaine sur ${planWeeks} semaines, ton plan manquera de variété — passer à 4 séances apporterait plus de richesse pédagogique` });
   }
 
   // Avertissement volume < minimum viable par niveau
