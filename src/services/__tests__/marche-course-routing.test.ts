@@ -38,7 +38,8 @@ describe('applyMarcheCourseRouting — force type sur pattern run/walk', () => {
         },
       ],
     };
-    applyMarcheCourseRouting(week);
+    // Bug #4 — VERDICT-EXPERT-5-BUGS.md : ctx Débutant pour activer le routing.
+    applyMarcheCourseRouting(week, { level: 'Débutant (0-1 an)', vma: 9, currentWeeklyVolume: 0 });
     expect(week.sessions[0].type).toBe('Marche/Course');
     expect(logSpy).toHaveBeenCalledTimes(1);
   });
@@ -68,7 +69,8 @@ describe('applyMarcheCourseRouting — force type sur pattern run/walk', () => {
         },
       ],
     };
-    applyMarcheCourseRouting(week);
+    // Bug #4 — VERDICT-EXPERT-5-BUGS.md : ctx Débutant pour activer le routing.
+    applyMarcheCourseRouting(week, { level: 'Débutant (0-1 an)', vma: 9, currentWeeklyVolume: 0 });
     expect(week.sessions[0].type).toBe('Marche/Course');
   });
 
@@ -82,7 +84,8 @@ describe('applyMarcheCourseRouting — force type sur pattern run/walk', () => {
         },
       ],
     };
-    applyMarcheCourseRouting(week);
+    // Bug #4 — VERDICT-EXPERT-5-BUGS.md : ctx Débutant pour activer le routing.
+    applyMarcheCourseRouting(week, { level: 'Débutant (0-1 an)', vma: 9, currentWeeklyVolume: 0 });
     expect(week.sessions[0].type).toBe('Marche/Course');
     expect(logSpy).not.toHaveBeenCalled();
     // Deuxième passe : toujours idempotent
@@ -119,7 +122,8 @@ describe('applyMarcheCourseRouting — force type sur pattern run/walk', () => {
         },
       ],
     };
-    applyMarcheCourseRouting(week);
+    // Bug #4 — VERDICT-EXPERT-5-BUGS.md : ctx Débutant pour activer le routing.
+    applyMarcheCourseRouting(week, { level: 'Débutant (0-1 an)', vma: 9, currentWeeklyVolume: 0 });
     expect(week.sessions[0].type).toBe('Marche/Course');
   });
 
@@ -144,7 +148,8 @@ describe('applyMarcheCourseRouting — force type sur pattern run/walk', () => {
         },
       ],
     };
-    applyMarcheCourseRouting(week);
+    // Bug #4 — VERDICT-EXPERT-5-BUGS.md : ctx Débutant pour activer le routing.
+    applyMarcheCourseRouting(week, { level: 'Débutant (0-1 an)', vma: 9, currentWeeklyVolume: 0 });
     expect(week.sessions[0].type).toBe('Jogging');
     expect(week.sessions[1].type).toBe('Marche/Course');
     expect(week.sessions[2].type).toBe('Renforcement');

@@ -712,17 +712,46 @@ const RUN_WALK_PATTERNS: RegExp[] = [
   /run[\s/\-]+walk/i,
 ];
 
-export const applyMarcheCourseRouting = (week: any): void => {
+export const applyMarcheCourseRouting = (
+  week: any,
+  // Bug #4 — VERDICT-EXPERT-5-BUGS.md : garde-fou niveau pour ne pas forcer
+  // le label Marche/Course sur un Expert (cas Guliver 72 ans VMA 13.5 cv 50 →
+  // SL 18 km typée MC = aberration). Doctrine feedback_mode_marche_course_scope :
+  // MC réservé Débutants UNIQUEMENT (ou profil reprise/santé VMA<10 ET cv<10).
+  ctx?: { level?: string | null; vma?: number; currentWeeklyVolume?: number },
+): void => {
   if (!week || !Array.isArray(week.sessions)) return;
+  // Évaluation routing autorisé : Débutant déclaré OU (VMA<10 ET cv<10) — reprise/santé.
+  // .includes('Débutant') aligné sur feasibilityService isBeginner (acc/sans accent toléré).
+  const lvl = (ctx?.level || '').toLowerCase();
+  const isBeginner = lvl.includes('débutant') || lvl.includes('debutant');
+  const vmaVeryLow = (ctx?.vma ?? 99) < 10;
+  const cvVeryLow = (ctx?.currentWeeklyVolume ?? 99) < 10;
+  // Cumul VMA ET cv pour vmaVeryLow (un Expert sénior peut avoir VMA 13 ET cv 50, doit jamais tomber).
+  const routingAllowed = isBeginner || (vmaVeryLow && cvVeryLow);
   for (const session of week.sessions) {
     if (!session || !session.mainSet || typeof session.mainSet !== 'string') continue;
     if (session.type === 'Marche/Course') continue; // idempotent
     const matches = RUN_WALK_PATTERNS.some((re) => re.test(session.mainSet));
-    if (matches) {
+    if (!matches) continue;
+    if (routingAllowed) {
       console.log(
-        `[Routing] Force type Marche/Course pour session "${session.title || '(sans titre)'}" (mainSet contient pattern run/walk, type initial="${session.type}")`,
+        `[Routing] Force type Marche/Course pour session "${session.title || '(sans titre)'}" (level=${ctx?.level}, vma=${ctx?.vma}, cv=${ctx?.currentWeeklyVolume}, type initial="${session.type}")`,
       );
       session.type = 'Marche/Course';
+    } else {
+      // Profil non-débutant (Inter/Confirmé/Expert) : on NE force PAS le label MC.
+      // On retire la phrase walk-break du mainSet pour éviter une incohérence
+      // type-affiché / contenu (doctrine feedback_que_course : pas de cross-training).
+      const before = session.mainSet;
+      session.mainSet = session.mainSet
+        .replace(/[^.;]*\b(?:alternance|run[\s/\-]+walk)[^.;]*[.;]?/gi, '')
+        .replace(/[^.;]*\d+\s*(?:min|sec|s)\s+(?:de\s+|en\s+)?(?:course|marche)[\s\S]{0,60}?\d+\s*(?:min|sec|s)\s+(?:de\s+|en\s+)?(?:marche|course)[^.;]*[.;]?/gi, '')
+        .replace(/\s{2,}/g, ' ')
+        .trim();
+      console.log(
+        `[Routing] Pattern run/walk détecté MAIS niveau "${ctx?.level}" non-débutant (vma=${ctx?.vma}, cv=${ctx?.currentWeeklyVolume}) — phrase retirée du mainSet, type "${session.type}" conservé. before="${before.slice(0, 80)}…"`,
+      );
     }
   }
 };
@@ -3055,6 +3084,22 @@ export const calculatePeriodizationPlan = (
   }
 
   // ══════════════════════════════════════════════════════════════
+  // Bug #3 — VERDICT-EXPERT-5-BUGS.md : cap S1 à 1.3× currentVolume (ACWR Gabbett).
+  // Compromis 1.3 (zone verte/jaune Gabbett) plutôt que 1.5 (zone rouge) ou 1.2
+  // (trop strict pour plans courts <13 sem). Cas Clémentine cv=25, S1=40 (ACWR 1.6)
+  // → cap S1=32 ; la rampe vers le pic est confiée au garde-fou minPeak (ci-dessous)
+  // qui recalcule un taux adapté à 20%/sem max. Doctrine feedback_input_client_obligatoire :
+  // cv user = baseline respectée, jamais écrasé.
+  // Skip en mode "absolute beginner" (déjà capé à 10 km, pas de cv réel).
+  if (currentVolume > 0 && !isAbsoluteBeginner) {
+    const acwrCap = Math.round(currentVolume * 1.3);
+    if (startVolume > acwrCap) {
+      console.log(`[Periodization] ACWR cap S1 : ${Math.round(startVolume)}km → ${acwrCap}km (currentVol ${currentVolume} × 1.3).`);
+      startVolume = acwrCap;
+    }
+  }
+
+  // ══════════════════════════════════════════════════════════════
   // RATE ADAPTATIF : pour les plans longs, réduire le taux pour que
   // le pic arrive vers 65-70% du plan (pas trop tôt → pas de plateau)
   // ══════════════════════════════════════════════════════════════
@@ -4069,6 +4114,9 @@ ${buildDplusPromptBlock({ weekIdx: 0, weeklyElevationTarget: generationContext.p
       recentRaceTimes: data.recentRaceTimes,
       // P0c — garde-fou rampe pic/cv > 2.0 (Coach 20 ans 2026-05-20)
       peakVolume: Math.max(...generationContext.periodizationPlan.weeklyVolumes),
+      // Bug #2a — VERDICT-EXPERT-5-BUGS.md : passer la VRAIE S1 calibrée
+      // pour que R2 règle 4 (saut S0→S1) se déclenche sur les vrais cas (Clémentine).
+      s1ActualVolume: generationContext.periodizationPlan.weeklyVolumes[0],
     });
     const feasibilityTextPreview = `Score : ${feasibilityResultPreview.score}/100 | Statut : ${feasibilityResultPreview.status}
 ${feasibilityResultPreview.message}
@@ -4645,7 +4693,9 @@ Valeurs à remplir :
       // Routing label Marche/Course (audit Lilian 2026-05-21) : si mainSet contient
       // un pattern run/walk, forcer le type. Doit tourner APRÈS enforceWeekConstraints
       // (qui peut réécrire le mainSet) et AVANT le guard cross-semaines.
-      plan.weeks.forEach((week: any) => applyMarcheCourseRouting(week));
+      // Bug #4 — VERDICT-EXPERT-5-BUGS.md : passer level+vma+cv pour garde-fou.
+      const mcCtxPreview = { level: getEffectiveLevel(data), vma: generationContext.vma, currentWeeklyVolume: data.currentWeeklyVolume };
+      plan.weeks.forEach((week: any) => applyMarcheCourseRouting(week, mcCtxPreview));
       // Guard cross-semaines (affûtage, progression, re-cap)
       enforceFullPlanConstraints(plan.weeks, generationContext.periodizationPlan.weeklyVolumes, data);
 
@@ -5443,7 +5493,9 @@ Retourne UNIQUEMENT un tableau JSON des semaines ${startWeek} à ${endWeek} :
       });
 
       // Routing label Marche/Course (audit Lilian 2026-05-21)
-      fullPlan.weeks.forEach((week: any) => applyMarcheCourseRouting(week));
+      // Bug #4 — VERDICT-EXPERT-5-BUGS.md : garde-fou niveau via ctx.
+      const mcCtxFull = { level: getEffectiveLevel(data), vma: ctx.vma, currentWeeklyVolume: data.currentWeeklyVolume };
+      fullPlan.weeks.forEach((week: any) => applyMarcheCourseRouting(week, mcCtxFull));
 
       // Pass 2 : Guard cross-semaines
       enforceFullPlanConstraints(fullPlan.weeks, ctx.periodizationPlan.weeklyVolumes, data);
@@ -5497,7 +5549,8 @@ Retourne UNIQUEMENT un tableau JSON des semaines ${startWeek} à ${endWeek} :
           // enforceSLDay skip automatiquement les semaines contenant un _raceDay.
           enforceSLDay(week, slDayFinal, '[Post-Layer3] ');
           // Routing label Marche/Course (audit Lilian 2026-05-21) — re-check post-Layer3
-          applyMarcheCourseRouting(week);
+          // Bug #4 — VERDICT-EXPERT-5-BUGS.md : garde-fou niveau aussi post-L3.
+          applyMarcheCourseRouting(week, { level: getEffectiveLevel(data), vma: ctx.vma, currentWeeklyVolume: data.currentWeeklyVolume });
         });
         enforceFullPlanConstraints(fullPlan.weeks, ctx.periodizationPlan.weeklyVolumes, data);
 

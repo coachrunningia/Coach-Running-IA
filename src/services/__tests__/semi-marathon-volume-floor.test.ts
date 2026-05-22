@@ -230,15 +230,19 @@ describe('Hard floor Semi 22 / Marathon 32 + runningSessions Semi/Marathon freq 
     expect(peak).toBeGreaterThanOrEqual(32);
   });
 
-  it('P0c-2. Marathon Inter VMA 11 cv=10 freq=3 : pic ≥ 32 (cas garde-fou pic/cv > 2.0)', () => {
-    // Cas extrême : ratio pic/cv > 3.0 attendu. Le périodisation garde le hard
-    // floor 32 km (préparer le marathon prioritaire) ; le garde-fou pic/cv > 2.0
-    // est porté par feasibilityService (cap score à 50), pas par la périodisation.
+  it('P0c-2. Marathon Inter VMA 11 cv=10 freq=3 : pic dégradé (cap ACWR S1=13) + ratio > 2.0', () => {
+    // Sprint A P0 (Bug #3 VERDICT-EXPERT-5-BUGS.md) : cap S1 à 1.3× cv = 13.
+    // Conséquence : le pic ne peut plus atteindre le hard floor 32 km
+    // (mathématiquement infaisable depuis S1=13 sur 16 sem avec rate max 20%).
+    // Verdict expert : on accepte la dégradation du pic — la feasibility
+    // refuse/dégrade le statut (cap pic/cv > 2.0 → score ≤ 50, statut RISQUÉ).
+    // Doctrine feedback_securite_avant_conversion : sécurité ACWR > préparation distance.
     const { peak } = plan({
       level: 'Intermédiaire (Régulier)', currentVolume: 10, subGoal: 'Marathon',
       vma: 11, sessionsPerWeek: 3, totalWeeks: 16,
     });
-    expect(peak).toBeGreaterThanOrEqual(32);
+    // Pic non null et progression réelle depuis S1=13 (smoothing +15% cumulé).
+    expect(peak).toBeGreaterThanOrEqual(20);
     // Ratio pic/cv attendu > 2.0 (déclenche garde-fou feasibility en aval).
     expect(peak / 10).toBeGreaterThan(2.0);
   });

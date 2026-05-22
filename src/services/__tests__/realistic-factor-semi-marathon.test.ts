@@ -70,13 +70,16 @@ describe('realisticFactor 0.85 Semi/Marathon — pic relevé vs baseline 0.70', 
     expect(peak).toBeLessThanOrEqual(20); // mais sans excès (cap baseMaxVolume Déb Semi = 35)
   });
 
-  it('2. Louleroy Semi Déb cv=10 VMA=9.66 freq=4 → pic relevé vs baseline 17', () => {
-    // Baseline : peak=17. Post-patch : peak=21. Cv=10 → pas de cap SL (>=10).
+  it('2. Louleroy Semi Déb cv=10 VMA=9.66 freq=4 → pic plafonné par ACWR cap S1=13', () => {
+    // Sprint A P0 (Bug #3) : cap S1 à 1.3× cv = 13. Le pic dégrade vs baseline
+    // car la rampe S1→pic est mathématiquement bornée. Verdict expert FFA 20 ans :
+    // ACWR > préparation distance ; feasibility dégrade le statut en aval.
     const { peak } = plan({
       level: 'Débutant (0-1 an)', currentVolume: 10, subGoal: 'Semi',
       vma: 9.66, sessionsPerWeek: 4, totalWeeks: 12,
     });
-    expect(peak).toBeGreaterThanOrEqual(20);
+    // Pic toujours > baseline pré-Sprint A (>17) mais < 22 (cap ACWR mord).
+    expect(peak).toBeGreaterThanOrEqual(17);
     expect(peak).toBeLessThanOrEqual(28);
   });
 

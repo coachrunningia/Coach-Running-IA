@@ -50,6 +50,11 @@ export interface FeasibilityParams {
   // Sert au garde-fou ratio pic/cv > 2.0 (Marathon cv=10 freq=3 pic 32 = ratio 3.2
   // = rampe progression absurde, risque blessure overuse / tendinopathie / stress fracture).
   peakVolume?: number;
+  // Bug #2a — VERDICT-EXPERT-5-BUGS.md : vraie S1 calibrée par calculatePeriodizationPlan.
+  // Sans ça, R2 règle 4 (saut S0→S1) s'évaluait sur estimation cv×1.10 → toujours sous
+  // les seuils 0.30/0.50 → règle morte. Avec la vraie S1, Clémentine cv=25 S1=40 sautPct=0.60
+  // → irrealisticCap=10 (statut IRRÉALISTE au lieu d'EXCELLENT).
+  s1ActualVolume?: number;
 }
 
 // ---------------------------------------------------------------------------
@@ -763,9 +768,14 @@ export function calculateFeasibility(params: FeasibilityParams): FeasibilityResu
     ? (isMarathon ? 60 : isSemi ? 45 : isTrail && distanceKm >= 60 ? 70
       : isTrail && distanceKm >= 30 ? 55 : 35)
     : 35;
-  const s1VolEstimate = currentVolume && currentVolume > 0
-    ? Math.round(currentVolume * 1.10)
-    : Math.round(peakVolEstimate * 0.30);
+  // Bug #2a — VERDICT-EXPERT-5-BUGS.md : priorité à la VRAIE S1 calibrée
+  // par calculatePeriodizationPlan (passée en s1ActualVolume) plutôt qu'une
+  // estimation cv×1.10 qui rendait la règle 4 R2 morte sur les cas Clémentine.
+  const s1VolEstimate = params.s1ActualVolume && params.s1ActualVolume > 0
+    ? params.s1ActualVolume
+    : currentVolume && currentVolume > 0
+      ? Math.round(currentVolume * 1.10)
+      : Math.round(peakVolEstimate * 0.30);
   const r2 = applyR2Gates({
     isTrail,
     distanceKm,
@@ -1302,9 +1312,12 @@ function buildFinisherFeasibility(
     ? (isMarathonFin ? 60 : isSemiFin ? 45 : isTrail && distanceKm >= 60 ? 70
       : isTrail && distanceKm >= 30 ? 55 : 35)
     : 35;
-  const s1VolEstimateFin = currentVolume && currentVolume > 0
-    ? Math.round(currentVolume * 1.10)
-    : Math.round(peakVolEstimateFin * 0.30);
+  // Bug #2a — VERDICT-EXPERT-5-BUGS.md : même fix sur path Finisher.
+  const s1VolEstimateFin = params.s1ActualVolume && params.s1ActualVolume > 0
+    ? params.s1ActualVolume
+    : currentVolume && currentVolume > 0
+      ? Math.round(currentVolume * 1.10)
+      : Math.round(peakVolEstimateFin * 0.30);
   const r2 = applyR2Gates({
     isTrail,
     distanceKm,
