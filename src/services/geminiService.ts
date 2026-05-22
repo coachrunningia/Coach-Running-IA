@@ -3369,7 +3369,10 @@ const createGenerationContext = (
 const NO_WEIGHT_MENTION_RULE = `🚫 NE JAMAIS mentionner le poids, l'IMC, la corpulence, la minceur ou la morphologie du coureur dans AUCUN champ (welcomeMessage, advice, mainSet, warmup, cooldown). Rester positif et encourageant.`;
 const NO_CROSS_TRAINING_RULE = `🚫 NE JAMAIS proposer ni mentionner de cross-training, vélo, natation, elliptique ou autre sport. Ce coach est EXCLUSIVEMENT course à pied. Repos, marche active et renforcement sont les seules alternatives autorisées.`;
 
-const buildSafetyInstructions = (data: QuestionnaireData, isBeginnerLevel: boolean): string => {
+// Sprint D Item 4 (EXPERT-FFA-CHALLENGE-9-ITEMS.md) — buildSafetyInstructions EXPORTÉ.
+// Même pattern que buildTransparencyBlock (Sprint C Item 1) : permet aux tests de vérifier
+// la VRAIE règle freq <= 3 (Pfitzinger FRR ch.4) injectée en prod, pas une copie locale.
+export const buildSafetyInstructions = (data: QuestionnaireData, isBeginnerLevel: boolean): string => {
   const parts: string[] = [];
   const bmi = (data.weight && data.height) ? data.weight / ((data.height / 100) ** 2) : null;
   const age = data.age || 0;
@@ -3469,13 +3472,21 @@ Dans le message de bienvenue (welcomeMessage), tu DOIS inclure :
 
   // Forcer la diversité des types de séances (patch E v2 : exception Perte de Poids)
   const isPertePoids = /perte.*poids|weight.*loss/i.test(data.goal || '');
+  // Sprint D Item 4 — règle freq <= 3 (Pfitzinger FRR ch.4) : avec 2 séances course max,
+  // OBLIGATION de différencier footing court (35-50% vol) + SL (50-65% vol). Bug Christopher
+  // 1779456984279 : 2 séances 13 km/13.1 km identiques = bug LLM corrigé par règle explicite.
+  const freq = data.frequency || 3;
   parts.push(`🔴 DIVERSITÉ OBLIGATOIRE DES SÉANCES :
 - ${isPertePoids
     ? 'MAXIMUM 2 séances de type "Sortie Longue" par semaine pour la perte de poids (1 principale dimanche + 1 molle en milieu de semaine — la durée prime sur l\'intensité pour oxydation lipidique).'
     : 'MAXIMUM 1 séance de type "Sortie Longue" par semaine. JAMAIS 2 Sortie Longue la même semaine.'}
 - Si le plan a 3 séances/semaine : 1 Jogging/Footing/Marche-Course + 1 Sortie Longue + 1 Renforcement. En phase développement/spécifique : remplacer le Jogging par du Fractionné ou du Seuil.
 - Si le plan a 4 séances/semaine : 2 Jogging/Footing + 1 Sortie Longue + 1 Renforcement. En phase développement : 1 Jogging + 1 Fractionné + 1 SL + 1 Renfo.
-- Chaque séance de course doit avoir un type DIFFÉRENT (pas 2 "Jogging" identiques — varier : footing EF, footing vallonné, fartlek, progressif, etc.)`);
+- Chaque séance de course doit avoir un type DIFFÉRENT (pas 2 "Jogging" identiques — varier : footing EF, footing vallonné, fartlek, progressif, etc.)${freq <= 3 ? `
+🔑 RÈGLE FREQ ${freq} (2 séances course max, Pfitzinger FRR ch.4) :
+- Séance courte : footing 35-50% du vol hebdo (durée 35-60 min).
+- Séance longue : SL 50-65% du vol hebdo (durée 75-115 min).
+- Distances ET durées DIFFÉRENTES (jamais 2 séances identiques type Christopher 13/13.1 km).` : ''}`);
 
   if (isBeginnerLevel) {
     parts.push(`🛡️ PROTECTION DÉBUTANT :
