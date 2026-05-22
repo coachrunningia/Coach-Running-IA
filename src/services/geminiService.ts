@@ -3858,6 +3858,79 @@ function logDplusActualVsTarget(plan: any, weeklyElevationTarget?: number[]) {
 }
 
 // ============================================
+// Sprint C Item 1 + 3 — buildTransparencyBlock EXPORTÉ (vraie fonction prod)
+// ============================================
+//
+// Item 1 (EXPERT-FFA-CHALLENGE-9-ITEMS.md) : avant Sprint C, la logique des
+// 3 paliers Gabbett (vert/jaune/dur/brutal) était INLINÉE dans generatePreviewPlan.
+// Les tests Bug #5 (sprint-b-p1-fixes.test.ts + validation-sprint-ab-10-profils.test.ts)
+// redéfinissaient localement la fonction → si on changeait un seuil prod, les tests
+// restaient verts (faux-ami). Doctrine feedback_securite_avant_conversion : on
+// veut une couverture HONNÊTE de la fonction réellement exécutée en preview.
+// Sprint C extrait ici la logique en fonction exportée, et les tests importent
+// désormais cette VRAIE fonction prod.
+//
+// Item 3 (Sprint C) : guard petits volumes — Gabbett ACWR (Br J Sports Med 2016)
+// est calibré sur charges absolues significatives. Sur cv=2 → S1=5, delta absolu
+// = 3 km (une seule sortie) — crier "risque blessure Gabbett 2.5" est ridicule
+// cliniquement et viole feedback_securite_avant_conversion à l'envers (dramatiser
+// au lieu d'embellir). Daniels Running Formula ch.1 : règle 10%/sem n'a de sens
+// qu'à partir de ~15 km/sem. Sous 8 km de delta absolu ET cv < 10 km/sem, on
+// retourne bloc vide (le saut existe mais reste cliniquement gérable).
+//
+// Référence Pfitzinger AdvMar/FRR : on monitore le ratio à partir de 15-20 km/sem.
+//
+// La signature minimale (2 args numériques) garde le test léger.
+export function buildTransparencyBlock(cvForRatio: number, s1VolForRatio: number): string {
+  const s1Ratio = cvForRatio > 0 ? s1VolForRatio / cvForRatio : 1;
+  // s1DeltaPct : delta % entre S1 et cv, arrondi pour affichage user.
+  const s1DeltaPct = Math.round((s1Ratio - 1) * 100);
+  // s1DeltaKm : delta absolu en km, utilisé pour le guard Item 3 + affichage.
+  const s1DeltaKm = s1VolForRatio - cvForRatio;
+
+  // Item 3 — Guard petits volumes : sous 8 km de delta absolu ET cv < 10 km/sem,
+  // le ratio Gabbett perd sa pertinence clinique. On retourne bloc vide
+  // (pas de wording alarmiste). Ne pas étendre cv=0 (déjà géré par cv≤0 → '').
+  // Référence : Daniels RF ch.1 (règle 10%/sem inactive sous 15 km/sem),
+  // Gabbett BJSM 2016 (cohortes calibrées sur charges absolues significatives).
+  if (cvForRatio > 0 && s1DeltaKm < 8 && cvForRatio < 10) {
+    return '';
+  }
+
+  // Item 1 — Logique 3 paliers Gabbett (inchangée vs Sprint B, simplement extraite).
+  // cv=0 (débutant absolu) ou ratio ≤ 1.15 (zone verte stricte) : pas de bloc.
+  if (cvForRatio <= 0 || s1Ratio <= 1.15) return '';
+
+  if (s1Ratio <= 1.30) {
+    // Zone verte/jaune : wording prudent, on mentionne le delta mais sans alarmer.
+    return `
+⚠️ TRANSPARENCE CALIBRAGE VOLUME — wording PRUDENT (palier vert/jaune Gabbett) :
+Ratio S1/cv = ${s1Ratio.toFixed(2)} (+${s1DeltaPct}%, soit +${s1DeltaKm}km vs ton volume actuel).
+Le welcomeMessage DOIT mentionner CE CHIFFRAGE PRÉCIS de manière neutre. Modèle obligatoire :
+"Ta S1 démarre à ${s1VolForRatio}km, légèrement au-dessus de ton volume actuel (${cvForRatio}km) — +${s1DeltaPct}%, on surveille ton ressenti. Si tu cours réellement plus, ajuste dans ton profil."
+INCLURE textuellement les chiffres "+${s1DeltaPct}%" et le ratio. Ne pas adoucir.`;
+  }
+
+  if (s1Ratio <= 1.50) {
+    // Zone jaune/rouge : wording dur, on nomme Gabbett, on demande vigilance.
+    return `
+🟠 TRANSPARENCE CALIBRAGE VOLUME — wording DUR (palier jaune/rouge Gabbett) :
+Ratio S1/cv = ${s1Ratio.toFixed(2)} (+${s1DeltaPct}%, soit +${s1DeltaKm}km vs ton volume actuel).
+Le welcomeMessage DOIT prévenir explicitement du saut. Modèle obligatoire :
+"On démarre ta S1 à ${s1VolForRatio}km alors que ton volume actuel est ${cvForRatio}km — c'est +${s1DeltaPct}% (ratio Gabbett ${s1Ratio.toFixed(1)}), au-dessus de la zone recommandée. Sois vigilant·e, écoute ton corps et ralentis si fatigue inhabituelle. Si tu cours réellement plus, ajuste dans ton profil."
+INCLURE textuellement "+${s1DeltaPct}%", "ratio Gabbett ${s1Ratio.toFixed(1)}", "vigilance/vigilant". Ne JAMAIS écrire "un peu plus" ni "reste progressif".`;
+  }
+
+  // Zone rouge brutale : wording sans embellissement, mention risque blessure, lecture obligatoire.
+  return `
+🚨 TRANSPARENCE CALIBRAGE VOLUME — wording BRUTAL (zone rouge Gabbett, saut violent) :
+Ratio S1/cv = ${s1Ratio.toFixed(2)} (+${s1DeltaPct}%, soit +${s1DeltaKm}km vs ton volume actuel).
+Le welcomeMessage DOIT prévenir SANS EMBELLIR. Modèle obligatoire :
+"Ta S1 démarre à ${s1VolForRatio}km, soit +${s1DeltaPct}% au-dessus de ton volume actuel (${cvForRatio}km). C'est un saut violent en zone rouge Gabbett (ratio ${s1Ratio.toFixed(1)} > 1.5) — risque de blessure significatif pour ton objectif. Lecture obligatoire : si tu cours réellement plus que ${cvForRatio}km/sem, ajuste dans ton profil. Sinon on te recommande d'allonger ton plan ou de revoir l'objectif. Suivre cette S1 nécessite vigilance accrue."
+INCLURE textuellement "+${s1DeltaPct}%", "Gabbett ${s1Ratio.toFixed(1)}", "risque" (de blessure) et "vigilance". Ne JAMAIS adoucir, ne JAMAIS écrire "un peu plus" ni "reste progressif". Ne PAS mentionner d'allure (doctrine jamais_baisser_allure_cible). Ne PAS mentionner poids/IMC (doctrine jamais_poids_minceur).`;
+}
+
+// ============================================
 // GÉNÉRATION PREVIEW (SEMAINE 1 UNIQUEMENT)
 // ============================================
 
@@ -4122,45 +4195,17 @@ ${buildDplusPromptBlock({ weekIdx: 0, weeklyElevationTarget: generationContext.p
 ${feasibilityResultPreview.message}
 ${feasibilityResultPreview.alternativeTarget ? `Objectif alternatif : ${feasibilityResultPreview.alternativeTarget}` : ''}`;
 
-    // === Bug #5 — Welcome 3 paliers Gabbett (VERDICT-EXPERT-5-BUGS.md) ===
-    // Sprint B P1. Le wording précédent ("un peu plus que ton volume actuel mais reste
-    // progressif") minimisait des sauts violents (Clémentine cv=25 S1=40 = +60%, zone
-    // rouge ACWR Gabbett 1.6). Doctrine feedback_securite_avant_conversion : on est
-    // transparent en chiffres bruts (+X%, ratio Gabbett X.X), pas en formules douces.
-    // Paliers : ≤1.15 neutre (zone verte) | 1.15-1.30 prudent (vert/jaune) |
-    //          1.30-1.50 dur (jaune/rouge, Gabbett borderline) | >1.50 brutal (rouge).
+    // === Bug #5 + Sprint C Items 1 & 3 — Welcome 3 paliers Gabbett ===
+    // Sprint B P1 a posé les 3 paliers (vert/jaune/dur/brutal) en inline ici.
+    // Sprint C Item 1 (EXPERT-FFA-CHALLENGE-9-ITEMS.md) extrait cette logique
+    // en fonction exportée `buildTransparencyBlock` (ci-dessus) pour que les tests
+    // Bug #5 testent la VRAIE fonction prod (pas une réplique locale).
+    // Sprint C Item 3 ajoute le guard petits volumes (cv<10 ET deltaKm<8 → bloc vide).
+    // Doctrine feedback_securite_avant_conversion : on est transparent en chiffres
+    // bruts (+X%, ratio Gabbett X.X), pas en formules douces.
     const s1VolForRatio = generationContext.periodizationPlan.weeklyVolumes[0] || 0;
     const cvForRatio = data.currentWeeklyVolume ?? 0;
-    const s1Ratio = cvForRatio > 0 ? s1VolForRatio / cvForRatio : 1;
-    const s1DeltaPct = Math.round((s1Ratio - 1) * 100); // ex: 1.60 → 60
-    const s1DeltaKm = s1VolForRatio - cvForRatio;
-    const transparencyBlock = (cvForRatio <= 0 || s1Ratio <= 1.15)
-      // cv=0 (débutant) ou ratio ≤ 1.15 (zone verte stricte) : pas de bloc, le welcome
-      // suit son flux normal sans alerte volume (rien à signaler).
-      ? ''
-      : s1Ratio <= 1.30
-        // Zone verte/jaune : wording prudent, on mentionne le delta mais sans alarmer.
-        ? `
-⚠️ TRANSPARENCE CALIBRAGE VOLUME — wording PRUDENT (palier vert/jaune Gabbett) :
-Ratio S1/cv = ${s1Ratio.toFixed(2)} (+${s1DeltaPct}%, soit +${s1DeltaKm}km vs ton volume actuel).
-Le welcomeMessage DOIT mentionner CE CHIFFRAGE PRÉCIS de manière neutre. Modèle obligatoire :
-"Ta S1 démarre à ${s1VolForRatio}km, légèrement au-dessus de ton volume actuel (${cvForRatio}km) — +${s1DeltaPct}%, on surveille ton ressenti. Si tu cours réellement plus, ajuste dans ton profil."
-INCLURE textuellement les chiffres "+${s1DeltaPct}%" et le ratio. Ne pas adoucir.`
-        : s1Ratio <= 1.50
-          // Zone jaune/rouge : wording dur, on nomme Gabbett, on demande vigilance.
-          ? `
-🟠 TRANSPARENCE CALIBRAGE VOLUME — wording DUR (palier jaune/rouge Gabbett) :
-Ratio S1/cv = ${s1Ratio.toFixed(2)} (+${s1DeltaPct}%, soit +${s1DeltaKm}km vs ton volume actuel).
-Le welcomeMessage DOIT prévenir explicitement du saut. Modèle obligatoire :
-"On démarre ta S1 à ${s1VolForRatio}km alors que ton volume actuel est ${cvForRatio}km — c'est +${s1DeltaPct}% (ratio Gabbett ${s1Ratio.toFixed(1)}), au-dessus de la zone recommandée. Sois vigilant·e, écoute ton corps et ralentis si fatigue inhabituelle. Si tu cours réellement plus, ajuste dans ton profil."
-INCLURE textuellement "+${s1DeltaPct}%", "ratio Gabbett ${s1Ratio.toFixed(1)}", "vigilance/vigilant". Ne JAMAIS écrire "un peu plus" ni "reste progressif".`
-          // Zone rouge brutale : wording sans embellissement, mention risque blessure, lecture obligatoire.
-          : `
-🚨 TRANSPARENCE CALIBRAGE VOLUME — wording BRUTAL (zone rouge Gabbett, saut violent) :
-Ratio S1/cv = ${s1Ratio.toFixed(2)} (+${s1DeltaPct}%, soit +${s1DeltaKm}km vs ton volume actuel).
-Le welcomeMessage DOIT prévenir SANS EMBELLIR. Modèle obligatoire :
-"Ta S1 démarre à ${s1VolForRatio}km, soit +${s1DeltaPct}% au-dessus de ton volume actuel (${cvForRatio}km). C'est un saut violent en zone rouge Gabbett (ratio ${s1Ratio.toFixed(1)} > 1.5) — risque de blessure significatif pour ton objectif. Lecture obligatoire : si tu cours réellement plus que ${cvForRatio}km/sem, ajuste dans ton profil. Sinon on te recommande d'allonger ton plan ou de revoir l'objectif. Suivre cette S1 nécessite vigilance accrue."
-INCLURE textuellement "+${s1DeltaPct}%", "Gabbett ${s1Ratio.toFixed(1)}", "risque" (de blessure) et "vigilance". Ne JAMAIS adoucir, ne JAMAIS écrire "un peu plus" ni "reste progressif". Ne PAS mentionner d'allure (doctrine jamais_baisser_allure_cible). Ne PAS mentionner poids/IMC (doctrine jamais_poids_minceur).`;
+    const transparencyBlock = buildTransparencyBlock(cvForRatio, s1VolForRatio);
 
     // === CALCUL MIN SL DURATION POUR INSTRUCTION PROMPT ===
     const objectiveForSL = detectObjectiveFromData(data);

@@ -19,6 +19,9 @@
 
 import { describe, it, expect } from 'vitest';
 import { calculateFeasibility } from '../feasibilityService';
+// Sprint C Item 1 — import de la VRAIE fonction prod (extraite de generatePreviewPlan).
+// Avant : ce fichier redéfinissait localement buildTransparencyBlock → faux ami test.
+import { buildTransparencyBlock } from '../geminiService';
 
 // ─────────────────────────────────────────────────────────────────────────────
 // Base feasibility — profil utilisé pour isoler chaque cap
@@ -245,39 +248,10 @@ describe('Bug #2c — Cross-check PB déclaré vs cible', () => {
 // Bug #5 — WelcomeMessage 3 paliers Gabbett (wording)
 // ─────────────────────────────────────────────────────────────────────────────
 //
-// On valide directement la logique du transparencyBlock par un harness inline
-// (réplique exacte de la logique injectée dans geminiService.ts L4131+).
-// Cela évite de monter tout le pipeline preview ; on teste UNIQUEMENT le bloc
-// chiffrage qui pilote le LLM.
-
-function buildTransparencyBlock(cvForRatio: number, s1VolForRatio: number): string {
-  const s1Ratio = cvForRatio > 0 ? s1VolForRatio / cvForRatio : 1;
-  const s1DeltaPct = Math.round((s1Ratio - 1) * 100);
-  const s1DeltaKm = s1VolForRatio - cvForRatio;
-  if (cvForRatio <= 0 || s1Ratio <= 1.15) return '';
-  if (s1Ratio <= 1.30) {
-    return `
-⚠️ TRANSPARENCE CALIBRAGE VOLUME — wording PRUDENT (palier vert/jaune Gabbett) :
-Ratio S1/cv = ${s1Ratio.toFixed(2)} (+${s1DeltaPct}%, soit +${s1DeltaKm}km vs ton volume actuel).
-Le welcomeMessage DOIT mentionner CE CHIFFRAGE PRÉCIS de manière neutre. Modèle obligatoire :
-"Ta S1 démarre à ${s1VolForRatio}km, légèrement au-dessus de ton volume actuel (${cvForRatio}km) — +${s1DeltaPct}%, on surveille ton ressenti. Si tu cours réellement plus, ajuste dans ton profil."
-INCLURE textuellement les chiffres "+${s1DeltaPct}%" et le ratio. Ne pas adoucir.`;
-  }
-  if (s1Ratio <= 1.50) {
-    return `
-🟠 TRANSPARENCE CALIBRAGE VOLUME — wording DUR (palier jaune/rouge Gabbett) :
-Ratio S1/cv = ${s1Ratio.toFixed(2)} (+${s1DeltaPct}%, soit +${s1DeltaKm}km vs ton volume actuel).
-Le welcomeMessage DOIT prévenir explicitement du saut. Modèle obligatoire :
-"On démarre ta S1 à ${s1VolForRatio}km alors que ton volume actuel est ${cvForRatio}km — c'est +${s1DeltaPct}% (ratio Gabbett ${s1Ratio.toFixed(1)}), au-dessus de la zone recommandée. Sois vigilant·e, écoute ton corps et ralentis si fatigue inhabituelle. Si tu cours réellement plus, ajuste dans ton profil."
-INCLURE textuellement "+${s1DeltaPct}%", "ratio Gabbett ${s1Ratio.toFixed(1)}", "vigilance/vigilant". Ne JAMAIS écrire "un peu plus" ni "reste progressif".`;
-  }
-  return `
-🚨 TRANSPARENCE CALIBRAGE VOLUME — wording BRUTAL (zone rouge Gabbett, saut violent) :
-Ratio S1/cv = ${s1Ratio.toFixed(2)} (+${s1DeltaPct}%, soit +${s1DeltaKm}km vs ton volume actuel).
-Le welcomeMessage DOIT prévenir SANS EMBELLIR. Modèle obligatoire :
-"Ta S1 démarre à ${s1VolForRatio}km, soit +${s1DeltaPct}% au-dessus de ton volume actuel (${cvForRatio}km). C'est un saut violent en zone rouge Gabbett (ratio ${s1Ratio.toFixed(1)} > 1.5) — risque de blessure significatif pour ton objectif. Lecture obligatoire : si tu cours réellement plus que ${cvForRatio}km/sem, ajuste dans ton profil. Sinon on te recommande d'allonger ton plan ou de revoir l'objectif. Suivre cette S1 nécessite vigilance accrue."
-INCLURE textuellement "+${s1DeltaPct}%", "Gabbett ${s1Ratio.toFixed(1)}", "risque" (de blessure) et "vigilance". Ne JAMAIS adoucir, ne JAMAIS écrire "un peu plus" ni "reste progressif". Ne PAS mentionner d'allure (doctrine jamais_baisser_allure_cible). Ne PAS mentionner poids/IMC (doctrine jamais_poids_minceur).`;
-}
+// Sprint C Item 1 : on teste la VRAIE fonction prod importée depuis geminiService.
+// Avant : réplique inline locale → faux ami test (un changement de seuil prod
+// passait inaperçu). Désormais : import direct, tests effectivement liés au code
+// exécuté en preview.
 
 describe('Bug #5 — Welcome 3 paliers Gabbett (transparencyBlock)', () => {
   it('cv=50, S1=50 (ratio 1.0) → bloc vide (pas de chiffrage alarmiste)', () => {

@@ -854,6 +854,11 @@ export function calculateFeasibility(params: FeasibilityParams): FeasibilityResu
   //   - Si pbGapPct > 8% (tout âge) → cap 70 (objectif tendu en absolu).
   //   - Si pbGapPct > 15% → cap 60 (objectif vraiment irréaliste, gain >15% improbable).
   // On ne touche PAS l'allure cible (doctrine feedback_jamais_baisser_allure_cible).
+  //
+  // Sprint C Items 6 + 9 — On hoist pbGapPct hors du bloc pour le réutiliser
+  // dans le warning freq=3 vs ambition (Item 6) ET dans la condition de
+  // suppression de l'alerte "20 sem c'est long" (Item 9).
+  let pbGapPctHoisted: number | null = null;
   if (params.recentRaceTimes && hasTimeTarget && distanceKm !== null) {
     // Parse PB pour chaque distance — null si non déclaré ou parse impossible.
     const parsePb = (pb?: string): number | null => {
@@ -896,6 +901,8 @@ export function calculateFeasibility(params: FeasibilityParams): FeasibilityResu
     if (pbRelevant !== null && pbRelevant > 0) {
       // pbGapPct > 0 = cible PLUS RAPIDE que PB (= objectif tendu = gain demandé).
       const pbGapPct = ((pbRelevant - targetMinutes) / pbRelevant) * 100;
+      // Sprint C — hoist pour Items 6 (warning freq=3 vs ambition) et 9 (alerte 20 sem).
+      pbGapPctHoisted = pbGapPct;
       const age = params.age ?? 0;
       if (pbGapPct > 15) {
         // Gain > 15% irréaliste tout âge (sauf reprise post-blessure / niveau initial très bas).
@@ -971,11 +978,57 @@ export function calculateFeasibility(params: FeasibilityParams): FeasibilityResu
 
   let safetyWarning = buildSafetyWarning(beginner, isMarathon, isSemi, hasInjury, status, params.weight, params.height, params.age, isTrail, isMarathon || isSemi || (distanceKm !== null && distanceKm >= 21));
 
+  // ─── Sprint C Item 6 — Warning fréquence ≤ 3 vs ambition élevée ───
+  // Référence : EXPERT-FFA-CHALLENGE-9-ITEMS.md Item 6 (✅ CONFIRMÉ).
+  // Cas Christopher : Semi 1h45 freq=3 (2 course + 1 renfo) PB 2h04 → gap 15%.
+  // Coach FFA : Pfitzinger FRR "Half Marathon — Up to 47 mi/week" demande 47-65
+  // mi/sem (= 75-105 km/sem). Avec freq=3, plafond ~33 km/sem = bottleneck physique.
+  // Daniels Running Formula : VDOT 49 (1h45 semi) recommande 60-90 km/sem.
+  // Doctrine feedback_jamais_baisser_allure_cible : on N'AJUSTE PAS l'allure
+  // cible — on alerte le user en transparence (feedback_securite_avant_conversion).
+  // Trigger : (isSemi OU isMarathon) ET frequency ≤ 3 ET pbGapPct ≥ 8% (Semi)
+  // ou ≥ 3% (Marathon, plus exigeant volume).
+  // Si pas de PB déclaré : on se base sur le gap VMA (gapPercent) ≥ 8%.
+  const lowFreq = params.frequency !== undefined && params.frequency <= 3;
+  const isLongRouteRace = (isSemi || isMarathon) && !isTrail;
+  if (lowFreq && isLongRouteRace) {
+    // Critère ambition : PB-gap si disponible, sinon VMA-gap (gapPercent calculé plus haut).
+    const ambitionFromPb = pbGapPctHoisted !== null && (
+      (isSemi && pbGapPctHoisted >= 8) || (isMarathon && pbGapPctHoisted >= 3)
+    );
+    const ambitionFromVma = pbGapPctHoisted === null && gapPercent >= 8;
+    if (ambitionFromPb || ambitionFromVma) {
+      const distLabel = isMarathon ? 'marathon' : 'semi-marathon';
+      const targetFormatted = formatTime(targetMinutes);
+      // Doctrine `feedback_jamais_suggerer_changer_frequence` (Romane 2026-05-22) :
+      // on CONSTATE le bottleneck physique, on NE SUGGÈRE PAS d'ajouter une séance.
+      // La fréquence est un input client immuable au même titre que l'allure cible.
+      const freqWarning = `⚠️ FRÉQUENCE & AMBITION : avec ${params.frequency} séances/sem dont 1 renfo, le référentiel coach (Pfitzinger FRR, Daniels Running Formula) recommande 4-5 séances course/sem pour viser ${targetFormatted} sur ${distLabel}. C'est la formule qu'on a calibrée pour toi et qu'on respecte : on optimise au maximum avec tes ${(params.frequency || 3) - 1} séances course. Le plafond physique de progression sera nécessairement plus modeste qu'avec 4-5 séances, mais la cible reste la tienne, on ne la baisse pas.`;
+      safetyWarning = safetyWarning ? `${safetyWarning}\n\n${freqWarning}` : freqWarning;
+    }
+  }
+
   // Warning plans trop longs pour le profil
   const maxRecommendedWeeks = isMarathon ? 20 : isSemi ? 18 : isTrail ? 20 : 14;
   if (planWeeks > maxRecommendedWeeks && !beginner) {
-    const longPlanWarning = `⚠️ DURÉE DU PLAN : ${planWeeks} semaines, c'est long pour ton profil. La plupart des coureurs de ton niveau préparent cette distance en ${maxRecommendedWeeks} semaines maximum. Un plan trop long peut entraîner de la lassitude et une stagnation. Si tu te sens prêt, tu peux envisager de rapprocher ta date de début.`;
-    safetyWarning = safetyWarning ? `${safetyWarning}\n\n${longPlanWarning}` : longPlanWarning;
+    // ─── Sprint C Item 9 — Conditionner l'alerte "20 sem c'est long" ───
+    // Référence : EXPERT-FFA-CHALLENGE-9-ITEMS.md Item 9 (✅ CONFIRMÉ bug logique).
+    // Cas Christopher : Semi Confirmé 20 sem PB 2h04 → cible 1h45 (gap 15%) → l'alerte
+    // était théorique-correcte mais contextuelle-fausse : Pfitzinger FRR recommande
+    // explicitement 18-24 sem quand le gap PB→cible > 10%. L'alerte se contredisait
+    // elle-même (UX déceptive).
+    // Conditions de suppression :
+    //   - pbGapPct ≥ 8% (gap PB→cible justifie le plan long, Pfitzinger), OU
+    //   - peakVolume / currentVolume ≥ 1.5 (rampe volume justifie le plan long).
+    // Sinon alerte conservée (lassitude réelle pour Confirmé 20 sem avec PB cohérent).
+    const pbGapJustifiesLong = pbGapPctHoisted !== null && pbGapPctHoisted >= 8;
+    const needsLongRamp = params.peakVolume !== undefined && params.peakVolume > 0
+      && currentVolume !== undefined && currentVolume > 0
+      && (params.peakVolume / currentVolume) >= 1.5;
+    if (!pbGapJustifiesLong && !needsLongRamp) {
+      const longPlanWarning = `⚠️ DURÉE DU PLAN : ${planWeeks} semaines, c'est long pour ton profil. La plupart des coureurs de ton niveau préparent cette distance en ${maxRecommendedWeeks} semaines maximum. Un plan trop long peut entraîner de la lassitude et une stagnation. Si tu te sens prêt, tu peux envisager de rapprocher ta date de début.`;
+      safetyWarning = safetyWarning ? `${safetyWarning}\n\n${longPlanWarning}` : longPlanWarning;
+    }
   }
 
   return { score, status, message, safetyWarning, alternativeTarget, recommendation };
@@ -1493,6 +1546,32 @@ function buildFinisherFeasibility(
     });
   }
 
+  // ─── Sprint C Item 2 — Cap senior progressif appliqué AUSSI en Finisher ───
+  // Référence : EXPERT-FFA-CHALLENGE-9-ITEMS.md Item 2 (verdict NUANCÉ).
+  // Coach FFA : Hammond Endurance Masters + Pfitzinger FRR ch.Masters Athletes.
+  // La dégradation VO2max (0.5-1%/an dès 55 ans, 1-1.5%/an après 70) ET la
+  // récupération inter-séance (2-3× plus lente à 75 ans) sont indépendantes
+  // de la cible chrono. Un senior "Finisher" sur Marathon a la MÊME contrainte
+  // cardio/récup qu'un senior qui vise sub-4h — juste pas de pression chrono.
+  // Le cap senior chronométré (calculateFeasibility L831-843) doit donc être
+  // appliqué AUSSI en Finisher : 60+ → 90, 70+ → 75, 75+ → 70.
+  // On ne touche PAS l'allure cible (doctrine feedback_jamais_baisser_allure_cible).
+  // On NE duplique PAS Bug #2c (cross-check PB) ici : Finisher n'a pas de cible
+  // chronométrée donc le concept "gap PB→cible" n'a pas de sens (verdict coach).
+  if (params.age !== undefined) {
+    const age = params.age;
+    if (age >= 75) {
+      // 75+ : cap 70 — dégradation VO2max ≥ 7.5% vs base 60 ans (Hammond).
+      score = Math.min(score, 70);
+    } else if (age >= 70) {
+      // 70-74 : cap 75 — dégradation VO2max ~5-7%, récup nettement plus lente.
+      score = Math.min(score, 75);
+    } else if (age >= 60) {
+      // 60-69 : cap 90 — début de la perte VO2max liée à l'âge, prudence.
+      score = Math.min(score, 90);
+    }
+  }
+
   // ─── P0c — Garde-fou rampe de progression pic / cv > 2.0 ───
   // Validation Coach 20 ans Pfitzinger Lab (2026-05-20). Cas extrême Marathon
   // cv=10 freq=3 → pic 32 km = ratio 3.2× : rampe absurde, risque blessure
@@ -1614,8 +1693,17 @@ function buildFinisherFeasibility(
   const isTrailLong = isTrail && distanceKm !== null && distanceKm >= 42;
   const maxWeeksTrail = isTrailLong ? 22 : isTrail ? 20 : isMarathon ? 20 : isSemi ? 18 : 14;
   if (planWeeks > maxWeeksTrail && !beginner) {
-    const longPlanWarning = `⚠️ DURÉE DU PLAN : ${planWeeks} semaines, c'est long pour ton profil. La plupart des coureurs de ton niveau préparent cette distance en ${maxWeeksTrail} semaines maximum. Un plan trop long peut entraîner de la lassitude et une stagnation. Si tu te sens prêt, tu peux envisager de rapprocher ta date de début.`;
-    safetyWarning = safetyWarning ? `${safetyWarning}\n\n${longPlanWarning}` : longPlanWarning;
+    // ─── Sprint C Item 9 (path Finisher) — Conditionner alerte "20 sem c'est long" ───
+    // Pas de pbGap en Finisher (pas de cible chrono). On ne se base que sur le besoin
+    // de rampe volume (peak/cv ≥ 1.5 = rampe longue justifiée).
+    // Si la rampe est plate (peak/cv < 1.5), on conserve l'alerte (lassitude réelle).
+    const needsLongRamp = params.peakVolume !== undefined && params.peakVolume > 0
+      && currentVolume !== undefined && currentVolume > 0
+      && (params.peakVolume / currentVolume) >= 1.5;
+    if (!needsLongRamp) {
+      const longPlanWarning = `⚠️ DURÉE DU PLAN : ${planWeeks} semaines, c'est long pour ton profil. La plupart des coureurs de ton niveau préparent cette distance en ${maxWeeksTrail} semaines maximum. Un plan trop long peut entraîner de la lassitude et une stagnation. Si tu te sens prêt, tu peux envisager de rapprocher ta date de début.`;
+      safetyWarning = safetyWarning ? `${safetyWarning}\n\n${longPlanWarning}` : longPlanWarning;
+    }
   }
 
   return { score, status, message, safetyWarning, recommendation };
