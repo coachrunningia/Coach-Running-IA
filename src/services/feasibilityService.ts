@@ -818,6 +818,99 @@ export function calculateFeasibility(params: FeasibilityParams): FeasibilityResu
     }
   }
 
+  // ─── Bug #2b — Cap senior progressif (Hammond Endurance Masters + Pfitzinger Masters) ───
+  // Sprint B P1 — VERDICT-EXPERT-5-BUGS.md.
+  // Justification coach : VO2max décline 0.5-1%/an après 60 ans, récupération
+  // inter-séance 2-3× plus lente. Le ratio VMA→temps marathon devient
+  // mécaniquement moins fiable pour un senior — la VMA mesurée ne traduit
+  // plus la même capacité de tenue que pour un jeune adulte. On plafonne donc
+  // la confidence pour éviter de "vendre" un EXCELLENT 99% à un 72 ans.
+  // Cap progressif (60 → 70 → 75 ans) car la dégradation est continue, pas binaire.
+  // On ne touche PAS l'allure cible (doctrine feedback_jamais_baisser_allure_cible) :
+  // c'est le score+welcome qui informent, pas le plan qui se cale en dessous.
+  if (params.age !== undefined) {
+    const age = params.age;
+    if (age >= 75) {
+      // 75+ : cap 70 — dégradation VO2max ≥ 7.5% vs base 60 ans.
+      score = Math.min(score, 70);
+    } else if (age >= 70) {
+      // 70-74 : cap 75 — dégradation VO2max ~5-7% vs base 60 ans, récup nettement plus lente.
+      score = Math.min(score, 75);
+    } else if (age >= 60) {
+      // 60-69 : cap 90 — début de la perte VO2max liée à l'âge, prudence.
+      score = Math.min(score, 90);
+    }
+  }
+
+  // ─── Bug #2c — Cross-check PB déclaré vs cible (Riegel fallback) ───
+  // Sprint B P1 — VERDICT-EXPERT-5-BUGS.md.
+  // Cas Guliver : PB Marathon 4h10 (250 min), cible 3h55 (235 min) → gap 6%.
+  // Un user qui n'a jamais couru en dessous de 4h10 ne va pas gagner 6% à 72 ans en N sem.
+  // Logique :
+  //   - On lit le PB sur la distance objectif si disponible (Marathon/Semi/10K/5K).
+  //   - Sinon on tente une estimation Riegel depuis un PB voisin (semi×2.1 ou 10K×4.6
+  //     vers marathon ; marathon÷2.1 vers semi ; etc.). Riegel = standard physio.
+  //   - Si pbGapPct > 4% ET senior (≥60) → cap 70 (objectif tendu pour un senior).
+  //   - Si pbGapPct > 8% (tout âge) → cap 70 (objectif tendu en absolu).
+  //   - Si pbGapPct > 15% → cap 60 (objectif vraiment irréaliste, gain >15% improbable).
+  // On ne touche PAS l'allure cible (doctrine feedback_jamais_baisser_allure_cible).
+  if (params.recentRaceTimes && hasTimeTarget && distanceKm !== null) {
+    // Parse PB pour chaque distance — null si non déclaré ou parse impossible.
+    const parsePb = (pb?: string): number | null => {
+      if (!pb) return null;
+      const m = parseTargetTime(pb);
+      return m && m > 0 ? m : null;
+    };
+    const pbMarathon = parsePb(params.recentRaceTimes.distanceMarathon);
+    const pbHalf = parsePb(params.recentRaceTimes.distanceHalfMarathon);
+    const pb10k = parsePb(params.recentRaceTimes.distance10km);
+    const pb5k = parsePb(params.recentRaceTimes.distance5km);
+
+    // Estimation Riegel d'un PB sur la distance objectif à partir d'un PB voisin.
+    // Formule Riegel : T2 = T1 × (D2/D1)^1.06. Pour simplifier, on utilise les
+    // ratios standards : marathon ≈ semi × 2.1 ≈ 10K × 4.6 ≈ 5K × 9.8.
+    // Le choix prioritaire est l'échelle la plus proche pour minimiser l'erreur Riegel.
+    let pbRelevant: number | null = null;
+    let pbSource = '';
+    if (isMarathon) {
+      if (pbMarathon !== null) { pbRelevant = pbMarathon; pbSource = 'M'; }
+      else if (pbHalf !== null) { pbRelevant = pbHalf * 2.1; pbSource = 'H→M(Riegel)'; }
+      else if (pb10k !== null) { pbRelevant = pb10k * 4.6; pbSource = '10K→M(Riegel)'; }
+      else if (pb5k !== null) { pbRelevant = pb5k * 9.8; pbSource = '5K→M(Riegel)'; }
+    } else if (isSemi) {
+      if (pbHalf !== null) { pbRelevant = pbHalf; pbSource = 'H'; }
+      else if (pb10k !== null) { pbRelevant = pb10k * 2.2; pbSource = '10K→H(Riegel)'; }
+      else if (pbMarathon !== null) { pbRelevant = pbMarathon / 2.1; pbSource = 'M→H(Riegel)'; }
+      else if (pb5k !== null) { pbRelevant = pb5k * 4.667; pbSource = '5K→H(Riegel)'; }
+    } else if (!isTrail && distanceKm >= 9 && distanceKm <= 11) {
+      // 10K objectif
+      if (pb10k !== null) { pbRelevant = pb10k; pbSource = '10K'; }
+      else if (pb5k !== null) { pbRelevant = pb5k * 2.1; pbSource = '5K→10K(Riegel)'; }
+      else if (pbHalf !== null) { pbRelevant = pbHalf / 2.2; pbSource = 'H→10K(Riegel)'; }
+    } else if (!isTrail && distanceKm >= 4 && distanceKm <= 6) {
+      // 5K objectif
+      if (pb5k !== null) { pbRelevant = pb5k; pbSource = '5K'; }
+      else if (pb10k !== null) { pbRelevant = pb10k / 2.1; pbSource = '10K→5K(Riegel)'; }
+    }
+
+    if (pbRelevant !== null && pbRelevant > 0) {
+      // pbGapPct > 0 = cible PLUS RAPIDE que PB (= objectif tendu = gain demandé).
+      const pbGapPct = ((pbRelevant - targetMinutes) / pbRelevant) * 100;
+      const age = params.age ?? 0;
+      if (pbGapPct > 15) {
+        // Gain > 15% irréaliste tout âge (sauf reprise post-blessure / niveau initial très bas).
+        score = Math.min(score, 60);
+      } else if (pbGapPct > 8) {
+        // Gain 8-15% : cap 70 tout âge.
+        score = Math.min(score, 70);
+      } else if (pbGapPct > 4 && age >= 60) {
+        // Gain 4-8% senior : cap 70 (cas Guliver 6% à 72 ans).
+        score = Math.min(score, 70);
+      }
+      console.debug(`[Bug #2c PB cross-check] dist=${distanceKm}km, pbSource=${pbSource}, pbMin=${pbRelevant.toFixed(1)}, targetMin=${targetMinutes.toFixed(1)}, pbGapPct=${pbGapPct.toFixed(2)}%, age=${age}, score après cap=${score}`);
+    }
+  }
+
   // Clamp final
   score = clamp(score, 10, 100);
   status = resolveStatus(score);
