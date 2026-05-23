@@ -1,0 +1,215 @@
+{
+  "id": "1779296358366",
+  "createTime": "2026-05-20T16:59:18.557772Z",
+  "goal": "Course sur route",
+  "name": "Préparation 10 km — Finisher — 20 sem.",
+  "durationWeeks": 20,
+  "sessionsPerWeek": 3,
+  "createdAt": "2026-05-20T16:59:18.366Z",
+  "userEmail": "lilian.raymond2007@gmail.com",
+  "fullPlanGenerated": false,
+  "weeks": [
+    {
+      "sessions": [
+        {
+          "cooldown": "10 min de retour au calme à 9:05 min/km + étirements",
+          "type": "Sortie Longue",
+          "targetPace": "9:05",
+          "advice": "Écoute ton corps : si une douleur apparaît au niveau de ton ampoule, arrête-toi. Porte des pansements préventifs si nécessaire.",
+          "duration": "1h00",
+          "distance": "6.6 km",
+          "title": "Footing technique et progressif",
+          "id": "w1-s1-1779296358368-j5iw6zl",
+          "locationSuggestion": "Stade Philippe Marcombes",
+          "day": "Mardi",
+          "mainSet": "Bloc de 8 répétitions composé de 1 min de course légère à allure EF (8:08 min/km) suivie de 2 min de marche active pour la récupération. Travaille ta posture bien droite.",
+          "intensity": "Facile",
+          "warmup": "5 min de marche, à 9:05 min/km lente"
+        },
+        {
+          "duration": "30 min",
+          "advice": "Ne force pas sur les mouvements si tu ressens une tension inhabituelle.",
+          "warmup": "10 min de mobilité articulaire et échauffement dynamique",
+          "type": "Renforcement",
+          "intensity": "Modéré",
+          "mainSet": "Circuit 2 tours : Squats poids de corps (3x9), Squat bulgare (3x6/jambe), Fentes avant (3x6/jambe), Gainage ventral (3x19-60s), Dead bug (3x6/cote), Extensions mollets debout (3x13). Repos 2 min entre tours.",
+          "day": "Jeudi",
+          "locationSuggestion": "À la maison",
+          "id": "w1-s2-1779296358368-5nkfx80",
+          "title": "Renfo Focus A - Quadriceps & Gainage (S1)",
+          "cooldown": "5 min d'étirements : quadriceps, ischio-jambiers, mollets, hanches"
+        },
+        {
+          "warmup": "10 min de marche, à 9:05 min/km progressive",
+          "intensity": "Facile",
+          "mainSet": "Réalise 10 répétitions de 1 min de course légère à allure EF (8:08 min/km) alternées avec 2 min de marche active. Le but est de maintenir une conversation sans être essoufflé.",
+          "day": "Dimanche",
+          "locationSuggestion": "Berges de l'Allier",
+          "id": "w1-s3-1779296358368-z8y3jz7",
+          "title": "Sortie Longue - Endurance Fondamentale",
+          "distance": "6.6 km",
+          "advice": "Hydrate-toi régulièrement, même par temps frais. En cas de frottement au pied, n'hésite pas à marcher davantage.",
+          "duration": "1h00",
+          "targetPace": "9:05",
+          "type": "Sortie Longue",
+          "cooldown": "10 min de retour au calme à 9:05 min/km + étirements"
+        }
+      ],
+      "weekGoal": "Initiation et gestion des appuis",
+      "phase": "fondamental",
+      "weekNumber": 1,
+      "theme": "Initiation et gestion des appuis"
+    }
+  ],
+  "location": "Clermont",
+  "welcomeMessage": "Bienvenue dans ton programme de préparation pour ton premier 10 km ! L'objectif est de te faire franchir la ligne d'arrivée avec plaisir et sans douleur. Nous te recommandons vivement de consulter un médecin avant de débuter ce programme, notamment pour obtenir un certificat médical d'aptitude au sport. Tu nous as indiqué 0 km/semaine actuels. On calibre ta première semaine à 15 km — c'est un peu plus que ton volume actuel mais reste progressif pour atteindre ton objectif. Tu peux ajuster ton volume dans ton profil si tu cours en réalité plus que ça. Concernant ton Ampoule récurante, le plan adapte la progression pour limiter les frictions initiales. Pense à vérifier tes chaussures et à utiliser des chaussettes techniques sans coutures.",
+  "isPreview": true,
+  "generationContext": {
+    "vmaSource": "Estimation niveau Débutant (0-1 an)",
+    "paces": {
+      "allureSpecifiqueSemi": "6:25",
+      "allureSpecifique5k": "5:44",
+      "allureSpecifiqueMarathon": "6:49",
+      "seuilPace": "6:16",
+      "efPace": "8:08",
+      "recoveryPace": "9:05",
+      "eaPace": "7:05",
+      "vmaPace": "5:27",
+      "allureSpecifique10k": "6:04"
+    },
+    "periodizationPlan": {
+      "totalWeeks": 20,
+      "recoveryWeeks": [
+        4,
+        7,
+        10,
+        13,
+        16,
+        19
+      ],
+      "weeklyVolumes": [
+        13,
+        16,
+        17,
+        14,
+        16,
+        17,
+        14,
+        16,
+        17,
+        14,
+        16,
+        17,
+        14,
+        16,
+        17,
+        14,
+        16,
+        17,
+        14,
+        9
+      ],
+      "weeklyPhases": [
+        "fondamental",
+        "fondamental",
+        "fondamental",
+        "recuperation",
+        "fondamental",
+        "fondamental",
+        "recuperation",
+        "developpement",
+        "developpement",
+        "recuperation",
+        "developpement",
+        "developpement",
+        "recuperation",
+        "specifique",
+        "specifique",
+        "recuperation",
+        "specifique",
+        "specifique",
+        "recuperation",
+        "affutage"
+      ]
+    },
+    "modelUsed": "gemini-3-flash-preview",
+    "generatedAt": "2026-05-20T16:58:56.062Z",
+    "vma": 11,
+    "questionnaireSnapshot": {
+      "injuries": {
+        "hasInjury": true,
+        "description": "Ampoule récurante "
+      },
+      "level": "Débutant (0-1 an)",
+      "vma": 11,
+      "email": "lilian.raymond2007@gmail.com",
+      "frequency": 3,
+      "sex": "Homme",
+      "raceDate": "2026-10-04",
+      "weight": 88,
+      "height": 183,
+      "subGoal": "10 km",
+      "startDate": "2026-05-20",
+      "recentRaceTimes": {},
+      "currentWeeklyVolume": 0,
+      "age": 18,
+      "city": "Clermont ",
+      "goal": "Course sur route",
+      "preferredDays": [
+        "Mardi",
+        "Jeudi",
+        "Dimanche"
+      ]
+    }
+  },
+  "endDate": "2026-10-05",
+  "vma": 11,
+  "vmaSource": "Estimation niveau Débutant (0-1 an)",
+  "calculatedVMA": 11,
+  "startDate": "2026-05-18",
+  "confidenceScore": 30,
+  "distance": "10 km",
+  "targetTime": "Finisher",
+  "suggestedLocations": [
+    {
+      "type": "PARK",
+      "description": "Parc vallonné offrant une vue imprenable sur Clermont, idéal pour varier les plaisirs.",
+      "name": "Parc de Montjuzet"
+    },
+    {
+      "type": "TRACK",
+      "description": "Piste et chemins plats, parfaits pour les premières séances de marche/course.",
+      "name": "Stade Philippe Marcombes"
+    },
+    {
+      "description": "Sentiers plats et agréables le long de l'eau pour les sorties plus longues.",
+      "name": "Berges de l'Allier",
+      "type": "NATURE"
+    }
+  ],
+  "paces": {
+    "eaPace": "7:05",
+    "recoveryPace": "9:05",
+    "allureSpecifique10k": "6:04",
+    "vmaPace": "5:27",
+    "allureSpecifique5k": "5:44",
+    "allureSpecifiqueSemi": "6:25",
+    "allureSpecifiqueMarathon": "6:49",
+    "seuilPace": "6:16",
+    "efPace": "8:08"
+  },
+  "raceDate": "2026-10-04",
+  "adaptationLog": {
+    "adaptationsThisWeek": 0,
+    "adaptationHistory": [],
+    "weekNumber": 0
+  },
+  "userId": "SHIYZiOmpqb4QeGIXQgv0zfBuT92",
+  "feasibility": {
+    "safetyWarning": "Fais valider la reprise avec ton kiné/médecin avant de démarrer ce plan. Adapte les séances si nécessaire.",
+    "recommendation": "un objectif adapté à ton profil actuel",
+    "score": 30,
+    "status": "RISQUÉ",
+    "message": "Ce 10km présente des risques sérieux dans ta configuration actuelle. Blessure déclarée : adapte les séances et consulte un professionnel de santé. VMA estimée (pas de chrono validé) : l'évaluation comporte une marge d'incertitude. Avec 3 séances/semaine sur 20 semaines, chaque séance sera très chargée en volume — passer à 4 séances rendrait le plan plus équilibré. 20 semaines pour démarrer la course (volume actuel 0) est juste pour ton profil — minimum confortable : 22 semaines. Écoute ton corps, sois très progressif, et n'hésite pas à adapter le plan si nécessaire."
+  }
+}

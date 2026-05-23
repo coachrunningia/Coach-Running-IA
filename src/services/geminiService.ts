@@ -621,9 +621,70 @@ export const extractRunRatio = (mainSet: string): number | null => {
  * doit être pondérée par le ratio temps couru / temps total (sinon on affiche
  * 6.6 km comme Lilian alors que seulement ~4 km étaient effectivement courus).
  */
+/**
+ * Sprint E Phase 1 Bug 1+2 — Filtre post-LLM cross-training.
+ *
+ * Pourquoi cette fonction existe : malgré la règle prompt `NO_CROSS_TRAINING_RULE`
+ * (geminiService.ts L3370) désormais injectée inconditionnellement, le LLM (Gemini Flash)
+ * peut occasionnellement générer une séance "Récupération Active (Vélo)" avec une allure
+ * course min/km absurde (audit Olivier Trail 126 km : "Récupération Active (Vélo) 6.5 km /
+ * 75 min / 11:33"). Filtre de défense en profondeur : si le title OU le mainSet contient
+ * un sport hors-course → on retype la séance en `Repos` complet (pas de substitution
+ * footing — doctrine `feedback_coach_running_ia_que_course` + recommandation coach
+ * COACH-EXPERT-TRAIL-ULTRA-8-BUGS.md "préférer suppression douce à substitution").
+ *
+ * Idempotent : si pas de match regex → no-op.
+ */
+// Regex couvrant les sports cross-training les plus courants susceptibles d'être hallucinés.
+// `[ée]` couvre velo/vélo. Frontière de mot via `\b` évite faux positifs ("velouté").
+const CROSS_TRAINING_REGEX = /\b(v[ée]lo|cyclisme|cycling|bike|natation|swim(?:ming)?|piscine|aquajog|elliptique|rameur|home.?trainer|spinning|cross.?training)\b/i;
+
+export const enforceNoCrossTraining = (session: any): boolean => {
+  if (!session) return false;
+  // On scanne title + mainSet (warmup/cooldown rarement porteurs d'un sport entier).
+  const haystack = `${session.title || ''} ${session.mainSet || ''}`;
+  if (!CROSS_TRAINING_REGEX.test(haystack)) return false;
+
+  // Match détecté → on retype la séance en Repos complet. On garde le day (placement
+  // dans la semaine), on neutralise tout le reste pour éviter affichage incohérent.
+  const originalTitle = session.title || '?';
+  console.log(`[PostProcess] Cross-training détecté ("${originalTitle}") → retypé Repos (doctrine que_course)`);
+  session.type = 'Repos';                                     // Type final affiché dans l'UI.
+  session.title = 'Repos complet';                            // Title clair pour l'utilisateur.
+  session.intensity = 'Très facile';                          // Cohérence avec Repos.
+  session.distance = 'N/A';                                   // Pas de km sur un Repos.
+  session.duration = 'N/A';                                   // Pas de durée chiffrée.
+  session.targetPace = 'N/A';                                 // Pas d'allure (Repos ≠ course).
+  session.warmup = '';                                        // Pas d'échauffement.
+  session.cooldown = '';                                      // Pas de retour au calme.
+  session.advice = 'Le repos est une SÉANCE à part entière. Récupération = adaptation. Hydrate-toi, dors bien.';
+  session.mainSet = 'Jour de repos complet — pas de séance. Étirements doux + mobilité si envie. Le repos est une SÉANCE à part entière.';
+  // Champs trail / D+ : neutraliser pour ne pas afficher de chiffre absurde sur un Repos.
+  if (session.elevationGain !== undefined) session.elevationGain = 0;
+  return true;
+};
+
 export const recalculateSessionDistance = (session: any, bmi?: number | null): void => {
   if (session.type === 'Renforcement') return;
+  // Sprint E Phase 1 Bug 1+2 : Repos (issu de enforceNoCrossTraining) — pas de recalc
+  // (distance/duration/targetPace = "N/A", aucun calcul n'a de sens).
+  if (session.type === 'Repos') return;
   if (!session.duration || !session.targetPace) return;
+  // Sprint E Phase 1 Bug 10 (DEV-EXPERT + COACH-EXPERT TRAIL-ULTRA-8-BUGS) :
+  // séances multi-allures = pace LLM = moyenne approximative, distance LLM peut être
+  // calculée correctement à partir du DÉTAIL des splits (négatif: 2 km @ 5:30 + 3 km @ 5:00),
+  // pas du pace global. Recalculer écraserait une distance pourtant juste.
+  // Couvre : négative split, progressif, fartlek (bursts), séances côtes (montées comptées
+  // hors recalc), tempo (warmup/main/cooldown à allures différentes).
+  // Détection par regex sur title (Gemini libellé naturel). N/A si N/A renseigné (Repos déjà filtré).
+  const titleLow = (session.title || '').toLowerCase();
+  const mainLow = (session.mainSet || '').toLowerCase();
+  // Patterns multi-allures les plus fréquents observés sur audit plans Olivier/Ambre/Lilian.
+  if (/n[ée]gatif|progressif|progress\.|fartlek|c[ôo]tes?|tempo|seuil/i.test(titleLow) ||
+      /n[ée]gatif|progressif|fartlek|c[ôo]tes?\s+(?:de|en)/i.test(mainLow)) {
+    // Multi-allure détectée → ne pas recalculer (LLM peut avoir raison sur la distance globale).
+    return;
+  }
 
   // Parser la durée en minutes
   const durationStr = session.duration.toString().toLowerCase();
@@ -783,6 +844,14 @@ const postProcessWeekQuality = (
 
   if (!week.sessions || !Array.isArray(week.sessions)) return;
 
+  // Sprint E Phase 1 Bug 1+2 — Filtre cross-training EN PREMIER.
+  // Doit tourner AVANT le mapping de type "Running" générique et avant
+  // recalculateSessionDistance, sinon une séance "Récupération Active (Vélo)" hériterait
+  // d'une distance recalculée min/km + d'un type "Récupération" puis l'injection paces
+  // (paceForType L883-898) lui collerait recoveryPace → cas Olivier "Vélo 11:33/km".
+  // Le helper retype en Repos complet (type=Repos, distance/duration/pace=N/A).
+  week.sessions.forEach((s: any) => enforceNoCrossTraining(s));
+
   // Fix type "Running" générique → mapper vers le bon type basé sur le titre
   week.sessions.forEach((s: any) => {
     if (s.type === 'Running' || s.type === 'running') {
@@ -840,6 +909,10 @@ const postProcessWeekQuality = (
     }
 
     if (session.type === 'Renforcement') return;
+    // Sprint E Phase 1 Bug 1+2 — Repos (issu de enforceNoCrossTraining) : pas de paces/distance.
+    // Sans ce skip, le bloc warmup/cooldown/mainSet/targetPace en aval réécrirait des allures
+    // sur une séance "Repos complet" (e.g. warmup "10 min footing 8:00/km" sur un Repos = bug).
+    if (session.type === 'Repos') return;
 
     // Warmup : injecter allure si absente
     if (pacesObj) {
@@ -3127,7 +3200,12 @@ export const calculatePeriodizationPlan = (
       const prevWeekVol = weeklyVolumes.length > 0 ? weeklyVolumes[weeklyVolumes.length - 1] : currentVol;
       // Drop de récup proportionnel au volume : plus doux pour les petits volumes
       const recoveryFactor = prevWeekVol >= 60 ? 0.80 : prevWeekVol >= 30 ? 0.78 : 0.80;
-      weeklyVolumes.push(Math.round(prevWeekVol * recoveryFactor));
+      // Sprint E Phase 1 Bug 11 (DEV-EXPERT + COACH-EXPERT TRAIL-ULTRA-8-BUGS) :
+      // Math.floor au lieu de Math.round pour garantir décharge effective sur petits volumes.
+      // Bug 11 Sprint E Phase 1 REVERTÉ — Math.round() original.
+      // Tentative v1 (Math.floor) régressait hard floors. Tentative v2 (round + force décharge)
+      // créait d'autres régressions. Bug 11 reporté Phase 2 avec étude approfondie.
+      weeklyVolumes.push(Math.max(1, Math.round(prevWeekVol * recoveryFactor)));
       weeksAtPeak = 0; // Reset ondulation après récup
     } else if (phases[i] === 'affutage') {
       // Affûtage: réduction progressive
@@ -3172,7 +3250,8 @@ export const calculatePeriodizationPlan = (
           // Réduction proportionnelle au volume (plus doux pour gros volumes)
           const prevVol = i > 0 ? weeklyVolumes[i - 1] : adjustedVol;
           const recovFactor = prevVol >= 60 ? 0.80 : prevVol >= 30 ? 0.78 : 0.80;
-          weeklyVolumes[i] = Math.round(prevVol * recovFactor);
+          // Bug 11 Sprint E Phase 1 reverté (cf. ligne ~3210 plus haut) — Math.round original.
+          weeklyVolumes[i] = Math.max(1, Math.round(prevVol * recovFactor));
         } else if (phases[i] === 'affutage') {
           const affutageProgress = (weekNum - (totalWeeks - affutageWeeks)) / affutageWeeks;
           const reductionFactor = 1 - (0.25 + affutageProgress * 0.25);
@@ -3369,6 +3448,63 @@ const createGenerationContext = (
 const NO_WEIGHT_MENTION_RULE = `🚫 NE JAMAIS mentionner le poids, l'IMC, la corpulence, la minceur ou la morphologie du coureur dans AUCUN champ (welcomeMessage, advice, mainSet, warmup, cooldown). Rester positif et encourageant.`;
 const NO_CROSS_TRAINING_RULE = `🚫 NE JAMAIS proposer ni mentionner de cross-training, vélo, natation, elliptique ou autre sport. Ce coach est EXCLUSIVEMENT course à pied. Repos, marche active et renforcement sont les seules alternatives autorisées.`;
 
+// Sprint E Phase 1 Bug 7/12 (DEV-EXPERT-TRAIL-ULTRA-8-BUGS.md + COACH-EXPERT-TRAIL-ULTRA-8-BUGS.md) :
+// `buildWelcomeToneBlock` — conditionne le TON du welcomeMessage au feasibility.status.
+// Avant : le prompt disait juste "le welcomeMessage DOIT rester cohérent avec ce texte" (faible).
+// Sur cas IRRÉALISTE confidence 10 (Olivier Trail 126 km, plan 1778921428769), Gemini Flash
+// produisait quand même "tu vas progresser en douceur" → contradiction avec feasibility.message.
+// Doctrine `feedback_securite_avant_conversion` : transparence > conversion. Sur IRRÉALISTE,
+// le ton DOIT être brutal/médecin, jamais embellisseur.
+//
+// Exporté pour tests (même pattern que buildSafetyInstructions / buildTransparencyBlock).
+export type FeasibilityStatus = 'EXCELLENT' | 'BON' | 'AMBITIEUX' | 'RISQUÉ' | 'IRRÉALISTE' | string;
+export const buildWelcomeToneBlock = (status: FeasibilityStatus | undefined): string => {
+  // EXCELLENT / BON : pas de contrainte additionnelle de ton (le LLM reste libre encourageant).
+  // On retourne string vide pour ne pas alourdir le prompt sur les profils sains.
+  if (!status) return '';
+  if (status === 'EXCELLENT' || status === 'BON') return '';
+
+  if (status === 'AMBITIEUX') {
+    return `
+🟠 STATUT FAISABILITÉ = AMBITIEUX — welcomeMessage TON FERME OBLIGATOIRE :
+- Reconnaitre l'ambition de l'objectif SANS embellir : "c'est ambitieux"
+- Prévenir des conditions de réussite : régularité, sommeil, écoute du corps
+- Chiffrer le gap si pertinent (sans inventer de chiffre — réutiliser ceux du feasibility ci-dessus)
+- Pas d'enthousiasme excessif type "tu vas y arriver les yeux fermés" ou "progression sereine garantie"
+- Doctrine feedback_securite_avant_conversion : on cadre les attentes, on ne vend pas du rêve.`;
+  }
+
+  if (status === 'RISQUÉ') {
+    return `
+🟠 STATUT FAISABILITÉ = RISQUÉ — welcomeMessage TON PRUDENT OBLIGATOIRE :
+- Mentionner explicitement les signaux à surveiller (douleur, fatigue persistante, sommeil dégradé)
+- Recommander avis médical si pas déjà fait (test d'effort si profil cardio à risque)
+- Bannir les formulations "ça va bien se passer" / "sereinement" / "tu vas progresser en douceur"
+- Le coureur DOIT comprendre que le plan tient mais à condition de respecter les signaux
+- Doctrine feedback_securite_avant_conversion : transparence > conversion.`;
+  }
+
+  if (status === 'IRRÉALISTE') {
+    return `
+🔴 STATUT FAISABILITÉ = IRRÉALISTE — welcomeMessage TON BRUTAL TRANSPARENT OBLIGATOIRE :
+- INTERDICTIONS ABSOLUES : "tu vas progresser en douceur", "graduelle", "sereine", "tranquille",
+  "ne t'inquiète pas", "ça va bien se passer", "à ton rythme tu y arriveras".
+- OBLIGATIONS :
+  1. Reconnaitre EXPLICITEMENT que l'objectif chrono/distance est physiologiquement HORS d'atteinte
+     sur la durée du plan ("Ce plan ne te permettra PAS d'atteindre [target] dans le temps imparti.")
+  2. Réutiliser le chiffrage du feasibility ci-dessus (gap, alternativeTarget) — ne PAS inventer.
+  3. Exiger un avis médical AVANT de démarrer (PAS "recommandé" — "indispensable").
+  4. Si feasibility.alternativeTarget existe, le suggérer comme cible réaliste.
+  5. Ne JAMAIS modifier la cible du user dans le plan lui-même (doctrine feedback_input_client_obligatoire) —
+     on prévient dans le welcomeMessage, l'allure cible reste celle du user.
+- Doctrines impactées : feedback_securite_avant_conversion (souche, transparence > conversion),
+  feedback_jamais_baisser_allure_cible (cible user intacte), feedback_compromis_messages_preventifs
+  (prévenir vaut mieux que bloquer).`;
+  }
+
+  return ''; // Status inconnu / autre → no-op safe.
+};
+
 // Sprint D Item 4 (EXPERT-FFA-CHALLENGE-9-ITEMS.md) — buildSafetyInstructions EXPORTÉ.
 // Même pattern que buildTransparencyBlock (Sprint C Item 1) : permet aux tests de vérifier
 // la VRAIE règle freq <= 3 (Pfitzinger FRR ch.4) injectée en prod, pas une copie locale.
@@ -3440,7 +3576,21 @@ Dans le message de bienvenue (welcomeMessage), tu DOIS inclure :
     needsNoWeightMention = true;
     needsNoCrossTraining = true;
   } else if (imcTier >= 1) {
-    const isLongDistance = data.distance === 'Marathon' || data.distance === 'Semi-marathon' || (data.distance === 'Trail' && data.trailDistance && parseInt(data.trailDistance) >= 30);
+    // Sprint E Phase 1 Bug 1 (DEV-EXPERT-TRAIL-ULTRA-8-BUGS.md) — Gating mort réparé.
+    // AVANT : `data.distance` et `data.trailDistance` n'existent PAS dans QuestionnaireData
+    //         (cf. src/types.ts:17-69 → vrais champs = data.subGoal + data.trailDetails.distance).
+    //         Résultat : isLongDistance était TOUJOURS false → needsNoCrossTraining jamais activé
+    //         pour BMI 25-30 → NO_CROSS_TRAINING_RULE non injecté → LLM libre de générer "Vélo".
+    // APRÈS : on lit les VRAIS champs (data.subGoal + data.trailDetails.distance) et on étend
+    //         à goal=Trail (toutes distances trail = longue distance par essence).
+    // Doctrine `feedback_coach_running_ia_que_course` : règle inconditionnelle 100% course.
+    const subGoalLow = (data.subGoal || '').toLowerCase();
+    const trailDistKm = data.goal === 'Trail' ? (data.trailDetails?.distance || 0) : 0;
+    const isLongDistance =
+      subGoalLow.includes('marathon') ||             // Couvre "Marathon" et "Semi-Marathon"
+      subGoalLow.includes('semi') ||                  // Sécurité variantes wording
+      data.goal === 'Trail' ||                        // TOUT Trail = longue distance (doctrine que_course)
+      trailDistKm >= 30;                              // Garde-fou explicite trail ≥30km (Marathon distance équiv.)
     if (isLongDistance) {
       parts.push(`💡 IMC 25-30 + LONGUE DISTANCE — PRÉCAUTIONS ARTICULAIRES LÉGÈRES :
 - Chaussures avec bon amorti recommandées — le mentionner dans le welcomeMessage
@@ -3636,9 +3786,16 @@ TOUJOURS formulation factuelle centrée sur le plan : "le plan tient compte de..
   if (needsNoWeightMention) {
     parts.push(NO_WEIGHT_MENTION_RULE);
   }
-  if (needsNoCrossTraining) {
-    parts.push(NO_CROSS_TRAINING_RULE);
-  }
+  // Sprint E Phase 1 Bug 1+2 (DEV-EXPERT-TRAIL-ULTRA-8-BUGS.md + COACH-EXPERT-TRAIL-ULTRA-8-BUGS.md) :
+  // NO_CROSS_TRAINING_RULE désormais INCONDITIONNEL. Doctrine `feedback_coach_running_ia_que_course`
+  // = ZÉRO cross-training pour TOUS les profils (pas que IMC≥30 et "longue distance"). Le flag
+  // `needsNoCrossTraining` historique reste mais on l'écrase ici : audit Olivier Trail 126 km
+  // BMI 26.5 (imcTier=1) confirme que le gating ancien laissait passer "Vélo" sur ce profil.
+  // Coût token négligeable (~30 tokens, 1 ligne).
+  parts.push(NO_CROSS_TRAINING_RULE);
+  // (Variable `needsNoCrossTraining` conservée — ne rien casser des autres branches, mais
+  // l'injection est désormais inconditionnelle car la règle s'applique à 100% des plans.)
+  void needsNoCrossTraining;
 
   return parts.join('\n\n');
 };
@@ -4558,6 +4715,7 @@ ${!(data.goal || '').toLowerCase().includes('perte') && !(data.goal || '').toLow
 ${trailSectionPreview}
 📊 CONTEXTE FAISABILITÉ (le welcomeMessage DOIT rester cohérent avec ce texte) :
 ${feasibilityTextPreview}
+${buildWelcomeToneBlock(feasibilityResultPreview.status)}
 
 ${buildSafetyInstructions(data, (data.level || '').includes('Débutant'))}
 
@@ -5281,6 +5439,8 @@ L'objectif est de TERMINER la course, pas de performer. Adapte la philosophie du
 - Sortie Longue = séance clé du plan, toujours en EF, objectif = habituer le corps à la durée
 - Fractionné limité à 1x/semaine max en phase développement/spécifique, orienté seuil plutôt que VMA
 - PAS d'objectif de temps dans les mainSet. Pas d'allure spécifique course.` : ''}
+
+${buildWelcomeToneBlock(plan.feasibility?.status)}
 
 ${buildSafetyInstructions(data, (data.level || '').includes('Débutant'))}
 ${data.city ? `

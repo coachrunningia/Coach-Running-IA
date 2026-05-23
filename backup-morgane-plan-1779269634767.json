@@ -1,0 +1,661 @@
+{
+  "name": "projects/coach-running-ia/databases/(default)/documents/plans/1779261135721",
+  "fields": {
+    "sessionsPerWeek": {
+      "integerValue": "3"
+    },
+    "fullPlanGenerated": {
+      "booleanValue": false
+    },
+    "vma": {
+      "integerValue": "11"
+    },
+    "raceDate": {
+      "stringValue": "2026-10-17"
+    },
+    "endDate": {
+      "stringValue": "2026-10-19"
+    },
+    "startDate": {
+      "stringValue": "2026-05-18"
+    },
+    "distance": {
+      "stringValue": "21.1 km"
+    },
+    "welcomeMessage": {
+      "stringValue": "Bienvenue dans ton programme pour le Semi-Marathon de Nevers ! L'objectif est de te faire franchir la ligne d'arrivée en toute sécurité en tant que finisher. Ton plan s'étire sur 22 semaines pour respecter ta progression de débutant. Nous commençons par une phase fondamentale basée sur l'alternance marche/course pour construire tes bases aérobies sans risque de blessure. Nous te recommandons de consulter un médecin avant de débuter ce programme, notamment pour obtenir un certificat médical d'aptitude au sport."
+    },
+    "feasibility": {
+      "mapValue": {
+        "fields": {
+          "status": {
+            "stringValue": "AMBITIEUX"
+          },
+          "message": {
+            "stringValue": "Ce semi-marathon est un beau défi. Avec ta VMA de 11.0 km/h, c'est faisable mais attention : Volume actuel de 7km/sem un peu faible pour un semi (20km/sem minimum). VMA estimée (pas de chrono validé) : l'évaluation comporte une marge d'incertitude. Avec 3 séances/semaine sur 22 semaines, chaque séance sera très chargée en volume — passer à 4 séances rendrait le plan plus équilibré. Ton volume actuel (7 km/sem) est en dessous du minimum pour ton niveau (8 km/sem) — le plan démarrera légèrement au-dessus. Suis le plan avec rigueur et régularité, c'est la clé pour y arriver."
+          },
+          "safetyWarning": {
+            "stringValue": "On te recommande de valider ce programme avec ton médecin, surtout pour un premier effort de cette distance. Un certificat médical d'aptitude est vivement conseillé."
+          },
+          "score": {
+            "integerValue": "55"
+          }
+        }
+      }
+    },
+    "name": {
+      "stringValue": "Préparation Semi-Marathon — Finisher — 22 sem."
+    },
+    "id": {
+      "stringValue": "1779261135721"
+    },
+    "createdAt": {
+      "stringValue": "2026-05-20T07:12:15.721Z"
+    },
+    "targetTime": {
+      "stringValue": "Finisher"
+    },
+    "isPreview": {
+      "booleanValue": true
+    },
+    "userId": {
+      "stringValue": "BpoCyHQcCfavcmSby0u5LIdLS3o1"
+    },
+    "generationContext": {
+      "mapValue": {
+        "fields": {
+          "periodizationPlan": {
+            "mapValue": {
+              "fields": {
+                "totalWeeks": {
+                  "integerValue": "22"
+                },
+                "weeklyPhases": {
+                  "arrayValue": {
+                    "values": [
+                      {
+                        "stringValue": "fondamental"
+                      },
+                      {
+                        "stringValue": "fondamental"
+                      },
+                      {
+                        "stringValue": "fondamental"
+                      },
+                      {
+                        "stringValue": "recuperation"
+                      },
+                      {
+                        "stringValue": "fondamental"
+                      },
+                      {
+                        "stringValue": "fondamental"
+                      },
+                      {
+                        "stringValue": "recuperation"
+                      },
+                      {
+                        "stringValue": "developpement"
+                      },
+                      {
+                        "stringValue": "developpement"
+                      },
+                      {
+                        "stringValue": "recuperation"
+                      },
+                      {
+                        "stringValue": "developpement"
+                      },
+                      {
+                        "stringValue": "developpement"
+                      },
+                      {
+                        "stringValue": "recuperation"
+                      },
+                      {
+                        "stringValue": "specifique"
+                      },
+                      {
+                        "stringValue": "specifique"
+                      },
+                      {
+                        "stringValue": "recuperation"
+                      },
+                      {
+                        "stringValue": "specifique"
+                      },
+                      {
+                        "stringValue": "specifique"
+                      },
+                      {
+                        "stringValue": "recuperation"
+                      },
+                      {
+                        "stringValue": "specifique"
+                      },
+                      {
+                        "stringValue": "affutage"
+                      },
+                      {
+                        "stringValue": "affutage"
+                      }
+                    ]
+                  }
+                },
+                "recoveryWeeks": {
+                  "arrayValue": {
+                    "values": [
+                      {
+                        "integerValue": "4"
+                      },
+                      {
+                        "integerValue": "7"
+                      },
+                      {
+                        "integerValue": "10"
+                      },
+                      {
+                        "integerValue": "13"
+                      },
+                      {
+                        "integerValue": "16"
+                      },
+                      {
+                        "integerValue": "19"
+                      }
+                    ]
+                  }
+                },
+                "weeklyVolumes": {
+                  "arrayValue": {
+                    "values": [
+                      {
+                        "integerValue": "8"
+                      },
+                      {
+                        "integerValue": "9"
+                      },
+                      {
+                        "integerValue": "9"
+                      },
+                      {
+                        "integerValue": "7"
+                      },
+                      {
+                        "integerValue": "8"
+                      },
+                      {
+                        "integerValue": "9"
+                      },
+                      {
+                        "integerValue": "9"
+                      },
+                      {
+                        "integerValue": "9"
+                      },
+                      {
+                        "integerValue": "10"
+                      },
+                      {
+                        "integerValue": "10"
+                      },
+                      {
+                        "integerValue": "10"
+                      },
+                      {
+                        "integerValue": "12"
+                      },
+                      {
+                        "integerValue": "11"
+                      },
+                      {
+                        "integerValue": "12"
+                      },
+                      {
+                        "integerValue": "14"
+                      },
+                      {
+                        "integerValue": "11"
+                      },
+                      {
+                        "integerValue": "13"
+                      },
+                      {
+                        "integerValue": "14"
+                      },
+                      {
+                        "integerValue": "11"
+                      },
+                      {
+                        "integerValue": "13"
+                      },
+                      {
+                        "integerValue": "9"
+                      },
+                      {
+                        "integerValue": "8"
+                      }
+                    ]
+                  }
+                }
+              }
+            }
+          },
+          "modelUsed": {
+            "stringValue": "gemini-3-flash-preview"
+          },
+          "questionnaireSnapshot": {
+            "mapValue": {
+              "fields": {
+                "email": {
+                  "stringValue": "morganedorlet696@gmail.com"
+                },
+                "city": {
+                  "stringValue": "nevers"
+                },
+                "injuries": {
+                  "mapValue": {
+                    "fields": {
+                      "hasInjury": {
+                        "booleanValue": false
+                      }
+                    }
+                  }
+                },
+                "comments": {
+                  "stringValue": "je fais également 4 séances de musculations par semaine (2 haut du corps, 2 bas du corps) et j'aimerais courir 2 fois par semaine"
+                },
+                "sex": {
+                  "stringValue": "Femme"
+                },
+                "preferredDays": {
+                  "arrayValue": {
+                    "values": [
+                      {
+                        "stringValue": "Lundi"
+                      },
+                      {
+                        "stringValue": "Jeudi"
+                      }
+                    ]
+                  }
+                },
+                "height": {
+                  "integerValue": "170"
+                },
+                "subGoal": {
+                  "stringValue": "Semi-Marathon"
+                },
+                "goal": {
+                  "stringValue": "Course sur route"
+                },
+                "currentWeeklyVolume": {
+                  "integerValue": "7"
+                },
+                "raceDate": {
+                  "stringValue": "2026-10-17"
+                },
+                "weight": {
+                  "integerValue": "63"
+                },
+                "startDate": {
+                  "stringValue": "2026-05-20"
+                },
+                "frequency": {
+                  "integerValue": "3"
+                },
+                "level": {
+                  "stringValue": "Débutant (0-1 an)"
+                },
+                "vma": {
+                  "integerValue": "11"
+                },
+                "age": {
+                  "integerValue": "20"
+                },
+                "recentRaceTimes": {
+                  "mapValue": {}
+                }
+              }
+            }
+          },
+          "vmaSource": {
+            "stringValue": "Estimation niveau Débutant (0-1 an)"
+          },
+          "vma": {
+            "integerValue": "11"
+          },
+          "paces": {
+            "mapValue": {
+              "fields": {
+                "efPace": {
+                  "stringValue": "8:08"
+                },
+                "allureSpecifique5k": {
+                  "stringValue": "5:44"
+                },
+                "vmaPace": {
+                  "stringValue": "5:27"
+                },
+                "allureSpecifique10k": {
+                  "stringValue": "6:04"
+                },
+                "eaPace": {
+                  "stringValue": "7:05"
+                },
+                "seuilPace": {
+                  "stringValue": "6:16"
+                },
+                "allureSpecifiqueMarathon": {
+                  "stringValue": "6:49"
+                },
+                "recoveryPace": {
+                  "stringValue": "9:05"
+                },
+                "allureSpecifiqueSemi": {
+                  "stringValue": "6:25"
+                }
+              }
+            }
+          },
+          "generatedAt": {
+            "stringValue": "2026-05-20T07:11:56.515Z"
+          }
+        }
+      }
+    },
+    "userEmail": {
+      "stringValue": "morganedorlet696@gmail.com"
+    },
+    "weeks": {
+      "arrayValue": {
+        "values": [
+          {
+            "mapValue": {
+              "fields": {
+                "weekNumber": {
+                  "integerValue": "1"
+                },
+                "sessions": {
+                  "arrayValue": {
+                    "values": [
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "intensity": {
+                              "stringValue": "Facile"
+                            },
+                            "elevationGain": {
+                              "integerValue": "0"
+                            },
+                            "targetPace": {
+                              "stringValue": "8:08 min/km"
+                            },
+                            "id": {
+                              "stringValue": "w1-s1-1779261135721-tjrn0kd"
+                            },
+                            "locationSuggestion": {
+                              "stringValue": "Parc Roger Salengro"
+                            },
+                            "advice": {
+                              "stringValue": "Écoute bien tes sensations, ne cherche pas la vitesse, le but est de rester en aisance totale."
+                            },
+                            "warmup": {
+                              "stringValue": "10 min de marche, à 9:05 min/km active pour réveiller les muscles"
+                            },
+                            "title": {
+                              "stringValue": "Premiers pas : Alternance Marche/Course"
+                            },
+                            "cooldown": {
+                              "stringValue": "5 min de marche lente (à 9:05 min/km)"
+                            },
+                            "day": {
+                              "stringValue": "Lundi"
+                            },
+                            "distance": {
+                              "stringValue": "3.0 km"
+                            },
+                            "type": {
+                              "stringValue": "Marche/Course"
+                            },
+                            "duration": {
+                              "stringValue": "39 min"
+                            },
+                            "mainSet": {
+                              "stringValue": "8 répétitions de : 1 min de course très légère (allure 8:08 min/km) suivie de 2 min de marche active."
+                            }
+                          }
+                        }
+                      },
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "distance": {
+                              "stringValue": "0 km"
+                            },
+                            "type": {
+                              "stringValue": "Renforcement"
+                            },
+                            "cooldown": {
+                              "stringValue": "5 min d'étirements : quadriceps, ischio-jambiers, mollets, hanches"
+                            },
+                            "day": {
+                              "stringValue": "Jeudi"
+                            },
+                            "duration": {
+                              "stringValue": "30 min"
+                            },
+                            "mainSet": {
+                              "stringValue": "Circuit 2 tours : Squats poids de corps (3x9), Squat bulgare (3x6/jambe), Fentes avant (3x6/jambe), Gainage ventral (3x19-60s), Dead bug (3x6/cote), Extensions mollets debout (3x13). Repos 2 min entre tours."
+                            },
+                            "intensity": {
+                              "stringValue": "Modéré"
+                            },
+                            "elevationGain": {
+                              "integerValue": "0"
+                            },
+                            "locationSuggestion": {
+                              "stringValue": "Salle de sport ou à la maison"
+                            },
+                            "advice": {
+                              "stringValue": "Garde une posture droite et ne force jamais si une douleur articulaire apparaît."
+                            },
+                            "warmup": {
+                              "stringValue": "10 min de mobilité articulaire et échauffement dynamique"
+                            },
+                            "title": {
+                              "stringValue": "Renfo Focus A - Quadriceps & Gainage (S1)"
+                            },
+                            "id": {
+                              "stringValue": "w1-s2-1779261135721-qh1qazw"
+                            }
+                          }
+                        }
+                      },
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "day": {
+                              "stringValue": "Dimanche"
+                            },
+                            "cooldown": {
+                              "stringValue": "5 min de marche lente (à 9:05 min/km)"
+                            },
+                            "type": {
+                              "stringValue": "Sortie Longue"
+                            },
+                            "distance": {
+                              "stringValue": "5.0 km"
+                            },
+                            "mainSet": {
+                              "stringValue": "5 km en endurance fondamentale à 8:08 min/km. L'allure doit permettre de tenir une conversation sans être essoufflé."
+                            },
+                            "duration": {
+                              "stringValue": "45 min"
+                            },
+                            "targetPace": {
+                              "stringValue": "8:08 min/km"
+                            },
+                            "elevationGain": {
+                              "integerValue": "0"
+                            },
+                            "intensity": {
+                              "stringValue": "Facile"
+                            },
+                            "id": {
+                              "stringValue": "w1-s3-1779261135721-2k65hxa"
+                            },
+                            "title": {
+                              "stringValue": "Sortie Longue en aisance respiratoire"
+                            },
+                            "warmup": {
+                              "stringValue": "5 min de marche, à 9:05 min/km active"
+                            },
+                            "advice": {
+                              "stringValue": "Si tu te sens fatigué, n'hésite pas à marcher quelques instants. Hydrate-toi par petites gorgées."
+                            },
+                            "locationSuggestion": {
+                              "stringValue": "Sentier du Ver-Vert le long de la Loire"
+                            }
+                          }
+                        }
+                      }
+                    ]
+                  }
+                },
+                "phase": {
+                  "stringValue": "fondamental"
+                },
+                "weekGoal": {
+                  "stringValue": "Adaptation physiologique initiale"
+                },
+                "theme": {
+                  "stringValue": "Adaptation physiologique initiale"
+                }
+              }
+            }
+          }
+        ]
+      }
+    },
+    "location": {
+      "stringValue": "nevers"
+    },
+    "vmaSource": {
+      "stringValue": "Estimation niveau Débutant (0-1 an)"
+    },
+    "calculatedVMA": {
+      "integerValue": "11"
+    },
+    "suggestedLocations": {
+      "arrayValue": {
+        "values": [
+          {
+            "mapValue": {
+              "fields": {
+                "type": {
+                  "stringValue": "PARK"
+                },
+                "description": {
+                  "stringValue": "Un parc urbain idéal pour débuter sur un sol stable et plat."
+                },
+                "name": {
+                  "stringValue": "Parc Roger Salengro"
+                }
+              }
+            }
+          },
+          {
+            "mapValue": {
+              "fields": {
+                "type": {
+                  "stringValue": "NATURE"
+                },
+                "description": {
+                  "stringValue": "Un sentier naturel le long de la Loire, parfait pour les sorties longues au calme."
+                },
+                "name": {
+                  "stringValue": "Sentier du Ver-Vert"
+                }
+              }
+            }
+          },
+          {
+            "mapValue": {
+              "fields": {
+                "type": {
+                  "stringValue": "TRACK"
+                },
+                "name": {
+                  "stringValue": "Piste du Stade de la Plaine"
+                },
+                "description": {
+                  "stringValue": "Piste d'athlétisme pour des mesures de distance précises."
+                }
+              }
+            }
+          }
+        ]
+      }
+    },
+    "goal": {
+      "stringValue": "Course sur route"
+    },
+    "confidenceScore": {
+      "integerValue": "55"
+    },
+    "adaptationLog": {
+      "mapValue": {
+        "fields": {
+          "adaptationsThisWeek": {
+            "integerValue": "0"
+          },
+          "weekNumber": {
+            "integerValue": "0"
+          },
+          "adaptationHistory": {
+            "arrayValue": {}
+          }
+        }
+      }
+    },
+    "paces": {
+      "mapValue": {
+        "fields": {
+          "allureSpecifique5k": {
+            "stringValue": "5:44"
+          },
+          "efPace": {
+            "stringValue": "8:08"
+          },
+          "allureSpecifique10k": {
+            "stringValue": "6:04"
+          },
+          "vmaPace": {
+            "stringValue": "5:27"
+          },
+          "eaPace": {
+            "stringValue": "7:05"
+          },
+          "recoveryPace": {
+            "stringValue": "9:05"
+          },
+          "allureSpecifiqueMarathon": {
+            "stringValue": "6:49"
+          },
+          "seuilPace": {
+            "stringValue": "6:16"
+          },
+          "allureSpecifiqueSemi": {
+            "stringValue": "6:25"
+          }
+        }
+      }
+    },
+    "durationWeeks": {
+      "integerValue": "22"
+    }
+  },
+  "createTime": "2026-05-20T07:12:17.117047Z",
+  "updateTime": "2026-05-20T07:12:17.117047Z"
+}

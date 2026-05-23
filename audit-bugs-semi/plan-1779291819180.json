@@ -1,0 +1,217 @@
+{
+  "id": "1779291819180",
+  "createTime": "2026-05-20T15:43:39.645826Z",
+  "distance": "16 km",
+  "goal": "Course sur route",
+  "location": "Bourg-fidele",
+  "fullPlanGenerated": false,
+  "startDate": "2026-05-25",
+  "confidenceScore": 65,
+  "vma": 10.92896174863388,
+  "feasibility": {
+    "score": 65,
+    "status": "AMBITIEUX",
+    "message": "Avec ta VMA de 10.9 km/h, ton temps théorique sur semi-marathon est d'environ 2h16min. Ton objectif de 2h20min est a priori confortable par rapport à ton temps théorique de 2h16min. Ton volume actuel (17 km/sem) est bas pour un semi. La montée en charge sera progressive.",
+    "safetyWarning": "Investis dans de bonnes chaussures avec un bon amorti et privilégie les surfaces souples quand c'est possible. Pense à bien t'hydrater et à écouter ton corps."
+  },
+  "adaptationLog": {
+    "adaptationHistory": [],
+    "weekNumber": 0,
+    "adaptationsThisWeek": 0
+  },
+  "createdAt": "2026-05-20T15:43:39.180Z",
+  "paces": {
+    "allureSpecifiqueMarathon": "6:52",
+    "recoveryPace": "9:09",
+    "vmaPace": "5:29",
+    "seuilPace": "6:19",
+    "allureSpecifique10k": "6:06",
+    "allureSpecifiqueSemi": "6:38",
+    "eaPace": "7:08",
+    "efPace": "8:12",
+    "allureSpecifique5k": "5:47"
+  },
+  "targetTime": "2h20",
+  "sessionsPerWeek": 3,
+  "generationContext": {
+    "paces": {
+      "vmaPace": "5:29",
+      "seuilPace": "6:19",
+      "recoveryPace": "9:09",
+      "allureSpecifiqueMarathon": "6:52",
+      "eaPace": "7:08",
+      "allureSpecifiqueSemi": "6:38",
+      "allureSpecifique10k": "6:06",
+      "efPace": "8:12",
+      "allureSpecifique5k": "5:47"
+    },
+    "modelUsed": "gemini-3-flash-preview",
+    "questionnaireSnapshot": {
+      "email": "margauxmaurice@outlook.fr",
+      "frequency": 3,
+      "startDate": "2026-05-25",
+      "sex": "Femme",
+      "age": 32,
+      "height": 167,
+      "weight": 82,
+      "goal": "Course sur route",
+      "city": "Bourg-fidele ",
+      "subGoal": "Semi-Marathon",
+      "preferredDays": [
+        "Mercredi",
+        "Dimanche",
+        "Vendredi"
+      ],
+      "injuries": {
+        "hasInjury": false
+      },
+      "targetTime": "2h20",
+      "recentRaceTimes": {
+        "distance10km": "1h01"
+      },
+      "raceDate": "2026-10-04",
+      "vma": 10.92896174863388,
+      "currentWeeklyVolume": 17,
+      "level": "Intermédiaire (Régulier)"
+    },
+    "vma": 10.92896174863388,
+    "generatedAt": "2026-05-20T15:43:21.321Z",
+    "periodizationPlan": {
+      "recoveryWeeks": [
+        4,
+        7,
+        10,
+        13,
+        16
+      ],
+      "weeklyPhases": [
+        "fondamental",
+        "fondamental",
+        "fondamental",
+        "recuperation",
+        "fondamental",
+        "developpement",
+        "recuperation",
+        "developpement",
+        "developpement",
+        "recuperation",
+        "developpement",
+        "specifique",
+        "recuperation",
+        "specifique",
+        "specifique",
+        "recuperation",
+        "specifique",
+        "affutage",
+        "affutage"
+      ],
+      "totalWeeks": 19,
+      "weeklyVolumes": [
+        16,
+        17,
+        18,
+        14,
+        16,
+        17,
+        14,
+        16,
+        17,
+        14,
+        16,
+        17,
+        14,
+        16,
+        17,
+        14,
+        16,
+        11,
+        9
+      ]
+    },
+    "vmaSource": "10km en 1h01"
+  },
+  "isPreview": true,
+  "name": "Préparation Semi-Marathon en 2h20 — 19 sem.",
+  "durationWeeks": 19,
+  "userId": "Xm5jMGhsbvR7jerOkOgIDTcdWYk2",
+  "calculatedVMA": 10.92896174863388,
+  "suggestedLocations": [
+    {
+      "type": "PARK",
+      "description": "Piste cyclable plate et sécurisée le long de la Meuse, idéale pour les footings à allure constante.",
+      "name": "Voie Verte Trans-Ardennes"
+    },
+    {
+      "name": "Forêt du Bois de la Havetière",
+      "description": "Sentiers forestiers offrant du relief pour travailler le renforcement naturel des jambes.",
+      "type": "HILL"
+    },
+    {
+      "name": "Sentiers du Plateau de Rocroi",
+      "description": "Grands espaces ouverts et chemins agricoles pour varier les surfaces.",
+      "type": "NATURE"
+    }
+  ],
+  "userEmail": "margauxmaurice@outlook.fr",
+  "weeks": [
+    {
+      "weekNumber": 1,
+      "weekGoal": "Installation des bases d'endurance",
+      "theme": "Installation des bases d'endurance",
+      "phase": "fondamental",
+      "sessions": [
+        {
+          "advice": "Découper l'effort permet d'accumuler du volume aérobie en réduisant la charge mécanique globale. Idéal pour progresser sans casser.",
+          "warmup": "5 min de marche active.",
+          "targetPace": "8:12 min/km",
+          "distance": "6 km",
+          "day": "Mercredi",
+          "type": "Jogging",
+          "mainSet": "5 blocs de 5 min de footing en endurance fondamentale (8:12), entrecoupés de 1 min de marche. Le footing reste lent et confortable ; la marche est une respiration de confort, pas une récupération d'effort dur.",
+          "elevationGain": 0,
+          "locationSuggestion": "Voie Verte Trans-Ardennes (berges de la Meuse)",
+          "intensity": "Facile",
+          "duration": "50 min",
+          "id": "w1-s1-1779291819181-bpicgl8",
+          "cooldown": "5 min de marche.",
+          "title": "Footing en blocs souples"
+        },
+        {
+          "day": "Vendredi",
+          "type": "Renforcement",
+          "mainSet": "Circuit 2 tours : Squats poids de corps (3x9), Fentes avant (3x6/jambe), Gainage ventral (3x19-60s), Dead bug (3x6/cote), Extensions mollets debout (3x13). Repos 2 min entre tours.",
+          "advice": "Assure-toi de garder le dos bien droit. arrête immédiatement si tu ressens une douleur articulaire.",
+          "warmup": "10 min de mobilité articulaire douce et échauffement progressif (marche rapide, rotations, pas chassés)",
+          "distance": "0 km",
+          "title": "Renfo Focus A - Quadriceps & Gainage (S1)",
+          "cooldown": "5 min d'étirements : quadriceps, ischio-jambiers, mollets, hanches",
+          "locationSuggestion": "À la maison",
+          "elevationGain": 0,
+          "intensity": "Modéré",
+          "id": "w1-s2-1779291819181-z092xp1",
+          "duration": "30 min"
+        },
+        {
+          "warmup": "15 min de footing très lent d'échauffement (9:09 min/km)",
+          "targetPace": "8:12 min/km",
+          "distance": "10 km",
+          "advice": "Reste bien en zone EF même dans les côtes. N'hésite pas à marcher si ton cardio s'emballe dans une montée.",
+          "mainSet": "82 min de course en Endurance Fondamentale (8:12 min/km) sur un parcours avec quelques légères montées.",
+          "day": "Dimanche",
+          "type": "Sortie Longue",
+          "locationSuggestion": "Forêt du Bois de la Havetière (Bourg-Fidèle)",
+          "elevationGain": 0,
+          "intensity": "Facile",
+          "duration": "82 min",
+          "id": "w1-s3-1779291819181-ukjy8u7",
+          "cooldown": "10 min de retour au calme à 9:09 min/km + étirements",
+          "title": "Sortie Longue - Footing vallonné"
+        }
+      ]
+    }
+  ],
+  "welcomeMessage": "Bienvenue dans ton programme de préparation pour ton semi-marathon ! L'objectif est de franchir la ligne en 2h20 en construisant une base aérobie solide. Cette première phase 'fondamentale' se concentre sur l'endurance douce pour habituer ton cœur et tes articulations à l'effort sans fatigue excessive. Nous te recommandons vivement de consulter un médecin avant de débuter ce programme, notamment pour obtenir un certificat médical d'aptitude au sport.",
+  "raceDate": "2026-10-04",
+  "vmaSource": "10km en 1h01",
+  "endDate": "2026-10-05"
+}

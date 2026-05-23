@@ -1,0 +1,679 @@
+{
+  "name": "projects/coach-running-ia/databases/(default)/documents/plans/1779267211924",
+  "fields": {
+    "endDate": {
+      "stringValue": "2026-10-26"
+    },
+    "welcomeMessage": {
+      "stringValue": "Bienvenue dans ton programme de préparation pour ton objectif de 1h35 au semi-marathon. Ce plan de 23 semaines est structuré pour construire une base solide avant d'aborder les intensités spécifiques. Nous te recommandons de consulter un médecin avant de débuter ce programme, notamment pour obtenir un certificat médical d'aptitude au sport. Ton volume de départ est calibré sur 25 km pour assurer une progression saine vers ton objectif."
+    },
+    "confidenceScore": {
+      "integerValue": "93"
+    },
+    "generationContext": {
+      "mapValue": {
+        "fields": {
+          "generatedAt": {
+            "stringValue": "2026-05-20T08:53:11.076Z"
+          },
+          "paces": {
+            "mapValue": {
+              "fields": {
+                "vmaPace": {
+                  "stringValue": "3:44"
+                },
+                "seuilPace": {
+                  "stringValue": "4:18"
+                },
+                "recoveryPace": {
+                  "stringValue": "6:13"
+                },
+                "allureSpecifiqueSemi": {
+                  "stringValue": "4:30"
+                },
+                "allureSpecifique5k": {
+                  "stringValue": "3:56"
+                },
+                "eaPace": {
+                  "stringValue": "4:51"
+                },
+                "allureSpecifiqueMarathon": {
+                  "stringValue": "4:40"
+                },
+                "efPace": {
+                  "stringValue": "5:34"
+                },
+                "allureSpecifique10k": {
+                  "stringValue": "4:09"
+                }
+              }
+            }
+          },
+          "modelUsed": {
+            "stringValue": "gemini-3-flash-preview"
+          },
+          "questionnaireSnapshot": {
+            "mapValue": {
+              "fields": {
+                "height": {
+                  "integerValue": "172"
+                },
+                "level": {
+                  "stringValue": "Confirmé (Compétition)"
+                },
+                "frequency": {
+                  "integerValue": "3"
+                },
+                "email": {
+                  "stringValue": "arnaudmanoeuvre@gmail.com"
+                },
+                "startDate": {
+                  "stringValue": "2026-05-20"
+                },
+                "preferredDays": {
+                  "arrayValue": {
+                    "values": [
+                      {
+                        "stringValue": "Mardi"
+                      },
+                      {
+                        "stringValue": "Dimanche"
+                      },
+                      {
+                        "stringValue": "Vendredi"
+                      }
+                    ]
+                  }
+                },
+                "city": {
+                  "stringValue": "Saint Pierre de cole "
+                },
+                "goal": {
+                  "stringValue": "Course sur route"
+                },
+                "subGoal": {
+                  "stringValue": "Semi-Marathon"
+                },
+                "vma": {
+                  "doubleValue": 16.069179566563466
+                },
+                "weight": {
+                  "integerValue": "70"
+                },
+                "injuries": {
+                  "mapValue": {
+                    "fields": {
+                      "hasInjury": {
+                        "booleanValue": false
+                      }
+                    }
+                  }
+                },
+                "raceDate": {
+                  "stringValue": "2026-10-25"
+                },
+                "sex": {
+                  "stringValue": "Homme"
+                },
+                "recentRaceTimes": {
+                  "mapValue": {
+                    "fields": {
+                      "distanceHalfMarathon": {
+                        "stringValue": "1h35"
+                      },
+                      "distanceMarathon": {
+                        "stringValue": "3h10"
+                      }
+                    }
+                  }
+                },
+                "currentWeeklyVolume": {
+                  "integerValue": "25"
+                },
+                "age": {
+                  "integerValue": "38"
+                },
+                "targetTime": {
+                  "stringValue": "1h35"
+                }
+              }
+            }
+          },
+          "vmaSource": {
+            "stringValue": "Moyenne Semi en 1h35 et Marathon en 3h10"
+          },
+          "periodizationPlan": {
+            "mapValue": {
+              "fields": {
+                "totalWeeks": {
+                  "integerValue": "23"
+                },
+                "weeklyPhases": {
+                  "arrayValue": {
+                    "values": [
+                      {
+                        "stringValue": "fondamental"
+                      },
+                      {
+                        "stringValue": "fondamental"
+                      },
+                      {
+                        "stringValue": "fondamental"
+                      },
+                      {
+                        "stringValue": "recuperation"
+                      },
+                      {
+                        "stringValue": "fondamental"
+                      },
+                      {
+                        "stringValue": "fondamental"
+                      },
+                      {
+                        "stringValue": "developpement"
+                      },
+                      {
+                        "stringValue": "recuperation"
+                      },
+                      {
+                        "stringValue": "developpement"
+                      },
+                      {
+                        "stringValue": "developpement"
+                      },
+                      {
+                        "stringValue": "developpement"
+                      },
+                      {
+                        "stringValue": "recuperation"
+                      },
+                      {
+                        "stringValue": "developpement"
+                      },
+                      {
+                        "stringValue": "developpement"
+                      },
+                      {
+                        "stringValue": "specifique"
+                      },
+                      {
+                        "stringValue": "recuperation"
+                      },
+                      {
+                        "stringValue": "specifique"
+                      },
+                      {
+                        "stringValue": "specifique"
+                      },
+                      {
+                        "stringValue": "specifique"
+                      },
+                      {
+                        "stringValue": "recuperation"
+                      },
+                      {
+                        "stringValue": "specifique"
+                      },
+                      {
+                        "stringValue": "affutage"
+                      },
+                      {
+                        "stringValue": "affutage"
+                      }
+                    ]
+                  }
+                },
+                "recoveryWeeks": {
+                  "arrayValue": {
+                    "values": [
+                      {
+                        "integerValue": "4"
+                      },
+                      {
+                        "integerValue": "8"
+                      },
+                      {
+                        "integerValue": "12"
+                      },
+                      {
+                        "integerValue": "16"
+                      },
+                      {
+                        "integerValue": "20"
+                      }
+                    ]
+                  }
+                },
+                "weeklyVolumes": {
+                  "arrayValue": {
+                    "values": [
+                      {
+                        "integerValue": "25"
+                      },
+                      {
+                        "integerValue": "28"
+                      },
+                      {
+                        "integerValue": "27"
+                      },
+                      {
+                        "integerValue": "22"
+                      },
+                      {
+                        "integerValue": "25"
+                      },
+                      {
+                        "integerValue": "27"
+                      },
+                      {
+                        "integerValue": "28"
+                      },
+                      {
+                        "integerValue": "22"
+                      },
+                      {
+                        "integerValue": "25"
+                      },
+                      {
+                        "integerValue": "27"
+                      },
+                      {
+                        "integerValue": "28"
+                      },
+                      {
+                        "integerValue": "22"
+                      },
+                      {
+                        "integerValue": "25"
+                      },
+                      {
+                        "integerValue": "27"
+                      },
+                      {
+                        "integerValue": "28"
+                      },
+                      {
+                        "integerValue": "22"
+                      },
+                      {
+                        "integerValue": "25"
+                      },
+                      {
+                        "integerValue": "27"
+                      },
+                      {
+                        "integerValue": "28"
+                      },
+                      {
+                        "integerValue": "22"
+                      },
+                      {
+                        "integerValue": "25"
+                      },
+                      {
+                        "integerValue": "18"
+                      },
+                      {
+                        "integerValue": "14"
+                      }
+                    ]
+                  }
+                }
+              }
+            }
+          },
+          "vma": {
+            "doubleValue": 16.069179566563466
+          }
+        }
+      }
+    },
+    "paces": {
+      "mapValue": {
+        "fields": {
+          "eaPace": {
+            "stringValue": "4:51"
+          },
+          "allureSpecifique5k": {
+            "stringValue": "3:56"
+          },
+          "allureSpecifiqueSemi": {
+            "stringValue": "4:30"
+          },
+          "allureSpecifiqueMarathon": {
+            "stringValue": "4:40"
+          },
+          "vmaPace": {
+            "stringValue": "3:44"
+          },
+          "recoveryPace": {
+            "stringValue": "6:13"
+          },
+          "seuilPace": {
+            "stringValue": "4:18"
+          },
+          "allureSpecifique10k": {
+            "stringValue": "4:09"
+          },
+          "efPace": {
+            "stringValue": "5:34"
+          }
+        }
+      }
+    },
+    "createdAt": {
+      "stringValue": "2026-05-20T08:53:31.924Z"
+    },
+    "sessionsPerWeek": {
+      "integerValue": "3"
+    },
+    "durationWeeks": {
+      "integerValue": "23"
+    },
+    "name": {
+      "stringValue": "Préparation Semi-Marathon en 1h35 — 23 sem."
+    },
+    "userId": {
+      "stringValue": "dVuk3CvGFYTauwRI2gGIFhUix7I2"
+    },
+    "fullPlanGenerated": {
+      "booleanValue": false
+    },
+    "isPreview": {
+      "booleanValue": true
+    },
+    "location": {
+      "stringValue": "Saint Pierre de cole"
+    },
+    "targetTime": {
+      "stringValue": "1h35"
+    },
+    "distance": {
+      "stringValue": "25 km"
+    },
+    "adaptationLog": {
+      "mapValue": {
+        "fields": {
+          "adaptationsThisWeek": {
+            "integerValue": "0"
+          },
+          "weekNumber": {
+            "integerValue": "0"
+          },
+          "adaptationHistory": {
+            "arrayValue": {}
+          }
+        }
+      }
+    },
+    "calculatedVMA": {
+      "doubleValue": 16.069179566563466
+    },
+    "raceDate": {
+      "stringValue": "2026-10-25"
+    },
+    "vmaSource": {
+      "stringValue": "Moyenne Semi en 1h35 et Marathon en 3h10"
+    },
+    "vma": {
+      "doubleValue": 16.069179566563466
+    },
+    "goal": {
+      "stringValue": "Course sur route"
+    },
+    "feasibility": {
+      "mapValue": {
+        "fields": {
+          "score": {
+            "integerValue": "93"
+          },
+          "message": {
+            "stringValue": "Avec ta VMA de 16.1 km/h, ton temps théorique sur semi-marathon est d'environ 1h33min. Ton objectif de 1h35min est cohérent avec ton niveau. C'est un plan réaliste et bien calibré."
+          },
+          "safetyWarning": {
+            "stringValue": "Hydrate-toi bien, échauffe-toi avant chaque séance et accorde-toi un vrai temps de récupération.\n\n⚠️ DURÉE DU PLAN : 23 semaines, c'est long pour ton profil. La plupart des coureurs de ton niveau préparent cette distance en 18 semaines maximum. Un plan trop long peut entraîner de la lassitude et une stagnation. Si tu te sens prêt, tu peux envisager de rapprocher ta date de début."
+          },
+          "status": {
+            "stringValue": "EXCELLENT"
+          }
+        }
+      }
+    },
+    "userEmail": {
+      "stringValue": "arnaudmanoeuvre@gmail.com"
+    },
+    "suggestedLocations": {
+      "arrayValue": {
+        "values": [
+          {
+            "mapValue": {
+              "fields": {
+                "type": {
+                  "stringValue": "NATURE"
+                },
+                "description": {
+                  "stringValue": "Ancienne voie ferrée aménagée, plate et sécurisée, idéale pour les footings à allure stable."
+                },
+                "name": {
+                  "stringValue": "Voie Verte Thiviers - Saint-Pardoux-la-Rivière"
+                }
+              }
+            }
+          },
+          {
+            "mapValue": {
+              "fields": {
+                "description": {
+                  "stringValue": "Chemins plats et agréables le long de la rivière, parfaits pour les sorties longues dominicales."
+                },
+                "type": {
+                  "stringValue": "PARK"
+                },
+                "name": {
+                  "stringValue": "Bords de la Dronne (Brantôme)"
+                }
+              }
+            }
+          },
+          {
+            "mapValue": {
+              "fields": {
+                "description": {
+                  "stringValue": "Sentiers vallonnés locaux pour varier les terrains lors des footings en forêt."
+                },
+                "type": {
+                  "stringValue": "NATURE"
+                },
+                "name": {
+                  "stringValue": "Sentiers de Saint-Pierre-de-Côle"
+                }
+              }
+            }
+          }
+        ]
+      }
+    },
+    "startDate": {
+      "stringValue": "2026-05-18"
+    },
+    "weeks": {
+      "arrayValue": {
+        "values": [
+          {
+            "mapValue": {
+              "fields": {
+                "weekGoal": {
+                  "stringValue": "Développement de l'endurance fondamentale"
+                },
+                "weekNumber": {
+                  "integerValue": "1"
+                },
+                "sessions": {
+                  "arrayValue": {
+                    "values": [
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "cooldown": {
+                              "stringValue": "5 min de footing très lent puis marche."
+                            },
+                            "targetPace": {
+                              "stringValue": "5:34 min/km"
+                            },
+                            "title": {
+                              "stringValue": "Footing en endurance fondamentale"
+                            },
+                            "type": {
+                              "stringValue": "Jogging"
+                            },
+                            "duration": {
+                              "stringValue": "1h 07 min"
+                            },
+                            "id": {
+                              "stringValue": "w1-s1-1779267211925-4grbmz2"
+                            },
+                            "locationSuggestion": {
+                              "stringValue": "Voie Verte Thiviers - Saint-Pardoux-la-Rivière"
+                            },
+                            "mainSet": {
+                              "stringValue": "49 min en endurance fondamentale, allure régulière et confortable (5:34). Tu dois pouvoir tenir une conversation tout du long."
+                            },
+                            "intensity": {
+                              "stringValue": "Facile"
+                            },
+                            "distance": {
+                              "stringValue": "12 km"
+                            },
+                            "advice": {
+                              "stringValue": "C'est la séance qui construit ton moteur aérobie : cœur, capillaires, tendons. La régularité de l'allure est l'objectif, pas la vitesse."
+                            },
+                            "warmup": {
+                              "stringValue": "5 min de marche active puis montée progressive vers l'allure d'endurance fondamentale."
+                            },
+                            "day": {
+                              "stringValue": "Mardi"
+                            },
+                            "feedback": {
+                              "mapValue": {
+                                "fields": {
+                                  "rpe": {
+                                    "integerValue": "5"
+                                  },
+                                  "adaptationRequested": {
+                                    "booleanValue": false
+                                  },
+                                  "completed": {
+                                    "booleanValue": true
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        }
+                      },
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "advice": {
+                              "stringValue": "Privilégie la qualité du mouvement sur la quantité. En cas de douleur articulaire, stoppe l'exercice."
+                            },
+                            "warmup": {
+                              "stringValue": "10 min de mobilité articulaire et échauffement dynamique"
+                            },
+                            "id": {
+                              "stringValue": "w1-s2-1779267211925-uwc4og0"
+                            },
+                            "day": {
+                              "stringValue": "Vendredi"
+                            },
+                            "cooldown": {
+                              "stringValue": "5 min d'étirements : quadriceps, ischio-jambiers, mollets, hanches"
+                            },
+                            "intensity": {
+                              "stringValue": "Modéré"
+                            },
+                            "locationSuggestion": {
+                              "stringValue": "À la maison"
+                            },
+                            "mainSet": {
+                              "stringValue": "Circuit 3 tours : Squats poids de corps (3x16), Squat bulgare (3x10/jambe), Fentes avant (3x10/jambe), Gainage ventral (3x31-60s), Dead bug (3x10/cote), Extensions mollets debout (3x21). Repos 1 min 30 entre tours."
+                            },
+                            "duration": {
+                              "stringValue": "40-45 min"
+                            },
+                            "title": {
+                              "stringValue": "Renfo Focus A - Quadriceps & Gainage (S1)"
+                            },
+                            "type": {
+                              "stringValue": "Renforcement"
+                            }
+                          }
+                        }
+                      },
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "cooldown": {
+                              "stringValue": "10 min de retour au calme à 6:13 min/km + étirements"
+                            },
+                            "targetPace": {
+                              "stringValue": "5:34 min/km"
+                            },
+                            "type": {
+                              "stringValue": "Sortie Longue"
+                            },
+                            "title": {
+                              "stringValue": "Sortie longue aérobie"
+                            },
+                            "duration": {
+                              "stringValue": "1h 12 min"
+                            },
+                            "id": {
+                              "stringValue": "w1-s3-1779267211925-ns8wkcs"
+                            },
+                            "locationSuggestion": {
+                              "stringValue": "Bords de la Dronne à Brantôme"
+                            },
+                            "mainSet": {
+                              "stringValue": "13 km à allure constante de 5:34 min/km (EF). Aucun travail d'intensité cette semaine."
+                            },
+                            "intensity": {
+                              "stringValue": "Facile"
+                            },
+                            "distance": {
+                              "stringValue": "13 km"
+                            },
+                            "advice": {
+                              "stringValue": "Cette sortie est la base de ton endurance. Maintiens une allure stable et veille à ton hydratation. Sois attentif à toute douleur inhabituelle."
+                            },
+                            "warmup": {
+                              "stringValue": "5 min de footing, à 6:13 min/km très progressif"
+                            },
+                            "day": {
+                              "stringValue": "Dimanche"
+                            }
+                          }
+                        }
+                      }
+                    ]
+                  }
+                },
+                "phase": {
+                  "stringValue": "fondamental"
+                },
+                "theme": {
+                  "stringValue": "Développement de l'endurance fondamentale"
+                }
+              }
+            }
+          }
+        ]
+      }
+    },
+    "id": {
+      "stringValue": "1779267211924"
+    }
+  },
+  "createTime": "2026-05-20T08:53:29.409254Z",
+  "updateTime": "2026-05-21T10:39:35.238621Z"
+}

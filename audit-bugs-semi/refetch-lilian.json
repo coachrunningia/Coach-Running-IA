@@ -1,0 +1,644 @@
+{
+  "name": "projects/coach-running-ia/databases/(default)/documents/plans/1779296358366",
+  "fields": {
+    "distance": {
+      "stringValue": "10 km"
+    },
+    "fullPlanGenerated": {
+      "booleanValue": false
+    },
+    "location": {
+      "stringValue": "Clermont"
+    },
+    "isPreview": {
+      "booleanValue": true
+    },
+    "targetTime": {
+      "stringValue": "Finisher"
+    },
+    "vmaSource": {
+      "stringValue": "Estimation niveau Débutant (0-1 an)"
+    },
+    "vma": {
+      "integerValue": "11"
+    },
+    "adaptationLog": {
+      "mapValue": {
+        "fields": {
+          "adaptationHistory": {
+            "arrayValue": {}
+          },
+          "weekNumber": {
+            "integerValue": "0"
+          },
+          "adaptationsThisWeek": {
+            "integerValue": "0"
+          }
+        }
+      }
+    },
+    "calculatedVMA": {
+      "integerValue": "11"
+    },
+    "raceDate": {
+      "stringValue": "2026-10-04"
+    },
+    "userEmail": {
+      "stringValue": "lilian.raymond2007@gmail.com"
+    },
+    "suggestedLocations": {
+      "arrayValue": {
+        "values": [
+          {
+            "mapValue": {
+              "fields": {
+                "name": {
+                  "stringValue": "Parc de Montjuzet"
+                },
+                "description": {
+                  "stringValue": "Parc vallonné offrant une vue imprenable sur Clermont, idéal pour varier les plaisirs."
+                },
+                "type": {
+                  "stringValue": "PARK"
+                }
+              }
+            }
+          },
+          {
+            "mapValue": {
+              "fields": {
+                "name": {
+                  "stringValue": "Stade Philippe Marcombes"
+                },
+                "type": {
+                  "stringValue": "TRACK"
+                },
+                "description": {
+                  "stringValue": "Piste et chemins plats, parfaits pour les premières séances de marche/course."
+                }
+              }
+            }
+          },
+          {
+            "mapValue": {
+              "fields": {
+                "type": {
+                  "stringValue": "NATURE"
+                },
+                "description": {
+                  "stringValue": "Sentiers plats et agréables le long de l'eau pour les sorties plus longues."
+                },
+                "name": {
+                  "stringValue": "Berges de l'Allier"
+                }
+              }
+            }
+          }
+        ]
+      }
+    },
+    "goal": {
+      "stringValue": "Course sur route"
+    },
+    "feasibility": {
+      "mapValue": {
+        "fields": {
+          "message": {
+            "stringValue": "Ce 10km présente des risques sérieux dans ta configuration actuelle. Blessure déclarée : adapte les séances et consulte un professionnel de santé. VMA estimée (pas de chrono validé) : l'évaluation comporte une marge d'incertitude. Avec 3 séances/semaine sur 20 semaines, chaque séance sera très chargée en volume — passer à 4 séances rendrait le plan plus équilibré. 20 semaines pour démarrer la course (volume actuel 0) est juste pour ton profil — minimum confortable : 22 semaines. Écoute ton corps, sois très progressif, et n'hésite pas à adapter le plan si nécessaire."
+          },
+          "recommendation": {
+            "stringValue": "un objectif adapté à ton profil actuel"
+          },
+          "score": {
+            "integerValue": "30"
+          },
+          "status": {
+            "stringValue": "RISQUÉ"
+          },
+          "safetyWarning": {
+            "stringValue": "Fais valider la reprise avec ton kiné/médecin avant de démarrer ce plan. Adapte les séances si nécessaire."
+          }
+        }
+      }
+    },
+    "startDate": {
+      "stringValue": "2026-05-18"
+    },
+    "weeks": {
+      "arrayValue": {
+        "values": [
+          {
+            "mapValue": {
+              "fields": {
+                "theme": {
+                  "stringValue": "Initiation et gestion des appuis"
+                },
+                "phase": {
+                  "stringValue": "fondamental"
+                },
+                "sessions": {
+                  "arrayValue": {
+                    "values": [
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "id": {
+                              "stringValue": "w1-s1-1779296358368-j5iw6zl"
+                            },
+                            "duration": {
+                              "stringValue": "1h00"
+                            },
+                            "type": {
+                              "stringValue": "Sortie Longue"
+                            },
+                            "title": {
+                              "stringValue": "Footing technique et progressif"
+                            },
+                            "targetPace": {
+                              "stringValue": "9:05"
+                            },
+                            "cooldown": {
+                              "stringValue": "10 min de retour au calme à 9:05 min/km + étirements"
+                            },
+                            "day": {
+                              "stringValue": "Mardi"
+                            },
+                            "warmup": {
+                              "stringValue": "5 min de marche, à 9:05 min/km lente"
+                            },
+                            "advice": {
+                              "stringValue": "Écoute ton corps : si une douleur apparaît au niveau de ton ampoule, arrête-toi. Porte des pansements préventifs si nécessaire."
+                            },
+                            "distance": {
+                              "stringValue": "6.6 km"
+                            },
+                            "intensity": {
+                              "stringValue": "Facile"
+                            },
+                            "mainSet": {
+                              "stringValue": "Bloc de 8 répétitions composé de 1 min de course légère à allure EF (8:08 min/km) suivie de 2 min de marche active pour la récupération. Travaille ta posture bien droite."
+                            },
+                            "locationSuggestion": {
+                              "stringValue": "Stade Philippe Marcombes"
+                            }
+                          }
+                        }
+                      },
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "locationSuggestion": {
+                              "stringValue": "À la maison"
+                            },
+                            "mainSet": {
+                              "stringValue": "Circuit 2 tours : Squats poids de corps (3x9), Squat bulgare (3x6/jambe), Fentes avant (3x6/jambe), Gainage ventral (3x19-60s), Dead bug (3x6/cote), Extensions mollets debout (3x13). Repos 2 min entre tours."
+                            },
+                            "cooldown": {
+                              "stringValue": "5 min d'étirements : quadriceps, ischio-jambiers, mollets, hanches"
+                            },
+                            "intensity": {
+                              "stringValue": "Modéré"
+                            },
+                            "title": {
+                              "stringValue": "Renfo Focus A - Quadriceps & Gainage (S1)"
+                            },
+                            "type": {
+                              "stringValue": "Renforcement"
+                            },
+                            "duration": {
+                              "stringValue": "30 min"
+                            },
+                            "advice": {
+                              "stringValue": "Ne force pas sur les mouvements si tu ressens une tension inhabituelle."
+                            },
+                            "id": {
+                              "stringValue": "w1-s2-1779296358368-5nkfx80"
+                            },
+                            "warmup": {
+                              "stringValue": "10 min de mobilité articulaire et échauffement dynamique"
+                            },
+                            "day": {
+                              "stringValue": "Jeudi"
+                            }
+                          }
+                        }
+                      },
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "id": {
+                              "stringValue": "w1-s3-1779296358368-z8y3jz7"
+                            },
+                            "type": {
+                              "stringValue": "Sortie Longue"
+                            },
+                            "title": {
+                              "stringValue": "Sortie Longue - Endurance Fondamentale"
+                            },
+                            "duration": {
+                              "stringValue": "1h00"
+                            },
+                            "cooldown": {
+                              "stringValue": "10 min de retour au calme à 9:05 min/km + étirements"
+                            },
+                            "targetPace": {
+                              "stringValue": "9:05"
+                            },
+                            "day": {
+                              "stringValue": "Dimanche"
+                            },
+                            "advice": {
+                              "stringValue": "Hydrate-toi régulièrement, même par temps frais. En cas de frottement au pied, n'hésite pas à marcher davantage."
+                            },
+                            "warmup": {
+                              "stringValue": "10 min de marche, à 9:05 min/km progressive"
+                            },
+                            "distance": {
+                              "stringValue": "6.6 km"
+                            },
+                            "locationSuggestion": {
+                              "stringValue": "Berges de l'Allier"
+                            },
+                            "mainSet": {
+                              "stringValue": "Réalise 10 répétitions de 1 min de course légère à allure EF (8:08 min/km) alternées avec 2 min de marche active. Le but est de maintenir une conversation sans être essoufflé."
+                            },
+                            "intensity": {
+                              "stringValue": "Facile"
+                            }
+                          }
+                        }
+                      }
+                    ]
+                  }
+                },
+                "weekNumber": {
+                  "integerValue": "1"
+                },
+                "weekGoal": {
+                  "stringValue": "Initiation et gestion des appuis"
+                }
+              }
+            }
+          }
+        ]
+      }
+    },
+    "id": {
+      "stringValue": "1779296358366"
+    },
+    "endDate": {
+      "stringValue": "2026-10-05"
+    },
+    "durationWeeks": {
+      "integerValue": "20"
+    },
+    "confidenceScore": {
+      "integerValue": "30"
+    },
+    "welcomeMessage": {
+      "stringValue": "Bienvenue dans ton programme de préparation pour ton premier 10 km ! L'objectif est de te faire franchir la ligne d'arrivée avec plaisir et sans douleur. Nous te recommandons vivement de consulter un médecin avant de débuter ce programme, notamment pour obtenir un certificat médical d'aptitude au sport. Tu nous as indiqué 0 km/semaine actuels. On calibre ta première semaine à 15 km — c'est un peu plus que ton volume actuel mais reste progressif pour atteindre ton objectif. Tu peux ajuster ton volume dans ton profil si tu cours en réalité plus que ça. Concernant ton Ampoule récurante, le plan adapte la progression pour limiter les frictions initiales. Pense à vérifier tes chaussures et à utiliser des chaussettes techniques sans coutures."
+    },
+    "generationContext": {
+      "mapValue": {
+        "fields": {
+          "vmaSource": {
+            "stringValue": "Estimation niveau Débutant (0-1 an)"
+          },
+          "questionnaireSnapshot": {
+            "mapValue": {
+              "fields": {
+                "startDate": {
+                  "stringValue": "2026-05-20"
+                },
+                "city": {
+                  "stringValue": "Clermont "
+                },
+                "preferredDays": {
+                  "arrayValue": {
+                    "values": [
+                      {
+                        "stringValue": "Mardi"
+                      },
+                      {
+                        "stringValue": "Jeudi"
+                      },
+                      {
+                        "stringValue": "Dimanche"
+                      }
+                    ]
+                  }
+                },
+                "height": {
+                  "integerValue": "183"
+                },
+                "frequency": {
+                  "integerValue": "3"
+                },
+                "email": {
+                  "stringValue": "lilian.raymond2007@gmail.com"
+                },
+                "level": {
+                  "stringValue": "Débutant (0-1 an)"
+                },
+                "goal": {
+                  "stringValue": "Course sur route"
+                },
+                "injuries": {
+                  "mapValue": {
+                    "fields": {
+                      "description": {
+                        "stringValue": "Ampoule récurante "
+                      },
+                      "hasInjury": {
+                        "booleanValue": true
+                      }
+                    }
+                  }
+                },
+                "weight": {
+                  "integerValue": "88"
+                },
+                "raceDate": {
+                  "stringValue": "2026-10-04"
+                },
+                "subGoal": {
+                  "stringValue": "10 km"
+                },
+                "vma": {
+                  "integerValue": "11"
+                },
+                "age": {
+                  "integerValue": "18"
+                },
+                "recentRaceTimes": {
+                  "mapValue": {}
+                },
+                "sex": {
+                  "stringValue": "Homme"
+                },
+                "currentWeeklyVolume": {
+                  "integerValue": "0"
+                }
+              }
+            }
+          },
+          "periodizationPlan": {
+            "mapValue": {
+              "fields": {
+                "recoveryWeeks": {
+                  "arrayValue": {
+                    "values": [
+                      {
+                        "integerValue": "4"
+                      },
+                      {
+                        "integerValue": "7"
+                      },
+                      {
+                        "integerValue": "10"
+                      },
+                      {
+                        "integerValue": "13"
+                      },
+                      {
+                        "integerValue": "16"
+                      },
+                      {
+                        "integerValue": "19"
+                      }
+                    ]
+                  }
+                },
+                "weeklyVolumes": {
+                  "arrayValue": {
+                    "values": [
+                      {
+                        "integerValue": "13"
+                      },
+                      {
+                        "integerValue": "16"
+                      },
+                      {
+                        "integerValue": "17"
+                      },
+                      {
+                        "integerValue": "14"
+                      },
+                      {
+                        "integerValue": "16"
+                      },
+                      {
+                        "integerValue": "17"
+                      },
+                      {
+                        "integerValue": "14"
+                      },
+                      {
+                        "integerValue": "16"
+                      },
+                      {
+                        "integerValue": "17"
+                      },
+                      {
+                        "integerValue": "14"
+                      },
+                      {
+                        "integerValue": "16"
+                      },
+                      {
+                        "integerValue": "17"
+                      },
+                      {
+                        "integerValue": "14"
+                      },
+                      {
+                        "integerValue": "16"
+                      },
+                      {
+                        "integerValue": "17"
+                      },
+                      {
+                        "integerValue": "14"
+                      },
+                      {
+                        "integerValue": "16"
+                      },
+                      {
+                        "integerValue": "17"
+                      },
+                      {
+                        "integerValue": "14"
+                      },
+                      {
+                        "integerValue": "9"
+                      }
+                    ]
+                  }
+                },
+                "totalWeeks": {
+                  "integerValue": "20"
+                },
+                "weeklyPhases": {
+                  "arrayValue": {
+                    "values": [
+                      {
+                        "stringValue": "fondamental"
+                      },
+                      {
+                        "stringValue": "fondamental"
+                      },
+                      {
+                        "stringValue": "fondamental"
+                      },
+                      {
+                        "stringValue": "recuperation"
+                      },
+                      {
+                        "stringValue": "fondamental"
+                      },
+                      {
+                        "stringValue": "fondamental"
+                      },
+                      {
+                        "stringValue": "recuperation"
+                      },
+                      {
+                        "stringValue": "developpement"
+                      },
+                      {
+                        "stringValue": "developpement"
+                      },
+                      {
+                        "stringValue": "recuperation"
+                      },
+                      {
+                        "stringValue": "developpement"
+                      },
+                      {
+                        "stringValue": "developpement"
+                      },
+                      {
+                        "stringValue": "recuperation"
+                      },
+                      {
+                        "stringValue": "specifique"
+                      },
+                      {
+                        "stringValue": "specifique"
+                      },
+                      {
+                        "stringValue": "recuperation"
+                      },
+                      {
+                        "stringValue": "specifique"
+                      },
+                      {
+                        "stringValue": "specifique"
+                      },
+                      {
+                        "stringValue": "recuperation"
+                      },
+                      {
+                        "stringValue": "affutage"
+                      }
+                    ]
+                  }
+                }
+              }
+            }
+          },
+          "vma": {
+            "integerValue": "11"
+          },
+          "generatedAt": {
+            "stringValue": "2026-05-20T16:58:56.062Z"
+          },
+          "paces": {
+            "mapValue": {
+              "fields": {
+                "allureSpecifique10k": {
+                  "stringValue": "6:04"
+                },
+                "efPace": {
+                  "stringValue": "8:08"
+                },
+                "allureSpecifiqueMarathon": {
+                  "stringValue": "6:49"
+                },
+                "allureSpecifiqueSemi": {
+                  "stringValue": "6:25"
+                },
+                "allureSpecifique5k": {
+                  "stringValue": "5:44"
+                },
+                "eaPace": {
+                  "stringValue": "7:05"
+                },
+                "seuilPace": {
+                  "stringValue": "6:16"
+                },
+                "recoveryPace": {
+                  "stringValue": "9:05"
+                },
+                "vmaPace": {
+                  "stringValue": "5:27"
+                }
+              }
+            }
+          },
+          "modelUsed": {
+            "stringValue": "gemini-3-flash-preview"
+          }
+        }
+      }
+    },
+    "paces": {
+      "mapValue": {
+        "fields": {
+          "allureSpecifiqueSemi": {
+            "stringValue": "6:25"
+          },
+          "allureSpecifique5k": {
+            "stringValue": "5:44"
+          },
+          "eaPace": {
+            "stringValue": "7:05"
+          },
+          "allureSpecifiqueMarathon": {
+            "stringValue": "6:49"
+          },
+          "vmaPace": {
+            "stringValue": "5:27"
+          },
+          "seuilPace": {
+            "stringValue": "6:16"
+          },
+          "recoveryPace": {
+            "stringValue": "9:05"
+          },
+          "allureSpecifique10k": {
+            "stringValue": "6:04"
+          },
+          "efPace": {
+            "stringValue": "8:08"
+          }
+        }
+      }
+    },
+    "sessionsPerWeek": {
+      "integerValue": "3"
+    },
+    "createdAt": {
+      "stringValue": "2026-05-20T16:59:18.366Z"
+    },
+    "userId": {
+      "stringValue": "SHIYZiOmpqb4QeGIXQgv0zfBuT92"
+    },
+    "name": {
+      "stringValue": "Préparation 10 km — Finisher — 20 sem."
+    }
+  },
+  "createTime": "2026-05-20T16:59:18.557772Z",
+  "updateTime": "2026-05-20T16:59:18.557772Z"
+}
+

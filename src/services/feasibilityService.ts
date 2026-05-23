@@ -113,10 +113,33 @@ export function parseTargetTime(target: string): number | null {
   }
 
   // Format "MM:SS" (pour 5km/10km typiquement)
+  // Sprint E Phase 1 Bug 8 (DEV-EXPERT-TRAIL-ULTRA-8-BUGS.md + COACH-EXPERT-TRAIL-ULTRA-8-BUGS.md) :
+  // ambiguïté MM:SS vs HH:MM. Cas observé : user tape "2:24" voulant "2h24" (Semi).
+  // Parsing naïf → 2.4 min → VMA cible 623 km/h ("astronaute") affiché à l'écran.
+  //
+  // Heuristique stricte : si la PREMIÈRE valeur est entre 1 et 5 INCLUS, c'est physiologiquement
+  // impossible que ce soit un temps "MM minutes SS secondes" sur une distance ≥ Semi (un Semi
+  // ou Marathon en 1-5 minutes = vitesse de >250 km/h, absurde). Donc on interprète HH:MM.
+  // → "1:30" = 1h30 = 90 min, "2:24" = 2h24 = 144 min, "5:00" = 5h00 = 300 min.
+  //
+  // Bornes du swap :
+  //   - m ≥ 6  → ne touche pas (e.g. "22:30" PB 5K = 22.5 min ; "45:30" PB 10K = 45.5 min ; OK)
+  //   - m == 0 → ne touche pas (e.g. "0:30" = 30 sec, edge case)
+  //   - m ∈ [1, 5] → swap vers HH:MM
+  //
+  // Compatibilité PB : un PB Marathon en "3:45" deviendrait 3h45 = 225 min (correct).
+  // Un PB 5K en "5:30" deviendrait 5h30 = 330 min (incorrect si user voulait 5min30s/5K).
+  // MAIS aucun PB 5K humain n'est ≤ 5:00 (record monde 12:35) → swap reste safe.
+  // Edge case 5K élite ~14-16 min : m ≥ 14, branche pas touchée. Safe.
   const msMatch = cleaned.match(/^(\d{1,3}):(\d{2})$/);
   if (msMatch) {
     const m = parseInt(msMatch[1], 10);
     const s = parseInt(msMatch[2], 10);
+    if (m >= 1 && m <= 5) {
+      // Détection HH:MM ambigu : aucune perf running humaine ne fait < 6 min sur 5K+.
+      console.warn(`[parseTargetTime] Format ambigu "${target}" (M=${m}≤5) — interprété HH:MM = ${m}h${s.toString().padStart(2, '0')}min (${m * 60 + s} min).`);
+      return m * 60 + s;
+    }
     return m + s / 60;
   }
 
@@ -221,11 +244,37 @@ function isIntermediate(level: string): boolean {
 
 /**
  * Calcule la VMA requise pour un temps cible sur une distance donnée.
+ *
+ * Sprint E Phase 1 Bug 8 (DEV-EXPERT-TRAIL-ULTRA-8-BUGS.md + COACH-EXPERT-TRAIL-ULTRA-8-BUGS.md) :
+ * cap sanity à 30 km/h. Aucun athlète humain n'a dépassé une VMA continue ~25-26 km/h
+ * (Bekele/Cheptegei estimé, record VO2max sur 6 min). Au-delà = input absurde
+ * (e.g. "2:24" sur Semi mal parsé en MM:SS → 620 km/h pré-correction Bug 8).
+ *
+ * On retourne 30 (pas null, pas throw) pour :
+ *   1. Ne pas casser les call sites en aval qui font des additions/comparaisons sur ce nombre.
+ *   2. Déclencher mécaniquement la gate IRRÉALISTE (ratio vma/vmaCible > 130%) qui produira
+ *      le statut + message correct dans le pipeline existant.
+ *   3. Ne pas afficher de chiffres absurdes (623 km/h) dans l'UI.
+ *
+ * Exporté pour tests Sprint E Phase 1 (anti-régression cas "astronaute").
  */
-function requiredVmaForTarget(targetMinutes: number, distanceKm: number): number {
+export function requiredVmaForTarget(targetMinutes: number, distanceKm: number): number {
+  if (targetMinutes <= 0 || distanceKm <= 0) {
+    // Garde-fou division par zéro / inputs négatifs. Retourne le cap directement.
+    console.error(`[requiredVma] Input invalide: targetMinutes=${targetMinutes} distanceKm=${distanceKm}`);
+    return 30;
+  }
   const factor = getVmaFactor(distanceKm);
   const requiredSpeed = distanceKm / (targetMinutes / 60); // km/h
-  return requiredSpeed / factor;
+  const rawVma = requiredSpeed / factor;
+  // Cap physiologique à 30 km/h (VMA max humaine réelle ≈ 26 km/h). 30 = marge confort
+  // pour ne pas couper les vraies cibles ambitieuses VMA 25-26 (élite) tout en bloquant
+  // les aberrations type 600+ km/h.
+  if (rawVma > 30) {
+    console.error(`[requiredVma] Aberration cap appliqué: ${rawVma.toFixed(0)} km/h → 30 km/h (cible ${targetMinutes}min/${distanceKm}km)`);
+    return 30;
+  }
+  return rawVma;
 }
 
 // ═══════════════════════════════════════════════════════════════════════════

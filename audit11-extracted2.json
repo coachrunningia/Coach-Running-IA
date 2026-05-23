@@ -1,0 +1,2326 @@
+[
+  {
+    "email": "n.rioumarc@gmail.com",
+    "label": "n_rioumarc",
+    "planId": "1779296119231",
+    "createdAt": "2026-05-20T16:55:19.231Z",
+    "goal": "Trail",
+    "targetTime": "Finisher",
+    "raceDate": "2026-07-25",
+    "distance": "40km D+2000m",
+    "planName": "Préparation Trail 40km / 2000m D+ — Finisher — 10 sem.",
+    "durationWeeks": 10,
+    "sessionsPerWeek": 4,
+    "vma": 14.673046251993622,
+    "calculatedVMA": 14.673046251993622,
+    "paces": {
+      "efPace": "6:06",
+      "eaPace": "5:19",
+      "seuilPace": "4:42",
+      "vmaPace": "4:05",
+      "recoveryPace": "6:49",
+      "allureSpecifique5k": "4:18",
+      "allureSpecifique10k": "4:33",
+      "allureSpecifiqueSemi": "4:49",
+      "allureSpecifiqueMarathon": "5:07"
+    },
+    "feasibility": {
+      "status": "RISQUÉ",
+      "score": 40,
+      "message": "Ce trail de 40km / 2000m D+ présente des risques sérieux dans ta configuration actuelle. Le D+ de la course (2000m) est 5.0x ton D+ hebdomadaire actuel (400m/sem) — risque musculaire très élevé en descente, impossible de construire la résistance excentrique nécessaire en 10 semaines. 10 semaines pour un trail de 40km : 12 à 16 semaines recommandées. Ton D+ hebdo actuel (400m) est bas par rapport aux 2000m de la course. Blessure déclarée : adapte les séances et consulte un professionnel de santé. Point positif : ton volume actuel de 30km/sem est une excellente base pour cette distance. Écoute ton corps, sois très progressif, et n'hésite pas à adapter le plan si nécessaire.",
+      "safetyWarning": "Fais valider la reprise avec ton kiné/médecin avant de démarrer ce plan. Adapte les séances si nécessaire.",
+      "recommendation": "un objectif adapté à ton profil actuel"
+    },
+    "welcomeMessage": "Bienvenue dans ton plan de préparation pour le Trail de 40km et 2000m de dénivelé positif. Notre objectif est de faire de toi un finisher en construisant une base d'endurance solide sur 10 semaines. Nous avons structuré cette phase fondamentale pour habituer ton corps aux sentiers tout en protégeant ta santé. Compte tenu de ta douleur à l'adducteur après 25+ km, le plan adapte la progression pour limiter la fatigue et intègre du renforcement ciblé pour stabiliser la zone. Avant de te lancer, valide avec ton kiné ou médecin que tu peux reprendre une activité de course progressive. Nous te recommandons de consulter un médecin avant de débuter ce programme, notamment pour obtenir un certificat médical d'aptitude au sport.",
+    "generationContext": {
+      "keys": [
+        "vma",
+        "vmaSource",
+        "paces",
+        "periodizationPlan",
+        "questionnaireSnapshot",
+        "generatedAt",
+        "modelUsed"
+      ],
+      "raw": {
+        "vma": 14.673046251993622,
+        "vmaSource": "Moyenne 5km en 22min et 10km en 44min",
+        "paces": {
+          "efPace": "6:06",
+          "eaPace": "5:19",
+          "seuilPace": "4:42",
+          "vmaPace": "4:05",
+          "recoveryPace": "6:49",
+          "allureSpecifique5k": "4:18",
+          "allureSpecifique10k": "4:33",
+          "allureSpecifiqueSemi": "4:49",
+          "allureSpecifiqueMarathon": "5:07"
+        },
+        "periodizationPlan": {
+          "totalWeeks": 10,
+          "weeklyVolumes": [
+            30,
+            32,
+            35,
+            27,
+            31,
+            36,
+            41,
+            34,
+            28,
+            23
+          ],
+          "weeklyPhases": [
+            "fondamental",
+            "fondamental",
+            "fondamental",
+            "recuperation",
+            "developpement",
+            "developpement",
+            "specifique",
+            "recuperation",
+            "affutage",
+            "affutage"
+          ],
+          "recoveryWeeks": [
+            4,
+            8
+          ],
+          "weeklyElevationTarget": [
+            400,
+            522,
+            644,
+            422,
+            889,
+            1011,
+            1133,
+            691,
+            689,
+            600
+          ]
+        },
+        "questionnaireSnapshot": {
+          "goal": "Trail",
+          "level": "Confirmé (Compétition)",
+          "frequency": 4,
+          "preferredDays": [
+            "Mardi",
+            "Mercredi",
+            "Jeudi",
+            "Vendredi"
+          ],
+          "startDate": "2026-05-20",
+          "sex": "Homme",
+          "trailDetails": {
+            "distance": 40,
+            "elevation": 2000
+          },
+          "recentRaceTimes": {
+            "distance5km": "22min",
+            "distance10km": "44min"
+          },
+          "city": "Cruseilles",
+          "injuries": {
+            "hasInjury": true,
+            "description": "Douleur abducteur après 25+ km"
+          },
+          "raceDate": "2026-07-25",
+          "currentWeeklyVolume": 30,
+          "currentWeeklyElevation": 400,
+          "weight": 65,
+          "height": 165,
+          "age": 23,
+          "preferredLongRunDay": "Dimanche",
+          "email": "n.rioumarc@gmail.com",
+          "vma": 14.673046251993622
+        },
+        "generatedAt": "2026-05-20T16:54:54.475Z",
+        "modelUsed": "gemini-3-flash-preview"
+      }
+    },
+    "weeklyVolumes": [
+      0
+    ],
+    "nbWeeks": 1,
+    "week1": {
+      "keys": [
+        "weekNumber",
+        "phase",
+        "sessions",
+        "theme",
+        "weekGoal"
+      ],
+      "sessions": [
+        {
+          "day": "Mardi",
+          "title": "Footing en endurance fondamentale",
+          "type": "Jogging",
+          "duration": "49 min",
+          "distance": "8 km",
+          "mainSet": "31 min en endurance fondamentale, allure régulière et confortable (6:06). Tu dois pouvoir tenir une conversation tout du long.",
+          "description": "",
+          "intensity": "Facile"
+        },
+        {
+          "day": "Mercredi",
+          "title": "Renfo Trail Focus A - Quadriceps & Excentrique (S1)",
+          "type": "Renforcement",
+          "duration": "40-45 min",
+          "distance": "0 km",
+          "mainSet": "Circuit 3 tours : Squats poids de corps (3x14), Fentes avant (3x9/jambe), Gainage ventral (3x27-60s), Dead bug (3x9/cote), Extensions mollets debout (3x18), Squat excentrique (descente 4s) (3x9), Step-down excentrique (3x7/jambe), Mollets debout unipodal (3x11/jambe). Repos 1 min 30 entre tours.",
+          "description": "",
+          "intensity": "Modéré"
+        },
+        {
+          "day": "Jeudi",
+          "title": "Footing vallonné",
+          "type": "Jogging",
+          "duration": "61 min",
+          "distance": "10 km",
+          "mainSet": "43 min sur parcours légèrement vallonné. En montée : foulée courte, effort d'endurance fondamentale maintenu (6:06 en référence sur le plat, la vitesse baisse en côte c'est normal). En descente : relâché, foulée courte et contrôlée. Pas de côte raide, du vallon doux.",
+          "description": "",
+          "intensity": "Facile"
+        },
+        {
+          "day": "Dimanche",
+          "title": "Sortie Longue Trail Fondamentale",
+          "type": "Sortie Longue",
+          "duration": "73 min",
+          "distance": "12 km",
+          "mainSet": "73 min de course continue en endurance fondamentale (EF) à 6:06 min/km sur sentier avec dénivelé progressif.",
+          "description": "",
+          "intensity": "Modéré"
+        }
+      ],
+      "totalKm": 0
+    },
+    "user": {
+      "id": "gsMINLbzJ8gCTw96EB3cibJxoaI3",
+      "firstName": "Nicolas",
+      "email": "n.rioumarc@gmail.com",
+      "createdAt": "2026-05-20T16:54:54.289Z",
+      "isPremium": false,
+      "isAnonymous": false,
+      "source": "web",
+      "questionnaireData": {
+        "goal": "Trail",
+        "level": "Confirmé (Compétition)",
+        "frequency": 4,
+        "preferredDays": [
+          "Mardi",
+          "Mercredi",
+          "Jeudi",
+          "Vendredi"
+        ],
+        "startDate": "2026-05-20",
+        "sex": "Homme",
+        "trailDetails": {
+          "distance": 40,
+          "elevation": 2000
+        },
+        "recentRaceTimes": {
+          "distance5km": "22min",
+          "distance10km": "44min"
+        },
+        "city": "Cruseilles",
+        "injuries": {
+          "hasInjury": true,
+          "description": "Douleur abducteur après 25+ km"
+        },
+        "raceDate": "2026-07-25",
+        "currentWeeklyVolume": 30,
+        "currentWeeklyElevation": 400,
+        "weight": 65,
+        "height": 165,
+        "age": 23,
+        "preferredLongRunDay": "Dimanche",
+        "email": "n.rioumarc@gmail.com",
+        "vma": 14.673046251993622
+      },
+      "emailVerified": true,
+      "emailVerifiedAt": "2026-05-20T17:09:30.898Z"
+    }
+  },
+  {
+    "email": "lilian.raymond2007@gmail.com",
+    "label": "lilian_raymond2007",
+    "planId": "1779296358366",
+    "createdAt": "2026-05-20T16:59:18.366Z",
+    "goal": "Course sur route",
+    "targetTime": "Finisher",
+    "raceDate": "2026-10-04",
+    "distance": "10 km",
+    "planName": "Préparation 10 km — Finisher — 20 sem.",
+    "durationWeeks": 20,
+    "sessionsPerWeek": 3,
+    "vma": 11,
+    "calculatedVMA": 11,
+    "paces": {
+      "efPace": "8:08",
+      "eaPace": "7:05",
+      "seuilPace": "6:16",
+      "vmaPace": "5:27",
+      "recoveryPace": "9:05",
+      "allureSpecifique5k": "5:44",
+      "allureSpecifique10k": "6:04",
+      "allureSpecifiqueSemi": "6:25",
+      "allureSpecifiqueMarathon": "6:49"
+    },
+    "feasibility": {
+      "recommendation": "un objectif adapté à ton profil actuel",
+      "safetyWarning": "Fais valider la reprise avec ton kiné/médecin avant de démarrer ce plan. Adapte les séances si nécessaire.",
+      "message": "Ce premier 10 km Finisher est un beau projet. Tu pars de zéro côté course, le plan est calibré sur 20 semaines avec une progression très douce — c'est suffisant pour un objectif Finisher. Côté ampoule récurrente, ce n'est pas une blessure structurelle : pense à des chaussettes techniques sans coutures et des chaussures bien ajustées (lacéage + amorti). Écoute ton corps, sois progressif, et n'hésite pas à raccourcir une séance si besoin.",
+      "status": "AMBITIEUX",
+      "score": 60
+    },
+    "welcomeMessage": "Bienvenue dans ton programme de préparation pour ton premier 10 km. L'objectif est de te faire franchir la ligne d'arrivée avec plaisir et sans douleur. Nous te recommandons vivement de consulter un médecin avant de débuter ce programme, notamment pour obtenir un certificat médical d'aptitude au sport. Tu nous as indiqué 0 km/semaine actuels : on démarre très progressivement avec des séances courtes de marche-course (45 min, environ 4 km) en S1, le temps que ton corps s'adapte sans risque. La progression sur 20 semaines te mènera à un pic d'entraînement autour de 22 km/semaine en S18, avant l'affûtage final. Concernant ton ampoule récurrente, le plan adapte la progression pour limiter les frictions ; pense à des chaussettes techniques sans coutures et des chaussures bien ajustées.",
+    "generationContext": {
+      "keys": [
+        "paces",
+        "modelUsed",
+        "periodizationPlan",
+        "generatedAt",
+        "vmaSource",
+        "questionnaireSnapshot",
+        "vma"
+      ],
+      "raw": {
+        "paces": {
+          "allureSpecifiqueSemi": "6:25",
+          "efPace": "8:08",
+          "allureSpecifiqueMarathon": "6:49",
+          "allureSpecifique10k": "6:04",
+          "vmaPace": "5:27",
+          "seuilPace": "6:16",
+          "eaPace": "7:05",
+          "recoveryPace": "9:05",
+          "allureSpecifique5k": "5:44"
+        },
+        "modelUsed": "gemini-3-flash-preview",
+        "periodizationPlan": {
+          "totalWeeks": 20,
+          "recoveryWeeks": [
+            4,
+            7,
+            10,
+            13,
+            16,
+            19
+          ],
+          "weeklyVolumes": [
+            13,
+            14,
+            15,
+            12,
+            16,
+            17,
+            14,
+            18,
+            19,
+            15,
+            19,
+            20,
+            16,
+            20,
+            21,
+            16,
+            21,
+            22,
+            14,
+            10
+          ],
+          "weeklyPhases": [
+            "fondamental",
+            "fondamental",
+            "fondamental",
+            "recuperation",
+            "fondamental",
+            "fondamental",
+            "recuperation",
+            "developpement",
+            "developpement",
+            "recuperation",
+            "developpement",
+            "developpement",
+            "recuperation",
+            "specifique",
+            "specifique",
+            "recuperation",
+            "specifique",
+            "specifique",
+            "recuperation",
+            "affutage"
+          ]
+        },
+        "generatedAt": "2026-05-20T16:58:56.062Z",
+        "vmaSource": "Estimation niveau Débutant (0-1 an)",
+        "questionnaireSnapshot": {
+          "subGoal": "10 km",
+          "vma": 11,
+          "sex": "Homme",
+          "weight": 88,
+          "height": 183,
+          "currentWeeklyVolume": 0,
+          "injuries": {
+            "hasInjury": true,
+            "description": "Ampoule récurante "
+          },
+          "recentRaceTimes": {},
+          "level": "Débutant (0-1 an)",
+          "city": "Clermont ",
+          "age": 18,
+          "frequency": 3,
+          "email": "lilian.raymond2007@gmail.com",
+          "raceDate": "2026-10-04",
+          "startDate": "2026-05-20",
+          "goal": "Course sur route",
+          "preferredDays": [
+            "Mardi",
+            "Jeudi",
+            "Dimanche"
+          ]
+        },
+        "vma": 11
+      }
+    },
+    "weeklyVolumes": [
+      0
+    ],
+    "nbWeeks": 1,
+    "week1": {
+      "keys": [
+        "weekNumber",
+        "sessions",
+        "theme",
+        "phase",
+        "weekGoal"
+      ],
+      "sessions": [
+        {
+          "day": "Mardi",
+          "title": "Footing technique et progressif",
+          "type": "Sortie Longue",
+          "duration": "45 min",
+          "distance": "4 km",
+          "mainSet": "Bloc de 6 répétitions composé de 1 min de course légère à allure EF (8:08 min/km) suivie de 2 min de marche active pour la récupération. Travaille ta posture bien droite.",
+          "description": "",
+          "intensity": "Facile"
+        },
+        {
+          "day": "Jeudi",
+          "title": "Renfo Focus A - Quadriceps & Gainage (S1)",
+          "type": "Renforcement",
+          "duration": "30 min",
+          "mainSet": "Circuit 2 tours : Squats poids de corps (3x9), Squat bulgare (3x6/jambe), Fentes avant (3x6/jambe), Gainage ventral (3x19-60s), Dead bug (3x6/cote), Extensions mollets debout (3x13). Repos 2 min entre tours.",
+          "description": "",
+          "intensity": "Modéré"
+        },
+        {
+          "day": "Dimanche",
+          "title": "Sortie Longue - Endurance Fondamentale",
+          "type": "Sortie Longue",
+          "duration": "45 min",
+          "distance": "4 km",
+          "mainSet": "Réalise 6 répétitions de 1 min de course légère à allure EF (8:08 min/km) alternées avec 2 min de marche active. Le but est de maintenir une conversation sans être essoufflé.",
+          "description": "",
+          "intensity": "Facile"
+        }
+      ],
+      "totalKm": 0
+    },
+    "user": {
+      "id": "SHIYZiOmpqb4QeGIXQgv0zfBuT92",
+      "firstName": "Lilian",
+      "email": "lilian.raymond2007@gmail.com",
+      "createdAt": "2026-05-20T16:58:55.801Z",
+      "isPremium": false,
+      "isAnonymous": false,
+      "source": "web",
+      "questionnaireData": {
+        "goal": "Course sur route",
+        "subGoal": "10 km",
+        "level": "Débutant (0-1 an)",
+        "frequency": 3,
+        "preferredDays": [
+          "Mardi",
+          "Jeudi",
+          "Dimanche"
+        ],
+        "startDate": "2026-05-20",
+        "sex": "Homme",
+        "recentRaceTimes": {},
+        "city": "Clermont ",
+        "injuries": {
+          "hasInjury": true,
+          "description": "Ampoule récurante "
+        },
+        "raceDate": "2026-10-04",
+        "currentWeeklyVolume": 0,
+        "age": 18,
+        "weight": 88,
+        "height": 183,
+        "email": "lilian.raymond2007@gmail.com",
+        "vma": 11
+      },
+      "emailVerified": true,
+      "emailVerifiedAt": "2026-05-20T17:00:27.517Z"
+    }
+  },
+  {
+    "email": "bertrandcassin44@gmail.com",
+    "label": "bertrandcassin44",
+    "planId": "1779292771055",
+    "createdAt": "2026-05-20T15:59:31.055Z",
+    "goal": "Course sur route",
+    "targetTime": "Finisher",
+    "raceDate": "2026-09-26",
+    "distance": "21.1 km (Semi-Marathon)",
+    "planName": "Préparation Semi-Marathon — Finisher — 19 sem.",
+    "durationWeeks": 19,
+    "sessionsPerWeek": 3,
+    "vma": 9.523809523809526,
+    "calculatedVMA": 9.523809523809526,
+    "paces": {
+      "efPace": "9:24",
+      "eaPace": "8:11",
+      "seuilPace": "7:14",
+      "vmaPace": "6:18",
+      "recoveryPace": "10:30",
+      "allureSpecifique5k": "6:38",
+      "allureSpecifique10k": "7:00",
+      "allureSpecifiqueSemi": "7:25",
+      "allureSpecifiqueMarathon": "7:52"
+    },
+    "feasibility": {
+      "message": "Ce semi-marathon est un beau défi Finisher. Avec ta VMA de 9.5 km/h, l'enjeu n'est pas le chrono mais la construction du volume : tu pars de 15 km/sem, le plan monte progressivement jusqu'à 22 km/sem en spécifique. Sur 19 semaines à 3 séances, la régularité prime. À 51 ans, écoute particulièrement tes signaux musculo-squelettiques (tendons, mollets) et n'hésite pas à raccourcir une séance si besoin.",
+      "safetyWarning": "À 51 ans, on te recommande vivement de consulter ton médecin et de réaliser un test d'effort avant de démarrer cette préparation. Un certificat médical d'aptitude est indispensable pour cette distance. Privilégie la récupération (48-72h entre séances intenses), hydrate-toi bien et écoute ton corps.",
+      "score": 65,
+      "status": "AMBITIEUX"
+    },
+    "welcomeMessage": "Bienvenue dans ta préparation pour le Semi-marathon ! L'objectif est de t'amener à franchir la ligne d'arrivée avec plaisir et sans blessure en restant sur une allure confortable. Nous avons structuré ce plan sur 19 semaines pour garantir une progression ultra-douce. Comme tu cours le matin, veille à bien tu hydrater dès le réveil. Nous te recommandons vivement de consulter un médecin avant de débuter ce programme, notamment pour obtenir un certificat médical d'aptitude au sport. À partir de 51 ans, un bilan cardio-vasculaire est particulièrement conseillé. Ce plan repose quasi-exclusivement sur l'endurance fondamentale pour construire ta base de solidité aérobie.",
+    "generationContext": {
+      "keys": [
+        "vmaSource",
+        "questionnaireSnapshot",
+        "vma",
+        "modelUsed",
+        "paces",
+        "periodizationPlan",
+        "generatedAt"
+      ],
+      "raw": {
+        "vmaSource": "10km en 1h10",
+        "questionnaireSnapshot": {
+          "age": 51,
+          "city": "Vendée ",
+          "email": "bertrandcassin44@gmail.com",
+          "sex": "Homme",
+          "injuries": {
+            "hasInjury": false
+          },
+          "recentRaceTimes": {
+            "distance10km": "1h10"
+          },
+          "raceDate": "2026-09-26",
+          "weight": 80,
+          "height": 173,
+          "startDate": "2026-05-20",
+          "vma": 9.523809523809526,
+          "currentWeeklyVolume": 15,
+          "preferredDays": [],
+          "subGoal": "Semi-Marathon",
+          "frequency": 3,
+          "level": "Confirmé (Compétition)",
+          "comments": "Je cours le matin ",
+          "goal": "Course sur route"
+        },
+        "vma": 9.523809523809526,
+        "modelUsed": "gemini-3-flash-preview",
+        "paces": {
+          "vmaPace": "6:18",
+          "allureSpecifiqueSemi": "7:25",
+          "seuilPace": "7:14",
+          "allureSpecifique10k": "7:00",
+          "recoveryPace": "10:30",
+          "allureSpecifiqueMarathon": "7:52",
+          "allureSpecifique5k": "6:38",
+          "efPace": "9:24",
+          "eaPace": "8:11"
+        },
+        "periodizationPlan": {
+          "weeklyPhases": [
+            "fondamental",
+            "fondamental",
+            "fondamental",
+            "recuperation",
+            "fondamental",
+            "developpement",
+            "recuperation",
+            "developpement",
+            "developpement",
+            "recuperation",
+            "developpement",
+            "specifique",
+            "recuperation",
+            "specifique",
+            "specifique",
+            "recuperation",
+            "specifique",
+            "affutage",
+            "affutage"
+          ],
+          "recoveryWeeks": [
+            4,
+            7,
+            10,
+            13,
+            16
+          ],
+          "totalWeeks": 19,
+          "weeklyVolumes": [
+            15,
+            17,
+            19,
+            15,
+            18,
+            20,
+            16,
+            18,
+            21,
+            17,
+            20,
+            22,
+            17,
+            20,
+            22,
+            17,
+            19,
+            16,
+            11
+          ]
+        },
+        "generatedAt": "2026-05-20T15:59:11.568Z"
+      }
+    },
+    "weeklyVolumes": [
+      0
+    ],
+    "nbWeeks": 1,
+    "week1": {
+      "keys": [
+        "weekNumber",
+        "phase",
+        "sessions",
+        "theme",
+        "weekGoal"
+      ],
+      "sessions": [
+        {
+          "day": "Mardi",
+          "title": "Footing progressif (négative split)",
+          "type": "Jogging",
+          "duration": "42 min",
+          "distance": "4.5 km",
+          "mainSet": "24 min en deux moitiés : la 1re très tranquille (bas de l'EF), la 2e dans le haut de l'EF autour de 9:24 — toujours conversationnel, jamais essoufflé. Tu termines plus vite que tu n'as commencé.",
+          "description": "",
+          "intensity": "Facile"
+        },
+        {
+          "day": "Jeudi",
+          "title": "Renfo Focus A - Quadriceps & Gainage (S1)",
+          "type": "Renforcement",
+          "duration": "30 min",
+          "distance": "0 km",
+          "mainSet": "Circuit 2 tours : Squats poids de corps (3x9), Squat bulgare (3x6/jambe), Fentes avant (3x6/jambe), Gainage ventral (3x19-60s), Dead bug (3x6/cote), Extensions mollets debout (3x13). Repos 2 min entre tours.",
+          "description": "",
+          "intensity": "Modéré"
+        },
+        {
+          "day": "Dimanche",
+          "title": "Endurance de base en nature",
+          "type": "Sortie Longue",
+          "duration": "89 min",
+          "distance": "9.5 km",
+          "mainSet": "89 min de course continue en Endurance Fondamentale (EF) à 9:24 min/km. Reste dans une zone de confort total.",
+          "description": "",
+          "intensity": "Facile"
+        }
+      ],
+      "totalKm": 0
+    },
+    "user": {
+      "id": "0fPQA89yHmOiDAen0cfDdBli12E3",
+      "firstName": "bertrandcassin44@gmail.com",
+      "email": "bertrandcassin44@gmail.com",
+      "createdAt": "2026-05-20T15:59:11.249Z",
+      "isPremium": false,
+      "isAnonymous": false,
+      "source": "web",
+      "questionnaireData": {
+        "goal": "Course sur route",
+        "subGoal": "Semi-Marathon",
+        "level": "Confirmé (Compétition)",
+        "frequency": 3,
+        "preferredDays": [],
+        "startDate": "2026-05-20",
+        "sex": "Homme",
+        "recentRaceTimes": {
+          "distance10km": "1h10"
+        },
+        "city": "Vendée ",
+        "injuries": {
+          "hasInjury": false
+        },
+        "comments": "Je cours le matin ",
+        "raceDate": "2026-09-26",
+        "currentWeeklyVolume": 15,
+        "age": 51,
+        "weight": 80,
+        "height": 173,
+        "email": "bertrandcassin44@gmail.com",
+        "vma": 9.523809523809526
+      },
+      "emailVerified": true,
+      "emailVerifiedAt": "2026-05-20T15:59:59.159Z"
+    }
+  },
+  {
+    "email": "margauxmaurice@outlook.fr",
+    "label": "margauxmaurice",
+    "planId": "1779291819180",
+    "createdAt": "2026-05-20T15:43:39.180Z",
+    "goal": "Course sur route",
+    "targetTime": "2h20",
+    "raceDate": "2026-10-04",
+    "distance": "21.1 km (Semi-Marathon)",
+    "planName": "Préparation Semi-Marathon en 2h20 — 19 sem.",
+    "durationWeeks": 19,
+    "sessionsPerWeek": 3,
+    "vma": 10.92896174863388,
+    "calculatedVMA": 10.92896174863388,
+    "paces": {
+      "efPace": "8:12",
+      "eaPace": "7:08",
+      "seuilPace": "6:19",
+      "vmaPace": "5:29",
+      "recoveryPace": "9:09",
+      "allureSpecifique5k": "5:47",
+      "allureSpecifique10k": "6:06",
+      "allureSpecifiqueSemi": "6:38",
+      "allureSpecifiqueMarathon": "6:52"
+    },
+    "feasibility": {
+      "score": 65,
+      "status": "AMBITIEUX",
+      "safetyWarning": "Investis dans de bonnes chaussures avec un bon amorti et privilégie les surfaces souples quand c'est possible. Pense à bien t'hydrater et à écouter ton corps.",
+      "message": "Ton objectif 2h20 sur semi est cohérent avec ta VMA de 10.9 km/h (temps théorique ~2h16). Le point d'attention principal n'est pas le chrono mais la charge : ton volume actuel (17 km/sem) est bas pour préparer un semi sereinement. Le plan monte progressivement jusqu'à un pic à 25 km/sem en spécifique — reste à l'écoute des signaux musculo-squelettiques (tendons, mollets, fessiers) et n'hésite pas à raccourcir une séance si besoin. La régularité prime sur le volume."
+    },
+    "welcomeMessage": "Bienvenue dans ton programme de préparation pour ton semi-marathon ! L'objectif est de franchir la ligne en 2h20 en construisant une base aérobie solide. Cette première phase 'fondamentale' se concentre sur l'endurance douce pour habituer ton cœur et tes articulations à l'effort sans fatigue excessive. Nous te recommandons vivement de consulter un médecin avant de débuter ce programme, notamment pour obtenir un certificat médical d'aptitude au sport.",
+    "generationContext": {
+      "keys": [
+        "vma",
+        "periodizationPlan",
+        "paces",
+        "generatedAt",
+        "vmaSource",
+        "modelUsed",
+        "questionnaireSnapshot"
+      ],
+      "raw": {
+        "vma": 10.92896174863388,
+        "periodizationPlan": {
+          "totalWeeks": 19,
+          "weeklyVolumes": [
+            17,
+            19,
+            21,
+            17,
+            20,
+            22,
+            18,
+            21,
+            24,
+            19,
+            22,
+            25,
+            20,
+            23,
+            25,
+            20,
+            22,
+            18,
+            12
+          ],
+          "recoveryWeeks": [
+            4,
+            7,
+            10,
+            13,
+            16
+          ],
+          "weeklyPhases": [
+            "fondamental",
+            "fondamental",
+            "fondamental",
+            "recuperation",
+            "fondamental",
+            "developpement",
+            "recuperation",
+            "developpement",
+            "developpement",
+            "recuperation",
+            "developpement",
+            "specifique",
+            "recuperation",
+            "specifique",
+            "specifique",
+            "recuperation",
+            "specifique",
+            "affutage",
+            "affutage"
+          ]
+        },
+        "paces": {
+          "seuilPace": "6:19",
+          "allureSpecifiqueMarathon": "6:52",
+          "recoveryPace": "9:09",
+          "allureSpecifiqueSemi": "6:38",
+          "efPace": "8:12",
+          "vmaPace": "5:29",
+          "allureSpecifique5k": "5:47",
+          "eaPace": "7:08",
+          "allureSpecifique10k": "6:06"
+        },
+        "generatedAt": "2026-05-20T15:43:21.321Z",
+        "vmaSource": "10km en 1h01",
+        "modelUsed": "gemini-3-flash-preview",
+        "questionnaireSnapshot": {
+          "level": "Intermédiaire (Régulier)",
+          "currentWeeklyVolume": 17,
+          "subGoal": "Semi-Marathon",
+          "goal": "Course sur route",
+          "age": 32,
+          "preferredDays": [
+            "Mercredi",
+            "Dimanche",
+            "Vendredi"
+          ],
+          "sex": "Femme",
+          "frequency": 3,
+          "startDate": "2026-05-25",
+          "weight": 82,
+          "targetTime": "2h20",
+          "vma": 10.92896174863388,
+          "injuries": {
+            "hasInjury": false
+          },
+          "email": "margauxmaurice@outlook.fr",
+          "city": "Bourg-fidele ",
+          "height": 167,
+          "raceDate": "2026-10-04",
+          "recentRaceTimes": {
+            "distance10km": "1h01"
+          }
+        }
+      }
+    },
+    "weeklyVolumes": [
+      0
+    ],
+    "nbWeeks": 1,
+    "week1": {
+      "keys": [
+        "weekNumber",
+        "phase",
+        "sessions",
+        "theme",
+        "weekGoal"
+      ],
+      "sessions": [
+        {
+          "day": "Mercredi",
+          "title": "Footing en blocs souples",
+          "type": "Jogging",
+          "duration": "50 min",
+          "distance": "6 km",
+          "mainSet": "5 blocs de 5 min de footing en endurance fondamentale (8:12), entrecoupés de 1 min de marche. Le footing reste lent et confortable ; la marche est une respiration de confort, pas une récupération d'effort dur.",
+          "description": "",
+          "intensity": "Facile"
+        },
+        {
+          "day": "Vendredi",
+          "title": "Renfo Focus A - Quadriceps & Gainage (S1)",
+          "type": "Renforcement",
+          "duration": "30 min",
+          "distance": "0 km",
+          "mainSet": "Circuit 2 tours : Squats poids de corps (3x9), Fentes avant (3x6/jambe), Gainage ventral (3x19-60s), Dead bug (3x6/cote), Extensions mollets debout (3x13). Repos 2 min entre tours.",
+          "description": "",
+          "intensity": "Modéré"
+        },
+        {
+          "day": "Dimanche",
+          "title": "Sortie Longue - Footing vallonné",
+          "type": "Sortie Longue",
+          "duration": "82 min",
+          "distance": "10 km",
+          "mainSet": "82 min de course en Endurance Fondamentale (8:12 min/km) sur un parcours avec quelques légères montées.",
+          "description": "",
+          "intensity": "Facile"
+        }
+      ],
+      "totalKm": 0
+    },
+    "user": {
+      "id": "Xm5jMGhsbvR7jerOkOgIDTcdWYk2",
+      "firstName": "Margaux",
+      "email": "margauxmaurice@outlook.fr",
+      "createdAt": "2026-05-20T15:43:20.600Z",
+      "isPremium": false,
+      "isAnonymous": false,
+      "source": "web",
+      "questionnaireData": {
+        "goal": "Course sur route",
+        "subGoal": "Semi-Marathon",
+        "level": "Intermédiaire (Régulier)",
+        "frequency": 3,
+        "preferredDays": [
+          "Mercredi",
+          "Dimanche",
+          "Vendredi"
+        ],
+        "startDate": "2026-05-25",
+        "sex": "Femme",
+        "recentRaceTimes": {
+          "distance10km": "1h01"
+        },
+        "city": "Bourg-fidele ",
+        "injuries": {
+          "hasInjury": false
+        },
+        "raceDate": "2026-10-04",
+        "targetTime": "2h20",
+        "currentWeeklyVolume": 17,
+        "age": 32,
+        "weight": 82,
+        "height": 167,
+        "email": "margauxmaurice@outlook.fr",
+        "vma": 10.92896174863388
+      },
+      "emailVerified": true,
+      "emailVerifiedAt": "2026-05-20T15:45:09.335Z"
+    }
+  },
+  {
+    "email": "floggyz@outlook.fr",
+    "label": "floggyz",
+    "planId": "1779291643754",
+    "createdAt": "2026-05-20T15:40:43.754Z",
+    "goal": "Course sur route",
+    "targetTime": "Finisher",
+    "raceDate": "2027-04-17",
+    "distance": "10 km",
+    "planName": "Préparation 10 km — Finisher — 30 sem.",
+    "durationWeeks": 30,
+    "sessionsPerWeek": 5,
+    "vma": 17.5,
+    "calculatedVMA": 17.5,
+    "paces": {
+      "efPace": "5:07",
+      "eaPace": "4:27",
+      "seuilPace": "3:56",
+      "vmaPace": "3:26",
+      "recoveryPace": "5:43",
+      "allureSpecifique5k": "3:37",
+      "allureSpecifique10k": "3:49",
+      "allureSpecifiqueSemi": "4:02",
+      "allureSpecifiqueMarathon": "4:17"
+    },
+    "feasibility": {
+      "status": "AMBITIEUX",
+      "score": 65,
+      "message": "Ce 10km est un beau défi. Avec ta VMA de 17.5 km/h, c'est faisable mais attention : VMA estimée (pas de chrono validé) : l'évaluation comporte une marge d'incertitude. Niveau \"Expert\" déclaré mais aucun chrono validé + volume 36km/sem (< 40 attendu pour Expert). Suis le plan avec rigueur et régularité, c'est la clé pour y arriver.",
+      "safetyWarning": "Écoute ton corps à chaque séance. Si tu ressens des douleurs inhabituelles, n'hésite pas à adapter ou sauter une séance.\n\n⚠️ DURÉE DU PLAN : 30 semaines, c'est long pour ton profil. La plupart des coureurs de ton niveau préparent cette distance en 14 semaines maximum. Un plan trop long peut entraîner de la lassitude et une stagnation. Si tu te sens prêt, tu peux envisager de rapprocher ta date de début."
+    },
+    "welcomeMessage": "Nous te recommandons de consulter un médecin avant de débuter ce programme, notamment pour obtenir un certificat médical d'aptitude au sport. Ce programme de 30 semaines est structuré pour t'accompagner vers ton objectif de finisher sur 10 km. La phase fondamentale initiale vise à construire une base d'endurance solide tout en habituant ton corps à la régularité des séances. Nous privilégions ici l'aisance respiratoire pour préparer tes muscles et tes tendons aux phases plus intensives à venir.",
+    "generationContext": {
+      "keys": [
+        "vma",
+        "vmaSource",
+        "paces",
+        "periodizationPlan",
+        "questionnaireSnapshot",
+        "generatedAt",
+        "modelUsed"
+      ],
+      "raw": {
+        "vma": 17.5,
+        "vmaSource": "Estimation niveau Expert (Performance)",
+        "paces": {
+          "efPace": "5:07",
+          "eaPace": "4:27",
+          "seuilPace": "3:56",
+          "vmaPace": "3:26",
+          "recoveryPace": "5:43",
+          "allureSpecifique5k": "3:37",
+          "allureSpecifique10k": "3:49",
+          "allureSpecifiqueSemi": "4:02",
+          "allureSpecifiqueMarathon": "4:17"
+        },
+        "periodizationPlan": {
+          "totalWeeks": 30,
+          "weeklyVolumes": [
+            36,
+            40,
+            45,
+            35,
+            40,
+            43,
+            45,
+            35,
+            40,
+            43,
+            45,
+            35,
+            40,
+            43,
+            45,
+            35,
+            40,
+            43,
+            45,
+            35,
+            40,
+            43,
+            45,
+            35,
+            40,
+            43,
+            45,
+            35,
+            40,
+            23
+          ],
+          "weeklyPhases": [
+            "fondamental",
+            "fondamental",
+            "fondamental",
+            "recuperation",
+            "fondamental",
+            "fondamental",
+            "fondamental",
+            "recuperation",
+            "fondamental",
+            "developpement",
+            "developpement",
+            "recuperation",
+            "developpement",
+            "developpement",
+            "developpement",
+            "recuperation",
+            "developpement",
+            "developpement",
+            "developpement",
+            "recuperation",
+            "specifique",
+            "specifique",
+            "specifique",
+            "recuperation",
+            "specifique",
+            "specifique",
+            "specifique",
+            "recuperation",
+            "specifique",
+            "affutage"
+          ],
+          "recoveryWeeks": [
+            4,
+            8,
+            12,
+            16,
+            20,
+            24,
+            28
+          ]
+        },
+        "questionnaireSnapshot": {
+          "goal": "Course sur route",
+          "subGoal": "10 km",
+          "level": "Expert (Performance)",
+          "frequency": 5,
+          "preferredDays": [
+            "Lundi",
+            "Mardi",
+            "Jeudi",
+            "Samedi"
+          ],
+          "startDate": "2026-09-19",
+          "sex": "Homme",
+          "recentRaceTimes": {},
+          "city": "Annecy",
+          "injuries": {
+            "hasInjury": false
+          },
+          "raceDate": "2027-04-17",
+          "currentWeeklyVolume": 36,
+          "weight": 81,
+          "height": 181,
+          "age": 32,
+          "preferredLongRunDay": "Samedi",
+          "email": "floggyz@outlook.fr",
+          "vma": 17.5
+        },
+        "generatedAt": "2026-05-20T15:40:21.609Z",
+        "modelUsed": "gemini-3-flash-preview"
+      }
+    },
+    "weeklyVolumes": [
+      0
+    ],
+    "nbWeeks": 1,
+    "week1": {
+      "keys": [
+        "weekNumber",
+        "phase",
+        "sessions",
+        "theme",
+        "weekGoal"
+      ],
+      "sessions": [
+        {
+          "day": "Lundi",
+          "title": "Footing + lignes droites",
+          "type": "Jogging",
+          "duration": "47 min",
+          "distance": "9.1 km",
+          "mainSet": "21 min de footing en endurance fondamentale (5:07), puis 4 à 6 lignes droites : ~60-80 m en accélération souple et progressive sur terrain plat (on monte en fréquence de jambes sans forcer), avec retour à allure de footing et récupération complète entre chaque. C'est trop court pour solliciter le ca",
+          "description": "",
+          "intensity": "Facile"
+        },
+        {
+          "day": "Mardi",
+          "title": "Footing progressif (négative split)",
+          "type": "Jogging",
+          "duration": "35 min",
+          "distance": "6.9 km",
+          "mainSet": "20 min en deux moitiés : la 1re très tranquille (bas de l'EF), la 2e dans le haut de l'EF autour de 5:07 — toujours conversationnel, jamais essoufflé. Tu termines plus vite que tu n'as commencé.",
+          "description": "",
+          "intensity": "Facile"
+        },
+        {
+          "day": "Mercredi",
+          "title": "Renfo Focus A - Quadriceps & Gainage (S1)",
+          "type": "Renforcement",
+          "duration": "40-45 min",
+          "mainSet": "Circuit 4 tours : Squats poids de corps (3x18), Squat bulgare (3x12/jambe), Fentes avant (3x12/jambe), Gainage ventral (3x35-60s), Dead bug (3x12/cote), Extensions mollets debout (3x23), Squats sautés (3x12). Repos 1 min entre tours.",
+          "description": "",
+          "intensity": "Modéré"
+        },
+        {
+          "day": "Jeudi",
+          "title": "Footing vallonné",
+          "type": "Jogging",
+          "duration": "41 min",
+          "distance": "8.0 km",
+          "mainSet": "41 min de footing sur terrain légèrement vallonné à 5:07 min/km",
+          "description": "",
+          "intensity": "Modéré"
+        },
+        {
+          "day": "Samedi",
+          "title": "Sortie longue fondamentale",
+          "type": "Sortie Longue",
+          "duration": "62 min",
+          "distance": "12.0 km",
+          "mainSet": "12 km total en endurance fondamentale à 5:07 min/km",
+          "description": "",
+          "intensity": "Facile"
+        }
+      ],
+      "totalKm": 0
+    },
+    "user": {
+      "id": "Pe1Eg6nxqFWp7Rp3cudfE6t8lr73",
+      "firstName": "Flo",
+      "email": "floggyz@outlook.fr",
+      "createdAt": "2026-05-20T15:40:20.961Z",
+      "isPremium": false,
+      "isAnonymous": false,
+      "source": "web",
+      "questionnaireData": {
+        "goal": "Course sur route",
+        "subGoal": "10 km",
+        "level": "Expert (Performance)",
+        "frequency": 5,
+        "preferredDays": [
+          "Lundi",
+          "Mardi",
+          "Jeudi",
+          "Samedi"
+        ],
+        "startDate": "2026-09-19",
+        "sex": "Homme",
+        "recentRaceTimes": {},
+        "city": "Annecy",
+        "injuries": {
+          "hasInjury": false
+        },
+        "raceDate": "2027-04-17",
+        "currentWeeklyVolume": 36,
+        "weight": 81,
+        "height": 181,
+        "age": 32,
+        "preferredLongRunDay": "Samedi",
+        "email": "floggyz@outlook.fr",
+        "vma": 17.5
+      },
+      "emailVerified": true,
+      "emailVerifiedAt": "2026-05-20T15:41:07.838Z"
+    }
+  },
+  {
+    "email": "cyril.conilleau@yahoo.fr",
+    "label": "cyril_conilleau",
+    "planId": "1779276665858",
+    "createdAt": "2026-05-20T11:31:05.858Z",
+    "goal": "Course sur route",
+    "targetTime": "1h00",
+    "raceDate": "2026-07-15",
+    "distance": "10 km",
+    "planName": "Préparation 10 km en 1h00 — 8 sem.",
+    "durationWeeks": 8,
+    "sessionsPerWeek": 3,
+    "vma": 11.695906432748536,
+    "calculatedVMA": 11.695906432748536,
+    "paces": {
+      "efPace": "7:39",
+      "eaPace": "6:40",
+      "seuilPace": "5:54",
+      "vmaPace": "5:08",
+      "recoveryPace": "8:33",
+      "allureSpecifique5k": "5:24",
+      "allureSpecifique10k": "6:00",
+      "allureSpecifiqueSemi": "6:02",
+      "allureSpecifiqueMarathon": "6:25"
+    },
+    "feasibility": {
+      "status": "EXCELLENT",
+      "score": 95,
+      "message": "Avec ta VMA de 11.7 km/h, ton temps théorique sur 10km est d'environ 57:00. Ton objectif de 1h00min est cohérent avec ton niveau. C'est un plan réaliste et bien calibré.",
+      "safetyWarning": "Pense à consulter un médecin pour un certificat d'aptitude avant de commencer ta préparation."
+    },
+    "welcomeMessage": "Bienvenue dans ton programme de préparation pour ton premier 10 km ! Ce plan est structuré pour t'amener progressivement vers ton objectif de 1h00 en alternant course et renforcement. Nous allons commencer par une phase fondamentale pour construire ton socle d'endurance. Nous te recommandons vivement de consulter un médecin avant de débuter ce programme, notamment pour obtenir un certificat médical d'aptitude au sport.",
+    "generationContext": {
+      "keys": [
+        "vma",
+        "vmaSource",
+        "paces",
+        "periodizationPlan",
+        "questionnaireSnapshot",
+        "generatedAt",
+        "modelUsed"
+      ],
+      "raw": {
+        "vma": 11.695906432748536,
+        "vmaSource": "10km en 57min",
+        "paces": {
+          "efPace": "7:39",
+          "eaPace": "6:40",
+          "seuilPace": "5:54",
+          "vmaPace": "5:08",
+          "recoveryPace": "8:33",
+          "allureSpecifique5k": "5:24",
+          "allureSpecifique10k": "6:00",
+          "allureSpecifiqueSemi": "6:02",
+          "allureSpecifiqueMarathon": "6:25"
+        },
+        "periodizationPlan": {
+          "totalWeeks": 8,
+          "weeklyVolumes": [
+            16,
+            21,
+            23,
+            18,
+            21,
+            23,
+            18,
+            12
+          ],
+          "weeklyPhases": [
+            "fondamental",
+            "fondamental",
+            "developpement",
+            "recuperation",
+            "specifique",
+            "specifique",
+            "recuperation",
+            "affutage"
+          ],
+          "recoveryWeeks": [
+            4,
+            7
+          ]
+        },
+        "questionnaireSnapshot": {
+          "goal": "Course sur route",
+          "subGoal": "10 km",
+          "level": "Intermédiaire (Régulier)",
+          "frequency": 3,
+          "preferredDays": [
+            "Mercredi"
+          ],
+          "startDate": "2026-05-20",
+          "sex": "Homme",
+          "recentRaceTimes": {
+            "distance10km": "57min"
+          },
+          "city": "Béziers ",
+          "injuries": {
+            "hasInjury": false
+          },
+          "raceDate": "2026-07-15",
+          "targetTime": "1h00",
+          "currentWeeklyVolume": 20,
+          "weight": 73,
+          "height": 168,
+          "age": 43,
+          "email": "cyril.conilleau@yahoo.fr",
+          "vma": 11.695906432748536
+        },
+        "generatedAt": "2026-05-20T11:30:39.490Z",
+        "modelUsed": "gemini-3-flash-preview"
+      }
+    },
+    "weeklyVolumes": [
+      0
+    ],
+    "nbWeeks": 1,
+    "week1": {
+      "keys": [
+        "weekNumber",
+        "phase",
+        "sessions",
+        "theme",
+        "weekGoal"
+      ],
+      "sessions": [
+        {
+          "day": "Lundi",
+          "title": "Footing en aisance respiratoire",
+          "type": "Sortie Longue",
+          "duration": "1h00",
+          "distance": "7.8 km",
+          "mainSet": "7.8 km en Endurance Fondamentale (EF) à 7:39 min/km. L'allure doit rester très confortable, tu dois pouvoir parler sans être essoufflé.",
+          "description": "",
+          "intensity": "Facile"
+        },
+        {
+          "day": "Mercredi",
+          "title": "Renfo Focus A - Quadriceps & Gainage (S1)",
+          "type": "Renforcement",
+          "duration": "30 min",
+          "distance": "0 km",
+          "mainSet": "Circuit 2 tours : Squats poids de corps (3x9), Squat bulgare (3x6/jambe), Fentes avant (3x6/jambe), Gainage ventral (3x19-60s), Dead bug (3x6/cote), Extensions mollets debout (3x13). Repos 2 min entre tours.",
+          "description": "",
+          "intensity": "Facile"
+        },
+        {
+          "day": "Dimanche",
+          "title": "Sortie Longue fondamentale",
+          "type": "Sortie Longue",
+          "duration": "1h00",
+          "distance": "8 km",
+          "mainSet": "8 km en Endurance Fondamentale à allure stable (7:39 min/km) pour développer ton endurance.",
+          "description": "",
+          "intensity": "Facile"
+        }
+      ],
+      "totalKm": 0
+    },
+    "user": {
+      "id": "KM7exuJU4HeJQWi9Yqhz1Ma9rjY2",
+      "firstName": "Cyril",
+      "email": "cyril.conilleau@yahoo.fr",
+      "createdAt": "2026-05-20T11:30:38.864Z",
+      "isPremium": false,
+      "isAnonymous": false,
+      "source": "web",
+      "questionnaireData": {
+        "goal": "Course sur route",
+        "subGoal": "10 km",
+        "level": "Intermédiaire (Régulier)",
+        "frequency": 3,
+        "preferredDays": [
+          "Mercredi"
+        ],
+        "startDate": "2026-05-20",
+        "sex": "Homme",
+        "recentRaceTimes": {
+          "distance10km": "57min"
+        },
+        "city": "Béziers ",
+        "injuries": {
+          "hasInjury": false
+        },
+        "raceDate": "2026-07-15",
+        "targetTime": "1h00",
+        "currentWeeklyVolume": 20,
+        "weight": 73,
+        "height": 168,
+        "age": 43,
+        "email": "cyril.conilleau@yahoo.fr",
+        "vma": 11.695906432748536
+      },
+      "emailVerified": true,
+      "emailVerifiedAt": "2026-05-20T11:31:26.907Z"
+    }
+  },
+  {
+    "email": "cyril.berger@hotmail.fr",
+    "label": "cyril_berger",
+    "planId": "1779264871274",
+    "createdAt": "2026-05-20T08:14:31.274Z",
+    "goal": "Trail",
+    "targetTime": "4h05",
+    "raceDate": "2026-07-11",
+    "distance": "45km D+1900m",
+    "planName": "Préparation Trail 45km / 1900m D+ en 4h05 — 8 sem.",
+    "durationWeeks": 8,
+    "sessionsPerWeek": 5,
+    "vma": 17.5,
+    "calculatedVMA": 17.5,
+    "paces": {
+      "efPace": "5:07",
+      "eaPace": "4:27",
+      "seuilPace": "3:56",
+      "vmaPace": "3:26",
+      "recoveryPace": "5:43",
+      "allureSpecifique5k": "3:37",
+      "allureSpecifique10k": "3:49",
+      "allureSpecifiqueSemi": "4:02",
+      "allureSpecifiqueMarathon": "4:17"
+    },
+    "feasibility": {
+      "status": "IRRÉALISTE",
+      "score": 5,
+      "message": "Ton objectif de 4h05min sur 45 km demande de tenir 90% de ta VMA (17.5 km/h) pendant toute la course. Sur 64 km, le seuil physiologiquement soutenable est d'environ 85% VMA (référence Daniels VDOT + Pfitzinger). Au-delà, même un coureur entraîné ne peut maintenir cette intensité. Ton temps théorique est de 5h13min. Un objectif réaliste serait autour de 5h29min.",
+      "safetyWarning": "À 45 ans, on te recommande vivement de consulter ton médecin et de réaliser un test d'effort avant de démarrer cette préparation. Un certificat médical d'aptitude est indispensable pour cette distance. Privilégie la récupération (48-72h entre séances intenses), hydrate-toi bien et écoute ton corps.",
+      "recommendation": "un temps cible de 5h29min"
+    },
+    "welcomeMessage": "Bienvenue dans ton programme expert pour ce défi de 45km. Tu nous as indiqué 65 km/semaine actuels. On calibre ta première semaine à 65 km — ce qui correspond à ta base actuelle pour débuter sereinement. Nous te recommandons vivement de consulter un médecin avant de débuter ce programme, notamment pour obtenir un certificat médical d'aptitude au sport. À partir de 45 ans, un bilan cardio-vasculaire est particulièrement conseillé. Ce plan est structuré pour renforcer ton endurance fondamentale tout en intégrant le dénivelé nécessaire pour ton objectif trail.",
+    "generationContext": {
+      "keys": [
+        "vma",
+        "vmaSource",
+        "paces",
+        "periodizationPlan",
+        "questionnaireSnapshot",
+        "generatedAt",
+        "modelUsed"
+      ],
+      "raw": {
+        "vma": 17.5,
+        "vmaSource": "Estimation niveau Expert (Performance)",
+        "paces": {
+          "efPace": "5:07",
+          "eaPace": "4:27",
+          "seuilPace": "3:56",
+          "vmaPace": "3:26",
+          "recoveryPace": "5:43",
+          "allureSpecifique5k": "3:37",
+          "allureSpecifique10k": "3:49",
+          "allureSpecifiqueSemi": "4:02",
+          "allureSpecifiqueMarathon": "4:17"
+        },
+        "periodizationPlan": {
+          "totalWeeks": 8,
+          "weeklyVolumes": [
+            65,
+            72,
+            80,
+            64,
+            74,
+            84,
+            55,
+            44
+          ],
+          "weeklyPhases": [
+            "fondamental",
+            "fondamental",
+            "developpement",
+            "recuperation",
+            "specifique",
+            "specifique",
+            "affutage",
+            "affutage"
+          ],
+          "recoveryWeeks": [
+            4
+          ],
+          "weeklyElevationTarget": [
+            2000,
+            1986,
+            1971,
+            1076,
+            1943,
+            1929,
+            957,
+            760
+          ]
+        },
+        "questionnaireSnapshot": {
+          "goal": "Trail",
+          "level": "Expert (Performance)",
+          "frequency": 5,
+          "preferredDays": [],
+          "startDate": "2026-05-20",
+          "sex": "Homme",
+          "trailDetails": {
+            "distance": 45,
+            "elevation": 1900
+          },
+          "recentRaceTimes": {},
+          "city": "Oyonnax",
+          "injuries": {
+            "hasInjury": false
+          },
+          "raceDate": "2026-07-11",
+          "targetTime": "4h05",
+          "currentWeeklyVolume": 65,
+          "currentWeeklyElevation": 2000,
+          "age": 45,
+          "weight": 59,
+          "height": 170,
+          "email": "cyril.berger@hotmail.fr",
+          "vma": 17.5
+        },
+        "generatedAt": "2026-05-20T08:14:15.304Z",
+        "modelUsed": "gemini-3-flash-preview"
+      }
+    },
+    "weeklyVolumes": [
+      0
+    ],
+    "nbWeeks": 1,
+    "week1": {
+      "keys": [
+        "weekNumber",
+        "phase",
+        "sessions",
+        "theme",
+        "weekGoal"
+      ],
+      "sessions": [
+        {
+          "day": "Mardi",
+          "title": "Footing sur sentier roulant",
+          "type": "Jogging",
+          "duration": "72 min",
+          "distance": "14 km",
+          "mainSet": "54 min sur sentier roulant non technique avec du dénivelé régulier et diffus (pas de côte marquée). Garde un effort d'endurance fondamentale constant (5:07 en référence) : tu laisses la vitesse fluctuer avec le terrain.",
+          "description": "",
+          "intensity": "Facile"
+        },
+        {
+          "day": "Mercredi",
+          "title": "Renfo Trail Focus A - Quadriceps & Excentrique (S1)",
+          "type": "Renforcement",
+          "duration": "40-45 min",
+          "mainSet": "Circuit 4 tours : Squats poids de corps (3x18), Squat bulgare (3x12/jambe), Fentes avant (3x12/jambe), Gainage ventral (3x35-60s), Dead bug (3x12/cote), Extensions mollets debout (3x23), Squat excentrique (descente 4s) (3x12), Step-down excentrique (3x9/jambe), Sauts directionnels multi-axes (3x9), ",
+          "description": "",
+          "intensity": "Modéré"
+        },
+        {
+          "day": "Jeudi",
+          "title": "Footing vallonné",
+          "type": "Jogging",
+          "duration": "82 min",
+          "distance": "16 km",
+          "mainSet": "82 min en endurance fondamentale (EF) à 5:07 min/km sur un parcours intégrant des côtes régulières pour travailler la force spécifique.",
+          "description": "",
+          "intensity": "Modéré"
+        },
+        {
+          "day": "Samedi",
+          "title": "Footing nature, terrain varié",
+          "type": "Jogging",
+          "duration": "67 min",
+          "distance": "13 km",
+          "mainSet": "49 min sur terrain varié non technique — chemins, sentiers larges, herbe, sous-bois. Adapte l'allure au sol pour garder un effort d'endurance fondamentale constant (5:07 en référence). Évite le terrain piégeux (racines, cailloux, dévers).",
+          "description": "",
+          "intensity": "Facile"
+        },
+        {
+          "day": "Dimanche",
+          "title": "Sortie Longue Trail",
+          "type": "Sortie Longue",
+          "duration": "113 min",
+          "distance": "22 km",
+          "mainSet": "113 min en endurance fondamentale à 5:07 min/km sur sentiers techniques avec une attention particulière sur la gestion des descentes.",
+          "description": "",
+          "intensity": "Difficile"
+        }
+      ],
+      "totalKm": 0
+    },
+    "user": {
+      "id": "N80yrPrg7MSFMATGklsZUszFYY13",
+      "firstName": "Cyril",
+      "email": "cyril.berger@hotmail.fr",
+      "createdAt": "2026-05-20T08:14:15.143Z",
+      "isPremium": false,
+      "isAnonymous": false,
+      "source": "web",
+      "questionnaireData": {
+        "goal": "Trail",
+        "level": "Expert (Performance)",
+        "frequency": 5,
+        "preferredDays": [],
+        "startDate": "2026-05-20",
+        "sex": "Homme",
+        "trailDetails": {
+          "distance": 45,
+          "elevation": 1900
+        },
+        "recentRaceTimes": {},
+        "city": "Oyonnax",
+        "injuries": {
+          "hasInjury": false
+        },
+        "raceDate": "2026-07-11",
+        "targetTime": "4h05",
+        "currentWeeklyVolume": 65,
+        "currentWeeklyElevation": 2000,
+        "age": 45,
+        "weight": 59,
+        "height": 170,
+        "email": "cyril.berger@hotmail.fr",
+        "vma": 17.5
+      },
+      "emailVerified": true,
+      "emailVerifiedAt": "2026-05-20T08:15:02.131Z"
+    }
+  },
+  {
+    "email": "paccaud.bertrand@gmail.com",
+    "label": "paccaud_bertrand",
+    "planId": "1779263721331",
+    "createdAt": "2026-05-20T07:55:21.331Z",
+    "goal": "Trail",
+    "targetTime": "2h15",
+    "raceDate": "2026-08-30",
+    "distance": "16km D+1000m",
+    "planName": "Préparation Trail 16km / 1000m D+ en 2h15 — 15 sem.",
+    "durationWeeks": 15,
+    "sessionsPerWeek": 4,
+    "vma": 12.12121212121212,
+    "calculatedVMA": 12.12121212121212,
+    "paces": {
+      "efPace": "7:23",
+      "eaPace": "6:26",
+      "seuilPace": "5:41",
+      "vmaPace": "4:57",
+      "recoveryPace": "8:15",
+      "allureSpecifique5k": "5:13",
+      "allureSpecifique10k": "5:30",
+      "allureSpecifiqueSemi": "5:49",
+      "allureSpecifiqueMarathon": "6:11"
+    },
+    "feasibility": {
+      "status": "IRRÉALISTE",
+      "score": 5,
+      "message": "Ton objectif de 2h15min sur 16 km demande de tenir 95% de ta VMA (12.1 km/h) pendant toute la course. Sur marathon, le seuil physiologiquement soutenable est d'environ 88% VMA (référence Daniels VDOT + Pfitzinger). Au-delà, même un coureur entraîné ne peut maintenir cette intensité. Ton temps théorique est de 2h41min. Un objectif réaliste serait autour de 2h49min.",
+      "safetyWarning": "Investis dans de bonnes chaussures avec un bon amorti et privilégie les surfaces souples quand c'est possible. Pense à bien t'hydrater et à écouter ton corps.",
+      "recommendation": "un temps cible de 2h49min"
+    },
+    "welcomeMessage": "Bienvenue dans ton programme de préparation pour ton Trail de 16km à Annecy. Ton objectif de 2h15 est ambitieux et nécessite une base d'endurance solide associée à un travail spécifique en dénivelé. Cette première phase 'fondamentale' se concentre sur l'adaptation de ton corps aux sentiers et au renforcement de ton métabolisme aérobie. Nous te recommandons vivement de consulter un médecin avant de débuter ce programme, notamment pour obtenir un certificat médical d'aptitude au sport.",
+    "generationContext": {
+      "keys": [
+        "vma",
+        "vmaSource",
+        "paces",
+        "periodizationPlan",
+        "questionnaireSnapshot",
+        "generatedAt",
+        "modelUsed"
+      ],
+      "raw": {
+        "vma": 12.12121212121212,
+        "vmaSource": "10km en 55min",
+        "paces": {
+          "efPace": "7:23",
+          "eaPace": "6:26",
+          "seuilPace": "5:41",
+          "vmaPace": "4:57",
+          "recoveryPace": "8:15",
+          "allureSpecifique5k": "5:13",
+          "allureSpecifique10k": "5:30",
+          "allureSpecifiqueSemi": "5:49",
+          "allureSpecifiqueMarathon": "6:11"
+        },
+        "periodizationPlan": {
+          "totalWeeks": 15,
+          "weeklyVolumes": [
+            15,
+            16,
+            17,
+            14,
+            16,
+            18,
+            16,
+            18,
+            21,
+            19,
+            21,
+            23,
+            18,
+            15,
+            12
+          ],
+          "weeklyPhases": [
+            "fondamental",
+            "fondamental",
+            "fondamental",
+            "recuperation",
+            "developpement",
+            "developpement",
+            "recuperation",
+            "developpement",
+            "developpement",
+            "recuperation",
+            "specifique",
+            "specifique",
+            "recuperation",
+            "affutage",
+            "affutage"
+          ],
+          "recoveryWeeks": [
+            4,
+            7,
+            10,
+            13
+          ],
+          "weeklyElevationTarget": [
+            400,
+            429,
+            457,
+            267,
+            514,
+            543,
+            314,
+            600,
+            629,
+            361,
+            686,
+            714,
+            409,
+            386,
+            320
+          ]
+        },
+        "questionnaireSnapshot": {
+          "goal": "Trail",
+          "level": "Confirmé (Compétition)",
+          "frequency": 4,
+          "preferredDays": [],
+          "startDate": "2026-05-20",
+          "sex": "Homme",
+          "trailDetails": {
+            "distance": 16,
+            "elevation": 1000
+          },
+          "recentRaceTimes": {
+            "distance10km": "55min"
+          },
+          "city": "Annecy ",
+          "injuries": {
+            "hasInjury": false
+          },
+          "raceDate": "2026-08-30",
+          "targetTime": "2h15",
+          "currentWeeklyVolume": 15,
+          "currentWeeklyElevation": 400,
+          "weight": 80,
+          "height": 165,
+          "age": 31,
+          "email": "paccaud.bertrand@gmail.com",
+          "vma": 12.12121212121212
+        },
+        "generatedAt": "2026-05-20T07:55:06.944Z",
+        "modelUsed": "gemini-3-flash-preview"
+      }
+    },
+    "weeklyVolumes": [
+      0
+    ],
+    "nbWeeks": 1,
+    "week1": {
+      "keys": [
+        "weekNumber",
+        "phase",
+        "sessions",
+        "theme",
+        "weekGoal"
+      ],
+      "sessions": [
+        {
+          "day": "Mardi",
+          "title": "Footing vallonné, côtes en marche",
+          "type": "Jogging",
+          "duration": "37 min",
+          "distance": "5.1 km",
+          "mainSet": "20 min sur parcours vallonné. Les montées les plus raides se franchissent en marche active et dynamique (poussée des bras, gainage). Le plat et les descentes douces se courent en endurance fondamentale (7:23 en référence). On gère l'effort, pas le chrono.",
+          "description": "",
+          "intensity": "Facile"
+        },
+        {
+          "day": "Jeudi",
+          "title": "Footing vallonné, côtes en marche",
+          "type": "Jogging",
+          "duration": "29 min",
+          "distance": "3.9 km",
+          "mainSet": "20 min sur parcours vallonné. Les montées les plus raides se franchissent en marche active et dynamique (poussée des bras, gainage). Le plat et les descentes douces se courent en endurance fondamentale (7:23 en référence). On gère l'effort, pas le chrono.",
+          "description": "",
+          "intensity": "Facile"
+        },
+        {
+          "day": "Samedi",
+          "title": "Renfo Trail Focus A - Quadriceps & Excentrique (S1)",
+          "type": "Renforcement",
+          "duration": "30 min",
+          "distance": "0 km",
+          "mainSet": "Circuit 2 tours : Squats poids de corps (3x9), Fentes avant (3x6/jambe), Gainage ventral (3x19-60s), Dead bug (3x6/cote), Extensions mollets debout (3x13), Squat excentrique (descente 4s) (3x6), Step-down excentrique (3x5/jambe), Mollets debout unipodal (3x8/jambe). Repos 2 min entre tours.",
+          "description": "",
+          "intensity": "Modéré"
+        },
+        {
+          "day": "Dimanche",
+          "title": "Sortie Longue Trail Découverte",
+          "type": "Sortie Longue",
+          "duration": "44 min",
+          "distance": "6.0 km",
+          "mainSet": "44 min de course continue sur sentier de type Trail à allure EF 7:23 min/km.",
+          "description": "",
+          "intensity": "Facile"
+        }
+      ],
+      "totalKm": 0
+    },
+    "user": {
+      "id": "K6SkHjRH9jRlbiWIKgUcmbzCw6M2",
+      "firstName": "Bertrand",
+      "email": "paccaud.bertrand@gmail.com",
+      "createdAt": "2026-05-20T07:55:06.580Z",
+      "isPremium": false,
+      "isAnonymous": false,
+      "source": "web",
+      "questionnaireData": {
+        "goal": "Trail",
+        "level": "Confirmé (Compétition)",
+        "frequency": 4,
+        "preferredDays": [],
+        "startDate": "2026-05-20",
+        "sex": "Homme",
+        "trailDetails": {
+          "distance": 16,
+          "elevation": 1000
+        },
+        "recentRaceTimes": {
+          "distance10km": "55min"
+        },
+        "city": "Annecy ",
+        "injuries": {
+          "hasInjury": false
+        },
+        "raceDate": "2026-08-30",
+        "targetTime": "2h15",
+        "currentWeeklyVolume": 15,
+        "currentWeeklyElevation": 400,
+        "weight": 80,
+        "height": 165,
+        "age": 31,
+        "email": "paccaud.bertrand@gmail.com",
+        "vma": 12.12121212121212
+      },
+      "emailVerified": true,
+      "emailVerifiedAt": "2026-05-20T08:00:19.387Z"
+    }
+  },
+  {
+    "email": "morganedorlet696@gmail.com",
+    "label": "morganedorlet696",
+    "planId": "1779261135721",
+    "createdAt": "2026-05-20T07:12:15.721Z",
+    "goal": "Course sur route",
+    "targetTime": "Finisher",
+    "raceDate": "2026-10-17",
+    "distance": "21.1 km",
+    "planName": "Préparation Semi-Marathon — Finisher — 22 sem.",
+    "durationWeeks": 22,
+    "sessionsPerWeek": 3,
+    "vma": 11,
+    "calculatedVMA": 11,
+    "paces": {
+      "efPace": "8:08",
+      "eaPace": "7:05",
+      "seuilPace": "6:16",
+      "vmaPace": "5:27",
+      "recoveryPace": "9:05",
+      "allureSpecifique5k": "5:44",
+      "allureSpecifique10k": "6:04",
+      "allureSpecifiqueSemi": "6:25",
+      "allureSpecifiqueMarathon": "6:49"
+    },
+    "feasibility": {
+      "status": "AMBITIEUX",
+      "score": 55,
+      "message": "Ce semi-marathon est un beau défi. Avec ta VMA de 11.0 km/h, c'est faisable mais attention : Volume actuel de 7km/sem un peu faible pour un semi (20km/sem minimum). VMA estimée (pas de chrono validé) : l'évaluation comporte une marge d'incertitude. Avec 3 séances/semaine sur 22 semaines, chaque séance sera très chargée en volume — passer à 4 séances rendrait le plan plus équilibré. Ton volume actuel (7 km/sem) est en dessous du minimum pour ton niveau (8 km/sem) — le plan démarrera légèrement au-dessus. Suis le plan avec rigueur et régularité, c'est la clé pour y arriver.",
+      "safetyWarning": "On te recommande de valider ce programme avec ton médecin, surtout pour un premier effort de cette distance. Un certificat médical d'aptitude est vivement conseillé."
+    },
+    "welcomeMessage": "Bienvenue dans ton programme pour le Semi-Marathon de Nevers ! L'objectif est de te faire franchir la ligne d'arrivée en toute sécurité en tant que finisher. Ton plan s'étire sur 22 semaines pour respecter ta progression de débutant. Nous commençons par une phase fondamentale basée sur l'alternance marche/course pour construire tes bases aérobies sans risque de blessure. Nous te recommandons de consulter un médecin avant de débuter ce programme, notamment pour obtenir un certificat médical d'aptitude au sport.",
+    "generationContext": {
+      "keys": [
+        "periodizationPlan",
+        "modelUsed",
+        "questionnaireSnapshot",
+        "vmaSource",
+        "vma",
+        "paces",
+        "generatedAt"
+      ],
+      "raw": {
+        "periodizationPlan": {
+          "totalWeeks": 22,
+          "weeklyPhases": [
+            "fondamental",
+            "fondamental",
+            "fondamental",
+            "recuperation",
+            "fondamental",
+            "fondamental",
+            "recuperation",
+            "developpement",
+            "developpement",
+            "recuperation",
+            "developpement",
+            "developpement",
+            "recuperation",
+            "specifique",
+            "specifique",
+            "recuperation",
+            "specifique",
+            "specifique",
+            "recuperation",
+            "specifique",
+            "affutage",
+            "affutage"
+          ],
+          "recoveryWeeks": [
+            4,
+            7,
+            10,
+            13,
+            16,
+            19
+          ],
+          "weeklyVolumes": [
+            8,
+            9,
+            10,
+            8,
+            10,
+            12,
+            10,
+            12,
+            14,
+            11,
+            13,
+            15,
+            12,
+            15,
+            17,
+            14,
+            16,
+            18,
+            16,
+            19,
+            13,
+            9
+          ]
+        },
+        "modelUsed": "gemini-3-flash-preview",
+        "questionnaireSnapshot": {
+          "email": "morganedorlet696@gmail.com",
+          "city": "nevers",
+          "injuries": {
+            "hasInjury": false
+          },
+          "comments": "je fais également 4 séances de musculations par semaine (2 haut du corps, 2 bas du corps) et j'aimerais courir 2 fois par semaine",
+          "sex": "Femme",
+          "preferredDays": [
+            "Lundi",
+            "Jeudi"
+          ],
+          "height": 170,
+          "subGoal": "Semi-Marathon",
+          "goal": "Course sur route",
+          "currentWeeklyVolume": 7,
+          "raceDate": "2026-10-17",
+          "weight": 63,
+          "startDate": "2026-05-20",
+          "frequency": 3,
+          "level": "Débutant (0-1 an)",
+          "vma": 11,
+          "age": 20,
+          "recentRaceTimes": {}
+        },
+        "vmaSource": "Estimation niveau Débutant (0-1 an)",
+        "vma": 11,
+        "paces": {
+          "efPace": "8:08",
+          "allureSpecifique5k": "5:44",
+          "vmaPace": "5:27",
+          "allureSpecifique10k": "6:04",
+          "eaPace": "7:05",
+          "seuilPace": "6:16",
+          "allureSpecifiqueMarathon": "6:49",
+          "recoveryPace": "9:05",
+          "allureSpecifiqueSemi": "6:25"
+        },
+        "generatedAt": "2026-05-20T07:11:56.515Z"
+      }
+    },
+    "weeklyVolumes": [
+      0
+    ],
+    "nbWeeks": 1,
+    "week1": {
+      "keys": [
+        "weekNumber",
+        "phase",
+        "sessions",
+        "theme",
+        "weekGoal"
+      ],
+      "sessions": [
+        {
+          "day": "Lundi",
+          "title": "Premiers pas : Alternance Marche/Course",
+          "type": "Marche/Course",
+          "duration": "39 min",
+          "distance": "3.0 km",
+          "mainSet": "8 répétitions de : 1 min de course très légère (allure 8:08 min/km) suivie de 2 min de marche active.",
+          "description": "",
+          "intensity": "Facile"
+        },
+        {
+          "day": "Jeudi",
+          "title": "Renfo Focus A - Quadriceps & Gainage (S1)",
+          "type": "Renforcement",
+          "duration": "30 min",
+          "distance": "0 km",
+          "mainSet": "Circuit 2 tours : Squats poids de corps (3x9), Squat bulgare (3x6/jambe), Fentes avant (3x6/jambe), Gainage ventral (3x19-60s), Dead bug (3x6/cote), Extensions mollets debout (3x13). Repos 2 min entre tours.",
+          "description": "",
+          "intensity": "Modéré"
+        },
+        {
+          "day": "Dimanche",
+          "title": "Sortie Longue en aisance respiratoire",
+          "type": "Sortie Longue",
+          "duration": "45 min",
+          "distance": "5.0 km",
+          "mainSet": "5 km en endurance fondamentale à 8:08 min/km. L'allure doit permettre de tenir une conversation sans être essoufflé.",
+          "description": "",
+          "intensity": "Facile"
+        }
+      ],
+      "totalKm": 0
+    },
+    "user": {
+      "id": "BpoCyHQcCfavcmSby0u5LIdLS3o1",
+      "firstName": "Morgane",
+      "email": "morganedorlet696@gmail.com",
+      "createdAt": "2026-05-20T07:11:56.298Z",
+      "isPremium": false,
+      "isAnonymous": false,
+      "source": "web",
+      "questionnaireData": {
+        "goal": "Course sur route",
+        "subGoal": "Semi-Marathon",
+        "level": "Débutant (0-1 an)",
+        "frequency": 3,
+        "preferredDays": [
+          "Lundi",
+          "Jeudi"
+        ],
+        "startDate": "2026-05-20",
+        "sex": "Femme",
+        "recentRaceTimes": {},
+        "city": "nevers",
+        "injuries": {
+          "hasInjury": false
+        },
+        "comments": "je fais également 4 séances de musculations par semaine (2 haut du corps, 2 bas du corps) et j'aimerais courir 2 fois par semaine",
+        "raceDate": "2026-10-17",
+        "currentWeeklyVolume": 7,
+        "height": 170,
+        "weight": 63,
+        "age": 20,
+        "email": "morganedorlet696@gmail.com",
+        "vma": 11
+      },
+      "emailVerified": true,
+      "emailVerifiedAt": "2026-05-20T07:12:31.206Z"
+    }
+  },
+  {
+    "email": "louleroy94@gmail.com",
+    "label": "louleroy94",
+    "planId": "1779260474961",
+    "createdAt": "2026-05-20T07:01:14.961Z",
+    "goal": "Course sur route",
+    "targetTime": "1h10",
+    "raceDate": "2026-10-18",
+    "distance": "21.1 km",
+    "planName": "Préparation Semi-Marathon en 1h10 — 22 sem.",
+    "durationWeeks": 22,
+    "sessionsPerWeek": 4,
+    "vma": 9.661835748792269,
+    "calculatedVMA": 9.661835748792269,
+    "paces": {
+      "efPace": "9:16",
+      "eaPace": "8:04",
+      "seuilPace": "7:08",
+      "vmaPace": "6:13",
+      "recoveryPace": "10:21",
+      "allureSpecifique5k": "6:32",
+      "allureSpecifique10k": "6:54",
+      "allureSpecifiqueSemi": "3:19",
+      "allureSpecifiqueMarathon": "7:46"
+    },
+    "feasibility": {
+      "status": "IRRÉALISTE",
+      "score": 5,
+      "message": "Ton objectif de 1h10min sur Semi-Marathon nécessiterait une VMA de 21.3 km/h, soit 220% de ta VMA actuelle (9.7 km/h). Même avec une progression optimale, cet écart est trop important. Ton temps théorique est de 2h34min. Un objectif réaliste serait autour de 2h42min.",
+      "safetyWarning": "On te recommande de consulter ton médecin avant de démarrer. Investis dans de bonnes chaussures avec amorti renforcé et privilégie surfaces souples (herbe, terre, chemin) pour réduire l'impact sur les articulations.",
+      "recommendation": "un temps cible de 2h42min"
+    },
+    "welcomeMessage": "Bienvenue dans ton programme de préparation pour ton premier semi-marathon. Nous allons construire ensemble une base solide pour atteindre tes sommets. La structure de ce plan privilégie la progressivité pour habituer ton corps à l'effort de longue durée. Nous te recommandons vivement de consulter un médecin avant de débuter ce programme, notamment pour obtenir un certificat médical d'aptitude au sport. Pour ton confort, privilégie des chaussures avec un amorti renforcé afin de protéger tes articulations dès tes premières foulées.",
+    "generationContext": {
+      "keys": [
+        "paces",
+        "periodizationPlan",
+        "vmaSource",
+        "generatedAt",
+        "vma",
+        "modelUsed",
+        "questionnaireSnapshot"
+      ],
+      "raw": {
+        "paces": {
+          "vmaPace": "6:13",
+          "seuilPace": "7:08",
+          "allureSpecifiqueSemi": "3:19",
+          "allureSpecifique5k": "6:32",
+          "recoveryPace": "10:21",
+          "eaPace": "8:04",
+          "allureSpecifiqueMarathon": "7:46",
+          "allureSpecifique10k": "6:54",
+          "efPace": "9:16"
+        },
+        "periodizationPlan": {
+          "totalWeeks": 22,
+          "weeklyPhases": [
+            "fondamental",
+            "fondamental",
+            "fondamental",
+            "recuperation",
+            "fondamental",
+            "fondamental",
+            "recuperation",
+            "developpement",
+            "developpement",
+            "recuperation",
+            "developpement",
+            "developpement",
+            "recuperation",
+            "specifique",
+            "specifique",
+            "recuperation",
+            "specifique",
+            "specifique",
+            "recuperation",
+            "specifique",
+            "affutage",
+            "affutage"
+          ],
+          "recoveryWeeks": [
+            4,
+            7,
+            10,
+            13,
+            16,
+            19
+          ],
+          "weeklyVolumes": [
+            10,
+            12,
+            13,
+            11,
+            13,
+            15,
+            12,
+            15,
+            17,
+            14,
+            17,
+            20,
+            16,
+            19,
+            22,
+            18,
+            21,
+            24,
+            20,
+            24,
+            16,
+            11
+          ]
+        },
+        "vmaSource": "10km en 1h09",
+        "generatedAt": "2026-05-20T07:00:52.800Z",
+        "vma": 9.661835748792269,
+        "modelUsed": "gemini-3-flash-preview",
+        "questionnaireSnapshot": {
+          "goal": "Course sur route",
+          "targetTime": "1h10",
+          "weight": 88,
+          "currentWeeklyVolume": 10,
+          "height": 170,
+          "recentRaceTimes": {
+            "distance10km": "1h09"
+          },
+          "level": "Confirmé (Compétition)",
+          "vma": 9.661835748792269,
+          "raceDate": "2026-10-18",
+          "subGoal": "Semi-Marathon",
+          "startDate": "2026-05-20",
+          "preferredLongRunDay": "Mercredi",
+          "injuries": {
+            "hasInjury": false
+          },
+          "preferredDays": [
+            "Mercredi",
+            "Vendredi",
+            "Lundi",
+            "Samedi"
+          ],
+          "age": 23,
+          "sex": "Femme",
+          "city": "Thiais",
+          "frequency": 4,
+          "email": "louleroy94@gmail.com"
+        }
+      }
+    },
+    "weeklyVolumes": [
+      0
+    ],
+    "nbWeeks": 1,
+    "week1": {
+      "keys": [
+        "weekNumber",
+        "phase",
+        "sessions",
+        "theme",
+        "weekGoal"
+      ],
+      "sessions": [
+        {
+          "day": "Lundi",
+          "title": "Repos Actif — Récupération",
+          "type": "Repos",
+          "duration": "20-30 min",
+          "mainSet": "Marche douce, étirements, automassage au rouleau (foam roller) ou mobilité articulaire. Pas de course.",
+          "description": "",
+          "intensity": "Très Facile"
+        },
+        {
+          "day": "Mercredi",
+          "title": "Sortie Longue - Base Aérobie",
+          "type": "Sortie Longue",
+          "duration": "1h 04 min",
+          "distance": "5.7 km",
+          "mainSet": "64 min en Endurance Fondamentale (EF) à 9:16 min/km en maintenant une aisance respiratoire totale.",
+          "description": "",
+          "intensity": "Facile"
+        },
+        {
+          "day": "Vendredi",
+          "title": "Footing en blocs souples",
+          "type": "Jogging",
+          "duration": "43 min",
+          "distance": "4.3 km",
+          "mainSet": "4 blocs de 5 min de footing en endurance fondamentale (9:16), entrecoupés de 1 min de marche. Le footing reste lent et confortable ; la marche est une respiration de confort, pas une récupération d'effort dur.",
+          "description": "",
+          "intensity": "Facile"
+        },
+        {
+          "day": "Samedi",
+          "title": "Renfo Focus A - Quadriceps & Gainage (S1)",
+          "type": "Renforcement",
+          "duration": "30 min",
+          "distance": "0 km",
+          "mainSet": "Circuit 2 tours : Squats poids de corps (3x9), Fentes avant (3x6/jambe), Gainage ventral (3x19-60s), Dead bug (3x6/cote), Extensions mollets debout (3x13). Repos 2 min entre tours.",
+          "description": "",
+          "intensity": "Modéré"
+        }
+      ],
+      "totalKm": 0
+    },
+    "user": {
+      "id": "t4SVXgKvmLVhQGno9X0NLWoOYA13",
+      "firstName": "Lou",
+      "email": "louleroy94@gmail.com",
+      "createdAt": "2026-05-20T07:00:52.650Z",
+      "isPremium": false,
+      "isAnonymous": false,
+      "source": "web",
+      "questionnaireData": {
+        "goal": "Course sur route",
+        "subGoal": "Semi-Marathon",
+        "level": "Confirmé (Compétition)",
+        "frequency": 4,
+        "preferredDays": [
+          "Mercredi",
+          "Vendredi",
+          "Lundi",
+          "Samedi"
+        ],
+        "startDate": "2026-05-20",
+        "sex": "Femme",
+        "recentRaceTimes": {
+          "distance10km": "1h09"
+        },
+        "city": "Thiais",
+        "injuries": {
+          "hasInjury": false
+        },
+        "raceDate": "2026-10-18",
+        "targetTime": "1h10",
+        "currentWeeklyVolume": 10,
+        "weight": 88,
+        "height": 170,
+        "age": 23,
+        "preferredLongRunDay": "Mercredi",
+        "email": "louleroy94@gmail.com",
+        "vma": 9.661835748792269
+      },
+      "emailVerified": true,
+      "emailVerifiedAt": "2026-05-20T07:01:29.915Z"
+    }
+  },
+  {
+    "email": "philippetaupin21@gmail.com",
+    "status": "NO_PLAN"
+  }
+]

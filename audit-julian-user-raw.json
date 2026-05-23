@@ -1,0 +1,412 @@
+{
+  "name": "projects/coach-running-ia/databases/(default)/documents/users/bNTAkiezfzf21NFdqapqIvx5YRw2",
+  "fields": {
+    "id": {
+      "stringValue": "bNTAkiezfzf21NFdqapqIvx5YRw2"
+    },
+    "firstName": {
+      "stringValue": "Julian"
+    },
+    "email": {
+      "stringValue": "julian.jobert@hotmail.fr"
+    },
+    "createdAt": {
+      "stringValue": "2026-03-09T08:10:43.845Z"
+    },
+    "isAnonymous": {
+      "booleanValue": false
+    },
+    "emailVerified": {
+      "booleanValue": true
+    },
+    "emailVerifiedAt": {
+      "stringValue": "2026-03-09T08:11:37.865Z"
+    },
+    "stripeSubscriptionId": {
+      "stringValue": "sub_1TMaDK1WQbIX14t09RPVnwkx"
+    },
+    "premiumSince": {
+      "stringValue": "2026-04-15T20:39:38.683Z"
+    },
+    "isPremium": {
+      "booleanValue": true
+    },
+    "stripeCustomerId": {
+      "stringValue": "cus_ULGkE2uRgXguSV"
+    },
+    "stripeSubscriptionStatus": {
+      "stringValue": "active"
+    },
+    "premiumCancelAt": {
+      "nullValue": null
+    },
+    "stravaConnected": {
+      "booleanValue": true
+    },
+    "questionnaireData": {
+      "mapValue": {
+        "fields": {
+          "goal": {
+            "stringValue": "Trail"
+          },
+          "level": {
+            "stringValue": "Confirmé (Compétition)"
+          },
+          "frequency": {
+            "integerValue": "4"
+          },
+          "preferredDays": {
+            "arrayValue": {
+              "values": [
+                {
+                  "stringValue": "Lundi"
+                },
+                {
+                  "stringValue": "Mardi"
+                },
+                {
+                  "stringValue": "Mercredi"
+                },
+                {
+                  "stringValue": "Samedi"
+                }
+              ]
+            }
+          },
+          "startDate": {
+            "stringValue": "2026-05-18"
+          },
+          "sex": {
+            "stringValue": "Homme"
+          },
+          "trailDetails": {
+            "mapValue": {
+              "fields": {
+                "distance": {
+                  "integerValue": "10"
+                },
+                "elevation": {
+                  "integerValue": "50"
+                }
+              }
+            }
+          },
+          "recentRaceTimes": {
+            "mapValue": {
+              "fields": {
+                "distance10km": {
+                  "stringValue": "56:30"
+                }
+              }
+            }
+          },
+          "city": {
+            "stringValue": "Bois-d'Arcy"
+          },
+          "injuries": {
+            "mapValue": {
+              "fields": {
+                "hasInjury": {
+                  "booleanValue": true
+                },
+                "description": {
+                  "stringValue": "Aponévrosite plantaire au pied gauche "
+                }
+              }
+            }
+          },
+          "comments": {
+            "stringValue": "Une sortie vélo en famille le dimanche"
+          },
+          "email": {
+            "stringValue": "julian.jobert@hotmail.fr"
+          },
+          "raceDate": {
+            "stringValue": "2026-06-28"
+          },
+          "currentWeeklyVolume": {
+            "integerValue": "25"
+          },
+          "currentWeeklyElevation": {
+            "integerValue": "200"
+          },
+          "targetTime": {
+            "stringValue": "55min"
+          },
+          "weight": {
+            "integerValue": "81"
+          },
+          "height": {
+            "integerValue": "170"
+          },
+          "age": {
+            "integerValue": "32"
+          },
+          "preferredLongRunDay": {
+            "stringValue": "Samedi"
+          },
+          "vma": {
+            "doubleValue": 11.799410029498526
+          }
+        }
+      }
+    },
+    "lastStravaAnalysis": {
+      "mapValue": {
+        "fields": {
+          "totalDistance": {
+            "stringValue": "29.7 km"
+          },
+          "totalTime": {
+            "stringValue": "3h 16min"
+          },
+          "totalElevation": {
+            "stringValue": "143 m D+"
+          },
+          "sessionCount": {
+            "integerValue": "6"
+          },
+          "avgPace": {
+            "stringValue": "6:13 min/km"
+          },
+          "weeklyBreakdown": {
+            "stringValue": "Semaine du 15/04: 4.0km (1 séance) | Semaine du 05/05: 12.8km (3 séances) | Semaine du 12/05: 12.9km (2 séances)"
+          },
+          "strengths": {
+            "arrayValue": {
+              "values": [
+                {
+                  "mapValue": {
+                    "fields": {
+                      "title": {
+                        "stringValue": "Diversité des activités"
+                      },
+                      "detail": {
+                        "stringValue": "Tu as intégré différentes activités comme la course à pied (25.7 km), le vélo (4.0 km) et le CrossFit (1 séance), ce qui est excellent pour un développement global et la prévention des blessures."
+                      }
+                    }
+                  }
+                },
+                {
+                  "mapValue": {
+                    "fields": {
+                      "title": {
+                        "stringValue": "Capacité à réaliser des sorties plus longues"
+                      },
+                      "detail": {
+                        "stringValue": "La sortie de 12.01 km est une bonne base pour construire ton endurance. C'est encourageant de voir que tu tentes des distances plus importantes, même si l'intensité doit être ajustée."
+                      }
+                    }
+                  }
+                },
+                {
+                  "mapValue": {
+                    "fields": {
+                      "title": {
+                        "stringValue": "Augmentation de l'activité sur la période récente"
+                      },
+                      "detail": {
+                        "stringValue": "On observe une progression dans le nombre de séances et le volume vers la fin de cette période, passant d'une seule activité la première semaine à cinq activités combinées sur les deux dernières semaines d'analyse (du 05/05 au 15/05)."
+                      }
+                    }
+                  }
+                }
+              ]
+            }
+          },
+          "weaknesses": {
+            "arrayValue": {
+              "values": [
+                {
+                  "mapValue": {
+                    "fields": {
+                      "title": {
+                        "stringValue": "Intensité excessive et non maîtrisée"
+                      },
+                      "detail": {
+                        "stringValue": "C'est le point le plus critique. Sur les 4 sessions de course à pied, 3 sont courues en Zone 5 (VMA/Max) avec des fréquences cardiaques moyennes allant de 168.6 bpm à 190.7 bpm. Ta sortie de 12.01 km est particulièrement alarmante avec une FC moyenne de 190.7 bpm, dépassant ta FCmax estimée de 180 bpm, ce qui est dangereux et contre-productif pour l'endurance fondamentale."
+                      }
+                    }
+                  }
+                },
+                {
+                  "mapValue": {
+                    "fields": {
+                      "title": {
+                        "stringValue": "Manque d'endurance fondamentale (Z2)"
+                      },
+                      "detail": {
+                        "stringValue": "Il n'y a aucune séance en Zone 2 (Endurance Fondamentale, 108-126 bpm) sur tes sorties running. Courir constamment à haute intensité ne permet pas de développer ton système aérobie, limite ta récupération et augmente fortement le risque de blessures ou de surentraînement."
+                      }
+                    }
+                  }
+                },
+                {
+                  "mapValue": {
+                    "fields": {
+                      "title": {
+                        "stringValue": "Irrégularité du volume d'entraînement"
+                      },
+                      "detail": {
+                        "stringValue": "Bien que l'activité ait augmenté, la distribution est inégale avec des pauses importantes entre les activités (par exemple, 20 jours entre la première sortie et les suivantes), ce qui rend difficile la construction d'une base solide et l'adaptation du corps."
+                      }
+                    }
+                  }
+                }
+              ]
+            }
+          },
+          "recommendations": {
+            "arrayValue": {
+              "values": [
+                {
+                  "mapValue": {
+                    "fields": {
+                      "priority": {
+                        "stringValue": "HAUTE"
+                      },
+                      "title": {
+                        "stringValue": "Maîtriser l'endurance fondamentale (Z2)"
+                      },
+                      "detail": {
+                        "stringValue": "Dès la semaine prochaine, assure-toi qu'au moins 70% de ton volume de course soit réalisé en Zone 2 (FC entre 108-126 bpm). Cela signifie ralentir tes allures de manière significative. Pour tes prochaines sorties 'faciles', vise une allure autour de 7:00 - 7:30 min/km pour t'assurer de rester dans cette zone."
+                      },
+                      "why": {
+                        "stringValue": "Construire une base solide en endurance fondamentale est crucial pour améliorer ton économie de course, ta récupération et tes performances sur toutes les distances, sans te fatiguer inutilement ni te blesser."
+                      }
+                    }
+                  }
+                },
+                {
+                  "mapValue": {
+                    "fields": {
+                      "priority": {
+                        "stringValue": "HAUTE"
+                      },
+                      "title": {
+                        "stringValue": "Vérifier la fiabilité de la FC / Ajuster la FCmax"
+                      },
+                      "detail": {
+                        "stringValue": "Il est impératif de vérifier ton capteur de fréquence cardiaque et/ou de consulter un professionnel pour déterminer ta FCmax réelle, car un enregistrement à 190.7 bpm alors que ta FCmax est estimée à 180 bpm est préoccupant et potentiellement dangereux. Une FCmax mal estimée ou un capteur défaillant peuvent fausser toute l'analyse et l'entraînement."
+                      },
+                      "why": {
+                        "stringValue": "Des données de FC précises sont la pierre angulaire d'un entraînement ciblé et efficace. Sans cela, il est difficile de travailler dans les bonnes zones d'intensité et d'optimiser ta progression en toute sécurité."
+                      }
+                    }
+                  }
+                },
+                {
+                  "mapValue": {
+                    "fields": {
+                      "priority": {
+                        "stringValue": "MOYENNE"
+                      },
+                      "title": {
+                        "stringValue": "Instaurer une progression graduelle et régulière"
+                      },
+                      "detail": {
+                        "stringValue": "Augmente ton volume hebdomadaire de course de 10% maximum par semaine et vise une plus grande régularité avec 3 à 4 séances de course à pied par semaine, en alternant les intensités (par exemple, 2 séances en Z2, 1 séance plus rythmée en Z3/Z4 et 1 séance de renforcement)."
+                      },
+                      "why": {
+                        "stringValue": "La régularité et une progression douce sont les clés pour éviter les blessures et permettre à ton corps de s'adapter progressivement aux contraintes de l'entraînement, renforçant ainsi tes capacités d'endurance."
+                      }
+                    }
+                  }
+                },
+                {
+                  "mapValue": {
+                    "fields": {
+                      "priority": {
+                        "stringValue": "BASSE"
+                      },
+                      "title": {
+                        "stringValue": "Intégrer du renforcement musculaire spécifique"
+                      },
+                      "detail": {
+                        "stringValue": "Même si tu fais du CrossFit, intègre 1 à 2 séances de renforcement musculaire axées spécifiquement sur la course (gainage, squats, fentes, mollets) par semaine pour renforcer tes muscles et tes articulations sollicités en course."
+                      },
+                      "why": {
+                        "stringValue": "Un corps fort est un corps moins sujet aux blessures et plus efficace. Le renforcement musculaire est un complément indispensable à la course à pied pour améliorer ta puissance et ta résilience."
+                      }
+                    }
+                  }
+                }
+              ]
+            }
+          },
+          "mainInsight": {
+            "stringValue": "Tes données des 30 derniers jours montrent une volonté de t'entraîner avec différentes activités, mais révèlent une approche dangereusement intense de la course à pied. La clé de ta progression et de ta santé sera de ralentir pour construire ton endurance fondamentale, de vérifier la fiabilité de tes données cardiaques et d'apporter plus de structure à tes séances. C'est en maîtrisant ces bases que tu pourras exprimer pleinement ton potentiel sans risque."
+          },
+          "coachVerdict": {
+            "stringValue": "À AMÉLIORER"
+          },
+          "coachMessage": {
+            "stringValue": "Cher athlète, je suis ravi de voir ton engagement avec ces différentes activités et ta volonté de te dépasser. Cependant, il est crucial d'aborder sérieusement la question de l'intensité de tes courses. Courir vite, c'est bien, mais courir intelligemment, c'est mieux et surtout plus efficace sur le long terme. Prenons le temps d'intégrer ces changements pour transformer ton entraînement et te faire progresser en toute sécurité. Je suis là pour t'accompagner dans cette démarche et t'aider à construire une base solide pour tes futurs défis."
+          },
+          "fcAlert": {
+            "mapValue": {
+              "fields": {
+                "hasAlert": {
+                  "booleanValue": true
+                },
+                "message": {
+                  "stringValue": "Tes séances de course à pied sont majoritairement courues à des intensités bien trop élevées. Sur tes 4 sorties running, 3 se situent en Zone 5 (VMA/Max) avec des FC moyennes entre 168 et 190 bpm. La sortie de 12.01km avec une FC moyenne de 190.7 bpm est particulièrement préoccupante, car elle dépasse ta FCmax estimée (180 bpm), indiquant une intensité dangereusement haute pour de l'endurance. Pour construire une base solide, tes footings devraient être en Z2 (108-126 bpm). Il est impératif de ralentir drastiquement tes allures."
+                },
+                "suggestedEFPace": {
+                  "stringValue": "7:15 min/km"
+                },
+                "activitiesCount": {
+                  "integerValue": "5"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "lastStravaAnalysisDate": {
+      "stringValue": "2026-05-16T12:58:00.260Z"
+    },
+    "stravaToken": {
+      "mapValue": {
+        "fields": {
+          "token_type": {
+            "stringValue": "Bearer"
+          },
+          "access_token": {
+            "stringValue": "e1fbd4df7f82101975f0bc78a29bc51989c6f775"
+          },
+          "expires_at": {
+            "integerValue": "1779325989"
+          },
+          "expires_in": {
+            "integerValue": "21600"
+          },
+          "refresh_token": {
+            "stringValue": "90b7de7df4a33b991b8e7de61bf3934d4c24dbff"
+          },
+          "scope": {
+            "stringValue": "activity:read_all profile:read_all read"
+          },
+          "athlete": {
+            "mapValue": {
+              "fields": {
+                "firstname": {
+                  "stringValue": "Julian"
+                },
+                "id": {
+                  "stringValue": "62503707"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "lastStravaSync": {
+      "stringValue": "2026-05-20T19:13:12.441Z"
+    }
+  },
+  "createTime": "2026-03-09T08:10:43.869297Z",
+  "updateTime": "2026-05-20T19:13:10.178001Z"
+}

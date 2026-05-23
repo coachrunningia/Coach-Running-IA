@@ -1,0 +1,339 @@
+[
+  {
+    "id": "1779291643754",
+    "createdAt": "2026-05-20T15:40:43.754Z",
+    "email": "floggyz@outlook.fr",
+    "sex": "Homme",
+    "age": 32,
+    "weight": 81,
+    "height": 181,
+    "bmi": "24.7",
+    "level": "Expert (Performance)",
+    "goal": "Course sur route",
+    "subGoal": "10 km",
+    "raceDate": "2027-04-17",
+    "frequency": 5,
+    "currentWeeklyVolume": 36,
+    "vma": 17.5,
+    "planDistance": "36 km",
+    "planTotalWeeks": 1,
+    "weeklyVolumes": [
+      36,
+      40,
+      45,
+      35,
+      40,
+      43,
+      45,
+      35,
+      40,
+      43,
+      45,
+      35,
+      40,
+      43,
+      45,
+      35,
+      40,
+      43,
+      45,
+      35,
+      40,
+      43,
+      45,
+      35,
+      40,
+      43,
+      45,
+      35,
+      40,
+      23
+    ],
+    "weeklyVolumesMin": 23,
+    "weeklyVolumesMax": 45,
+    "paces": {
+      "ef": "5:07",
+      "semi": "4:02",
+      "marathon": "4:17"
+    },
+    "feasibility": {
+      "status": "AMBITIEUX",
+      "score": 65,
+      "message": "Ce 10km est un beau défi. Avec ta VMA de 17.5 km/h, c'est faisable mais attention : VMA estimée (pas de chrono validé) : l'évaluation comporte une marge d'incertitude. Niveau \"Expert\" déclaré mais aucun chrono validé + volume 36km/sem (< 40 attendu pour Expert). Suis le plan avec rigueur et régularité, c'est la clé pour y arriver."
+    },
+    "modelUsed": "gemini-3-flash-preview",
+    "welcomeMessage": "Nous te recommandons de consulter un médecin avant de débuter ce programme, notamment pour obtenir un certificat médical d'aptitude au sport. Ce programme de 30 semaines est structuré pour t'accompagner vers ton objectif de finisher sur 10 km. La phase fondamentale initiale vise à construire une base d'endurance solide tout en habituant ton corps à la régularité des séances. Nous privilégions ici l'aisance respiratoire pour préparer tes muscles et tes tendons aux phases plus intensives à venir.",
+    "slS1": {
+      "type": "Sortie Longue",
+      "distance": "12.0 km",
+      "duration": "62 min",
+      "mainSet": "12 km total en endurance fondamentale à 5:07 min/km"
+    },
+    "lastWeek": {
+      "sessions": [
+        {
+          "type": "Jogging",
+          "distance": "9.1 km",
+          "duration": "47 min"
+        },
+        {
+          "type": "Jogging",
+          "distance": "6.9 km",
+          "duration": "35 min"
+        },
+        {
+          "type": "Renforcement",
+          "duration": "40-45 min"
+        },
+        {
+          "type": "Jogging",
+          "distance": "8.0 km",
+          "duration": "41 min"
+        },
+        {
+          "type": "Sortie Longue",
+          "distance": "12.0 km",
+          "duration": "62 min"
+        }
+      ]
+    }
+  },
+  {
+    "id": "1779291819180",
+    "createdAt": "2026-05-20T15:43:39.180Z",
+    "email": "margauxmaurice@outlook.fr",
+    "sex": "Femme",
+    "age": 32,
+    "weight": 82,
+    "height": 167,
+    "bmi": "29.4",
+    "level": "Intermédiaire (Régulier)",
+    "goal": "Course sur route",
+    "subGoal": "Semi-Marathon",
+    "targetTime": "2h20",
+    "raceDate": "2026-10-04",
+    "frequency": 3,
+    "currentWeeklyVolume": 17,
+    "vma": 10.92896174863388,
+    "planDistance": "16 km",
+    "planTotalWeeks": 1,
+    "weeklyVolumes": [
+      16,
+      17,
+      18,
+      14,
+      16,
+      17,
+      14,
+      16,
+      17,
+      14,
+      16,
+      17,
+      14,
+      16,
+      17,
+      14,
+      16,
+      11,
+      9
+    ],
+    "weeklyVolumesMin": 9,
+    "weeklyVolumesMax": 18,
+    "paces": {
+      "ef": "8:12",
+      "semi": "6:38",
+      "marathon": "6:52"
+    },
+    "feasibility": {
+      "status": "AMBITIEUX",
+      "score": 65,
+      "message": "Avec ta VMA de 10.9 km/h, ton temps théorique sur semi-marathon est d'environ 2h16min. Ton objectif de 2h20min est a priori confortable par rapport à ton temps théorique de 2h16min. Ton volume actuel (17 km/sem) est bas pour un semi. La montée en charge sera progressive."
+    },
+    "modelUsed": "gemini-3-flash-preview",
+    "welcomeMessage": "Bienvenue dans ton programme de préparation pour ton semi-marathon ! L'objectif est de franchir la ligne en 2h20 en construisant une base aérobie solide. Cette première phase 'fondamentale' se concentre sur l'endurance douce pour habituer ton cœur et tes articulations à l'effort sans fatigue excessive. Nous te recommandons vivement de consulter un médecin avant de débuter ce programme, notamment pour obtenir un certificat médical d'aptitude au sport.",
+    "slS1": {
+      "type": "Sortie Longue",
+      "distance": "10 km",
+      "duration": "82 min",
+      "mainSet": "82 min de course en Endurance Fondamentale (8:12 min/km) sur un parcours avec quelques légères montées."
+    },
+    "lastWeek": {
+      "sessions": [
+        {
+          "type": "Jogging",
+          "distance": "6 km",
+          "duration": "50 min"
+        },
+        {
+          "type": "Renforcement",
+          "distance": "0 km",
+          "duration": "30 min"
+        },
+        {
+          "type": "Sortie Longue",
+          "distance": "10 km",
+          "duration": "82 min"
+        }
+      ]
+    }
+  },
+  {
+    "id": "1779292771055",
+    "createdAt": "2026-05-20T15:59:31.055Z",
+    "email": "bertrandcassin44@gmail.com",
+    "sex": "Homme",
+    "age": 51,
+    "weight": 80,
+    "height": 173,
+    "bmi": "26.7",
+    "level": "Confirmé (Compétition)",
+    "goal": "Course sur route",
+    "subGoal": "Semi-Marathon",
+    "raceDate": "2026-09-26",
+    "frequency": 3,
+    "currentWeeklyVolume": 15,
+    "vma": 9.523809523809526,
+    "planDistance": "14 km",
+    "planTotalWeeks": 1,
+    "weeklyVolumes": [
+      14,
+      16,
+      16,
+      13,
+      15,
+      15,
+      12,
+      14,
+      15,
+      12,
+      14,
+      15,
+      12,
+      14,
+      15,
+      12,
+      14,
+      10,
+      8
+    ],
+    "weeklyVolumesMin": 8,
+    "weeklyVolumesMax": 16,
+    "paces": {
+      "ef": "9:24",
+      "semi": "7:25",
+      "marathon": "7:52"
+    },
+    "feasibility": {
+      "status": "AMBITIEUX",
+      "score": 65,
+      "message": "Ce semi-marathon est un beau défi. Avec ta VMA de 9.5 km/h, c'est faisable mais attention : Volume actuel de 15km/sem un peu faible pour un semi (20km/sem minimum). Avec 3 séances/semaine sur 19 semaines, chaque séance sera très chargée en volume — passer à 4 séances rendrait le plan plus équilibré. Suis le plan avec rigueur et régularité, c'est la clé pour y arriver."
+    },
+    "modelUsed": "gemini-3-flash-preview",
+    "welcomeMessage": "Bienvenue dans ta préparation pour le Semi-marathon ! L'objectif est de t'amener à franchir la ligne d'arrivée avec plaisir et sans blessure en restant sur une allure confortable. Nous avons structuré ce plan sur 19 semaines pour garantir une progression ultra-douce. Comme tu cours le matin, veille à bien tu hydrater dès le réveil. Nous te recommandons vivement de consulter un médecin avant de débuter ce programme, notamment pour obtenir un certificat médical d'aptitude au sport. À partir de 51 ans, un bilan cardio-vasculaire est particulièrement conseillé. Ce plan repose quasi-exclusivement sur l'endurance fondamentale pour construire ta base de solidité aérobie.",
+    "slS1": {
+      "type": "Sortie Longue",
+      "distance": "9.5 km",
+      "duration": "89 min",
+      "mainSet": "89 min de course continue en Endurance Fondamentale (EF) à 9:24 min/km. Reste dans une zone de confort total."
+    },
+    "lastWeek": {
+      "sessions": [
+        {
+          "type": "Jogging",
+          "distance": "4.5 km",
+          "duration": "42 min"
+        },
+        {
+          "type": "Renforcement",
+          "distance": "0 km",
+          "duration": "30 min"
+        },
+        {
+          "type": "Sortie Longue",
+          "distance": "9.5 km",
+          "duration": "89 min"
+        }
+      ]
+    }
+  },
+  {
+    "id": "1779296358366",
+    "createdAt": "2026-05-20T16:59:18.366Z",
+    "email": "lilian.raymond2007@gmail.com",
+    "sex": "Homme",
+    "age": 18,
+    "weight": 88,
+    "height": 183,
+    "bmi": "26.3",
+    "level": "Débutant (0-1 an)",
+    "goal": "Course sur route",
+    "subGoal": "10 km",
+    "raceDate": "2026-10-04",
+    "frequency": 3,
+    "currentWeeklyVolume": 0,
+    "vma": 11,
+    "planDistance": "10 km",
+    "planTotalWeeks": 1,
+    "weeklyVolumes": [
+      13,
+      16,
+      17,
+      14,
+      16,
+      17,
+      14,
+      16,
+      17,
+      14,
+      16,
+      17,
+      14,
+      16,
+      17,
+      14,
+      16,
+      17,
+      14,
+      9
+    ],
+    "weeklyVolumesMin": 9,
+    "weeklyVolumesMax": 17,
+    "paces": {
+      "ef": "8:08",
+      "semi": "6:25",
+      "marathon": "6:49"
+    },
+    "feasibility": {
+      "status": "RISQUÉ",
+      "score": 30,
+      "message": "Ce 10km présente des risques sérieux dans ta configuration actuelle. Blessure déclarée : adapte les séances et consulte un professionnel de santé. VMA estimée (pas de chrono validé) : l'évaluation comporte une marge d'incertitude. Avec 3 séances/semaine sur 20 semaines, chaque séance sera très chargée en volume — passer à 4 séances rendrait le plan plus équilibré. 20 semaines pour démarrer la course (volume actuel 0) est juste pour ton profil — minimum confortable : 22 semaines. Écoute ton corps, sois très progressif, et n'hésite pas à adapter le plan si nécessaire."
+    },
+    "modelUsed": "gemini-3-flash-preview",
+    "welcomeMessage": "Bienvenue dans ton programme de préparation pour ton premier 10 km ! L'objectif est de te faire franchir la ligne d'arrivée avec plaisir et sans douleur. Nous te recommandons vivement de consulter un médecin avant de débuter ce programme, notamment pour obtenir un certificat médical d'aptitude au sport. Tu nous as indiqué 0 km/semaine actuels. On calibre ta première semaine à 15 km — c'est un peu plus que ton volume actuel mais reste progressif pour atteindre ton objectif. Tu peux ajuster ton volume dans ton profil si tu cours en réalité plus que ça. Concernant ton Ampoule récurante, le plan adapte la progression pour limiter les frictions initiales. Pense à vérifier tes chaussures et à utiliser des chaussettes techniques sans coutures.",
+    "slS1": {
+      "type": "Sortie Longue",
+      "distance": "6.6 km",
+      "duration": "1h00",
+      "mainSet": "Bloc de 8 répétitions composé de 1 min de course légère à allure EF (8:08 min/km) suivie de 2 min de marche active pour la récupération. Travaille ta posture bien droite."
+    },
+    "lastWeek": {
+      "sessions": [
+        {
+          "type": "Sortie Longue",
+          "distance": "6.6 km",
+          "duration": "1h00"
+        },
+        {
+          "type": "Renforcement",
+          "duration": "30 min"
+        },
+        {
+          "type": "Sortie Longue",
+          "distance": "6.6 km",
+          "duration": "1h00"
+        }
+      ]
+    }
+  }
+]

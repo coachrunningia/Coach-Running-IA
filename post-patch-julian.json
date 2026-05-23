@@ -1,0 +1,1885 @@
+{
+  "name": "projects/coach-running-ia/databases/(default)/documents/plans/1778935995789",
+  "fields": {
+    "fullPlanGenerated": {
+      "booleanValue": true
+    },
+    "sessionsPerWeek": {
+      "integerValue": "4"
+    },
+    "welcomeMessage": {
+      "stringValue": "Bonjour ! Ce plan d'entraînement est conçu pour t'accompagner dans ton objectif de Trail de 10km avec 50m de D+ en 55 minutes. La structure des 6 prochaines semaines te permettra de construire une base solide en endurance, d'améliorer progressivement tes capacités en trail et de gérer ton aponévrosite plantaire. Nous te recommandons vivement de consulter un médecin avant de débuter ce programme, notamment pour obtenir un certificat médical d'aptitude au sport."
+    },
+    "calculatedVMA": {
+      "doubleValue": 11.799410029498526
+    },
+    "startDate": {
+      "stringValue": "2026-05-18"
+    },
+    "isPreview": {
+      "booleanValue": false
+    },
+    "location": {
+      "stringValue": "Bois-d'Arcy"
+    },
+    "createdAt": {
+      "stringValue": "2026-05-16T12:53:15.789Z"
+    },
+    "endDate": {
+      "stringValue": "2026-06-29"
+    },
+    "id": {
+      "stringValue": "1778935995789"
+    },
+    "guardStats": {
+      "mapValue": {
+        "fields": {
+          "affutageCorrected": {
+            "integerValue": "0"
+          },
+          "hardSessionsDowngraded": {
+            "integerValue": "0"
+          },
+          "volumeScaledDown": {
+            "integerValue": "0"
+          },
+          "sessionKmCapped": {
+            "integerValue": "0"
+          },
+          "progressionSmoothed": {
+            "integerValue": "0"
+          },
+          "volumeScaledUp": {
+            "integerValue": "0"
+          },
+          "postValidatorFixes": {
+            "integerValue": "0"
+          },
+          "slDurationCapped": {
+            "integerValue": "0"
+          },
+          "dplusRedistributed": {
+            "integerValue": "0"
+          }
+        }
+      }
+    },
+    "vma": {
+      "doubleValue": 12.3
+    },
+    "vmaSource": {
+      "stringValue": "Ajustée manuellement : 11.8 → 12.3 km/h"
+    },
+    "distance": {
+      "stringValue": "10km D+50m"
+    },
+    "weeks": {
+      "arrayValue": {
+        "values": [
+          {
+            "mapValue": {
+              "fields": {
+                "theme": {
+                  "stringValue": "Phase de familiarisation et renforcement"
+                },
+                "sessions": {
+                  "arrayValue": {
+                    "values": [
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "locationSuggestion": {
+                              "stringValue": "Parc des Sports et Loisirs de Bois-d'Arcy"
+                            },
+                            "distance": {
+                              "stringValue": "6.6 km"
+                            },
+                            "elevationGain": {
+                              "integerValue": "0"
+                            },
+                            "day": {
+                              "stringValue": "Lundi"
+                            },
+                            "intensity": {
+                              "stringValue": "Facile"
+                            },
+                            "duration": {
+                              "stringValue": "51 min"
+                            },
+                            "cooldown": {
+                              "stringValue": "5 min de footing lent puis marche. (à 8:29 min/km)"
+                            },
+                            "title": {
+                              "stringValue": "Footing progressif (négative split)"
+                            },
+                            "type": {
+                              "stringValue": "Jogging"
+                            },
+                            "feedback": {
+                              "mapValue": {
+                                "fields": {
+                                  "stravaData": {
+                                    "mapValue": {
+                                      "fields": {
+                                        "elevationGain": {
+                                          "integerValue": "10"
+                                        },
+                                        "distance": {
+                                          "doubleValue": 4.8
+                                        },
+                                        "maxHeartrate": {
+                                          "integerValue": "154"
+                                        },
+                                        "activityId": {
+                                          "integerValue": "18551969372"
+                                        },
+                                        "avgHeartrate": {
+                                          "integerValue": "139"
+                                        },
+                                        "startDate": {
+                                          "stringValue": "2026-05-18T10:12:40Z"
+                                        },
+                                        "elapsedTime": {
+                                          "integerValue": "47"
+                                        },
+                                        "movingTime": {
+                                          "integerValue": "46"
+                                        },
+                                        "type": {
+                                          "stringValue": "Run"
+                                        },
+                                        "name": {
+                                          "stringValue": "Séance EF: 1ère séance du programme"
+                                        },
+                                        "avgPace": {
+                                          "stringValue": "9:31 min/km"
+                                        }
+                                      }
+                                    }
+                                  },
+                                  "rpe": {
+                                    "integerValue": "1"
+                                  },
+                                  "adaptationRequested": {
+                                    "booleanValue": false
+                                  },
+                                  "completed": {
+                                    "booleanValue": true
+                                  },
+                                  "completedAt": {
+                                    "stringValue": "2026-05-20T19:14:49.236Z"
+                                  }
+                                }
+                              }
+                            },
+                            "advice": {
+                              "stringValue": "Apprendre à finir mieux qu'on a commencé : gestion de l'effort et discipline mentale. La 2e partie reste en aérobie — si tu es essoufflé, tu es allé trop loin."
+                            },
+                            "id": {
+                              "stringValue": "w1-s1-1778935995790-c6zdlx4"
+                            },
+                            "mainSet": {
+                              "stringValue": "51 min en deux moitiés : la 1re très tranquille (bas de l'EF), la 2e dans le haut de l'EF autour de 7:35 — toujours conversationnel, jamais essoufflé. Tu termines plus vite que tu n'as commencé. (allure : 7:35 min/km)"
+                            },
+                            "warmup": {
+                              "stringValue": "5 min de marche, à 8:29 min/km puis 5 min de footing très lent (bas de l'endurance fondamentale)."
+                            },
+                            "targetPace": {
+                              "stringValue": "7:17"
+                            }
+                          }
+                        }
+                      },
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "distance": {
+                              "stringValue": "5 km"
+                            },
+                            "elevationGain": {
+                              "integerValue": "75"
+                            },
+                            "day": {
+                              "stringValue": "Mardi"
+                            },
+                            "locationSuggestion": {
+                              "stringValue": "Chemin de la Digue (entre Bois-d'Arcy et Fontenay-le-Fleury)"
+                            },
+                            "cooldown": {
+                              "stringValue": "5 à 10 min de footing plat puis marche. (à 8:29 min/km)"
+                            },
+                            "duration": {
+                              "stringValue": "38 min"
+                            },
+                            "intensity": {
+                              "stringValue": "Facile"
+                            },
+                            "feedback": {
+                              "mapValue": {
+                                "fields": {
+                                  "completedAt": {
+                                    "stringValue": "2026-05-20T19:16:11.117Z"
+                                  },
+                                  "notes": {
+                                    "stringValue": "Test demi-cooper fait après séance: 1,230km en 6 minutes. \nFC max sur le demi-cooper :197bpm, FC zone 2 à ajuster?"
+                                  },
+                                  "completed": {
+                                    "booleanValue": true
+                                  },
+                                  "stravaData": {
+                                    "mapValue": {
+                                      "fields": {
+                                        "avgPace": {
+                                          "stringValue": "9:31 min/km"
+                                        },
+                                        "type": {
+                                          "stringValue": "Run"
+                                        },
+                                        "name": {
+                                          "stringValue": "Séance EF: 1ère séance du programme"
+                                        },
+                                        "elapsedTime": {
+                                          "integerValue": "47"
+                                        },
+                                        "movingTime": {
+                                          "integerValue": "46"
+                                        },
+                                        "startDate": {
+                                          "stringValue": "2026-05-18T10:12:40Z"
+                                        },
+                                        "avgHeartrate": {
+                                          "integerValue": "139"
+                                        },
+                                        "activityId": {
+                                          "integerValue": "18551969372"
+                                        },
+                                        "maxHeartrate": {
+                                          "integerValue": "154"
+                                        },
+                                        "elevationGain": {
+                                          "integerValue": "10"
+                                        },
+                                        "distance": {
+                                          "doubleValue": 4.8
+                                        }
+                                      }
+                                    }
+                                  },
+                                  "adaptationRequested": {
+                                    "booleanValue": true
+                                  },
+                                  "rpe": {
+                                    "integerValue": "1"
+                                  }
+                                }
+                              }
+                            },
+                            "type": {
+                              "stringValue": "Jogging"
+                            },
+                            "title": {
+                              "stringValue": "Footing vallonné, côtes en marche"
+                            },
+                            "id": {
+                              "stringValue": "w1-s2-1778935995790-qtk9p1l"
+                            },
+                            "advice": {
+                              "stringValue": "Franchir les montées raides en marche active limite le travail excentrique tout en construisant les chaînes musculaires. Une approche accessible du relief, peu traumatisante."
+                            },
+                            "mainSet": {
+                              "stringValue": "38 min sur parcours vallonné. Les montées les plus raides se franchissent en marche active et dynamique (poussée des bras, gainage). Le plat et les descentes douces se courent en endurance fondamentale (7:35 en référence). On gère l'effort, pas le chrono. (allure : 7:35 min/km)"
+                            },
+                            "targetPace": {
+                              "stringValue": "7:17"
+                            },
+                            "warmup": {
+                              "stringValue": "10 min de footing, à 8:29 min/km en endurance fondamentale sur terrain plat ou faux-plat."
+                            }
+                          }
+                        }
+                      },
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "locationSuggestion": {
+                              "stringValue": "À la maison"
+                            },
+                            "distance": {
+                              "stringValue": "0 km"
+                            },
+                            "day": {
+                              "stringValue": "Mercredi"
+                            },
+                            "id": {
+                              "stringValue": "w1-s3-1778935995790-then7kg"
+                            },
+                            "advice": {
+                              "stringValue": "Pour ton aponévrosite, l'excentrique sur les mollets est crucial. Ne cherche pas la vitesse, mais le contrôle du mouvement. Si la douleur au pied dépasse 3/10, arrête la série."
+                            },
+                            "intensity": {
+                              "stringValue": "Modéré"
+                            },
+                            "duration": {
+                              "stringValue": "35 min"
+                            },
+                            "mainSet": {
+                              "stringValue": "Focus Excentrique & Pied : 3x(10 Montées sur pointe de pied lent contrôlé + 30s Chaise + 10 Fentes arrière). Finir par auto-massage de la voûte plantaire avec une balle de tennis."
+                            },
+                            "cooldown": {
+                              "stringValue": "8 min : mobilité cheville (genou au mur 15×2), étirements mollets + soléaire, automassage voûte plantaire (balle)."
+                            },
+                            "type": {
+                              "stringValue": "Renforcement"
+                            },
+                            "warmup": {
+                              "stringValue": "10 min de mobilité articulaire douce et échauffement progressif (marche rapide, rotations, pas chassés)"
+                            },
+                            "title": {
+                              "stringValue": "Renfo Trail Focus A - Quadriceps & Excentrique (S1)"
+                            }
+                          }
+                        }
+                      },
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "id": {
+                              "stringValue": "w1-s4-1778935995790-pzudpcs"
+                            },
+                            "advice": {
+                              "stringValue": "Tu as couru tes dernières séances à 9:31 min/km, ce qui est très prudent. Avec ta VMA de 12.3, tu peux monter à 7:35 min/km sans crainte pour ton cardio. Écoute surtout ton pied gauche."
+                            },
+                            "mainSet": {
+                              "stringValue": "58 min en EF (7:35 min/km) + 15 min en EA (6:36 min/km) + 5 min Récup (8:29 min/km)"
+                            },
+                            "targetPace": {
+                              "stringValue": "7:17"
+                            },
+                            "warmup": {
+                              "stringValue": "10 min de marche rapide, puis 5 min de course très lente à 8:29 min/km pour un échauffement progressif avant la sortie longue."
+                            },
+                            "locationSuggestion": {
+                              "stringValue": "Forêt Domaniale de Versailles (accès via Saint-Cyr-l'École)"
+                            },
+                            "elevationGain": {
+                              "integerValue": "50"
+                            },
+                            "distance": {
+                              "stringValue": "9.5 km"
+                            },
+                            "day": {
+                              "stringValue": "Samedi"
+                            },
+                            "cooldown": {
+                              "stringValue": "10 min de marche active, puis des étirements complets du corps, en portant une attention particulière aux jambes, aux hanches et aux chevilles. Hydrate-toi bien après l'effort. (à 8:29 min/km)"
+                            },
+                            "duration": {
+                              "stringValue": "58 min"
+                            },
+                            "intensity": {
+                              "stringValue": "Facile"
+                            },
+                            "type": {
+                              "stringValue": "Sortie Longue"
+                            },
+                            "title": {
+                              "stringValue": "Sortie longue progressive en forêt"
+                            }
+                          }
+                        }
+                      }
+                    ]
+                  }
+                },
+                "phase": {
+                  "stringValue": "fondamental"
+                },
+                "weekGoal": {
+                  "stringValue": "Phase de familiarisation et renforcement"
+                },
+                "weekNumber": {
+                  "integerValue": "1"
+                }
+              }
+            }
+          },
+          {
+            "mapValue": {
+              "fields": {
+                "phase": {
+                  "stringValue": "developpement"
+                },
+                "sessions": {
+                  "arrayValue": {
+                    "values": [
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "cooldown": {
+                              "stringValue": "5 min de marche lente. (à 8:08 min/km)"
+                            },
+                            "intensity": {
+                              "stringValue": "Facile"
+                            },
+                            "duration": {
+                              "stringValue": "44 min"
+                            },
+                            "type": {
+                              "stringValue": "Jogging"
+                            },
+                            "title": {
+                              "stringValue": "Footing d'oxygénation sur sol souple"
+                            },
+                            "day": {
+                              "stringValue": "Lundi"
+                            },
+                            "distance": {
+                              "stringValue": "6 km"
+                            },
+                            "elevationGain": {
+                              "integerValue": "0"
+                            },
+                            "locationSuggestion": {
+                              "stringValue": "Parc des Closeaux, Bois-d'Arcy"
+                            },
+                            "mainSet": {
+                              "stringValue": "6 km à l'allure EF (7:17 min/km) en privilégiant les chemins de terre ou l'herbe pour limiter les chocs sur le pied gauche."
+                            },
+                            "targetPace": {
+                              "stringValue": "7:17 min/km"
+                            },
+                            "warmup": {
+                              "stringValue": "10 min de marche, à 8:08 min/km active pour réveiller l'aponévrose."
+                            },
+                            "id": {
+                              "stringValue": "w2-s1-1779304856142-67131fn"
+                            },
+                            "advice": {
+                              "stringValue": "Compte tenu de ton aponévrosite plantaire au pied gauche, privilégie des surfaces meubles et écoute tes sensations : si la douleur dépasse 3/10, arrête la séance."
+                            }
+                          }
+                        }
+                      },
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "mainSet": {
+                              "stringValue": "2 séries de (6 x 30s à allure VMA 4:53 min/km / 30s de récupération à 8:08 min/km). 3 min de repos entre les séries."
+                            },
+                            "warmup": {
+                              "stringValue": "15 min de footing très lent à 8:08 min/km."
+                            },
+                            "targetPace": {
+                              "stringValue": "4:53 min/km"
+                            },
+                            "advice": {
+                              "stringValue": "Garde une foulée légère et médio-pied. Ne force pas sur la poussée si ton pied gauche tire."
+                            },
+                            "id": {
+                              "stringValue": "w2-s2-1779304856142-nwrkyqc"
+                            },
+                            "intensity": {
+                              "stringValue": "Difficile"
+                            },
+                            "duration": {
+                              "stringValue": "42 min"
+                            },
+                            "cooldown": {
+                              "stringValue": "10 min de retour au calme à 8:08 min/km."
+                            },
+                            "type": {
+                              "stringValue": "Fractionné"
+                            },
+                            "title": {
+                              "stringValue": "VMA Courte - Initiation vitesse"
+                            },
+                            "locationSuggestion": {
+                              "stringValue": "Stade de la Tremblaye, Bois-d'Arcy"
+                            },
+                            "day": {
+                              "stringValue": "Mardi"
+                            },
+                            "elevationGain": {
+                              "integerValue": "0"
+                            },
+                            "distance": {
+                              "stringValue": "5 km"
+                            }
+                          }
+                        }
+                      },
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "distance": {
+                              "stringValue": "0 km"
+                            },
+                            "elevationGain": {
+                              "integerValue": "0"
+                            },
+                            "day": {
+                              "stringValue": "Mercredi"
+                            },
+                            "locationSuggestion": {
+                              "stringValue": "À la maison"
+                            },
+                            "type": {
+                              "stringValue": "Renforcement"
+                            },
+                            "title": {
+                              "stringValue": "Renfo Trail Focus B - Hanches & Proprioception (S2)"
+                            },
+                            "duration": {
+                              "stringValue": "30 min"
+                            },
+                            "intensity": {
+                              "stringValue": "Modéré"
+                            },
+                            "cooldown": {
+                              "stringValue": "8 min : mobilité cheville (genou au mur 15×2), étirements mollets + soléaire, automassage voûte plantaire (balle)."
+                            },
+                            "id": {
+                              "stringValue": "w2-s3-1779304856142-i21mz0c"
+                            },
+                            "advice": {
+                              "stringValue": "Le renforcement est la clé pour stabiliser ta cheville et soulager ton aponévrosite."
+                            },
+                            "warmup": {
+                              "stringValue": "10 min de mobilité articulaire douce et échauffement progressif (marche rapide, rotations, pas chassés)"
+                            },
+                            "targetPace": {
+                              "stringValue": "N/A"
+                            },
+                            "mainSet": {
+                              "stringValue": "Circuit 2 tours : Pont unipodal (3x7/jambe), Clamshell avec elastique (3x11/cote), Marche laterale avec elastique (3x7 pas/cote), Bird-dog (3x7/cote), Gainage lateral (3x14-30s/cote), Marche sur talons (2x14m), Equilibre sur coussin instable (3x21s/pied), Equilibre unipodal yeux fermes (3x14-30s/pied), Russian twist (3x11/cote), Mollets assis soleaire (3x11), Équilibre unipodal yeux fermés (3x14s/pied), Extensions mollets debout (3x11). Repos 2 min entre tours. ⚠️ Exercices de prévention inclus pour ta blessure — si douleur, arrête immédiatement."
+                            }
+                          }
+                        }
+                      },
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "cooldown": {
+                              "stringValue": "5 min de marche. (à 8:08 min/km)"
+                            },
+                            "intensity": {
+                              "stringValue": "Modéré"
+                            },
+                            "duration": {
+                              "stringValue": "1h27"
+                            },
+                            "type": {
+                              "stringValue": "Sortie Longue"
+                            },
+                            "title": {
+                              "stringValue": "Sortie Longue Trail - Découverte D+"
+                            },
+                            "locationSuggestion": {
+                              "stringValue": "Forêt domaniale de Bois-d'Arcy"
+                            },
+                            "elevationGain": {
+                              "integerValue": "170"
+                            },
+                            "day": {
+                              "stringValue": "Samedi"
+                            },
+                            "distance": {
+                              "stringValue": "12 km"
+                            },
+                            "mainSet": {
+                              "stringValue": "12 km en forêt en intégrant 25m de D+ progressif. Maintiens l'allure EF (7:17 min/km) sur le plat et ralentis dans les bosses."
+                            },
+                            "targetPace": {
+                              "stringValue": "7:17 min/km"
+                            },
+                            "warmup": {
+                              "stringValue": "15 min d'échauffement progressif. (à 8:08 min/km)"
+                            },
+                            "advice": {
+                              "stringValue": "Utilise des chaussures avec un bon amorti. En descente, fais des petits pas pour protéger ton pied."
+                            },
+                            "id": {
+                              "stringValue": "w2-s4-1779304856142-3tb3gav"
+                            }
+                          }
+                        }
+                      }
+                    ]
+                  }
+                },
+                "theme": {
+                  "stringValue": "Développement de la cylindrée et adaptation plantaire"
+                },
+                "weekNumber": {
+                  "integerValue": "2"
+                },
+                "weekGoal": {
+                  "stringValue": "Développement de la cylindrée et adaptation plantaire"
+                },
+                "isRecoveryWeek": {
+                  "booleanValue": false
+                }
+              }
+            }
+          },
+          {
+            "mapValue": {
+              "fields": {
+                "phase": {
+                  "stringValue": "developpement"
+                },
+                "sessions": {
+                  "arrayValue": {
+                    "values": [
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "id": {
+                              "stringValue": "w3-s1-1779304856142-e6csxxz"
+                            },
+                            "advice": {
+                              "stringValue": "Sois attentif au premier pas après le repos. Si la douleur plantaire est présente, ne fais pas les accélérations."
+                            },
+                            "mainSet": {
+                              "stringValue": "7 km à allure EF (7:17 min/km) avec 5 accélérations de 20s en fin de séance pour travailler le pied."
+                            },
+                            "targetPace": {
+                              "stringValue": "7:17 min/km"
+                            },
+                            "warmup": {
+                              "stringValue": "10 min de mobilité. (à 8:08 min/km)"
+                            },
+                            "locationSuggestion": {
+                              "stringValue": "Canal de Bois-d'Arcy et environs"
+                            },
+                            "day": {
+                              "stringValue": "Lundi"
+                            },
+                            "elevationGain": {
+                              "integerValue": "0"
+                            },
+                            "distance": {
+                              "stringValue": "7 km"
+                            },
+                            "cooldown": {
+                              "stringValue": "5 min de marche. (à 8:08 min/km)"
+                            },
+                            "intensity": {
+                              "stringValue": "Facile"
+                            },
+                            "duration": {
+                              "stringValue": "51 min"
+                            },
+                            "type": {
+                              "stringValue": "Jogging"
+                            },
+                            "title": {
+                              "stringValue": "Footing Nature varié"
+                            }
+                          }
+                        }
+                      },
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "advice": {
+                              "stringValue": "Travaille la propulsion sans écraser le talon. La montée renforce la chaîne postérieure, bénéfique pour ton aponévrose."
+                            },
+                            "id": {
+                              "stringValue": "w3-s2-1779304856142-95fz5e5"
+                            },
+                            "warmup": {
+                              "stringValue": "15 min de footing, à 8:08 min/km EF."
+                            },
+                            "targetPace": {
+                              "stringValue": "5:25 min/km"
+                            },
+                            "mainSet": {
+                              "stringValue": "8 répétitions de 30s en côte (allure soutenue type AS 10k soit 5:25 min/km), récupération en redescendant au pas."
+                            },
+                            "locationSuggestion": {
+                              "stringValue": "Butte vers l'Espace Leclerc, Bois-d'Arcy"
+                            },
+                            "elevationGain": {
+                              "integerValue": "0"
+                            },
+                            "day": {
+                              "stringValue": "Mardi"
+                            },
+                            "distance": {
+                              "stringValue": "5 km"
+                            },
+                            "title": {
+                              "stringValue": "Côtes courtes pour le trail"
+                            },
+                            "type": {
+                              "stringValue": "Fractionné"
+                            },
+                            "duration": {
+                              "stringValue": "45 min"
+                            },
+                            "intensity": {
+                              "stringValue": "Difficile"
+                            },
+                            "cooldown": {
+                              "stringValue": "10 min de footing Récup (8:08 min/km)."
+                            }
+                          }
+                        }
+                      },
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "locationSuggestion": {
+                              "stringValue": "À la maison"
+                            },
+                            "elevationGain": {
+                              "integerValue": "0"
+                            },
+                            "day": {
+                              "stringValue": "Mercredi"
+                            },
+                            "distance": {
+                              "stringValue": "0 km"
+                            },
+                            "intensity": {
+                              "stringValue": "Modéré"
+                            },
+                            "duration": {
+                              "stringValue": "30 min"
+                            },
+                            "cooldown": {
+                              "stringValue": "8 min : mobilité cheville (genou au mur 15×2), étirements mollets + soléaire, automassage voûte plantaire (balle)."
+                            },
+                            "type": {
+                              "stringValue": "Renforcement"
+                            },
+                            "title": {
+                              "stringValue": "Renfo Trail Focus A - Quadriceps & Excentrique (S3)"
+                            },
+                            "id": {
+                              "stringValue": "w3-s3-1779304856142-szxod40"
+                            },
+                            "advice": {
+                              "stringValue": "L'équilibre sur une jambe aide à renforcer les petits muscles du pied."
+                            },
+                            "mainSet": {
+                              "stringValue": "Circuit 2 tours : Fentes avant (3x7/jambe), Fentes marchees (3x8/jambe), Step-up sur marche (3x7/jambe), Superman (3x8), Pompes (3x7), Extensions mollets debout (3x14), Fente arriere lente (3s) (3x7/jambe), Chaise murale longue (3x31-90s), Protocole Stanish excentrique (3x7), Extensions mollets debout (3x11), Écriture alphabet avec le pied (1x/pied). Repos 2 min entre tours. ⚠️ Exercices de prévention inclus pour ta blessure — si douleur, arrête immédiatement."
+                            },
+                            "warmup": {
+                              "stringValue": "10 min de mobilité articulaire douce et échauffement progressif (marche rapide, rotations, pas chassés)"
+                            },
+                            "targetPace": {
+                              "stringValue": "N/A"
+                            }
+                          }
+                        }
+                      },
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "advice": {
+                              "stringValue": "C'est la séance la plus longue. Hydrate-toi bien et vérifie l'état de ton pied après l'effort."
+                            },
+                            "id": {
+                              "stringValue": "w3-s4-1779304856142-0sufuz4"
+                            },
+                            "mainSet": {
+                              "stringValue": "12 km en terrain vallonné (35m D+). Alterner marche et course dans les montées les plus raides. (allure : 7:17 min/km)"
+                            },
+                            "warmup": {
+                              "stringValue": "10 min de marche, à 8:08 min/km active."
+                            },
+                            "targetPace": {
+                              "stringValue": "7:17 min/km"
+                            },
+                            "distance": {
+                              "stringValue": "12 km"
+                            },
+                            "day": {
+                              "stringValue": "Samedi"
+                            },
+                            "elevationGain": {
+                              "integerValue": "215"
+                            },
+                            "locationSuggestion": {
+                              "stringValue": "Forêt domaniale de Bois-d'Arcy"
+                            },
+                            "duration": {
+                              "stringValue": "1h27"
+                            },
+                            "intensity": {
+                              "stringValue": "Modéré"
+                            },
+                            "cooldown": {
+                              "stringValue": "10 min de marche lente. (à 8:08 min/km)"
+                            },
+                            "title": {
+                              "stringValue": "Sortie Longue Trail - Volume max"
+                            },
+                            "type": {
+                              "stringValue": "Sortie Longue"
+                            }
+                          }
+                        }
+                      }
+                    ]
+                  }
+                },
+                "theme": {
+                  "stringValue": "Puissance musculaire et endurance de force"
+                },
+                "isRecoveryWeek": {
+                  "booleanValue": false
+                },
+                "weekNumber": {
+                  "integerValue": "3"
+                },
+                "weekGoal": {
+                  "stringValue": "Puissance musculaire et endurance de force"
+                }
+              }
+            }
+          },
+          {
+            "mapValue": {
+              "fields": {
+                "sessions": {
+                  "arrayValue": {
+                    "values": [
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "advice": {
+                              "stringValue": "Apprendre à finir mieux qu'on a commencé : gestion de l'effort et discipline mentale. La 2e partie reste en aérobie — si tu es essoufflé, tu es allé trop loin."
+                            },
+                            "id": {
+                              "stringValue": "w4-s1-1779304856142-de9zxek"
+                            },
+                            "mainSet": {
+                              "stringValue": "35 min en deux moitiés : la 1re très tranquille (bas de l'EF), la 2e dans le haut de l'EF autour de 7:17 — toujours conversationnel, jamais essoufflé. Tu termines plus vite que tu n'as commencé. (allure : 7:17 min/km)"
+                            },
+                            "targetPace": {
+                              "stringValue": "8:08 min/km"
+                            },
+                            "warmup": {
+                              "stringValue": "5 min de marche, à 8:08 min/km puis 5 min de footing très lent (bas de l'endurance fondamentale)."
+                            },
+                            "locationSuggestion": {
+                              "stringValue": "Piste cyclable sécurisée, Bois-d'Arcy"
+                            },
+                            "day": {
+                              "stringValue": "Lundi"
+                            },
+                            "distance": {
+                              "stringValue": "4.3 km"
+                            },
+                            "elevationGain": {
+                              "integerValue": "0"
+                            },
+                            "cooldown": {
+                              "stringValue": "5 min de footing lent puis marche. (à 8:08 min/km)"
+                            },
+                            "intensity": {
+                              "stringValue": "Facile"
+                            },
+                            "duration": {
+                              "stringValue": "35 min"
+                            },
+                            "title": {
+                              "stringValue": "Footing progressif (négative split)"
+                            },
+                            "type": {
+                              "stringValue": "Jogging"
+                            }
+                          }
+                        }
+                      },
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "mainSet": {
+                              "stringValue": "3 blocs de 5 min de footing en endurance fondamentale (7:17), entrecoupés de 1 min de marche. Le footing reste lent et confortable ; la marche est une respiration de confort, pas une récupération d'effort dur. (allure : 7:17 min/km)"
+                            },
+                            "warmup": {
+                              "stringValue": "5 min de marche, à 8:08 min/km active."
+                            },
+                            "targetPace": {
+                              "stringValue": "7:17 min/km"
+                            },
+                            "advice": {
+                              "stringValue": "Découper l'effort permet d'accumuler du volume aérobie en réduisant la charge mécanique globale. Idéal pour progresser sans casser."
+                            },
+                            "id": {
+                              "stringValue": "w4-s2-1779304856142-mcb4tto"
+                            },
+                            "duration": {
+                              "stringValue": "41 min"
+                            },
+                            "intensity": {
+                              "stringValue": "Facile"
+                            },
+                            "cooldown": {
+                              "stringValue": "5 min de marche. (à 8:08 min/km)"
+                            },
+                            "title": {
+                              "stringValue": "Footing en blocs souples"
+                            },
+                            "type": {
+                              "stringValue": "Jogging"
+                            },
+                            "locationSuggestion": {
+                              "stringValue": "Quartier de la Croix-Bonnet, Bois-d'Arcy"
+                            },
+                            "distance": {
+                              "stringValue": "5.7 km"
+                            },
+                            "elevationGain": {
+                              "integerValue": "0"
+                            },
+                            "day": {
+                              "stringValue": "Mardi"
+                            }
+                          }
+                        }
+                      },
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "mainSet": {
+                              "stringValue": "Circuit 2 tours : Marche laterale avec elastique (3x4 pas/cote), Fente laterale (3x4/jambe), Bird-dog (3x4/cote), Gainage lateral (3x8-30s/cote), Marche sur talons (2x8m), Equilibre sur coussin instable (3x13s/pied), Equilibre unipodal yeux fermes (3x8-30s/pied), Planche + rotation laterale (3x4/cote), Mollets debout unipodal (3x5/jambe), Écriture alphabet avec le pied (1x/pied), Marche sur pointes + talons (2x8m chaque). Repos 2 min entre tours. ⚠️ Exercices de prévention inclus pour ta blessure — si douleur, arrête immédiatement."
+                            },
+                            "targetPace": {
+                              "stringValue": "N/A"
+                            },
+                            "warmup": {
+                              "stringValue": "10 min de mobilité articulaire douce et échauffement progressif (marche rapide, rotations, pas chassés)"
+                            },
+                            "id": {
+                              "stringValue": "w4-s3-1779304856142-6327ko4"
+                            },
+                            "advice": {
+                              "stringValue": "Profite de cette séance calme pour glacer légèrement ton talon si nécessaire."
+                            },
+                            "cooldown": {
+                              "stringValue": "8 min : mobilité cheville (genou au mur 15×2), étirements mollets + soléaire, automassage voûte plantaire (balle)."
+                            },
+                            "duration": {
+                              "stringValue": "25-30 min"
+                            },
+                            "intensity": {
+                              "stringValue": "Facile"
+                            },
+                            "title": {
+                              "stringValue": "Renfo Leger - Recuperation (S4)"
+                            },
+                            "type": {
+                              "stringValue": "Renforcement"
+                            },
+                            "elevationGain": {
+                              "integerValue": "0"
+                            },
+                            "distance": {
+                              "stringValue": "0 km"
+                            },
+                            "day": {
+                              "stringValue": "Mercredi"
+                            },
+                            "locationSuggestion": {
+                              "stringValue": "À la maison"
+                            }
+                          }
+                        }
+                      },
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "title": {
+                              "stringValue": "Sortie Longue allégée"
+                            },
+                            "type": {
+                              "stringValue": "Sortie Longue"
+                            },
+                            "duration": {
+                              "stringValue": "1h05"
+                            },
+                            "intensity": {
+                              "stringValue": "Facile"
+                            },
+                            "cooldown": {
+                              "stringValue": "5 min de marche. (à 8:08 min/km)"
+                            },
+                            "locationSuggestion": {
+                              "stringValue": "Bords de l'Étang de Saint-Quentin (proche Bois-d'Arcy)"
+                            },
+                            "distance": {
+                              "stringValue": "9 km"
+                            },
+                            "day": {
+                              "stringValue": "Samedi"
+                            },
+                            "elevationGain": {
+                              "integerValue": "61"
+                            },
+                            "warmup": {
+                              "stringValue": "10 min de footing, à 8:08 min/km lent."
+                            },
+                            "targetPace": {
+                              "stringValue": "7:17 min/km"
+                            },
+                            "mainSet": {
+                              "stringValue": "9 km en endurance fondamentale à 7:17 min/km. Terrain plat privilégié."
+                            },
+                            "advice": {
+                              "stringValue": "On réduit le volume de 30% cette semaine pour repartir plus fort en phase spécifique."
+                            },
+                            "id": {
+                              "stringValue": "w4-s4-1779304856142-n1svrih"
+                            }
+                          }
+                        }
+                      }
+                    ]
+                  }
+                },
+                "phase": {
+                  "stringValue": "recuperation"
+                },
+                "theme": {
+                  "stringValue": "Assimilation et régénération"
+                },
+                "isRecoveryWeek": {
+                  "booleanValue": true
+                },
+                "weekNumber": {
+                  "integerValue": "4"
+                },
+                "weekGoal": {
+                  "stringValue": "Assimilation et régénération"
+                }
+              }
+            }
+          },
+          {
+            "mapValue": {
+              "fields": {
+                "isRecoveryWeek": {
+                  "booleanValue": false
+                },
+                "weekNumber": {
+                  "integerValue": "5"
+                },
+                "weekGoal": {
+                  "stringValue": "Travail d'allure spécifique Trail 10km"
+                },
+                "phase": {
+                  "stringValue": "specifique"
+                },
+                "sessions": {
+                  "arrayValue": {
+                    "values": [
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "targetPace": {
+                              "stringValue": "7:17 min/km"
+                            },
+                            "warmup": {
+                              "stringValue": "10 min EF. (à 8:08 min/km)"
+                            },
+                            "mainSet": {
+                              "stringValue": "6 km total incluant 3 séquences de 500m à allure AS 10k (5:25 min/km) pour mémoriser la vitesse de course."
+                            },
+                            "advice": {
+                              "stringValue": "Nous te recommandons vivement de consulter un médecin avant de débuter ce programme. Compte tenu de ton aponévrosite, valide avec un pro que le passage à l'allure spécifique est possible."
+                            },
+                            "id": {
+                              "stringValue": "w5-s1-1779304856142-wiy5h0b"
+                            },
+                            "title": {
+                              "stringValue": "Footing de rappel technique"
+                            },
+                            "type": {
+                              "stringValue": "Jogging"
+                            },
+                            "cooldown": {
+                              "stringValue": "5 min de récupération à 8:08 min/km."
+                            },
+                            "intensity": {
+                              "stringValue": "Modéré"
+                            },
+                            "duration": {
+                              "stringValue": "44 min"
+                            },
+                            "elevationGain": {
+                              "integerValue": "0"
+                            },
+                            "distance": {
+                              "stringValue": "6 km"
+                            },
+                            "day": {
+                              "stringValue": "Lundi"
+                            },
+                            "locationSuggestion": {
+                              "stringValue": "Parc des Closeaux, Bois-d'Arcy"
+                            }
+                          }
+                        }
+                      },
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "duration": {
+                              "stringValue": "48 min"
+                            },
+                            "intensity": {
+                              "stringValue": "Difficile"
+                            },
+                            "cooldown": {
+                              "stringValue": "10 min de footing lent. (à 8:08 min/km)"
+                            },
+                            "type": {
+                              "stringValue": "Fractionné"
+                            },
+                            "title": {
+                              "stringValue": "Seuil - Endurance de course"
+                            },
+                            "locationSuggestion": {
+                              "stringValue": "Chemin de la Plaine, Bois-d'Arcy"
+                            },
+                            "elevationGain": {
+                              "integerValue": "0"
+                            },
+                            "distance": {
+                              "stringValue": "6 km"
+                            },
+                            "day": {
+                              "stringValue": "Mardi"
+                            },
+                            "mainSet": {
+                              "stringValue": "2 blocs de 8 min à l'allure Seuil (5:36 min/km) avec une récupération de 3 min en trottinant lentement (8:08 min/km)."
+                            },
+                            "warmup": {
+                              "stringValue": "15 min footing EF (7:17 min/km)."
+                            },
+                            "targetPace": {
+                              "stringValue": "5:36 min/km"
+                            },
+                            "advice": {
+                              "stringValue": "Le seuil est l'allure la plus importante pour ton objectif de 55min. Reste gainé."
+                            },
+                            "id": {
+                              "stringValue": "w5-s2-1779304856142-z68ljie"
+                            }
+                          }
+                        }
+                      },
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "title": {
+                              "stringValue": "Renfo Trail Focus A - Quadriceps & Excentrique (S5)"
+                            },
+                            "type": {
+                              "stringValue": "Renforcement"
+                            },
+                            "cooldown": {
+                              "stringValue": "8 min : mobilité cheville (genou au mur 15×2), étirements mollets + soléaire, automassage voûte plantaire (balle)."
+                            },
+                            "intensity": {
+                              "stringValue": "Modéré"
+                            },
+                            "duration": {
+                              "stringValue": "30 min"
+                            },
+                            "elevationGain": {
+                              "integerValue": "0"
+                            },
+                            "distance": {
+                              "stringValue": "0 km"
+                            },
+                            "day": {
+                              "stringValue": "Mercredi"
+                            },
+                            "locationSuggestion": {
+                              "stringValue": "À la maison"
+                            },
+                            "targetPace": {
+                              "stringValue": "N/A"
+                            },
+                            "warmup": {
+                              "stringValue": "10 min de mobilité articulaire douce et échauffement progressif (marche rapide, rotations, pas chassés)"
+                            },
+                            "mainSet": {
+                              "stringValue": "Circuit 2 tours : Step-up sur marche (3x8/jambe), Chaise murale (3x23-45s), Squats poids de corps (3x12), Gainage ventral (3x23-60s), Dead bug (3x8/cote), Extensions mollets debout (3x15), Squat excentrique (descente 4s) (3x8), Step-down excentrique (3x6/jambe), Mollets assis soleaire (3x12), Marche sur pointes + talons (2x15m chaque), Mobilité cheville (genou au mur) (2x12/pied). Repos 2 min entre tours. ⚠️ Exercices de prévention inclus pour ta blessure — si douleur, arrête immédiatement."
+                            },
+                            "id": {
+                              "stringValue": "w5-s3-1779304856142-1lvu0n3"
+                            },
+                            "advice": {
+                              "stringValue": "Ne force pas si tes pieds sont fatigués de la séance de la veille."
+                            }
+                          }
+                        }
+                      },
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "targetPace": {
+                              "stringValue": "7:17 min/km"
+                            },
+                            "warmup": {
+                              "stringValue": "15 min d'échauffement. (à 8:08 min/km)"
+                            },
+                            "mainSet": {
+                              "stringValue": "10 km en terrain spécifique trail avec 50m de D+. Intègre 2 km à allure AS 10k (5:25 min/km) en milieu de sortie."
+                            },
+                            "id": {
+                              "stringValue": "w5-s4-1779304856142-d2q38bm"
+                            },
+                            "advice": {
+                              "stringValue": "C'est ta répétition générale. On atteint ici 100% du dénivelé de la course."
+                            },
+                            "title": {
+                              "stringValue": "Sortie Longue - Simulation Trail (D+ 100%)"
+                            },
+                            "type": {
+                              "stringValue": "Sortie Longue"
+                            },
+                            "cooldown": {
+                              "stringValue": "10 min de marche. (à 8:08 min/km)"
+                            },
+                            "intensity": {
+                              "stringValue": "Modéré"
+                            },
+                            "duration": {
+                              "stringValue": "1h13"
+                            },
+                            "locationSuggestion": {
+                              "stringValue": "Forêt domaniale de Bois-d'Arcy (secteur vallonné)"
+                            },
+                            "distance": {
+                              "stringValue": "10 km"
+                            },
+                            "elevationGain": {
+                              "integerValue": "80"
+                            },
+                            "day": {
+                              "stringValue": "Samedi"
+                            }
+                          }
+                        }
+                      }
+                    ]
+                  }
+                },
+                "theme": {
+                  "stringValue": "Travail d'allure spécifique Trail 10km"
+                }
+              }
+            }
+          },
+          {
+            "mapValue": {
+              "fields": {
+                "isRecoveryWeek": {
+                  "booleanValue": false
+                },
+                "weekNumber": {
+                  "integerValue": "6"
+                },
+                "weekGoal": {
+                  "stringValue": "Affûtage et fraîcheur"
+                },
+                "theme": {
+                  "stringValue": "Affûtage et fraîcheur"
+                },
+                "phase": {
+                  "stringValue": "affutage"
+                },
+                "sessions": {
+                  "arrayValue": {
+                    "values": [
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "distance": {
+                              "stringValue": "4 km"
+                            },
+                            "elevationGain": {
+                              "integerValue": "0"
+                            },
+                            "day": {
+                              "stringValue": "Lundi"
+                            },
+                            "locationSuggestion": {
+                              "stringValue": "Quartier résidentiel calme, Bois-d'Arcy"
+                            },
+                            "cooldown": {
+                              "stringValue": "5 min de marche. (à 8:08 min/km)"
+                            },
+                            "duration": {
+                              "stringValue": "29 min"
+                            },
+                            "intensity": {
+                              "stringValue": "Facile"
+                            },
+                            "type": {
+                              "stringValue": "Jogging"
+                            },
+                            "title": {
+                              "stringValue": "Maintien des acquis"
+                            },
+                            "advice": {
+                              "stringValue": "La priorité est de ne pas réveiller l'aponévrosite. Porte tes chaussures de course habituelles."
+                            },
+                            "id": {
+                              "stringValue": "w6-s1-1779304856142-151yrlc"
+                            },
+                            "mainSet": {
+                              "stringValue": "4 km à l'allure EF (7:17 min/km) très souple. On cherche la fluidité."
+                            },
+                            "targetPace": {
+                              "stringValue": "7:17 min/km"
+                            },
+                            "warmup": {
+                              "stringValue": "5 min de marche, à 8:08 min/km."
+                            }
+                          }
+                        }
+                      },
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "locationSuggestion": {
+                              "stringValue": "Stade de la Tremblaye, Bois-d'Arcy"
+                            },
+                            "day": {
+                              "stringValue": "Mardi"
+                            },
+                            "distance": {
+                              "stringValue": "4 km"
+                            },
+                            "elevationGain": {
+                              "integerValue": "0"
+                            },
+                            "cooldown": {
+                              "stringValue": "5 min de footing lent. (à 8:08 min/km)"
+                            },
+                            "intensity": {
+                              "stringValue": "Modéré"
+                            },
+                            "duration": {
+                              "stringValue": "30 min"
+                            },
+                            "type": {
+                              "stringValue": "Fractionné"
+                            },
+                            "title": {
+                              "stringValue": "Rappel de vitesse léger"
+                            },
+                            "advice": {
+                              "stringValue": "Juste pour garder les jambes nerveuses. Si le pied lance, passe en EF simple."
+                            },
+                            "id": {
+                              "stringValue": "w6-s2-1779304856142-iuzd476"
+                            },
+                            "mainSet": {
+                              "stringValue": "6 x 200m à allure VMA (4:53 min/km) avec 1 min de récupération marchée. Pas de fatigue inutile."
+                            },
+                            "targetPace": {
+                              "stringValue": "4:53 min/km"
+                            },
+                            "warmup": {
+                              "stringValue": "15 min de footing, à 8:08 min/km lent."
+                            }
+                          }
+                        }
+                      },
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "locationSuggestion": {
+                              "stringValue": "À la maison"
+                            },
+                            "elevationGain": {
+                              "integerValue": "0"
+                            },
+                            "day": {
+                              "stringValue": "Mercredi"
+                            },
+                            "distance": {
+                              "stringValue": "0 km"
+                            },
+                            "intensity": {
+                              "stringValue": "Facile"
+                            },
+                            "duration": {
+                              "stringValue": "25-30 min"
+                            },
+                            "cooldown": {
+                              "stringValue": "8 min : mobilité cheville (genou au mur 15×2), étirements mollets + soléaire, automassage voûte plantaire (balle)."
+                            },
+                            "type": {
+                              "stringValue": "Renforcement"
+                            },
+                            "title": {
+                              "stringValue": "Renfo Maintien Leger - Affutage (S6)"
+                            },
+                            "id": {
+                              "stringValue": "w6-s3-1779304856142-xtmmyfk"
+                            },
+                            "advice": {
+                              "stringValue": "Détends-toi, le travail est fait. Focus sur la récupération."
+                            },
+                            "mainSet": {
+                              "stringValue": "Circuit 2 tours : Equilibre unipodal (2x14s/pied), Hip thrust (3x7), Bird-dog (3x5/cote), Gainage lateral (3x9-30s/cote), Marche sur talons (2x9m), Equilibre sur coussin instable (3x14s/pied), Equilibre unipodal yeux fermes (3x9-30s/pied), Bird-dog avec rotation (3x5/cote), Protocole Stanish excentrique (3x5), Mobilité cheville (genou au mur) (2x7/pied), Équilibre unipodal yeux fermés (3x9s/pied). Repos 2 min entre tours. ⚠️ Exercices de prévention inclus pour ta blessure — si douleur, arrête immédiatement."
+                            },
+                            "warmup": {
+                              "stringValue": "10 min de mobilité articulaire douce et échauffement progressif (marche rapide, rotations, pas chassés)"
+                            },
+                            "targetPace": {
+                              "stringValue": "N/A"
+                            }
+                          }
+                        }
+                      },
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "day": {
+                              "stringValue": "Samedi"
+                            },
+                            "distance": {
+                              "stringValue": "6 km"
+                            },
+                            "elevationGain": {
+                              "integerValue": "20"
+                            },
+                            "locationSuggestion": {
+                              "stringValue": "Parc des Closeaux, Bois-d'Arcy"
+                            },
+                            "cooldown": {
+                              "stringValue": "Marche et hydratation. (à 8:08 min/km)"
+                            },
+                            "intensity": {
+                              "stringValue": "Facile"
+                            },
+                            "duration": {
+                              "stringValue": "44 min"
+                            },
+                            "title": {
+                              "stringValue": "Footing de veille de course (Affûtage)"
+                            },
+                            "type": {
+                              "stringValue": "Sortie Longue"
+                            },
+                            "advice": {
+                              "stringValue": "Cette séance sera remplacée par ta course officielle si elle tombe ce jour. Écoute ton corps, ne force jamais sur une douleur."
+                            },
+                            "id": {
+                              "stringValue": "w6-s4-1779304856142-z6rmky3"
+                            },
+                            "mainSet": {
+                              "stringValue": "6 km à l'allure EF (7:17 min/km). Séance courte pour garder du jus pour le jour J."
+                            },
+                            "targetPace": {
+                              "stringValue": "7:17 min/km"
+                            },
+                            "warmup": {
+                              "stringValue": "5 min de marche, à 8:08 min/km."
+                            }
+                          }
+                        }
+                      }
+                    ]
+                  }
+                }
+              }
+            }
+          }
+        ]
+      }
+    },
+    "adaptationLog": {
+      "mapValue": {
+        "fields": {
+          "adaptationsThisWeek": {
+            "integerValue": "0"
+          },
+          "weekNumber": {
+            "integerValue": "0"
+          },
+          "adaptationHistory": {
+            "arrayValue": {}
+          }
+        }
+      }
+    },
+    "goal": {
+      "stringValue": "Trail"
+    },
+    "generationContext": {
+      "mapValue": {
+        "fields": {
+          "vma": {
+            "doubleValue": 12.3
+          },
+          "periodizationPlan": {
+            "mapValue": {
+              "fields": {
+                "weeklyPhases": {
+                  "arrayValue": {
+                    "values": [
+                      {
+                        "stringValue": "fondamental"
+                      },
+                      {
+                        "stringValue": "developpement"
+                      },
+                      {
+                        "stringValue": "developpement"
+                      },
+                      {
+                        "stringValue": "recuperation"
+                      },
+                      {
+                        "stringValue": "specifique"
+                      },
+                      {
+                        "stringValue": "affutage"
+                      }
+                    ]
+                  }
+                },
+                "weeklyVolumes": {
+                  "arrayValue": {
+                    "values": [
+                      {
+                        "integerValue": "21"
+                      },
+                      {
+                        "integerValue": "23"
+                      },
+                      {
+                        "integerValue": "24"
+                      },
+                      {
+                        "integerValue": "19"
+                      },
+                      {
+                        "integerValue": "22"
+                      },
+                      {
+                        "integerValue": "14"
+                      }
+                    ]
+                  }
+                },
+                "totalWeeks": {
+                  "integerValue": "6"
+                },
+                "recoveryWeeks": {
+                  "arrayValue": {
+                    "values": [
+                      {
+                        "integerValue": "4"
+                      }
+                    ]
+                  }
+                }
+              }
+            }
+          },
+          "vmaSource": {
+            "stringValue": "Ajustée manuellement : 11.8 → 12.3 km/h"
+          },
+          "paces": {
+            "mapValue": {
+              "fields": {
+                "seuilPace": {
+                  "stringValue": "5:36"
+                },
+                "allureSpecifiqueMarathon": {
+                  "stringValue": "6:06"
+                },
+                "efPace": {
+                  "stringValue": "7:17"
+                },
+                "allureSpecifique5k": {
+                  "stringValue": "5:08"
+                },
+                "eaPace": {
+                  "stringValue": "6:20"
+                },
+                "allureSpecifiqueSemi": {
+                  "stringValue": "5:44"
+                },
+                "recoveryPace": {
+                  "stringValue": "8:08"
+                },
+                "allureSpecifique10k": {
+                  "stringValue": "5:25"
+                },
+                "vmaPace": {
+                  "stringValue": "4:53"
+                },
+                "vmaKmh": {
+                  "stringValue": "12.3"
+                },
+                "vma": {
+                  "doubleValue": 12.3
+                }
+              }
+            }
+          },
+          "questionnaireSnapshot": {
+            "mapValue": {
+              "fields": {
+                "city": {
+                  "stringValue": "Bois-d'Arcy"
+                },
+                "trailDetails": {
+                  "mapValue": {
+                    "fields": {
+                      "distance": {
+                        "integerValue": "10"
+                      },
+                      "elevation": {
+                        "integerValue": "50"
+                      }
+                    }
+                  }
+                },
+                "weight": {
+                  "integerValue": "81"
+                },
+                "comments": {
+                  "stringValue": "Une sortie vélo en famille le dimanche"
+                },
+                "frequency": {
+                  "integerValue": "4"
+                },
+                "injuries": {
+                  "mapValue": {
+                    "fields": {
+                      "description": {
+                        "stringValue": "Aponévrosite plantaire au pied gauche "
+                      },
+                      "hasInjury": {
+                        "booleanValue": true
+                      }
+                    }
+                  }
+                },
+                "currentWeeklyVolume": {
+                  "integerValue": "25"
+                },
+                "sex": {
+                  "stringValue": "Homme"
+                },
+                "raceDate": {
+                  "stringValue": "2026-06-28"
+                },
+                "email": {
+                  "stringValue": "julian.jobert@hotmail.fr"
+                },
+                "level": {
+                  "stringValue": "Confirmé (Compétition)"
+                },
+                "targetTime": {
+                  "stringValue": "55min"
+                },
+                "recentRaceTimes": {
+                  "mapValue": {
+                    "fields": {
+                      "distance10km": {
+                        "stringValue": "56:30"
+                      }
+                    }
+                  }
+                },
+                "age": {
+                  "integerValue": "32"
+                },
+                "height": {
+                  "integerValue": "170"
+                },
+                "vma": {
+                  "doubleValue": 12.3
+                },
+                "startDate": {
+                  "stringValue": "2026-05-18"
+                },
+                "goal": {
+                  "stringValue": "Trail"
+                },
+                "preferredDays": {
+                  "arrayValue": {
+                    "values": [
+                      {
+                        "stringValue": "Lundi"
+                      },
+                      {
+                        "stringValue": "Mardi"
+                      },
+                      {
+                        "stringValue": "Mercredi"
+                      },
+                      {
+                        "stringValue": "Samedi"
+                      }
+                    ]
+                  }
+                },
+                "preferredLongRunDay": {
+                  "stringValue": "Samedi"
+                },
+                "currentWeeklyElevation": {
+                  "integerValue": "200"
+                }
+              }
+            }
+          },
+          "generatedAt": {
+            "stringValue": "2026-05-16T12:52:51.992Z"
+          },
+          "modelUsed": {
+            "stringValue": "gemini-2.5-flash"
+          }
+        }
+      }
+    },
+    "confidenceScore": {
+      "integerValue": "60"
+    },
+    "raceDate": {
+      "stringValue": "2026-06-28"
+    },
+    "userEmail": {
+      "stringValue": "julian.jobert@hotmail.fr"
+    },
+    "feasibility": {
+      "mapValue": {
+        "fields": {
+          "safetyWarning": {
+            "stringValue": "Fais valider la reprise avec ton kiné/médecin avant de démarrer ce plan. Adapte les séances si nécessaire."
+          },
+          "status": {
+            "stringValue": "AMBITIEUX"
+          },
+          "message": {
+            "stringValue": "Excellent travail Julian — on a mis à jour ta VMA à 12,3 km/h suite à ton test demi-Cooper du 18/05 (1230 m en 6 min). Tes allures d'entraînement ont été automatiquement recalibrées sur cette nouvelle base, mieux adaptée à ton niveau réel.\n\nAvec cette VMA et 8 semaines de prépa, ton objectif de 55 min sur ton trail (PB actuel 56:30) reste ambitieux mais accessible : l'estimation Riegel sur ta VMA actualisée donne un chrono théorique autour de 57 min. La marge à grappiller (~2 min) viendra du travail seuil et du dénivelé spécifique des prochaines semaines.\n\nVigilance : ton aponévrosite plantaire impose une rampe progressive — écoute les sensations et privilégie les sorties souples (sentier > bitume) sur les phases de charge."
+          },
+          "recommendation": {
+            "stringValue": "Objectif réaliste 55-57 min selon progression"
+          }
+        }
+      }
+    },
+    "suggestedLocations": {
+      "arrayValue": {
+        "values": [
+          {
+            "mapValue": {
+              "fields": {
+                "name": {
+                  "stringValue": "Parc des Sports et Loisirs de Bois-d'Arcy"
+                },
+                "type": {
+                  "stringValue": "PARK"
+                },
+                "description": {
+                  "stringValue": "Idéal pour les footings en endurance fondamentale, avec des chemins variés et une ambiance agréable."
+                }
+              }
+            }
+          },
+          {
+            "mapValue": {
+              "fields": {
+                "name": {
+                  "stringValue": "Forêt Domaniale de Versailles (accès via Saint-Cyr-l'École)"
+                },
+                "type": {
+                  "stringValue": "NATURE"
+                },
+                "description": {
+                  "stringValue": "Parfait pour les sorties longues et les séances avec du dénivelé, sur des sentiers naturels et vallonnés."
+                }
+              }
+            }
+          },
+          {
+            "mapValue": {
+              "fields": {
+                "description": {
+                  "stringValue": "Un chemin plat et souple, idéal pour les footings de récupération ou les sorties en endurance fondamentale sur une surface douce pour les articulations."
+                },
+                "type": {
+                  "stringValue": "NATURE"
+                },
+                "name": {
+                  "stringValue": "Chemin de la Digue (entre Bois-d'Arcy et Fontenay-le-Fleury)"
+                }
+              }
+            }
+          }
+        ]
+      }
+    },
+    "paces": {
+      "mapValue": {
+        "fields": {
+          "vma": {
+            "doubleValue": 12.3
+          },
+          "vmaKmh": {
+            "stringValue": "12.3"
+          },
+          "vmaPace": {
+            "stringValue": "4:53"
+          },
+          "allureSpecifique10k": {
+            "stringValue": "5:25"
+          },
+          "allureSpecifiqueSemi": {
+            "stringValue": "5:44"
+          },
+          "recoveryPace": {
+            "stringValue": "8:08"
+          },
+          "eaPace": {
+            "stringValue": "6:20"
+          },
+          "allureSpecifique5k": {
+            "stringValue": "5:08"
+          },
+          "efPace": {
+            "stringValue": "7:17"
+          },
+          "allureSpecifiqueMarathon": {
+            "stringValue": "6:06"
+          },
+          "seuilPace": {
+            "stringValue": "5:36"
+          }
+        }
+      }
+    },
+    "targetTime": {
+      "stringValue": "55min"
+    },
+    "name": {
+      "stringValue": "Préparation Trail 10km / 50m D+ en 55min — 6 sem."
+    },
+    "durationWeeks": {
+      "integerValue": "6"
+    },
+    "userId": {
+      "stringValue": "bNTAkiezfzf21NFdqapqIvx5YRw2"
+    }
+  },
+  "createTime": "2026-05-16T12:53:32.261647Z",
+  "updateTime": "2026-05-20T22:33:41.183110Z"
+}
