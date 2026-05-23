@@ -18,24 +18,28 @@ export const parseLocalDate = (dateStr: string): Date => {
   return new Date(y, m - 1, d, 0, 0, 0, 0);
 };
 
-/** Aligne une date au lundi de sa semaine (retourne une nouvelle Date) */
-export const alignToMonday = (date: Date): Date => {
-  const result = new Date(date);
-  const day = result.getDay(); // 0=Dimanche, 1=Lundi...
-  const diff = day === 0 ? -6 : 1 - day;
-  result.setDate(result.getDate() + diff);
-  result.setHours(0, 0, 0, 0);
-  return result;
-};
-
-/** Calcule la date d'une séance à partir de startDate + weekNumber + dayName */
+/**
+ * Calcule la date d'une séance depuis startDate + weekNumber + dayName.
+ * Bug 17 Sprint E — Doctrine "startDate = J1 réel, peu importe le jour".
+ *
+ * Modèle cyclique modulo 7 : offset = (targetIndex - startIndex + 7) % 7.
+ * - startDate=Lun, day=Lundi → offset 0 (J1)
+ * - startDate=Dim 24/05 (Arnaud), day=Lundi → offset 1 → lun 25/05
+ * - startDate=Mar, day=Lundi → offset 6 (lun suivant cyclique)
+ *
+ * Validation maths : 6 cas table (dev 30 ans).
+ */
 export const calculateSessionDate = (planStartDate: string, weekNumber: number, dayName: string): Date => {
-  const startDate = alignToMonday(parseLocalDate(planStartDate));
-  const weekStart = new Date(startDate);
-  weekStart.setDate(startDate.getDate() + (weekNumber - 1) * 7);
-  const dayIndex = DAY_TO_INDEX[dayName] ?? 0;
-  const sessionDate = new Date(weekStart);
-  sessionDate.setDate(weekStart.getDate() + dayIndex);
+  const startDate = parseLocalDate(planStartDate);
+  // getDay() : 0=dim, 1=lun, ..., 6=sam. Notre DAY_TO_INDEX : Lundi=0..Dimanche=6.
+  // Conversion : dim (0) → startIndex 6 ; sinon dow - 1.
+  const startDow = startDate.getDay();
+  const startIndex = startDow === 0 ? 6 : startDow - 1;
+  const targetIndex = DAY_TO_INDEX[dayName] ?? 0;
+  // Offset cyclique [0..6], toujours >= 0.
+  const dayOffset = (targetIndex - startIndex + 7) % 7;
+  const sessionDate = new Date(startDate);
+  sessionDate.setDate(startDate.getDate() + (weekNumber - 1) * 7 + dayOffset);
   return sessionDate;
 };
 
@@ -47,12 +51,13 @@ export const resolveSessionDate = (session: Session, planStartDate: string, week
   return calculateSessionDate(planStartDate, weekNumber, session.day);
 };
 
-/** Détermine le numéro de semaine (1-based) d'une date par rapport au startDate du plan */
+/** Détermine le numéro de semaine (1-based) d'une date par rapport au startDate du plan.
+ *  Bug 17 Sprint E — Suppression alignToMonday : on utilise startDate tel quel. */
 export const getWeekNumberForDate = (date: Date, planStartDate: string): number => {
-  const startMonday = alignToMonday(parseLocalDate(planStartDate));
+  const startDate = parseLocalDate(planStartDate);
   const target = new Date(date);
   target.setHours(0, 0, 0, 0);
-  const diffMs = target.getTime() - startMonday.getTime();
+  const diffMs = target.getTime() - startDate.getTime();
   const diffDays = Math.floor(diffMs / (1000 * 60 * 60 * 24));
   return Math.floor(diffDays / 7) + 1;
 };

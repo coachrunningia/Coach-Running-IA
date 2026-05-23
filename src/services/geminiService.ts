@@ -4982,17 +4982,8 @@ Valeurs à remplir :
     plan.durationWeeks = planDurationWeeks;
     plan.sessionsPerWeek = data.frequency;
 
-    // Aligner startDate sur le lundi de la semaine (cohérence affichage front)
-    if (plan.startDate) {
-      const rawSD = new Date(plan.startDate);
-      const dow = rawSD.getDay(); // 0=dim, 1=lun, ..., 6=sam
-      const daysToMon = dow === 0 ? -6 : 1 - dow;
-      if (daysToMon !== 0) {
-        rawSD.setDate(rawSD.getDate() + daysToMon);
-        plan.startDate = rawSD.toISOString().split('T')[0];
-        console.log(`[Gemini Preview] startDate aligned to Monday: ${plan.startDate}`);
-      }
-    }
+    // Sprint E Bug 17 — Doctrine `feedback_input_client_obligatoire` : startDate user respecté tel quel.
+    // Suppression de l'ancien alignment Monday (reculait au lundi précédent = passé pour dim/sam saisi).
 
     // Calculer endDate = startDate + durationWeeks
     if (plan.startDate && planDurationWeeks) {

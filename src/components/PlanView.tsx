@@ -15,7 +15,7 @@ import DatePickerModal from './DatePickerModal';
 import CrossWeekConfirmModal from './CrossWeekConfirmModal';
 import FeasibilityWarningModal from './FeasibilityWarningModal';
 import StartDatePickerModal from './StartDatePickerModal';
-import { resolveSessionDate, getWeekNumberForDate, toISODateString } from '../utils/dateUtils';
+import { resolveSessionDate, getWeekNumberForDate, toISODateString, parseLocalDate } from '../utils/dateUtils';
 import { useSettings } from '../context/SettingsContext';
 import { compareWeekWithStrava, generateAdaptationSuggestions, applyAdaptation, findStravaActivityForSession, WeekComparisonResult, AdaptationSuggestion } from '../services/stravaAnalysisService';
 import { calculateFeasibility, FeasibilityResult } from '../services/feasibilityService';
@@ -550,11 +550,7 @@ ${recentRPEs.length > 0 ? recentRPEs.slice(-8).join('\n') : 'Premier feedback �
       : plan.weeks.length;
 
     // Calcul de la semaine actuelle
-    const rawStartDate273 = new Date(plan.startDate);
-    const startDayOfWeek273 = rawStartDate273.getDay();
-    const daysToMonday273 = startDayOfWeek273 === 0 ? -6 : 1 - startDayOfWeek273;
-    const startDate = new Date(rawStartDate273);
-    startDate.setDate(rawStartDate273.getDate() + daysToMonday273);
+    const startDate = parseLocalDate(plan.startDate);
     const now = new Date();
     const diffTime = now.getTime() - startDate.getTime();
     const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
@@ -607,13 +603,9 @@ ${recentRPEs.length > 0 ? recentRPEs.slice(-8).join('\n') : 'Premier feedback �
     let raceWeekIdx: number | null = null;
     let raceDistanceKm: number | undefined;
     if (rawRaceDate && plan.startDate) {
-      const raceDt = new Date(rawRaceDate);
-      const rawStart = new Date(plan.startDate);
-      const startDow = rawStart.getDay();
-      const daysToMon = startDow === 0 ? -6 : 1 - startDow;
-      const monday = new Date(rawStart);
-      monday.setDate(rawStart.getDate() + daysToMon);
-      const diffDays = Math.floor((raceDt.getTime() - monday.getTime()) / (24 * 60 * 60 * 1000));
+      const raceDt = parseLocalDate(rawRaceDate);
+      const startDate = parseLocalDate(plan.startDate);
+      const diffDays = Math.floor((raceDt.getTime() - startDate.getTime()) / (24 * 60 * 60 * 1000));
       if (diffDays >= 0) {
         raceWeekIdx = Math.floor(diffDays / 7); // 0-indexed
       }
@@ -651,12 +643,6 @@ ${recentRPEs.length > 0 ? recentRPEs.slice(-8).join('\n') : 'Premier feedback �
     return previewWeeksList;
   }, [plan]);
 
-  // Mapping des jours français vers leur index (Lundi = 0)
-  const dayToIndex: Record<string, number> = {
-    'Lundi': 0, 'Mardi': 1, 'Mercredi': 2, 'Jeudi': 3,
-    'Vendredi': 4, 'Samedi': 5, 'Dimanche': 6
-  };
-
   // Formater une date en français
   const formatDate = (date: Date, format: 'short' | 'long' | 'dayMonth' = 'short') => {
     const options: Intl.DateTimeFormatOptions = format === 'long'
@@ -667,23 +653,10 @@ ${recentRPEs.length > 0 ? recentRPEs.slice(-8).join('\n') : 'Premier feedback �
     return date.toLocaleDateString('fr-FR', options);
   };
 
-  // Calculer la date d'une séance (utilise dateOverride si présent)
-  const getSessionDate = (weekNumber: number, dayName: string, session?: Session): Date => {
-    if (session) {
-      return resolveSessionDate(session, plan.startDate, weekNumber);
-    }
-    // Fallback sans session (utilisé par getWeekStatus)
-    const rawStartDate = new Date(plan.startDate);
-    const startDayOfWeek = rawStartDate.getDay();
-    const daysToMonday = startDayOfWeek === 0 ? -6 : 1 - startDayOfWeek;
-    const startDate = new Date(rawStartDate);
-    startDate.setDate(rawStartDate.getDate() + daysToMonday);
-    const weekStart = new Date(startDate);
-    weekStart.setDate(startDate.getDate() + (weekNumber - 1) * 7);
-    const dayIndex = dayToIndex[dayName] ?? 0;
-    const sessionDate = new Date(weekStart);
-    sessionDate.setDate(weekStart.getDate() + dayIndex);
-    return sessionDate;
+  // Calculer la date d'une séance (utilise dateOverride si présent).
+  // Bug 17 Sprint E — Suppression fallback dead code (toujours appelé avec session).
+  const getSessionDate = (weekNumber: number, _dayName: string, session: Session): Date => {
+    return resolveSessionDate(session, plan.startDate, weekNumber);
   };
 
   // Vérifier si une date est aujourd'hui
@@ -694,12 +667,7 @@ ${recentRPEs.length > 0 ? recentRPEs.slice(-8).join('\n') : 'Premier feedback �
 
   // Statut d'une semaine
   const getWeekStatus = (week: typeof plan.weeks[0], weekIndex: number) => {
-    // Ajuster startDate au Lundi de sa semaine
-    const rawStartDate = new Date(plan.startDate);
-    const startDayOfWeek = rawStartDate.getDay();
-    const daysToMonday = startDayOfWeek === 0 ? -6 : 1 - startDayOfWeek;
-    const startDate = new Date(rawStartDate);
-    startDate.setDate(rawStartDate.getDate() + daysToMonday);
+    const startDate = parseLocalDate(plan.startDate);
     const now = new Date();
 
     const weekStart = new Date(startDate);
@@ -1739,11 +1707,7 @@ ${recentRPEs.length > 0 ? recentRPEs.slice(-8).join('\n') : 'Premier feedback �
 
                 {/* Affichage des semaines verrouillées en aperçu */}
                 {previewWeeks.map((previewWeek) => {
-                  const rawStartDatePrev = new Date(plan.startDate);
-                  const startDayOfWeekPrev = rawStartDatePrev.getDay();
-                  const daysToMondayPrev = startDayOfWeekPrev === 0 ? -6 : 1 - startDayOfWeekPrev;
-                  const startDate = new Date(rawStartDatePrev);
-                  startDate.setDate(rawStartDatePrev.getDate() + daysToMondayPrev);
+                  const startDate = parseLocalDate(plan.startDate);
                   const weekStart = new Date(startDate);
                   weekStart.setDate(startDate.getDate() + (previewWeek.weekNumber - 1) * 7);
                   const weekEnd = new Date(weekStart);
