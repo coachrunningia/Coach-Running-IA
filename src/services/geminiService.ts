@@ -664,6 +664,92 @@ export const enforceNoCrossTraining = (session: any): boolean => {
   return true;
 };
 
+// ─── Bug 15 Sprint E Phase 2 — Injuries blacklist patterns biomécaniques ───
+// Découvert sur plan Laurence 1779563548769 : tendinite ischio active + 3 footings
+// vallonné/côtes en S1 = aggravation excentrique directe.
+// Le LLM lit bien `injuries.description` dans le prompt mais l'interprète mal
+// (génère "côtes en marche douce" malgré "tendinopathie"). On ajoute un filtre
+// post-LLM côté code : patterns blessures tendineuses → ban côtes S1-S4.
+// Sources : Cook & Purdam (tendinopathie), Lorimer & Hume (ischio), Silbernagel.
+// Doctrines : feedback_securite_avant_conversion, feedback_compromis_messages_preventifs.
+export const INJURY_HILL_BLACKLIST_PATTERNS: RegExp[] = [
+  /ischio|ischiojambier|ischio.?jambier|tendon.*ischio|proximal\s*hamstring/i, // côte = excentrique ischio
+  /achille|tendon.*achille|achill[eé]en/i,                                       // côte = traction achille
+  /tfl|bandelette|itbs|syndrome.*essuie.glace/i,                                 // descente = friction TFL
+  /fasciite|aponévros|aponevros/i,                                                // côte = surcharge fascia
+];
+
+export const INJURY_HARDSURFACE_BLACKLIST_PATTERNS: RegExp[] = [
+  /p[ée]riostite|stress.*tibia|shin\s*splints?/i, // surfaces dures = surcharge périoste
+  /fracture.*fatigue|stress\s*fracture/i,         // surfaces dures = compression osseuse
+  /tibia/i,                                       // mention tibia explicite
+];
+
+export const isHillBanned = (injuryDesc: string | undefined): boolean => {
+  if (!injuryDesc) return false;
+  return INJURY_HILL_BLACKLIST_PATTERNS.some(p => p.test(injuryDesc));
+};
+
+export const isHardSurfaceBanned = (injuryDesc: string | undefined): boolean => {
+  if (!injuryDesc) return false;
+  return INJURY_HARDSURFACE_BLACKLIST_PATTERNS.some(p => p.test(injuryDesc));
+};
+
+/**
+ * Bug 15 Sprint E Phase 2 — Filet post-LLM injury blacklist.
+ *
+ * Si user a déclaré une blessure tendineuse (ischio/achille/TFL/fasciite)
+ * → retyper toute séance vallonnée/côte en "Footing EF plat" sur S1-S4.
+ * Les renforcements ne sont jamais touchés (cf. doctrine).
+ *
+ * Idempotent : un appel répété sur la même week ne re-injecte pas le suffixe
+ * sécurité dans mainSet (détection via "STRICTEMENT plat").
+ *
+ * Pas appliqué S5+ : permet une reprise progressive après consolidation,
+ * sous responsabilité user/kiné (doctrine compromis_messages_preventifs).
+ */
+export const enforceInjuryBlacklist = (
+  week: any,
+  ctx: { injuryDesc?: string; weekIdx: number },
+): void => {
+  if (!week || !Array.isArray(week.sessions)) return;
+  if (!isHillBanned(ctx.injuryDesc)) return;
+  if (ctx.weekIdx >= 4) return; // S5+ = phase libre
+
+  // hill patterns sur title et mainSet (description peut mentionner côtes
+  // même quand title est neutre, et inversement)
+  const hillTitleRe = /vallonn[ée]|c[ôo]te|montagn|d[ée]niv|escalier|sentier|trail|technique/i;
+  const hillMainRe = /vallonn[ée]|c[ôo]te|d[ée]niv|montag|escalier/i;
+
+  week.sessions.forEach((s: any) => {
+    if (!s) return;
+    if (s.type === 'Renforcement' || s.type === 'Repos') return;
+    const titleHit = s.title && hillTitleRe.test(s.title);
+    const mainHit = s.mainSet && hillMainRe.test(s.mainSet);
+    if (!titleHit && !mainHit) return;
+
+    const oldTitle = s.title;
+    s.type = 'Jogging';
+    s.title = 'Footing EF plat';
+
+    // Nettoyer mainSet : retirer les mentions côtes/vallonné et ajouter consigne sécurité
+    // (idempotent : on ne ré-injecte pas si déjà présent)
+    if (s.mainSet) {
+      s.mainSet = s.mainSet
+        .replace(/c[ôo]tes?\s+en\s+marche/gi, 'terrain plat')
+        .replace(/vallonn[ée]e?s?/gi, 'plat')
+        .replace(/avec\s+d[ée]nivel[ée]/gi, 'sur terrain plat');
+    } else {
+      s.mainSet = '';
+    }
+    if (!/STRICTEMENT plat|aucune c[ôo]te/i.test(s.mainSet)) {
+      const suffix = ' Footing en endurance fondamentale sur terrain STRICTEMENT plat (bords de rivière, piste, chemin lisse). Aucune côte, aucune descente. Si tension > 2/10 sur la zone blessée → ralentir ou marcher. (Adaptation automatique pour respect de la blessure déclarée.)';
+      s.mainSet = s.mainSet.trim() ? `${s.mainSet.trim()}${suffix}` : suffix.trim();
+    }
+    console.log(`[Bug15] S${week.weekNumber ?? ctx.weekIdx + 1} ${s.day || '?'}: "${oldTitle}" → "${s.title}" (blessure côtes-incompatible)`);
+  });
+};
+
 export const recalculateSessionDistance = (session: any, bmi?: number | null): void => {
   if (session.type === 'Renforcement') return;
   // Sprint E Phase 1 Bug 1+2 : Repos (issu de enforceNoCrossTraining) — pas de recalc
@@ -3748,6 +3834,22 @@ Liste blessures significatives fréquentes (par fréquence stat coureur loisir) 
 
 JAMAIS de formulation limitante centrée sur le user : "ta blessure t'empêche de...", "tu ne devrais pas...", "à cause de ta blessure tu ne peux plus...".
 TOUJOURS formulation factuelle centrée sur le plan : "le plan tient compte de...", "on adapte la progression pour...", "on protège ce point en...".`);
+
+    // Bug 15 Sprint E Phase 2 — Injection préventive prompt LLM.
+    // Si patho tendineuse spécifique → contre-indication côtes ABSOLUE en S1-S4.
+    // Renforce la consigne (filet post-LLM existe aussi côté code via enforceInjuryBlacklist).
+    if (isHillBanned(data.injuries.description)) {
+      parts.push(`⛔ CONTRE-INDICATION CÔTES ABSOLUE — blessure tendineuse "${data.injuries.description.trim()}"
+La pathologie déclarée (ischio / achille / TFL / fasciite plantaire) interdit TOUTE séance contenant "vallonné", "côtes", "footing avec D+", "side hills", "escaliers" sur S1-S4 (4 premières semaines = phase consolidation tendineuse).
+Titres autorisés pour les footings : "Footing EF plat", "Footing bords de rivière", "Footing piste", "Footing chemin lisse".
+Le mainSet de ces séances DOIT mentionner "terrain strictement plat" et "aucune côte, aucune descente".
+Reprise progressive des côtes uniquement après S5 et validation kiné/médecin (mentionnée dans welcomeMessage).`);
+    }
+    if (isHardSurfaceBanned(data.injuries.description)) {
+      parts.push(`⛔ CONTRE-INDICATION SURFACES DURES — blessure "${data.injuries.description.trim()}"
+La pathologie déclarée (périostite / fracture de fatigue / atteinte tibia) interdit les surfaces dures (bitume, asphalte, piste tartan dure) sur S1-S4.
+Privilégier : chemin de terre, herbe tondue, sentier souple, tapis. Mentionner "surface souple" dans le mainSet des footings.`);
+    }
   }
 
   // Cible irréaliste — préventif sur faisabilité haute
@@ -4936,6 +5038,13 @@ Valeurs à remplir :
         const targetVol = generationContext.periodizationPlan.weeklyVolumes[idx] || 0;
         enforceWeekConstraints(week, targetVol, data, generationContext.periodizationPlan.weeklyVolumes, idx);
       });
+      // Bug 15 Sprint E Phase 2 — Filet post-LLM injuries blacklist côtes.
+      // Doit tourner APRÈS enforceWeekConstraints (pour ne pas être écrasé par les
+      // resync mainSet) et AVANT applyMarcheCourseRouting (qui pourrait analyser
+      // title/mainSet retypés).
+      plan.weeks.forEach((week: any, idx: number) => {
+        enforceInjuryBlacklist(week, { injuryDesc: data.injuries?.description, weekIdx: idx });
+      });
       // Routing label Marche/Course (audit Lilian 2026-05-21) : si mainSet contient
       // un pattern run/walk, forcer le type. Doit tourner APRÈS enforceWeekConstraints
       // (qui peut réécrire le mainSet) et AVANT le guard cross-semaines.
@@ -5740,6 +5849,11 @@ Retourne UNIQUEMENT un tableau JSON des semaines ${startWeek} à ${endWeek} :
         enforceWeekConstraints(week, targetVol, data, ctx.periodizationPlan.weeklyVolumes, idx);
       });
 
+      // Bug 15 Sprint E Phase 2 — Filet post-LLM injuries blacklist côtes (Full).
+      fullPlan.weeks.forEach((week: any, idx: number) => {
+        enforceInjuryBlacklist(week, { injuryDesc: data.injuries?.description, weekIdx: idx });
+      });
+
       // Routing label Marche/Course (audit Lilian 2026-05-21)
       // Bug #4 — VERDICT-EXPERT-5-BUGS.md : garde-fou niveau via ctx.
       const mcCtxFull = { level: getEffectiveLevel(data), vma: ctx.vma, currentWeeklyVolume: data.currentWeeklyVolume };
@@ -5793,6 +5907,8 @@ Retourne UNIQUEMENT un tableau JSON des semaines ${startWeek} à ${endWeek} :
         fullPlan.weeks.forEach((week: any, idx: number) => {
           const targetVol = ctx.periodizationPlan.weeklyVolumes[idx] || 0;
           enforceWeekConstraints(week, targetVol, data, ctx.periodizationPlan.weeklyVolumes, idx);
+          // Bug 15 Sprint E Phase 2 — Filet post-LLM injuries blacklist côtes (post-L3).
+          enforceInjuryBlacklist(week, { injuryDesc: data.injuries?.description, weekIdx: idx });
           // Re-forcer jour SL APRÈS enforce (Layer 3 peut avoir régénéré la semaine avec mauvais jour)
           // enforceSLDay skip automatiquement les semaines contenant un _raceDay.
           enforceSLDay(week, slDayFinal, '[Post-Layer3] ');
