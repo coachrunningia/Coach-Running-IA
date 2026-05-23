@@ -1258,6 +1258,68 @@ const LEVEL_LABEL: Record<'deb' | 'inter' | 'conf' | 'expert', string> = {
 };
 
 /**
+ * Bug 6 Sprint E Phase 2 — anti-hallucination spots géographiques.
+ * Audit Vannes/Paris : le LLM nommait des parcs/sentiers réels avec confidence,
+ * mais inventait à 1 endroit sur 3 (rue inexistante, parc mal localisé). Source
+ * d'erreur double : (1) coverage géographique LLM hétérogène, (2) noms similaires
+ * inter-villes provoquent confusion. Mitigation : on demande au LLM des
+ * descriptions GÉNÉRIQUES de terrain (parc urbain, berge, sentier vallonné),
+ * jamais de nom propre. Le user complète localement avec ses repères. Cohérent
+ * doctrine [[feedback_securite_avant_conversion]] : transparence > illusion de
+ * précision. `variant` distingue le bloc preview (qui demandait aussi
+ * `suggestedLocations`) du bloc remaining (locationSuggestion uniquement).
+ */
+export const buildLocationPromptBlock = (
+  city: string | undefined,
+  variant: 'preview' | 'remaining',
+): string => {
+  if (!city) return '';
+  const header = variant === 'preview'
+    ? `📍 LIEUX D'ENTRAÎNEMENT (suggestedLocations) :
+Ville utilisateur (contexte général) : ${city}
+Tu DOIS proposer 2-3 lieux GÉNÉRIQUES typiques pour cette ville :
+- Décris le TYPE de terrain ("parc urbain", "piste d'athlétisme", "berges", "forêt locale", "sentier vallonné", "chemin plat", "voie verte") sans nommer un spot précis.
+- Pour chaque lieu, indique le type (PARK, TRACK, NATURE, HILL) et pour quel type de séance il convient.
+
+📍 LIEU PAR SÉANCE (locationSuggestion) — OBLIGATOIRE :
+Chaque séance DOIT avoir un "locationSuggestion" GÉNÉRIQUE adapté aux EXIGENCES de la séance :`
+    : `📍 LIEU PAR SÉANCE (locationSuggestion) — OBLIGATOIRE :
+Ville utilisateur (contexte général) : ${city}. Chaque séance DOIT avoir un "locationSuggestion" GÉNÉRIQUE et COHÉRENT avec le contenu :`;
+  return `
+${header}
+- Fractionné VMA/vitesse → "piste d'athlétisme" (surface plane, distances balisées)
+- Fractionné seuil/tempo → "chemin plat", "berges", "voie verte"
+- Séance avec D+ (elevationGain > 0) → "sentier vallonné", "forêt pentue", "parc vallonné" (terrain avec VRAI dénivelé)
+- Sortie Longue route → "grand parc", "boucle longue", "berges"
+- Sortie Longue Trail → "forêt locale", "sentier de montagne"
+- Footing/Récup → "parc urbain", "sol souple", "berges calmes"
+- Renforcement → "À la maison" ou "Salle de sport"
+⚠️ INTERDICTION ABSOLUE de nommer un spot précis (nom de parc, lieu-dit, bois, rue, quartier).
+⚠️ Le coach ne connaît PAS la géographie spécifique du user — décris le terrain, pas le lieu.
+${variant === 'remaining' ? '⚠️ Si elevationGain > 0, le lieu DOIT évoquer du dénivelé réel. Varier les descriptions entre semaines.\n' : ''}`;
+};
+
+/**
+ * Bug 3 Sprint E Phase 2 — SL placement intelligente.
+ * Avant : default `'Dimanche'` dur si `preferredLongRunDay` non saisi → cas
+ * preferredDays = [Lun, Mar, Jeu, Ven, Dim] sans `preferredLongRunDay` explicite
+ * fonctionnait, mais cas [Lun, Mar, Jeu, Sam] (pas dimanche dispo) ne pouvait
+ * pas être servi correctement par enforceSLDay (jour préféré inatteignable).
+ * Désormais : si `preferredLongRunDay` absent, on déduit du `preferredDays`
+ * en priorisant le dernier jour de la semaine dispo (Dim > Sam > Ven > ... > Lun).
+ * L'input explicite `preferredLongRunDay` reste prioritaire si fourni (doctrine
+ * [[feedback_input_client_obligatoire]]).
+ */
+export const findBestSLDay = (preferredDays: string[] | undefined): string => {
+  if (!preferredDays || preferredDays.length === 0) return 'Dimanche';
+  const priority = ['Dimanche', 'Samedi', 'Vendredi', 'Jeudi', 'Mercredi', 'Mardi', 'Lundi'];
+  for (const day of priority) {
+    if (preferredDays.includes(day)) return day;
+  }
+  return preferredDays[preferredDays.length - 1];
+};
+
+/**
  * Garantit que la Sortie Longue de la semaine est placée sur le jour préféré.
  * Détection SL élargie (type, titre, durée) pour attraper les SL mistypées.
  * Si la SL est sur le mauvais jour, swap avec la séance qui occupe le jour cible.
@@ -1331,7 +1393,7 @@ export const enforceSLDay = (week: any, preferredLongRunDay: string, logPrefix =
  * que pour les cibles plus LENTES que le potentiel VMA (bug Clément : cible 5:41 < potentiel 5:49
  * → l'override ne se déclenchait pas → plan préparait 2h02 au lieu de 2h00).
  */
-const applyTargetTimeOverride = (paces: TrainingPaces, data: QuestionnaireData, vma: number): void => {
+export const applyTargetTimeOverride = (paces: TrainingPaces, data: QuestionnaireData, vma: number): void => {
   if (!data.targetTime || !data.subGoal) return;
   // Normalisation : couvre les formats legacy 'Semi-marathon' (m minuscule) potentiels
   const normalizedSubGoal = data.subGoal.toLowerCase().replace(/\s+/g, ' ').trim();
@@ -1394,6 +1456,25 @@ const applyTargetTimeOverride = (paces: TrainingPaces, data: QuestionnaireData, 
     const ratioInfo = ratio > 1 ? ` (cible = ${(ratio * 100).toFixed(0)}% VMA, ambitieux)` : '';
     console.log(`[Paces] Allure spé ${data.subGoal} : ${previous} → ${targetPaceStr} (cible ${data.targetTime})${ratioInfo}`);
     (paces as any)[info.paceKey] = targetPaceStr;
+  }
+
+  // Bug 16 Sprint E Phase 2 — seuilPace Elite réajustement post-override.
+  // Daniels T-pace : seuil = pace HM + 5-10 sec/km. Sur Elite VMA > 16 avec PB Semi
+  // très rapide (Armando-like 1h20 → allureSemi 3:47), seuilPace VMA-based (3:47)
+  // = allureSpecifiqueSemi → brise pédagogie 80/20 (séance seuil = séance spécifique).
+  // Garde-fou : si seuil < semi + 5 sec/km, on le repousse à semi + 8 sec/km
+  // (milieu de fourchette Daniels). Aucun effet sur les profils où le seuil est
+  // déjà cohérent (débutant Semi 2h30 → semi 7:07, seuil 5:30 → écart 1:37 → no-op).
+  const paceToSeconds = (pace: string): number => {
+    const m = pace.match(/^(\d+):(\d+)/);
+    return m ? parseInt(m[1], 10) * 60 + parseInt(m[2], 10) : 0;
+  };
+  const semiSec = paceToSeconds(paces.allureSpecifiqueSemi);
+  const seuilSec = paceToSeconds(paces.seuilPace);
+  if (semiSec > 0 && seuilSec > 0 && seuilSec < semiSec + 5) {
+    const adjusted = secondsToPace(semiSec + 8);
+    console.log(`[Paces] Bug16 seuilPace réajusté Elite: ${paces.seuilPace} → ${adjusted} (semi=${paces.allureSpecifiqueSemi}, écart Daniels +8s)`);
+    paces.seuilPace = adjusted;
   }
 };
 
@@ -3039,6 +3120,22 @@ export const calculatePeriodizationPlan = (
     console.log(`[Periodization] 5K pic hard floor: ${minPeakVolume} → 15 km`);
     minPeakVolume = 15;
   }
+  // Bug 4 Sprint E Phase 2 — Trail Ultra (≥ 50 km) : floor pic ≥ 60% race distance.
+  // Audit Olivier 126 km / cv 30 / 27 sem / Confirmé : pic VMA-based + ACWR-clamp
+  // tombait à 52 km (~41 % race), insuffisant pour préparer un ultra. Pfitzinger
+  // Ultra-Running ref ~70 % race. On reste sous-doctrine 60 % par sécurité (charge
+  // allégée volontaire pour les profils sub-Expert), au-dessus des hard floors
+  // Semi/Marathon/10K/5K déjà en place. Appliqué AVANT le `maxVolume < minPeakVolume`
+  // qui remontera maxVolume si nécessaire ; APRÈS le calcul VMA-based initial
+  // (effectiveVmaCap reste un cap dur côté sécurité physique sur certains profils
+  // « absolute beginner » où ACWR mord — testé dans bug4-trail-ultra-pic.test.ts).
+  if (isTrail && (trailDistance || 0) >= 50) {
+    const minPeakUltra = Math.round((trailDistance || 0) * 0.60);
+    if (minPeakVolume < minPeakUltra) {
+      console.log(`[Periodization] Trail Ultra pic floor: ${minPeakVolume} → ${minPeakUltra} km (60% race ${trailDistance})`);
+      minPeakVolume = minPeakUltra;
+    }
+  }
 
   if (maxVolume < minPeakVolume) {
     console.log(`[Periodization] maxVolume ${maxVolume}km < min peak (${minPeakVolume}km, raw=${rawMinPeakVolume}, cap=${absoluteCap}) → raised`);
@@ -4351,7 +4448,9 @@ ${specificPaceLine}`;
       : 'Répartition équilibrée (ex: Mardi, Jeudi, Dimanche)';
 
     // Instruction jour sortie longue
-    const longRunDay = data.preferredLongRunDay || 'Dimanche';
+    // Bug 3 Sprint E Phase 2 — fallback intelligent sur findBestSLDay(preferredDays)
+    // (ex preferredDays=[Lun, Mar, Jeu, Sam] sans Dimanche → on choisit Samedi).
+    const longRunDay = data.preferredLongRunDay || findBestSLDay(data.preferredDays);
     // S6: longRunDayInstruction const supprimée (utilisation directe ${longRunDay} L3416, règle complète portée par RÈGLES ABSOLUES L3462)
 
     // Instruction blessures (S4: queue "Adapter les séances !" retirée — instruction triviale pour LLM, sécurité portée par buildSafetyInstructions)
@@ -4498,24 +4597,10 @@ Tu es un Coach Running Expert. Génère UNIQUEMENT la SEMAINE 1 d'un plan d'entr
 ${injuryInstruction}
 ${commentsInstruction}
 ${beginnerInstructionPreview}
-${data.city ? `
-📍 LIEUX D'ENTRAÎNEMENT (suggestedLocations) :
-Tu DOIS proposer 2-3 lieux RÉELS à ${data.city} ou dans ses environs proches :
-- Recherche des parcs, pistes d'athlétisme, forêts ou sentiers CONNUS de cette ville
-- Exemples pour Paris : Bois de Vincennes, Parc Montsouris, Jardin du Luxembourg
-- Exemples pour Lyon : Parc de la Tête d'Or, Berges du Rhône
-- Pour chaque lieu, indique le type (PARK, TRACK, NATURE, HILL) et pour quel type de séance il convient
-
-📍 LIEU PAR SÉANCE (locationSuggestion) — OBLIGATOIRE :
-Chaque séance DOIT avoir un "locationSuggestion" avec un lieu RÉEL de ${data.city} adapté aux EXIGENCES de la séance :
-- Fractionné VMA/vitesse → PISTE D'ATHLÉTISME (surface plane, distances balisées)
-- Fractionné seuil/tempo → chemin plat, berges, voie verte
-- Séance avec D+ (elevationGain > 0) → colline, forêt pentue, parc vallonné (lieu avec VRAI dénivelé !)
-- Sortie Longue route → grand parc, boucle longue, berges
-- Sortie Longue Trail → forêt/montagne avec sentiers
-- Footing/Récup → parc agréable, sol souple, berges calmes
-- Renforcement → "À la maison" ou "Salle de sport"
-` : ''}
+${/* Bug 6 Sprint E Phase 2 — descriptions génériques de terrain, jamais de nom propre.
+     Anciennement : exemples nominatifs ("Bois de Vincennes", "Parc de la Tête d'Or")
+     qui poussaient le LLM à inventer des spots similaires non vérifiés dans
+     d'autres villes (audit hallucinations LLM). */ buildLocationPromptBlock(data.city, 'preview')}
 
 ═══════════════════════════════════════════════════════════════
               ALLURES CALCULÉES (OBLIGATOIRES)
@@ -4949,7 +5034,8 @@ Valeurs à remplir :
       }
 
       // Forcer la Sortie Longue sur le jour préféré (détection élargie : type | titre)
-      enforceSLDay(plan.weeks[0], data.preferredLongRunDay || 'Dimanche', '[Gemini Preview] ');
+      // Bug 3 Sprint E Phase 2 — fallback intelligent sur findBestSLDay(preferredDays).
+      enforceSLDay(plan.weeks[0], data.preferredLongRunDay || findBestSLDay(data.preferredDays), '[Gemini Preview] ');
 
       // Dédupliquer — fallback sur DAYS_ORDER complet si prefDays épuisé
       const usedDays = new Set<string>();
@@ -5222,7 +5308,8 @@ export const generateRemainingWeeks = async (
   const preferredDaysInstruction = data.preferredDays && data.preferredDays.length > 0
     ? `Séances UNIQUEMENT sur : ${data.preferredDays.join(', ')}`
     : 'Répartition équilibrée';
-  const longRunDayRemaining = data.preferredLongRunDay || 'Dimanche';
+  // Bug 3 Sprint E Phase 2 — fallback intelligent sur findBestSLDay(preferredDays).
+  const longRunDayRemaining = data.preferredLongRunDay || findBestSLDay(data.preferredDays);
 
   // Instructions spécifiques pour les débutants ou VMA très faible (progression marche/course)
   const isBeginnerLevel = labelToLevelKey(data.level) === 'deb';
@@ -5543,18 +5630,8 @@ L'objectif est de TERMINER la course, pas de performer. Adapte la philosophie du
 ${buildWelcomeToneBlock(plan.feasibility?.status)}
 
 ${buildSafetyInstructions(data, (data.level || '').includes('Débutant'))}
-${data.city ? `
-📍 LIEU PAR SÉANCE (locationSuggestion) — OBLIGATOIRE :
-Ville : ${data.city}. Chaque séance DOIT avoir un "locationSuggestion" RÉEL et COHÉRENT avec le contenu :
-- Fractionné VMA/vitesse → PISTE D'ATHLÉTISME (surface plane, distances balisées)
-- Fractionné seuil/tempo → chemin plat, berges, voie verte
-- Séance avec D+ (elevationGain > 0) → colline, forêt pentue, sentier avec VRAI dénivelé
-- Sortie Longue route → grand parc, boucle longue, berges
-- Sortie Longue Trail → forêt/montagne avec sentiers
-- Footing/Récup → parc agréable, sol souple
-- Renforcement → "À la maison"
-⚠️ Si elevationGain > 0, le lieu DOIT avoir du dénivelé réel. Varier les lieux entre semaines.
-` : ''}
+${/* Bug 6 Sprint E Phase 2 — descriptions génériques de terrain, jamais de nom propre. */
+  buildLocationPromptBlock(data.city, 'remaining')}
 ═══════════════════════════════════════════════════════════════
               FORMAT JSON STRICT
 ═══════════════════════════════════════════════════════════════
@@ -5661,7 +5738,8 @@ Retourne UNIQUEMENT un tableau JSON des semaines ${startWeek} à ${endWeek} :
           }
 
           // Forcer la Sortie Longue sur le jour préféré (détection élargie : type | titre)
-          enforceSLDay(week, data.preferredLongRunDay || 'Dimanche', '[Gemini Remaining] ');
+          // Bug 3 Sprint E Phase 2 — fallback intelligent sur findBestSLDay(preferredDays).
+          enforceSLDay(week, data.preferredLongRunDay || findBestSLDay(data.preferredDays), '[Gemini Remaining] ');
 
           // Dédupliquer les jours — fallback sur DAYS_ORDER complet si pool épuisé
           const usedDays = new Set<string>();
@@ -5894,7 +5972,8 @@ Retourne UNIQUEMENT un tableau JSON des semaines ${startWeek} à ${endWeek} :
       // Car Layer 3 re-génère des semaines via Gemini qui peuvent ignorer les caps
       if (fullPlan.weeks && Array.isArray(fullPlan.weeks)) {
         const preL3Volumes = fullPlan.weeks.map(_weekKm);
-        const slDayFinal = data.preferredLongRunDay || 'Dimanche';
+        // Bug 3 Sprint E Phase 2 — fallback intelligent sur findBestSLDay(preferredDays).
+        const slDayFinal = data.preferredLongRunDay || findBestSLDay(data.preferredDays);
         fullPlan.weeks.forEach((week: any, idx: number) => {
           const targetVol = ctx.periodizationPlan.weeklyVolumes[idx] || 0;
           enforceWeekConstraints(week, targetVol, data, ctx.periodizationPlan.weeklyVolumes, idx);
