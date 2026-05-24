@@ -358,9 +358,10 @@ describe('Profil 6 — Ultra 100mi UTMB-like (50 H Trail 170/10000 cv70 D+2000 V
     console.log(`[P6 UTMB-like] S1=${plan.weeklyVolumes[0]} peak=${peak}`);
     expect(plan.weeklyVolumes[0]).toBeGreaterThanOrEqual(70);
     expect(plan.weeklyVolumes[0]).toBeLessThanOrEqual(91); // 1.3 × 70
-    // Cap MAX_WEEKLY_VOLUME[Trail][Expert]=100 + ondulation 0.95→1.0 peut rendre 99 km au lieu de 100.
-    // Acceptable (1 km écart sur 170 km race = -0.6%). Pic ≥ 95 = bon.
-    expect(peak).toBeGreaterThanOrEqual(95);
+    // Bug 4 Sprint E Phase 2 (commit c50a9db) : floor Trail Ultra 60% race appliqué.
+    // 170 km × 0.60 = 102 km min → pic effectif 102 (vérifié logs Periodization).
+    // Anciennement 99 (cap MAX_WEEKLY_VOLUME 100 + ondulation 0.95). Bug 4 résout.
+    expect(peak).toBeGreaterThanOrEqual(100);
   });
 });
 
