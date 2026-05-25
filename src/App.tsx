@@ -1343,7 +1343,7 @@ const PricingPage = ({ user }: { user: User | null }) => {
     "Plan d'entraînement complet par IA",
     "Export PDF",
     "Export calendrier (iPhone, Google)",
-    "Export Garmin Connect (Coros, Suunto, Polar : en cours d'autorisation)",
+    "Export montre (Garmin, Coros, Suunto, Polar : en cours d'autorisation)",
   ];
 
   const premiumOnlyFeatures = [
@@ -1364,7 +1364,7 @@ const PricingPage = ({ user }: { user: User | null }) => {
           "@context": "https://schema.org",
           "@type": "Product",
           "name": "Coach Running IA - Programme d'entraînement",
-          "description": "Programme course à pied personnalisé par IA avec exports PDF, calendrier et Garmin Connect.",
+          "description": "Programme course à pied personnalisé par IA avec exports PDF et calendrier.",
           "image": "https://coachrunningia.fr/og-image.png",
           "brand": { "@type": "Brand", "name": "Coach Running IA" },
           "offers": [
@@ -1891,7 +1891,7 @@ const PricingPage = ({ user }: { user: User | null }) => {
         <div className="space-y-4">
           <div className="bg-white rounded-xl border border-slate-200 p-6">
             <h3 className="font-bold text-slate-900 mb-2">Quelle différence entre Plan Unique et Premium ?</h3>
-            <p className="text-slate-600 text-sm">Le Plan Unique te donne un plan complet généré par IA avec exports (PDF, calendrier, Garmin Connect). Le Premium ajoute la connexion Strava, les analyses hebdomadaires, le feedback après chaque séance et l'adaptation automatique de ton plan. L'export vers Coros, Suunto et Polar est en cours d'autorisation.</p>
+            <p className="text-slate-600 text-sm">Le Plan Unique te donne un plan complet généré par IA avec exports PDF et calendrier. Le Premium ajoute la connexion Strava, les analyses hebdomadaires, le feedback après chaque séance et l'adaptation automatique de ton plan. L'export montre (Garmin, Coros, Suunto, Polar) est en cours d'autorisation.</p>
           </div>
           <div className="bg-white rounded-xl border border-slate-200 p-6">
             <h3 className="font-bold text-slate-900 mb-2">Je peux passer du Plan Unique au Premium ?</h3>
