@@ -39,7 +39,16 @@ export const applyDistanceOverride = (
     return;
   }
 
-  // 2. Route : mapping subGoal → libellé standardisé
+  // 2. Hyrox : 8 km de course officiels (8×1km coupés par 8 stations fonctionnelles).
+  // Bug F-5 audit 2026-05-26 : sans override, Gemini hallucinait "20 km" → feasibility
+  // calculait sur 20 km / 1h = VMA 23.5 km/h irréaliste. La partie "course pure" d'un
+  // Hyrox vaut toujours 8 km. Cf. [[project_coach_running_ia_hyrox_scope]].
+  if (data.goal === 'Hyrox') {
+    plan.distance = '8 km (Hyrox course)';
+    return;
+  }
+
+  // 3. Route : mapping subGoal → libellé standardisé
   if (data.subGoal) {
     const subGoalMap: Record<string, string> = {
       '5 km': '5 km',
@@ -54,7 +63,7 @@ export const applyDistanceOverride = (
     if (mapped) {
       plan.distance = mapped;
     }
-    // subGoal inconnu (Hyrox, PdP, etc.) : on laisse plan.distance tel quel
+    // subGoal inconnu (PdP, etc.) : on laisse plan.distance tel quel
   }
   // subGoal undefined : pas d'écrasement (cas Maintien/PertePoids sans subGoal)
 };
@@ -3715,19 +3724,19 @@ export const buildSafetyInstructions = (data: QuestionnaireData, isBeginnerLevel
   if (isHighRisk) {
     parts.push(`🚨 PROFIL À RISQUE ÉLEVÉ — AVIS MÉDICAL IMPÉRATIF
 Dans le message de bienvenue (welcomeMessage), tu DOIS inclure EN PREMIER, AVANT toute autre information :
-"⚠️ Avant de commencer ce programme, il est INDISPENSABLE de consulter votre médecin pour obtenir un certificat médical d'aptitude à la pratique de la course à pied. ${isSenior ? `À partir de ${age} ans` : ''}${isSenior && isOverweight ? ' et ' : ''}${isOverweight ? 'avec votre profil' : ''}, un bilan cardio-vasculaire (test d'effort) est fortement recommandé. Votre santé est notre priorité absolue — ce plan est conçu pour vous accompagner en toute sécurité, mais seul un médecin peut confirmer que vous êtes apte à démarrer."
-- Répète ce rappel dans le advice de la PREMIÈRE séance : "Rappel : assurez-vous d'avoir consulté votre médecin avant de démarrer."
+"⚠️ Avant de commencer ce programme, il est INDISPENSABLE de consulter ton médecin pour obtenir un certificat médical d'aptitude à la pratique de la course à pied. ${isSenior ? `À partir de ${age} ans` : ''}${isSenior && isOverweight ? ' et ' : ''}${isOverweight ? 'avec ton profil' : ''}, un bilan cardio-vasculaire (test d'effort) est fortement recommandé. Ta santé est notre priorité absolue — ce plan est conçu pour t'accompagner en toute sécurité, mais seul un médecin peut confirmer que tu es apte à démarrer."
+- Répète ce rappel dans le advice de la PREMIÈRE séance : "Rappel : assure-toi d'avoir consulté ton médecin avant de démarrer."
 - Chaque séance DOIT avoir un conseil (advice) qui mentionne d'écouter son corps, de s'arrêter immédiatement en cas de douleur thoracique, essoufflement anormal ou malaise.
 - Ton ton doit être BIENVEILLANT et ENCOURAGEANT, jamais stigmatisant. Le coureur fait un choix courageux en se lançant.`);
   } else if (isModerateRisk) {
     parts.push(`🩺 SÉCURITÉ SANTÉ — AVIS MÉDICAL RECOMMANDÉ
 Dans le message de bienvenue (welcomeMessage), tu DOIS inclure :
-"Nous vous recommandons vivement de consulter un médecin avant de débuter ce programme, notamment pour obtenir un certificat médical d'aptitude au sport.${isSenior ? ` À partir de ${age} ans, un bilan cardio-vasculaire est particulièrement conseillé.` : ''}"
+"Nous te recommandons vivement de consulter un médecin avant de débuter ce programme, notamment pour obtenir un certificat médical d'aptitude au sport.${isSenior ? ` À partir de ${age} ans, un bilan cardio-vasculaire est particulièrement conseillé.` : ''}"
 - Chaque séance DOIT avoir un conseil (advice) qui mentionne d'écouter son corps et de ne pas forcer en cas de douleur.`);
   } else {
     parts.push(`🩺 SÉCURITÉ SANTÉ — OBLIGATOIRE
 Dans le message de bienvenue (welcomeMessage), tu DOIS inclure :
-"Nous vous recommandons de consulter un médecin avant de débuter ce programme, notamment pour obtenir un certificat médical d'aptitude au sport."
+"Nous te recommandons de consulter un médecin avant de débuter ce programme, notamment pour obtenir un certificat médical d'aptitude au sport."
 - Chaque séance DOIT avoir un conseil (advice) qui mentionne d'écouter son corps et de ne pas forcer en cas de douleur.`);
   }
 
