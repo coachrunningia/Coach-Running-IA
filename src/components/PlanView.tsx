@@ -1,5 +1,6 @@
 
 import React, { useState, useEffect, useCallback, useMemo, useRef } from 'react';
+import { apiFetch } from '../services/apiConfig';
 import { TrainingPlan, Session, User, Week, StravaActivityMatch } from '../types';
 import { Calendar, Clock, Lock, ShieldCheck, CheckCircle, Activity, AlertTriangle, Star, Zap, RefreshCw, X, ChevronDown, ChevronUp, Target, MapPin, TrendingUp, FileText, Loader, MessageCircle, Send } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
@@ -8,6 +9,7 @@ import { downloadICS, downloadPDF, downloadSessionTCX } from '../services/export
 import StravaConnect from './StravaConnect';
 import SessionCard from './SessionCard';
 import Statistics from './Statistics';
+import HeatTipModal, { HeatTipTrigger, shouldOpenHeatTipAutomatically } from './HeatTipModal';
 import PlanHero from './PlanHero';
 import UserProfile from './UserProfile';
 import Toast from './Toast';
@@ -174,6 +176,24 @@ const PlanView: React.FC<PlanViewProps> = ({ plan: initialPlan, isLocked = false
   const [toastVisible, setToastVisible] = useState(false);
   const [toastMessage, setToastMessage] = useState('');
   const [toastSubMessage, setToastSubMessage] = useState('');
+
+  // Pop-up "Conseils forte chaleur" — auto-ouverture 1×/jour/client, toujours rappelable via icône.
+  // localStorage flag `heatTipSeen:<userId>:<YYYY-MM-DD>` (cf. HeatTipModal.tsx).
+  const [heatTipOpen, setHeatTipOpen] = useState(false);
+  const [heatTipUnseen, setHeatTipUnseen] = useState(true);
+  useEffect(() => {
+    const unseen = shouldOpenHeatTipAutomatically(user?.id);
+    setHeatTipUnseen(unseen);
+    if (unseen) {
+      // Petit délai pour laisser la page Plan se monter avant l'auto-ouverture.
+      const t = setTimeout(() => setHeatTipOpen(true), 600);
+      return () => clearTimeout(t);
+    }
+  }, [user?.id]);
+  const handleHeatTipClose = () => {
+    setHeatTipOpen(false);
+    setHeatTipUnseen(false); // marqué vu en localStorage par HeatTipModal handleAcknowledge
+  };
 
 
   // Settings Context
@@ -927,6 +947,15 @@ ${recentRPEs.length > 0 ? recentRPEs.slice(-8).join('\n') : 'Premier feedback �
 
   return (
     <div className="max-w-5xl mx-auto py-8 px-4 relative pb-24">
+      {/* Pop-up "Conseils forte chaleur" — bouton fixed top-right + modal */}
+      <div
+        className="fixed right-3 z-40"
+        style={{ top: 'calc(var(--sat, 0px) + 0.75rem)' }}
+      >
+        <HeatTipTrigger unseen={heatTipUnseen} onClick={() => setHeatTipOpen(true)} />
+      </div>
+      <HeatTipModal open={heatTipOpen} onClose={handleHeatTipClose} userId={user?.id} />
+
       {/* HEADER & CONTROLS */}
       <div className="mb-8 space-y-6">
         <div className="flex flex-col md:flex-row justify-between items-start md:items-end gap-4">
@@ -2227,7 +2256,7 @@ ${recentRPEs.length > 0 ? recentRPEs.slice(-8).join('\n') : 'Premier feedback �
                         if (!askCoachQuestion.trim()) return;
                         setAskCoachSending(true);
                         try {
-                          await fetch('/api/ask-coach', {
+                          await apiFetch('/api/ask-coach', {
                             method: 'POST',
                             headers: { 'Content-Type': 'application/json' },
                             body: JSON.stringify({
