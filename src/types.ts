@@ -110,13 +110,38 @@ export interface StravaActivityMatch {
   startDate: string;     // ISO date
 }
 
+// ============================================
+// Sprint G — Source du feedback (UX Strava + correction manuelle)
+// ============================================
+// Doctrine sécurité (feedback_securite_avant_conversion) :
+// • 'not_done' → AUCUNE injection dans adaptationContext Gemini complétion.
+//   Compteur séparé "séances skip + raison" pour signaler tendance.
+// • 'douleur' (notDoneReason) → flag prompt Gemini S+1 : allègement -20% + EF doux only.
+// • Champs OPTIONNELS (rétro-compat séances saved avant Sprint G).
+//   Pour les feedbacks legacy, voir helper `inferSource()` dans utils/feedbackSource.
+export type FeedbackSource =
+  | 'strava_auto_matched'     // Auto-match ±1j validé sans correction par user
+  | 'strava_user_corrected'   // User a cliqué "Pas la bonne séance ?" puis choisi dans liste 7-14j
+  | 'manual_no_strava'        // Saisie manuelle, pas de rattachement Strava
+  | 'not_done';               // Séance non faite (skip honnête)
+
+export type NotDoneReason =
+  | 'douleur'                 // → Gemini : -20% volume S+1, EF doux only
+  | 'fatigue'                 // → Gemini : ne pas durcir S+1
+  | 'manque_temps'            // neutre
+  | 'meteo'                   // neutre
+  | 'autre'                   // neutre
+  | 'prefere_pas_dire';       // neutre (skip-friendly, jamais forcé)
+
 export interface SessionFeedback {
-  rpe: number; // 1 (Very Easy) to 10 (Max Effort)
+  rpe: number; // 1 (Very Easy) to 10 (Max Effort) — 0 si not_done
   notes?: string;
   completed: boolean;
   completedAt?: string; // Date de complétion ISO
   adaptationRequested?: boolean; // Si l'user a demandé explicitement une adaptation suite à ce feedback
   stravaData?: StravaActivityMatch; // Données Strava auto-matchées
+  source?: FeedbackSource;          // Sprint G : provenance du feedback (cf. inferSource pour legacy)
+  notDoneReason?: NotDoneReason;    // Sprint G : raison optionnelle quand source === 'not_done'
 }
 
 // ============================================
