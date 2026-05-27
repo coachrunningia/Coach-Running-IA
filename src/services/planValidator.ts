@@ -901,7 +901,13 @@ Sois STRICT et HONNÊTE. Un plan trop facile pour un expert est aussi mauvais qu
     // Sprint 4 : upgrade 2.0-flash → 3-pro pour audit qualitatif (+800 ELO).
     // Pro est plus lent (P95 ~25-30s) mais cet appel tourne en background
     // post-generateRemainingWeeks, non sur le chemin critique UX.
-    const MODEL_ID = 'gemini-3-pro-preview';
+    // F-11 (2026-05-27) : gemini-3-pro-preview déprécié définitivement par Google
+    // ("This model is no longer available"). Migration → gemini-3.1-pro-preview.
+    // Investigation suite signalement user terebeu (paiement OK mais isPreview=true).
+    // En fait root cause = user pas cliqué "Générer" + on a découvert que Pro 3
+    // tombait silencieusement en fallback {score:70} depuis dépréciation Google
+    // → on perdait la couche L2 review sur 100 % des plans. Fix code obligatoire.
+    const MODEL_ID = 'gemini-3.1-pro-preview';
     const model = genAI.getGenerativeModel({ model: MODEL_ID });
     console.log(`[PlanValidator AI Review] model=${MODEL_ID}`);
 

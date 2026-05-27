@@ -826,6 +826,10 @@ export const recalculateSessionDistance = (session: any, bmi?: number | null): v
   }
 
   // Calculer la distance correcte (pondérée par run ratio si Marche/Course)
+  // Doctrine projet : distance = km de COURSE PURE (cohérent test Lilian P1f, 2026-05-20).
+  // La marche compte dans le temps total mais pas dans la distance affichée
+  // (comportement Strava : un footing 5 km = 5 km courus, la marche est une pause).
+  // Cf. tests `marche-course-distance.test.ts` et `marche-course-routing-french.test.ts`.
   const calculatedKm = (durationMinutes / paceMinPerKm) * runRatio;
   const currentKm = parseKm(session.distance);
 
