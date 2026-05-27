@@ -849,6 +849,46 @@ export const validatePlanRules = (
 // LAYER 2 — Lightweight AI review (1 short Gemini call)
 // ---------------------------------------------------------------------------
 
+/**
+ * F-11 (2026-05-27) : `aiReviewPlan` reçoit `flaggedWeeks` au format variable
+ * selon le modèle LLM (Pro 3.0 ou Pro 3.1) : tantôt `[1, 2]` (numbers, format
+ * attendu), tantôt `["S1", "S2"]` (strings) malgré la consigne "numéros des
+ * semaines". Sans normalisation, Layer 3 ne match jamais
+ * `cw.weekNumber === w.weekNumber` (number vs string) → aucune correction.
+ *
+ * Le bug existait probablement déjà avec Pro 3.0 (depuis Sprint 4) mais masqué
+ * par le fallback `{flaggedWeeks: []}` du try/catch. La migration Pro 3.1
+ * n'introduit pas ce bug — elle le révèle. Cf. PM-CHALLENGE-F11-2026-05-27.md.
+ *
+ * Défense en profondeur : ce normalizer NE REMPLACE PAS l'amélioration du prompt
+ * (qui doit demander explicitement `[1, 2, 3]` en exemple) ; il complète. Si on
+ * le retire un jour, vérifier que le prompt est suffisant via les logs `transformedCount`.
+ *
+ * Normalise toute forme reconnaissable contenant un entier > 0 :
+ *   - number directe : 1, 2 → 1, 2 (idempotent)
+ *   - string format "S1" / "S 1" / "1" / "Semaine 1" / "Week 1" → 1
+ *   - tout le reste (null, NaN, autres) → filtré
+ */
+export function normalizeFlaggedWeeks(raw: unknown): number[] {
+  if (!Array.isArray(raw)) return [];
+  let transformedCount = 0; // pour mesurer la fréquence réelle du bug strings → numbers
+  const result = raw
+    .map((v): number => {
+      if (typeof v === 'number') return v;
+      transformedCount++;
+      const m = String(v).match(/\d+/);
+      return m ? parseInt(m[0], 10) : NaN;
+    })
+    .filter((n) => Number.isInteger(n) && n > 0);
+  // Doctrine D17 transparence : log explicite quand le normalizer transforme.
+  // Signal pour mesurer la fréquence réelle du bug → on saura quand on peut retirer
+  // ce normalizer (si Google fixe le format LLM ou si on améliore le prompt).
+  if (transformedCount > 0) {
+    console.log(`[PlanValidator] normalizeFlaggedWeeks: ${transformedCount} valeur(s) transformée(s) string→number. Raw=${JSON.stringify(raw)} → Result=${JSON.stringify(result)}`);
+  }
+  return result;
+}
+
 export const aiReviewPlan = async (
   plan: TrainingPlan,
   questionnaire?: QuestionnaireData,
@@ -883,7 +923,7 @@ Réponds UNIQUEMENT en JSON :
     "variety": 0-10,
     "specificity": 0-10
   },
-  "flaggedWeeks": [numéros des semaines problématiques],
+  "flaggedWeeks": [numéros entiers UNIQUEMENT, ex: [1, 2, 5] — JAMAIS de strings "S1"],
   "suggestions": ["suggestion courte 1", "suggestion courte 2"]
 }
 
@@ -932,6 +972,13 @@ Sois STRICT et HONNÊTE. Un plan trop facile pour un expert est aussi mauvais qu
       cleanedText = codeBlockMatch[1];
     }
     const review = JSON.parse(cleanedText.trim()) as AIReviewResult;
+
+    // F-11 (2026-05-27) : voir normalizeFlaggedWeeks() ci-dessous.
+    // Log temporaire (24-48h post-deploy) du format brut pour mesurer la fréquence
+    // réelle des strings vs numbers sur Pro 3.1. À retirer après mesure.
+    console.log(`[PlanValidator AI Review] flaggedWeeks raw=${JSON.stringify(review.flaggedWeeks)} types=${Array.isArray(review.flaggedWeeks) ? review.flaggedWeeks.map((v) => typeof v).join(',') : 'not-array'}`);
+    review.flaggedWeeks = normalizeFlaggedWeeks(review.flaggedWeeks);
+
     console.log(`[PlanValidator] AI Review: score=${review.overallScore}, flagged=${review.flaggedWeeks.join(',')}`);
     return review;
   } catch (error) {
