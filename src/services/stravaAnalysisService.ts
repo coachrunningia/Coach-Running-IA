@@ -6,6 +6,78 @@ import { Session, Week, StravaActivityMatch } from '../types';
 
 const STRAVA_API_BASE = 'https://www.strava.com/api/v3';
 
+// ============================================
+// Sprint G — Cache mémoire + retry 429 (rate limit Strava 200req/15min)
+// ============================================
+// Doctrine PM : sans cache, 50 modals ouverts → ban Strava. Avec cache module-scope :
+// • Map<key, {data, expiresAt}>, TTL 5 min, LRU soft 20 entrées
+// • Key = `userId:afterSec:beforeSec` (multi-user safe)
+// • Retry 429 backoff exp avec support header `Retry-After`
+// • Invalidation explicite via invalidateStravaCache(userId) après rattachement manuel
+//
+// Justification ligne par ligne (feedback_chaque_ligne_justifiee) :
+// - Pas localStorage : multi-user risque, et appel client-only (pas SSR)
+// - LRU soft 20 : suffisant pour usage solo, leak mobile Capacitor contrôlé
+// - 5 min TTL : compromis rate-limit vs fraîcheur (activité Strava sync ~2-3 min)
+type StravaCacheEntry = { data: any[]; expiresAt: number };
+const stravaActivitiesCache = new Map<string, StravaCacheEntry>();
+const STRAVA_CACHE_TTL_MS = 5 * 60 * 1000;
+const STRAVA_CACHE_MAX_ENTRIES = 20;
+
+const buildStravaCacheKey = (userId: string, afterSec: number, beforeSec: number) =>
+    `${userId}:${afterSec}:${beforeSec}`;
+
+/**
+ * @testing — N'utilise pas en prod. Vide le cache global pour isolation tests Vitest.
+ */
+export const __clearStravaCacheForTesting = () => stravaActivitiesCache.clear();
+
+/**
+ * @testing — État cache pour assertions Vitest.
+ */
+export const __getStravaCacheSizeForTesting = () => stravaActivitiesCache.size;
+
+/**
+ * Invalide toutes les entrées cache d'un user (à appeler après rattachement manuel).
+ * Pas de webhook Strava actif → on s'appuie sur invalidation explicite + TTL 5 min.
+ */
+export const invalidateStravaCache = (userId: string) => {
+    let removed = 0;
+    for (const key of Array.from(stravaActivitiesCache.keys())) {
+        if (key.startsWith(`${userId}:`)) {
+            stravaActivitiesCache.delete(key);
+            removed++;
+        }
+    }
+    if (removed > 0) console.log(`[Strava] Cache invalidé pour user ${userId} (${removed} entrées)`);
+};
+
+/**
+ * Fetch avec retry exponentiel sur 429 (rate limit).
+ * Honore le header `Retry-After` (en secondes) si présent, sinon backoff min(1000·2^i, 8000) ms.
+ * Throw message FR coach-tone après maxRetries échecs.
+ */
+export const fetchWithStravaRetry = async (url: string, opts: RequestInit, maxRetries = 3): Promise<Response> => {
+    let lastStatus = 0;
+    for (let attempt = 0; attempt < maxRetries; attempt++) {
+        const res = await fetch(url, opts);
+        if (res.status !== 429) return res;
+        lastStatus = 429;
+        const retryAfterHeader = res.headers.get('Retry-After');
+        const retryAfterSec = retryAfterHeader ? parseInt(retryAfterHeader, 10) : 0;
+        const waitMs = retryAfterSec > 0
+            ? Math.min(retryAfterSec * 1000, 60_000)
+            : Math.min(1000 * 2 ** attempt, 8000);
+        console.warn(`[Strava] 429 rate limit, retry ${attempt + 1}/${maxRetries} dans ${waitMs}ms`);
+        await new Promise(r => setTimeout(r, waitMs));
+    }
+    throw new Error(
+        lastStatus === 429
+            ? 'Strava est temporairement saturé (rate limit). Réessaie dans 15 min.'
+            : 'Erreur API Strava après plusieurs tentatives.'
+    );
+};
+
 // --- TYPES ---
 export interface WeekComparisonResult {
     weekNumber: number;
@@ -325,18 +397,80 @@ RÈGLES :
 // ============================================
 
 const fetchActivitiesForDateRange = async (userId: string, startDate: Date, endDate: Date) => {
-    const token = await getValidToken(userId);
     const after = Math.floor(startDate.getTime() / 1000);
     const before = Math.floor(endDate.getTime() / 1000);
+    const cacheKey = buildStravaCacheKey(userId, after, before);
 
-    const response = await fetch(
+    // Cache HIT
+    const cached = stravaActivitiesCache.get(cacheKey);
+    if (cached && cached.expiresAt > Date.now()) {
+        return cached.data;
+    }
+
+    // Cache MISS (ou expiré) — fetch réel avec retry 429
+    const token = await getValidToken(userId);
+    const response = await fetchWithStravaRetry(
         `${STRAVA_API_BASE}/athlete/activities?after=${after}&before=${before}&per_page=50`,
         { headers: { 'Authorization': `Bearer ${token}` } }
     );
 
-    if (!response.ok) throw new Error("Erreur API Strava");
-    return await response.json();
+    if (!response.ok) throw new Error('Erreur API Strava');
+    const data = await response.json();
+
+    // LRU soft : si on dépasse la limite, on évince la plus ancienne (Map itère insertion order)
+    if (stravaActivitiesCache.size >= STRAVA_CACHE_MAX_ENTRIES) {
+        const oldestKey = stravaActivitiesCache.keys().next().value;
+        if (oldestKey) stravaActivitiesCache.delete(oldestKey);
+    }
+    stravaActivitiesCache.set(cacheKey, { data, expiresAt: Date.now() + STRAVA_CACHE_TTL_MS });
+    return data;
 };
+
+// ============================================
+// Sprint G — Liste 7-14 jours pour le picker "Pas la bonne séance ?"
+// ============================================
+// Doctrine PM : fenêtre dynamique
+//   • Séance planifiée ≤ 7j de today → fenêtre 7j (cas standard 95%)
+//   • Séance planifiée > 7j → fenêtre 14j (cas Arnaud étendu)
+//   • Séance > 14j → fenêtre 14j max + UI affichera message "saisie manuelle"
+// Filtrage type course uniquement, exclusion `manual=true` NON appliquée (cf. PM Q4 — montre HS légitime)
+export const fetchStravaActivitiesForPicker = async (
+    userId: string,
+    sessionDate: Date
+): Promise<any[]> => {
+    const today = new Date();
+    today.setHours(23, 59, 59, 999);
+    const sessionTime = sessionDate.getTime();
+    const todayTime = today.getTime();
+    const daysFromToday = Math.abs(todayTime - sessionTime) / (1000 * 60 * 60 * 24);
+    const windowDays = daysFromToday > 7 ? 14 : 7;
+
+    const endDate = new Date(today);
+    const startDate = new Date(today);
+    startDate.setDate(startDate.getDate() - windowDays);
+    startDate.setHours(0, 0, 0, 0);
+
+    const activities = await fetchActivitiesForDateRange(userId, startDate, endDate);
+    // Filtrer types course (idem matching auto). Inclure manual=true (cf. PM doctrine).
+    return activities.filter((a: any) =>
+        a.type === 'Run' || a.type === 'TrailRun' || a.type === 'Trail Run' || a.type === 'VirtualRun'
+    );
+};
+
+// Helper exposé pour reformater une activité brute Strava en StravaActivityMatch (utilisé picker)
+export const stravaActivityToMatch = (a: any): StravaActivityMatch => ({
+    activityId: a.id,
+    name: a.name,
+    distance: Math.round((a.distance || 0) / 10) / 100,
+    movingTime: Math.round((a.moving_time || 0) / 60),
+    elapsedTime: Math.round((a.elapsed_time || 0) / 60),
+    elevationGain: Math.round(a.total_elevation_gain || 0),
+    avgHeartrate: a.average_heartrate ? Math.round(a.average_heartrate) : undefined,
+    maxHeartrate: a.max_heartrate ? Math.round(a.max_heartrate) : undefined,
+    avgPace: a.average_speed ? msToMinKm(a.average_speed) : '-',
+    type: a.type,
+    startDate: a.start_date_local || a.start_date,
+});
 
 // ============================================
 // MATCH STRAVA ACTIVITY TO A SESSION

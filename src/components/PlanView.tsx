@@ -2,7 +2,7 @@
 import React, { useState, useEffect, useCallback, useMemo, useRef } from 'react';
 import { apiFetch } from '../services/apiConfig';
 import { TrainingPlan, Session, User, Week, StravaActivityMatch } from '../types';
-import { Calendar, Clock, Lock, ShieldCheck, CheckCircle, Activity, AlertTriangle, Star, Zap, RefreshCw, X, ChevronDown, ChevronUp, Target, MapPin, TrendingUp, FileText, Loader, MessageCircle, Send } from 'lucide-react';
+import { Calendar, Clock, Lock, ShieldCheck, CheckCircle, Activity, AlertTriangle, Star, Zap, RefreshCw, X, ChevronDown, ChevronUp, Target, MapPin, TrendingUp, FileText, Loader, MessageCircle, Send, Info } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { updateSessionFeedback, savePlan, updateSessionDate, shiftSessionDates, updatePlanStartDate } from '../services/storageService';
 import { downloadICS, downloadPDF, downloadSessionTCX } from '../services/exportService';
@@ -18,6 +18,9 @@ import CrossWeekConfirmModal from './CrossWeekConfirmModal';
 import FeasibilityWarningModal from './FeasibilityWarningModal';
 import StartDatePickerModal from './StartDatePickerModal';
 import { resolveSessionDate, getWeekNumberForDate, toISODateString, parseLocalDate } from '../utils/dateUtils';
+import { buildUsedStravaActivitiesIndex } from '../utils/stravaUsageIndex';
+import { StravaActivityPicker } from './StravaActivityPicker';
+import type { FeedbackSource, NotDoneReason } from '../types';
 import { useSettings } from '../context/SettingsContext';
 import { compareWeekWithStrava, generateAdaptationSuggestions, applyAdaptation, findStravaActivityForSession, WeekComparisonResult, AdaptationSuggestion } from '../services/stravaAnalysisService';
 import { calculateFeasibility, FeasibilityResult } from '../services/feasibilityService';
@@ -230,6 +233,16 @@ const PlanView: React.FC<PlanViewProps> = ({ plan: initialPlan, isLocked = false
   const [stravaSearchDone, setStravaSearchDone] = useState(false);
   const stravaRequestRef = useRef(0);
 
+  // Sprint G — Sources & sous-modaux "Pas la bonne séance ?"
+  // Approche minimal-touch : on AJOUTE des states + JSX, on ne modifie pas les flows existants.
+  // Le `feedbackSource` track la provenance (auto-match / picker / manual / not_done) pour
+  // SessionFeedback.source (doctrine sécurité : not_done = pas d'injection Gemini).
+  const [feedbackSource, setFeedbackSource] = useState<FeedbackSource>('strava_auto_matched');
+  const [showThreeOptionsModal, setShowThreeOptionsModal] = useState(false);
+  const [showStravaPicker, setShowStravaPicker] = useState(false);
+  const [notDoneMode, setNotDoneMode] = useState(false);
+  const [notDoneReason, setNotDoneReason] = useState<NotDoneReason | null>(null);
+
   useEffect(() => {
     if (user?.stravaConnected) {
       setStravaConnected(true);
@@ -275,6 +288,13 @@ const PlanView: React.FC<PlanViewProps> = ({ plan: initialPlan, isLocked = false
     setFeedbackRpe(session.feedback?.rpe || 5);
     setFeedbackNotes(session.feedback?.notes || "");
     setStravaSearchDone(false);
+    // Sprint G — reset des states de correction à chaque ouverture
+    setShowThreeOptionsModal(false);
+    setShowStravaPicker(false);
+    setNotDoneMode(false);
+    setNotDoneReason(null);
+    // Default source : si on a déjà un stravaData existant → auto_matched (legacy compat)
+    setFeedbackSource(session.feedback?.source || (session.feedback?.stravaData ? 'strava_auto_matched' : 'manual_no_strava'));
 
     // Si Strava connecté, chercher l'activité correspondante
     const existingStrava = session.feedback?.stravaData;
@@ -311,17 +331,30 @@ const PlanView: React.FC<PlanViewProps> = ({ plan: initialPlan, isLocked = false
     if (selectedSessionForFeedback && selectedWeekNumber !== null) {
       setIsSaving(true);
       try {
-        const updatedSession = {
-          ...selectedSessionForFeedback,
-          feedback: {
-            rpe: feedbackRpe,
-            notes: feedbackNotes,
-            completed: true,
-            completedAt: new Date().toISOString(),
-            adaptationRequested: needsAdaptation,
-            ...(stravaMatch ? { stravaData: stravaMatch } : {})
-          }
-        };
+        // Sprint G — Source flag posé sur SessionFeedback :
+        // • not_done → completed=false, rpe=0, pas de stravaData, raison optionnelle
+        // • autres → completed=true, rpe/notes/stravaData selon état UI
+        const isNotDone = notDoneMode || feedbackSource === 'not_done';
+        const baseFeedback: any = isNotDone
+          ? {
+              rpe: 0,
+              notes: feedbackNotes,
+              completed: false,
+              completedAt: new Date().toISOString(),
+              adaptationRequested: false, // not_done = pas d'adaptation Gemini (doctrine sécurité)
+              source: 'not_done' as FeedbackSource,
+              ...(notDoneReason ? { notDoneReason } : {}),
+            }
+          : {
+              rpe: feedbackRpe,
+              notes: feedbackNotes,
+              completed: true,
+              completedAt: new Date().toISOString(),
+              adaptationRequested: needsAdaptation,
+              source: feedbackSource,
+              ...(stravaMatch ? { stravaData: stravaMatch } : {}),
+            };
+        const updatedSession = { ...selectedSessionForFeedback, feedback: baseFeedback };
 
         await updateSessionFeedback(plan.id, updatedSession, plan.userId, selectedWeekNumber);
 
@@ -454,14 +487,21 @@ ${recentRPEs.length > 0 ? recentRPEs.slice(-8).join('\n') : 'Premier feedback �
   // Quick complete handler - permet de marquer une séance comme faite/non faite rapidement
   const handleQuickComplete = async (session: Session, completed: boolean, weekNumber: number) => {
     try {
+      // Sprint G — Cohérence source flag SessionFeedback (doctrine sécurité) :
+      // • completed=true via clic rapide → manual_no_strava (pas de bilan détaillé, donc pas Strava)
+      // • completed=false (skip) → not_done. Gemini ne devra pas adapter sur ce signal.
+      // Préserve une `source` déjà posée si présente (cas user a fait le bilan détaillé avant de toggler).
+      const inferredSource: FeedbackSource = session.feedback?.source
+        ?? (completed ? 'manual_no_strava' : 'not_done');
       const updatedSession = {
         ...session,
         feedback: {
           ...session.feedback,
-          rpe: session.feedback?.rpe || 5,
+          rpe: completed ? (session.feedback?.rpe || 5) : 0,
           notes: session.feedback?.notes || '',
           completed: completed,
-          adaptationRequested: session.feedback?.adaptationRequested || false
+          adaptationRequested: completed ? (session.feedback?.adaptationRequested || false) : false,
+          source: inferredSource,
         }
       };
 
@@ -590,6 +630,19 @@ ${recentRPEs.length > 0 ? recentRPEs.slice(-8).join('\n') : 'Premier feedback �
       progressPercent: totalSessions > 0 ? Math.round((completedSessions / totalSessions) * 100) : 0
     };
   }, [plan]);
+
+  // ============================================
+  // Sprint G — Index activités Strava déjà rattachées au plan courant
+  // ============================================
+  // Lookup O(1) pour le picker "Pas la bonne séance ?" : sans cet index, le
+  // composant scannerait 64-128 séances à chaque ouverture modal. Doctrine PM
+  // condition 2 (cache + index = pré-requis bloquant).
+  // Scope = plan courant uniquement (doctrine feedback_scope_strict, pas cross-plan).
+  // Logique pure dans utils/stravaUsageIndex.ts (testable Vitest).
+  const usedStravaActivities = useMemo(
+    () => buildUsedStravaActivitiesIndex(plan),
+    [plan.weeks, plan.startDate]
+  );
 
   // Génère les semaines de prévisualisation basées sur le contexte de génération
   const previewWeeks = useMemo(() => {
@@ -1886,48 +1939,208 @@ ${recentRPEs.length > 0 ? recentRPEs.slice(-8).join('\n') : 'Premier feedback �
               </div>
             )}
 
-            <div className="mb-6">
-              <label className="block text-sm font-bold text-slate-900 mb-2">Difficulté ressentie (RPE)</label>
-              <input type="range" min="1" max="10" step="1" value={feedbackRpe} onChange={(e) => setFeedbackRpe(parseInt(e.target.value))} className="w-full h-3 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-accent" />
-              <div className="text-center font-black text-3xl text-slate-800 mt-4">{feedbackRpe}<span className="text-lg text-slate-400 font-normal">/10</span></div>
-            </div>
+            {/* Sprint G — Lien correction "Pas la bonne séance ?" (ajout pur, ne touche pas aux flows existants) */}
+            {/* Visible si : (a) un match Strava est affiché OU (b) aucun match mais user connecté à Strava */}
+            {!stravaMatchLoading && stravaSearchDone && user?.stravaConnected && !notDoneMode && (
+              <div className="mb-4 -mt-2 text-center">
+                <button
+                  type="button"
+                  onClick={() => setShowThreeOptionsModal(true)}
+                  className="text-[13px] text-slate-500 hover:text-slate-700 underline underline-offset-2 py-3 px-4 transition-colors"
+                  // Tap-area 48pt via py-3 px-4 ≈ doctrine PM Sprint G
+                >
+                  {stravaMatch ? 'Pas la bonne séance ?' : 'Comment as-tu fait cette séance ?'}
+                </button>
+              </div>
+            )}
+
+            {/* Sprint G — Mode "Pas faite" : encart explicite */}
+            {notDoneMode && (
+              <div className="mb-4 bg-slate-50 border border-slate-200 rounded-xl p-4">
+                <div className="flex items-center gap-2 mb-3">
+                  <Info size={16} className="text-slate-500" />
+                  <span className="text-sm font-bold text-slate-700">Tu n'as pas fait cette séance</span>
+                </div>
+                <p className="text-xs text-slate-600 mb-3">Si tu veux, dis-nous pourquoi (optionnel) :</p>
+                <div className="flex flex-wrap gap-2 mb-3">
+                  {([
+                    { id: 'douleur', label: 'Douleur / blessure' },
+                    { id: 'fatigue', label: 'Fatigue' },
+                    { id: 'manque_temps', label: 'Manque de temps' },
+                    { id: 'meteo', label: 'Météo' },
+                    { id: 'autre', label: 'Autre' },
+                    { id: 'prefere_pas_dire', label: 'Je préfère ne pas dire' },
+                  ] as { id: NotDoneReason; label: string }[]).map((chip) => (
+                    <button
+                      key={chip.id}
+                      type="button"
+                      onClick={() => setNotDoneReason(chip.id === notDoneReason ? null : chip.id)}
+                      className={`text-xs py-2 px-3 rounded-full border transition-all ${
+                        notDoneReason === chip.id
+                          ? 'bg-slate-900 text-white border-slate-900'
+                          : 'bg-white text-slate-700 border-slate-300 hover:border-slate-500'
+                      }`}
+                    >
+                      {chip.label}
+                    </button>
+                  ))}
+                </div>
+                <button
+                  type="button"
+                  onClick={() => { setNotDoneMode(false); setNotDoneReason(null); setFeedbackSource('manual_no_strava'); }}
+                  className="text-[12px] text-slate-500 underline underline-offset-2"
+                >
+                  En fait je l'ai faite, retour au bilan
+                </button>
+              </div>
+            )}
+
+            {/* RPE — caché en mode notDone (n'a pas de sens si séance non faite) */}
+            {!notDoneMode && (
+              <div className="mb-6">
+                <label className="block text-sm font-bold text-slate-900 mb-2">Difficulté ressentie (RPE)</label>
+                <input type="range" min="1" max="10" step="1" value={feedbackRpe} onChange={(e) => setFeedbackRpe(parseInt(e.target.value))} className="w-full h-3 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-accent" />
+                <div className="text-center font-black text-3xl text-slate-800 mt-4">{feedbackRpe}<span className="text-lg text-slate-400 font-normal">/10</span></div>
+              </div>
+            )}
 
             <div className="mb-2">
-              <label className="block text-sm font-bold text-slate-900 mb-2">Sensations & Notes</label>
-              <textarea className="w-full border border-slate-300 rounded-xl p-3 h-24 focus:ring-2 focus:ring-accent/50 outline-none text-sm resize-none" placeholder="Ex: Bonnes jambes, mais un peu essoufflé sur la fin..." value={feedbackNotes} onChange={(e) => setFeedbackNotes(e.target.value)} />
+              <label className="block text-sm font-bold text-slate-900 mb-2">{notDoneMode ? 'Note (optionnel)' : 'Sensations & Notes'}</label>
+              <textarea className="w-full border border-slate-300 rounded-xl p-3 h-24 focus:ring-2 focus:ring-accent/50 outline-none text-sm resize-none" placeholder={notDoneMode ? 'Tu peux préciser si tu veux...' : 'Ex: Bonnes jambes, mais un peu essoufflé sur la fin...'} value={feedbackNotes} onChange={(e) => setFeedbackNotes(e.target.value)} />
             </div>
             </div>
 
             <div className="p-6 pt-3 space-y-3 border-t border-slate-100">
-              <button onClick={() => handleValidateFeedback(false)} disabled={isSaving} className="w-full bg-slate-100 hover:bg-slate-200 text-slate-700 p-4 rounded-xl font-bold flex items-center justify-between group transition-all">
-                <span>✓ Enregistrer (sans modifier)</span>
-                <CheckCircle size={18} className="text-slate-400 group-hover:text-slate-600" />
-              </button>
-              {canAccessPremiumFeatures ? (
-                <button onClick={() => handleValidateFeedback(true)} disabled={isSaving} className="w-full bg-orange-50 hover:bg-orange-100 text-orange-800 p-4 rounded-xl font-bold flex items-center justify-between group transition-all">
-                  <span>🔄 Ajuster les semaines suivantes</span>
-                  <RefreshCw size={18} className="text-orange-400 group-hover:text-orange-600" />
+              {/* Sprint G — Mode not_done : 1 seul CTA "C'est noté" + skip Gemini */}
+              {notDoneMode ? (
+                <button
+                  onClick={() => handleValidateFeedback(false)}
+                  disabled={isSaving}
+                  className="w-full bg-slate-900 hover:bg-slate-800 text-white p-4 rounded-xl font-bold flex items-center justify-center gap-2 transition-all disabled:opacity-50"
+                >
+                  C'est noté
                 </button>
               ) : (
-                <div className="relative">
-                  <div className="w-full bg-slate-50 border border-slate-200 p-4 rounded-xl opacity-60 pointer-events-none">
-                    <div className="flex items-center justify-between">
-                      <span className="text-slate-400 font-bold">🔄 Ajuster les semaines suivantes</span>
-                      <RefreshCw size={18} className="text-slate-300" />
-                    </div>
-                  </div>
-                  <button
-                    onClick={handleUnlockClick}
-                    className="absolute inset-0 flex items-center justify-center bg-slate-900/5 rounded-xl hover:bg-slate-900/10 transition-colors"
-                  >
-                    <span className="bg-slate-900 text-white text-xs font-bold px-3 py-1.5 rounded-full flex items-center gap-1.5 shadow-lg">
-                      <Lock size={12} /> Premium — L'IA adapte votre plan
-                    </span>
+                <>
+                  <button onClick={() => handleValidateFeedback(false)} disabled={isSaving} className="w-full bg-slate-100 hover:bg-slate-200 text-slate-700 p-4 rounded-xl font-bold flex items-center justify-between group transition-all">
+                    <span>✓ Enregistrer (sans modifier)</span>
+                    <CheckCircle size={18} className="text-slate-400 group-hover:text-slate-600" />
                   </button>
-                </div>
+                  {canAccessPremiumFeatures ? (
+                    <button onClick={() => handleValidateFeedback(true)} disabled={isSaving} className="w-full bg-orange-50 hover:bg-orange-100 text-orange-800 p-4 rounded-xl font-bold flex items-center justify-between group transition-all">
+                      <span>🔄 Ajuster les semaines suivantes</span>
+                      <RefreshCw size={18} className="text-orange-400 group-hover:text-orange-600" />
+                    </button>
+                  ) : (
+                    <div className="relative">
+                      <div className="w-full bg-slate-50 border border-slate-200 p-4 rounded-xl opacity-60 pointer-events-none">
+                        <div className="flex items-center justify-between">
+                          <span className="text-slate-400 font-bold">🔄 Ajuster les semaines suivantes</span>
+                          <RefreshCw size={18} className="text-slate-300" />
+                        </div>
+                      </div>
+                      <button
+                        onClick={handleUnlockClick}
+                        className="absolute inset-0 flex items-center justify-center bg-slate-900/5 rounded-xl hover:bg-slate-900/10 transition-colors"
+                      >
+                        <span className="bg-slate-900 text-white text-xs font-bold px-3 py-1.5 rounded-full flex items-center gap-1.5 shadow-lg">
+                          <Lock size={12} /> Premium — L'IA adapte votre plan
+                        </span>
+                      </button>
+                    </div>
+                  )}
+                </>
               )}
             </div>
           </div>
+
+          {/* Sprint G — Sub-modal 3 options (overlay au-dessus du modal feedback) */}
+          {showThreeOptionsModal && (
+            <div
+              className="fixed inset-0 z-[105] flex items-center justify-center bg-slate-900/60 backdrop-blur-sm p-4 animate-in fade-in duration-150"
+              role="dialog"
+              aria-modal="true"
+            >
+              <div className="bg-white rounded-2xl w-full max-w-md shadow-2xl">
+                <div className="p-6 pb-4">
+                  <h3 className="text-lg font-bold text-slate-900 mb-1">Comment as-tu fait cette séance ?</h3>
+                  <p className="text-sm text-slate-500">Choisis l'option qui correspond le mieux</p>
+                </div>
+                <div className="px-6 pb-2 space-y-3">
+                  {/* Option (a) — Synchroniser avec une autre activité Strava */}
+                  {user?.stravaConnected && (
+                    <button
+                      type="button"
+                      onClick={() => { setShowThreeOptionsModal(false); setShowStravaPicker(true); }}
+                      className="w-full text-left rounded-xl border border-slate-200 hover:border-orange-300 hover:bg-orange-50 p-4 transition-all active:scale-[0.99]"
+                    >
+                      <div className="flex items-start gap-3">
+                        <RefreshCw size={20} className="text-orange-500 flex-shrink-0 mt-0.5" />
+                        <div>
+                          <div className="font-semibold text-sm text-slate-900">Synchroniser avec une autre activité Strava</div>
+                          <div className="text-xs text-slate-500 mt-0.5">Tes courses des 7 derniers jours</div>
+                        </div>
+                      </div>
+                    </button>
+                  )}
+                  {/* Option (b) — Je l'ai faite sans Strava */}
+                  <button
+                    type="button"
+                    onClick={() => { setShowThreeOptionsModal(false); setStravaMatch(null); setFeedbackSource('manual_no_strava'); }}
+                    className="w-full text-left rounded-xl border border-slate-200 hover:border-emerald-300 hover:bg-emerald-50 p-4 transition-all active:scale-[0.99]"
+                  >
+                    <div className="flex items-start gap-3">
+                      <CheckCircle size={20} className="text-emerald-500 flex-shrink-0 mt-0.5" />
+                      <div>
+                        <div className="font-semibold text-sm text-slate-900">Je l'ai faite sans Strava</div>
+                        <div className="text-xs text-slate-500 mt-0.5">Saisie manuelle (RPE + ressenti)</div>
+                      </div>
+                    </div>
+                  </button>
+                  {/* Option (c) — Finalement je ne l'ai pas faite */}
+                  <button
+                    type="button"
+                    onClick={() => { setShowThreeOptionsModal(false); setNotDoneMode(true); setStravaMatch(null); setFeedbackSource('not_done'); }}
+                    className="w-full text-left rounded-xl border border-slate-200 hover:border-slate-400 hover:bg-slate-50 p-4 transition-all active:scale-[0.99]"
+                  >
+                    <div className="flex items-start gap-3">
+                      <Info size={20} className="text-slate-500 flex-shrink-0 mt-0.5" />
+                      <div>
+                        <div className="font-semibold text-sm text-slate-900">Finalement je ne l'ai pas faite</div>
+                        <div className="text-xs text-slate-500 mt-0.5">Marquer non faite (raison optionnelle)</div>
+                      </div>
+                    </div>
+                  </button>
+                </div>
+                <div className="p-4 pt-2">
+                  <button
+                    type="button"
+                    onClick={() => setShowThreeOptionsModal(false)}
+                    className="w-full bg-slate-100 hover:bg-slate-200 text-slate-700 py-3 px-4 rounded-xl font-medium text-sm transition-all"
+                  >
+                    Annuler
+                  </button>
+                </div>
+              </div>
+            </div>
+          )}
+
+          {/* Sprint G — Sub-modal picker activités Strava 7-14j */}
+          {showStravaPicker && user?.id && selectedSessionForFeedback && selectedWeekNumber !== null && (
+            <StravaActivityPicker
+              userId={user.id}
+              sessionDate={resolveSessionDate(selectedSessionForFeedback, plan.startDate, selectedWeekNumber)}
+              usedIndex={usedStravaActivities}
+              onSelect={(match) => {
+                // User a choisi une activité dans la liste → on l'utilise + flag source corrected
+                setStravaMatch(match);
+                setFeedbackSource('strava_user_corrected');
+                setShowStravaPicker(false);
+                setStravaSearchDone(true);
+              }}
+              onClose={() => setShowStravaPicker(false)}
+            />
+          )}
         </div>
       )}
 
