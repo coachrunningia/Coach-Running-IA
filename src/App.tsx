@@ -18,6 +18,7 @@ import {
   registerUser,
   deletePlan
 } from './services/storageService';
+import { decideAutoChain } from './services/autoChainPolicy';
 import { Trophy, CheckCircle, Zap, Loader2, Sparkles, X, ChevronRight, Lock, XCircle, Star, ArrowRight, Trash2, Crown } from 'lucide-react';
 import { APP_NAME, STRIPE_PRICES } from './constants';
 
@@ -132,6 +133,30 @@ const AppContent = () => {
       console.log("[Gen] Sauvegarde des données...");
       await savePlan(plan);
       await saveUserQuestionnaire(user.id, data);
+
+      // F-10 (Sprint F+ Vague 1, 2026-05-27) — Auto-chain pour Premium feasibility OK.
+      // Cf. autoChainPolicy.ts. Si Premium + feasibility ∉ {AMBITIEUX, RISQUÉ, IRRÉALISTE}
+      // + confidenceScore ≥ 15 → on chaîne directement generateRemainingWeeks ici, avant
+      // la redirection. L'écran isGenerating reste affiché pendant ~22s supplémentaires.
+      // Sinon (Free, ou feasibility à risque) → comportement préexistant (preview affiché,
+      // user clique manuellement "Générer" + voit modal warning D17).
+      const decision = decideAutoChain(user, plan);
+      console.log(`[Gen] AutoChain decision : ${decision.shouldAutoChain ? '✓' : '✗'} (${decision.reason})`);
+      if (decision.shouldAutoChain) {
+        try {
+          console.log("[Gen] Premium + feasibility OK → auto-chain generateRemainingWeeks");
+          const { generateRemainingWeeks } = await import('./services/geminiService');
+          const fullPlan = await generateRemainingWeeks(plan);
+          fullPlan.userId = user.id;
+          fullPlan.userEmail = plan.userEmail;
+          await savePlan(fullPlan);
+          console.log(`[Gen] AutoChain complete — plan complet sauvegardé (${fullPlan.weeks?.length} sem)`);
+        } catch (chainErr: any) {
+          // Si l'auto-chain plante, on ne bloque pas l'utilisateur : le plan preview est déjà
+          // sauvegardé, le user verra le bouton "Générer" comme avant. On logge l'erreur.
+          console.warn('[Gen] AutoChain failed (fallback bouton manuel) :', chainErr?.message || chainErr);
+        }
+      }
 
       // Redirection vers le plan nouvellement créé
       console.log("[Gen] Succès ! Redirection vers /plan/" + plan.id);
