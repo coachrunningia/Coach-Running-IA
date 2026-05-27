@@ -717,6 +717,70 @@ export const isHardSurfaceBanned = (injuryDesc: string | undefined): boolean => 
  * Pas appliqué S5+ : permet une reprise progressive après consolidation,
  * sous responsabilité user/kiné (doctrine compromis_messages_preventifs).
  */
+/**
+ * F-3 (Sprint F+ Vague 1, 2026-05-27) — Doctrine D18b "distance plat-équivalent immuable".
+ *
+ * Pour toute session avec D+/km > 30 m/km (= "rolling" Pfitzinger : terrain vallonné réel
+ * où la vitesse au sol diverge significativement de la vitesse plat), le `mainSet` DOIT
+ * contenir une phrase explicite qui rappelle au coureur :
+ *   - que la `distance` affichée est un repère plat-équivalent
+ *   - qu'il pilote à l'effort, pas au GPS
+ *
+ * Sans cette phrase, l'utilisateur ou un auditeur externe (cf. cas freelance Plan B Lion
+ * Mathieu) interprète à tort la distance comme la vitesse terrain → conclusion "bug math"
+ * alors que la doctrine D18b est respectée.
+ *
+ * Algorithme :
+ *   1. Skip Renforcement, Repos, Récupération (pas de distance pertinente)
+ *   2. Skip Marche/Course (a son propre wording dans applyMarcheCourseRouting)
+ *   3. Calcule D+/km depuis elevationGain et distance parsée
+ *   4. Si > 30 m/km ET mainSet ne contient pas déjà la doctrine (regex case-insensitive
+ *      sur "plat-équivalent", "effort qui compte", "ta vitesse au sol", "RPE constant")
+ *   5. Sélection wording selon D+/km :
+ *      - 30-50 m/km : phrase légère (vallon doux)
+ *      - >50 m/km : phrase quantifiée Cory Smith (~3-5 s/km par 10m D+/km)
+ *
+ * Idempotent : si la phrase est déjà présente, on ne re-injecte pas.
+ * Cf. SPRINT-F-PLUS-VALIDATION-COACH.md section 4.
+ */
+const ALREADY_HAS_FLAT_EQUIVALENT_NOTE = /plat[- ]équivalent|effort qui compte|ta vitesse au sol|rpe constant|distance affichée sur le plat|distance affichée plat|c'est l'effort qui prime|allure[- ]référence plat/i;
+
+export const enforceFlatEquivalentNote = (week: any): void => {
+  if (!week || !Array.isArray(week.sessions)) return;
+  for (const s of week.sessions) {
+    if (!s) continue;
+    if (s.type === 'Renforcement' || s.type === 'Repos' || s.type === 'Récupération') continue;
+    // Marche/Course a son wording dédié (alternance course/marche) — pas de double-injection.
+    if (s.type === 'Marche/Course') continue;
+    // elevationGain peut être stocké number OU string Firestore : on parse défensivement.
+    const ev = typeof s.elevationGain === 'number'
+      ? s.elevationGain
+      : parseInt(String(s.elevationGain || '0'), 10) || 0;
+    if (ev <= 0) continue;
+    // distance peut être "10 km", "10.5 km", "8km" — on extrait le premier float.
+    const distMatch = String(s.distance || '').match(/(\d+(?:[.,]\d+)?)/);
+    if (!distMatch) continue;
+    const distKm = parseFloat(distMatch[1].replace(',', '.'));
+    if (!Number.isFinite(distKm) || distKm <= 0) continue;
+    const dPlusPerKm = ev / distKm;
+    if (dPlusPerKm <= 30) continue; // seuil Pfitzinger "rolling" — sous 30m/km, vallon négligeable
+    const main = String(s.mainSet || '');
+    if (ALREADY_HAS_FLAT_EQUIVALENT_NOTE.test(main)) continue; // déjà présent → no-op idempotent
+    // Sélection du wording selon D+/km
+    let note: string;
+    if (dPlusPerKm > 50) {
+      // Wording quantifié Cory Smith (D+ marqué, vallon raide à montagne)
+      const dPlusRounded = Math.round(dPlusPerKm);
+      note = ` Note D+ : repère plat-équivalent ${distKm} km — sur ce terrain (D+/km ≈ ${dPlusRounded} m/km), ajoute ~3-5 s/km par 10 m de D+ en montée. C'est l'effort EF qui prime, pas le chrono.`;
+    } else {
+      // Wording léger (vallon 30-50 m/km)
+      note = ` Note : la distance ${distKm} km est un repère plat-équivalent. Sur le vallon, ta vitesse au sol sera plus lente — c'est l'effort EF qui prime, pas le chrono.`;
+    }
+    s.mainSet = main.trim() + note;
+    console.log(`[F-3 enforceFlatEquivalentNote] S${week.weekNumber} ${s.day || '?'} (${dPlusPerKm.toFixed(0)}m/km) : note plat-équivalent ajoutée`);
+  }
+};
+
 export const enforceInjuryBlacklist = (
   week: any,
   ctx: { injuryDesc?: string; weekIdx: number },
@@ -3744,6 +3808,23 @@ Dans le message de bienvenue (welcomeMessage), tu DOIS inclure :
 - Chaque séance DOIT avoir un conseil (advice) qui mentionne d'écouter son corps et de ne pas forcer en cas de douleur.`);
   }
 
+  // F-8 MVP (Sprint F+ Vague 1, 2026-05-27) — Phrase préventive géographique pour Trail
+  // à D+ marqué. Cas réel : Plan 3 hugo Ultra 100km Nevers — la ville est en plaine
+  // Nivernais (Morvan à 80 km Est), donc impossible de simuler 3000m D+ localement.
+  // Plutôt que d'ajouter un dataset {ville → topographie} (Sprint G), MVP léger :
+  // pour D+/km race > 50 m/km (= trail avec dénivelé marqué), on demande à Gemini
+  // d'inclure dans le welcomeMessage une phrase qui invite à anticiper les déplacements.
+  // Doctrine D17 transparence + feedback_compromis_messages_preventifs respectées.
+  const trailDistanceForGeo = data.trailDetails?.distance || 0;
+  const trailElevationForGeo = data.trailDetails?.elevation || 0;
+  if (data.goal === 'Trail' && trailDistanceForGeo > 0 && trailElevationForGeo / trailDistanceForGeo > 50) {
+    const dPlusPerKmRace = Math.round(trailElevationForGeo / trailDistanceForGeo);
+    parts.push(`🗺️ GÉOGRAPHIE TRAIL D+ MARQUÉ (D+/km race ≈ ${dPlusPerKmRace} m/km)
+Dans le message de bienvenue (welcomeMessage), tu DOIS inclure UNE phrase qui rappelle :
+"Ta course cible a un dénivelé marqué (≈ ${dPlusPerKmRace} m/km). Si ta ville locale est plate, planifie des sorties hebdomadaires vers du dénivelé (massif/parc régional accessible en voiture) pour habituer tes appuis et tes quadriceps aux montées/descentes — c'est aussi important que le volume km."
+- Cette phrase doit rester GÉNÉRIQUE : ne JAMAIS inventer un nom de massif/lieu précis pour la ville du coureur (risque hallucination). Le coureur choisira son terrain selon sa géographie.`);
+  }
+
   if (imcTier >= 3) {
     parts.push(`🚨 IMC ≥ 35 — PRÉCAUTIONS ARTICULAIRES MAXIMALES :
 - Objectif temps recommandé : applique un malus de -10% sur le temps cible (ex: si objectif 2h, planifier pour 2h12)
@@ -5128,6 +5209,13 @@ Valeurs à remplir :
         const targetVol = generationContext.periodizationPlan.weeklyVolumes[idx] || 0;
         enforceWeekConstraints(week, targetVol, data, generationContext.periodizationPlan.weeklyVolumes, idx);
       });
+      // F-3 (Sprint F+ Vague 1, 2026-05-27) — Doctrine D18b plat-équivalent.
+      // Auto-injection note "plat-équivalent" / "effort qui compte" dans mainSet pour
+      // toute session avec D+/km > 30 m/km. Tourne APRÈS enforceWeekConstraints car
+      // celui-ci peut réécrire mainSet — on évite de perdre la note.
+      // Idempotent : si la note est déjà présente (ex: Plan B Lion Mathieu patché live
+      // hier avec phrase Cory Smith), pas de double-injection.
+      plan.weeks.forEach((week: any) => enforceFlatEquivalentNote(week));
       // Bug 15 Sprint E Phase 2 — Filet post-LLM injuries blacklist côtes.
       // Doit tourner APRÈS enforceWeekConstraints (pour ne pas être écrasé par les
       // resync mainSet) et AVANT applyMarcheCourseRouting (qui pourrait analyser
@@ -5931,6 +6019,9 @@ Retourne UNIQUEMENT un tableau JSON des semaines ${startWeek} à ${endWeek} :
         enforceWeekConstraints(week, targetVol, data, ctx.periodizationPlan.weeklyVolumes, idx);
       });
 
+      // F-3 (Sprint F+ Vague 1) — note plat-équivalent post-enforce (Full plan path).
+      fullPlan.weeks.forEach((week: any) => enforceFlatEquivalentNote(week));
+
       // Bug 15 Sprint E Phase 2 — Filet post-LLM injuries blacklist côtes (Full).
       fullPlan.weeks.forEach((week: any, idx: number) => {
         enforceInjuryBlacklist(week, { injuryDesc: data.injuries?.description, weekIdx: idx });
@@ -5990,6 +6081,9 @@ Retourne UNIQUEMENT un tableau JSON des semaines ${startWeek} à ${endWeek} :
         fullPlan.weeks.forEach((week: any, idx: number) => {
           const targetVol = ctx.periodizationPlan.weeklyVolumes[idx] || 0;
           enforceWeekConstraints(week, targetVol, data, ctx.periodizationPlan.weeklyVolumes, idx);
+          // F-3 (Sprint F+ Vague 1) — note plat-équivalent post-Layer3 (Layer3 régénère
+          // des semaines via Gemini Flash 3, qui peut écraser la note. On re-injecte.).
+          enforceFlatEquivalentNote(week);
           // Bug 15 Sprint E Phase 2 — Filet post-LLM injuries blacklist côtes (post-L3).
           enforceInjuryBlacklist(week, { injuryDesc: data.injuries?.description, weekIdx: idx });
           // Re-forcer jour SL APRÈS enforce (Layer 3 peut avoir régénéré la semaine avec mauvais jour)
