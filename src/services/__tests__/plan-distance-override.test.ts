@@ -76,10 +76,20 @@ describe('applyDistanceOverride — écrasement déterministe plan.distance', ()
     expect(plan.distance).toBe('5 km'); // inchangé
   });
 
-  it('9. subGoal inconnu (ex: "Hyrox") : pas d\'écrasement', () => {
+  it('9. subGoal "Hyrox" SANS goal=Hyrox : pas d\'écrasement (cas legacy)', () => {
     const plan: any = { distance: '8 km Hyrox' };
     applyDistanceOverride(plan, { subGoal: 'Hyrox' });
     expect(plan.distance).toBe('8 km Hyrox'); // inchangé, mapping non touché
+  });
+
+  it('9-bis. goal=Hyrox (F-5 audit 26/05) : écrase l\'hallucination "20 km" en "8 km (Hyrox course)"', () => {
+    // Bug F-5 audit 5 plans 26/05/2026 : Plan david.desperques (1779747632587)
+    // avait `goal=Hyrox` mais `distance="20 km"` → feasibility calculait sur 20 km/1h
+    // = VMA 23.5 km/h irréaliste. La partie "course pure" d'un Hyrox vaut TOUJOURS 8 km
+    // (8×1km coupés par 8 stations). Cf. project_coach_running_ia_hyrox_scope.
+    const plan: any = { distance: '20 km' }; // bug david.desperques
+    applyDistanceOverride(plan, { goal: 'Hyrox' });
+    expect(plan.distance).toBe('8 km (Hyrox course)');
   });
 
   it('10. Variante "5km" (sans espace) supportée', () => {
