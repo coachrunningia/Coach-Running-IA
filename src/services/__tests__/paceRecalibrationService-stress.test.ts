@@ -280,6 +280,68 @@ describe('F-17 Battery — Gel allures course objectif', () => {
 // CAS 25-28 : Cas tordus mainSet
 // ──────────────────────────────────────────────
 
+describe('F-17 v2 — forceUpdatePaceByRole (anti paces fossiles)', () => {
+  it('29. Cas réel Romane.m2 : EF "5:30" + mainSet "5:52" → force vers EF 5:16 (VMA 17)', () => {
+    // Reproduit le bug observé : Gemini avait écrit 5:30 (targetPace) et 5:52 (mainSet)
+    // qui ne sont PAS dans calculateAllPaces(15.75 ni 16.3 ni 16.8). Force-update doit
+    // les convertir vers efPace VMA 17 = 5:16.
+    const session = mkSession({
+      type: 'Sortie Longue',
+      title: 'Sortie Longue Trail Doux',
+      targetPace: '5:30 min/km',
+      mainSet: '10 min EF (5:52 min/km) + 1h00 en EF (5:52 min/km) + 10 min EF (5:52 min/km)',
+    });
+    const newPaces = paces(17); // efPace = 5:16
+    const oldPaces = paces(16.3); // efPace = 5:30 (proche)
+    const r = recalibrateSession(session, oldPaces, newPaces);
+    expect(r.targetPace).toContain('5:16'); // force update (5:30 dans tolérance ±20s de 5:16)
+    expect(r.mainSet).not.toContain('5:52'); // 5:52 fossile (336s) dans tolérance de 5:16 (316s) ±20s = OK
+    expect(r.mainSet).toContain('5:16 min/km');
+  });
+
+  it('30. Garde-fou : durée "Repos 4:30 entre tours" NON forcée (pas de context pace)', () => {
+    const session = mkSession({
+      type: 'Jogging',
+      title: 'Footing EF',
+      targetPace: '5:30 min/km',
+      mainSet: 'Footing 45 min à 5:30 min/km, repos 4:30 entre éventuels arrêts.',
+    });
+    const newPaces = paces(17);
+    const r = recalibrateSession(session, paces(16.3), newPaces);
+    // 5:30 → 5:16 (avec context "à ... min/km") ✓
+    expect(r.mainSet).toContain('5:16 min/km');
+    // "Repos 4:30 entre" → 4:30 PAS de context "min/km" ni "à" → intact
+    expect(r.mainSet).toContain('repos 4:30 entre');
+  });
+
+  it('31. Force update Récup : type "Récupération" → recoveryPace', () => {
+    const session = mkSession({
+      type: 'Récupération',
+      title: 'Récupération active',
+      targetPace: '5:50 min/km',
+      mainSet: '30 min de récupération active à 5:55 min/km, très lent.',
+    });
+    const newPaces = paces(17); // recoveryPace = 5:53
+    const r = recalibrateSession(session, paces(16.3), newPaces);
+    // 5:55 (335s) dans tolérance ±20s de 5:53 (353s) ? |335-353|=18 → OUI swap
+    expect(r.mainSet).toContain('5:53 min/km');
+  });
+
+  it('32. Fractionné NON force-updaté (multi-paces gérés par swap V1)', () => {
+    const session = mkSession({
+      type: 'Fractionné',
+      title: 'VMA 6x800m',
+      targetPace: '3:32 min/km',
+      mainSet: '6×800m à 3:32 min/km, récup 2:00 à 5:30 min/km',
+    });
+    const newPaces = paces(17);
+    const r = recalibrateSession(session, paces(17), newPaces); // identité pour swap V1
+    // detectSessionPaceRole devrait retourner null (Fractionné) → pas de force update
+    // Le swap V1 s'applique sur les paces exactes — ici identité car oldPaces=newPaces
+    expect(r.mainSet).toBe(session.mainSet);
+  });
+});
+
 describe('F-17 Battery — Cas tordus mainSet', () => {
   it('25. LIMITATION CONNUE — "allure VMA mm:ss" sans /km : pas matché par regex', () => {
     // RAS — pattern "allure VMA 4:00" (mot entre "allure" et la pace, pas de min/km après)
