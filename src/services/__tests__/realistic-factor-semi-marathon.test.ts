@@ -116,14 +116,15 @@ describe('realisticFactor 0.85 Semi/Marathon — pic relevé vs baseline 0.70', 
   });
 
   it('6. Marathon Confirmé 5× cv=50 VMA=16 → pic inchangé (cap baseMaxVolume)', () => {
-    // Baseline : peak=62. Post-patch : peak=62 (identique).
-    // Profils Conf/Expert avec cv significatif : protégés par MAX_WEEKLY_VOLUME Marathon=75.
+    // 28/05 22:30 — Romane recalibrage doctrine MAX Marathon (Conf 75→70, Expert 85→75)
+    // + re-cap sessionFactor. Marathon Conf cv 50 freq 5 Finisher = 52-56 km.
+    // Profils Conf/Expert avec cv significatif : protégés par MAX_WEEKLY_VOLUME Marathon=70.
     const { peak } = plan({
       level: 'Confirmé (Compétition)', currentVolume: 50, subGoal: 'Marathon',
       vma: 16, sessionsPerWeek: 5, totalWeeks: 16,
     });
-    expect(peak).toBeGreaterThanOrEqual(60);
-    expect(peak).toBeLessThanOrEqual(75); // MAX_WEEKLY_VOLUME Marathon conf
+    expect(peak).toBeGreaterThanOrEqual(50);
+    expect(peak).toBeLessThanOrEqual(70); // MAX_WEEKLY_VOLUME Marathon conf (était 75)
   });
 
   it('7. 10K Régulier cv=20 VMA=13 freq=3 → pic INCHANGÉ (factor 0.70 conservé)', () => {

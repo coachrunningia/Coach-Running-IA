@@ -1577,7 +1577,7 @@ const MAX_WEEKLY_VOLUME: Record<string, Record<string, number>> = {
   '5K':        { deb: 25, inter: 40, conf: 46, expert: 60 },
   '10K':       { deb: 30, inter: 50, conf: 55, expert: 65 },
   'Semi':      { deb: 35, inter: 55, conf: 60, expert: 70 },
-  'Marathon':  { deb: 45, inter: 65, conf: 75, expert: 85 },
+  'Marathon':  { deb: 45, inter: 65, conf: 70, expert: 75 },
   'Hyrox':     { deb: 19, inter: 30, conf: 38, expert: 42 },
   'VK':        { deb: 20, inter: 30, conf: 35, expert: 45 },
   'TrailSteep':{ deb: 25, inter: 35, conf: 45, expert: 55 },
@@ -1587,37 +1587,6 @@ const MAX_WEEKLY_VOLUME: Record<string, Record<string, number>> = {
   'Trail100+': { deb: 55, inter: 75, conf: 95, expert: 120 },
   'PertePoids':{ deb: 25, inter: 40, conf: 50, expert: 60 },
   'Maintien':  { deb: 25, inter: 40, conf: 45, expert: 55 },
-};
-
-/**
- * MIN_WEEKLY_VOLUME — Plancher dur du pic hebdomadaire par distance × niveau.
- *
- * Bug F-18 (Coralie/Cyrielle Semi cv=2 → pic 14 km) : les hard floors hardcodés
- * (Semi ≥ 22, Marathon ≥ 32, 10K ≥ 18, 5K ≥ 15) étaient bypassés par le pipeline
- * adaptatif (effectiveRate bas + garde-fou L3495 trop lâche). Table structurée
- * remplace les if isolés et garantit safety jour J : SL pic ≈ MIN × MIN_SL_PROPORTION
- * → ≥ 70% race distance (norme FFA santé) pour 5K/10K/Semi/Marathon.
- *
- * Validation Romane 28/05 : on accepte de "dépasser" cv user déclaré pour respecter
- * la safety jour J. Doctrine `feedback_securite_avant_conversion` prime sur
- * `feedback_input_client_obligatoire` sur le TOIT du pic uniquement (pas la baseline S1).
- *
- * Calibrage : SL pic ≥ 70% race (5K/10K/Semi/Marathon) ou ratio adapté (Ultra, fractionné).
- */
-const MIN_WEEKLY_VOLUME: Record<string, Record<string, number>> = {
-  '5K':        { deb: 15, inter: 25, conf: 30, expert: 40 },
-  '10K':       { deb: 20, inter: 30, conf: 35, expert: 45 },
-  'Semi':      { deb: 25, inter: 35, conf: 45, expert: 55 },
-  'Marathon':  { deb: 35, inter: 50, conf: 60, expert: 70 },
-  'Hyrox':     { deb: 12, inter: 20, conf: 25, expert: 30 },
-  'VK':        { deb: 12, inter: 18, conf: 25, expert: 30 },
-  'TrailSteep':{ deb: 15, inter: 25, conf: 30, expert: 40 },
-  'Trail<30':  { deb: 20, inter: 30, conf: 40, expert: 50 },
-  'Trail30+':  { deb: 30, inter: 40, conf: 50, expert: 60 },
-  'Trail60+':  { deb: 35, inter: 45, conf: 55, expert: 70 },
-  'Trail100+': { deb: 40, inter: 50, conf: 65, expert: 80 },
-  'PertePoids':{ deb: 10, inter: 20, conf: 30, expert: 40 },
-  'Maintien':  { deb: 10, inter: 20, conf: 25, expert: 35 },
 };
 
 /** Proportion minimale que la SL doit représenter dans le volume hebdo, par objectif × niveau */
@@ -2825,7 +2794,7 @@ export const calculatePeriodizationPlan = (
   weight?: number,
   vma?: number,
   sessionsPerWeek?: number,
-  params?: { height?: number; vmaSource?: string; currentWeeklyElevation?: number; hasInjury?: boolean },
+  params?: { height?: number; vmaSource?: string; currentWeeklyElevation?: number },
 ): { weeklyVolumes: number[]; weeklyPhases: PeriodizationPhase[]; recoveryWeeks: number[]; weeklyElevationTarget?: number[] } => {
 
   // Taux de progression selon niveau
@@ -2939,8 +2908,14 @@ export const calculatePeriodizationPlan = (
     const sessionFactor = sessionFactors[Math.min(runningSess, 5)] || 1.00;
     if (sessionFactor !== 1.00) {
       const before = maxVolume;
-      maxVolume = Math.round(maxVolume * sessionFactor);
-      console.log(`[Periodization] Session factor: ${runningSess} running sessions → ×${sessionFactor} → ${before}km → ${maxVolume}km`);
+      // Bug ericsson 28/05 — sessionFactor 1.20 freq=6 poussait Marathon Expert 85→102 km.
+      // Re-cap par MAX_WEEKLY_VOLUME[obj].expert (plafond doctrine absolue de la distance).
+      const _objKeyForCap = isVK ? 'VK' : isTrailSteep ? 'TrailSteep'
+        : isUltraLong ? 'Trail100+' : isUltra ? 'Trail60+' : isTrail30Plus ? 'Trail30+' : isTrail ? 'Trail<30'
+        : isMarathon ? 'Marathon' : isSemi ? 'Semi' : is10k ? '10K' : isPertePoids ? 'PertePoids' : isMaintien ? 'Maintien' : '5K';
+      const _absoluteMaxForDistance = MAX_WEEKLY_VOLUME[_objKeyForCap]?.expert ?? maxVolume;
+      maxVolume = Math.min(Math.round(maxVolume * sessionFactor), _absoluteMaxForDistance);
+      console.log(`[Periodization] Session factor: ${runningSess} running sessions → ×${sessionFactor} → ${before}km → ${maxVolume}km (capped by MAX[${_objKeyForCap}].expert=${_absoluteMaxForDistance})`);
     }
   }
 
@@ -2981,15 +2956,6 @@ export const calculatePeriodizationPlan = (
     const weightFactor = weight >= 100 ? 0.85 : 0.90;
     totalReduction *= weightFactor;
     console.log(`[Periodization] Poids ${weight}kg (IMC ${bmi.toFixed(1)}) → factor ×${weightFactor}`);
-  }
-
-  // F-18.1 (2026-05-28, Coach pro FFA + PM verdict) — Blessure déclarée : -25%
-  // Réutilisé par F-18 hard floor pour ne pas écraser la protection injury.
-  // hasInjury : modulation volume hebdo générique (PAS de gestion descriptive
-  // type "côte interdite" → ça reste dans le prompt LLM L4044+).
-  if (params?.hasInjury) {
-    totalReduction *= 0.75;
-    console.log(`[Periodization] Blessure déclarée → factor ×0.75`);
   }
 
   // Plafonner la réduction totale à -40% max (facteur min = 0.60)
@@ -3210,30 +3176,32 @@ export const calculatePeriodizationPlan = (
   const absoluteCap = MAX_WEEKLY_VOLUME[objectiveKey]?.expert || 100;
   let minPeakVolume = Math.min(rawMinPeakVolume, absoluteCap, effectiveVmaCap);
 
-  // F-18 — Hard floor par distance × niveau via table MIN_WEEKLY_VOLUME structurée.
-  // Remplace les if hardcodés séparés (Semi/Marathon/10K/5K) par lookup unique.
-  // Couvre désormais TOUTES les distances (Hyrox, VK, TrailSteep, PertePoids, Maintien
-  // qui n'avaient PAS de plancher → pic pouvait descendre à des valeurs ridicules).
-  // Calibrage : SL pic ≥ 70% race (5K/10K/Semi/Marathon) — validé Romane 28/05.
-  // Doctrine `feedback_securite_avant_conversion` prime sur `feedback_input_client_obligatoire`
-  // sur le TOIT du pic (cv user immuable sur baseline S1 uniquement).
-  //
-  // F-18.1 (2026-05-28, verdict croisé PM + Coach pro FFA) — Sécurité prime :
-  // 1. Moduler par `totalReduction` (BMI/age/poids/injury/finisher déjà calculé L2952-2992)
-  //    → ne JAMAIS écraser une protection user fragile en remontant aveuglément au plancher.
-  // 2. Re-cap par `effectiveVmaCap` (sécurité physiologique tendineuse) → si la VMA × durée
-  //    × freq ne permet PAS d'atteindre le plancher modulé, le plan reste sous le plancher
-  //    (cohérent avec feasibility IRRÉALISTE + welcomeMessage qui invite à regen avec targetTime
-  //    plus réaliste ou freq augmentée — cf cas cyrielle Semi 2h00 cv=2 VMA 10.55).
-  const f18LevelKey = labelToLevelKey(level);
-  const minHebdoForLevel = MIN_WEEKLY_VOLUME[objectiveKey]?.[f18LevelKey];
-  if (typeof minHebdoForLevel === 'number') {
-    const adjustedMin = Math.round(minHebdoForLevel * totalReduction);
-    const finalMin = Math.min(adjustedMin, effectiveVmaCap);
-    if (minPeakVolume < finalMin) {
-      console.log(`[Periodization F-18.1] ${objectiveKey} pic hard floor (level=${f18LevelKey}): ${minPeakVolume} → ${finalMin} km (table ${minHebdoForLevel} × safety ${totalReduction.toFixed(2)} = ${adjustedMin}, cap VMA ${effectiveVmaCap})`);
-      minPeakVolume = finalMin;
-    }
+  // Hard floor minPeakVolume Semi/Marathon (audit 2026-05-20 Margaux/Bertrand) :
+  // le cap VMA-durée (effectiveVmaCap) pouvait neutraliser le plancher Sprint pour
+  // Inter/Confirmé VMA modérée + freq 3 → pic Semi 18 km (Margaux) ou 16 km (Bertrand),
+  // ridicule pour préparer une course de 21.1 km.
+  // On garantit un plancher minimal Semi ≥ 22 km / Marathon ≥ 32 km, indépendamment
+  // du cap VMA-durée. Sous Pfitzinger (référentiel 36/55 km) mais pas ridicule.
+  // Cohérent doctrine [[feedback_courte_duree_charge_allegee]] : on plafonne raisonnable.
+  if (objectiveKey === 'Semi' && minPeakVolume < 22) {
+    console.log(`[Periodization] Semi pic hard floor: ${minPeakVolume} → 22 km (anti-bug Margaux/Bertrand)`);
+    minPeakVolume = 22;
+  }
+  if (objectiveKey === 'Marathon' && minPeakVolume < 32) {
+    console.log(`[Periodization] Marathon pic hard floor: ${minPeakVolume} → 32 km`);
+    minPeakVolume = 32;
+  }
+  // P1a — Étendre hard floor à 10K et 5K (audit fin Lilian 10K pic 17 km bloqué) :
+  // - 10K ≥ 18 km : sous Pfitzinger novice (25-30), doctrine charge allégée respectée
+  // - 5K ≥ 15 km : sous référentiel (20-25), couvre ratio ~3× la distance de course
+  // Anti-bug Lilian : 10K pic 17 km stagnait malgré progression, faisabilité insuffisante.
+  if (objectiveKey === '10K' && minPeakVolume < 18) {
+    console.log(`[Periodization] 10K pic hard floor: ${minPeakVolume} → 18 km (anti-bug Lilian)`);
+    minPeakVolume = 18;
+  }
+  if (objectiveKey === '5K' && minPeakVolume < 15) {
+    console.log(`[Periodization] 5K pic hard floor: ${minPeakVolume} → 15 km`);
+    minPeakVolume = 15;
   }
   // Bug 4 Sprint E Phase 2 — Trail Ultra (≥ 50 km) : floor pic ≥ 60% race distance.
   // Audit Olivier 126 km / cv 30 / 27 sem / Confirmé : pic VMA-based + ACWR-clamp
@@ -3528,24 +3496,16 @@ export const calculatePeriodizationPlan = (
   // ══════════════════════════════════════════════════════════════
   // GARDE-FOU PIC : si le pic réel est trop bas par rapport à minPeakVolume,
   // recalculer avec un taux ajusté (pour plans courts où currentVolume cap bloque)
-  //
-  // F-18 (Expert Course 28/05) :
-  // - Seuil resserré 0.85 → 0.95 : tolérance 5% au lieu de 15% (cyrielle pic 14/22 = 0.636
-  //   détecté avant + pic 21/22 = 0.954 désormais détecté = re-calibre).
-  // - Forcer `effectiveRate = Math.max(effectiveRate, adjustedRate)` au lieu de comparer
-  //   uniquement à `progressionRate` (qui peut être bien plus élevé que effectiveRate après
-  //   adaptation L3439-3450). Sans ça, le garde-fou ne kick pas car adjustedRate < progressionRate
-  //   alors que effectiveRate est encore plus bas → le pic stagne.
   // ══════════════════════════════════════════════════════════════
   const actualPeak = Math.max(...weeklyVolumes);
-  if (actualPeak < minPeakVolume * 0.95) {
-    // Le pic est plus de 5% en-dessous du minimum requis
+  if (actualPeak < minPeakVolume * 0.85) {
+    // Le pic est plus de 15% en-dessous du minimum requis
     // Recalculer le taux nécessaire pour atteindre minPeakVolume
     const neededRate = Math.pow(minPeakVolume / startVolume, 1 / Math.max(1, progressionWeeks - 1)) - 1;
     // Plafonner le taux ajusté à 20% max (sécurité blessure)
     const adjustedRate = Math.min(neededRate, 0.20);
 
-    if (adjustedRate > effectiveRate) {
+    if (adjustedRate > progressionRate) {
       console.log(`[Periodization] Peak ${actualPeak}km < 85% of minPeak ${minPeakVolume}km → adjusting rate from ${(progressionRate*100).toFixed(1)}% to ${(adjustedRate*100).toFixed(1)}%`);
 
       // Recalculer les volumes avec le nouveau taux
@@ -3715,7 +3675,7 @@ const createGenerationContext = (
     data.weight,
     vma,
     data.frequency || 3,
-    { height: data.height, vmaSource, currentWeeklyElevation: data.currentWeeklyElevation, hasInjury: !!data.injuries?.hasInjury },
+    { height: data.height, vmaSource, currentWeeklyElevation: data.currentWeeklyElevation },
   );
 
   return {
@@ -3801,12 +3761,7 @@ export const buildWelcomeToneBlock = (status: FeasibilityStatus | undefined): st
   2. Réutiliser le chiffrage du feasibility ci-dessus (gap, alternativeTarget) — ne PAS inventer.
   3. Exiger un avis médical AVANT de démarrer (PAS "recommandé" — "indispensable").
   4. Si feasibility.alternativeTarget existe, le suggérer comme cible réaliste.
-  5. **CTA EXPLICITE REGEN** (F-18 doctrine 28/05) : inclure littéralement une phrase d'action :
-     "Ma recommandation : retourne au questionnaire et re-génère ton plan avec un targetTime de
-     [alternativeTarget] — tu obtiendras un plan vraiment adapté à ton profil actuel, qui te
-     préparera réellement à passer la ligne." (Sans CTA explicite, beaucoup d'users ferment le
-     modal d'avertissement sans agir — observation prod cyrielle 28/05).
-  6. Ne JAMAIS modifier la cible du user dans le plan lui-même (doctrine feedback_input_client_obligatoire) —
+  5. Ne JAMAIS modifier la cible du user dans le plan lui-même (doctrine feedback_input_client_obligatoire) —
      on prévient dans le welcomeMessage, l'allure cible reste celle du user.
 - Doctrines impactées : feedback_securite_avant_conversion (souche, transparence > conversion),
   feedback_jamais_baisser_allure_cible (cible user intacte), feedback_compromis_messages_preventifs
