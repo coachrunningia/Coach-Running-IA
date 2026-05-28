@@ -2825,7 +2825,7 @@ export const calculatePeriodizationPlan = (
   weight?: number,
   vma?: number,
   sessionsPerWeek?: number,
-  params?: { height?: number; vmaSource?: string; currentWeeklyElevation?: number },
+  params?: { height?: number; vmaSource?: string; currentWeeklyElevation?: number; hasInjury?: boolean },
 ): { weeklyVolumes: number[]; weeklyPhases: PeriodizationPhase[]; recoveryWeeks: number[]; weeklyElevationTarget?: number[] } => {
 
   // Taux de progression selon niveau
@@ -2981,6 +2981,15 @@ export const calculatePeriodizationPlan = (
     const weightFactor = weight >= 100 ? 0.85 : 0.90;
     totalReduction *= weightFactor;
     console.log(`[Periodization] Poids ${weight}kg (IMC ${bmi.toFixed(1)}) → factor ×${weightFactor}`);
+  }
+
+  // F-18.1 (2026-05-28, Coach pro FFA + PM verdict) — Blessure déclarée : -25%
+  // Réutilisé par F-18 hard floor pour ne pas écraser la protection injury.
+  // hasInjury : modulation volume hebdo générique (PAS de gestion descriptive
+  // type "côte interdite" → ça reste dans le prompt LLM L4044+).
+  if (params?.hasInjury) {
+    totalReduction *= 0.75;
+    console.log(`[Periodization] Blessure déclarée → factor ×0.75`);
   }
 
   // Plafonner la réduction totale à -40% max (facteur min = 0.60)
@@ -3208,11 +3217,23 @@ export const calculatePeriodizationPlan = (
   // Calibrage : SL pic ≥ 70% race (5K/10K/Semi/Marathon) — validé Romane 28/05.
   // Doctrine `feedback_securite_avant_conversion` prime sur `feedback_input_client_obligatoire`
   // sur le TOIT du pic (cv user immuable sur baseline S1 uniquement).
+  //
+  // F-18.1 (2026-05-28, verdict croisé PM + Coach pro FFA) — Sécurité prime :
+  // 1. Moduler par `totalReduction` (BMI/age/poids/injury/finisher déjà calculé L2952-2992)
+  //    → ne JAMAIS écraser une protection user fragile en remontant aveuglément au plancher.
+  // 2. Re-cap par `effectiveVmaCap` (sécurité physiologique tendineuse) → si la VMA × durée
+  //    × freq ne permet PAS d'atteindre le plancher modulé, le plan reste sous le plancher
+  //    (cohérent avec feasibility IRRÉALISTE + welcomeMessage qui invite à regen avec targetTime
+  //    plus réaliste ou freq augmentée — cf cas cyrielle Semi 2h00 cv=2 VMA 10.55).
   const f18LevelKey = labelToLevelKey(level);
   const minHebdoForLevel = MIN_WEEKLY_VOLUME[objectiveKey]?.[f18LevelKey];
-  if (typeof minHebdoForLevel === 'number' && minPeakVolume < minHebdoForLevel) {
-    console.log(`[Periodization F-18] ${objectiveKey} pic hard floor (level=${f18LevelKey}): ${minPeakVolume} → ${minHebdoForLevel} km`);
-    minPeakVolume = minHebdoForLevel;
+  if (typeof minHebdoForLevel === 'number') {
+    const adjustedMin = Math.round(minHebdoForLevel * totalReduction);
+    const finalMin = Math.min(adjustedMin, effectiveVmaCap);
+    if (minPeakVolume < finalMin) {
+      console.log(`[Periodization F-18.1] ${objectiveKey} pic hard floor (level=${f18LevelKey}): ${minPeakVolume} → ${finalMin} km (table ${minHebdoForLevel} × safety ${totalReduction.toFixed(2)} = ${adjustedMin}, cap VMA ${effectiveVmaCap})`);
+      minPeakVolume = finalMin;
+    }
   }
   // Bug 4 Sprint E Phase 2 — Trail Ultra (≥ 50 km) : floor pic ≥ 60% race distance.
   // Audit Olivier 126 km / cv 30 / 27 sem / Confirmé : pic VMA-based + ACWR-clamp
@@ -3694,7 +3715,7 @@ const createGenerationContext = (
     data.weight,
     vma,
     data.frequency || 3,
-    { height: data.height, vmaSource, currentWeeklyElevation: data.currentWeeklyElevation },
+    { height: data.height, vmaSource, currentWeeklyElevation: data.currentWeeklyElevation, hasInjury: !!data.injuries?.hasInjury },
   );
 
   return {
