@@ -250,19 +250,13 @@ describe('Hard floor Semi 22 / Marathon 32 + runningSessions Semi/Marathon freq 
   it('P0c-3. Semi Inter cv=17 freq=2 : volumeCapSessions=2, runningSessions=1', () => {
     // freq=2 → runningSessions=1 (Math.max(1, 2-1)=1), volumeCapSessions=2
     // (Semi/Marathon freq ≤ 3). On vérifie que le pic est plausible (hard floor
-    // Semi MIN_WEEKLY_VOLUME actif + cap théorique densifié sur 2 slots).
-    //
-    // F-18.1 (2026-05-28) : `minPeakVolume = min(adjustedMin, effectiveVmaCap)`.
-    // freq=2 + Semi → effectiveVmaCap ≈ 21 km (1 SL × 90min + 1 run × 67min × 75% VMA).
-    // Le plancher 25 km Inter est capé physiologiquement à ~21. Doctrine PM/Coach FFA :
-    // la sécurité tendineuse PRIME sur le plancher race ; le user reçoit warning
-    // welcomeMessage IRRÉALISTE + CTA regen (augmenter freq pour atteindre 25 km).
+    // Semi 22 actif + cap théorique densifié sur 2 slots).
     const { peak } = plan({
       level: 'Intermédiaire (Régulier)', currentVolume: 17, subGoal: 'Semi',
       vma: 10.9, sessionsPerWeek: 2, targetTime: '2h20', totalWeeks: 12,
     });
-    // Plancher abaissé à 20 km : reflète le cap VMA physiologique freq=2 (F-18.1).
-    expect(peak).toBeGreaterThanOrEqual(20);
+    // Hard floor 22 actif même en freq=2 (préparation à minima du Semi).
+    expect(peak).toBeGreaterThanOrEqual(22);
   });
 
   it('P0c-4. Marathon Confirmé VMA 16 cv=50 freq=5 : non-régression (P0c neutre hors freq≤3)', () => {
@@ -302,19 +296,12 @@ describe('Hard floor Semi 22 / Marathon 32 + runningSessions Semi/Marathon freq 
     expect(peak).toBeGreaterThanOrEqual(18);
   });
 
-  it('P1a-3. 5K Inter VMA 12 cv=10 freq=3 → pic ≥ 10 km (hard floor capé VMA freq=3)', () => {
-    // F-18.1 (2026-05-28) : MIN['5K']['inter'] = 25 km. Mais effectiveVmaCap pour
-    // freq=3 5K (slMaxDur Inter 5K ≈ 60min, 2 runs × 60min × 75% × VMA 12 / 60 ≈ 18 km
-    // brut, encore réduit par allocation SL/non-SL). Le pic est capé physiologiquement
-    // < 15 km : c'est la sécurité tendineuse qui prime (PM verdict), pas le bug.
-    // Doctrine `feedback_securite_avant_conversion` : welcomeMessage CTA regen (freq 4+).
+  it('P1a-3. 5K Inter VMA 12 cv=10 freq=3 → pic ≥ 15 km (hard floor)', () => {
     const { peak } = plan({
       level: 'Intermédiaire (Régulier)', currentVolume: 10, subGoal: '5K',
       vma: 12, sessionsPerWeek: 3, totalWeeks: 8,
     });
-    // Plancher abaissé à 10 km : reflète cap VMA freq=3 5K. Pas régression — comportement
-    // attendu post F-18.1 (sécurité physio prime sur plancher race-distance).
-    expect(peak).toBeGreaterThanOrEqual(10);
+    expect(peak).toBeGreaterThanOrEqual(15);
   });
 
   it('P1a-4. 10K Confirmé VMA 15 cv=35 freq=5 → non-régression (déjà au-dessus de 18)', () => {
