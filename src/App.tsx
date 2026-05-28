@@ -1070,8 +1070,14 @@ const ADMIN_EMAILS = ["programme@coachrunningia.fr"];
     setAdaptationMessage('Recalcul des allures en cours...');
 
     try {
-      const { calculateAllPaces, generateRemainingWeeks, detectLevelFromData } = await import('./services/geminiService');
+      const { calculateAllPaces, detectLevelFromData } = await import('./services/geminiService');
+      const { recalibrateSession } = await import('./services/paceRecalibrationService');
+      const { resolveSessionDate } = await import('./utils/dateUtils');
       const newPaces = calculateAllPaces(newVMA);
+      // oldPaces : on prend `plan.paces` (autoritaire — champ runtime non typé sur TrainingPlan),
+      // fallback `generationContext.paces`, dernier recours `calculateAllPaces(oldVMA)`
+      // (vieux plans sans cache paces).
+      const oldPaces = (plan as any).paces || plan.generationContext?.paces || calculateAllPaces(oldVMA);
 
       // Mettre à jour le generationContext COMPLET (questionnaire, périodisation, paces, VMA)
       if (!plan.generationContext) {
@@ -1140,7 +1146,7 @@ const ADMIN_EMAILS = ["programme@coachrunningia.fr"];
         questionnaireSnapshot: snapshotWithNewVMA,
       };
 
-      console.log(`[VMA Recalc] ${oldVMA.toFixed(1)} → ${newVMA.toFixed(1)} km/h | ${weeksWithFeedback.length} semaines conservées, ${plan.weeks.length - weeksWithFeedback.length} à régénérer`);
+      console.log(`[VMA Recalc] ${oldVMA.toFixed(1)} → ${newVMA.toFixed(1)} km/h | ${weeksWithFeedback.length} semaines avec feedback (séances vécues préservées par filter date)`);
 
       // Recalculer la faisabilité avec la nouvelle VMA (bug Julian Jobert 2026-05-20)
       // AVANT le savePlan, sinon feasibility.message reste obsolète en base.
@@ -1179,97 +1185,71 @@ const ADMIN_EMAILS = ["programme@coachrunningia.fr"];
         }
       }
 
-      if (firstUntouchedWeekIdx >= 0 && firstUntouchedWeekIdx < plan.weeks.length) {
-        setAdaptationMessage(`Recalcul VMA ${oldVMA.toFixed(1)} → ${newVMA.toFixed(1)} km/h... Régénération des semaines ${firstUntouchedWeekIdx + 1} à ${plan.weeks.length}.`);
+      // F-17 — SWAP PUR (remplace `generateRemainingWeeks` Gemini qui plantait 10+ min en prod).
+      //
+      // Doctrine appliquée :
+      //   - D1 + feedback_jamais_baisser_allure_cible : `freezeRaceSpecificPaces=true` si targetTime
+      //     (allures spécifiques 5K/10K/Semi/Marathon GELÉES, dérivées du chrono pas de la VMA).
+      //   - feedback_patch_live_plans_jour_seulement : filter `sessionDate >= today` — les séances
+      //     déjà passées (vécues) restent intactes (paces affichées telles qu'au moment de la vie).
+      //   - D16 Cory Smith trail : skip `_raceDay === true` (race day patché par raceDayInject —
+      //     pace liée au targetTime, pas à la VMA). Trail D+ Cory Smith (elevationGain > 150)
+      //     skip aussi : `targetPace` patché par formule Minetti, pas linéaire VMA.
+      //
+      // Performance : O(N sessions), pure TS, < 50ms pour 24 semaines × 4 sessions = 96 sessions.
+      const today = new Date();
+      today.setHours(0, 0, 0, 0);
+      const targetTime = plan.generationContext?.questionnaireSnapshot?.targetTime;
+      const freezeRaceSpecific = !!targetTime && targetTime !== '?' && targetTime !== '';
 
-        // Créer un plan "preview" avec uniquement les semaines déjà faites
-        // generateRemainingWeeks va générer à partir de la semaine 2
-        // On lui donne la première semaine (ou les semaines faites) comme base
-        const keptWeeks = plan.weeks.slice(0, Math.max(firstUntouchedWeekIdx, 1));
-        const previewPlan: TrainingPlan = {
-          ...plan,
-          weeks: keptWeeks,
-          isPreview: true,
-          vma: newVMA,
-          vmaSource: updatedContext.vmaSource,
-          paces: newPaces,
-          generationContext: updatedContext,
-        };
+      let recalibratedCount = 0;
+      const newWeeks = plan.weeks.map((week) => ({
+        ...week,
+        sessions: week.sessions.map((session) => {
+          const anyS = session as any;
+          // Skip race day (course officielle) — pace = objectif chrono, pas VMA.
+          if (anyS._raceDay === true) return session;
+          // Skip trail D+ Cory Smith (D16) — patché par formule Minetti, swap V1 incompatible.
+          if (typeof anyS.elevationGain === 'number' && anyS.elevationGain > 150) return session;
+          // Filter date : seules les séances >= today sont patchables (doctrine patch live).
+          const sessionDate = resolveSessionDate(session, plan.startDate, week.weekNumber);
+          if (sessionDate < today) return session;
+          const patched = recalibrateSession(session, oldPaces, newPaces, {
+            freezeRaceSpecificPaces: freezeRaceSpecific,
+          });
+          recalibratedCount++;
+          return patched;
+        }),
+      }));
 
-        const fullPlan = await generateRemainingWeeks(previewPlan, (partialPlan) => {
-          setPlan({ ...partialPlan, userId: plan.userId, userEmail: plan.userEmail } as TrainingPlan);
-        });
+      const updatedPlan: TrainingPlan = {
+        ...plan,
+        weeks: newWeeks,
+        vma: newVMA,
+        vmaSource: updatedContext.vmaSource,
+        paces: newPaces,
+        generationContext: updatedContext,
+        fullPlanGenerated: true,
+        isPreview: false,
+        ...(newFeasibility ? { feasibility: newFeasibility } : {}),
+      };
 
-        // Restaurer les semaines avec feedback dans le plan final
-        // Mettre à jour les allures cibles dans les séances conservées (bug: anciennes allures sinon).
-        // RÈGLE : toutes les allures dérivées de la VMA (EF, SL, Récup, Seuil, VMA) sont recalculées.
-        // Les allures spécifiques course (marathon/semi/10k/5k) restent intactes — elles dérivent
-        // de l'objectif temps, pas de la VMA.
-        const updateSessionPaces = (session: any) => {
-          if (!session.targetPace || !newPaces) return session;
-          const title = (session.title || '').toLowerCase();
-          const intens = (session.intensity || '').toLowerCase();
-          const type = (session.type || '').toLowerCase();
-
-          // Allures spécifiques course → liées à l'objectif temps, ne pas écraser
-          const isRaceSpecific = /sp[ée]cifique|allure marathon|allure semi|allure 10\s?k|allure 5\s?k/i.test(
-            title + ' ' + intens
-          );
-          if (isRaceSpecific) return session;
-
-          const haystack = type + ' ' + intens + ' ' + title;
-          const updated = { ...session };
-          // Priorité : récup > seuil > VMA > facile/EF/SL
-          if (/r[ée]cup/.test(haystack) && newPaces.recoveryPace) {
-            updated.targetPace = newPaces.recoveryPace;
-          } else if (haystack.includes('seuil') && newPaces.seuilPace) {
-            updated.targetPace = newPaces.seuilPace;
-          } else if ((haystack.includes('vma') || intens.includes('rapide')) && newPaces.vmaPace) {
-            updated.targetPace = newPaces.vmaPace;
-          } else if ((type.includes('longue') || intens.includes('facile') || type.includes('jogging') || type.includes('footing')) && newPaces.efPace) {
-            updated.targetPace = newPaces.efPace;
-          }
-          // Sinon : pas de mapping clair → laisser inchangé
-          return updated;
-        };
-
-        const finalWeeks = fullPlan.weeks.map((week: any, idx: number) => {
-          if (idx < weeksWithFeedback.length) {
-            // Garder les semaines avec feedback mais mettre à jour les allures
-            return {
-              ...weeksWithFeedback[idx],
-              sessions: weeksWithFeedback[idx].sessions.map(updateSessionPaces),
-            };
-          }
-          return week; // Utiliser la semaine régénérée
-        });
-
-        fullPlan.weeks = finalWeeks;
-        fullPlan.userId = plan.userId;
-        fullPlan.userEmail = plan.userEmail;
-        fullPlan.vma = newVMA;
-        fullPlan.vmaSource = updatedContext.vmaSource;
-        fullPlan.paces = newPaces;
-        fullPlan.generationContext = updatedContext;
-        fullPlan.isPreview = false;
-        fullPlan.fullPlanGenerated = true;
-        if (newFeasibility) fullPlan.feasibility = newFeasibility;
-
-        await savePlan(fullPlan);
-        setPlan(fullPlan);
-      } else {
-        // Toutes les semaines ont du feedback — on met juste à jour les métadonnées
-        const updatedPlan: TrainingPlan = {
-          ...plan,
-          vma: newVMA,
-          vmaSource: updatedContext.vmaSource,
-          paces: newPaces,
-          generationContext: updatedContext,
-          ...(newFeasibility ? { feasibility: newFeasibility } : {}),
-        };
-        await savePlan(updatedPlan);
-        setPlan(updatedPlan);
+      // D17 — Transparence : préfixe le welcomeMessage pour signaler l'ajustement de VMA.
+      // Idempotent (test du préfixe pour éviter le doublon en cas de recalcul multiple).
+      const noticePrefix =
+        `📊 Tes allures ont été mises à jour suite au changement de ta VMA ` +
+        `(${oldVMA.toFixed(1)} → ${newVMA.toFixed(1)} km/h)` +
+        `${freezeRaceSpecific ? '. Ton allure course objectif reste inchangée.' : '.'} ` +
+        `Si elles ne te conviennent pas, contacte le coach dans le chat.\n\n`;
+      const currentWelcome = (updatedPlan as any).welcomeMessage;
+      if (currentWelcome && typeof currentWelcome === 'string' && !currentWelcome.startsWith('📊 Tes allures')) {
+        (updatedPlan as any).welcomeMessage = noticePrefix + currentWelcome;
       }
+
+      console.log(`[VMA Recalc] Swap pur appliqué : ${recalibratedCount} sessions recalibrées (filter today=${today.toISOString().slice(0,10)}).`);
+
+      await savePlan(updatedPlan);
+      setPlan(updatedPlan);
 
       // Warning adapté selon la direction et l'amplitude du changement
       let bigChangeWarning = '';
@@ -1289,9 +1269,10 @@ const ADMIN_EMAILS = ["programme@coachrunningia.fr"];
       }
 
       setAdaptationMessage(
-        `✅ Allures recalculées ! VMA : ${oldVMA.toFixed(1)} → ${newVMA.toFixed(1)} km/h. ` +
+        `✅ Allures recalibrées ! VMA : ${oldVMA.toFixed(1)} → ${newVMA.toFixed(1)} km/h. ` +
         `Nouvelle allure EF : ${newPaces.efPace}. ` +
-        `${weeksWithFeedback.length} semaine${weeksWithFeedback.length > 1 ? 's' : ''} conservée${weeksWithFeedback.length > 1 ? 's' : ''}.` +
+        `${recalibratedCount} séance${recalibratedCount > 1 ? 's' : ''} mise${recalibratedCount > 1 ? 's' : ''} à jour ` +
+        `(les séances déjà passées restent inchangées).` +
         levelChangeInfo +
         feasibilityWarning +
         bigChangeWarning
