@@ -2504,14 +2504,33 @@ ${recentRPEs.length > 0 ? recentRPEs.slice(-8).join('\n') : 'Premier feedback �
       {/* VMA Recalculation Modal */}
       {showVMAModal && onRecalculateVMA && (
         <div className="fixed inset-0 bg-slate-900/60 backdrop-blur-sm flex items-center justify-center p-4 z-[100]">
-          <div className="bg-white rounded-2xl max-w-md w-full shadow-2xl">
+          <div className="bg-white rounded-2xl max-w-md w-full shadow-2xl relative">
+            {/* Overlay Recalcul en cours — feedback visuel explicite pendant 30-60s Gemini regen */}
+            {isRecalculating && (
+              <div className="absolute inset-0 bg-white/95 backdrop-blur-sm rounded-2xl z-10 flex flex-col items-center justify-center p-8 text-center">
+                <div className="w-16 h-16 mb-4 rounded-full bg-gradient-to-br from-accent to-orange-500 flex items-center justify-center shadow-lg">
+                  <RefreshCw size={32} className="text-white animate-spin" />
+                </div>
+                <h3 className="text-lg font-bold text-slate-900 mb-2">Recalcul en cours...</h3>
+                <p className="text-sm text-slate-600 mb-4 max-w-xs">
+                  On régénère les allures de tes semaines futures avec ta nouvelle VMA.
+                </p>
+                <div className="w-full max-w-xs bg-slate-100 rounded-full h-2 mb-3 overflow-hidden">
+                  <div className="h-full bg-gradient-to-r from-accent to-orange-500 animate-pulse rounded-full" style={{ width: '60%' }}></div>
+                </div>
+                <p className="text-xs text-slate-500 italic">
+                  Cela peut prendre 30 à 60 secondes.<br/>
+                  Ne ferme pas cette fenêtre.
+                </p>
+              </div>
+            )}
             <div className="p-6 border-b border-slate-100">
               <div className="flex items-center justify-between">
                 <h3 className="text-lg font-bold text-slate-900 flex items-center gap-2">
                   <RefreshCw size={20} className="text-accent" />
                   Recalculer mes allures
                 </h3>
-                <button onClick={() => setShowVMAModal(false)} className="p-2 rounded-full hover:bg-slate-100">
+                <button onClick={() => setShowVMAModal(false)} className="p-2 rounded-full hover:bg-slate-100" disabled={isRecalculating}>
                   <X size={18} className="text-slate-400" />
                 </button>
               </div>
