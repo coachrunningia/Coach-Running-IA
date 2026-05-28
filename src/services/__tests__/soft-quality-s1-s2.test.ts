@@ -270,4 +270,112 @@ describe('Feature soft quality S1-S2 — 10 cas rigoureux', () => {
     expect(after.type).toBe(before.type);
     expect(after.title).toBe(before.title);
   });
+
+  // ════════════════════════════════════════════════════════════════
+  // CAS 11 — Footing classique (non-soft) doit rester intact
+  // ════════════════════════════════════════════════════════════════
+  it('CAS 11 — Inter cv=25 + "Footing en aisance respiratoire" S1 → PRÉSERVÉ (footing classique)', () => {
+    const session = {
+      day: 'Mardi',
+      type: 'Jogging',
+      title: 'Footing en aisance respiratoire',
+      intensity: 'Facile',
+      distance: '8 km',
+      duration: '50 min',
+      targetPace: '5:00',
+      mainSet: 'Footing EF en aisance respiratoire',
+    };
+    const { before, after } = runAndDiff(makeWeek(session), { goal: 'Course sur route', cv: 25 });
+
+    // ATTENDU : preservé. Pas de filter isSeuil match. C'est juste un footing.
+    expect(after.title).toBe(before.title);
+  });
+
+  // ════════════════════════════════════════════════════════════════
+  // CAS 12 — Régression C6 voulue : freq 3 cv 30 ACTIVE (avant freq≥4 only)
+  // ════════════════════════════════════════════════════════════════
+  it('CAS 12 — Conf cv=50 freq 3 Hyrox + Strides → PRÉSERVÉ (régression C6 voulue)', () => {
+    const session = {
+      day: 'Mardi',
+      type: 'Jogging',
+      title: 'Strides 6×80m après footing',
+      intensity: 'Facile',
+      distance: '7 km',
+      duration: '45 min',
+      targetPace: '5:00',
+      mainSet: 'Footing + 6 lignes droites',
+    };
+    const { before, after } = runAndDiff(makeWeek(session), { goal: 'Hyrox', cv: 50 });
+
+    // ATTENDU : preservé. Hyrox pas Marathon = pas de modulation. cv 50 ≥ 25 OK.
+    expect(after.title).toBe(before.title);
+  });
+
+  // ════════════════════════════════════════════════════════════════
+  // CAS 13 — "Tempo confort" est-il bloqué ? (pas dans whitelist)
+  // ════════════════════════════════════════════════════════════════
+  it('CAS 13 — Conf cv=50 Marathon + "Tempo confort 20 min" → CONVERTIT EF (pas dans whitelist)', () => {
+    const session = {
+      day: 'Mardi',
+      type: 'Fractionné',
+      title: 'Tempo confort 20 min',
+      intensity: 'Modéré',
+      distance: '10 km',
+      duration: '1h',
+      targetPace: '4:30',
+      mainSet: 'Tempo 20 min',
+    };
+    const { before, after } = runAndDiff(makeWeek(session), { goal: 'Marathon', cv: 50 });
+
+    // ATTENDU : converti EF. "tempo" matche isSeuil + n'est PAS dans whitelist isSoftQuality.
+    expect(after.type).toBe('Jogging');
+    expect(after.title).toContain('Endurance Fondamentale');
+  });
+
+  // ════════════════════════════════════════════════════════════════
+  // CAS 14 — "Footing progressif" : le mot "progress" matche le filter seuil ?
+  // Le filter seuil cherche "seuil|fractionn|vma|intervalle|tempo". "progressif" ne matche pas.
+  // Mais soft quality whitelist demande "progression douce" pas juste "progressif".
+  // ════════════════════════════════════════════════════════════════
+  it('CAS 14 — Inter cv=30 + "Footing progressif" S1 → PRÉSERVÉ (footing classique, pas seuil)', () => {
+    const session = {
+      day: 'Mardi',
+      type: 'Jogging',
+      title: 'Footing progressif (départ lent, finir haut de zone EF)',
+      intensity: 'Facile',
+      distance: '8 km',
+      duration: '50 min',
+      targetPace: '5:00',
+      mainSet: 'Footing progressif EF',
+    };
+    const { before, after } = runAndDiff(makeWeek(session), { goal: 'Course sur route', cv: 30 });
+
+    // ATTENDU : preservé. "progressif" ne matche pas filter isSeuil → pas converti.
+    expect(after.title).toBe(before.title);
+  });
+
+  // ════════════════════════════════════════════════════════════════
+  // CAS 15 — Edge case faux positif whitelist : "VMA douce 8×400m" hallucination Gemini
+  // ════════════════════════════════════════════════════════════════
+  it('CAS 15 — Élite cv=100 Trail + "VMA douce 8×400m" → CONVERTIT EF (whitelist EXCLUE "vma douce")', () => {
+    const session = {
+      day: 'Mardi',
+      type: 'Fractionné',
+      title: 'VMA douce 8×400m récup 1\'30',
+      intensity: 'Modéré',
+      distance: '14 km',
+      duration: '1h15',
+      targetPace: '3:30',
+      mainSet: '8×400m allure VMA',
+    };
+    const { before, after } = runAndDiff(makeWeek(session), { goal: 'Trail', cv: 100 });
+
+    // ATTENDU : converti EF. La whitelist isSoftQuality (Coach FFA validée) N'INCLUT PAS
+    // "vma douce" — uniquement strides, lignes droites, gammes, accélérations libres,
+    // fartlek souple/libre/court, progression douce, allure marathon facile/douce.
+    // "VMA" matche filter isSeuil → converti EF. C'est SAFE doctrinairement (Coach FFA
+    // avait critiqué "VMA douce 6×200m" comme abus de langage).
+    expect(after.type).toBe('Jogging');
+    expect(after.title).toContain('Endurance Fondamentale');
+  });
 });
