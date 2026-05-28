@@ -97,13 +97,16 @@ describe('Hard floor Semi 22 / Marathon 32 + runningSessions Semi/Marathon freq 
   // ════════════════════════════════════════════════════════════════
 
   it('4. Marathon Confirmé cv=50 freq=5 → pic inchangé (déjà au-dessus du floor)', () => {
-    // Profil Pfitzinger normal : pic ≈ 60-70 km, hard floor 32 inactif.
+    // Profil Pfitzinger normal : pic ≈ 50-70 km, hard floor 32 inactif.
+    // 28/05 22:30 — Romane recalibrage doctrine MAX Marathon (Conf 75→70, Expert 85→75)
+    // + re-cap après sessionFactor 1.20 freq=5. Marathon Conf cv 50 freq 5 Finisher
+    // = 70 (table) × Finisher 0.75 = 52-56 km. Baseline préservée à ≥ 50.
     const { peak } = plan({
       level: 'Confirmé (Compétition)', currentVolume: 50, subGoal: 'Marathon',
       vma: 16, sessionsPerWeek: 5, totalWeeks: 16,
     });
-    expect(peak).toBeGreaterThanOrEqual(60); // baseline préservée
-    expect(peak).toBeLessThanOrEqual(75); // MAX_WEEKLY_VOLUME Marathon conf
+    expect(peak).toBeGreaterThanOrEqual(50); // baseline préservée post-recalibrage
+    expect(peak).toBeLessThanOrEqual(70); // MAX_WEEKLY_VOLUME Marathon conf (était 75)
   });
 
   it('5. Semi Expert VMA 17 cv=60 freq=5 → pic inchangé (déjà au-dessus du floor)', () => {
@@ -262,12 +265,14 @@ describe('Hard floor Semi 22 / Marathon 32 + runningSessions Semi/Marathon freq 
   it('P0c-4. Marathon Confirmé VMA 16 cv=50 freq=5 : non-régression (P0c neutre hors freq≤3)', () => {
     // freq=5 → volumeCapSessions = runningSessions = 4. Le découplage P0c
     // est inactif. Comportement strictement préservé.
+    // 28/05 22:30 — Romane recalibrage doctrine MAX Marathon (Conf 75→70, Expert 85→75)
+    // + re-cap après sessionFactor. Marathon Conf cv 50 freq 5 Finisher = 52-56 km.
     const { peak } = plan({
       level: 'Confirmé (Compétition)', currentVolume: 50, subGoal: 'Marathon',
       vma: 16, sessionsPerWeek: 5, totalWeeks: 16,
     });
-    expect(peak).toBeGreaterThanOrEqual(60);
-    expect(peak).toBeLessThanOrEqual(75);
+    expect(peak).toBeGreaterThanOrEqual(50);
+    expect(peak).toBeLessThanOrEqual(70);
   });
 
   // ════════════════════════════════════════════════════════════════

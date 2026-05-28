@@ -1577,7 +1577,7 @@ const MAX_WEEKLY_VOLUME: Record<string, Record<string, number>> = {
   '5K':        { deb: 25, inter: 40, conf: 46, expert: 60 },
   '10K':       { deb: 30, inter: 50, conf: 55, expert: 65 },
   'Semi':      { deb: 35, inter: 55, conf: 60, expert: 70 },
-  'Marathon':  { deb: 45, inter: 65, conf: 75, expert: 85 },
+  'Marathon':  { deb: 45, inter: 65, conf: 70, expert: 75 },
   'Hyrox':     { deb: 19, inter: 30, conf: 38, expert: 42 },
   'VK':        { deb: 20, inter: 30, conf: 35, expert: 45 },
   'TrailSteep':{ deb: 25, inter: 35, conf: 45, expert: 55 },
@@ -2908,8 +2908,14 @@ export const calculatePeriodizationPlan = (
     const sessionFactor = sessionFactors[Math.min(runningSess, 5)] || 1.00;
     if (sessionFactor !== 1.00) {
       const before = maxVolume;
-      maxVolume = Math.round(maxVolume * sessionFactor);
-      console.log(`[Periodization] Session factor: ${runningSess} running sessions → ×${sessionFactor} → ${before}km → ${maxVolume}km`);
+      // Bug ericsson 28/05 — sessionFactor 1.20 freq=6 poussait Marathon Expert 85→102 km.
+      // Re-cap par MAX_WEEKLY_VOLUME[obj].expert (plafond doctrine absolue de la distance).
+      const _objKeyForCap = isVK ? 'VK' : isTrailSteep ? 'TrailSteep'
+        : isUltraLong ? 'Trail100+' : isUltra ? 'Trail60+' : isTrail30Plus ? 'Trail30+' : isTrail ? 'Trail<30'
+        : isMarathon ? 'Marathon' : isSemi ? 'Semi' : is10k ? '10K' : isPertePoids ? 'PertePoids' : isMaintien ? 'Maintien' : '5K';
+      const _absoluteMaxForDistance = MAX_WEEKLY_VOLUME[_objKeyForCap]?.expert ?? maxVolume;
+      maxVolume = Math.min(Math.round(maxVolume * sessionFactor), _absoluteMaxForDistance);
+      console.log(`[Periodization] Session factor: ${runningSess} running sessions → ×${sessionFactor} → ${before}km → ${maxVolume}km (capped by MAX[${_objKeyForCap}].expert=${_absoluteMaxForDistance})`);
     }
   }
 
