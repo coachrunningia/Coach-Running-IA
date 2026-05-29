@@ -5085,24 +5085,30 @@ Valeurs à remplir :
     // Sprint 5 — responseSchema natif (remplace bloc FORMAT JSON texte ~600 tokens).
     // Si Gemini rejette le schéma (rare mais possible sur ResponseSchema complexe),
     // catch retry avec responseMimeType seul (plan B). cf. SchemaType import L2.
+    // Quick win perf 29/05 (PM+Dev consensus) : bump maxOutputTokens 8192→16384.
+    // Évite truncation silencieuse + réduit "compression cognitive" Gemini.
+    const _startMsPreview = Date.now();
     let result;
+    let _usedFallback = false;
     try {
       result = await model.generateContent({
         contents: [{ role: "user", parts: [{ text: previewPrompt }] }],
         generationConfig: {
           responseMimeType: "application/json",
           responseSchema: PREVIEW_RESPONSE_SCHEMA,
-          maxOutputTokens: 8192,
+          maxOutputTokens: 16384,
         },
       });
     } catch (schemaErr) {
       // Plan B : retomber sur mode JSON sans schema strict, conserve la robustesse.
       console.warn('[Gemini Preview] responseSchema rejeté, fallback responseMimeType seul:', schemaErr);
+      _usedFallback = true;
       result = await model.generateContent({
         contents: [{ role: "user", parts: [{ text: previewPrompt }] }],
-        generationConfig: { responseMimeType: "application/json", maxOutputTokens: 8192 }
+        generationConfig: { responseMimeType: "application/json", maxOutputTokens: 16384 }
       });
     }
+    logGeminiUsage(`Preview${_usedFallback ? ' (fallback)' : ''}`, _startMsPreview, result);
 
     const response = await result.response;
     const text = response.text();
@@ -5847,6 +5853,7 @@ Retourne UNIQUEMENT un tableau JSON des semaines ${startWeek} à ${endWeek} :
 
       while (retryCount <= maxRetries) {
         try {
+          const _startMsRemaining = Date.now();
           const result = await model.generateContent({
             contents: [{ role: "user", parts: [{ text: batchPrompt }] }],
             generationConfig: {
@@ -5854,6 +5861,7 @@ Retourne UNIQUEMENT un tableau JSON des semaines ${startWeek} à ${endWeek} :
               maxOutputTokens: 65536
             }
           });
+          logGeminiUsage(`RemainingWeeks batch (try ${retryCount + 1})`, _startMsRemaining, result);
 
           const response = await result.response;
           const text = response.text();
@@ -7040,12 +7048,14 @@ ${upcomingSessions.length > 12 ? `\n... et ${upcomingSessions.length - 12} autre
       systemInstruction: systemWithContext,
     });
 
+    const _startMsAdapt = Date.now();
     const result = await adaptationModel.generateContent({
       contents: [{ role: "user", parts: [{ text: adaptationPrompt }] }],
       generationConfig: {
         responseMimeType: "application/json",
       }
     });
+    logGeminiUsage('Adaptation', _startMsAdapt, result);
 
 const response = await result.response;
 
