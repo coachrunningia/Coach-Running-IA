@@ -377,6 +377,48 @@ const getApiKey = () => {
   return key;
 };
 
+/**
+ * ID du modèle Gemini Flash utilisé pour la génération de plans.
+ * Configurable via env var `VITE_GEMINI_FLASH_MODEL_ID` pour faciliter
+ * canary deploy et rollback rapide sans redéploiement code.
+ *
+ * Historique 29/05/2026 (audit Expert IA + PM tech) :
+ * - `gemini-3-flash-preview` historique = workaround hotfix Sprint 4 (commit 35e20ab,
+ *   19/05) suite à 404 sur `gemini-3-flash` ce jour-là. "upgrade futur" jamais fait.
+ * - F-11 (27/05) a migré Pro vers `gemini-3.1-pro-preview` mais oublié Flash.
+ * - `gemini-3.5-flash` STABLE GA disponible (ListModels confirmé 29/05) — candidat principal.
+ * - Plan B fallback : `gemini-2.5-flash` (déjà éprouvé L570 pour passe finale aiReview).
+ *
+ * Canary 48h : env var sur preview channel → 10% prod → 100% si OK.
+ */
+const getFlashModelId = (): string => {
+  return import.meta.env.VITE_GEMINI_FLASH_MODEL_ID || 'gemini-3-flash-preview';
+};
+
+/**
+ * Log structuré du retour Gemini (usageMetadata + finishReason + latence).
+ * Permet de mesurer impact swap modèle + détecter truncations silencieuses.
+ * Doctrine `feedback_qualite_avant_vitesse` : on doit voir pour décider.
+ */
+const logGeminiUsage = (
+  context: string,
+  startMs: number,
+  response: any,
+): void => {
+  try {
+    const usage = response?.response?.usageMetadata || response?.usageMetadata || {};
+    const candidate = (response?.response?.candidates || response?.candidates || [])[0];
+    const finishReason = candidate?.finishReason || 'UNKNOWN';
+    const latencyMs = Date.now() - startMs;
+    console.log(`[Gemini Usage] ${context} | model=${getFlashModelId()} | latency=${latencyMs}ms | promptTokens=${usage.promptTokenCount ?? '?'} | candidatesTokens=${usage.candidatesTokenCount ?? '?'} | totalTokens=${usage.totalTokenCount ?? '?'} | finishReason=${finishReason}`);
+    if (finishReason === 'MAX_TOKENS') {
+      console.warn(`[Gemini Usage] ⚠️ TRUNCATION DETECTED in ${context} — output saturated maxOutputTokens. Plan may be incomplete.`);
+    }
+  } catch (e) {
+    console.warn(`[Gemini Usage] Failed to log usage for ${context}:`, e);
+  }
+};
+
 // ============================================
 // POST-PROCESSING QUALITÉ — Fonctions partagées
 // ============================================
@@ -3712,7 +3754,7 @@ const createGenerationContext = (
     },
     questionnaireSnapshot: { ...data, vma },
     generatedAt: new Date().toISOString(),
-    modelUsed: 'gemini-3-flash-preview',
+    modelUsed: getFlashModelId(),
   };
 };
 
@@ -4427,7 +4469,7 @@ export const generatePreviewPlan = async (data: QuestionnaireData): Promise<Trai
   try {
     const apiKey = getApiKey();
     const genAI = new GoogleGenerativeAI(apiKey);
-    const MODEL_ID = "gemini-3-flash-preview";
+    const MODEL_ID = getFlashModelId();
     const model = genAI.getGenerativeModel({ model: MODEL_ID });
     console.log(`[Gemini Preview] model=${MODEL_ID}`);
 
@@ -5596,7 +5638,7 @@ ${buildDplusPromptBlock({ weekIdx: 0, weeklyElevationTarget: ctx.periodizationPl
   try {
     const apiKey = getApiKey();
     const genAI = new GoogleGenerativeAI(apiKey);
-    const MODEL_ID = "gemini-3-flash-preview";
+    const MODEL_ID = getFlashModelId();
     const model = genAI.getGenerativeModel({ model: MODEL_ID });
     console.log(`[Gemini RemainingWeeks] model=${MODEL_ID}`);
 
@@ -6522,7 +6564,7 @@ export const adaptPlanFromFeedback = async (
   try {
     const apiKey = getApiKey();
     const genAI = new GoogleGenerativeAI(apiKey);
-    const MODEL_ID = "gemini-3-flash-preview";
+    const MODEL_ID = getFlashModelId();
     const model = genAI.getGenerativeModel({ model: MODEL_ID });
     console.log(`[Gemini Adapt] model=${MODEL_ID}`);
 
