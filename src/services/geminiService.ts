@@ -984,14 +984,13 @@ export const applyMarcheCourseRouting = (
  * Post-processing qualité complet pour une semaine.
  * Applique : warmup/cooldown allure, distance, tutoiement, weekGoal.
  */
-export const postProcessWeekQuality = (
+const postProcessWeekQuality = (
   week: any,
   pacesObj: { efPace: string; recoveryPace: string; vmaPace: string; seuilPace?: string } | null,
   defaultWeekGoal?: string,
   planGoal?: string,
   trailDistance?: number,
   bmi?: number | null,
-  currentWeeklyVolume?: number,
 ): void => {
   // weekGoal
   if (!week.weekGoal && week.theme) week.weekGoal = week.theme;
@@ -1035,26 +1034,13 @@ export const postProcessWeekQuality = (
   });
 
   // Safety net : pas de seuil/fractionné/VMA en phase fondamentale ou récupération
-  // EXCEPTION 29/05 (Romane + Coach FFA + PM) : qualité DOUCE (strides / fartlek souple /
-  // progression douce) autorisée UNIQUEMENT en fondamental (jamais en récup) pour
-  // profils Inter+ cv ≥ 25 km/sem. Modulation Marathon cv < 35 → strides only.
-  // Whitelist explicite (pas d'ambigüité sur "progression" seul ou "fartlek" seul).
   const phase = (week.phase || '').toLowerCase();
-  const cvForSoftQuality = currentWeeklyVolume ?? 0;
-  const isMarathonObjective = (planGoal || '').toLowerCase().includes('marathon')
-    && !(planGoal || '').toLowerCase().includes('semi');
   if (phase === 'fondamental' || phase === 'recuperation') {
     week.sessions.forEach((s: any) => {
       if (s.type === 'Renforcement') return;
       const title = (s.title || '').toLowerCase();
       const isSeuil = /seuil|fractionn|vma|intervalle|tempo/i.test(title) || s.type === 'Fractionné';
-      // Détection soft quality (whitelist whitelistée par Coach FFA pour éviter faux positifs)
-      const isSoftQuality = phase === 'fondamental' && /stride|ligne[s]?\s*droite[s]?|gamme[s]?\s*de\s*vitesse|accélération[s]?\s*libre[s]?|fartlek\s*(souple|libre|court)|progression\s*douce|allure\s*marathon\s*(facile|douce)/i.test(title);
-      // Détection strides uniquement (pour modulation Marathon cv < 35)
-      const isStrides = /stride|ligne[s]?\s*droite[s]?|gamme[s]?\s*de\s*vitesse|accélération[s]?\s*libre[s]?/i.test(title);
-      const marathonLowCvBlocksNonStrides = isMarathonObjective && cvForSoftQuality < 35 && !isStrides;
-      const eligibleSoft = isSoftQuality && cvForSoftQuality >= 25 && !marathonLowCvBlocksNonStrides;
-      if (isSeuil && !eligibleSoft && pacesObj) {
+      if (isSeuil && pacesObj) {
         console.log(`[PostProcess] Phase ${phase}: converting "${s.title}" to footing EF`);
         s.title = phase === 'recuperation' ? 'Footing de Récupération Active' : "Footing d'Endurance Fondamentale";
         s.type = 'Jogging';
@@ -4751,13 +4737,12 @@ ${(isVKPreview || isTrailSteepPreview) ? `   - fondamental : Jogging (footing EF
    - affutage : Jogging, Sortie courte avec rappel côte, Renforcement.
    - recuperation : Jogging (footing EF plat) uniquement + Renforcement léger. PAS d'intensité.` :
 `   - fondamental : Jogging (footing EF), Sortie Longue (EF uniquement), Renforcement.
-     ${(!isBeginnerLevel && !needsMarcheCourse && (data.currentWeeklyVolume ?? 0) >= 25 && data.fitnessSubGoal !== 'Reprendre après une pause' && data.lastActivity !== 'Plus de 6 mois') ?
-     `⚠️ NIVEAU INTERMÉDIAIRE+ / cv ≥ 25 km/sem : DÈS S1, 1 séance par semaine PEUT inclure du travail neuromusculaire DOUX (sensation, jamais chrono) :
-       • Strides — footing EF 40-50 min + 6 à 8 lignes droites accélérées 80-100 m en fin (allure ~3 km, JAMAIS sprint), récup marche retour complète 60-90 s. Dès S1. Type "Jogging" intensité "Facile" (avec "Strides" dans le titre).
-       • OU Fartlek souple — footing EF 35-45 min avec 5-6 accélérations libres de 30-45 s à sensation "allure 10 km confortable", récup trot 1'30-2'. Dès S2. Type "Fractionné" intensité "Modéré" (avec "Fartlek souple" dans le titre).
-       • OU Progression douce sur SL — 8-10 km EF puis 2 km à allure Marathon "facile" (parler en phrases courtes), retour calme 1 km. Dès S2, jamais S1. Type "Sortie Longue" (avec "Progression douce" dans le titre).
-       ${((data.subGoal || '').toLowerCase().includes('marathon') && !(data.subGoal || '').toLowerCase().includes('semi') && (data.currentWeeklyVolume ?? 0) < 35) ? `⚠️ EXCEPTION Marathon cv ${data.currentWeeklyVolume ?? 0} < 35 : STRIDES UNIQUEMENT (Pfitzinger 18/55 plancher base). PAS de fartlek ni progression.` : ''}
-       JAMAIS de seuil, tempo soutenu, VMA courte (200/400), ni fractionné long en S1-S2. Une seule séance qualité douce par semaine. Si fatigue : remplacer par EF.` :
+     ${(!isBeginnerLevel && !needsMarcheCourse && data.frequency >= 4 && data.fitnessSubGoal !== 'Reprendre après une pause' && data.lastActivity !== 'Plus de 6 mois') ?
+     `⚠️ NIVEAU CONFIRMÉ+ / 4+ SÉANCES : à partir de la SEMAINE 3 du fondamental, 1 séance par semaine DOIT inclure du travail de vitesse léger :
+       • Fartlek libre (5-6 accélérations de 30s à allure 10km, récup 1min30 trottée) — type "Fractionné", intensité "Modéré"
+       • OU Footing avec gammes de vitesse (8-10 lignes droites de 80-100m en fin de footing)
+       • OU Côtes courtes (6-8 × 20s en côte, récup descente trottée)
+       Cela maintient les qualités neuromusculaires sans casser la base aérobie. Les semaines 1-2 restent 100% EF.` :
      `PAS de seuil, PAS de fractionné, PAS de VMA. Séances 100% endurance fondamentale.`}
      ⚠️ VARIÉTÉ OBLIGATOIRE en phase fondamentale : chaque footing doit avoir un thème DIFFÉRENT. Exemples :
        • "Footing en aisance respiratoire" (classique plat)
@@ -5224,7 +5209,7 @@ Valeurs à remplir :
       const trailDist = data.goal === 'Trail' && data.trailDetails?.distance ? data.trailDetails.distance : 0;
       // Fix B (2026-05-21) — BMI passé pour clamp runRatio à 0.5 si > 35 (sécurité débutant obèse classe II)
       const bmiPreview = (data.weight && data.height && data.height > 0) ? data.weight / ((data.height / 100) ** 2) : null;
-      plan.weeks.forEach((week: any) => postProcessWeekQuality(week, paces, 'Première semaine — mise en route progressive', data.goal, trailDist, bmiPreview, data.currentWeeklyVolume));
+      plan.weeks.forEach((week: any) => postProcessWeekQuality(week, paces, 'Première semaine — mise en route progressive', data.goal, trailDist, bmiPreview));
       // Enforcement volumes/durées/caps déterministe
       plan.weeks.forEach((week: any, idx: number) => {
         const targetVol = generationContext.periodizationPlan.weeklyVolumes[idx] || 0;
@@ -5278,11 +5263,6 @@ Valeurs à remplir :
         });
         w1.sessions.forEach((session: any, idx: number) => {
           if (session.type === 'Jogging' && (session.intensity === 'Facile' || !session.intensity)) {
-            // C2 fix 29/05 — Ne PAS écraser les séances soft quality (Strides notamment)
-            // qui sont aussi typées "Jogging Facile" mais doivent garder leur contenu.
-            const _t = (session.title || '').toLowerCase();
-            const _isSoftQuality = /stride|ligne[s]?\s*droite[s]?|gamme[s]?\s*de\s*vitesse|accélération[s]?\s*libre[s]?|fartlek\s*(souple|libre|court)|progression\s*douce|allure\s*marathon\s*(facile|douce)/i.test(_t);
-            if (_isSoftQuality) return; // Skip — soft quality protégée
             const variant = buildFootingVariant({
               weekNumber: 1,
               sessionIndex: idx,
@@ -5676,13 +5656,11 @@ NE PAS générer le contenu du mainSet renfo — le code le fera. Place simpleme
 🔴 TYPES DE SÉANCES AUTORISÉS PAR PHASE :
 ${(isVKRemaining || isTrailSteepRemaining) ? `   - fondamental : Jogging (footing EF), Sortie Longue (EF + D+), Renforcement, Côtes en EF (montée marchée ou trottée). Le travail en côte modéré EST autorisé dès cette phase pour VK/Trail raide.` :
 `   - fondamental : Jogging (footing EF), Sortie Longue (EF uniquement), Renforcement.
-     ${(!isBeginnerLevel && !needsMarcheCourseRemaining && (data.currentWeeklyVolume ?? 0) >= 25 && data.fitnessSubGoal !== 'Reprendre après une pause' && data.lastActivity !== 'Plus de 6 mois') ?
-     `DÈS S1, 1 séance par semaine PEUT inclure du travail neuromusculaire DOUX (sensation, jamais chrono) :
-       • Strides — footing EF + 6 à 8 lignes droites 80-100m en fin, récup marche 60-90s. Dès S1. Type "Jogging" intensité "Facile".
-       • OU Fartlek souple — footing EF + 5-6 accélérations 30-45s allure 10K confortable, récup trot 1'30-2'. Dès S2. Type "Fractionné" intensité "Modéré".
-       • OU Progression douce sur SL — 8-10 km EF + 2 km à allure Marathon "facile". Dès S2.
-       ${((data.subGoal || '').toLowerCase().includes('marathon') && !(data.subGoal || '').toLowerCase().includes('semi') && (data.currentWeeklyVolume ?? 0) < 35) ? `⚠️ EXCEPTION Marathon cv ${data.currentWeeklyVolume ?? 0} < 35 : STRIDES UNIQUEMENT.` : ''}
-       JAMAIS seuil/tempo/VMA courte (200/400)/fractionné long. 1 séance qualité douce/sem max.` :
+     ${(!isBeginnerLevel && !needsMarcheCourseRemaining && data.frequency >= 4 && data.fitnessSubGoal !== 'Reprendre après une pause' && data.lastActivity !== 'Plus de 6 mois') ?
+     `À partir de la SEMAINE 3 du fondamental, 1 séance/semaine DOIT inclure du travail de vitesse léger :
+       • Fartlek libre (5-6 accélérations de 30s à allure 10km, récup 1min30 trottée) — type "Fractionné", intensité "Modéré"
+       • OU Côtes courtes (6-8 × 20s en côte, récup descente trottée)
+       Les semaines 1-2 restent 100% EF.` :
      `PAS de seuil, PAS de fractionné, PAS de VMA.`}
      VARIÉTÉ OBLIGATOIRE : chaque footing doit avoir un thème DIFFÉRENT (progressif, vallonné, technique, nature...).
    - developpement : + Fractionné (VMA courte, côtes), seuil court possible.
@@ -5934,10 +5912,6 @@ Retourne UNIQUEMENT un tableau JSON des semaines ${startWeek} à ${endWeek} :
         if (phaseLc !== 'fondamental' && phaseLc !== 'recuperation') return;
         week.sessions.forEach((session: any, idx: number) => {
           if (session.type === 'Jogging' && (session.intensity === 'Facile' || !session.intensity)) {
-            // C2 fix 29/05 — Ne PAS écraser les séances soft quality (Strides) en remaining weeks.
-            const _t = (session.title || '').toLowerCase();
-            const _isSoftQuality = /stride|ligne[s]?\s*droite[s]?|gamme[s]?\s*de\s*vitesse|accélération[s]?\s*libre[s]?|fartlek\s*(souple|libre|court)|progression\s*douce|allure\s*marathon\s*(facile|douce)/i.test(_t);
-            if (_isSoftQuality) return; // Skip — soft quality protégée
             const variant = buildFootingVariant({
               weekNumber: week.weekNumber,
               sessionIndex: idx,
@@ -6040,7 +6014,7 @@ Retourne UNIQUEMENT un tableau JSON des semaines ${startWeek} à ${endWeek} :
       const trailDistFull = data.goal === 'Trail' && data.trailDetails?.distance ? data.trailDetails.distance : 0;
       // Fix B (2026-05-21) — BMI passé pour clamp runRatio à 0.5 si > 35
       const bmiFull = (data.weight && data.height && data.height > 0) ? data.weight / ((data.height / 100) ** 2) : null;
-      fullPlan.weeks.forEach((week: any) => postProcessWeekQuality(week, savedPaces, undefined, data.goal, trailDistFull, bmiFull, data.currentWeeklyVolume));
+      fullPlan.weeks.forEach((week: any) => postProcessWeekQuality(week, savedPaces, undefined, data.goal, trailDistFull, bmiFull));
 
       // Snapshot volumes AVANT guard pour mesurer l'impact
       const beforeVolumes = fullPlan.weeks.map(_weekKm);
