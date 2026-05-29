@@ -321,7 +321,7 @@ export interface GenerationContext {
 
   // Métadonnées de génération
   generatedAt: string;
-  modelUsed: string; // "gemini-3-flash-preview"
+  modelUsed: string; // ex: "gemini-3-flash-preview" ou "gemini-3.5-flash" (cf VITE_GEMINI_FLASH_MODEL_ID)
 }
 
 // --- BLOG TYPES ---
