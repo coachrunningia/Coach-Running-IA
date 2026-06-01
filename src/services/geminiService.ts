@@ -2850,7 +2850,7 @@ export const calculatePeriodizationPlan = (
   weight?: number,
   vma?: number,
   sessionsPerWeek?: number,
-  params?: { height?: number; vmaSource?: string; currentWeeklyElevation?: number },
+  params?: { height?: number; vmaSource?: string; currentWeeklyElevation?: number; hasInjury?: boolean },
 ): { weeklyVolumes: number[]; weeklyPhases: PeriodizationPhase[]; recoveryWeeks: number[]; weeklyElevationTarget?: number[] } => {
 
   // Taux de progression selon niveau
@@ -3012,6 +3012,23 @@ export const calculatePeriodizationPlan = (
     const weightFactor = weight >= 100 ? 0.85 : 0.90;
     totalReduction *= weightFactor;
     console.log(`[Periodization] Poids ${weight}kg (IMC ${bmi.toFixed(1)}) → factor ×${weightFactor}`);
+  }
+
+  // F-19 (01/06/2026) — Modulation hasInjury × 0.85
+  // Restaure la modulation prévue par F-18.1 (commit 481bdec, 28/05) reverted
+  // collatéralement avec F-18 (bug ericsson Marathon, sans rapport) et jamais
+  // ré-introduite. Audit FFA cas Sement.francois (Trail 31km/750D+ Conf cv 40
+  // tendinopathie Achille) : sans modulation, ratio S1→pic = 1.70 (ACSM
+  // borderline + Pfitzinger-out pour tendinopathie active).
+  // Coefficient 0.85 = -15%, aligné Pfitzinger (Faster Road Racing : return-to-run
+  // -15 à -25% du pic) et Cook & Purdam (BJSM 2009, continuum model tendinopathy,
+  // progression <10%/sem en phase reactive). 0.85 vs 0.75 (F-18.1 original) =
+  // compromis FFA pour ne pas trop pénaliser Conf/Expert tendons rodés.
+  // Cap min 0.60 (L+1) protège du cumul Finisher+Senior+BMI30+injury.
+  // Doctrine feedback_securite_avant_conversion : cap volume préventif par défaut.
+  if (params?.hasInjury) {
+    totalReduction *= 0.85;
+    console.log(`[Periodization] hasInjury=true → factor ×0.85 (Pfitzinger/Cook&Purdam, cap volume préventif tendineux)`);
   }
 
   // Plafonner la réduction totale à -40% max (facteur min = 0.60)
@@ -3731,7 +3748,7 @@ const createGenerationContext = (
     data.weight,
     vma,
     data.frequency || 3,
-    { height: data.height, vmaSource, currentWeeklyElevation: data.currentWeeklyElevation },
+    { height: data.height, vmaSource, currentWeeklyElevation: data.currentWeeklyElevation, hasInjury: !!(data.injuries?.hasInjury) },
   );
 
   return {
