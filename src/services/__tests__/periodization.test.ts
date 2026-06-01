@@ -177,3 +177,96 @@ describe('calculatePeriodizationPlan — progression minimale (cas Marathon Expe
     expect(peak).toBeGreaterThanOrEqual(50);
   });
 });
+
+// ─── F-19 (01/06/2026) — Modulation hasInjury × 0.85 ───────────────
+// Découverte audit FFA Sement.francois : hasInjury non géré dans
+// totalReduction = ratio S1→pic 1.70 sur tendinopathie Achille = unsafe.
+// Patch : ajout modulation ×0.85 dans le bloc totalReduction.
+describe('F-19 — modulation hasInjury × 0.85', () => {
+  // Profil "Sement.francois" reproduit : Trail 31km/750D+ Conf cv 40 freq 4
+  const baseProfile = {
+    totalWeeks: 20,
+    currentVolume: 40,
+    level: 'Confirmé (Compétition)',
+    goal: 'Trail',
+    subGoal: 'trail',
+    trailDistance: 31,
+    trailElevation: 750,
+    targetTime: '2h15',
+    age: 38,
+    weight: 75,
+    vma: 14.5,
+    sessionsPerWeek: 4,
+  } as const;
+
+  it('hasInjury=true → pic réduit ~15% vs hasInjury=false sur profil Trail Conf', () => {
+    const sain = calculatePeriodizationPlan(
+      baseProfile.totalWeeks, baseProfile.currentVolume, baseProfile.level,
+      baseProfile.goal, baseProfile.subGoal, baseProfile.trailDistance,
+      baseProfile.trailElevation, baseProfile.targetTime, baseProfile.age,
+      baseProfile.weight, baseProfile.vma, baseProfile.sessionsPerWeek,
+      { height: 180, hasInjury: false },
+    );
+    const inj = calculatePeriodizationPlan(
+      baseProfile.totalWeeks, baseProfile.currentVolume, baseProfile.level,
+      baseProfile.goal, baseProfile.subGoal, baseProfile.trailDistance,
+      baseProfile.trailElevation, baseProfile.targetTime, baseProfile.age,
+      baseProfile.weight, baseProfile.vma, baseProfile.sessionsPerWeek,
+      { height: 180, hasInjury: true },
+    );
+    const peakSain = Math.max(...sain.weeklyVolumes);
+    const peakInj = Math.max(...inj.weeklyVolumes);
+    const ratio = peakInj / peakSain;
+    // Doit être réduit (ratio ≤ ~0.88 pour tolérance arrondi entier)
+    expect(peakInj).toBeLessThan(peakSain);
+    expect(ratio).toBeGreaterThanOrEqual(0.80);
+    expect(ratio).toBeLessThanOrEqual(0.90);
+  });
+
+  it('hasInjury=undefined → pic identique à hasInjury=false (pas de mod)', () => {
+    const sain = calculatePeriodizationPlan(
+      baseProfile.totalWeeks, baseProfile.currentVolume, baseProfile.level,
+      baseProfile.goal, baseProfile.subGoal, baseProfile.trailDistance,
+      baseProfile.trailElevation, baseProfile.targetTime, baseProfile.age,
+      baseProfile.weight, baseProfile.vma, baseProfile.sessionsPerWeek,
+      { height: 180 },
+    );
+    const explicitFalse = calculatePeriodizationPlan(
+      baseProfile.totalWeeks, baseProfile.currentVolume, baseProfile.level,
+      baseProfile.goal, baseProfile.subGoal, baseProfile.trailDistance,
+      baseProfile.trailElevation, baseProfile.targetTime, baseProfile.age,
+      baseProfile.weight, baseProfile.vma, baseProfile.sessionsPerWeek,
+      { height: 180, hasInjury: false },
+    );
+    expect(Math.max(...sain.weeklyVolumes)).toBe(Math.max(...explicitFalse.weeklyVolumes));
+  });
+
+  it('Cap min 0.60 : injury+cumul (Finisher+Senior+BMI30) → totalReduction ne descend pas sous 0.60', () => {
+    // Cumul Finisher (×0.75) + Senior (×0.85) + BMI 30 (×0.80) + injury (×0.85)
+    // = 0.75 × 0.85 × 0.80 × 0.85 = 0.4335 → capé à 0.60
+    const inj = calculatePeriodizationPlan(
+      20, 40, 'Intermédiaire (Régulier)', 'Course sur route', 'Marathon',
+      undefined, undefined, '5h00', 57, 92, 11.0, 4,
+      { height: 175, hasInjury: true },
+    );
+    const peak = Math.max(...inj.weeklyVolumes);
+    // Cap Inter Marathon = 65. Avec session factor 4 (3 running ×1.00) = 65.
+    // Reduction min 0.60 → 65 × 0.60 = 39 km (floor garde-fou).
+    expect(peak).toBeGreaterThanOrEqual(35);
+  });
+
+  it('S1-preserve : hasInjury=true ne touche PAS cv user (doctrine input_client_obligatoire)', () => {
+    // Doctrine feedback_input_client_obligatoire : S1 = currentVolume IMMUABLE.
+    // F-19 module le PIC, pas S1. Verrouille la non-régression.
+    const cv = 40;
+    const result = calculatePeriodizationPlan(
+      baseProfile.totalWeeks, cv, baseProfile.level,
+      baseProfile.goal, baseProfile.subGoal, baseProfile.trailDistance,
+      baseProfile.trailElevation, baseProfile.targetTime, baseProfile.age,
+      baseProfile.weight, baseProfile.vma, baseProfile.sessionsPerWeek,
+      { height: 180, hasInjury: true },
+    );
+    // S1 doit être ≥ cv user (floor garde-fou input client)
+    expect(result.weeklyVolumes[0]).toBeGreaterThanOrEqual(cv);
+  });
+});
