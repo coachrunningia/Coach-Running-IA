@@ -1436,8 +1436,8 @@ ${recentRPEs.length > 0 ? recentRPEs.slice(-8).join('\n') : 'Premier feedback �
 
       {activeTab === "PROGRAMME" && (
         <div className="animate-in fade-in slide-in-from-bottom-4 duration-500">
-          {/* Upsell banner for Plan Unique users */}
-          {isPlanUniqueUser && (
+          {/* Upsell banner for Plan Unique users — Audit iOS J2.6 : masqué en iOS (Apple 3.1.1) */}
+          {isPlanUniqueUser && !isIOSNative && (
             <div className="bg-gradient-to-r from-amber-50 to-orange-50 border border-amber-200 rounded-xl p-4 mb-6 flex items-center justify-between gap-4 flex-wrap">
               <div className="flex items-center gap-3">
                 <Zap size={20} className="text-amber-500" />

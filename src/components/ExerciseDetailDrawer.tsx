@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { X, ChevronLeft, ChevronRight, AlertTriangle, CheckCircle, XCircle, Lightbulb, Dumbbell, Target, Lock, Zap } from 'lucide-react';
 import { parseMainSetExercises, ExerciseInfo } from '../services/exerciseCatalog';
+import { isIOSNative } from '../services/platformService';
 
 interface ExerciseDetailDrawerProps {
   mainSet: string;
@@ -95,10 +96,18 @@ const ExerciseDetailDrawer: React.FC<ExerciseDetailDrawerProps> = ({
               Posture, erreurs, conseils kiné pour chaque exercice
             </p>
             <p className="text-xs text-slate-400 mb-5 text-center">Validé par des kinésithérapeutes et préparateurs physiques</p>
-            <a href="/pricing" className="bg-accent hover:bg-orange-600 text-white px-8 py-3 rounded-full font-bold transition-all shadow-lg hover:shadow-xl hover:scale-105 inline-flex items-center gap-2 text-sm">
-              <Zap size={16} fill="currentColor" />
-              Débloquer avec Premium
-            </a>
+            {/* Audit iOS J2.6 : CTA "/pricing" masqué iOS (Apple 3.1.1).
+                Message info anti-steering en remplacement (cf doctrine Netflix-style). */}
+            {isIOSNative ? (
+              <p className="text-sm text-slate-500 text-center max-w-xs">
+                Cette fonctionnalité est disponible avec un compte Premium géré hors de l'application.
+              </p>
+            ) : (
+              <a href="/pricing" className="bg-accent hover:bg-orange-600 text-white px-8 py-3 rounded-full font-bold transition-all shadow-lg hover:shadow-xl hover:scale-105 inline-flex items-center gap-2 text-sm">
+                <Zap size={16} fill="currentColor" />
+                Débloquer avec Premium
+              </a>
+            )}
             <button onClick={onClose} className="mt-3 text-xs text-slate-400 hover:text-slate-600">
               Fermer
             </button>

@@ -73,9 +73,13 @@ const LandingPage: React.FC<LandingPageProps> = ({ user, onPlanGeneration, isGen
       question: "Quels types de plans d'entraînement sont disponibles ?",
       answer: "Coach Running IA propose des plans pour marathon (12-20 semaines), semi-marathon (8-16 semaines), 10km (6-12 semaines), trail (toutes distances, du 20km à l'ultra), Hyrox et des programmes pour débutants. Chaque plan est calculé sur votre VMA et vos disponibilités."
     },
+    // Audit iOS J2.6 (02/06/2026) : Q3 mentionne "Premium est disponible" = texte commercial.
+    // En iOS natif, on retire cette question (filtrage côté .filter ci-dessous).
+    // Sur web : conservée pour SEO + conversion.
     {
       question: "La première semaine est-elle vraiment gratuite ?",
-      answer: "Oui ! Vous pouvez générer votre plan et accéder à la première semaine d'entraînement gratuitement, sans carte bancaire et sans engagement. Pour débloquer la suite du programme et les fonctionnalités avancées (analyse Strava, bilan mensuel), un abonnement Premium est disponible."
+      answer: "Oui ! Vous pouvez générer votre plan et accéder à la première semaine d'entraînement gratuitement, sans carte bancaire et sans engagement. Pour débloquer la suite du programme et les fonctionnalités avancées (analyse Strava, bilan mensuel), un abonnement Premium est disponible.",
+      _hideOnIOS: true,
     },
     {
       question: "Comment le plan s'adapte-t-il grâce à Strava ?",
@@ -107,7 +111,7 @@ const LandingPage: React.FC<LandingPageProps> = ({ user, onPlanGeneration, isGen
         <script type="application/ld+json">{JSON.stringify({
           "@context": "https://schema.org",
           "@type": "FAQPage",
-          "mainEntity": faqs.map(faq => ({
+          "mainEntity": faqs.filter(f => !isIOSNative || !(f as any)._hideOnIOS).map(faq => ({
             "@type": "Question",
             "name": faq.question,
             "acceptedAnswer": { "@type": "Answer", "text": faq.answer }
@@ -616,7 +620,8 @@ const LandingPage: React.FC<LandingPageProps> = ({ user, onPlanGeneration, isGen
           </div>
 
           <div className="space-y-3">
-            {faqs.map((faq, index) => (
+            {/* Audit iOS J2.6 : filtre questions FAQ commerciales en iOS (Apple 3.1.1) */}
+            {faqs.filter(f => !isIOSNative || !(f as any)._hideOnIOS).map((faq, index) => (
               <div key={index} className="rounded-2xl border border-gray-200 bg-white shadow-sm overflow-hidden hover:border-orange-200 hover:shadow-md transition-all">
                 <button
                   onClick={() => setOpenFaq(openFaq === index ? null : index)}

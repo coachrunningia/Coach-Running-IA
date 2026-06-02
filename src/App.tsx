@@ -114,8 +114,15 @@ const AppContent = () => {
         if (quota.reason === 'premium_limit' || quota.reason === 'purchased_limit') {
           setShowPlanLimitModal(true);
         } else {
-          alert("Limite atteinte (1 plan gratuit). Choisis une formule pour continuer.");
-          navigate('/pricing');
+          // Audit iOS J2.6 (02/06/2026) : message + navigation neutres en iOS (Apple 3.1.1).
+          // Sur web : message commercial + redirect /pricing. Sur iOS : juste retour dashboard.
+          if (isIOSNative) {
+            alert("Tu as atteint la limite de la version gratuite.");
+            navigate('/dashboard');
+          } else {
+            alert("Limite atteinte (1 plan gratuit). Choisis une formule pour continuer.");
+            navigate('/pricing');
+          }
         }
         return;
       }
@@ -1336,6 +1343,33 @@ const PricingPage = ({ user }: { user: User | null }) => {
   const navigate = useNavigate();
   const [loadingPlan, setLoadingPlan] = useState<string | null>(null);
   const [billingCycle, setBillingCycle] = useState<'yearly' | 'monthly'>('yearly');
+
+  // Audit iOS J2.6 (02/06/2026) — Apple 3.1.1 : aucun prix Premium ni CTA Stripe
+  // ne doit s'afficher dans l'app iOS native. Cette PricingPage inline (utilisée
+  // par le router src/App.tsx:261, à la place de src/components/PricingPage.tsx
+  // qui est code mort orphelin) doit retourner un écran neutre en iOS.
+  // Doctrine feedback_verifier_usage_avant_patcher : on a découvert l'homonymie
+  // tardivement, c'est CE composant qui était réellement utilisé.
+  if (isIOSNative) {
+    return (
+      <div className="min-h-screen bg-gradient-to-b from-slate-50 to-white py-12 px-4">
+        <div className="max-w-2xl mx-auto text-center">
+          <button onClick={() => navigate('/dashboard')} className="flex items-center gap-2 text-slate-600 hover:text-slate-900 mb-8 mx-auto">
+            <ChevronRight size={20} className="rotate-180" />
+            <span>Retour</span>
+          </button>
+          <div className="bg-white rounded-2xl border border-slate-200 p-8">
+            <div className="w-16 h-16 bg-amber-100 rounded-full flex items-center justify-center mx-auto mb-6">
+              <Crown size={32} className="text-amber-600" />
+            </div>
+            <h1 className="text-2xl font-black text-slate-900 mb-3">Tu profites de la version gratuite</h1>
+            <p className="text-slate-600 mb-6">Génère ton plan personnalisé, suis ta première semaine et profite des outils Coach Running IA.</p>
+            <p className="text-sm text-slate-500">Merci d'utiliser Coach Running IA — bons entraînements&nbsp;!</p>
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   const handleSubscribe = async (priceId: string, mode: 'subscription' | 'payment' = 'subscription') => {
     if (!user) {
