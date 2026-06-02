@@ -4,6 +4,7 @@ import { Link, useLocation } from 'react-router-dom';
 import { Menu, X, User as UserIcon, LogOut, Settings, ChevronDown, Calculator } from 'lucide-react';
 import { User } from '../types';
 import { logoutUser } from '../services/storageService';
+import { isIOSNative } from '../services/platformService';
 import { APP_NAME } from '../constants';
 import Logo from './Logo';
 
@@ -57,9 +58,11 @@ const Layout: React.FC<LayoutProps> = ({ children, user, setUser }) => {
     window.location.hash = '/';
   };
 
+  // Audit iOS J2.5 (02/06/2026) : lien "Tarifs" retiré du menu en iOS natif (Apple 3.1.1).
+  // Le lien menait vers PricingPage qui en iOS est un écran neutre sans CTA.
   const navLinks = [
     { name: 'Accueil', path: '/' },
-    { name: 'Tarifs', path: '/pricing' },
+    ...(isIOSNative ? [] : [{ name: 'Tarifs', path: '/pricing' }]),
     { name: 'Lexique', path: '/glossary' },
     { name: 'Blog', path: '/blog' },
   ];

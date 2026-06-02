@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { RefreshCw, BarChart3, CalendarCheck, Activity, ArrowRight, CheckCircle, Shield, Crown, Zap, ShoppingBag, ChevronLeft, ChevronRight } from 'lucide-react';
+import { isIOSNative } from '../../services/platformService';
 
 /* ─── Section Label : petit badge stylisé au-dessus de chaque titre ─── */
 export const SectionLabel: React.FC<{ children: React.ReactNode; variant?: 'orange' | 'slate' | 'strava' }> = ({ children, variant = 'orange' }) => {
@@ -74,7 +75,12 @@ export const ScreenshotsSlider: React.FC = () => {
 };
 
 /* ─── Pricing Preview ─── */
-export const PricingPreview: React.FC = () => (
+// Audit iOS J2.5 (02/06/2026) : retourne null en iOS natif (Apple 3.1.1).
+// Cette section pricing apparaît sur 5 landings SEO (/plan-marathon, /plan-trail,
+// /plan-semi-marathon, /plan-10km, /plan-hyrox). Toutes doivent être muettes en iOS.
+export const PricingPreview: React.FC = () => {
+  if (isIOSNative) return null;
+  return (
   <section className="py-20 md:py-28 relative bg-white overflow-hidden">
     <div className="absolute top-0 left-1/3 w-[500px] h-[500px] bg-orange-50 rounded-full blur-[128px] -translate-y-1/2"></div>
     <div className="relative max-w-5xl mx-auto px-4">
@@ -140,7 +146,8 @@ export const PricingPreview: React.FC = () => (
       </div>
     </div>
   </section>
-);
+  );
+};
 
 /* ─── Section Strava ─── */
 export const StravaSection: React.FC<StravaSectionProps> = ({ discipline }) => {

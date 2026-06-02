@@ -1,0 +1,574 @@
+{
+  "fields": {
+    "durationWeeks": {
+      "integerValue": "12"
+    },
+    "location": {
+      "stringValue": "Villeurbanne"
+    },
+    "userEmail": {
+      "stringValue": "terry.lucile@gmail.com"
+    },
+    "suggestedLocations": {
+      "arrayValue": {
+        "values": [
+          {
+            "mapValue": {
+              "fields": {
+                "type": {
+                  "stringValue": "PARK"
+                },
+                "description": {
+                  "stringValue": "Terrain plat et stabilisé, idéal pour les premières alternances marche/course sans chocs excessifs."
+                },
+                "name": {
+                  "stringValue": "Parc urbain"
+                }
+              }
+            }
+          },
+          {
+            "mapValue": {
+              "fields": {
+                "description": {
+                  "stringValue": "Sentier plat le long de l'eau, parfait pour maintenir une allure régulière en endurance fondamentale."
+                },
+                "type": {
+                  "stringValue": "NATURE"
+                },
+                "name": {
+                  "stringValue": "Berges calmes"
+                }
+              }
+            }
+          },
+          {
+            "mapValue": {
+              "fields": {
+                "name": {
+                  "stringValue": "Chemin plat"
+                },
+                "description": {
+                  "stringValue": "Sol souple pour minimiser les impacts sur tes genoux et ton syndrome d'Osgood-Schlatter."
+                },
+                "type": {
+                  "stringValue": "PARK"
+                }
+              }
+            }
+          }
+        ]
+      }
+    },
+    "feasibility": {
+      "mapValue": {
+        "fields": {
+          "score": {
+            "integerValue": "70"
+          },
+          "safetyWarning": {
+            "stringValue": "Antécédents Osgood-Schlatter + Sever + hyperlaxité + douleur actuelle au genou : ton avis kiné/médecin du sport est OBLIGATOIRE avant la première séance.\n\nLe format marche/course (1 min course / 2 min marche) limite l'impact articulaire. Si tu sens la moindre douleur au genou pendant ou après une séance, arrête et consulte.\n\nÀ surveiller spécifiquement :\n- Douleur sous la rotule (Osgood) après séances avec dénivelé descendant\n- Douleur talon arrière (Sever) si chaussures usées\n- Sensation d'instabilité genou (hyperlaxité) en virage ou descente\n\nLes chaussures avec bon amorti + surfaces souples (herbe, terre) sont prioritaires sur le bitume."
+          },
+          "message": {
+            "stringValue": "Ton programme perte de poids sur 12 semaines est bien calibré pour ton profil. Avec ta VMA de 8.1 km/h, concentre-toi sur la régularité et le plaisir. Blessure déclarée : adapte les séances et consulte un professionnel de santé."
+          },
+          "status": {
+            "stringValue": "BON"
+          }
+        }
+      }
+    },
+    "weeks": {
+      "arrayValue": {
+        "values": [
+          {
+            "mapValue": {
+              "fields": {
+                "phase": {
+                  "stringValue": "fondamental"
+                },
+                "sessions": {
+                  "arrayValue": {
+                    "values": [
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "targetPace": {
+                              "stringValue": "11:00 min/km"
+                            },
+                            "id": {
+                              "stringValue": "w1-s2-1779974805136-ys3rr75"
+                            },
+                            "day": {
+                              "stringValue": "Lundi"
+                            },
+                            "duration": {
+                              "stringValue": "28 min"
+                            },
+                            "intensity": {
+                              "stringValue": "Facile"
+                            },
+                            "warmup": {
+                              "stringValue": "4 min de marche, à 12:17 min/km progressive pour réveiller le cardio."
+                            },
+                            "type": {
+                              "stringValue": "Marche/Course"
+                            },
+                            "advice": {
+                              "stringValue": "Si tu ressens une douleur au genou, à la cheville ou au tibia pendant la course, arrête-toi et marche. Ne force jamais sur une douleur articulaire."
+                            },
+                            "locationSuggestion": {
+                              "stringValue": "parc urbain"
+                            },
+                            "mainSet": {
+                              "stringValue": "6 répétitions de (1 min de course en endurance fondamentale à 11:00 min/km + 2 min de marche active à 12:17 min/km). Effort perçu : 4/10."
+                            },
+                            "distance": {
+                              "stringValue": "2.3 km"
+                            },
+                            "cooldown": {
+                              "stringValue": "5 min de marche lente de retour au calme à 12:17 min/km."
+                            },
+                            "title": {
+                              "stringValue": "Première sortie : Reprise du mouvement"
+                            }
+                          }
+                        }
+                      },
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "duration": {
+                              "stringValue": "25-30 min"
+                            },
+                            "type": {
+                              "stringValue": "Renforcement"
+                            },
+                            "day": {
+                              "stringValue": "Mercredi"
+                            },
+                            "warmup": {
+                              "stringValue": "10 min de mobilité articulaire douce et échauffement progressif (marche rapide, rotations, pas chassés)"
+                            },
+                            "id": {
+                              "stringValue": "w1-s1-1779974805136-xkyl8jt"
+                            },
+                            "intensity": {
+                              "stringValue": "Facile"
+                            },
+                            "cooldown": {
+                              "stringValue": "8 min d'étirements : quadriceps (30s×2/jambe), bandelette IT (rouleau, 30s/côté), mollets, mobilité rotule en flexion douce."
+                            },
+                            "mainSet": {
+                              "stringValue": "Circuit 2 tours, repos 30s entre exercices, 1 min 30 entre tours : Squats poids de corps (descente lente) (3x6), Pont fessier au sol (3x8), Step-up sur marche basse (3x5/jambe), Fentes arrière lentes (3x4/jambe). Privilégie la technique et le contrôle, pas la vitesse."
+                            },
+                            "advice": {
+                              "stringValue": "Réalise les mouvements lentement en contrôlant chaque descente pour ne pas brusquer tes genoux hyperlaxes."
+                            },
+                            "title": {
+                              "stringValue": "Renfo Adapté - Bas du corps (S1)"
+                            }
+                          }
+                        }
+                      },
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "day": {
+                              "stringValue": "Samedi"
+                            },
+                            "id": {
+                              "stringValue": "w1-s3-1779974805136-ki4uu6o"
+                            },
+                            "duration": {
+                              "stringValue": "34 min"
+                            },
+                            "targetPace": {
+                              "stringValue": "11:00 min/km"
+                            },
+                            "title": {
+                              "stringValue": "Sortie longue : Construire la base"
+                            },
+                            "cooldown": {
+                              "stringValue": "5 min de marche lente à 12:17 min/km."
+                            },
+                            "advice": {
+                              "stringValue": "La régularité est la clé de la perte de poids. Garde un rythme où tu peux parler sans être essoufflé."
+                            },
+                            "mainSet": {
+                              "stringValue": "8 répétitions de (1 min de course lente en endurance fondamentale à 11:00 min/km + 2 min de marche active à 12:17 min/km). Effort perçu : 4/10."
+                            },
+                            "distance": {
+                              "stringValue": "2.8 km"
+                            },
+                            "locationSuggestion": {
+                              "stringValue": "berges calmes"
+                            },
+                            "warmup": {
+                              "stringValue": "5 min de marche, à 12:17 min/km préparatoire dynamique."
+                            },
+                            "type": {
+                              "stringValue": "Marche/Course"
+                            },
+                            "intensity": {
+                              "stringValue": "Facile"
+                            }
+                          }
+                        }
+                      }
+                    ]
+                  }
+                },
+                "weekGoal": {
+                  "stringValue": "Initiation et protection articulaire"
+                },
+                "weekNumber": {
+                  "integerValue": "1"
+                },
+                "theme": {
+                  "stringValue": "Initiation et protection articulaire"
+                }
+              }
+            }
+          }
+        ]
+      }
+    },
+    "paces": {
+      "mapValue": {
+        "fields": {
+          "allureSpecifique5k": {
+            "stringValue": "7:45"
+          },
+          "allureSpecifique10k": {
+            "stringValue": "8:11"
+          },
+          "recoveryPace": {
+            "stringValue": "12:17"
+          },
+          "vmaPace": {
+            "stringValue": "7:22"
+          },
+          "allureSpecifiqueSemi": {
+            "stringValue": "8:40"
+          },
+          "eaPace": {
+            "stringValue": "9:34"
+          },
+          "seuilPace": {
+            "stringValue": "8:28"
+          },
+          "efPace": {
+            "stringValue": "11:00"
+          },
+          "allureSpecifiqueMarathon": {
+            "stringValue": "9:12"
+          }
+        }
+      }
+    },
+    "startDate": {
+      "stringValue": "2026-05-28"
+    },
+    "adaptationLog": {
+      "mapValue": {
+        "fields": {
+          "adaptationsThisWeek": {
+            "integerValue": "0"
+          },
+          "weekNumber": {
+            "integerValue": "0"
+          },
+          "adaptationHistory": {
+            "arrayValue": {}
+          }
+        }
+      }
+    },
+    "targetTime": {
+      "stringValue": "Finisher"
+    },
+    "userId": {
+      "stringValue": "vfHSKrriHigTSSlt7GzyOOZgzNZ2"
+    },
+    "goal": {
+      "stringValue": "Perte de poids"
+    },
+    "createdAt": {
+      "stringValue": "2026-05-28T13:26:45.135Z"
+    },
+    "vmaSource": {
+      "stringValue": "5km en 38:46"
+    },
+    "generationContext": {
+      "mapValue": {
+        "fields": {
+          "periodizationPlan": {
+            "mapValue": {
+              "fields": {
+                "totalWeeks": {
+                  "integerValue": "12"
+                },
+                "recoveryWeeks": {
+                  "arrayValue": {
+                    "values": [
+                      {
+                        "integerValue": "4"
+                      },
+                      {
+                        "integerValue": "7"
+                      },
+                      {
+                        "integerValue": "10"
+                      }
+                    ]
+                  }
+                },
+                "weeklyVolumes": {
+                  "arrayValue": {
+                    "values": [
+                      {
+                        "integerValue": "5"
+                      },
+                      {
+                        "integerValue": "5"
+                      },
+                      {
+                        "integerValue": "5"
+                      },
+                      {
+                        "integerValue": "4"
+                      },
+                      {
+                        "integerValue": "6"
+                      },
+                      {
+                        "integerValue": "6"
+                      },
+                      {
+                        "integerValue": "5"
+                      },
+                      {
+                        "integerValue": "7"
+                      },
+                      {
+                        "integerValue": "7"
+                      },
+                      {
+                        "integerValue": "6"
+                      },
+                      {
+                        "integerValue": "7"
+                      },
+                      {
+                        "integerValue": "7"
+                      }
+                    ]
+                  }
+                },
+                "weeklyPhases": {
+                  "arrayValue": {
+                    "values": [
+                      {
+                        "stringValue": "fondamental"
+                      },
+                      {
+                        "stringValue": "fondamental"
+                      },
+                      {
+                        "stringValue": "fondamental"
+                      },
+                      {
+                        "stringValue": "recuperation"
+                      },
+                      {
+                        "stringValue": "fondamental"
+                      },
+                      {
+                        "stringValue": "developpement"
+                      },
+                      {
+                        "stringValue": "recuperation"
+                      },
+                      {
+                        "stringValue": "developpement"
+                      },
+                      {
+                        "stringValue": "developpement"
+                      },
+                      {
+                        "stringValue": "recuperation"
+                      },
+                      {
+                        "stringValue": "developpement"
+                      },
+                      {
+                        "stringValue": "developpement"
+                      }
+                    ]
+                  }
+                }
+              }
+            }
+          },
+          "vmaSource": {
+            "stringValue": "5km en 38:46"
+          },
+          "modelUsed": {
+            "stringValue": "gemini-3-flash-preview"
+          },
+          "paces": {
+            "mapValue": {
+              "fields": {
+                "allureSpecifiqueMarathon": {
+                  "stringValue": "9:12"
+                },
+                "efPace": {
+                  "stringValue": "11:00"
+                },
+                "seuilPace": {
+                  "stringValue": "8:28"
+                },
+                "eaPace": {
+                  "stringValue": "9:34"
+                },
+                "allureSpecifiqueSemi": {
+                  "stringValue": "8:40"
+                },
+                "vmaPace": {
+                  "stringValue": "7:22"
+                },
+                "recoveryPace": {
+                  "stringValue": "12:17"
+                },
+                "allureSpecifique5k": {
+                  "stringValue": "7:45"
+                },
+                "allureSpecifique10k": {
+                  "stringValue": "8:11"
+                }
+              }
+            }
+          },
+          "vma": {
+            "doubleValue": 8.145902158664072
+          },
+          "questionnaireSnapshot": {
+            "mapValue": {
+              "fields": {
+                "frequency": {
+                  "integerValue": "3"
+                },
+                "preferredDays": {
+                  "arrayValue": {
+                    "values": [
+                      {
+                        "stringValue": "Mercredi"
+                      },
+                      {
+                        "stringValue": "Samedi"
+                      },
+                      {
+                        "stringValue": "Lundi"
+                      }
+                    ]
+                  }
+                },
+                "vma": {
+                  "doubleValue": 8.145902158664072
+                },
+                "recentRaceTimes": {
+                  "mapValue": {
+                    "fields": {
+                      "distance5km": {
+                        "stringValue": "38:46"
+                      }
+                    }
+                  }
+                },
+                "height": {
+                  "integerValue": "173"
+                },
+                "startDate": {
+                  "stringValue": "2026-05-28"
+                },
+                "email": {
+                  "stringValue": "terry.lucile@gmail.com"
+                },
+                "age": {
+                  "integerValue": "21"
+                },
+                "level": {
+                  "stringValue": "Débutant (0-1 an)"
+                },
+                "city": {
+                  "stringValue": "Villeurbanne"
+                },
+                "weight": {
+                  "integerValue": "67"
+                },
+                "injuries": {
+                  "mapValue": {
+                    "fields": {
+                      "hasInjury": {
+                        "booleanValue": true
+                      },
+                      "description": {
+                        "stringValue": "Douleur au genou, restes des syndromes osgud et sever ainsi que les genoux hyperlaxes"
+                      }
+                    }
+                  }
+                },
+                "goal": {
+                  "stringValue": "Perte de poids"
+                },
+                "sex": {
+                  "stringValue": "Femme"
+                },
+                "currentWeeklyVolume": {
+                  "integerValue": "4"
+                }
+              }
+            }
+          },
+          "generatedAt": {
+            "stringValue": "2026-05-28T13:26:19.162Z"
+          }
+        }
+      }
+    },
+    "vma": {
+      "doubleValue": 8.145902158664072
+    },
+    "distance": {
+      "stringValue": "5.1 km"
+    },
+    "fullPlanGenerated": {
+      "booleanValue": false
+    },
+    "name": {
+      "stringValue": "Programme Perte de Poids — 12 semaines"
+    },
+    "sessionsPerWeek": {
+      "integerValue": "3"
+    },
+    "calculatedVMA": {
+      "doubleValue": 8.145902158664072
+    },
+    "welcomeMessage": {
+      "stringValue": "Bienvenue Lucile,\n\nTon plan a été conçu pour démarrer en douceur, dans le respect strict de tes antécédents médicaux : Osgood-Schlatter, Sever, hyperlaxité ligamentaire et douleur actuelle au genou.\n\n⚠️ Avant toute séance, fais valider la reprise par ton kiné ou médecin du sport. C'est non négociable pour un retour sûr à l'activité physique.\n\nCe plan utilise un format marche/course alternée (1 min course + 2 min marche) qui limite l'impact articulaire et permet à ton genou de bien tolérer chaque séance. Si une douleur apparaît ou persiste après 24h, arrête et consulte.\n\nLe renforcement musculaire du mercredi est ESSENTIEL : il protège ton genou en stabilisant les quadriceps et les ischio-jambiers. Ne le saute jamais.\n\nLes 3 règles d'or — j'arrête et je consulte si :\n1. Douleur au genou qui persiste plus de 24h après une séance\n2. Sensation d'instabilité ou de \"lâchage\" du genou\n3. Gonflement ou raideur articulaire au réveil\n\nLe plan reste un guide adaptable. Romane et l'équipe sont là si tu veux ajuster."
+    },
+    "endDate": {
+      "stringValue": "2026-08-20"
+    },
+    "confidenceScore": {
+      "integerValue": "70"
+    },
+    "id": {
+      "stringValue": "1779974805135"
+    },
+    "isPreview": {
+      "booleanValue": true
+    }
+  }
+}

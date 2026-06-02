@@ -158,8 +158,15 @@ const ProfilePage: React.FC<ProfilePageProps> = ({ user, setUser }) => {
                      <p className="text-xs text-center text-slate-400 mt-2">Vous serez redirigé vers le portail sécurisé Stripe.</p>
                    </>
                  ) : isIOSNative && user.stripeCustomerId ? (
-                   /* iOS natif + Premium actif : on affiche juste le statut, pas de CTA */
-                   null
+                   /* iOS natif + Premium actif : message info anti-steering conforme Apple.
+                      Pas de lien cliquable, pas de prix, pas de nom de domaine.
+                      Audit iOS J2 (02/06/2026) : économise 25-50 tickets support/mois
+                      à mesure que la base Premium iOS grandit. */
+                   <div className="bg-slate-50 p-4 rounded-lg border border-slate-200 text-center">
+                     <p className="text-sm text-slate-700">
+                       Votre abonnement Premium est géré depuis votre compte sur notre site web (hors de cette application).
+                     </p>
+                   </div>
                  ) : (
                    <div className="bg-amber-50 p-3 rounded-lg border border-amber-200 text-center">
                      <p className="text-xs text-amber-700">
@@ -189,12 +196,15 @@ const ProfilePage: React.FC<ProfilePageProps> = ({ user, setUser }) => {
                        </p>
                     </div>
                  </div>
-                 <button
-                  onClick={() => navigate('/pricing')}
-                  className="w-full bg-accent text-white font-bold py-3 rounded-lg flex items-center justify-center gap-2 hover:bg-orange-600 transition-all shadow-md"
-                 >
-                    <Zap size={18} fill="currentColor" /> Se réabonner Premium
-                 </button>
+                 {/* Audit iOS J2.5 : CTA Premium masqué en iOS (Apple 3.1.1) */}
+                 {!isIOSNative && (
+                   <button
+                    onClick={() => navigate('/pricing')}
+                    className="w-full bg-accent text-white font-bold py-3 rounded-lg flex items-center justify-center gap-2 hover:bg-orange-600 transition-all shadow-md"
+                   >
+                      <Zap size={18} fill="currentColor" /> Se réabonner Premium
+                   </button>
+                 )}
               </div>
             ) : (
               // CAS: GRATUIT (jamais été premium)
@@ -208,12 +218,15 @@ const ProfilePage: React.FC<ProfilePageProps> = ({ user, setUser }) => {
                        <p className="text-xs text-slate-500">Accès limité (1ère semaine des plans uniquement).</p>
                     </div>
                  </div>
-                 <button
-                  onClick={() => navigate('/pricing')}
-                  className="w-full bg-accent text-white font-bold py-3 rounded-lg flex items-center justify-center gap-2 hover:bg-orange-600 transition-all shadow-md"
-                 >
-                    <Zap size={18} fill="currentColor" /> Passer Premium
-                 </button>
+                 {/* Audit iOS J2.5 : CTA Premium masqué en iOS (Apple 3.1.1) */}
+                 {!isIOSNative && (
+                   <button
+                    onClick={() => navigate('/pricing')}
+                    className="w-full bg-accent text-white font-bold py-3 rounded-lg flex items-center justify-center gap-2 hover:bg-orange-600 transition-all shadow-md"
+                   >
+                      <Zap size={18} fill="currentColor" /> Passer Premium
+                   </button>
+                 )}
               </div>
             )}
         </div>

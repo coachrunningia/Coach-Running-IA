@@ -3,6 +3,7 @@ import { User, TrainingPlan, Session, QuestionnaireData } from '../types';
 import { resolveSessionDate, toISODateString } from '../utils/dateUtils';
 import { STRIPE_PRICES } from '../constants';
 import { auth, db } from './firebase';
+import { isIOSNative } from './platformService';
 import {
   onAuthStateChanged,
   updateProfile,
@@ -677,9 +678,10 @@ export const createStripeCheckoutSession = async (priceId: string, mode: 'subscr
   // Mobile iOS J1 (02/06/2026) — Apple 3.1.1 défense : Stripe checkout interdit
   // en iOS natif. Le composant PricingPage masque déjà le CTA en iOS, mais on
   // throw ici en garde-fou pour qu'aucun nouveau caller ne contourne par erreur.
-  const { isIOSNative } = await import('./platformService');
+  // Audit iOS J2 (02/06/2026) : message neutre (pas de "Stripe" → jargon + steering implicite).
   if (isIOSNative) {
-    throw new Error('Stripe checkout indisponible dans l\'app iOS.');
+    console.warn('[Stripe] Tentative createCheckoutSession sur iOS natif — bloqué (Apple 3.1.1)');
+    throw new Error('Cette fonctionnalité n\'est pas disponible dans l\'application.');
   }
   const user = auth.currentUser;
   if (!user) throw new Error("Veuillez créer un compte avant de vous abonner.");
@@ -722,9 +724,10 @@ export const createStripeCheckoutSession = async (priceId: string, mode: 'subscr
 export const createPortalSession = async () => {
   // Mobile iOS J1 (02/06/2026) — Apple 3.1.1 défense : portail Stripe interdit
   // en iOS natif. Le bouton est déjà masqué côté ProfilePage en iOS, garde-fou ici.
-  const { isIOSNative } = await import('./platformService');
+  // Audit iOS J2 (02/06/2026) : message neutre.
   if (isIOSNative) {
-    throw new Error('Portail Stripe indisponible dans l\'app iOS.');
+    console.warn('[Stripe] Tentative createPortalSession sur iOS natif — bloqué (Apple 3.1.1)');
+    throw new Error('Cette fonctionnalité n\'est pas disponible dans l\'application.');
   }
   const user = auth.currentUser;
   if (!user) throw new Error("Non authentifié");

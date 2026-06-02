@@ -1,0 +1,598 @@
+{
+  "name": "projects/coach-running-ia/databases/(default)/documents/plans/1779874303413",
+  "fields": {
+    "generationContext": {
+      "mapValue": {
+        "fields": {
+          "vma": {
+            "doubleValue": 8.333333333333334
+          },
+          "paces": {
+            "mapValue": {
+              "fields": {
+                "eaPace": {
+                  "stringValue": "9:21"
+                },
+                "allureSpecifiqueSemi": {
+                  "stringValue": "8:28"
+                },
+                "seuilPace": {
+                  "stringValue": "8:17"
+                },
+                "vmaPace": {
+                  "stringValue": "7:12"
+                },
+                "allureSpecifique10k": {
+                  "stringValue": "8:00"
+                },
+                "recoveryPace": {
+                  "stringValue": "12:00"
+                },
+                "allureSpecifique5k": {
+                  "stringValue": "7:35"
+                },
+                "allureSpecifiqueMarathon": {
+                  "stringValue": "9:00"
+                },
+                "efPace": {
+                  "stringValue": "10:45"
+                }
+              }
+            }
+          },
+          "periodizationPlan": {
+            "mapValue": {
+              "fields": {
+                "recoveryWeeks": {
+                  "arrayValue": {
+                    "values": [
+                      {
+                        "integerValue": "4"
+                      }
+                    ]
+                  }
+                },
+                "totalWeeks": {
+                  "integerValue": "7"
+                },
+                "weeklyPhases": {
+                  "arrayValue": {
+                    "values": [
+                      {
+                        "stringValue": "fondamental"
+                      },
+                      {
+                        "stringValue": "fondamental"
+                      },
+                      {
+                        "stringValue": "developpement"
+                      },
+                      {
+                        "stringValue": "recuperation"
+                      },
+                      {
+                        "stringValue": "specifique"
+                      },
+                      {
+                        "stringValue": "specifique"
+                      },
+                      {
+                        "stringValue": "affutage"
+                      }
+                    ]
+                  }
+                },
+                "weeklyElevationTarget": {
+                  "arrayValue": {
+                    "values": [
+                      {
+                        "integerValue": "500"
+                      },
+                      {
+                        "integerValue": "475"
+                      },
+                      {
+                        "integerValue": "450"
+                      },
+                      {
+                        "integerValue": "234"
+                      },
+                      {
+                        "integerValue": "399"
+                      },
+                      {
+                        "integerValue": "374"
+                      },
+                      {
+                        "integerValue": "140"
+                      }
+                    ]
+                  }
+                },
+                "weeklyVolumes": {
+                  "arrayValue": {
+                    "values": [
+                      {
+                        "integerValue": "15"
+                      },
+                      {
+                        "integerValue": "16"
+                      },
+                      {
+                        "integerValue": "17"
+                      },
+                      {
+                        "integerValue": "14"
+                      },
+                      {
+                        "integerValue": "16"
+                      },
+                      {
+                        "integerValue": "17"
+                      },
+                      {
+                        "integerValue": "9"
+                      }
+                    ]
+                  }
+                }
+              }
+            }
+          },
+          "generatedAt": {
+            "stringValue": "2026-05-27T09:31:25.474Z"
+          },
+          "vmaSource": {
+            "stringValue": "10km en 1h20"
+          },
+          "modelUsed": {
+            "stringValue": "gemini-3-flash-preview"
+          },
+          "questionnaireSnapshot": {
+            "mapValue": {
+              "fields": {
+                "recentRaceTimes": {
+                  "mapValue": {
+                    "fields": {
+                      "distance10km": {
+                        "stringValue": "1h20"
+                      }
+                    }
+                  }
+                },
+                "currentWeeklyElevation": {
+                  "integerValue": "500"
+                },
+                "city": {
+                  "stringValue": "annecy"
+                },
+                "sex": {
+                  "stringValue": "Femme"
+                },
+                "trailDetails": {
+                  "mapValue": {
+                    "fields": {
+                      "distance": {
+                        "integerValue": "10"
+                      },
+                      "elevation": {
+                        "integerValue": "349"
+                      }
+                    }
+                  }
+                },
+                "preferredLongRunDay": {
+                  "stringValue": "Samedi"
+                },
+                "currentWeeklyVolume": {
+                  "integerValue": "15"
+                },
+                "age": {
+                  "integerValue": "37"
+                },
+                "height": {
+                  "integerValue": "175"
+                },
+                "level": {
+                  "stringValue": "Intermédiaire (Régulier)"
+                },
+                "startDate": {
+                  "stringValue": "2026-05-27"
+                },
+                "vma": {
+                  "doubleValue": 8.333333333333334
+                },
+                "weight": {
+                  "integerValue": "70"
+                },
+                "targetTime": {
+                  "stringValue": "1h25"
+                },
+                "frequency": {
+                  "integerValue": "3"
+                },
+                "goal": {
+                  "stringValue": "Trail"
+                },
+                "email": {
+                  "stringValue": "noemie507@hotmail.com"
+                },
+                "preferredDays": {
+                  "arrayValue": {
+                    "values": [
+                      {
+                        "stringValue": "Mercredi"
+                      }
+                    ]
+                  }
+                },
+                "raceDate": {
+                  "stringValue": "2026-07-15"
+                },
+                "injuries": {
+                  "mapValue": {
+                    "fields": {
+                      "hasInjury": {
+                        "booleanValue": false
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "name": {
+      "stringValue": "Préparation Trail 10km / 349m D+ en 1h25 — 7 sem."
+    },
+    "goal": {
+      "stringValue": "Trail"
+    },
+    "adaptationLog": {
+      "mapValue": {
+        "fields": {
+          "adaptationsThisWeek": {
+            "integerValue": "0"
+          },
+          "weekNumber": {
+            "integerValue": "0"
+          },
+          "adaptationHistory": {
+            "arrayValue": {}
+          }
+        }
+      }
+    },
+    "raceDate": {
+      "stringValue": "2026-07-15"
+    },
+    "feasibility": {
+      "mapValue": {
+        "fields": {
+          "message": {
+            "stringValue": "Ton objectif de 1h25min sur 10 km nécessiterait une VMA de 11.2 km/h, soit 134% de ta VMA actuelle (8.3 km/h). Même avec une progression optimale, cet écart est trop important. Ton temps théorique est de 1h54min. Un objectif réaliste serait autour de 2h00min."
+          },
+          "status": {
+            "stringValue": "IRRÉALISTE"
+          },
+          "recommendation": {
+            "stringValue": "un temps cible de 2h00min"
+          },
+          "safetyWarning": {
+            "stringValue": "Pense à consulter un médecin pour un certificat d'aptitude avant de commencer ta préparation."
+          },
+          "score": {
+            "integerValue": "5"
+          }
+        }
+      }
+    },
+    "sessionsPerWeek": {
+      "integerValue": "3"
+    },
+    "userEmail": {
+      "stringValue": "noemie507@hotmail.com"
+    },
+    "weeks": {
+      "arrayValue": {
+        "values": [
+          {
+            "mapValue": {
+              "fields": {
+                "weekGoal": {
+                  "stringValue": "Développement de l'endurance de base"
+                },
+                "weekNumber": {
+                  "integerValue": "1"
+                },
+                "theme": {
+                  "stringValue": "Développement de l'endurance de base"
+                },
+                "sessions": {
+                  "arrayValue": {
+                    "values": [
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "cooldown": {
+                              "stringValue": "5 min de marche."
+                            },
+                            "advice": {
+                              "stringValue": "Découper l'effort permet d'accumuler du volume aérobie en réduisant la charge mécanique globale. Idéal pour progresser sans casser."
+                            },
+                            "mainSet": {
+                              "stringValue": "8 blocs de 5 min de footing en endurance fondamentale (10:45), entrecoupés de 1 min de marche. Le footing reste lent et confortable ; la marche est une respiration de confort, pas une récupération d'effort dur."
+                            },
+                            "duration": {
+                              "stringValue": "1h 08 min"
+                            },
+                            "id": {
+                              "stringValue": "w1-s1-1779874303413-1gl0p23"
+                            },
+                            "intensity": {
+                              "stringValue": "Facile"
+                            },
+                            "day": {
+                              "stringValue": "Lundi"
+                            },
+                            "type": {
+                              "stringValue": "Jogging"
+                            },
+                            "warmup": {
+                              "stringValue": "5 min de marche active."
+                            },
+                            "elevationGain": {
+                              "integerValue": "100"
+                            },
+                            "locationSuggestion": {
+                              "stringValue": "sentier de montagne"
+                            },
+                            "title": {
+                              "stringValue": "Footing en blocs souples"
+                            },
+                            "targetPace": {
+                              "stringValue": "10:45 min/km"
+                            },
+                            "distance": {
+                              "stringValue": "6.3 km"
+                            }
+                          }
+                        }
+                      },
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "cooldown": {
+                              "stringValue": "5 min d'étirements : quadriceps, ischio-jambiers, mollets, hanches"
+                            },
+                            "locationSuggestion": {
+                              "stringValue": "À la maison"
+                            },
+                            "duration": {
+                              "stringValue": "30 min"
+                            },
+                            "mainSet": {
+                              "stringValue": "Circuit 2 tours : Squats poids de corps (3x9), Squat bulgare (3x6/jambe), Fentes avant (3x6/jambe), Gainage ventral (3x19-60s), Dead bug (3x6/cote), Extensions mollets debout (3x13), Squat excentrique (descente 4s) (3x6), Step-down excentrique (3x5/jambe), Mollets debout unipodal (3x8/jambe). Repos 2 min entre tours."
+                            },
+                            "advice": {
+                              "stringValue": "Écoute ton corps et stoppe en cas de tension inhabituelle."
+                            },
+                            "id": {
+                              "stringValue": "w1-s2-1779874303413-mrninym"
+                            },
+                            "title": {
+                              "stringValue": "Renfo Trail Focus A - Quadriceps & Excentrique (S1)"
+                            },
+                            "intensity": {
+                              "stringValue": "Modéré"
+                            },
+                            "day": {
+                              "stringValue": "Mercredi"
+                            },
+                            "type": {
+                              "stringValue": "Renforcement"
+                            },
+                            "warmup": {
+                              "stringValue": "10 min de mobilité articulaire et échauffement dynamique"
+                            }
+                          }
+                        }
+                      },
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "title": {
+                              "stringValue": "Sortie longue dénivelé progressif"
+                            },
+                            "elevationGain": {
+                              "integerValue": "400"
+                            },
+                            "locationSuggestion": {
+                              "stringValue": "sentier vallonné"
+                            },
+                            "distance": {
+                              "stringValue": "8.4 km"
+                            },
+                            "targetPace": {
+                              "stringValue": "10:45 min/km"
+                            },
+                            "id": {
+                              "stringValue": "w1-s3-1779874303413-2v0o35k"
+                            },
+                            "advice": {
+                              "stringValue": "Ne cherche pas la vitesse, reste en aisance respiratoire totale."
+                            },
+                            "duration": {
+                              "stringValue": "1h 30 min"
+                            },
+                            "mainSet": {
+                              "stringValue": "8.4 km total en EF à 10:45 min/km incluant du dénivelé positif léger"
+                            },
+                            "cooldown": {
+                              "stringValue": "10 min de marche de récupération (à 12:00 min/km)"
+                            },
+                            "warmup": {
+                              "stringValue": "10 min de trot très lent (à 12:00 min/km)"
+                            },
+                            "type": {
+                              "stringValue": "Sortie Longue"
+                            },
+                            "day": {
+                              "stringValue": "Samedi"
+                            },
+                            "intensity": {
+                              "stringValue": "Facile"
+                            }
+                          }
+                        }
+                      }
+                    ]
+                  }
+                },
+                "phase": {
+                  "stringValue": "fondamental"
+                }
+              }
+            }
+          }
+        ]
+      }
+    },
+    "vmaSource": {
+      "stringValue": "10km en 1h20"
+    },
+    "id": {
+      "stringValue": "1779874303413"
+    },
+    "userId": {
+      "stringValue": "6nZUEg1ZMLh4odpmni959QKkhqJ2"
+    },
+    "endDate": {
+      "stringValue": "2026-07-15"
+    },
+    "suggestedLocations": {
+      "arrayValue": {
+        "values": [
+          {
+            "mapValue": {
+              "fields": {
+                "type": {
+                  "stringValue": "NATURE"
+                },
+                "name": {
+                  "stringValue": "Sentiers de forêt"
+                },
+                "description": {
+                  "stringValue": "Idéal pour les sorties en endurance fondamentale sur sol souple."
+                }
+              }
+            }
+          },
+          {
+            "mapValue": {
+              "fields": {
+                "name": {
+                  "stringValue": "Parcours vallonné local"
+                },
+                "type": {
+                  "stringValue": "HILL"
+                },
+                "description": {
+                  "stringValue": "Adapté pour travailler le dénivelé spécifique au trail."
+                }
+              }
+            }
+          },
+          {
+            "mapValue": {
+              "fields": {
+                "name": {
+                  "stringValue": "Berges calmes"
+                },
+                "type": {
+                  "stringValue": "PARK"
+                },
+                "description": {
+                  "stringValue": "Terrain plat parfait pour les footings de récupération et l'aisance respiratoire."
+                }
+              }
+            }
+          }
+        ]
+      }
+    },
+    "startDate": {
+      "stringValue": "2026-05-27"
+    },
+    "targetTime": {
+      "stringValue": "1h25"
+    },
+    "vma": {
+      "doubleValue": 8.333333333333334
+    },
+    "createdAt": {
+      "stringValue": "2026-05-27T09:31:43.413Z"
+    },
+    "distance": {
+      "stringValue": "10km D+349m"
+    },
+    "durationWeeks": {
+      "integerValue": "7"
+    },
+    "isPreview": {
+      "booleanValue": true
+    },
+    "paces": {
+      "mapValue": {
+        "fields": {
+          "efPace": {
+            "stringValue": "10:45"
+          },
+          "allureSpecifiqueMarathon": {
+            "stringValue": "9:00"
+          },
+          "recoveryPace": {
+            "stringValue": "12:00"
+          },
+          "allureSpecifique5k": {
+            "stringValue": "7:35"
+          },
+          "allureSpecifiqueSemi": {
+            "stringValue": "8:28"
+          },
+          "eaPace": {
+            "stringValue": "9:21"
+          },
+          "allureSpecifique10k": {
+            "stringValue": "8:00"
+          },
+          "vmaPace": {
+            "stringValue": "7:12"
+          },
+          "seuilPace": {
+            "stringValue": "8:17"
+          }
+        }
+      }
+    },
+    "fullPlanGenerated": {
+      "booleanValue": false
+    },
+    "location": {
+      "stringValue": "annecy"
+    },
+    "welcomeMessage": {
+      "stringValue": "Ce plan ne te permettra PAS d'atteindre 1h25 sur 10km dans le temps imparti. Ton objectif nécessiterait une VMA de 11.2 km/h, soit 134% de ta VMA actuelle (8.3 km/h). Même avec une progression optimale, cet écart est physiologiquement hors d'atteinte. Ton temps théorique actuel est de 1h54min. Un objectif réaliste serait autour de 2h00min. Nous te recommandons de consulter un médecin avant de débuter ce programme, notamment pour obtenir un certificat médical d'aptitude au sport. Cette première semaine se concentre sur le développement de tes bases d'endurance fondamentale et de ta force physique."
+    },
+    "calculatedVMA": {
+      "doubleValue": 8.333333333333334
+    },
+    "confidenceScore": {
+      "integerValue": "5"
+    }
+  },
+  "createTime": "2026-05-27T09:31:43.508930Z",
+  "updateTime": "2026-05-27T09:31:43.508930Z"
+}
