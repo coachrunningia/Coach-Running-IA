@@ -1,0 +1,592 @@
+{
+  "name": "projects/coach-running-ia/databases/(default)/documents/plans/1778254954905",
+  "fields": {
+    "fullPlanGenerated": {
+      "booleanValue": false
+    },
+    "name": {
+      "stringValue": "Préparation Trail 10km / 500m D+ en 55min — 7 sem."
+    },
+    "vma": {
+      "doubleValue": 13.5
+    },
+    "generationContext": {
+      "mapValue": {
+        "fields": {
+          "paces": {
+            "mapValue": {
+              "fields": {
+                "eaPace": {
+                  "stringValue": "5:46"
+                },
+                "efPace": {
+                  "stringValue": "6:38"
+                },
+                "allureSpecifique10k": {
+                  "stringValue": "4:56"
+                },
+                "allureSpecifique5k": {
+                  "stringValue": "4:41"
+                },
+                "recoveryPace": {
+                  "stringValue": "7:24"
+                },
+                "allureSpecifiqueMarathon": {
+                  "stringValue": "5:33"
+                },
+                "seuilPace": {
+                  "stringValue": "5:07"
+                },
+                "vmaPace": {
+                  "stringValue": "4:27"
+                },
+                "allureSpecifiqueSemi": {
+                  "stringValue": "5:14"
+                }
+              }
+            }
+          },
+          "periodizationPlan": {
+            "mapValue": {
+              "fields": {
+                "recoveryWeeks": {
+                  "arrayValue": {
+                    "values": [
+                      {
+                        "integerValue": "4"
+                      }
+                    ]
+                  }
+                },
+                "totalWeeks": {
+                  "integerValue": "7"
+                },
+                "weeklyPhases": {
+                  "arrayValue": {
+                    "values": [
+                      {
+                        "stringValue": "fondamental"
+                      },
+                      {
+                        "stringValue": "fondamental"
+                      },
+                      {
+                        "stringValue": "developpement"
+                      },
+                      {
+                        "stringValue": "recuperation"
+                      },
+                      {
+                        "stringValue": "specifique"
+                      },
+                      {
+                        "stringValue": "specifique"
+                      },
+                      {
+                        "stringValue": "affutage"
+                      }
+                    ]
+                  }
+                },
+                "weeklyElevationTarget": {
+                  "arrayValue": {
+                    "values": [
+                      {
+                        "integerValue": "100"
+                      },
+                      {
+                        "integerValue": "150"
+                      },
+                      {
+                        "integerValue": "200"
+                      },
+                      {
+                        "integerValue": "150"
+                      },
+                      {
+                        "integerValue": "300"
+                      },
+                      {
+                        "integerValue": "450"
+                      },
+                      {
+                        "integerValue": "500"
+                      }
+                    ]
+                  }
+                },
+                "weeklyVolumes": {
+                  "arrayValue": {
+                    "values": [
+                      {
+                        "integerValue": "43"
+                      },
+                      {
+                        "integerValue": "45"
+                      },
+                      {
+                        "integerValue": "36"
+                      },
+                      {
+                        "integerValue": "28"
+                      },
+                      {
+                        "integerValue": "33"
+                      },
+                      {
+                        "integerValue": "35"
+                      },
+                      {
+                        "integerValue": "22"
+                      }
+                    ]
+                  }
+                }
+              }
+            }
+          },
+          "vmaSource": {
+            "stringValue": "Estimation niveau Intermédiaire (Régulier)"
+          },
+          "questionnaireSnapshot": {
+            "mapValue": {
+              "fields": {
+                "trailDetails": {
+                  "mapValue": {
+                    "fields": {
+                      "elevation": {
+                        "integerValue": "500"
+                      },
+                      "distance": {
+                        "integerValue": "10"
+                      }
+                    }
+                  }
+                },
+                "height": {
+                  "integerValue": "170"
+                },
+                "vma": {
+                  "doubleValue": 13.5
+                },
+                "frequency": {
+                  "integerValue": "3"
+                },
+                "injuries": {
+                  "mapValue": {
+                    "fields": {
+                      "hasInjury": {
+                        "booleanValue": false
+                      }
+                    }
+                  }
+                },
+                "age": {
+                  "integerValue": "48"
+                },
+                "sex": {
+                  "stringValue": "Homme"
+                },
+                "email": {
+                  "stringValue": "philkhal@hotmail.com"
+                },
+                "level": {
+                  "stringValue": "Intermédiaire (Régulier)"
+                },
+                "city": {
+                  "stringValue": "Montgailhard "
+                },
+                "comments": {
+                  "stringValue": "Matin"
+                },
+                "weight": {
+                  "integerValue": "71"
+                },
+                "goal": {
+                  "stringValue": "Trail"
+                },
+                "preferredDays": {
+                  "arrayValue": {}
+                },
+                "targetTime": {
+                  "stringValue": "55min"
+                },
+                "currentWeeklyElevation": {
+                  "integerValue": "600"
+                },
+                "startDate": {
+                  "stringValue": "2026-05-08"
+                },
+                "currentWeeklyVolume": {
+                  "integerValue": "50"
+                },
+                "recentRaceTimes": {
+                  "mapValue": {}
+                },
+                "raceDate": {
+                  "stringValue": "2026-06-20"
+                }
+              }
+            }
+          },
+          "modelUsed": {
+            "stringValue": "gemini-2.5-flash"
+          },
+          "vma": {
+            "doubleValue": 13.5
+          },
+          "generatedAt": {
+            "stringValue": "2026-05-08T15:41:59.998Z"
+          }
+        }
+      }
+    },
+    "distance": {
+      "stringValue": "10km D+500m"
+    },
+    "createdAt": {
+      "stringValue": "2026-05-08T15:42:34.905Z"
+    },
+    "adaptationLog": {
+      "mapValue": {
+        "fields": {
+          "weekNumber": {
+            "integerValue": "0"
+          },
+          "adaptationsThisWeek": {
+            "integerValue": "0"
+          },
+          "adaptationHistory": {
+            "arrayValue": {}
+          }
+        }
+      }
+    },
+    "calculatedVMA": {
+      "doubleValue": 13.5
+    },
+    "vmaSource": {
+      "stringValue": "Estimation niveau Intermédiaire (Régulier)"
+    },
+    "feasibility": {
+      "mapValue": {
+        "fields": {
+          "safetyWarning": {
+            "stringValue": "À 48 ans, on te recommande de consulter ton médecin pour un certificat d'aptitude et idéalement un test d'effort avant de démarrer. Accorde-toi une récupération suffisante entre les séances (48h minimum) et écoute ton corps."
+          },
+          "status": {
+            "stringValue": "IRRÉALISTE"
+          },
+          "recommendation": {
+            "stringValue": "un temps cible de 1h22min"
+          },
+          "message": {
+            "stringValue": "Ton objectif de 55:00 sur 10 km nécessiterait une VMA de 19.3 km/h, soit 143% de ta VMA actuelle (13.5 km/h). Même avec une progression optimale, cet écart est trop important. Ton temps théorique est de 1h18min. Un objectif réaliste serait autour de 1h22min."
+          }
+        }
+      }
+    },
+    "weeks": {
+      "arrayValue": {
+        "values": [
+          {
+            "mapValue": {
+              "fields": {
+                "phase": {
+                  "stringValue": "fondamental"
+                },
+                "theme": {
+                  "stringValue": "Développement de l'Endurance Fondamentale et Adaptation au Terrain"
+                },
+                "weekNumber": {
+                  "integerValue": "1"
+                },
+                "sessions": {
+                  "arrayValue": {
+                    "values": [
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "locationSuggestion": {
+                              "stringValue": "Bords de l'Ariège (direction Foix)"
+                            },
+                            "title": {
+                              "stringValue": "Footing en aisance respiratoire"
+                            },
+                            "warmup": {
+                              "stringValue": "15 min progressives: 5 min à 7:24 min/km puis 10 min à 6:38 min/km. Surveille ton souffle et assure-toi d'être bien échauffé."
+                            },
+                            "cooldown": {
+                              "stringValue": "5 min de récupération active (7:24 min/km), suivies de 5-10 min d'étirements doux et de mobilité articulaire pour favoriser la récupération."
+                            },
+                            "day": {
+                              "stringValue": "Mardi"
+                            },
+                            "targetPace": {
+                              "stringValue": "6:38 min/km"
+                            },
+                            "elevationGain": {
+                              "integerValue": "60"
+                            },
+                            "intensity": {
+                              "stringValue": "Facile"
+                            },
+                            "duration": {
+                              "stringValue": "2h00"
+                            },
+                            "distance": {
+                              "stringValue": "18 km"
+                            },
+                            "type": {
+                              "stringValue": "Jogging"
+                            },
+                            "mainSet": {
+                              "stringValue": "1h45 de footing en endurance fondamentale (6:38 min/km), allure régulière confortable où la conversation reste facile. Foulée légère, effort stable. C'est ta séance de volume aérobie, calibrée à ton niveau actuel."
+                            },
+                            "id": {
+                              "stringValue": "w1-s1-1778254954906-suafbuy"
+                            },
+                            "advice": {
+                              "stringValue": "Écoute attentivement ton corps et ne force jamais en cas de douleur ou de fatigue excessive. Hydrate-toi bien avant et après la séance. Porte une attention particulière à tes genoux et chevilles."
+                            }
+                          }
+                        }
+                      },
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "id": {
+                              "stringValue": "w1-s2-1778254954906-i0v2k8k"
+                            },
+                            "advice": {
+                              "stringValue": "La régularité est la clé pour le renforcement. Adapte l'intensité des exercices à ta forme du jour et n'hésite pas à faire des pauses si nécessaire. Une bonne proprioception est essentielle pour le trail, inclus des exercices d'équilibre."
+                            },
+                            "mainSet": {
+                              "stringValue": "Circuit 3 tours : Squats poids de corps (3x14), Squat bulgare (3x9/jambe), Fentes avant (3x9/jambe), Gainage ventral (3x27-60s), Dead bug (3x9/côté), Extensions mollets debout (3x18), Squat excentrique (descente 4s) (3x9), Step-down excentrique (3x7/jambe), Mollets debout unipodal (3x11/jambe). Repos 1 min 30 entre tours."
+                            },
+                            "distance": {
+                              "stringValue": "0 km"
+                            },
+                            "type": {
+                              "stringValue": "Renforcement"
+                            },
+                            "duration": {
+                              "stringValue": "35-40 min"
+                            },
+                            "intensity": {
+                              "stringValue": "Modéré"
+                            },
+                            "elevationGain": {
+                              "integerValue": "0"
+                            },
+                            "day": {
+                              "stringValue": "Jeudi"
+                            },
+                            "targetPace": {
+                              "stringValue": "N/A"
+                            },
+                            "cooldown": {
+                              "stringValue": "5 min d'étirements : quadriceps, ischio-jambiers, mollets, hanches"
+                            },
+                            "title": {
+                              "stringValue": "Renfo Trail Focus A - Quadriceps & Excentrique (S1)"
+                            },
+                            "warmup": {
+                              "stringValue": "10 min de mobilité articulaire et échauffement dynamique"
+                            },
+                            "locationSuggestion": {
+                              "stringValue": "À la maison"
+                            }
+                          }
+                        }
+                      },
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "cooldown": {
+                              "stringValue": "5 min de récupération active (7:24 min/km), suivies de 5-10 min d'étirements des jambes et du dos, et de mobilité articulaire. Hydrate-toi et ravitaille-toi correctement après cette séance plus longue."
+                            },
+                            "targetPace": {
+                              "stringValue": "6:38 min/km"
+                            },
+                            "day": {
+                              "stringValue": "Dimanche"
+                            },
+                            "locationSuggestion": {
+                              "stringValue": "Forêt de Belloc (proche Montgailhard)"
+                            },
+                            "warmup": {
+                              "stringValue": "15 min progressives en Endurance Fondamentale (6:38 min/km) sur terrain plat ou légèrement vallonné pour préparer le corps à l'effort."
+                            },
+                            "title": {
+                              "stringValue": "Sortie Longue Trail douce avec D+"
+                            },
+                            "duration": {
+                              "stringValue": "2h25"
+                            },
+                            "type": {
+                              "stringValue": "Sortie Longue"
+                            },
+                            "distance": {
+                              "stringValue": "22 km"
+                            },
+                            "mainSet": {
+                              "stringValue": "2h10 de course en endurance fondamentale (6:38 min/km) sur sentier vallonné. Adapte l'effort au dénivelé : montée en foulée courte effort EF maintenu, descente relâchée et contrôlée. Marche les côtes les plus raides si besoin. Hydrate-toi pendant."
+                            },
+                            "advice": {
+                              "stringValue": "C'est une séance clé pour développer ton endurance spécifique au trail. Gère ton effort sur les montées et les descentes, et reste à l'écoute de ton corps, surtout face au dénivelé. Prête une attention particulière à tes chevilles sur les sentiers techniques et irréguliers."
+                            },
+                            "id": {
+                              "stringValue": "w1-s3-1778254954906-0ua6775"
+                            },
+                            "elevationGain": {
+                              "integerValue": "300"
+                            },
+                            "intensity": {
+                              "stringValue": "Facile"
+                            }
+                          }
+                        }
+                      }
+                    ]
+                  }
+                },
+                "weekGoal": {
+                  "stringValue": "Développement de l'Endurance Fondamentale et Adaptation au Terrain"
+                }
+              }
+            }
+          }
+        ]
+      }
+    },
+    "goal": {
+      "stringValue": "Trail"
+    },
+    "endDate": {
+      "stringValue": "2026-06-22"
+    },
+    "userEmail": {
+      "stringValue": "philkhal@hotmail.com"
+    },
+    "location": {
+      "stringValue": "Montgailhard"
+    },
+    "id": {
+      "stringValue": "1778254954905"
+    },
+    "confidenceScore": {
+      "integerValue": "5"
+    },
+    "paces": {
+      "mapValue": {
+        "fields": {
+          "allureSpecifiqueSemi": {
+            "stringValue": "5:14"
+          },
+          "vmaPace": {
+            "stringValue": "4:27"
+          },
+          "seuilPace": {
+            "stringValue": "5:07"
+          },
+          "recoveryPace": {
+            "stringValue": "7:24"
+          },
+          "allureSpecifiqueMarathon": {
+            "stringValue": "5:33"
+          },
+          "allureSpecifique5k": {
+            "stringValue": "4:41"
+          },
+          "efPace": {
+            "stringValue": "6:38"
+          },
+          "allureSpecifique10k": {
+            "stringValue": "4:56"
+          },
+          "eaPace": {
+            "stringValue": "5:46"
+          }
+        }
+      }
+    },
+    "raceDate": {
+      "stringValue": "2026-06-20"
+    },
+    "targetTime": {
+      "stringValue": "55min"
+    },
+    "sessionsPerWeek": {
+      "integerValue": "3"
+    },
+    "startDate": {
+      "stringValue": "2026-05-04"
+    },
+    "userId": {
+      "stringValue": "ftRRXIdKihNQzHAnVRHaXjkrVt73"
+    },
+    "suggestedLocations": {
+      "arrayValue": {
+        "values": [
+          {
+            "mapValue": {
+              "fields": {
+                "name": {
+                  "stringValue": "Forêt de Belloc (proche Montgailhard)"
+                },
+                "description": {
+                  "stringValue": "Idéal pour les sorties longues trail, les footings vallonnés et les séances avec dénivelé."
+                },
+                "type": {
+                  "stringValue": "NATURE"
+                }
+              }
+            }
+          },
+          {
+            "mapValue": {
+              "fields": {
+                "type": {
+                  "stringValue": "NATURE"
+                },
+                "name": {
+                  "stringValue": "Bords de l'Ariège (direction Foix)"
+                },
+                "description": {
+                  "stringValue": "Chemins plats et agréables pour les footings en aisance respiratoire et les sorties longues sur terrain roulant."
+                }
+              }
+            }
+          },
+          {
+            "mapValue": {
+              "fields": {
+                "description": {
+                  "stringValue": "Piste d'athlétisme pour les séances de VMA ou de fractionné court."
+                },
+                "name": {
+                  "stringValue": "Stade Jean Surroque (Foix)"
+                },
+                "type": {
+                  "stringValue": "TRACK"
+                }
+              }
+            }
+          }
+        ]
+      }
+    },
+    "welcomeMessage": {
+      "stringValue": "⚠️ **Objectif extrêmement ambitieux + VMA non mesurée** — Atteindre 55 min sur ce trail demande une VMA d'environ 19,3 km/h. Ta VMA estimée actuelle est 13,5 km/h (pas de chrono saisi) : tu es 43 % en dessous. Estimation honnête du temps réaliste : **~1h22**. Tu peux suivre ce plan en connaissance de cause, mais l'objectif chrono restera mécaniquement hors d'atteinte. **Recommandation : génère un nouveau plan avec un objectif autour de 1h20-1h25** — il sera bien plus aligné. Et avant la S2, fais un test 5 ou 10 km chronométré pour mesurer ta vraie VMA et ajoute-le à ton profil.\n\nBonjour ! Ce plan d'entraînement est conçu pour t'accompagner dans ta préparation pour un trail de 10km avec 500m de D+, en tenant compte de ton expérience intermédiaire et de tes préférences pour les séances matinales. La structure du programme mettra l'accent sur le développement de ton endurance fondamentale, de ta force spécifique au trail et de ta capacité à gérer le dénivelé sur sept semaines. Nous te recommandons vivement de consulter un médecin avant de débuter ce programme, notamment pour obtenir un certificat médical d'aptitude au sport. À partir de 48 ans, un bilan cardio-vasculaire est particulièrement conseillé."
+    },
+    "isPreview": {
+      "booleanValue": true
+    },
+    "durationWeeks": {
+      "integerValue": "7"
+    }
+  },
+  "createTime": "2026-05-08T15:42:47.051621Z",
+  "updateTime": "2026-05-24T21:01:05.614605Z"
+}

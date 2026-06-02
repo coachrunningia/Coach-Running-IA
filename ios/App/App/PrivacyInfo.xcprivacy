@@ -53,8 +53,11 @@ Reason codes Apple (https://developer.apple.com/documentation/bundleresources/pr
             </array>
         </dict>
         <dict>
+            <!-- Audit iOS J2 (02/06/2026) : remplacé Photos/Videos par OtherUserContent.
+                 On stocke l'URL d'avatar Google (photoURL string), pas une photo
+                 collectée par l'app. Apple peut linter "déclaration inutile" sinon. -->
             <key>NSPrivacyCollectedDataType</key>
-            <string>NSPrivacyCollectedDataTypePhotosorVideos</string>
+            <string>NSPrivacyCollectedDataTypeOtherUserContent</string>
             <key>NSPrivacyCollectedDataTypeLinked</key>
             <true/>
             <key>NSPrivacyCollectedDataTypeTracking</key>

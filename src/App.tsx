@@ -19,6 +19,7 @@ import {
   deletePlan
 } from './services/storageService';
 import { decideAutoChain } from './services/autoChainPolicy';
+import { isIOSNative } from './services/platformService';
 import { Trophy, CheckCircle, Zap, Loader2, Sparkles, X, ChevronRight, Lock, XCircle, Star, ArrowRight, Trash2, Crown } from 'lucide-react';
 import { APP_NAME, STRIPE_PRICES } from './constants';
 
@@ -478,6 +479,12 @@ const Dashboard: React.FC<{ user: User }> = ({ user }) => {
                   <Zap size={18} />
                   Nouveau Plan
                 </button>
+              ) : isIOSNative ? (
+                /* Audit iOS J2.5 : pas de CTA Premium navigate('/pricing') en iOS.
+                   Message neutre informatif, pas de bouton commercial. */
+                <div className="bg-slate-100 text-slate-600 px-6 py-3 rounded-xl text-sm">
+                  {user.isPremium ? 'Limite atteinte sur cette période — contacte le support si besoin.' : 'Tu as atteint la limite de la version gratuite.'}
+                </div>
               ) : (
                 <button
                   onClick={() => navigate('/pricing')}

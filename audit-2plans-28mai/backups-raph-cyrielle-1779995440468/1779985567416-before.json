@@ -1,0 +1,823 @@
+{
+  "name": "projects/coach-running-ia/databases/(default)/documents/plans/1779985567416",
+  "fields": {
+    "paces": {
+      "mapValue": {
+        "fields": {
+          "allureSpecifique5k": {
+            "stringValue": "4:09"
+          },
+          "allureSpecifique10k": {
+            "stringValue": "4:22"
+          },
+          "recoveryPace": {
+            "stringValue": "6:34"
+          },
+          "vmaPace": {
+            "stringValue": "3:56"
+          },
+          "allureSpecifiqueSemi": {
+            "stringValue": "4:38"
+          },
+          "eaPace": {
+            "stringValue": "5:07"
+          },
+          "seuilPace": {
+            "stringValue": "4:32"
+          },
+          "efPace": {
+            "stringValue": "5:53"
+          },
+          "allureSpecifiqueMarathon": {
+            "stringValue": "4:55"
+          }
+        }
+      }
+    },
+    "startDate": {
+      "stringValue": "2026-05-28"
+    },
+    "suggestedLocations": {
+      "arrayValue": {
+        "values": [
+          {
+            "mapValue": {
+              "fields": {
+                "type": {
+                  "stringValue": "NATURE"
+                },
+                "description": {
+                  "stringValue": "Chemins plats et souples, parfaits pour les footings en endurance fondamentale et la récupération."
+                },
+                "name": {
+                  "stringValue": "Berges et sentiers de bord d'eau"
+                }
+              }
+            }
+          },
+          {
+            "mapValue": {
+              "fields": {
+                "name": {
+                  "stringValue": "Parc vallonné de bordure de ville"
+                },
+                "description": {
+                  "stringValue": "Terrain alternant montées courtes et descentes, idéal pour travailler le renforcement musculaire spécifique au trail."
+                },
+                "type": {
+                  "stringValue": "HILL"
+                }
+              }
+            }
+          },
+          {
+            "mapValue": {
+              "fields": {
+                "type": {
+                  "stringValue": "TRACK"
+                },
+                "description": {
+                  "stringValue": "Surface synthétique plane permettant un contrôle précis de l'allure lors des séances de vitesse ou de seuil."
+                },
+                "name": {
+                  "stringValue": "Piste d'athlétisme municipale"
+                }
+              }
+            }
+          }
+        ]
+      }
+    },
+    "raceDate": {
+      "stringValue": "2026-10-16"
+    },
+    "feasibility": {
+      "mapValue": {
+        "fields": {
+          "status": {
+            "stringValue": "AMBITIEUX"
+          },
+          "score": {
+            "integerValue": "60"
+          },
+          "safetyWarning": {
+            "stringValue": "Écoute ton corps à chaque séance. Si tu ressens des douleurs inhabituelles, n'hésite pas à adapter ou sauter une séance."
+          },
+          "message": {
+            "stringValue": "Ce trail de 100km / 4500m D+ est un beau défi. Avec ta VMA de 15.2 km/h, c'est faisable mais attention : Le D+ de la course (4500m) est 9.0x ton D+ hebdomadaire actuel (500m/sem) — risque musculaire très élevé en descente, impossible de construire la résistance excentrique nécessaire en 21 semaines. Ton D+ hebdo actuel (500m) est très loin des 4500m de la course — gros travail à faire. Point positif : ton volume actuel de 50km/sem est une excellente base pour cette distance, 21 semaines de préparation avec un bon volume : conditions favorables. Suis le plan avec rigueur et régularité, c'est la clé pour y arriver."
+          }
+        }
+      }
+    },
+    "weeks": {
+      "arrayValue": {
+        "values": [
+          {
+            "mapValue": {
+              "fields": {
+                "weekGoal": {
+                  "stringValue": "Développement de la base aérobie et adaptation au relief"
+                },
+                "phase": {
+                  "stringValue": "fondamental"
+                },
+                "sessions": {
+                  "arrayValue": {
+                    "values": [
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "duration": {
+                              "stringValue": "1h 05 min"
+                            },
+                            "day": {
+                              "stringValue": "Mardi"
+                            },
+                            "id": {
+                              "stringValue": "w1-s1-1779985567418-9g67f3u"
+                            },
+                            "targetPace": {
+                              "stringValue": "5:53 min/km"
+                            },
+                            "type": {
+                              "stringValue": "Jogging"
+                            },
+                            "warmup": {
+                              "stringValue": "10 min de footing en endurance fondamentale sur chemin roulant."
+                            },
+                            "intensity": {
+                              "stringValue": "Facile"
+                            },
+                            "title": {
+                              "stringValue": "Footing sur sentier roulant"
+                            },
+                            "elevationGain": {
+                              "integerValue": "135"
+                            },
+                            "cooldown": {
+                              "stringValue": "5 à 10 min sur terrain roulant puis marche."
+                            },
+                            "mainSet": {
+                              "stringValue": "47 min sur sentier roulant non technique avec du dénivelé régulier et diffus (pas de côte marquée). Garde un effort d'endurance fondamentale constant (5:53 en référence) : tu laisses la vitesse fluctuer avec le terrain."
+                            },
+                            "distance": {
+                              "stringValue": "11.1 km"
+                            },
+                            "locationSuggestion": {
+                              "stringValue": "parc urbain"
+                            },
+                            "advice": {
+                              "stringValue": "Le sentier roulant fait travailler le dénivelé \"de fond\", diffus et régulier, sans pic d'effort excentrique. La meilleure école pour habituer les jambes au D+."
+                            }
+                          }
+                        }
+                      },
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "title": {
+                              "stringValue": "Footing vallonné"
+                            },
+                            "elevationGain": {
+                              "integerValue": "51"
+                            },
+                            "cooldown": {
+                              "stringValue": "5 à 10 min de footing plat puis marche."
+                            },
+                            "mainSet": {
+                              "stringValue": "32 min sur parcours légèrement vallonné. En montée : foulée courte, effort d'endurance fondamentale maintenu (5:53 en référence sur le plat, la vitesse baisse en côte c'est normal). En descente : relâché, foulée courte et contrôlée. Pas de côte raide, du vallon doux."
+                            },
+                            "distance": {
+                              "stringValue": "8.4 km"
+                            },
+                            "locationSuggestion": {
+                              "stringValue": "sentier vallonné"
+                            },
+                            "advice": {
+                              "stringValue": "Le relief renforce les chaînes musculaires de façon naturelle et progressive. La règle d'or : c'est l'effort qui reste constant, pas la vitesse."
+                            },
+                            "type": {
+                              "stringValue": "Jogging"
+                            },
+                            "warmup": {
+                              "stringValue": "10 min de footing en endurance fondamentale sur terrain plat."
+                            },
+                            "intensity": {
+                              "stringValue": "Facile"
+                            },
+                            "duration": {
+                              "stringValue": "50 min"
+                            },
+                            "day": {
+                              "stringValue": "Jeudi"
+                            },
+                            "id": {
+                              "stringValue": "w1-s2-1779985567418-fathro1"
+                            },
+                            "targetPace": {
+                              "stringValue": "5:53 min/km"
+                            }
+                          }
+                        }
+                      },
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "title": {
+                              "stringValue": "Renfo Trail Focus A - Quadriceps & Excentrique (S1)"
+                            },
+                            "cooldown": {
+                              "stringValue": "5 min d'étirements : quadriceps, ischio-jambiers, mollets, hanches"
+                            },
+                            "mainSet": {
+                              "stringValue": "Circuit 3 tours : Squats poids de corps (3x16), Squat bulgare (3x10/jambe), Fentes avant (3x10/jambe), Gainage ventral (3x31-60s), Dead bug (3x10/cote), Extensions mollets debout (3x21), Squat excentrique (descente 4s) (3x10), Step-down excentrique (3x8/jambe), Sauts directionnels multi-axes (3x8), Mollets debout unipodal (3x12/jambe), Pompes (3x16), Dips sur banc (3x12), Tirage elastique horizontal (3x16). Repos 1 min 30 entre tours."
+                            },
+                            "locationSuggestion": {
+                              "stringValue": "À la maison"
+                            },
+                            "advice": {
+                              "stringValue": "La qualité du mouvement prime sur la quantité. Stoppe immédiatement en cas de douleur aiguë."
+                            },
+                            "duration": {
+                              "stringValue": "45-50 min"
+                            },
+                            "type": {
+                              "stringValue": "Renforcement"
+                            },
+                            "day": {
+                              "stringValue": "Vendredi"
+                            },
+                            "id": {
+                              "stringValue": "w1-s3-1779985567418-za7i36d"
+                            },
+                            "warmup": {
+                              "stringValue": "10 min de mobilité articulaire et échauffement dynamique"
+                            },
+                            "intensity": {
+                              "stringValue": "Modéré"
+                            }
+                          }
+                        }
+                      },
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "locationSuggestion": {
+                              "stringValue": "berges"
+                            },
+                            "distance": {
+                              "stringValue": "9.5 km"
+                            },
+                            "mainSet": {
+                              "stringValue": "35 min sur terrain varié non technique — chemins, sentiers larges, herbe, sous-bois. Adapte l'allure au sol pour garder un effort d'endurance fondamentale constant (5:53 en référence). Évite le terrain piégeux (racines, cailloux, dévers)."
+                            },
+                            "advice": {
+                              "stringValue": "Le terrain varié sollicite les muscles stabilisateurs et la proprioception, en douceur. C'est un renforcement \"gratuit\" intégré au footing."
+                            },
+                            "cooldown": {
+                              "stringValue": "5 à 10 min sur terrain roulant puis marche."
+                            },
+                            "elevationGain": {
+                              "integerValue": "51"
+                            },
+                            "title": {
+                              "stringValue": "Footing nature, terrain varié"
+                            },
+                            "intensity": {
+                              "stringValue": "Facile"
+                            },
+                            "type": {
+                              "stringValue": "Jogging"
+                            },
+                            "warmup": {
+                              "stringValue": "10 min de footing en endurance fondamentale sur chemin roulant."
+                            },
+                            "targetPace": {
+                              "stringValue": "5:53 min/km"
+                            },
+                            "duration": {
+                              "stringValue": "53 min"
+                            },
+                            "id": {
+                              "stringValue": "w1-s4-1779985567418-x8pvswm"
+                            },
+                            "day": {
+                              "stringValue": "Samedi"
+                            }
+                          }
+                        }
+                      },
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "title": {
+                              "stringValue": "Sortie longue endurance trail"
+                            },
+                            "elevationGain": {
+                              "integerValue": "439"
+                            },
+                            "cooldown": {
+                              "stringValue": "10 min de retour au calme à 6:34 min/km + étirements"
+                            },
+                            "mainSet": {
+                              "stringValue": "124 min de course en EF (5:53 min/km). Intégrer des sections de marche active lors des montées les plus raides pour simuler l'effort ultra."
+                            },
+                            "distance": {
+                              "stringValue": "21.0 km"
+                            },
+                            "locationSuggestion": {
+                              "stringValue": "forêt locale"
+                            },
+                            "advice": {
+                              "stringValue": "Profite de cette sortie pour tester ton matériel. Si tu ressens une gêne persistante, termine la séance en marchant."
+                            },
+                            "type": {
+                              "stringValue": "Sortie Longue"
+                            },
+                            "warmup": {
+                              "stringValue": "15 min d'échauffement progressif très lent (à 6:34 min/km)"
+                            },
+                            "intensity": {
+                              "stringValue": "Facile"
+                            },
+                            "duration": {
+                              "stringValue": "124 min"
+                            },
+                            "id": {
+                              "stringValue": "w1-s5-1779985567418-iodypgq"
+                            },
+                            "day": {
+                              "stringValue": "Dimanche"
+                            },
+                            "targetPace": {
+                              "stringValue": "5:53 min/km"
+                            }
+                          }
+                        }
+                      }
+                    ]
+                  }
+                },
+                "theme": {
+                  "stringValue": "Développement de la base aérobie et adaptation au relief"
+                },
+                "weekNumber": {
+                  "integerValue": "1"
+                }
+              }
+            }
+          }
+        ]
+      }
+    },
+    "durationWeeks": {
+      "integerValue": "21"
+    },
+    "location": {
+      "stringValue": "Nantes"
+    },
+    "userEmail": {
+      "stringValue": "raph.courjault@orange.fr"
+    },
+    "createdAt": {
+      "stringValue": "2026-05-28T16:26:07.416Z"
+    },
+    "vmaSource": {
+      "stringValue": "Moyenne 5km en 21:30 et 10km en 41:30"
+    },
+    "goal": {
+      "stringValue": "Trail"
+    },
+    "userId": {
+      "stringValue": "LhB2ZuXFo7ZkcfOzZMbEnxHS15s2"
+    },
+    "targetTime": {
+      "stringValue": "Finisher"
+    },
+    "adaptationLog": {
+      "mapValue": {
+        "fields": {
+          "adaptationsThisWeek": {
+            "integerValue": "0"
+          },
+          "weekNumber": {
+            "integerValue": "0"
+          },
+          "adaptationHistory": {
+            "arrayValue": {}
+          }
+        }
+      }
+    },
+    "name": {
+      "stringValue": "Préparation Trail 100km / 4500m D+ — Finisher — 21 sem."
+    },
+    "sessionsPerWeek": {
+      "integerValue": "5"
+    },
+    "fullPlanGenerated": {
+      "booleanValue": false
+    },
+    "distance": {
+      "stringValue": "100km D+4500m"
+    },
+    "generationContext": {
+      "mapValue": {
+        "fields": {
+          "modelUsed": {
+            "stringValue": "gemini-3-flash-preview"
+          },
+          "periodizationPlan": {
+            "mapValue": {
+              "fields": {
+                "totalWeeks": {
+                  "integerValue": "21"
+                },
+                "recoveryWeeks": {
+                  "arrayValue": {
+                    "values": [
+                      {
+                        "integerValue": "4"
+                      },
+                      {
+                        "integerValue": "8"
+                      },
+                      {
+                        "integerValue": "12"
+                      },
+                      {
+                        "integerValue": "16"
+                      }
+                    ]
+                  }
+                },
+                "weeklyElevationTarget": {
+                  "arrayValue": {
+                    "values": [
+                      {
+                        "integerValue": "675"
+                      },
+                      {
+                        "integerValue": "866"
+                      },
+                      {
+                        "integerValue": "1058"
+                      },
+                      {
+                        "integerValue": "687"
+                      },
+                      {
+                        "integerValue": "1440"
+                      },
+                      {
+                        "integerValue": "1631"
+                      },
+                      {
+                        "integerValue": "1823"
+                      },
+                      {
+                        "integerValue": "1108"
+                      },
+                      {
+                        "integerValue": "2205"
+                      },
+                      {
+                        "integerValue": "2396"
+                      },
+                      {
+                        "integerValue": "2588"
+                      },
+                      {
+                        "integerValue": "1528"
+                      },
+                      {
+                        "integerValue": "2970"
+                      },
+                      {
+                        "integerValue": "3161"
+                      },
+                      {
+                        "integerValue": "3353"
+                      },
+                      {
+                        "integerValue": "1949"
+                      },
+                      {
+                        "integerValue": "3735"
+                      },
+                      {
+                        "integerValue": "3926"
+                      },
+                      {
+                        "integerValue": "2883"
+                      },
+                      {
+                        "integerValue": "2155"
+                      },
+                      {
+                        "integerValue": "1800"
+                      }
+                    ]
+                  }
+                },
+                "weeklyVolumes": {
+                  "arrayValue": {
+                    "values": [
+                      {
+                        "integerValue": "50"
+                      },
+                      {
+                        "integerValue": "53"
+                      },
+                      {
+                        "integerValue": "55"
+                      },
+                      {
+                        "integerValue": "43"
+                      },
+                      {
+                        "integerValue": "49"
+                      },
+                      {
+                        "integerValue": "56"
+                      },
+                      {
+                        "integerValue": "64"
+                      },
+                      {
+                        "integerValue": "51"
+                      },
+                      {
+                        "integerValue": "59"
+                      },
+                      {
+                        "integerValue": "68"
+                      },
+                      {
+                        "integerValue": "75"
+                      },
+                      {
+                        "integerValue": "60"
+                      },
+                      {
+                        "integerValue": "69"
+                      },
+                      {
+                        "integerValue": "75"
+                      },
+                      {
+                        "integerValue": "79"
+                      },
+                      {
+                        "integerValue": "63"
+                      },
+                      {
+                        "integerValue": "72"
+                      },
+                      {
+                        "integerValue": "75"
+                      },
+                      {
+                        "integerValue": "53"
+                      },
+                      {
+                        "integerValue": "46"
+                      },
+                      {
+                        "integerValue": "40"
+                      }
+                    ]
+                  }
+                },
+                "weeklyPhases": {
+                  "arrayValue": {
+                    "values": [
+                      {
+                        "stringValue": "fondamental"
+                      },
+                      {
+                        "stringValue": "fondamental"
+                      },
+                      {
+                        "stringValue": "fondamental"
+                      },
+                      {
+                        "stringValue": "recuperation"
+                      },
+                      {
+                        "stringValue": "fondamental"
+                      },
+                      {
+                        "stringValue": "fondamental"
+                      },
+                      {
+                        "stringValue": "developpement"
+                      },
+                      {
+                        "stringValue": "recuperation"
+                      },
+                      {
+                        "stringValue": "developpement"
+                      },
+                      {
+                        "stringValue": "developpement"
+                      },
+                      {
+                        "stringValue": "developpement"
+                      },
+                      {
+                        "stringValue": "recuperation"
+                      },
+                      {
+                        "stringValue": "developpement"
+                      },
+                      {
+                        "stringValue": "specifique"
+                      },
+                      {
+                        "stringValue": "specifique"
+                      },
+                      {
+                        "stringValue": "recuperation"
+                      },
+                      {
+                        "stringValue": "specifique"
+                      },
+                      {
+                        "stringValue": "specifique"
+                      },
+                      {
+                        "stringValue": "affutage"
+                      },
+                      {
+                        "stringValue": "affutage"
+                      },
+                      {
+                        "stringValue": "affutage"
+                      }
+                    ]
+                  }
+                }
+              }
+            }
+          },
+          "vmaSource": {
+            "stringValue": "Moyenne 5km en 21:30 et 10km en 41:30"
+          },
+          "questionnaireSnapshot": {
+            "mapValue": {
+              "fields": {
+                "city": {
+                  "stringValue": "Nantes"
+                },
+                "level": {
+                  "stringValue": "Expert (Performance)"
+                },
+                "age": {
+                  "integerValue": "39"
+                },
+                "email": {
+                  "stringValue": "raph.courjault@orange.fr"
+                },
+                "trailDetails": {
+                  "mapValue": {
+                    "fields": {
+                      "distance": {
+                        "integerValue": "100"
+                      },
+                      "elevation": {
+                        "integerValue": "4500"
+                      }
+                    }
+                  }
+                },
+                "injuries": {
+                  "mapValue": {
+                    "fields": {
+                      "hasInjury": {
+                        "booleanValue": false
+                      }
+                    }
+                  }
+                },
+                "weight": {
+                  "integerValue": "73"
+                },
+                "goal": {
+                  "stringValue": "Trail"
+                },
+                "currentWeeklyVolume": {
+                  "integerValue": "50"
+                },
+                "sex": {
+                  "stringValue": "Homme"
+                },
+                "preferredDays": {
+                  "arrayValue": {}
+                },
+                "frequency": {
+                  "integerValue": "5"
+                },
+                "vma": {
+                  "doubleValue": 15.238432309408992
+                },
+                "currentWeeklyElevation": {
+                  "integerValue": "500"
+                },
+                "height": {
+                  "integerValue": "176"
+                },
+                "recentRaceTimes": {
+                  "mapValue": {
+                    "fields": {
+                      "distanceHalfMarathon": {
+                        "stringValue": "1h38"
+                      },
+                      "distance5km": {
+                        "stringValue": "21:30"
+                      },
+                      "distanceMarathon": {
+                        "stringValue": "3h32"
+                      },
+                      "distance10km": {
+                        "stringValue": "41:30"
+                      }
+                    }
+                  }
+                },
+                "startDate": {
+                  "stringValue": "2026-05-28"
+                },
+                "raceDate": {
+                  "stringValue": "2026-10-16"
+                }
+              }
+            }
+          },
+          "paces": {
+            "mapValue": {
+              "fields": {
+                "allureSpecifique5k": {
+                  "stringValue": "4:09"
+                },
+                "allureSpecifique10k": {
+                  "stringValue": "4:22"
+                },
+                "recoveryPace": {
+                  "stringValue": "6:34"
+                },
+                "vmaPace": {
+                  "stringValue": "3:56"
+                },
+                "allureSpecifiqueSemi": {
+                  "stringValue": "4:38"
+                },
+                "seuilPace": {
+                  "stringValue": "4:32"
+                },
+                "eaPace": {
+                  "stringValue": "5:07"
+                },
+                "efPace": {
+                  "stringValue": "5:53"
+                },
+                "allureSpecifiqueMarathon": {
+                  "stringValue": "4:55"
+                }
+              }
+            }
+          },
+          "vma": {
+            "doubleValue": 15.238432309408992
+          },
+          "generatedAt": {
+            "stringValue": "2026-05-28T16:25:44.395Z"
+          }
+        }
+      }
+    },
+    "vma": {
+      "doubleValue": 15.238432309408992
+    },
+    "isPreview": {
+      "booleanValue": true
+    },
+    "id": {
+      "stringValue": "1779985567416"
+    },
+    "confidenceScore": {
+      "integerValue": "60"
+    },
+    "welcomeMessage": {
+      "stringValue": "Ce projet de 100km avec 4500m de dénivelé positif est ambitieux. Avec une VMA de 15.2 km/h, l'objectif est structurellement atteignable, mais le défi majeur réside dans la gestion de la pente : le dénivelé total de la course est 9 fois supérieur à ta pratique hebdomadaire actuelle, ce qui impose une rigueur extrême et une régularité sans faille. Nous te recommandons de consulter un médecin avant de débuter ce programme, notamment pour obtenir un certificat médical d'aptitude au sport. La réussite de ce plan reposera sur ton sommeil et ton écoute attentive des signaux de fatigue."
+    },
+    "endDate": {
+      "stringValue": "2026-10-22"
+    },
+    "calculatedVMA": {
+      "doubleValue": 15.238432309408992
+    }
+  },
+  "createTime": "2026-05-28T16:26:07.065016Z",
+  "updateTime": "2026-05-28T16:26:07.065016Z"
+}

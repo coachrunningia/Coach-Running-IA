@@ -1,6 +1,7 @@
 
 import React, { useState, useEffect, useCallback, useMemo, useRef } from 'react';
 import { apiFetch } from '../services/apiConfig';
+import { isIOSNative } from '../services/platformService';
 import { TrainingPlan, Session, User, Week, StravaActivityMatch } from '../types';
 import { Calendar, Clock, Lock, ShieldCheck, CheckCircle, Activity, AlertTriangle, Star, Zap, RefreshCw, X, ChevronDown, ChevronUp, Target, MapPin, TrendingUp, FileText, Loader, MessageCircle, Send, Info } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
@@ -1418,9 +1419,12 @@ ${recentRPEs.length > 0 ? recentRPEs.slice(-8).join('\n') : 'Premier feedback �
                   ? 'Passe en Premium pour débloquer Strava, les analyses hebdomadaires et l\'adaptation automatique de ton plan.'
                   : 'Connecte Strava et laisse l\'IA analyser tes sorties pour adapter automatiquement ton plan.'}
               </p>
-              <button onClick={handleUnlockClick} className="px-6 py-3 bg-orange-500 text-white font-bold rounded-xl hover:bg-orange-600 transition-all">
-                {isPlanUniqueUser ? 'Passer en Premium' : 'Débloquer'}
-              </button>
+              {/* Audit iOS J2.5 : CTA Premium masqué en iOS (Apple 3.1.1) */}
+              {!isIOSNative && (
+                <button onClick={handleUnlockClick} className="px-6 py-3 bg-orange-500 text-white font-bold rounded-xl hover:bg-orange-600 transition-all">
+                  {isPlanUniqueUser ? 'Passer en Premium' : 'Débloquer'}
+                </button>
+              )}
             </div>
           ) : (
             <StravaConnect isConnected={stravaConnected} onConnect={() => setStravaConnected(true)} isPremium={canAccessPremiumFeatures} />
@@ -1672,9 +1676,12 @@ ${recentRPEs.length > 0 ? recentRPEs.slice(-8).join('\n') : 'Premier feedback �
                         </div>
                         <h3 className="text-2xl font-bold text-slate-900 mb-2">Débloquez votre plan complet</h3>
                         <p className="text-slate-600 mb-8">Passez Premium pour visualiser l'intégralité du plan et exporter vers votre agenda.</p>
-                        <button onClick={handleUnlockClick} className="bg-slate-900 hover:bg-slate-800 text-white font-bold py-4 px-8 rounded-xl shadow-lg w-full flex items-center justify-center gap-2">
-                          <Zap size={20} fill="currentColor" /> Voir les offres Premium
-                        </button>
+                        {/* Audit iOS J2.5 : CTA masqué iOS (Apple 3.1.1) */}
+                        {!isIOSNative && (
+                          <button onClick={handleUnlockClick} className="bg-slate-900 hover:bg-slate-800 text-white font-bold py-4 px-8 rounded-xl shadow-lg w-full flex items-center justify-center gap-2">
+                            <Zap size={20} fill="currentColor" /> Voir les offres Premium
+                          </button>
+                        )}
                       </div>
                     </div>
                   )}
@@ -1774,13 +1781,16 @@ ${recentRPEs.length > 0 ? recentRPEs.slice(-8).join('\n') : 'Premier feedback �
                             <p className="font-bold text-slate-900">Débloquez les {previewWeeks.length} semaines suivantes</p>
                             <p className="text-sm text-slate-500">Accédez au plan complet avec Premium</p>
                           </div>
-                          <button
-                            onClick={handleUnlockClick}
-                            className="ml-4 bg-slate-900 hover:bg-slate-800 text-white font-bold py-3 px-6 rounded-xl flex items-center gap-2 transition-all"
-                          >
-                            <Zap size={18} fill="currentColor" />
-                            Voir les offres
-                          </button>
+                          {/* Audit iOS J2.5 : CTA masqué iOS (Apple 3.1.1) */}
+                          {!isIOSNative && (
+                            <button
+                              onClick={handleUnlockClick}
+                              className="ml-4 bg-slate-900 hover:bg-slate-800 text-white font-bold py-3 px-6 rounded-xl flex items-center gap-2 transition-all"
+                            >
+                              <Zap size={18} fill="currentColor" />
+                              Voir les offres
+                            </button>
+                          )}
                         </div>
                       </div>
                     </div>
@@ -1873,13 +1883,16 @@ ${recentRPEs.length > 0 ? recentRPEs.slice(-8).join('\n') : 'Premier feedback �
                     <p className="text-slate-300 mb-6 max-w-md mx-auto">
                       Accédez aux {previewWeeks.length} semaines restantes, exportez vers votre calendrier, et laissez l'IA adapter votre plan en fonction de vos retours.
                     </p>
-                    <button
-                      onClick={handleUnlockClick}
-                      className="bg-gradient-to-r from-accent to-orange-500 hover:from-accent/90 hover:to-orange-500/90 text-white font-bold py-4 px-10 rounded-xl shadow-lg transform hover:scale-105 transition-all inline-flex items-center gap-2"
-                    >
-                      <Zap size={20} fill="currentColor" />
-                      Voir les offres Premium
-                    </button>
+                    {/* Audit iOS J2.5 : CTA masqué iOS (Apple 3.1.1) */}
+                    {!isIOSNative && (
+                      <button
+                        onClick={handleUnlockClick}
+                        className="bg-gradient-to-r from-accent to-orange-500 hover:from-accent/90 hover:to-orange-500/90 text-white font-bold py-4 px-10 rounded-xl shadow-lg transform hover:scale-105 transition-all inline-flex items-center gap-2"
+                      >
+                        <Zap size={20} fill="currentColor" />
+                        Voir les offres Premium
+                      </button>
+                    )}
                   </div>
                 )}
               </>
@@ -2604,12 +2617,15 @@ ${recentRPEs.length > 0 ? recentRPEs.slice(-8).join('\n') : 'Premier feedback �
                   <p className="text-xs text-slate-600 mb-4">
                     Recalcule tes allures et régénère ton plan complet quand ta VMA évolue.
                   </p>
-                  <button
-                    onClick={() => { setShowVMAModal(false); navigate('/pricing'); }}
-                    className="w-full py-2.5 bg-accent text-white rounded-xl font-bold hover:bg-orange-600 transition-colors text-sm"
-                  >
-                    Voir les abonnements
-                  </button>
+                  {/* Audit iOS J2.5 : CTA masqué iOS (Apple 3.1.1) */}
+                  {!isIOSNative && (
+                    <button
+                      onClick={() => { setShowVMAModal(false); navigate('/pricing'); }}
+                      className="w-full py-2.5 bg-accent text-white rounded-xl font-bold hover:bg-orange-600 transition-colors text-sm"
+                    >
+                      Voir les abonnements
+                    </button>
+                  )}
                 </div>
               </div>
             )}

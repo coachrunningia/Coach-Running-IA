@@ -1,0 +1,718 @@
+{
+  "name": "projects/coach-running-ia/databases/(default)/documents/plans/1779892027140",
+  "fields": {
+    "isPreview": {
+      "booleanValue": true
+    },
+    "confidenceScore": {
+      "integerValue": "45"
+    },
+    "id": {
+      "stringValue": "1779892027140"
+    },
+    "welcomeMessage": {
+      "stringValue": "Bienvenue dans ton programme de préparation marathon. Ton objectif principal est de franchir la ligne d'arrivée en gérant ta fatigue et en préservant ton intégrité physique. Ce plan repose sur une montée en charge très progressive et une priorité absolue accordée à l'endurance fondamentale pour construire ton socle aérobie. Nous te recommandons vivement de consulter un médecin avant de débuter ce programme, notamment pour obtenir un certificat médical d'aptitude au sport. Sois attentif à chaque signal de ton corps, privilégie des chaussures avec un excellent amorti et des sols souples pour tes sorties du matin. La patience est la clé de la réussite pour ce premier défi sur 42,195 km."
+    },
+    "endDate": {
+      "stringValue": "2026-10-26"
+    },
+    "calculatedVMA": {
+      "doubleValue": 9.663195421709354
+    },
+    "name": {
+      "stringValue": "Préparation Marathon — Finisher — 21 sem."
+    },
+    "sessionsPerWeek": {
+      "integerValue": "4"
+    },
+    "fullPlanGenerated": {
+      "booleanValue": false
+    },
+    "distance": {
+      "stringValue": "42.2 km (Marathon)"
+    },
+    "vma": {
+      "doubleValue": 9.663195421709354
+    },
+    "generationContext": {
+      "mapValue": {
+        "fields": {
+          "vmaSource": {
+            "stringValue": "Moyenne 5km en 33min et 10km en 1h08"
+          },
+          "periodizationPlan": {
+            "mapValue": {
+              "fields": {
+                "weeklyPhases": {
+                  "arrayValue": {
+                    "values": [
+                      {
+                        "stringValue": "fondamental"
+                      },
+                      {
+                        "stringValue": "fondamental"
+                      },
+                      {
+                        "stringValue": "fondamental"
+                      },
+                      {
+                        "stringValue": "recuperation"
+                      },
+                      {
+                        "stringValue": "fondamental"
+                      },
+                      {
+                        "stringValue": "fondamental"
+                      },
+                      {
+                        "stringValue": "recuperation"
+                      },
+                      {
+                        "stringValue": "developpement"
+                      },
+                      {
+                        "stringValue": "developpement"
+                      },
+                      {
+                        "stringValue": "recuperation"
+                      },
+                      {
+                        "stringValue": "developpement"
+                      },
+                      {
+                        "stringValue": "developpement"
+                      },
+                      {
+                        "stringValue": "recuperation"
+                      },
+                      {
+                        "stringValue": "specifique"
+                      },
+                      {
+                        "stringValue": "specifique"
+                      },
+                      {
+                        "stringValue": "recuperation"
+                      },
+                      {
+                        "stringValue": "specifique"
+                      },
+                      {
+                        "stringValue": "specifique"
+                      },
+                      {
+                        "stringValue": "affutage"
+                      },
+                      {
+                        "stringValue": "affutage"
+                      },
+                      {
+                        "stringValue": "affutage"
+                      }
+                    ]
+                  }
+                },
+                "recoveryWeeks": {
+                  "arrayValue": {
+                    "values": [
+                      {
+                        "integerValue": "4"
+                      },
+                      {
+                        "integerValue": "7"
+                      },
+                      {
+                        "integerValue": "10"
+                      },
+                      {
+                        "integerValue": "13"
+                      },
+                      {
+                        "integerValue": "16"
+                      }
+                    ]
+                  }
+                },
+                "weeklyVolumes": {
+                  "arrayValue": {
+                    "values": [
+                      {
+                        "integerValue": "16"
+                      },
+                      {
+                        "integerValue": "17"
+                      },
+                      {
+                        "integerValue": "18"
+                      },
+                      {
+                        "integerValue": "14"
+                      },
+                      {
+                        "integerValue": "16"
+                      },
+                      {
+                        "integerValue": "18"
+                      },
+                      {
+                        "integerValue": "16"
+                      },
+                      {
+                        "integerValue": "18"
+                      },
+                      {
+                        "integerValue": "21"
+                      },
+                      {
+                        "integerValue": "18"
+                      },
+                      {
+                        "integerValue": "21"
+                      },
+                      {
+                        "integerValue": "24"
+                      },
+                      {
+                        "integerValue": "20"
+                      },
+                      {
+                        "integerValue": "23"
+                      },
+                      {
+                        "integerValue": "26"
+                      },
+                      {
+                        "integerValue": "22"
+                      },
+                      {
+                        "integerValue": "25"
+                      },
+                      {
+                        "integerValue": "29"
+                      },
+                      {
+                        "integerValue": "21"
+                      },
+                      {
+                        "integerValue": "19"
+                      },
+                      {
+                        "integerValue": "16"
+                      }
+                    ]
+                  }
+                },
+                "totalWeeks": {
+                  "integerValue": "21"
+                }
+              }
+            }
+          },
+          "modelUsed": {
+            "stringValue": "gemini-3-flash-preview"
+          },
+          "generatedAt": {
+            "stringValue": "2026-05-27T14:26:49.107Z"
+          },
+          "paces": {
+            "mapValue": {
+              "fields": {
+                "allureSpecifique5k": {
+                  "stringValue": "6:32"
+                },
+                "allureSpecifique10k": {
+                  "stringValue": "6:54"
+                },
+                "recoveryPace": {
+                  "stringValue": "10:21"
+                },
+                "vmaPace": {
+                  "stringValue": "6:13"
+                },
+                "allureSpecifiqueSemi": {
+                  "stringValue": "7:18"
+                },
+                "eaPace": {
+                  "stringValue": "8:04"
+                },
+                "seuilPace": {
+                  "stringValue": "7:08"
+                },
+                "efPace": {
+                  "stringValue": "9:16"
+                },
+                "allureSpecifiqueMarathon": {
+                  "stringValue": "7:46"
+                }
+              }
+            }
+          },
+          "questionnaireSnapshot": {
+            "mapValue": {
+              "fields": {
+                "weight": {
+                  "integerValue": "90"
+                },
+                "injuries": {
+                  "mapValue": {
+                    "fields": {
+                      "hasInjury": {
+                        "booleanValue": false
+                      }
+                    }
+                  }
+                },
+                "level": {
+                  "stringValue": "Intermédiaire (Régulier)"
+                },
+                "age": {
+                  "integerValue": "42"
+                },
+                "email": {
+                  "stringValue": "desbonnet.julien@gmail.com"
+                },
+                "city": {
+                  "stringValue": "Camphin-en-pevele"
+                },
+                "sex": {
+                  "stringValue": "Homme"
+                },
+                "currentWeeklyVolume": {
+                  "integerValue": "15"
+                },
+                "goal": {
+                  "stringValue": "Course sur route"
+                },
+                "preferredLongRunDay": {
+                  "stringValue": "Vendredi"
+                },
+                "vma": {
+                  "doubleValue": 9.663195421709354
+                },
+                "frequency": {
+                  "integerValue": "4"
+                },
+                "comments": {
+                  "stringValue": "Je prefere courir le matin"
+                },
+                "preferredDays": {
+                  "arrayValue": {
+                    "values": [
+                      {
+                        "stringValue": "Lundi"
+                      },
+                      {
+                        "stringValue": "Mercredi"
+                      },
+                      {
+                        "stringValue": "Vendredi"
+                      },
+                      {
+                        "stringValue": "Dimanche"
+                      }
+                    ]
+                  }
+                },
+                "raceDate": {
+                  "stringValue": "2026-10-25"
+                },
+                "startDate": {
+                  "stringValue": "2026-06-01"
+                },
+                "recentRaceTimes": {
+                  "mapValue": {
+                    "fields": {
+                      "distanceHalfMarathon": {
+                        "stringValue": "2h23"
+                      },
+                      "distance10km": {
+                        "stringValue": "1h08"
+                      },
+                      "distance5km": {
+                        "stringValue": "33min"
+                      }
+                    }
+                  }
+                },
+                "subGoal": {
+                  "stringValue": "Marathon"
+                },
+                "height": {
+                  "integerValue": "170"
+                }
+              }
+            }
+          },
+          "vma": {
+            "doubleValue": 9.663195421709354
+          }
+        }
+      }
+    },
+    "createdAt": {
+      "stringValue": "2026-05-27T14:27:07.140Z"
+    },
+    "vmaSource": {
+      "stringValue": "Moyenne 5km en 33min et 10km en 1h08"
+    },
+    "goal": {
+      "stringValue": "Course sur route"
+    },
+    "userId": {
+      "stringValue": "tyJB9FYzhbdKhTyl8rn1l3rAgCI2"
+    },
+    "targetTime": {
+      "stringValue": "Finisher"
+    },
+    "adaptationLog": {
+      "mapValue": {
+        "fields": {
+          "adaptationHistory": {
+            "arrayValue": {}
+          },
+          "adaptationsThisWeek": {
+            "integerValue": "0"
+          },
+          "weekNumber": {
+            "integerValue": "0"
+          }
+        }
+      }
+    },
+    "paces": {
+      "mapValue": {
+        "fields": {
+          "vmaPace": {
+            "stringValue": "6:13"
+          },
+          "recoveryPace": {
+            "stringValue": "10:21"
+          },
+          "allureSpecifique5k": {
+            "stringValue": "6:32"
+          },
+          "allureSpecifique10k": {
+            "stringValue": "6:54"
+          },
+          "efPace": {
+            "stringValue": "9:16"
+          },
+          "allureSpecifiqueMarathon": {
+            "stringValue": "7:46"
+          },
+          "eaPace": {
+            "stringValue": "8:04"
+          },
+          "seuilPace": {
+            "stringValue": "7:08"
+          },
+          "allureSpecifiqueSemi": {
+            "stringValue": "7:18"
+          }
+        }
+      }
+    },
+    "startDate": {
+      "stringValue": "2026-06-01"
+    },
+    "raceDate": {
+      "stringValue": "2026-10-25"
+    },
+    "suggestedLocations": {
+      "arrayValue": {
+        "values": [
+          {
+            "mapValue": {
+              "fields": {
+                "name": {
+                  "stringValue": "Espaces Verts Urbains"
+                },
+                "type": {
+                  "stringValue": "PARK"
+                },
+                "description": {
+                  "stringValue": "Idéal pour les footings de récupération et les séances courtes sur sol stabilisé."
+                }
+              }
+            }
+          },
+          {
+            "mapValue": {
+              "fields": {
+                "description": {
+                  "stringValue": "Parfait pour les sorties longues, offrant des surfaces plus souples que le bitume."
+                },
+                "type": {
+                  "stringValue": "NATURE"
+                },
+                "name": {
+                  "stringValue": "Chemins de campagne"
+                }
+              }
+            }
+          },
+          {
+            "mapValue": {
+              "fields": {
+                "name": {
+                  "stringValue": "Piste locale"
+                },
+                "description": {
+                  "stringValue": "Utile pour calibrer précisément tes allures même à basse intensité."
+                },
+                "type": {
+                  "stringValue": "TRACK"
+                }
+              }
+            }
+          }
+        ]
+      }
+    },
+    "feasibility": {
+      "mapValue": {
+        "fields": {
+          "recommendation": {
+            "stringValue": "un semi-marathon comme première expérience longue distance"
+          },
+          "score": {
+            "integerValue": "45"
+          },
+          "status": {
+            "stringValue": "RISQUÉ"
+          },
+          "message": {
+            "stringValue": "Ce marathon présente des risques sérieux dans ta configuration actuelle. Volume actuel de 15km/sem insuffisant pour un marathon (30km/sem minimum). Ton profil impose une vigilance articulaire — consulte un médecin, privilégie un bon amorti et des surfaces souples. Écoute ton corps, sois très progressif, et n'hésite pas à adapter le plan si nécessaire."
+          },
+          "safetyWarning": {
+            "stringValue": "On te recommande de consulter ton médecin avant de démarrer. Investis dans de bonnes chaussures avec amorti renforcé et privilégie surfaces souples (herbe, terre, chemin) pour réduire l'impact sur les articulations."
+          }
+        }
+      }
+    },
+    "weeks": {
+      "arrayValue": {
+        "values": [
+          {
+            "mapValue": {
+              "fields": {
+                "weekGoal": {
+                  "stringValue": "Mise en route et adaptation articulaire"
+                },
+                "sessions": {
+                  "arrayValue": {
+                    "values": [
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "locationSuggestion": {
+                              "stringValue": "parc urbain"
+                            },
+                            "mainSet": {
+                              "stringValue": "5 blocs de 5 min de footing en endurance fondamentale (9:16), entrecoupés de 1 min de marche. Le footing reste lent et confortable ; la marche est une respiration de confort, pas une récupération d'effort dur."
+                            },
+                            "distance": {
+                              "stringValue": "5.5 km"
+                            },
+                            "advice": {
+                              "stringValue": "Découper l'effort permet d'accumuler du volume aérobie en réduisant la charge mécanique globale. Idéal pour progresser sans casser."
+                            },
+                            "cooldown": {
+                              "stringValue": "5 min de marche."
+                            },
+                            "elevationGain": {
+                              "integerValue": "0"
+                            },
+                            "title": {
+                              "stringValue": "Footing en blocs souples"
+                            },
+                            "intensity": {
+                              "stringValue": "Facile"
+                            },
+                            "type": {
+                              "stringValue": "Jogging"
+                            },
+                            "warmup": {
+                              "stringValue": "5 min de marche active."
+                            },
+                            "targetPace": {
+                              "stringValue": "9:16 min/km"
+                            },
+                            "duration": {
+                              "stringValue": "51 min"
+                            },
+                            "id": {
+                              "stringValue": "w1-s1-1779892027140-gk0t224"
+                            },
+                            "day": {
+                              "stringValue": "Lundi"
+                            }
+                          }
+                        }
+                      },
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "intensity": {
+                              "stringValue": "Facile"
+                            },
+                            "duration": {
+                              "stringValue": "35-45 min"
+                            },
+                            "type": {
+                              "stringValue": "Renforcement"
+                            },
+                            "day": {
+                              "stringValue": "Mercredi"
+                            },
+                            "warmup": {
+                              "stringValue": "10 min de mobilité articulaire douce et échauffement progressif (marche rapide, rotations, pas chassés)"
+                            },
+                            "id": {
+                              "stringValue": "w1-s2-1779892027140-p5ofxc2"
+                            },
+                            "title": {
+                              "stringValue": "Renfo Focus A - Quadriceps & Gainage (S1)"
+                            },
+                            "locationSuggestion": {
+                              "stringValue": "À la maison"
+                            },
+                            "mainSet": {
+                              "stringValue": "Circuit 2 tours : Squats poids de corps (3x9), Fentes avant (3x6/jambe), Gainage ventral (3x19-60s), Dead bug (3x6/cote), Extensions mollets debout (3x13), Gainage ventral long (2x57-120s). Repos 2 min entre tours."
+                            },
+                            "advice": {
+                              "stringValue": "Réalise les mouvements lentement. Évite tout saut ou exercice de pliométrie pour préserver tes genoux."
+                            },
+                            "cooldown": {
+                              "stringValue": "5 min d'étirements : quadriceps, ischio-jambiers, mollets, hanches"
+                            }
+                          }
+                        }
+                      },
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "intensity": {
+                              "stringValue": "Facile"
+                            },
+                            "type": {
+                              "stringValue": "Sortie Longue"
+                            },
+                            "warmup": {
+                              "stringValue": "10 min de marche, à 10:21 min/km active"
+                            },
+                            "distance": {
+                              "stringValue": "6.4 km"
+                            },
+                            "locationSuggestion": {
+                              "stringValue": "boucle longue"
+                            },
+                            "mainSet": {
+                              "stringValue": "60 min de course continue et régulière à allure EF (9:16 min/km)"
+                            },
+                            "advice": {
+                              "stringValue": "C'est ta séance la plus importante. Si la fatigue est trop présente, n'hésite pas à alterner avec quelques minutes de marche."
+                            },
+                            "cooldown": {
+                              "stringValue": "5 min de retour au calme en marchant (à 10:21 min/km)"
+                            },
+                            "elevationGain": {
+                              "integerValue": "0"
+                            },
+                            "title": {
+                              "stringValue": "Sortie Longue Initiale"
+                            },
+                            "targetPace": {
+                              "stringValue": "9:16 min/km"
+                            },
+                            "duration": {
+                              "stringValue": "60 min"
+                            },
+                            "day": {
+                              "stringValue": "Vendredi"
+                            },
+                            "id": {
+                              "stringValue": "w1-s3-1779892027140-bhe02ul"
+                            }
+                          }
+                        }
+                      },
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "targetPace": {
+                              "stringValue": "9:16 min/km"
+                            },
+                            "day": {
+                              "stringValue": "Dimanche"
+                            },
+                            "id": {
+                              "stringValue": "w1-s4-1779892027140-8gu6kcv"
+                            },
+                            "duration": {
+                              "stringValue": "38 min"
+                            },
+                            "advice": {
+                              "stringValue": "Franchir les montées raides en marche active limite le travail excentrique tout en construisant les chaînes musculaires. Une approche accessible du relief, peu traumatisante."
+                            },
+                            "locationSuggestion": {
+                              "stringValue": "chemin plat"
+                            },
+                            "mainSet": {
+                              "stringValue": "20 min sur parcours vallonné. Les montées les plus raides se franchissent en marche active et dynamique (poussée des bras, gainage). Le plat et les descentes douces se courent en endurance fondamentale (9:16 en référence). On gère l'effort, pas le chrono."
+                            },
+                            "distance": {
+                              "stringValue": "4.1 km"
+                            },
+                            "cooldown": {
+                              "stringValue": "5 à 10 min de footing plat puis marche."
+                            },
+                            "elevationGain": {
+                              "integerValue": "0"
+                            },
+                            "title": {
+                              "stringValue": "Footing vallonné, côtes en marche"
+                            },
+                            "intensity": {
+                              "stringValue": "Facile"
+                            },
+                            "warmup": {
+                              "stringValue": "10 min de footing en endurance fondamentale sur terrain plat ou faux-plat."
+                            },
+                            "type": {
+                              "stringValue": "Jogging"
+                            }
+                          }
+                        }
+                      }
+                    ]
+                  }
+                },
+                "phase": {
+                  "stringValue": "fondamental"
+                },
+                "theme": {
+                  "stringValue": "Mise en route et adaptation articulaire"
+                },
+                "weekNumber": {
+                  "integerValue": "1"
+                }
+              }
+            }
+          }
+        ]
+      }
+    },
+    "durationWeeks": {
+      "integerValue": "21"
+    },
+    "location": {
+      "stringValue": "Camphin-en-pevele"
+    },
+    "userEmail": {
+      "stringValue": "desbonnet.julien@gmail.com"
+    }
+  },
+  "createTime": "2026-05-27T14:27:07.351128Z",
+  "updateTime": "2026-05-27T14:27:07.351128Z"
+}

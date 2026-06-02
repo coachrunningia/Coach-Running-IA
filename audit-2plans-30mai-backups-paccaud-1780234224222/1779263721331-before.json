@@ -1,0 +1,724 @@
+{
+  "name": "projects/coach-running-ia/databases/(default)/documents/plans/1779263721331",
+  "fields": {
+    "generationContext": {
+      "mapValue": {
+        "fields": {
+          "vma": {
+            "doubleValue": 12.12121212121212
+          },
+          "generatedAt": {
+            "stringValue": "2026-05-20T07:55:06.944Z"
+          },
+          "periodizationPlan": {
+            "mapValue": {
+              "fields": {
+                "weeklyPhases": {
+                  "arrayValue": {
+                    "values": [
+                      {
+                        "stringValue": "fondamental"
+                      },
+                      {
+                        "stringValue": "fondamental"
+                      },
+                      {
+                        "stringValue": "fondamental"
+                      },
+                      {
+                        "stringValue": "recuperation"
+                      },
+                      {
+                        "stringValue": "developpement"
+                      },
+                      {
+                        "stringValue": "developpement"
+                      },
+                      {
+                        "stringValue": "recuperation"
+                      },
+                      {
+                        "stringValue": "developpement"
+                      },
+                      {
+                        "stringValue": "developpement"
+                      },
+                      {
+                        "stringValue": "recuperation"
+                      },
+                      {
+                        "stringValue": "specifique"
+                      },
+                      {
+                        "stringValue": "specifique"
+                      },
+                      {
+                        "stringValue": "recuperation"
+                      },
+                      {
+                        "stringValue": "affutage"
+                      },
+                      {
+                        "stringValue": "affutage"
+                      }
+                    ]
+                  }
+                },
+                "weeklyElevationTarget": {
+                  "arrayValue": {
+                    "values": [
+                      {
+                        "integerValue": "400"
+                      },
+                      {
+                        "integerValue": "429"
+                      },
+                      {
+                        "integerValue": "457"
+                      },
+                      {
+                        "integerValue": "267"
+                      },
+                      {
+                        "integerValue": "514"
+                      },
+                      {
+                        "integerValue": "543"
+                      },
+                      {
+                        "integerValue": "314"
+                      },
+                      {
+                        "integerValue": "600"
+                      },
+                      {
+                        "integerValue": "629"
+                      },
+                      {
+                        "integerValue": "361"
+                      },
+                      {
+                        "integerValue": "686"
+                      },
+                      {
+                        "integerValue": "714"
+                      },
+                      {
+                        "integerValue": "409"
+                      },
+                      {
+                        "integerValue": "386"
+                      },
+                      {
+                        "integerValue": "320"
+                      }
+                    ]
+                  }
+                },
+                "weeklyVolumes": {
+                  "arrayValue": {
+                    "values": [
+                      {
+                        "integerValue": "15"
+                      },
+                      {
+                        "integerValue": "16"
+                      },
+                      {
+                        "integerValue": "17"
+                      },
+                      {
+                        "integerValue": "14"
+                      },
+                      {
+                        "integerValue": "16"
+                      },
+                      {
+                        "integerValue": "18"
+                      },
+                      {
+                        "integerValue": "16"
+                      },
+                      {
+                        "integerValue": "18"
+                      },
+                      {
+                        "integerValue": "21"
+                      },
+                      {
+                        "integerValue": "19"
+                      },
+                      {
+                        "integerValue": "21"
+                      },
+                      {
+                        "integerValue": "23"
+                      },
+                      {
+                        "integerValue": "18"
+                      },
+                      {
+                        "integerValue": "15"
+                      },
+                      {
+                        "integerValue": "12"
+                      }
+                    ]
+                  }
+                },
+                "totalWeeks": {
+                  "integerValue": "15"
+                },
+                "recoveryWeeks": {
+                  "arrayValue": {
+                    "values": [
+                      {
+                        "integerValue": "4"
+                      },
+                      {
+                        "integerValue": "7"
+                      },
+                      {
+                        "integerValue": "10"
+                      },
+                      {
+                        "integerValue": "13"
+                      }
+                    ]
+                  }
+                }
+              }
+            }
+          },
+          "paces": {
+            "mapValue": {
+              "fields": {
+                "eaPace": {
+                  "stringValue": "6:26"
+                },
+                "allureSpecifique10k": {
+                  "stringValue": "5:30"
+                },
+                "efPace": {
+                  "stringValue": "7:23"
+                },
+                "allureSpecifique5k": {
+                  "stringValue": "5:13"
+                },
+                "recoveryPace": {
+                  "stringValue": "8:15"
+                },
+                "allureSpecifiqueMarathon": {
+                  "stringValue": "6:11"
+                },
+                "seuilPace": {
+                  "stringValue": "5:41"
+                },
+                "vmaPace": {
+                  "stringValue": "4:57"
+                },
+                "allureSpecifiqueSemi": {
+                  "stringValue": "5:49"
+                }
+              }
+            }
+          },
+          "modelUsed": {
+            "stringValue": "gemini-3-flash-preview"
+          },
+          "vmaSource": {
+            "stringValue": "10km en 55min"
+          },
+          "questionnaireSnapshot": {
+            "mapValue": {
+              "fields": {
+                "goal": {
+                  "stringValue": "Trail"
+                },
+                "weight": {
+                  "integerValue": "80"
+                },
+                "email": {
+                  "stringValue": "paccaud.bertrand@gmail.com"
+                },
+                "level": {
+                  "stringValue": "Confirmé (Compétition)"
+                },
+                "sex": {
+                  "stringValue": "Homme"
+                },
+                "city": {
+                  "stringValue": "Annecy "
+                },
+                "currentWeeklyVolume": {
+                  "integerValue": "15"
+                },
+                "startDate": {
+                  "stringValue": "2026-05-20"
+                },
+                "targetTime": {
+                  "stringValue": "2h15"
+                },
+                "currentWeeklyElevation": {
+                  "integerValue": "400"
+                },
+                "raceDate": {
+                  "stringValue": "2026-08-30"
+                },
+                "recentRaceTimes": {
+                  "mapValue": {
+                    "fields": {
+                      "distance10km": {
+                        "stringValue": "55min"
+                      }
+                    }
+                  }
+                },
+                "preferredDays": {
+                  "arrayValue": {}
+                },
+                "frequency": {
+                  "integerValue": "4"
+                },
+                "height": {
+                  "integerValue": "165"
+                },
+                "trailDetails": {
+                  "mapValue": {
+                    "fields": {
+                      "distance": {
+                        "integerValue": "16"
+                      },
+                      "elevation": {
+                        "integerValue": "1000"
+                      }
+                    }
+                  }
+                },
+                "vma": {
+                  "doubleValue": 12.12121212121212
+                },
+                "age": {
+                  "integerValue": "31"
+                },
+                "injuries": {
+                  "mapValue": {
+                    "fields": {
+                      "hasInjury": {
+                        "booleanValue": false
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "vma": {
+      "doubleValue": 12.12121212121212
+    },
+    "distance": {
+      "stringValue": "16km D+1000m"
+    },
+    "createdAt": {
+      "stringValue": "2026-05-20T07:55:21.331Z"
+    },
+    "adaptationLog": {
+      "mapValue": {
+        "fields": {
+          "adaptationHistory": {
+            "arrayValue": {}
+          },
+          "adaptationsThisWeek": {
+            "integerValue": "0"
+          },
+          "weekNumber": {
+            "integerValue": "0"
+          }
+        }
+      }
+    },
+    "calculatedVMA": {
+      "doubleValue": 12.12121212121212
+    },
+    "vmaSource": {
+      "stringValue": "10km en 55min"
+    },
+    "name": {
+      "stringValue": "Préparation Trail 16km / 1000m D+ en 2h15 — 15 sem."
+    },
+    "fullPlanGenerated": {
+      "booleanValue": false
+    },
+    "goal": {
+      "stringValue": "Trail"
+    },
+    "endDate": {
+      "stringValue": "2026-08-31"
+    },
+    "feasibility": {
+      "mapValue": {
+        "fields": {
+          "score": {
+            "integerValue": "5"
+          },
+          "safetyWarning": {
+            "stringValue": "Investis dans de bonnes chaussures avec un bon amorti et privilégie les surfaces souples quand c'est possible. Pense à bien t'hydrater et à écouter ton corps."
+          },
+          "status": {
+            "stringValue": "IRRÉALISTE"
+          },
+          "message": {
+            "stringValue": "Ton objectif de 2h15min sur 16 km demande de tenir 95% de ta VMA (12.1 km/h) pendant toute la course. Sur marathon, le seuil physiologiquement soutenable est d'environ 88% VMA (référence Daniels VDOT + Pfitzinger). Au-delà, même un coureur entraîné ne peut maintenir cette intensité. Ton temps théorique est de 2h41min. Un objectif réaliste serait autour de 2h49min."
+          },
+          "recommendation": {
+            "stringValue": "un temps cible de 2h49min"
+          }
+        }
+      }
+    },
+    "weeks": {
+      "arrayValue": {
+        "values": [
+          {
+            "mapValue": {
+              "fields": {
+                "phase": {
+                  "stringValue": "fondamental"
+                },
+                "theme": {
+                  "stringValue": "Adaptation aérobie et introduction au dénivelé"
+                },
+                "weekNumber": {
+                  "integerValue": "1"
+                },
+                "sessions": {
+                  "arrayValue": {
+                    "values": [
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "intensity": {
+                              "stringValue": "Facile"
+                            },
+                            "elevationGain": {
+                              "integerValue": "80"
+                            },
+                            "type": {
+                              "stringValue": "Jogging"
+                            },
+                            "distance": {
+                              "stringValue": "5.1 km"
+                            },
+                            "duration": {
+                              "stringValue": "37 min"
+                            },
+                            "advice": {
+                              "stringValue": "Franchir les montées raides en marche active limite le travail excentrique tout en construisant les chaînes musculaires. Une approche accessible du relief, peu traumatisante."
+                            },
+                            "id": {
+                              "stringValue": "w1-s1-1779263721332-o5x4k3x"
+                            },
+                            "mainSet": {
+                              "stringValue": "20 min sur parcours vallonné. Les montées les plus raides se franchissent en marche active et dynamique (poussée des bras, gainage). Le plat et les descentes douces se courent en endurance fondamentale (7:23 en référence). On gère l'effort, pas le chrono."
+                            },
+                            "locationSuggestion": {
+                              "stringValue": "Le Pâquier"
+                            },
+                            "title": {
+                              "stringValue": "Footing vallonné, côtes en marche"
+                            },
+                            "warmup": {
+                              "stringValue": "10 min de footing en endurance fondamentale sur terrain plat ou faux-plat."
+                            },
+                            "cooldown": {
+                              "stringValue": "5 à 10 min de footing plat puis marche."
+                            },
+                            "day": {
+                              "stringValue": "Mardi"
+                            },
+                            "targetPace": {
+                              "stringValue": "7:23 min/km"
+                            }
+                          }
+                        }
+                      },
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "intensity": {
+                              "stringValue": "Facile"
+                            },
+                            "elevationGain": {
+                              "integerValue": "60"
+                            },
+                            "type": {
+                              "stringValue": "Jogging"
+                            },
+                            "distance": {
+                              "stringValue": "3.9 km"
+                            },
+                            "duration": {
+                              "stringValue": "29 min"
+                            },
+                            "advice": {
+                              "stringValue": "Franchir les montées raides en marche active limite le travail excentrique tout en construisant les chaînes musculaires. Une approche accessible du relief, peu traumatisante."
+                            },
+                            "id": {
+                              "stringValue": "w1-s2-1779263721332-uvthcpd"
+                            },
+                            "mainSet": {
+                              "stringValue": "20 min sur parcours vallonné. Les montées les plus raides se franchissent en marche active et dynamique (poussée des bras, gainage). Le plat et les descentes douces se courent en endurance fondamentale (7:23 en référence). On gère l'effort, pas le chrono."
+                            },
+                            "locationSuggestion": {
+                              "stringValue": "Sentiers de la Visitation / Crêt du Maure"
+                            },
+                            "title": {
+                              "stringValue": "Footing vallonné, côtes en marche"
+                            },
+                            "warmup": {
+                              "stringValue": "10 min de footing en endurance fondamentale sur terrain plat ou faux-plat."
+                            },
+                            "cooldown": {
+                              "stringValue": "5 à 10 min de footing plat puis marche."
+                            },
+                            "targetPace": {
+                              "stringValue": "7:23 min/km"
+                            },
+                            "day": {
+                              "stringValue": "Jeudi"
+                            }
+                          }
+                        }
+                      },
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "duration": {
+                              "stringValue": "30 min"
+                            },
+                            "distance": {
+                              "stringValue": "0 km"
+                            },
+                            "type": {
+                              "stringValue": "Renforcement"
+                            },
+                            "mainSet": {
+                              "stringValue": "Circuit 2 tours : Squats poids de corps (3x9), Fentes avant (3x6/jambe), Gainage ventral (3x19-60s), Dead bug (3x6/cote), Extensions mollets debout (3x13), Squat excentrique (descente 4s) (3x6), Step-down excentrique (3x5/jambe), Mollets debout unipodal (3x8/jambe). Repos 2 min entre tours."
+                            },
+                            "id": {
+                              "stringValue": "w1-s3-1779263721332-jef3d7v"
+                            },
+                            "advice": {
+                              "stringValue": "La qualité du mouvement prime sur la quantité. Ne force pas si tu sens une tension inhabituelle."
+                            },
+                            "elevationGain": {
+                              "integerValue": "0"
+                            },
+                            "intensity": {
+                              "stringValue": "Modéré"
+                            },
+                            "cooldown": {
+                              "stringValue": "5 min d'étirements : quadriceps, ischio-jambiers, mollets, hanches"
+                            },
+                            "day": {
+                              "stringValue": "Samedi"
+                            },
+                            "locationSuggestion": {
+                              "stringValue": "À la maison"
+                            },
+                            "warmup": {
+                              "stringValue": "10 min de mobilité articulaire douce et échauffement progressif (marche rapide, rotations, pas chassés)"
+                            },
+                            "title": {
+                              "stringValue": "Renfo Trail Focus A - Quadriceps & Excentrique (S1)"
+                            }
+                          }
+                        }
+                      },
+                      {
+                        "mapValue": {
+                          "fields": {
+                            "cooldown": {
+                              "stringValue": "4 min de marche lente pour redescendre en pression (à 8:15 min/km)"
+                            },
+                            "targetPace": {
+                              "stringValue": "7:23 min/km"
+                            },
+                            "day": {
+                              "stringValue": "Dimanche"
+                            },
+                            "locationSuggestion": {
+                              "stringValue": "Bas du Semnoz (secteur forêt)"
+                            },
+                            "title": {
+                              "stringValue": "Sortie Longue Trail Découverte"
+                            },
+                            "warmup": {
+                              "stringValue": "5 min d'échauffement articulaire complet (à 8:15 min/km)"
+                            },
+                            "distance": {
+                              "stringValue": "6.0 km"
+                            },
+                            "type": {
+                              "stringValue": "Sortie Longue"
+                            },
+                            "duration": {
+                              "stringValue": "44 min"
+                            },
+                            "id": {
+                              "stringValue": "w1-s4-1779263721332-vbawg4h"
+                            },
+                            "advice": {
+                              "stringValue": "C'est la séance la plus importante de la semaine. Reste bien en aisance respiratoire tout au long du parcours."
+                            },
+                            "mainSet": {
+                              "stringValue": "44 min de course continue sur sentier de type Trail à allure EF 7:23 min/km."
+                            },
+                            "intensity": {
+                              "stringValue": "Facile"
+                            },
+                            "elevationGain": {
+                              "integerValue": "220"
+                            }
+                          }
+                        }
+                      }
+                    ]
+                  }
+                },
+                "weekGoal": {
+                  "stringValue": "Adaptation aérobie et introduction au dénivelé"
+                }
+              }
+            }
+          }
+        ]
+      }
+    },
+    "userEmail": {
+      "stringValue": "paccaud.bertrand@gmail.com"
+    },
+    "location": {
+      "stringValue": "Annecy"
+    },
+    "id": {
+      "stringValue": "1779263721331"
+    },
+    "confidenceScore": {
+      "integerValue": "5"
+    },
+    "userId": {
+      "stringValue": "K6SkHjRH9jRlbiWIKgUcmbzCw6M2"
+    },
+    "suggestedLocations": {
+      "arrayValue": {
+        "values": [
+          {
+            "mapValue": {
+              "fields": {
+                "type": {
+                  "stringValue": "PARK"
+                },
+                "name": {
+                  "stringValue": "Le Pâquier"
+                },
+                "description": {
+                  "stringValue": "Idéal pour les footings plats et le travail de technique avec vue sur le lac."
+                }
+              }
+            }
+          },
+          {
+            "mapValue": {
+              "fields": {
+                "type": {
+                  "stringValue": "HILL"
+                },
+                "description": {
+                  "stringValue": "Zone boisée parfaite pour les footings vallonnés et les séances de côtes."
+                },
+                "name": {
+                  "stringValue": "Crêt du Maure / La Visitation"
+                }
+              }
+            }
+          },
+          {
+            "mapValue": {
+              "fields": {
+                "description": {
+                  "stringValue": "Le terrain de jeu privilégié pour les sorties longues en sentiers avec du vrai dénivelé."
+                },
+                "name": {
+                  "stringValue": "Le Semnoz"
+                },
+                "type": {
+                  "stringValue": "NATURE"
+                }
+              }
+            }
+          }
+        ]
+      }
+    },
+    "welcomeMessage": {
+      "stringValue": "Bienvenue dans ton programme de préparation pour ton Trail de 16km à Annecy. Ton objectif de 2h15 est ambitieux et nécessite une base d'endurance solide associée à un travail spécifique en dénivelé. Cette première phase 'fondamentale' se concentre sur l'adaptation de ton corps aux sentiers et au renforcement de ton métabolisme aérobie. Nous te recommandons vivement de consulter un médecin avant de débuter ce programme, notamment pour obtenir un certificat médical d'aptitude au sport."
+    },
+    "isPreview": {
+      "booleanValue": true
+    },
+    "durationWeeks": {
+      "integerValue": "15"
+    },
+    "paces": {
+      "mapValue": {
+        "fields": {
+          "allureSpecifique10k": {
+            "stringValue": "5:30"
+          },
+          "efPace": {
+            "stringValue": "7:23"
+          },
+          "eaPace": {
+            "stringValue": "6:26"
+          },
+          "allureSpecifique5k": {
+            "stringValue": "5:13"
+          },
+          "allureSpecifiqueMarathon": {
+            "stringValue": "6:11"
+          },
+          "recoveryPace": {
+            "stringValue": "8:15"
+          },
+          "seuilPace": {
+            "stringValue": "5:41"
+          },
+          "allureSpecifiqueSemi": {
+            "stringValue": "5:49"
+          },
+          "vmaPace": {
+            "stringValue": "4:57"
+          }
+        }
+      }
+    },
+    "raceDate": {
+      "stringValue": "2026-08-30"
+    },
+    "sessionsPerWeek": {
+      "integerValue": "4"
+    },
+    "startDate": {
+      "stringValue": "2026-05-18"
+    },
+    "targetTime": {
+      "stringValue": "2h15"
+    }
+  },
+  "createTime": "2026-05-20T07:55:21.522916Z",
+  "updateTime": "2026-05-20T07:55:21.522916Z"
+}

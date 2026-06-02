@@ -7,6 +7,7 @@ import Questionnaire from './Questionnaire';
 import { getRecentBlogPosts } from '../services/blogService';
 import { BlogPost } from '../types';
 import { SectionLabel, StravaSection } from './landing/SharedSections';
+import { isIOSNative } from '../services/platformService';
 
 /* ─── Animated counter hook ─── */
 const useCountUp = (end: number, duration = 2000) => {
@@ -438,7 +439,11 @@ const LandingPage: React.FC<LandingPageProps> = ({ user, onPlanGeneration, isGen
 
       {/* ═══════════════════════════════════════════════════════════════
           SECTION 8 — TARIFS
+          Audit iOS J2.5 (02/06/2026) : section masquée en iOS natif.
+          Apple 3.1.1 + 4.2 : afficher des prix Premium dans l'app iOS
+          sans IAP = rejet quasi certain. L'app iOS reste en mode freemium.
       ═══════════════════════════════════════════════════════════════ */}
+      {!isIOSNative && (
       <section className="py-20 md:py-28 relative bg-white overflow-hidden">
         <div className="absolute top-0 left-1/3 w-[500px] h-[500px] bg-orange-50 rounded-full blur-[128px] -translate-y-1/2"></div>
 
@@ -547,6 +552,8 @@ const LandingPage: React.FC<LandingPageProps> = ({ user, onPlanGeneration, isGen
           </div>
         </div>
       </section>
+      )}
+      {/* fin du wrap !isIOSNative — Section 8 Tarifs */}
 
       {/* ═══════════════════════════════════════════════════════════════
           SECTION 9 — BLOG

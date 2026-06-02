@@ -1,0 +1,32 @@
+# Audit freelance 30 mai — COURT (Coach FFA + Dev senior)
+
+Lecture code uniquement (Firestore indispo). Périmètre : `geminiService.ts` (7102 l.), `footingVariants.ts` (354 l.), `raceDayInject.ts` (272 l.), `planUtils.ts` (calculateWeekTargetElevation), `renfoService.ts`, `App.tsx` (recalibration D16).
+
+## Tableau verdicts
+
+| # | Critique | File:line | Verdict | Action |
+|---|----------|-----------|---------|--------|
+| A1 | SL 18.5 km / 777m D+ @ 5:59/km (D+/km=42) | `geminiService.ts:790-823` (`enforceFlatEquivalentNote`) + `App.tsx:1212-1213` (skip recal si elev>150) | 🟡 DOCTRINE D18b respectée | `targetPace` reste = pace plat-équivalent IMMUABLE (cf. memo `feedback_d18b_distance_plat_equivalent_immuable`). Note quantifiée Cory Smith (+3-5 s/km par 10m D+) ajoutée au mainSet pour 42 m/km (branche >50 m/km NON déclenchée car seuil = 50, ici 42 → branche « légère »). Freelance lit 5:59 et conclut « impossible » sans lire la note. **Action : rien à corriger côté logique. Améliorer l'affichage UI (badge « pace plat-équiv. » près du chiffre) pour éviter ce malentendu récurrent.** |
+| A2 | Renfo Quadriceps Sam + SL Dim (excentrique veille SL) | `geminiService.ts:5721-5722` (prompt : « Place simplement la séance au bon jour », **AUCUNE contrainte de jour côté code**) ; `renfoService.ts:776-848` (buildRenfoSession reçoit `day` en paramètre, ne refuse jamais) | 🟠 BUG LLM **+** 🔴 BUG CODE (doctrine absente) | Aucune règle dans le code n'interdit Renfo quad excentrique J-1 SL. Le LLM choisit librement. Sur trail spécifique (focus A = quadriceps excentrique cf. `renfoService.ts:643`), c'est effectivement risqué. **P0 → ajouter un enforcer post-LLM : si Renfo focus A (quad/excentrique) collé J-1 d'une SL trail >70min, le déplacer ≥48h avant la SL.** |
+| A3 | 1302m D+ S1 sans rampe progressive | `planUtils.ts:106-173` (`calculateWeekTargetElevation`) ; `geminiService.ts:3625-3641` (génère `weeklyElevationTarget`) | 🟢 INPUT user (currentWeeklyElevation) | Formule S1 : `startElevation = max(currentWeeklyElevation, min(15% race, maxStart=60% du cap niveau))`. Pour 2100m race Inter : 15%×2100 = 315m, donc S1 ≈ 315m PAR DÉFAUT. Si S1=1302m c'est que `currentWeeklyElevation` user déclaré ≥ 1302m (doctrine `feedback_input_client_obligatoire` : on n'écrase JAMAIS la valeur user, cf. Fix #2 ligne 138-144). Freelance ignore l'input ou ne le voit pas. **Action : vérifier le profil. Si user a vraiment déclaré 1302m/sem, S1 conservative. Sinon → bug input.** |
+| B1 | Back-to-back Lun 6.5 + Mar 5.5 S1 | `geminiService.ts:5163-5197, 5483-5484, 5714` (preferredDays = `Séances UNIQUEMENT sur :…`, forçage strict) | 🟢 INPUT user (preferredDays) | Aucun garde-fou « pas 2 courses consécutives ». Seule règle : pas 2 **SL** consécutives (`geminiService.ts:1260-1289`, longSessions ≥90min, le 2e converti en récup). 2 footings courts consécutifs = autorisé car user a choisi Lun+Mar. **Action : OK doctrine input immuable. Optionnel : message d'accueil « Tu as choisi Lun+Mar consécutifs — privilégie un footing très lent le mardi ».** |
+| B2 | Allure EF 8:18/km identique Lun/Mar/Dim | `footingVariants.ts:48` (`buildMainSet(bodyMin, efPace)` — un seul paramètre `efPace`) + `geminiService.ts:790-823` (note plat-équiv. sur D+/km > 30) | 🟡 DOCTRINE (volontaire) | Toutes les variantes footing reçoivent UNE allure EF. Pas de différenciation montée/descente. La doctrine D18b (`feedback_d18b_…`) impose explicitement de NE PAS baisser/varier l'allure pour aligner avec le terrain ; la note « ta vitesse au sol sera plus lente — c'est l'effort EF qui prime » est injectée si D+/km > 30 (ligne 819). **Freelance se trompe sur l'intention** : la doctrine est de garder l'ancre EF, pas de calculer un pace descente. **Action : aucune. Doctrine validée user.** |
+| B3 | Trou Mer→Sam (4 jours sans course) | `geminiService.ts:5163-5197` (preferredDays strict, pas de redistribution) | 🟢 INPUT user (preferredDays = Lun, Mar, Dim) | Aucun code ne redistribue pour combler les trous. Doctrine `feedback_jamais_suggerer_changer_frequence` interdit même de suggérer d'ajouter une séance. **Action : aucune. Possible message d'accueil pédagogique : « Mer→Sam = 4 jours OFF, garde au moins 1 marche active 30 min pour préserver l'aérobie » (sans forcer).** |
+
+## Spécifiquement vérifié
+
+- **D16 Cory Smith / Minetti** : confirmé. `geminiService.ts:763-823` injecte note plat-équivalent (>50 m/km = wording quantifié « ~3-5 s/km par 10m D+ »). Sur SL trail 42 m/km (777/18.5 < seuil 50), c'est la branche « légère » (pas de chiffrage Cory Smith). `App.tsx:1212-1213` skip recalibration VMA pour `elevationGain > 150` (= pace patché Minetti immuable lors d'un changement VMA).
+- **preferredDays** : strict, ordre user respecté tel quel (`geminiService.ts:5191-5196` force `session.day = prefDays[idx]`). Auto-complétion si freq > prefDays.length (lignes 5167-5186), priorité = jour le plus éloigné des existants.
+- **Doctrine renfo veille SL** : **N'EXISTE PAS dans le code.** Aucun grep ne remonte de règle « renfo excentrique J-1 SL interdit ». Seule contrainte 48h = lignes 3947-3948 (texte prompt LLM générique, non enforcé code).
+- **Espacement min entre 2 courses** : **N'EXISTE PAS.** Seule règle = pas 2 SL ≥90min sur jours consécutifs (`geminiService.ts:1260-1289`, sauf ultra-trail phase spécifique). 2 footings consécutifs = autorisé.
+
+## Bugs P0 à fix
+
+**P0 — A2 — Renfo focus A (quad/excentrique) veille SL trail** : risque tendineux réel. **Patch suggéré dans `geminiService.ts` post-enforce (à côté de `enforceFlatEquivalentNote`)** :
+- Détecter `session.type === 'Renforcement'` avec titre contenant `Focus A` / `Quadriceps` / `Excentrique` ;
+- Si la séance suivante (jour J+1 dans `DAYS_ORDER`) est une SL trail (`type === 'Sortie Longue'` ET `elevationGain > 0`) ;
+- Swap avec un jour OFF ≥48h avant la SL, OU convertir en « Renfo Maintien léger - Mobilité/Gainage » (pas d'excentrique).
+
+**Pas-P0 (cosmétique mais récurrent) — A1/B2** : ajouter dans le rendu UI Session un badge « pace plat-équivalent » à côté du `targetPace` quand `D+/km > 30`. La note existe dans `mainSet` mais elle est lue après le chiffre choquant. Évite que tout auditeur externe (freelance, kiné, copain coach) ne tire la même conclusion erronée.
+
+**Non-bugs (doctrine à défendre)** : A1, A3, B1, B2, B3 — tous conformes à des feedbacks user explicites (D18b immuable, input client obligatoire, jamais suggérer fréquence). Ne PAS rétro-corriger.
