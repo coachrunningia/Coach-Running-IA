@@ -674,6 +674,13 @@ export const invalidateStripeCache = (userId?: string) => {
 };
 
 export const createStripeCheckoutSession = async (priceId: string, mode: 'subscription' | 'payment' = 'subscription') => {
+  // Mobile iOS J1 (02/06/2026) — Apple 3.1.1 défense : Stripe checkout interdit
+  // en iOS natif. Le composant PricingPage masque déjà le CTA en iOS, mais on
+  // throw ici en garde-fou pour qu'aucun nouveau caller ne contourne par erreur.
+  const { isIOSNative } = await import('./platformService');
+  if (isIOSNative) {
+    throw new Error('Stripe checkout indisponible dans l\'app iOS.');
+  }
   const user = auth.currentUser;
   if (!user) throw new Error("Veuillez créer un compte avant de vous abonner.");
 
@@ -713,6 +720,12 @@ export const createStripeCheckoutSession = async (priceId: string, mode: 'subscr
 
 // Fix: Implement missing createPortalSession export for ProfilePage
 export const createPortalSession = async () => {
+  // Mobile iOS J1 (02/06/2026) — Apple 3.1.1 défense : portail Stripe interdit
+  // en iOS natif. Le bouton est déjà masqué côté ProfilePage en iOS, garde-fou ici.
+  const { isIOSNative } = await import('./platformService');
+  if (isIOSNative) {
+    throw new Error('Portail Stripe indisponible dans l\'app iOS.');
+  }
   const user = auth.currentUser;
   if (!user) throw new Error("Non authentifié");
 

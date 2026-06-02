@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import { Helmet } from "react-helmet-async";
 import { Check, Zap, Crown, ArrowLeft, X, ShoppingBag } from 'lucide-react';
 import { STRIPE_PRICES } from '../constants';
+import { isIOSNative } from '../services/platformService';
 
 interface PricingPageProps {
   userId: string;
@@ -11,6 +12,41 @@ interface PricingPageProps {
 }
 
 const PricingPage: React.FC<PricingPageProps> = ({ userId, userEmail, onBack }) => {
+  // Mobile iOS J1 (02/06/2026) — Apple 3.1.1 : aucun CTA paiement Stripe ne doit
+  // s'afficher dans l'app iOS native. On affiche un écran neutre sans CTA, sans
+  // mention de prix, sans lien externe (anti-steering rules Apple).
+  // L'utilisateur iOS souscrit Premium depuis Safari sur coachrunningia.fr, hors app.
+  if (isIOSNative) {
+    return (
+      <div className="min-h-screen bg-gradient-to-b from-slate-50 to-white py-12 px-4">
+        <div className="max-w-2xl mx-auto">
+          <button
+            onClick={onBack}
+            className="flex items-center gap-2 text-slate-600 hover:text-slate-900 mb-8 transition-colors"
+          >
+            <ArrowLeft size={20} />
+            <span>Retour</span>
+          </button>
+          <div className="bg-white rounded-2xl border border-slate-200 p-8 text-center">
+            <div className="w-16 h-16 bg-amber-100 rounded-full flex items-center justify-center mx-auto mb-6">
+              <Crown size={32} className="text-amber-600" />
+            </div>
+            <h1 className="text-2xl font-black text-slate-900 mb-3">
+              Tu profites de la version gratuite
+            </h1>
+            <p className="text-slate-600 mb-6">
+              Génère ton plan personnalisé, suis ta première semaine et profite
+              des outils Coach Running IA.
+            </p>
+            <p className="text-sm text-slate-500">
+              Merci d'utiliser Coach Running IA — bons entraînements&nbsp;!
+            </p>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
   const [loading, setLoading] = useState<'monthly' | 'yearly' | 'single' | null>(null);
 
   const handleSubscribe = async (plan: 'monthly' | 'yearly' | 'single') => {
@@ -56,7 +92,10 @@ const PricingPage: React.FC<PricingPageProps> = ({ userId, userEmail, onBack }) 
     { text: "Connexion Strava", desc: "Analyse IA hebdo (bientôt disponible)" },
     { text: "Feedback après séance", desc: "Note ton ressenti, le plan s'adapte" },
     { text: "Export calendrier", desc: "Google Calendar / Apple Calendar" },
-    { text: "Rappels hebdomadaires", desc: "Ne rate jamais une séance" },
+    // Mobile iOS J1 (02/06/2026) — Retrait promesse "Rappels hebdomadaires" :
+    // le plugin @capacitor/local-notifications n'est pas implémenté et la
+    // feature serait à fournir avant promesse marketing (risque chargeback Stripe).
+    // À ré-ajouter en V1.1 quand schedule J-1 18h + J 7h sera codé.
     { text: "Adaptation intelligente", desc: "Le plan évolue avec toi" },
     { text: "Support prioritaire", desc: "Réponse sous 24h" },
   ];

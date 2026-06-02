@@ -2,6 +2,7 @@
 import React, { useState } from 'react';
 import { User } from '../types';
 import { updateUserProfile, deleteUserAccount, createPortalSession } from '../services/storageService';
+import { isIOSNative } from '../services/platformService';
 import { User as UserIcon, Save, Trash2, Camera, AlertTriangle, CreditCard, ExternalLink, ShieldCheck, Zap, Clock, XCircle } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 
@@ -136,8 +137,11 @@ const ProfilePage: React.FC<ProfilePageProps> = ({ user, setUser }) => {
                    </div>
                  )}
 
-                 {/* Afficher le bouton de gestion seulement si stripeCustomerId existe */}
-                 {user.stripeCustomerId ? (
+                 {/* Mobile iOS J1 (02/06/2026) — Apple 3.1.1 : le portail Stripe ouvert
+                     en WebView in-app serait un rejet certain. On masque le bouton sur iOS
+                     natif. Pas de message "va sur le site" (anti-steering Apple). L'user
+                     iOS qui a payé via le web saura aller le gérer sur le web. */}
+                 {user.stripeCustomerId && !isIOSNative ? (
                    <>
                      <button
                       onClick={handlePortal}
@@ -153,6 +157,9 @@ const ProfilePage: React.FC<ProfilePageProps> = ({ user, setUser }) => {
                      </button>
                      <p className="text-xs text-center text-slate-400 mt-2">Vous serez redirigé vers le portail sécurisé Stripe.</p>
                    </>
+                 ) : isIOSNative && user.stripeCustomerId ? (
+                   /* iOS natif + Premium actif : on affiche juste le statut, pas de CTA */
+                   null
                  ) : (
                    <div className="bg-amber-50 p-3 rounded-lg border border-amber-200 text-center">
                      <p className="text-xs text-amber-700">
