@@ -4,6 +4,7 @@ import { Helmet } from 'react-helmet-async';
 import { BrowserRouter as Router, Routes, Route, Navigate, useNavigate, useParams, useLocation } from 'react-router-dom';
 import Layout from './components/Layout';
 import LandingPage from './components/LandingPage';
+import NativeOnlyRoute from './components/NativeOnlyRoute';
 import LoadingScreen from './components/LoadingScreen';
 import { User, TrainingPlan, QuestionnaireData } from './types';
 import {
@@ -263,15 +264,47 @@ const AppContent = () => {
 
       <Suspense fallback={<div className="min-h-screen flex items-center justify-center"><Loader2 className="animate-spin text-accent" size={32} /></div>}>
       <Routes>
-        {/* Pages publiques - affichées immédiatement sans attendre Firebase Auth */}
-        <Route path="/" element={<LandingPage user={user} onPlanGeneration={handlePlanGeneration} isGenerating={isGenerating} />} />
+        {/* Pages publiques - affichées immédiatement sans attendre Firebase Auth
+            Audit iOS J3 (02/06/2026) : 10 routes vitrine wrappées dans <NativeOnlyRoute>
+            pour Apple 4.2 "minimum functionality" + 4.2.3 "primarily web views".
+            /glossary, /outils/*, /cgv, /confidentialite, /mentions-legales restent
+            accessibles iOS (vraies features + obligation légale Apple 5.1.1). */}
+        <Route path="/" element={
+          <NativeOnlyRoute redirect="/dashboard">
+            <LandingPage user={user} onPlanGeneration={handlePlanGeneration} isGenerating={isGenerating} />
+          </NativeOnlyRoute>
+        } />
         <Route path="/pricing" element={<PricingPage user={user} />} />
-        <Route path="/plan-semi-marathon" element={<SemiMarathonLanding user={user} onPlanGeneration={handlePlanGeneration} isGenerating={isGenerating} />} />
-        <Route path="/plan-marathon" element={<MarathonLanding user={user} onPlanGeneration={handlePlanGeneration} isGenerating={isGenerating} />} />
-        <Route path="/plan-trail" element={<TrailLanding user={user} onPlanGeneration={handlePlanGeneration} isGenerating={isGenerating} />} />
-        <Route path="/plan-hyrox" element={<HyroxLanding user={user} onPlanGeneration={handlePlanGeneration} isGenerating={isGenerating} />} />
-        <Route path="/programme-running-debutant" element={<BeginnerLanding user={user} onPlanGeneration={handlePlanGeneration} isGenerating={isGenerating} />} />
-        <Route path="/plan-10km" element={<TenKLanding user={user} onPlanGeneration={handlePlanGeneration} isGenerating={isGenerating} />} />
+        <Route path="/plan-semi-marathon" element={
+          <NativeOnlyRoute redirect="/dashboard">
+            <SemiMarathonLanding user={user} onPlanGeneration={handlePlanGeneration} isGenerating={isGenerating} />
+          </NativeOnlyRoute>
+        } />
+        <Route path="/plan-marathon" element={
+          <NativeOnlyRoute redirect="/dashboard">
+            <MarathonLanding user={user} onPlanGeneration={handlePlanGeneration} isGenerating={isGenerating} />
+          </NativeOnlyRoute>
+        } />
+        <Route path="/plan-trail" element={
+          <NativeOnlyRoute redirect="/dashboard">
+            <TrailLanding user={user} onPlanGeneration={handlePlanGeneration} isGenerating={isGenerating} />
+          </NativeOnlyRoute>
+        } />
+        <Route path="/plan-hyrox" element={
+          <NativeOnlyRoute redirect="/dashboard">
+            <HyroxLanding user={user} onPlanGeneration={handlePlanGeneration} isGenerating={isGenerating} />
+          </NativeOnlyRoute>
+        } />
+        <Route path="/programme-running-debutant" element={
+          <NativeOnlyRoute redirect="/dashboard">
+            <BeginnerLanding user={user} onPlanGeneration={handlePlanGeneration} isGenerating={isGenerating} />
+          </NativeOnlyRoute>
+        } />
+        <Route path="/plan-10km" element={
+          <NativeOnlyRoute redirect="/dashboard">
+            <TenKLanding user={user} onPlanGeneration={handlePlanGeneration} isGenerating={isGenerating} />
+          </NativeOnlyRoute>
+        } />
         <Route path="/glossary" element={<GlossaryPage />} />
         <Route path="/cgv" element={<CGVPage />} />
         <Route path="/confidentialite" element={<ConfidentialitePage />} />
@@ -285,9 +318,22 @@ const AppContent = () => {
         <Route path="/outils/nutrition-marathon" element={<NutritionMarathonPage />} />
         <Route path="/outils/nutrition-trail" element={<NutritionTrailPage />} />
         <Route path="/outils/nutrition-semi-marathon" element={<NutritionSemiMarathonPage />} />
-        <Route path="/blog" element={<BlogList />} />
-        <Route path="/blog/:slug" element={<BlogArticle />} />
-        <Route path="/post/:slug" element={<PostRedirect />} />
+        {/* Audit iOS J3 (02/06/2026) : blog masqué en iOS natif (SEO web only) */}
+        <Route path="/blog" element={
+          <NativeOnlyRoute redirect="/dashboard">
+            <BlogList />
+          </NativeOnlyRoute>
+        } />
+        <Route path="/blog/:slug" element={
+          <NativeOnlyRoute redirect="/dashboard">
+            <BlogArticle />
+          </NativeOnlyRoute>
+        } />
+        <Route path="/post/:slug" element={
+          <NativeOnlyRoute redirect="/dashboard">
+            <PostRedirect />
+          </NativeOnlyRoute>
+        } />
 
         {/* Auth */}
         <Route path="/auth" element={<div className="min-h-screen flex items-center justify-center bg-slate-50"><AuthModal onAuthSuccess={handleAuthSuccess} /></div>} />

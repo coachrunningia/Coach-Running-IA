@@ -64,18 +64,24 @@
     <div id="root"></div>
     <script type="module" src="/src/index.tsx"></script>
 
-    <!-- Analytics (chargé après le contenu pour ne pas bloquer le rendu) -->
+    <!-- Analytics (chargé après le contenu pour ne pas bloquer le rendu)
+         Audit iOS J3 (02/06/2026) : Facebook Pixel + GA désactivés en iOS natif
+         (Apple App Tracking Transparency obligatoire sinon = rejet 5.1.2).
+         Détection via window.Capacitor injecté très tôt par le bridge natif.
+         Web inchangé. ATT proprement implémenté en V1.1 (plugin Capacitor). -->
     <script>
-    !function(f,b,e,v,n,t,s)
-    {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
-    n.callMethod.apply(n,arguments):n.queue.push(arguments)};
-    if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
-    n.queue=[];t=b.createElement(e);t.async=!0;
-    t.src=v;s=b.getElementsByTagName(e)[0];
-    s.parentNode.insertBefore(t,s)}(window, document,'script',
-    'https://connect.facebook.net/en_US/fbevents.js');
-    fbq('init', '1434110431562090');
-    fbq('track', 'PageView');
+    if (!(window.Capacitor && window.Capacitor.isNativePlatform && window.Capacitor.isNativePlatform())) {
+      !function(f,b,e,v,n,t,s)
+      {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+      n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+      if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+      n.queue=[];t=b.createElement(e);t.async=!0;
+      t.src=v;s=b.getElementsByTagName(e)[0];
+      s.parentNode.insertBefore(t,s)}(window, document,'script',
+      'https://connect.facebook.net/en_US/fbevents.js');
+      fbq('init', '1434110431562090');
+      fbq('track', 'PageView');
+    }
     </script>
     <noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=1434110431562090&ev=PageView&noscript=1"/></noscript>
     <!-- Service Worker PWA -->
@@ -90,12 +96,19 @@
       }
     </script>
 
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-P0641L8TPT"></script>
+    <!-- Audit iOS J3 (02/06/2026) : Google Analytics désactivé en iOS natif (ATT).
+         Injection dynamique du script gtag uniquement si !isNativePlatform. -->
     <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag("js", new Date());
-      gtag("config", "G-P0641L8TPT");
+      if (!(window.Capacitor && window.Capacitor.isNativePlatform && window.Capacitor.isNativePlatform())) {
+        var s = document.createElement('script');
+        s.async = true;
+        s.src = 'https://www.googletagmanager.com/gtag/js?id=G-P0641L8TPT';
+        document.head.appendChild(s);
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag("js", new Date());
+        gtag("config", "G-P0641L8TPT");
+      }
     </script>
   </body>
 </html>
