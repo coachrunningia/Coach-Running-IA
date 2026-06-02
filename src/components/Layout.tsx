@@ -359,7 +359,10 @@ const Layout: React.FC<LayoutProps> = ({ children, user, setUser }) => {
             <h4 className="font-semibold mb-4 text-accent">L'application</h4>
             <ul className="space-y-2 text-sm text-slate-400">
               <li><Link to="/" className="hover:text-white transition-colors">Accueil</Link></li>
-              <li><Link to="/pricing" className="hover:text-white transition-colors">Tarifs</Link></li>
+              {/* Audit iOS J2.6 : footer "Tarifs" masqué en iOS natif (Apple 3.1.1) */}
+              {!isIOSNative && (
+                <li><Link to="/pricing" className="hover:text-white transition-colors">Tarifs</Link></li>
+              )}
               <li><Link to="/auth" className="hover:text-white transition-colors">Connexion</Link></li>
             </ul>
           </div>
