@@ -3604,6 +3604,86 @@ export const calculatePeriodizationPlan = (
   }
 
   // ══════════════════════════════════════════════════════════════
+  // F-21bis (02/06/2026) — CLAMP RATIO S1→PIC par matrice distance × durée
+  //
+  // Bug découvert painvin.ambre 02/06 : Gemini a généré ratio 3.00 (PIC 24
+  // vs S1 8) pour Semi BMI 28 cv 5 → stress fracture quasi-garantie.
+  // Le code en amont ne plafonnait que le PIC absolu (cap MAX par distance/level)
+  // sans clamper le RATIO S1→PIC qui est le vrai prédicteur de blessure
+  // (Gabbett acute:chronic workload ratio, BJSM 2016).
+  //
+  // Matrice Expert FFA (différenciée car volume PIC ≠ même importance selon distance) :
+  //   Daniels Running Formula : 10K = 60% VMA + 30% seuil + 10% volume
+  //                             Marathon = 40-50% volume + 30% seuil + 15% VMA
+  //   → Pour 5K/10K, ratio plus bas suffit (volume secondaire)
+  //   → Pour Marathon, ratio plus haut justifié (volume primaire)
+  //
+  // Modulateur BMI ≥28 → -10% safety (Cook&Purdam BJSM 2009, continuum tendinopathy)
+  // Modulateur BMI ≥32 → -20% safety (Bennell stress fracture studies x3.2)
+  // ══════════════════════════════════════════════════════════════
+  const s1Vol = weeklyVolumes[0];
+  const currentPeak = Math.max(...weeklyVolumes);
+  const currentRatio = currentPeak / s1Vol;
+
+  // Bucket durée plan
+  const durBucket = totalWeeks < 10 ? 0 : totalWeeks <= 14 ? 1 : totalWeeks <= 22 ? 2 : 3;
+
+  // Matrice par distance (haut de fourchette = bucket durée + 1)
+  let maxRatio: number;
+  let distanceLabel: string;
+  if (is10k || (sub.includes('5') && !isSemi)) {
+    maxRatio = [1.3, 1.7, 1.9, 2.0][durBucket];
+    distanceLabel = '5K/10K';
+  } else if (isSemi) {
+    maxRatio = [1.4, 1.9, 2.1, 2.2][durBucket];
+    distanceLabel = 'Semi';
+  } else if (isMarathon) {
+    maxRatio = [1.5, 2.0, 2.2, 2.3][durBucket];
+    distanceLabel = 'Marathon';
+  } else {
+    // Hyrox / Trail / PdP / Maintien / autres
+    maxRatio = [1.4, 1.8, 2.0, 2.1][durBucket];
+    distanceLabel = isTrail ? 'Trail' : isHyrox ? 'Hyrox' : isPertePoids ? 'PdP' : 'Other';
+  }
+
+  // Modulateur BMI surpoids (Cook&Purdam / Bennell)
+  if (bmiForRate >= 32) {
+    maxRatio = Number((maxRatio * 0.8).toFixed(2));
+    console.log(`[F-21bis] BMI ${bmiForRate.toFixed(1)} ≥32 → ratio safety modulé ×0.8`);
+  } else if (bmiForRate >= 28) {
+    maxRatio = Number((maxRatio * 0.9).toFixed(2));
+    console.log(`[F-21bis] BMI ${bmiForRate.toFixed(1)} ≥28 → ratio safety modulé ×0.9`);
+  }
+
+  if (currentRatio > maxRatio && s1Vol > 0) {
+    const rawTarget = Math.max(s1Vol + 1, Math.round(s1Vol * maxRatio));
+    // Arbitrage F-21bis vs hard floor minPeakVolume :
+    //  - Si BMI ≥28 (profil tendineux à risque Cook&Purdam) : F-21bis prime,
+    //    on accepte de descendre sous le floor pour éviter stress fracture
+    //    (cas painvin cv 5 BMI 28 Semi : ratio safety > sous-stim).
+    //  - Si BMI <28 (profil sain) : floor minPeakVolume prime, on skip clamp
+    //    (le user peut absorber la charge sans risque tendineux particulier).
+    const isHighRiskBMI = bmiForRate >= 28;
+    const wouldBreakFloor = rawTarget < minPeakVolume;
+    if (!isHighRiskBMI && wouldBreakFloor) {
+      console.log(`[F-21bis] Floor minPeakVolume=${minPeakVolume.toFixed(0)}km prime sur clamp ratio ${maxRatio} (BMI ${bmiForRate.toFixed(1)} sain). PIC maintenu à ${currentPeak}km.`);
+    } else {
+      const targetPeak = rawTarget;
+      const reason = isHighRiskBMI && wouldBreakFloor ? `BMI ${bmiForRate.toFixed(1)} ≥28 → F-21bis prime sur floor` : 'ratio safety';
+      console.log(`[F-21bis] CLAMP RATIO : ${currentRatio.toFixed(2)} > max ${maxRatio} (${distanceLabel}, ${totalWeeks}sem, ${reason}) → PIC ${currentPeak}→${targetPeak}km`);
+      // Re-scale proportionnellement les semaines > S1 (récup ≤ S1 inchangées)
+      for (let i = 0; i < weeklyVolumes.length; i++) {
+        if (weeklyVolumes[i] > s1Vol) {
+          const progress = (weeklyVolumes[i] - s1Vol) / (currentPeak - s1Vol);
+          weeklyVolumes[i] = Math.max(s1Vol, Math.round(s1Vol + progress * (targetPeak - s1Vol)));
+        }
+      }
+    }
+  } else {
+    console.log(`[F-21bis] Ratio OK : ${currentRatio.toFixed(2)} ≤ max ${maxRatio} (${distanceLabel}, ${totalWeeks}sem, BMI ${bmiForRate.toFixed(1)})`);
+  }
+
+  // ══════════════════════════════════════════════════════════════
   // POST-CALCUL : lisser les progressions dans les volumes projetés
   // Mêmes règles que enforceFullPlanConstraints pour cohérence UI/Guard
   // ══════════════════════════════════════════════════════════════
