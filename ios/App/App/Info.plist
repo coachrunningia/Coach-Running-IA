@@ -28,10 +28,17 @@
 	<string>LaunchScreen</string>
 	<key>UIMainStoryboardFile</key>
 	<string>Main</string>
+	<!-- Audit iOS J3 (02/06/2026) : armv7 obsolète depuis iOS 11. Apple rejette
+	     à la soumission. Remplacé par arm64 (toutes les iPhones 5s+ supportent). -->
 	<key>UIRequiredDeviceCapabilities</key>
 	<array>
-		<string>armv7</string>
+		<string>arm64</string>
 	</array>
+	<!-- Audit iOS J3 (02/06/2026) : déclaration export compliance. Notre app
+	     n'utilise QUE le chiffrement standard HTTPS / Firebase (pas de crypto
+	     custom), donc exempt de la déclaration annuelle BIS US. -->
+	<key>ITSAppUsesNonExemptEncryption</key>
+	<false/>
 	<key>UISupportedInterfaceOrientations</key>
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>
