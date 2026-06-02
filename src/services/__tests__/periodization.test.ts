@@ -270,3 +270,136 @@ describe('F-19 — modulation hasInjury × 0.85', () => {
     expect(result.weeklyVolumes[0]).toBeGreaterThanOrEqual(cv);
   });
 });
+
+// ─── F-21bis (02/06/2026) — Matrice ratio S1→PIC par distance × durée ───────
+// Découverte : painvin.ambre 02/06 ratio 3.0 = stress fracture quasi-garantie.
+// Expert FFA matrice : 5K/10K (1.3-2.0) / Semi (1.4-2.2) / Marathon (1.5-2.3)
+// / Hyrox-Trail (1.4-2.1) selon durée plan. Modulateurs BMI ≥28 et ≥32.
+describe('F-21bis — Clamp ratio S1→PIC par matrice distance × durée', () => {
+  it('Cas painvin.ambre reproduit : Semi 17sem cv 5 BMI 28.3 → ratio clampé', () => {
+    // Profil exact painvin : 20a F 80kg 168cm = BMI 28.3, Semi 2h30 17sem
+    const result = calculatePeriodizationPlan(
+      17, 5, 'Intermédiaire (Régulier)', 'Course sur route', 'Semi-Marathon',
+      undefined, undefined, '2h30', 20, 80, 8.73, 3,
+      { height: 168 },
+    );
+    const s1 = result.weeklyVolumes[0];
+    const peak = Math.max(...result.weeklyVolumes);
+    const ratio = peak / s1;
+    // Matrice Semi 15-22sem = 2.1, BMI ≥28 × 0.9 = 1.89
+    // Ratio doit être ≤ ~1.9 (tolérance arrondi entier)
+    expect(ratio).toBeLessThanOrEqual(2.0);
+    expect(peak).toBeLessThan(20); // PIC 24 d'avant n'aurait pas dû passer
+  });
+
+  it('10K Inter 11sem cv 16 BMI 22 → ratio max ~1.7 (matrice 10-14sem)', () => {
+    const result = calculatePeriodizationPlan(
+      11, 16, 'Confirmé (Compétition)', 'Course sur route', '10K',
+      undefined, undefined, '45min', 22, 75, 11.1, 4,
+      { height: 184 },
+    );
+    const s1 = result.weeklyVolumes[0];
+    const peak = Math.max(...result.weeklyVolumes);
+    const ratio = peak / s1;
+    // 10K matrice 10-14sem = 1.7, BMI 22 → pas de modulation
+    expect(ratio).toBeLessThanOrEqual(1.85); // tolérance arrondi
+  });
+
+  it('Marathon Conf 20sem cv 40 BMI 22 → ratio plus permissif (2.2)', () => {
+    const result = calculatePeriodizationPlan(
+      20, 40, 'Confirmé (Compétition)', 'Course sur route', 'Marathon',
+      undefined, undefined, '3h30', 35, 70, 14.0, 5,
+      { height: 178 },
+    );
+    const s1 = result.weeklyVolumes[0];
+    const peak = Math.max(...result.weeklyVolumes);
+    const ratio = peak / s1;
+    // Marathon matrice 15-22sem = 2.2 (volume primaire pour Marathon)
+    expect(ratio).toBeLessThanOrEqual(2.3);
+  });
+
+  it('Hyrox Inter 22sem cv 10 BMI 23 → ratio max 2.0', () => {
+    const result = calculatePeriodizationPlan(
+      22, 10, 'Intermédiaire (Régulier)', 'Hyrox', 'Hyrox',
+      undefined, undefined, undefined, 22, 62, 9.8, 3,
+      { height: 162 },
+    );
+    const s1 = result.weeklyVolumes[0];
+    const peak = Math.max(...result.weeklyVolumes);
+    const ratio = peak / s1;
+    expect(ratio).toBeLessThanOrEqual(2.1);
+  });
+
+  it('BMI ≥32 → modulation -20% (Bennell stress fracture × 3.2)', () => {
+    // Profil similaire mais BMI 32+ → ratio safety encore plus bas
+    const heavy = calculatePeriodizationPlan(
+      17, 5, 'Intermédiaire (Régulier)', 'Course sur route', 'Semi-Marathon',
+      undefined, undefined, '2h30', 30, 95, 9.0, 3,
+      { height: 168 }, // BMI 33.7
+    );
+    const s1 = heavy.weeklyVolumes[0];
+    const peak = Math.max(...heavy.weeklyVolumes);
+    const ratio = peak / s1;
+    // Matrice Semi 15-22sem = 2.1, BMI ≥32 × 0.8 = 1.68
+    expect(ratio).toBeLessThanOrEqual(1.8);
+  });
+
+  it('Profil sain BMI <28 ratio sous matrice → pas de clamp', () => {
+    // Conf cv 50 Marathon 20sem BMI 22, ratio sain attendu ~1.8-2.0
+    const result = calculatePeriodizationPlan(
+      20, 50, 'Confirmé (Compétition)', 'Course sur route', 'Marathon',
+      undefined, undefined, '3h00', 32, 70, 15.0, 5,
+      { height: 178 },
+    );
+    const s1 = result.weeklyVolumes[0];
+    const peak = Math.max(...result.weeklyVolumes);
+    const ratio = peak / s1;
+    // Ratio devrait être ≤ 2.2 (Marathon 15-22sem) — pas écrasé artificiellement
+    expect(ratio).toBeGreaterThan(1.2); // sanity check : pic > s1
+    expect(ratio).toBeLessThanOrEqual(2.3);
+  });
+
+  it('S1-preserve F-21bis : clamp ne touche jamais S1 (doctrine input_client_obligatoire)', () => {
+    const cv = 5;
+    const result = calculatePeriodizationPlan(
+      17, cv, 'Intermédiaire (Régulier)', 'Course sur route', 'Semi-Marathon',
+      undefined, undefined, '2h30', 20, 80, 8.73, 3,
+      { height: 168 },
+    );
+    // S1 doit rester ≥ cv user (le clamp ne touche que les semaines > S1)
+    expect(result.weeklyVolumes[0]).toBeGreaterThanOrEqual(cv);
+  });
+
+  it('Trail Ultra BMI ≥28 : F-21bis arbitrage prime sur floor Ultra 60%', () => {
+    // Cas latent identifié audit Dev : Trail 100km cv 30 BMI 28 hypothétique.
+    // Floor Ultra (L3288) = 60% race = 60km. F-21bis Trail 23+sem cap = 2.1, BMI≥28 = 1.89.
+    // S1 ≈ 25-30 → ratio max → target ~50-55km. < floor 60km MAIS BMI≥28 prime → clamp appliqué.
+    // Verrouille le comportement : F-21bis prime, mais le test reste tolérant car arbitrage doctrinal.
+    const result = calculatePeriodizationPlan(
+      24, 30, 'Confirmé (Compétition)', 'Trail', 'Trail',
+      100, 4000, '12h00', 32, 85, 12.5, 5,
+      { height: 173 }, // BMI 28.4
+    );
+    const s1 = result.weeklyVolumes[0];
+    const peak = Math.max(...result.weeklyVolumes);
+    const ratio = peak / s1;
+    // F-21bis Trail 23+sem = 2.1 × 0.9 (BMI≥28) = 1.89
+    // Avec BMI≥28, F-21bis prime sur le floor → ratio doit être ≤ 2.0 (tolérance arrondi)
+    expect(ratio).toBeLessThanOrEqual(2.05);
+    // S1 immuable (cv user respecté)
+    expect(s1).toBeGreaterThanOrEqual(30);
+  });
+
+  it('S1=0 (cv user manquant) : skip clamp gracieusement, pas de log Infinity', () => {
+    // Edge case : si cv user est 0 (ne devrait pas arriver en prod mais possible).
+    // F-21bis doit gracieusement skip le clamp sans crash, sans log Infinity.
+    const result = calculatePeriodizationPlan(
+      12, 0, 'Débutant (0-1 an)', 'Course sur route', '10K',
+      undefined, undefined, 'Finisher', 30, 70, 10.0, 3,
+      { height: 175 },
+    );
+    // Pas d'exception jetée, weeklyVolumes valide
+    expect(result.weeklyVolumes.length).toBe(12);
+    expect(result.weeklyVolumes.every(v => v > 0)).toBe(true);
+  });
+});
