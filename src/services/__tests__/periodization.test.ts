@@ -369,4 +369,37 @@ describe('F-21bis — Clamp ratio S1→PIC par matrice distance × durée', () =
     // S1 doit rester ≥ cv user (le clamp ne touche que les semaines > S1)
     expect(result.weeklyVolumes[0]).toBeGreaterThanOrEqual(cv);
   });
+
+  it('Trail Ultra BMI ≥28 : F-21bis arbitrage prime sur floor Ultra 60%', () => {
+    // Cas latent identifié audit Dev : Trail 100km cv 30 BMI 28 hypothétique.
+    // Floor Ultra (L3288) = 60% race = 60km. F-21bis Trail 23+sem cap = 2.1, BMI≥28 = 1.89.
+    // S1 ≈ 25-30 → ratio max → target ~50-55km. < floor 60km MAIS BMI≥28 prime → clamp appliqué.
+    // Verrouille le comportement : F-21bis prime, mais le test reste tolérant car arbitrage doctrinal.
+    const result = calculatePeriodizationPlan(
+      24, 30, 'Confirmé (Compétition)', 'Trail', 'Trail',
+      100, 4000, '12h00', 32, 85, 12.5, 5,
+      { height: 173 }, // BMI 28.4
+    );
+    const s1 = result.weeklyVolumes[0];
+    const peak = Math.max(...result.weeklyVolumes);
+    const ratio = peak / s1;
+    // F-21bis Trail 23+sem = 2.1 × 0.9 (BMI≥28) = 1.89
+    // Avec BMI≥28, F-21bis prime sur le floor → ratio doit être ≤ 2.0 (tolérance arrondi)
+    expect(ratio).toBeLessThanOrEqual(2.05);
+    // S1 immuable (cv user respecté)
+    expect(s1).toBeGreaterThanOrEqual(30);
+  });
+
+  it('S1=0 (cv user manquant) : skip clamp gracieusement, pas de log Infinity', () => {
+    // Edge case : si cv user est 0 (ne devrait pas arriver en prod mais possible).
+    // F-21bis doit gracieusement skip le clamp sans crash, sans log Infinity.
+    const result = calculatePeriodizationPlan(
+      12, 0, 'Débutant (0-1 an)', 'Course sur route', '10K',
+      undefined, undefined, 'Finisher', 30, 70, 10.0, 3,
+      { height: 175 },
+    );
+    // Pas d'exception jetée, weeklyVolumes valide
+    expect(result.weeklyVolumes.length).toBe(12);
+    expect(result.weeklyVolumes.every(v => v > 0)).toBe(true);
+  });
 });

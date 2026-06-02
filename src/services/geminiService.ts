@@ -3629,9 +3629,13 @@ export const calculatePeriodizationPlan = (
   const durBucket = totalWeeks < 10 ? 0 : totalWeeks <= 14 ? 1 : totalWeeks <= 22 ? 2 : 3;
 
   // Matrice par distance (haut de fourchette = bucket durée + 1)
+  // Audit Dev : `is10k` matchait `sub.includes('10')` → faux positif sur "Trail 100K".
+  // Restreindre aux routes uniquement : !isTrail && sub.includes('10' ou '5').
   let maxRatio: number;
   let distanceLabel: string;
-  if (is10k || (sub.includes('5') && !isSemi)) {
+  const is10kRoute = !isTrail && is10k;
+  const is5kRoute = !isTrail && sub.includes('5') && !isSemi;
+  if (is10kRoute || is5kRoute) {
     maxRatio = [1.3, 1.7, 1.9, 2.0][durBucket];
     distanceLabel = '5K/10K';
   } else if (isSemi) {
@@ -3655,7 +3659,10 @@ export const calculatePeriodizationPlan = (
     console.log(`[F-21bis] BMI ${bmiForRate.toFixed(1)} ≥28 → ratio safety modulé ×0.9`);
   }
 
-  if (currentRatio > maxRatio && s1Vol > 0) {
+  // Audit Dev : early-return propre pour cas dégénéré S1=0 (évite log "Infinity" trompeur)
+  if (!s1Vol || s1Vol <= 0) {
+    console.log(`[F-21bis] S1=${s1Vol}km : skip clamp (cas dégénéré, cv user manquant)`);
+  } else if (currentRatio > maxRatio) {
     const rawTarget = Math.max(s1Vol + 1, Math.round(s1Vol * maxRatio));
     // Arbitrage F-21bis vs hard floor minPeakVolume :
     //  - Si BMI ≥28 (profil tendineux à risque Cook&Purdam) : F-21bis prime,
