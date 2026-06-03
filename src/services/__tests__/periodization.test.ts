@@ -403,3 +403,99 @@ describe('F-21bis — Clamp ratio S1→PIC par matrice distance × durée', () =
     expect(result.weeklyVolumes.every(v => v > 0)).toBe(true);
   });
 });
+
+// ─── Tests combinatoires (02/06/2026) — interactions F-19 × F-21bis ─────────
+// Identifiés par audit PM + Expert Dev post-merge F-21bis.
+// Objectif : verrouiller les interactions entre garde-fous superposés AVANT
+// que F-22 P1 ne change la logique floor. Aurait détecté revert F-18.1 par
+// mégarde (PR #10, 28/05, perte 4 jours). Doctrine feedback_revert_collateral.
+describe('Combinatoires F-19 × F-21bis — interactions sprints empilés', () => {
+  // TC5 — F-19 hasInjury × F-21bis BMI≥28
+  it('hasInjury=true + BMI≥28 + Marathon Conf cv60 → F-19 a un effet visible sur pic', () => {
+    // Cas critique audit Dev : F-19 ×0.85 + F-21bis BMI≥28 ratio ×0.9.
+    // Profil Marathon Conf cv 60 VMA 15 freq 5 BMI 28.4 → choisi pour que le cap
+    // VMA-duration ne plafonne PAS l'effet de F-19 (cas où l'on voit la modulation).
+    // Doctrine : peut empiler, pic injury ≤ pic sain ET pic injury ≥ 60% sain.
+    const sain = calculatePeriodizationPlan(
+      20, 60, 'Confirmé (Compétition)', 'Course sur route', 'Marathon',
+      undefined, undefined, '3h15', 38, 85, 15.0, 5,
+      { height: 173, hasInjury: false }, // BMI 28.4
+    );
+    const inj = calculatePeriodizationPlan(
+      20, 60, 'Confirmé (Compétition)', 'Course sur route', 'Marathon',
+      undefined, undefined, '3h15', 38, 85, 15.0, 5,
+      { height: 173, hasInjury: true }, // BMI 28.4 + injury
+    );
+    const peakSain = Math.max(...sain.weeklyVolumes);
+    const peakInj = Math.max(...inj.weeklyVolumes);
+    // hasInjury doit réduire OU égaler le pic (≤ car cap VMA-duration peut absorber)
+    expect(peakInj).toBeLessThanOrEqual(peakSain);
+    // Pic injury ≥ 60% sain (cap min totalReduction = 0.60)
+    expect(peakInj / peakSain).toBeGreaterThanOrEqual(0.6);
+    // S1 tolérance ±10% : F-19 peut moduler S1 quand cap VMA-duration descend
+    // sous cv user (ex cv 60 + hasInjury → S1 58, écart 3%). À investiguer
+    // si l'écart dépasse 10% (potentiel bug doctrine input_client_obligatoire).
+    expect(inj.weeklyVolumes[0]).toBeGreaterThanOrEqual(sain.weeklyVolumes[0] * 0.9);
+    // Sanity : pic injury > 0 (pas crashé)
+    expect(peakInj).toBeGreaterThan(0);
+  });
+
+  // TC6 — F-21bis × Trail Ultra + hasInjury
+  it('Trail Ultra 100K hasInjury + BMI≥28 → cumul F-21bis × F-19 reste safe', () => {
+    // Cas latent identifié audit Dev : test L373 couvre Trail Ultra BMI≥28 SANS
+    // hasInjury. On verrouille la combinaison avec hasInjury=true.
+    const result = calculatePeriodizationPlan(
+      24, 30, 'Confirmé (Compétition)', 'Trail', 'Trail',
+      100, 4000, '12h00', 32, 85, 12.5, 5,
+      { height: 173, hasInjury: true }, // BMI 28.4 + injury
+    );
+    const s1 = result.weeklyVolumes[0];
+    const peak = Math.max(...result.weeklyVolumes);
+    const ratio = peak / s1;
+    // Ratio Trail 23+sem matrice = 2.1, BMI ≥28 ×0.9 = 1.89, F-19 module maxVolume
+    // → ratio sur weeklyVolumes doit rester ≤ 2.05 (tolérance arrondi entier)
+    expect(ratio).toBeLessThanOrEqual(2.05);
+    // S1 immuable (cv user respecté)
+    expect(s1).toBeGreaterThanOrEqual(30);
+    // PIC raisonnable (sanity check : pas crashé sous floor)
+    expect(peak).toBeGreaterThan(30);
+  });
+
+  // TC7 — F-21bis × isAbsoluteBeginner (cv=0)
+  it('isAbsoluteBeginner cv=0 + 10K Finisher → F-21bis cohérent avec startVolume capé', () => {
+    // Edge case Dev EC3 : Débutant absolu (cv=0) cappé à minStartVolume (~10 km).
+    // F-21bis durBucket=1 (10-14sem) ratio 1.7 → PIC théo ~17 km.
+    // Hard floor 10K = 18 km → conflit potentiel arbitrage.
+    const result = calculatePeriodizationPlan(
+      14, 0, 'Débutant (0-1 an)', 'Course sur route', '10K',
+      undefined, undefined, 'Finisher', 35, 70, 9.5, 3,
+      { height: 170 },
+    );
+    // Pas de crash
+    expect(result.weeklyVolumes.length).toBe(14);
+    expect(result.weeklyVolumes.every(v => v > 0)).toBe(true);
+    // S1 positif (pas zéro même si cv=0 input)
+    expect(result.weeklyVolumes[0]).toBeGreaterThanOrEqual(1);
+    // PIC > S1 (progression positive obligatoire)
+    const peak = Math.max(...result.weeklyVolumes);
+    expect(peak).toBeGreaterThan(result.weeklyVolumes[0]);
+  });
+
+  // TC8 — F-21bis × mode marche-course (isLowVolForTimedLongRace)
+  it('Mode marche-course Débutant VMA basse + F-21bis → séquence cohérente, pas de crash', () => {
+    // Edge case Dev EC2 : Débutant VMA 8.0 cv 3 → mode marche-course activé.
+    // F-21bis ne doit pas casser la séquence sur plan court 5K Finisher.
+    const result = calculatePeriodizationPlan(
+      10, 3, 'Débutant (0-1 an)', 'Course sur route', '5K',
+      undefined, undefined, 'Finisher', 40, 75, 8.0, 2,
+      { height: 168 },
+    );
+    expect(result.weeklyVolumes.length).toBe(10);
+    expect(result.weeklyVolumes.every(v => v > 0)).toBe(true);
+    // Progression positive (PIC ≥ S1)
+    const peak = Math.max(...result.weeklyVolumes);
+    expect(peak).toBeGreaterThanOrEqual(result.weeklyVolumes[0]);
+    // S1 immuable au cv user (3 km input)
+    expect(result.weeklyVolumes[0]).toBeGreaterThanOrEqual(3);
+  });
+});
