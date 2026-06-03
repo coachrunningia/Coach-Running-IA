@@ -52,26 +52,40 @@ const VerifyEmail: React.FC = () => {
           return;
         }
 
-        // ===== BREVO EN PREMIER (indépendant de tout le reste) =====
-        // On enregistre dans Brevo AVANT les opérations Firestore qui peuvent échouer
+        // 3. Si déjà utilisé → succès (l'utilisateur voit "déjà vérifié")
+        // F-23 fix BUG-2 (03/06/2026) : déplacé AVANT Brevo pour éviter le spam
+        // d'/api/brevo/register lorsqu'un user re-clique un lien déjà utilisé.
+        if (tokenData.used) {
+          setStatus('used');
+          setEmail(userEmail);
+          return;
+        }
+
+        // ===== BREVO (anti-bug 3bis F-23 03/06/2026) =====
+        // /api/brevo/register reçoit userId : le serveur (Firebase Admin) check
+        // isPremium OU hasPurchasedPlan ; si l'un des deux est true, le serveur
+        // SKIP l'upsert (sinon le user Premium serait sorti de LIST_SUBSCRIBERS
+        // et poussé en LIST_NON_SUBSCRIBERS, ou un user Plan Unique serait
+        // doublement inscrit LIST_PLAN_UNIQUE + LIST_NON_SUBSCRIBERS).
+        //
+        // POURQUOI SERVEUR ET PAS CLIENT : Firestore rules bloquent le getDoc
+        // client si user pas auth (cas majoritaire : lien email cliqué depuis
+        // device non-loggé). Firebase Admin SDK bypass les règles.
         try {
           const apiBase = import.meta.env.VITE_API_URL || '';
           const brevoRes = await fetch(`${apiBase}/api/brevo/register`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ email: userEmail, firstName: userFirstName })
+            body: JSON.stringify({
+              email: userEmail,
+              firstName: userFirstName,
+              userId: tokenData.userId,  // F-23 : serveur skip si Premium/Plan Unique
+            })
           });
           const brevoData = await brevoRes.json();
           console.log('[VerifyEmail] Brevo result:', brevoData);
         } catch (brevoErr) {
           console.warn('[VerifyEmail] Brevo failed (non-blocking):', brevoErr);
-        }
-
-        // 3. Si déjà utilisé → succès (l'utilisateur voit "déjà vérifié")
-        if (tokenData.used) {
-          setStatus('used');
-          setEmail(userEmail);
-          return;
         }
 
         // 4. Marquer le token comme utilisé (peut échouer si pas connecté, non bloquant)
@@ -83,9 +97,14 @@ const VerifyEmail: React.FC = () => {
         }
 
         // 5. Marquer l'utilisateur comme vérifié (peut échouer si pas connecté, non bloquant)
+        // F-23 fix B-1 (03/06/2026) : poser emailVerifiedSource pour audit/RGPD complet
         try {
           const userRef = doc(db, 'users', tokenData.userId);
-          await updateDoc(userRef, { emailVerified: true, emailVerifiedAt: new Date().toISOString() });
+          await updateDoc(userRef, {
+            emailVerified: true,
+            emailVerifiedAt: new Date().toISOString(),
+            emailVerifiedSource: 'verifyemail_client',
+          });
           console.log('[VerifyEmail] User marked as verified');
         } catch (userErr) {
           console.warn('[VerifyEmail] User update failed (non-blocking):', userErr);

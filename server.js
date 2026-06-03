@@ -310,15 +310,30 @@ app.post('/api/stripe/webhook', express.raw({ type: 'application/json' }), async
       // Determine if this is a Plan Unique (one-time payment) or subscription
       const purchaseType = session.metadata?.purchaseType || (session.mode === 'payment' ? 'plan_unique' : 'subscription');
 
+      // F-23 fix BUG-3 (03/06/2026) : préserver emailVerifiedSource initial si
+      // déjà vérifié (RGPD/audit : on garde trace de l'event de validation
+      // originel, ex 'verifyemail_client' au lieu de l'écraser par webhook).
+      const wasAlreadyVerified = userData.emailVerified === true;
+
       if (purchaseType === 'plan_unique') {
         // Plan Unique: one-time payment
+        // F-23 (03/06/2026) : auto-set emailVerified=true car payeur = email valide.
+        // Atomique dans le même set merge que hasPurchasedPlan pour zéro état partiel.
+        // Doctrine Romane : "Premium/payeur = validés d'office". Si Firestore plante,
+        // Stripe retry tout (catch global L365 conserve ce comportement).
         const planUniqueUpdate = {
           hasPurchasedPlan: true,
           planPurchaseDate: new Date().toISOString(),
         };
         if (session.customer) planUniqueUpdate.stripeCustomerId = session.customer;
+        // Set emailVerified seulement si pas déjà true (préserve source initiale)
+        if (!wasAlreadyVerified) {
+          planUniqueUpdate.emailVerified = true;
+          planUniqueUpdate.emailVerifiedAt = new Date().toISOString();
+          planUniqueUpdate.emailVerifiedSource = 'stripe_webhook_plan_unique';
+        }
         await admin.firestore().collection('users').doc(userId).set(planUniqueUpdate, { merge: true });
-        console.log(`[Stripe] Utilisateur ${userId} a acheté le Plan Unique`);
+        console.log(`[Stripe] Utilisateur ${userId} a acheté le Plan Unique (emailVerified=${wasAlreadyVerified ? 'déjà true' : 'NEW true F-23'})`);
 
         // Add to Brevo list #9 (Plan Unique buyers)
         if (email) {
@@ -330,16 +345,40 @@ app.post('/api/stripe/webhook', express.raw({ type: 'application/json' }), async
             updateEnabled: true
           });
           console.log(`[Brevo] ${email} added to Plan Unique list #${BREVO_LIST_PLAN_UNIQUE}`);
+
+          // F-23 fix B-2 (03/06/2026) : retirer aussi de LIST_NON_SUBSCRIBERS
+          // pour éviter la double inscription (#6 + #9). Cas : user signup,
+          // clique mail (-> #6), puis achète Plan Unique (-> #9). Sans cette
+          // ligne, le user reçoit emails "essai gratuit" ET "Plan Unique".
+          try {
+            await brevoApiCall(`contacts/lists/${BREVO_LIST_NON_SUBSCRIBERS}/contacts/remove`, 'POST', {
+              emails: [email.toLowerCase()],
+            });
+            console.log(`[Brevo] ${email} removed from non-subscribers list (Plan Unique cleanup F-23 B-2)`);
+          } catch (e) {
+            console.warn('[Brevo] Plan Unique unlink LIST_NON_SUBSCRIBERS failed (non-blocking):', e.message);
+          }
         }
       } else {
         // Subscription (Mensuel / Annuel)
-        await admin.firestore().collection('users').doc(userId).set({
+        // F-23 (03/06/2026) : auto-set emailVerified=true car payeur Premium = email valide.
+        // Atomique dans le même set merge que isPremium pour zéro état partiel.
+        // Doctrine Romane : "Premium = validés d'office". Si Firestore plante,
+        // Stripe retry tout (catch global L365 conserve ce comportement).
+        const subscriptionUpdate = {
           isPremium: true,
           premiumSince: new Date().toISOString(),
           stripeCustomerId: session.customer,
-          stripeSubscriptionId: session.subscription
-        }, { merge: true });
-        console.log(`[Stripe] Utilisateur ${userId} passé Premium !`);
+          stripeSubscriptionId: session.subscription,
+        };
+        // F-23 BUG-3 : préserver emailVerifiedSource initial (audit/RGPD)
+        if (!wasAlreadyVerified) {
+          subscriptionUpdate.emailVerified = true;
+          subscriptionUpdate.emailVerifiedAt = new Date().toISOString();
+          subscriptionUpdate.emailVerifiedSource = 'stripe_webhook_subscription';
+        }
+        await admin.firestore().collection('users').doc(userId).set(subscriptionUpdate, { merge: true });
+        console.log(`[Stripe] Utilisateur ${userId} passé Premium (emailVerified=${wasAlreadyVerified ? 'déjà true' : 'NEW true F-23'}) !`);
 
         // Move to Brevo subscribers list
         if (email) {
@@ -843,7 +882,7 @@ app.post('/api/brevo/sync', async (req, res) => {
 
 // Brevo: Add contact on user registration (called from client)
 app.post('/api/brevo/register', async (req, res) => {
-  const { email, firstName } = req.body;
+  const { email, firstName, userId } = req.body;
 
   if (!email) {
     return res.status(400).json({ error: 'Email requis' });
@@ -857,6 +896,32 @@ app.post('/api/brevo/register', async (req, res) => {
 
   // Sanitize firstName (éviter injection)
   const safeName = firstName ? String(firstName).slice(0, 50).replace(/[<>]/g, '') : 'Coureur';
+
+  // F-23 fix bug 3bis (03/06/2026) : si userId fourni ET user est déjà Premium ou
+  // a acheté Plan Unique en Firestore, SKIP l'upsert Brevo. Le webhook Stripe a
+  // déjà géré la segmentation (LIST_SUBSCRIBERS ou LIST_PLAN_UNIQUE).
+  // Sinon : appeler brevoUpsertContact(false) ici sortirait le user de
+  // LIST_SUBSCRIBERS et le pousserait en LIST_NON_SUBSCRIBERS (régression).
+  //
+  // Pourquoi ICI côté serveur et pas dans VerifyEmail.tsx : les Firestore rules
+  // bloquent le getDoc client si user pas auth (cas majoritaire : lien email
+  // cliqué depuis device non-loggé). Firebase Admin SDK bypass les règles.
+  if (userId && admin) {
+    try {
+      const userDoc = await admin.firestore().collection('users').doc(userId).get();
+      if (userDoc.exists) {
+        const ud = userDoc.data();
+        if (ud.isPremium === true || ud.hasPurchasedPlan === true) {
+          const reason = ud.isPremium ? 'Premium' : 'Plan Unique';
+          console.log(`[Brevo Register] userId=${userId} déjà ${reason} → skip upsert (anti bug 3bis F-23)`);
+          return res.json({ success: true, message: `Already ${reason}, skipped`, skipped: true });
+        }
+      }
+    } catch (e) {
+      console.warn('[Brevo Register] isPremium/hasPurchasedPlan check failed (non-blocking):', e.message);
+      // On continue (fail-safe : on préfère un upsert "trop" que rien)
+    }
+  }
 
   try {
     // New users are non-subscribers by default
@@ -1452,70 +1517,25 @@ app.post('/api/ask-coach', async (req, res) => {
   }
 });
 
-// Verify email token
-app.get('/api/verify-email', async (req, res) => {
-  const { token } = req.query;
-
-  if (!token) {
-    return res.status(400).json({ error: 'Token manquant' });
-  }
-
-  if (!admin) {
-    return res.status(500).json({ error: 'Service non disponible' });
-  }
-
-  try {
-    // 1. Get token from Firestore
-    const tokenDoc = await admin.firestore().collection('emailVerificationTokens').doc(token).get();
-
-    if (!tokenDoc.exists) {
-      return res.status(400).json({ error: 'Token invalide ou expiré', code: 'INVALID_TOKEN' });
-    }
-
-    const tokenData = tokenDoc.data();
-
-    // 2. Check if already used
-    if (tokenData.used) {
-      return res.status(400).json({ error: 'Ce lien a déjà été utilisé', code: 'TOKEN_USED' });
-    }
-
-    // 3. Check expiration
-    const now = new Date();
-    const expiresAt = new Date(tokenData.expiresAt);
-    if (now > expiresAt) {
-      return res.status(400).json({ error: 'Ce lien a expiré', code: 'TOKEN_EXPIRED' });
-    }
-
-    // 4. Mark token as used
-    await tokenDoc.ref.update({ used: true, usedAt: new Date().toISOString() });
-
-    // 5. Mark user email as verified in Firestore
-    await admin.firestore().collection('users').doc(tokenData.userId).update({
-      emailVerified: true,
-      emailVerifiedAt: new Date().toISOString()
-    });
-
-    console.log(`[Verify Email] Email vérifié pour userId: ${tokenData.userId}`);
-
-    // 6. Ajouter à Brevo maintenant que l'email est vérifié
-    const userDoc = await admin.firestore().collection('users').doc(tokenData.userId).get();
-    const userData = userDoc.exists ? userDoc.data() : {};
-    const isPremium = userData.isPremium === true;
-    await brevoUpsertContact(tokenData.email, userData.firstName || 'Coureur', isPremium);
-    console.log(`[Brevo] Contact ${tokenData.email} ajouté après vérification email (isPremium=${isPremium})`);
-
-    res.json({
-      success: true,
-      message: 'Email vérifié avec succès',
-      userId: tokenData.userId,
-      email: tokenData.email,
-      planId: tokenData.planId
-    });
-
-  } catch (error) {
-    console.error('[Verify Email Error]', error);
-    res.status(500).json({ error: error.message });
-  }
+// ⚠️ DEAD CODE — F-23 fix B-3 (03/06/2026) — Endpoint /api/verify-email GET désactivé
+//
+// Ce endpoint n'est PLUS appelé par le frontend (VerifyEmail.tsx fait tout en direct
+// via Firestore client SDK + /api/brevo/register, qui contient maintenant le check
+// isPremium/hasPurchasedPlan via Firebase Admin).
+//
+// Garder cet endpoint actif = risque latent que les bugs round 1 (3bis, 3bis-bis,
+// emailVerifiedSource non posé) réapparaissent si on re-câble accidentellement le
+// frontend ou si quelqu'un fait un POST direct (Postman, test, etc.).
+//
+// La route est désactivée pour TOUS les appels : retour 410 Gone explicite.
+// Si on veut un endpoint serveur custom plus tard, repartir d'une feuille propre
+// avec la doctrine F-23 (check Premium/Plan Unique + source).
+app.get('/api/verify-email', (req, res) => {
+  console.warn('[F-23 B-3] /api/verify-email called but DISABLED (frontend uses Firestore client SDK + /api/brevo/register)');
+  return res.status(410).json({
+    error: 'Endpoint disabled. Verification is handled client-side by VerifyEmail.tsx.',
+    code: 'DEPRECATED_F23',
+  });
 });
 
 // Strava Weekly Analysis API

@@ -552,6 +552,10 @@ export const loginWithGoogle = async (): Promise<User> => {
     userData = snap.data() as User;
   } else {
     // Nouveau compte Google
+    // F-23 fix BUG-4 (03/06/2026) : Google OAuth = email validé de facto par Google.
+    // On set emailVerified=true (vs undefined avant) pour aligner avec la doctrine
+    // "OAuth = validé" et éviter que Google users restent en LIST_NON_SUBSCRIBERS
+    // s'ils ne paient jamais. fbUser.emailVerified vient de Firebase Auth Google.
     userData = {
       id: fbUser.uid,
       firstName: fbUser.displayName?.split(' ')[0] || 'Coureur',
@@ -560,8 +564,13 @@ export const loginWithGoogle = async (): Promise<User> => {
       isPremium: false,
       isAnonymous: false,
       source: 'web',
-      photoURL: fbUser.photoURL || undefined
-    };
+      photoURL: fbUser.photoURL || undefined,
+      emailVerified: fbUser.emailVerified === true,
+      ...(fbUser.emailVerified === true && {
+        emailVerifiedAt: new Date().toISOString(),
+        emailVerifiedSource: 'google_oauth',
+      }),
+    } as User;
     await setDoc(userRef, cleanObject(userData));
 
     // Register new Google user in Brevo (non-blocking)

@@ -88,6 +88,11 @@ export interface User {
   hasPurchasedPlan?: boolean;
   planPurchaseDate?: string;
 
+  // F-23 (03/06/2026) — Email verification status (Firestore source of truth)
+  emailVerified?: boolean;
+  emailVerifiedAt?: string;
+  emailVerifiedSource?: 'verifyemail_client' | 'stripe_webhook_subscription' | 'stripe_webhook_plan_unique' | 'google_oauth' | 'patch_f23_premium_backfill' | 'patch_f23_plan_unique_backfill';
+
   // Stripe subscription
   stripeCustomerId?: string;
   stripeSubscriptionStatus?: string;
